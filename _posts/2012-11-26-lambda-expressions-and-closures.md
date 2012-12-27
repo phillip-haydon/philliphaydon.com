@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Lambda expressions and closures
+title: Lambda expressions and closures  
 ---
 
 I've been dealing a lot with anonymous methods lately I started getting interested in how they work, especially when dealing with closures. I was curious how these variables worked.
