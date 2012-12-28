@@ -12,7 +12,7 @@ future:      true
 lsi:         false
 pygments:    false
 markdown:    rdiscount
-permalink:   pretty
+permalink:   /:year/:month/:title/
 
 rdiscount:
   extensions: [smart]
