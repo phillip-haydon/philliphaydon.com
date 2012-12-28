@@ -7,11 +7,9 @@ layout: default
     {{ content }}
 
     <div class="categories">
-<ul class="list-category list-linear">
-							<li class="list-head">category: </li>
-							{% assign categories_list = page.categories %}
-							{% include JB/categories_list %}
-						</ul>
+    {% for category in page.categories %}
+      {{ category }}
+    {% endfor %}
     </div>
 
     <div id="disqus_thread"></div>
