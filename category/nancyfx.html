@@ -4,18 +4,14 @@ title: Category
 ---
 <header>
 <div class="head-inner">
-	<h1>{{ page.title }} - NancyFX</h1>
+	<h1><a href="/category/">{{ page.title }}</a> - NancyFX</h1>
 </div>
 </header>
 
-<article>
-<div class="article-inner">
-  <ul>
-    {% for post in site.posts %}
-    {% if post.category == "NancyFX" %}
-      <li><a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a> <span style='font-size:8pt; font-weight:normal;'>({{ post.date | date_to_string }})</span></li>
-    {% endif %}
-    {% endfor %}
-  </ul>
-</div>
-</article>
+<ul>
+  {% for post in site.posts %}
+  {% if post.category == "NancyFX" %}
+    <li><a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a> <small>({{ post.date | date_to_string }})</small></li>
+  {% endif %}
+  {% endfor %}
+</ul>

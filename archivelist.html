@@ -6,13 +6,13 @@ title: philliphaydon.com
 {% assign year = '2015' %}
 {% assign month = 'December' %}
 
-  <ul class="posts">
-    {% for post in site.posts %}
-      {% capture postmonth %}{{ post.date | date: "%B" }}{% endcapture %}
-      <!-- {{ postmonth }} {{ month }} -->
-      {% if postmonth != month %}
-        {% assign month = postmonth %}
-        <li>{{ month }} {{ post.date | date: "%Y" }}</li>
-      {% endif %}
-    {% endfor %}
-  </ul>
+<ul class="posts">
+  {% for post in site.posts %}
+    {% capture postmonth %}{{ post.date | date: "%B" }}{% endcapture %}
+    <!-- {{ postmonth }} {{ month }} -->
+    {% if postmonth != month %}
+      {% assign month = postmonth %}
+      <li>{{ month }} {{ post.date | date: "%Y" }}</li>
+    {% endif %}
+  {% endfor %}
+</ul>
