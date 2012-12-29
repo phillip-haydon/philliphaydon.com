@@ -36,7 +36,7 @@ SecureAdminModule:
         }
     }
   
-Note: The Admin module passes in 'admin' for the module path, this means all module routes will be within the admin path.
+<span class="note"><strong>Note:</strong> The Admin module passes in 'admin' for the module path, this means all module routes will be within the admin path.</span>
 
 SecureMemberModule:
 
@@ -152,7 +152,7 @@ The MemberDBUserMapper is the same as the previous post, it pulls the user from 
 
 The AdminDBUserMapper is slightly different, rather than pulling from RavenDB, it uses a static in-memory collection of admins/passwords.
 
-Note: I'm not suggesting you do something like this in your system, it's purely for demoing that there are two different ways of getting Users. In a more realistic scenario the Admin would be pulled from RavenDB from a different collection, or from a different Database table when using SQL Server or the likes of.
+<span class="note"><strong>Note:</strong> I'm not suggesting you do something like this in your system, it's purely for demoing that there are two different ways of getting Users. In a more realistic scenario the Admin would be pulled from RavenDB from a different collection, or from a different Database table when using SQL Server or the likes of.</span>
 
 Now that we have our mapping implemented, we can configure when these are called. In the previous post I implemented the Bootstrapper method: RequestStartup
 
@@ -197,7 +197,7 @@ The normal orders page goes to the normal login page.
 
 But the Admin order page goes to the Admin login page!
 
-Login as normal user
+## Login as normal user ##
 If we login to the normal website, and we try visit the secure page:
 
 <img src="/images/image42.png" />
@@ -208,7 +208,7 @@ Great! But if we visit the Admin page:
 
 BAM Right back to the login page, access DENIED! Exactly what we wanted.
 
-Login as Admin
+## Login as Admin ##
 Now after logging out and logging back in as an Admin. Visit the Admin page:
 
 <img src="/images/image44.png" />
@@ -220,26 +220,3 @@ WOOOHOO! We have Orders! Now if we try the normal page:
 DENIED!
 
 And there you have it. With a little bit of extra configuration you can setup custom Forms Authentication for different area's of your website.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
