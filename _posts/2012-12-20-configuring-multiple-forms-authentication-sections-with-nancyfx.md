@@ -22,7 +22,7 @@ I've added a folder called 'Admin' this is to act as an Area as described in my 
 
 There are now two Secure modules, both these are really 'dumb' modules that, for the purpose of this sample, do nothing more than manage the authentication for the Main/Admin areas.
 
-SecureAdminModule:
+### SecureAdminModule ###
 
     public class SecureAdminModule : NancyModule
     {
@@ -38,7 +38,7 @@ SecureAdminModule:
   
 <span class="note"><strong>Note:</strong> The Admin module passes in 'admin' for the module path, this means all module routes will be within the admin path.</span>
 
-SecureMemberModule:
+### SecureMemberModule ###
 
     public class SecureMemberModule : NancyModule
     {

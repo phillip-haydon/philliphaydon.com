@@ -16,7 +16,7 @@ Lets begin with the following folder structure defining a 'HomeModule' for both 
 
 Both these HomeModule classes are identical, with the small exception that the Admin one specifies a Root Path.
 
-Root > HomeModule
+### Root > HomeModule ###
 
     namespace NancyAreasDemo.Modules
     {
@@ -32,7 +32,7 @@ Root > HomeModule
         }
     }
 
-Root > Admin > HomeModule
+### Root > Admin > HomeModule ###
 
     namespace NancyAreasDemo.Modules.Admin
     {
@@ -88,7 +88,7 @@ If you don't use this convention then you will need to remove the 'Home' directo
 
 Now in the views we can put some sample content:
 
-## Admin: ##
+### Admin HTML Page ###
 
     <!DOCTYPE html>
     <html xmlns="http://www.w3.org/1999/xhtml">
@@ -100,7 +100,7 @@ Now in the views we can put some sample content:
     </body>
     </html>
 
-And root website:
+### Root HTML Page ###
 
     <!DOCTYPE html>
     <html xmlns="http://www.w3.org/1999/xhtml">

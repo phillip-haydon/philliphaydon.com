@@ -16,7 +16,7 @@ Nancy supports a module for forms authentication, it works some-what similar to 
 
 If you take a look at the GitHub project, you can see that the implementation is actually really small. So should you want to poke around, there's not much to look at.
 
-## Packages ##
+### Packages ###
 
 First up we need to install the packages, Nancy, Nancy.Hosting.Aspnet, and Nancy.Authentication.Forms
 
@@ -34,7 +34,7 @@ First up we need to install the packages, Nancy, Nancy.Hosting.Aspnet, and Nancy
     Successfully installed "Nancy.Hosting.Aspnet 0.14.1". 
     Successfully added "Nancy.Hosting.Aspnet 0.14.1" to Nancy.FormsAuth.
     
-## Configuring Forms Auth ##
+### Configuring Forms Auth ###
 
     public class Bootstrapper : DefaultNancyBootstrapper
     {
@@ -62,7 +62,7 @@ This is all I've done to the bootstrapper. The first method ConfigureRequestCont
 
 The second method configures the Forms Authentication plugin. All we need to define is the redirect URL for unauthenticated requests. That means if the user attempts to go to a page that requires authentication, they will be redirected here instead. Using the IoC container we resolve the registered IUserMapper class which is what is used to retrieve the user from the Database (or where ever you persist your users)
 
-## Creating a class implementing IUserMapper ##
+### Creating a class implementing IUserMapper ###
     
     public class DatabaseUser : IUserMapper
     {
@@ -122,7 +122,7 @@ This example is using RavenDB for data access, it's pulling the Member based on 
 
 Now we have configured everything, now we just need to Login, and visit a page we can't access. Lets create two modules:
 
-HomeModule
+### HomeModule ###
 
     public class HomeModule : NancyModule
     {
@@ -139,7 +139,7 @@ HomeModule
         }
     }
 
-SecureModule
+### SecureModule ###
 
     public class SecureModule : NancyModule
     {
