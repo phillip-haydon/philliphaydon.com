@@ -204,10 +204,10 @@ Looking at the management studio for 'coffee' :
 
 Or other variations such as:
 
-.Suggestions.IncludeAll()
-.Suggestions.IncludeTop(3)
-.Suggestions.IncludeAll(WhenResults.AreEmpty)
-.Suggestions.IncludeAll(WhenResults.AreLessThan, 10)
+- .Suggestions.IncludeAll()
+- .Suggestions.IncludeTop(3)
+- .Suggestions.IncludeAll(WhenResults.AreEmpty)
+- .Suggestions.IncludeAll(WhenResults.AreLessThan, 10)
 
 Hopefully you can work out where I'm going with this?
 
