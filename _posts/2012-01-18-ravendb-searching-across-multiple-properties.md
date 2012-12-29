@@ -1,6 +1,6 @@
 ---
 layout: post
-title: RavenDB – Searching across multiple properties
+title: RavenDB - Searching across multiple properties
 category: RavenDB
 ---
 
@@ -163,7 +163,7 @@ How about javascript expecting 2 (1 via Tag and 1 via the Description)
 
 <img src="/images/ravendb-searching-3.png" />
 
-Oh, we didn't get the desired result… This is because the search is only doing a search on an exact match. Since the search value is an exact match of the tag, the result is returned.
+Oh, we didn't get the desired result... This is because the search is only doing a search on an exact match. Since the search value is an exact match of the tag, the result is returned.
 
 So to fix this we need to make the index analysed. Adding to the index:
 
@@ -235,7 +235,7 @@ When we created the index with the following Map:
 
 It basically created an index that looks like this, for the data above:
 
-<table style="width: 590px; height: 75px" border="0" cellspacing="0" cellpadding="2" width="591">
+<table>
   <tbody>
     <tr>
       <td valign="top" rowspan="2" width="50">posts/2</td>
