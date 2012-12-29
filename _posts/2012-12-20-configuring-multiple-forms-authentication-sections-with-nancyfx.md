@@ -54,7 +54,7 @@ SecureMemberModule:
 
 <span class="note"><strong>Note:</strong> Both Modules call RequiresAuthentication. This is not actually required since RequiresClaims actually calls RequiresAuthentication.</span>
 
-https://github.com/NancyFx/Nancy/blob/master/src/Nancy/Security/ModuleSecurity.cs#L27
+<a href="https://github.com/NancyFx/Nancy/blob/master/src/Nancy/Security/ModuleSecurity.cs#L27">https://github.com/NancyFx/Nancy/blob/master/src/Nancy/Security/ModuleSecurity.cs#L27</a>
 
 Both modules call RequiresClaims passing in a specific parameter. Admin or Member. This means when we login we can add the specific claim to each user so that they can only access certain portions of the website.
 
