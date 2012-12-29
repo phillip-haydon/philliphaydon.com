@@ -74,7 +74,7 @@ You can see both pages end up at the same login  maybe we want to have a differe
 
 This is where Nancy Bootstrapper comes in handy.
 
-First up – In the ConfigureRequestContainer method, we need to include a second class implementing IUserMapper:
+First up - In the ConfigureRequestContainer method, we need to include a second class implementing IUserMapper:
 
     protected override void ConfigureRequestContainer(TinyIoCContainer container, NancyContext context)
     {
