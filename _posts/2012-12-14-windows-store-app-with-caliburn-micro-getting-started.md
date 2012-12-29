@@ -162,13 +162,13 @@ We don't need to modify the code file for this.
 
 Now we should be able to run app. There is 3 possible ways to run:
 
-1. Local Machine 
+1. #### Local Machine ####
    Using a Local Machine means the application will be loaded into your Start Screen and automatically be run.
 
-2. Simulator 
+2. #### Simulator ####
    The simulator will open up a simulation app which resembles a tablet, this gives a bunch of options to simulate different gestures such as using touch and pinch etc.
 
-3. Remote Machine 
+3. #### Remote Machine ####
    The remote machine option requires the Remote SDK to be installed and running on a remote machine. This is handy for testing on an actual device. I'll cover this next week when I explain how to setup remote debugging.
 
 I suggest selecting Simulator and pressing F5. Assuming you've followed along you should get this:
