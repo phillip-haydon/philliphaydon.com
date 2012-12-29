@@ -52,7 +52,7 @@ SecureMemberModule:
         }
     }
 
-Note: Both Modules call RequiresAuthentication. This is not actually required since RequiresClaims actually calls RequiresAuthentication.
+<span class="note"><strong>Note:</strong> Both Modules call RequiresAuthentication. This is not actually required since RequiresClaims actually calls RequiresAuthentication.</span>
 
 https://github.com/NancyFx/Nancy/blob/master/src/Nancy/Security/ModuleSecurity.cs#L27
 
