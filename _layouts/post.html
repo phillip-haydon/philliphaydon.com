@@ -3,10 +3,13 @@ layout: default
 ---
 <div id="post">
     <h1>{{ page.title }}</h1>
-    {% if page.category != "" %}
-    <span>Filed under <a href="/category/{{ page.category | downcase }}">{{ page.category }}</a></span>
-    {% endif %}
-
+    <div class="post-note">
+      Posted on {{ post.date | date_to_long_string }}
+      {% if page.category != "" %}
+        in <a href="/category/{{ page.category | downcase }}">{{ page.category }}</a>
+      {% endif %}
+    </div>
+    
     {{ content }}
 
     <div id="disqus_thread"></div>

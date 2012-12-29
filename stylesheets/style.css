@@ -1063,3 +1063,12 @@ span.note {
 span.note strong {
   color: #F62817;
 }
+
+div.post-note {
+    border: 1px #ccc solid;
+    padding: 3px 7px;
+    margin-bottom:  10px;
+    display: block;
+    background: #F8F8F8;
+    border-radius: 5px;
+}
