@@ -4,7 +4,7 @@ title: Windows Store App and Remote Debugging on a Surface RT
 category: Windows 8 App
 ---
 
-In order to run your app from Visual Studio on your remote device, in my case I want to run it on my Surface… but you can do this with any remote device such as another desktop, a laptop, a tablet running Windows Pro or RT etc, all you really need to do is install the Remote Debugging tools.
+In order to run your app from Visual Studio on your remote device, in my case I want to run it on my Surface... but you can do this with any remote device such as another desktop, a laptop, a tablet running Windows Pro or RT etc, all you really need to do is install the Remote Debugging tools.
 
 <a href="http://www.microsoft.com/visualstudio/eng/downloads#remote-tools">http://www.microsoft.com/visualstudio/eng/downloads#remote-tools</a>
 
