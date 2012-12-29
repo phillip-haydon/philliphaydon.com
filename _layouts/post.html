@@ -4,7 +4,7 @@ layout: default
 <div id="post">
     <h1>{{ page.title }}</h1>
     {% if page.category != "" %}
-    <span>Filed under <a href="/category/{{ page.category.downcase }}">{{ page.category }}</a></span>
+    <span>Filed under <a href="/category/{{ page.category | downcase }}">{{ page.category }}</a></span>
     {% endif %}
 
     {{ content }}
