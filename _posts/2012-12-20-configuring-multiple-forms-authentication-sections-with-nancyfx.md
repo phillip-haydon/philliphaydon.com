@@ -113,7 +113,7 @@ Also, when both classes are registered, I gave them specific names. These are Ke
         }
     }
 
-The MemberDBUserMapper is the same as the previous post, it pulls the user from RavenDB, and it add's a single claim. “Member” this it the claim we used in the SecureMemberModule.
+The MemberDBUserMapper is the same as the previous post, it pulls the user from RavenDB, and it add's a single claim. 'Member' this it the claim we used in the SecureMemberModule.
 
     public class AdminDBUserMapper : IUserMapper
     {
