@@ -536,6 +536,10 @@ embed, iframe, object {
     width: 40%;
 }
 
+#content p img {
+  max-width: 665px;
+}
+
 #comments {
     margin-top: 40px;
     font-size: 14px;
