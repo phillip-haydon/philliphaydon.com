@@ -215,7 +215,7 @@ Ok continuing on. Why do we need to call 'As<T>()' on the query?
 
 Well from my understanding of how RavenDB works is like this, when we create an index, it's creating a sub-set of data that points to the document in RavenDB.
 
-For example I have all those documents inserted (link for the lazy), and these are all stored like so:
+For example I have all those documents inserted (<a href="http://pastie.org/3200462">link for the lazy</a>), and these are all stored like so:
 
 <img src="/images/ravendb-searching-7.png" />
 
