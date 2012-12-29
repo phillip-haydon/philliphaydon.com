@@ -6,7 +6,7 @@ category: NancyFX
 
 There's already quite a bit of documentation on the Nancy wiki about forms authentication, but I wanted to write about it anyway.
 
-<span class="note"><strong>Note:</strong> This is written with Nancy 0.14.1 – this may be subject to change in future versions.</span>
+<span class="note"><strong>Note:</strong> This is written with Nancy 0.14.1 - this may be subject to change in future versions.</span>
 
 Nancy supports a module for forms authentication, it works some-what similar to the way forms auth works in ASP.NET, except it's abstracted away and is not part of the core Nancy engine, which is great. It means that if you don't like the way forms authentication works, you can rip it out and write your own from scratch, or download the project and modify it to your hearts content.
 
