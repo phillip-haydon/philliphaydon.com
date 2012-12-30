@@ -60,7 +60,7 @@ And then you will get this when you call the service.
 
 ![](/images/service-stack-errors-2.png)
 
-The second way is to throw an HttpError. There are a few predefined errors:
+The second way is to throw an `HttpError`. There are a few predefined errors:
 
 ![](/images/service-stack-errors-3.png)
 
@@ -70,7 +70,7 @@ That allow you to just pass a message:
 
 ![](/images/service-stack-errors-4.png)
 
-Or you can throw your own new one which allows you to define the Http Status Code:
+Or you can throw your own new one which allows you to define the `HttpStatusCode`:
 
     throw new HttpError(HttpStatusCode.PaymentRequired, 
         "Kneedz monies plz", "Please deposit monies into my bank account :)");
@@ -91,17 +91,17 @@ As you can see, I've lost a lot of information :( This is while throwing the exa
 
 One of the little catches with this is the automated error handling shown above requires a naming convention of your service Request/Response objects.
 
-Lets say we have a 'UserSearch' request object.
+Lets say we have a `UserSearch` request object.
 
 If an exception is thrown, ServiceStack will try and find an object of the same name, with the suffix 'Response'
 
-This this case it would look for UserSearchResponse.
+This this case it would look for `UserSearchResponse`.
 
 <https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.ServiceInterface/ServiceUtils.cs#L124>
 
-As you can see, the method GetResponseDtoName takes in what your Request object was, and appends the ResponseDtoSuffix
+As you can see, the method `GetResponseDtoName` takes in what your Request object was, and appends the `ResponseDtoSuffix`
 
-The second catch is that your Response DTO must have a property on it named “ResponseStatus”:
+The second catch is that your Response DTO must have a property on it named `ResponseStatus`:
 
     public ResponseStatus ResponseStatus { get; set; }
     
@@ -127,11 +127,11 @@ Here is an example:
         public ResponseStatus ResponseStatus { get; set; }
     }
 
-My 'UserSearch' object is the Request, and my response is 'UserSearchResponse'
+My `UserSearch` object is the Request, and my response is `UserSearchResponse`
 
 I discussed with [Demis](https://github.com/mythz), because I wanted to use the same response object for a few different services. But he's specifically designed SS this way, one of the reasons for the naming is:
 
-If a use Requests a UserSearch, he can expect a UserSearchResponse. He doesn't need to know anything about the contracts or the service implementation, just that given a UserSearch request, he will get a UserSearchResponse.
+If a use Requests a `UserSearch`, he can expect a `UserSearchResponse`. He doesn't need to know anything about the contracts or the service implementation, just that given a UserSearch request, he will get a `UserSearchResponse`.
 
 It's actually a really good point and after thinking about it, I completely agree!
 
