@@ -17,7 +17,7 @@ Taking from part 1's example, lets add a User to the mix:
         public string DateOrdered { get; set; }
         public string DateUpdated { get; set; }
         public string Status { get; set; }
-        // Other properties…
+        // Other properties...
         public IEnumerable<OrderLine> Lines { get; set; }
     }
 
@@ -44,13 +44,13 @@ As you can see I've added 'UserId' to the Order, not a 'User' just the Id part. 
 
 If we were modelling this in a Relational Database, we would have a relationship between Order and User, add some foreign keys, and if we threw an ORM into the mix we would probably have an Order object looking like:
 
-![](ravendb-what-am-i-persisting-part-2-1.png)
+![](/images/ravendb-what-am-i-persisting-part-2-1.png)
 
 Where we wire up the User object inside the Order. This in the long run lets to all sorts of problem. Then we would eager load the User when we fetch the order, maybe on the order we need to fetch the product, so on and so forth. It just gets messy and complicated.
 
 So rather than adding the User object to the Order, in RavenDB we would just add the UserId. But why are we doing this? Below I have modelled the Relational Database Table Structure.
 
-![](ravendb-what-am-i-persisting-part-2-2.png)
+![](/images/ravendb-what-am-i-persisting-part-2-2.png)
 
 As you can see I've highlighted two Foreign Keys. But I've named them both differently, one is a reference and one is a relationship.
 
