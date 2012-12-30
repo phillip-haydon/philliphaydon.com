@@ -5,8 +5,7 @@ layout: default
     <h1>{{ page.title }}</h1>
     <div class="post-note">
       Posted {{ page.date | date_to_long_string }}
-      {{ page.category.length }}
-      {% page.category[0].length %}
+      
       {% if page.category[0].length == 0 %}
         "NO CATEGORY"
       {% endif %}
