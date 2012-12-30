@@ -4,8 +4,8 @@ title: RavenDB... What am I persisting, what am I querying? (part 3)
 category: RavenDB
 ---
 
-[Part 1](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/) 
-[Part 2](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/)
+[Part 1](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/)   
+[Part 2](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/)    
 
 In part 3 I want to show you how to query References.
 

@@ -4,9 +4,9 @@ title: RavenDB... What am I persisting, what am I querying? (part 1)
 category: RavenDB
 ---
 
-[Part 1](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/) 
-[Part 2](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/)
-[Part 3](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-3/)
+[Part 1](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/)  
+[Part 2](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/)  
+[Part 3](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-3/)  
 
 A couple of questions that pop's up a lot in the [#RavenDB](https://jabbr.net/#/rooms/RavenDB) [JabbR](https://jabbr.net/) chat room by people picking up RavenDB for the first time are; *what am I persisting?, and how do I query relationships?.*
 
@@ -33,7 +33,7 @@ When starting out it's hard to imagine, but the OrderLine is actually part of th
     public class Order
     {
         public string Id { get; set; }
-        // Other properties…
+        // Other properties...
 
         public IEnumerable<OrderLine> Lines { get; set; }
     }
@@ -68,7 +68,7 @@ As you can see we are persisting the entire root object itself. We don't put Ord
 
 <span class="note">**Note:** I do realise I've mentioned persisting the entire object multiple times, but it's something that some people find hard to wrap their head around at first. It confused me when I first started messing around with MongoDB.</span>
 
-When we query for the Order: `session.Load<Order>(“orders/123”);` we end up fetching all the OrderLines at the same time. No joins, no separate queries, just the entire order.
+When we query for the Order: `session.Load<Order>("orders/123");` we end up fetching all the OrderLines at the same time. No joins, no separate queries, just the entire order.
 
 In a relational database we would have had to issue 2 separate queries, or join the tables together, like:
 
