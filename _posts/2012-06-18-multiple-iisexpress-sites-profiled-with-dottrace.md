@@ -92,14 +92,14 @@ What IISExpress doesn't tell you is that you can start an application pool.
 
 Running the command `/AppPool:Clr4IntegratedAppPool` gives us:
 
-> C:\\Program Files (x86)\\IIS Express>iisexpress.exe /AppPool:Clr4IntegratedAppPool  
->   
-> Starting IIS Express ...   
-> Successfully registered URL "http://localhost:7946/" for site "TestProjectOne" application "/"   
-> Successfully registered URL "http://localhost:8921/" for site "TestProjectTwo" application "/"   
-> Registration completed   
-> IIS Express is running.   
-> Enter "Q" to stop IIS Express 
+    C:\\Program Files (x86)\\IIS Express>iisexpress.exe /AppPool:Clr4IntegratedAppPool  
+      
+    Starting IIS Express ...   
+    Successfully registered URL "http://localhost:7946/" for site "TestProjectOne" application "/"   
+    Successfully registered URL "http://localhost:8921/" for site "TestProjectTwo" application "/"   
+    Registration completed   
+    IIS Express is running.   
+    Enter "Q" to stop IIS Express 
 
 To get this working with DotTrace, we just need to select > Profile Application
 
@@ -117,15 +117,15 @@ Bam, not we're now able to run multiple sites at once, and even profile them all
 
 There is one gotcha with this approach, if you work on multiple sites, you end up running those up as well:
 
-> C:\\Program Files (x86)\\IIS Express>iisexpress.exe /AppPool:Clr4IntegratedAppPool  
->   
-> Starting IIS Express ...   
-> Successfully registered URL "http://localhost:7946/" for site "TestProjectOne" application "/"   
-> Successfully registered URL "http://localhost:8921/" for site "TestProjectTwo" application "/"   
-> Successfully registered URL "http://localhost:16207/" for site "JabbR" application "/"   
-> Registration completed   
-> IIS Express is running.   
-> Enter "Q" to stop IIS Express
+    C:\\Program Files (x86)\\IIS Express>iisexpress.exe /AppPool:Clr4IntegratedAppPool  
+      
+    Starting IIS Express ...   
+    Successfully registered URL "http://localhost:7946/" for site "TestProjectOne" application "/"   
+    Successfully registered URL "http://localhost:8921/" for site "TestProjectTwo" application "/"   
+    Successfully registered URL "http://localhost:16207/" for site "JabbR" application "/"   
+    Registration completed   
+    IIS Express is running.   
+    Enter "Q" to stop IIS Express
 
 This can be fixed easily, to get around this, simply open up your applicationhost.config file located in:
 
@@ -177,14 +177,14 @@ And update your website's to use this new application pool:
     
 Now we can run our new application pool:
 
-> C:\\Program Files (x86)\\IIS Express>iisexpress.exe /AppPool:TestProjectAppPool  
->   
-> Starting IIS Express ...  
-> Successfully registered URL "http://localhost:7946/" for site "TestProjectOne" application "/"  
-> Successfully registered URL "http://localhost:8921/" for site "TestProjectTwo" application "/"  
-> Registration completed  
-> IIS Express is running.  
-> Enter "Q" to stop IIS Express  
+    C:\\Program Files (x86)\\IIS Express>iisexpress.exe /AppPool:TestProjectAppPool  
+      
+    Starting IIS Express ...  
+    Successfully registered URL "http://localhost:7946/" for site "TestProjectOne" application "/"  
+    Successfully registered URL "http://localhost:8921/" for site "TestProjectTwo" application "/"  
+    Registration completed  
+    IIS Express is running.  
+    Enter "Q" to stop IIS Express  
 
 And now when we profile we only get the two websites we want, running.
 
