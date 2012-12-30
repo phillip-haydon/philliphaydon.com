@@ -4,9 +4,9 @@ title: RavenDB... What am I persisting, what am I querying? (part 2)
 category: RavenDB
 ---
 
-[Part 1](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/) 
-[Part 2](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/) I want to discuss Relationships & References, and the difference between the two. 
-[Part 3](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-3/) 
+[Part 1](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/)  
+[Part 2](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/) I want to discuss Relationships & References, and the difference between the two.  
+[Part 3](/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-3/)  
 
 Taking from part 1's example, lets add a User to the mix:
 
