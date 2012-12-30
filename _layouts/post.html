@@ -8,12 +8,20 @@ layout: default
       {% if page.category != "" %}
         | <a href="/category/{{ page.category | downcase | replace: ' ', '-' }}">{{ page.category }}</a>
       {% endif %}
+      
+      <div style="float:right">
+        <span class="st_twitter" displaytext="Tweet"></span>
+        <span class="st_facebook" displaytext="Facebook"></span>
+        <span class="st_googleplus" displaytext="Google +"></span>
+        <span class="st_email" displaytext="Email"></span>
+        <span class="st_sharethis" displaytext="ShareThis"></span>
+      </div>
     </div>
     
     {{ content }}
 
     <div id="disqus_thread"></div>
-    <script type="text/javascript">
+    <script>
         var disqus_shortname = 'philliphaydon';
         var disqus_url = "http://www.philliphaydon.com{{ page.url }}";
 
@@ -26,4 +34,8 @@ layout: default
     </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    <script>var switchTo5x=true;</script>
+    <script src="http://w.sharethis.com/button/buttons.js"></script>
+    <script>stLight.options({publisher: "ur-f0d955d3-1346-e14c-937c-99bdd7d25d97"});</script>
 </div>
