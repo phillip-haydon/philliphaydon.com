@@ -27,13 +27,13 @@ Most website's are so small you have the database and website on the same server
 
 Then you grow and you have:
 
-!(/images/running-two-queries-1.png)
+![](/images/running-two-queries-1.png)
 
 These are sitting next to each other. Latency is low, you've probably got gigabit connection between the two, and sending 2 queries is very fast.
 
 However if you're using something like RavenHQ where the database isn't right next to each other:
 
-!(/images/running-two-queries-2.png)
+![](/images/running-two-queries-2.png)
 
 Now we have to deal with hops and latency and all sorts of issues, being able to issue 1 query and get 2 results back is now beneficial!
 

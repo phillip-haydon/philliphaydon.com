@@ -7,7 +7,7 @@ Mindscape, creator of the awesome [Web Workbench](http://www.mindscapehq.com/pro
 
 [Raygun](http://raygun.io/?ref=1QWEy)
 
-Little is currently known about this since trying to find out more from Mindscape is like squeezing blood from a stone, but what I do know is it’s a online error tracking and reporting service, that will allow you to track errors that occur on both the serverside *and* the clientside.
+Little is currently known about this since trying to find out more from Mindscape is like squeezing blood from a stone, but what I do know is it's a online error tracking and reporting service, that will allow you to track errors that occur on both the serverside *and* the clientside.
 
 This looks awesome and quite possible be a great [Elmah Replacement](http://raygun.io/?ref=1QWEy) for my projects, since it will have the ability to track clientside issues that usually go unnoticed.
 
