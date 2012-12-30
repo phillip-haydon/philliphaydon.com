@@ -121,7 +121,7 @@ You can see we get all the information back out again, no problem! This stuff is
 
 So now we want to do this in NHibernate. This is a `UserType` I wrote a long time ago, well... I re-wrote it recently but wrote the initial idea a long time ago, and I've personally never seen anything similar in NHibernate.
 
-I've put this on Gist – <https://gist.github.com/1936188>
+I've put this on Gist - <https://gist.github.com/1936188>
 
     [Serializable]
     public class Blobbed<T> : IUserType where T : class
