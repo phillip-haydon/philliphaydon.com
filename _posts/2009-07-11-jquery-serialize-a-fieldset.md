@@ -41,7 +41,7 @@ jQuery has this nifty little function called [serialize](http://docs.jquery.com/
 And a basic alert method that shows us the result of the form serialized:
 
     function SubmitForm() {    
-      alert($(''form'').serialize());
+      alert($('form').serialize());
     }
 
 We end up with a result like:
@@ -57,26 +57,26 @@ Basically I add a new form, and clone the fieldset into the form,then serialize 
 So I've added some new buttons for this example:
 
     <input type="button" value="Submit Login"
-           onclick="SubmitFieldset(''.fsLoginForm'');" />
+           onclick="SubmitFieldset('.fsLoginForm');" />
     <input type="button" value="Submit Name"
-           onclick="SubmitFieldset(''.fsName'');" />
+           onclick="SubmitFieldset('.fsName');" />
     <input type="button" value="Submit Name &amp; Colour"   
-           onclick="SubmitFieldset(''.fsName, .fsColour'');" />
+           onclick="SubmitFieldset('.fsName, .fsColour');" />
            
 And the JavaScript:
 
     function SubmitFieldset(fieldsetName) {    
       //Add a new form and hide it.    
-      $(''body'').append(''<form id="form-to-submit" style="visibility:hidden;"></form>'');
+      $('body').append('<form id="form-to-submit" style="visibility:hidden;"></form>');
 
       //Clone the fieldset into the new form.    
-      $(''#form-to-submit'').html($(fieldsetName).clone());
+      $('#form-to-submit').html($(fieldsetName).clone());
 
       //Serialize the data    
-      var data = $(''#form-to-submit'').serialize();
+      var data = $('#form-to-submit').serialize();
 
       //Remove the form    
-      $(''#form-to-submit'').remove();
+      $('#form-to-submit').remove();
 
       //Alert to see the data, this is where you would do your ajaxy stuff :)
       alert(data);
