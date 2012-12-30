@@ -6,19 +6,10 @@ layout: default
     <div class="post-note">
       Posted {{ page.date | date_to_long_string }}
       {{page.category.length}}
-      {% if page.category.length === 0 %}
+      {% if page.category.length == 0 %}
         "NO CATEGORY"
       {% endif %}
-      {% if page.category != "" %}
-        "HAS CATEGORY"
-      {% endif %}
-      {% if page.category.blank? == false %}
-        "NO CATEGORY"
-      {% endif %}
-      {% if page.category.blank? != true %}
-        "HAS CATEGORY"
-      {% endif %}
-      {% if page.category.blank? == true %}
+      {% if page.category.len == 0 %}
         "NO CATEGORY"
       {% endif %}
       
