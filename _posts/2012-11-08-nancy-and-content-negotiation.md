@@ -8,7 +8,7 @@ This has to be one of the most awesome features of Nancy, Content Negotiation. R
 
 When doing this in ASP.NET MVC I would have to check the content type and decide how I want to respond to the request.
 
-This ended up making duplicate methods, one which would be used by a normal GET request, while the 2nd would be for an AJAX request. Or if it was similar, use conditional logic in the single method to decide how the action should respond…
+This ended up making duplicate methods, one which would be used by a normal GET request, while the 2nd would be for an AJAX request. Or if it was similar, use conditional logic in the single method to decide how the action should respond...
 
 Nancy on the other hand supports Content Negotiation out of the box.
 
@@ -201,6 +201,6 @@ Now when we click either link, both scenarios are handled by the one route.
 
 This isn't limited to just this use case, if you're building an API and you want the route to respond with XML or JSON, or maybe even your own content type, this is an awesome feature that you can use to handle these scenarios so your consumers can get what they want, in the format they want, with no effort from you.
 
-Content Negotiation – Is Awesome.
+Content Negotiation - Is Awesome.
 
 The demo for this project can be found [here on github](https://github.com/phillip-haydon/NancyConnegDemo).
