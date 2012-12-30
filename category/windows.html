@@ -4,13 +4,13 @@ title: Category
 ---
 <header>
 <div class="head-inner">
-	<h1><a href="/category/">{{ page.title }}</a> - Windows 8 App</h1>
+	<h1><a href="/category/">{{ page.title }}</a> - Windows</h1>
 </div>
 </header>
 
 <ul>
   {% for post in site.posts %}
-  {% if post.category == "Windows 8 App" %}
+  {% if post.category == "Windows" %}
     <li><a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a> <small>({{ post.date | date_to_string }})</small></li>
   {% endif %}
   {% endfor %}
