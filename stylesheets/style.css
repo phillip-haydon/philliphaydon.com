@@ -118,7 +118,13 @@ dfn, cite, em, i {
 blockquote {
     font-family: Georgia,"Bitstream Charter",serif;
     font-style: italic;
-    margin: 0 1.5em;
+    margin: 0.8em 1.5em;
+    border-left: 4px #dfdfdf solid;
+    padding: 10px 15px;
+    border-radius: 12px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-color: #f3f3f3;
 }
 
     blockquote cite {

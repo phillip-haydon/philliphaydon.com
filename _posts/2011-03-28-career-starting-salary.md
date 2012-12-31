@@ -12,13 +12,13 @@ In the thread the original poster was complaining about a job ad being advertise
 
 > 35k is shockingly low. You could walk out and get an office job with no training and no stress for that amount. As a grad you will have to be learning things in your spare time etc.
 
-
+<!-- -->
 > In IT you need to be good to get good money. If that"s not you then change your career, plenty of industries where you get good money even if you are just average or worse...
 
-
+<!-- -->
 > I still think it"s dangerous practice to offer an absolutely disgraceful salary like $35k to gradutes
 
-
+<!-- -->
 > 35k is a a stupid sallary for a new Grad in this day and age. Heck, as a grad I would even consider 50k too low. Good luck trying to fill that role !!
 
 And one of my favourites:
