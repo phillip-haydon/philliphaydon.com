@@ -23,7 +23,7 @@ I absolutely detest seeing this sort of thing. It makes me sick, and worst of al
 
 Right, so what is my solution? Well I basically find all the server controls that are of a particular type, and write the information as a Json array to the HTML doc.
 
-I've put the project on codeplex and named it, Awesome.ClientID, because everything I do is awesome, atleast I like to think so :)
+I've put the project on codeplex and named it, [Awesome.ClientID](http://awesomeclientid.codeplex.com/), because everything I do is awesome, atleast I like to think so :)
 
 There's a few issues and the code is a little messy since I rushed it, but it works.
 
@@ -76,3 +76,5 @@ I have a property I set in my page with an attribute against it 'CanSerializePro
 Originally intended for just .NET 2.0/3.5, the properties feature is pretty handy for .NET 4.0 also.
 
 I've got some additional features I'm going to add, at the moment it serializes for every page, but I'm going to add an attribute for pages to turn the feature off. And possibly make a web.config section so you can specify the controls you want to serialize. That way you can easily add controls from libraries such as Telerik without needing to recompile the project.
+
+<http://awesomeclientid.codeplex.com/>
