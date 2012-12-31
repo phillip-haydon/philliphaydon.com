@@ -13,21 +13,21 @@ The method under test had a dependency on another class, it performed two action
  
 DateRange is just a class with a start/end property of DateTime. The method is sort of like this (obviously with proper names I just wrote some random code to illustrate the scenario)
 
-  public IEnumerable<Stuff> GetStuff(DateTime dateList)
-  {
-      var result = new List<Stuff>();
-      var someService = IoC.Resolve<ISomeService>();
-      var data = someService.GetData();
-      
-      foreach (var date in dateList)
-      {
-          var tempDate = date;
-          DateRange range = someService.GetDates(OpenRules, tempDate);
-          //do stuff...
-      }
-      
-      return result;
-  }
+    public IEnumerable<Stuff> GetStuff(DateTime dateList)
+    {
+        var result = new List<Stuff>();
+        var someService = IoC.Resolve<ISomeService>();
+        var data = someService.GetData();
+        
+        foreach (var date in dateList)
+        {
+            var tempDate = date;
+            DateRange range = someService.GetDates(OpenRules, tempDate);
+            //do stuff...
+        }
+        
+        return result;
+    }
 
 So the same service is called twice, the issue is when iterating over the dateList, it needs to be filtered based on a DateRange during the day. So say, 8am till 10pm. Removing the stuff outside of that time period during that day.
 
