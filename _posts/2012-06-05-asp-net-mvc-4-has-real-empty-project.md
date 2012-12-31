@@ -16,6 +16,6 @@ Look at that, nice and clean. It still forces the whole WebApi thing on you, but
 
 I'm REALLY happy with the changes after I previously ranted earlier this year:
 
-http://www.philliphaydon.com/2012/02/mvc-4-project-templates-are-stupid/
+[MVC 4 Project Templates are stupid](/2012/02/mvc-4-project-templates-are-stupid/)
 
 Thank you Microsoft!

@@ -8,17 +8,17 @@ I've just spent the weekend ripping out that dreaded WCF abomination and replaci
 
 <http://servicestack.net/>
 
-A modern fresh alternative to WCF. Code-first, convention-based, codegen-free. Encourages best-practices high-performance, scalable REST & RPC web services.
+> A modern fresh alternative to WCF. Code-first, convention-based, codegen-free. Encourages best-practices high-performance, scalable REST & RPC web services.
 
 Over the past couple of months I've been fighting with WCF to the point I wanted to slit my wrists.
 
-So I asked JabbR and Twitter if I should use Web API. Well –no- one recommended Web API and everyone recommended Service Stack.
+So I asked [JabbR](http://jabbr.net/) and Twitter if I should use Web API. Well -no- one recommended Web API and everyone recommended Service Stack.
 
 ## It's a different way of thinking
 
 The first noticeable difference between WCF and SS (Service Stack) is that I'm no longer writing a single service class with a butt load of methods. Which is most likely a good thing because after a while they just become hard to manage.
 
-So instead of a Contract, Service, Response DTO, and Request DTO, with 9234823 methods defined in the Contract/Service. It's now 1 Request DTO per Service.
+So instead of a Contract, Service, Response DTO, and Request DTO, with 9234823 methods defined in the Contract/Service. It's now **1 Request DTO per Service.**
 
 What does that mean?
 
@@ -118,7 +118,7 @@ The full implementation of this service looks like so:
 
 So if I have any of the information defined on the request object, I simply query for it.
 
-Now if you're looking at the method you're probably thinking the same thing I thought when I first looked at something similar. How the fark do I query that? Well I'll explain that soon. 
+Now if you're looking at the method you're probably thinking the same thing I thought when I first looked at something similar. How the fark do I query that? *Well I'll explain that soon*. :)
 
 The last thing missing tho is the Response.
 
@@ -146,7 +146,7 @@ The actual DTO looks like so:
         public ResponseStatus ResponseStatus { get; set; }
     }
 
-Note: I like to use nested classes for the results because I can name it what it is, and modify it without breaking any other Response classes I make in the future.
+<span class="note">**Note:** I like to use nested classes for the results because I can name it what it is, and modify it without breaking any other Response classes I make in the future.</span>
 
 The response implements the interface `IHasResponseStatus` (which I think needs to be renamed to ICanHazResponseStatus) which provides the property ResponseStatus, this allows SS to attach it's own information about the response such as exception information.
 
@@ -154,7 +154,7 @@ So rather than WCF where it just faults and throws exceptions and falls over and
 
 Also I've added the Member as a collection so that I can have multiple results if I need, maybe I want to find a user who has an OpenId of 'xyz' and an email of 'abc' so I can link them. No need to write yet ANOTHER WCF method.
 
-Configuration
+## Configuration
 
 Configuration in WCF is always a pain in the ass, specially when dealing with message sizes, buffers, bindings and endpoints, so on and so forth somebody shoot me because WCF configuration is the bane of my existence.
 
@@ -244,20 +244,20 @@ And another for Commands named CommandServiceClient.
 Then I registered them in Autofac (on the MVC site I'm still using Autofac)
 
     builder.RegisterType<QueryServiceClient>()
-            .WithParameter(new NamedParameter("url", QueryServicesUrl))
-            .AsSelf()
-            .SingleInstance();
+           .WithParameter(new NamedParameter("url", QueryServicesUrl))
+           .AsSelf()
+           .SingleInstance();
             
     builder.RegisterType<CommandServiceClient>()
-            .WithParameter(new NamedParameter("url", CommandServicesUrl))
-            .AsSelf()
-            .SingleInstance();
+           .WithParameter(new NamedParameter("url", CommandServicesUrl))
+           .AsSelf()
+           .SingleInstance();
 
 Now I can just inject those two service clients and reuse them over and over.
 
 ## Conclusion
 
-I had to change my way of thinking and to be honest, I threw in the towel pretty early on. But I stuck with it. I was lucky enough to have help from the creator himself, @demisbellot in the JabbR ServiceSack room.
+I had to change my way of thinking and to be honest, I threw in the towel pretty early on. But I stuck with it. I was lucky enough to have help from the creator himself, [@demisbellot](http://www.twitter.com/demisbellot) in the [JabbR ServiceSack](http://jabbr.net/#/rooms/servicestack) room.
 
 He was kind enough to answer all my woes and put me on the right path, regardless of how silly my questions probably were.
 
