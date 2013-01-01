@@ -111,10 +111,10 @@ This round-trip to the database in order to get the GUID first before doing the 
 
 Inserting 50,000 items for each, with the batch-size set to 50, yields the following:
 
-+----------+-------+
+
 | IDENTITY | 28951 |
 | NEWID    | 30241 |
-+----------+-------+
+
 
 (value in milliseconds)
 
