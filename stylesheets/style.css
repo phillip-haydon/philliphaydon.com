@@ -846,7 +846,7 @@ h4, h5, h6 {
         .site-footer a:hover {
             color: #26ADE4;
         }
-
+/*
 table td {
     padding: 4px 0;
     font-weight: 300;
@@ -856,6 +856,26 @@ table td {
 table th {
     padding: 4px 0;
     border-bottom: solid 1px #ccc;
+}*/
+
+table {
+	background:#FFF;
+	border:2px solid #CCC;
+	border-collapse:collapse;
+	margin:5px 0 10px;
+}
+th, 
+td {
+	border:1px solid #CCC;
+	padding:3px 10px;
+	text-align:left;
+	vertical-align:top;
+}
+tr.even td {
+	background:#F7F7F7;
+}
+th {
+	background:#EDEFF0;
 }
 
 .format-aside h1.entry-title, .format-quote h1.entry-title, .format-chat h1.entry-title, .format-status h1.entry-title, .format-image h1.entry-title, .format-link h1.entry-title {
