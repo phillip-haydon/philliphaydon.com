@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Not.LazyLoad' - Eager Loading with NHibernate 3.0
-category: 
+category: NHibernate
 ---
 
 A friend asked me about fetching relationships with NHibernate when something couldn't be lazy-loaded.

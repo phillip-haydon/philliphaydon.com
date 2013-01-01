@@ -32,13 +32,13 @@ If we take a relatively simple query, to fetch a blog with posts and display the
                       .SingleOrDefault();
 
         Console.WriteLine(blog.Name);
-        Console.WriteLine("—-");
+        Console.WriteLine("--");
 
         foreach (var post in blog.Posts)
         {
             Console.WriteLine("Title: " + post.Title);
             Console.WriteLine("Author: " + post.Author.FirstName);
-            Console.WriteLine("—-");
+            Console.WriteLine("--");
         }
     }
 
