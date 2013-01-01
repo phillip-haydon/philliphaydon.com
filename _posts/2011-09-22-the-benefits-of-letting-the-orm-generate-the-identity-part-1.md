@@ -111,10 +111,16 @@ This round-trip to the database in order to get the GUID first before doing the 
 
 Inserting 50,000 items for each, with the batch-size set to 50, yields the following:
 
-
-| IDENTITY | 28951 |
-| NEWID    | 30241 |
-
+<table>
+  <tr>
+    <td>IDENTITY</td>
+    <td>28951</td>
+  </tr>
+  <tr>
+    <td>NEWID</td>
+    <td>30241</td>
+  </tr>
+</table>
 
 (value in milliseconds)
 
@@ -325,10 +331,16 @@ Again, 3 insert's done as a single batch statement.
 
 If we run 50,000 inserts again:
 
-+---------+------+
-| HiLo    | 9287 |
-|GuidComb | 9060 |
-+---------+------+
+<table>
+  <tr>
+    <td>HiLo</td>
+    <td>9287</td>
+  </tr>
+  <tr>
+    <td>GuidComb</td>
+    <td>9060</td>
+  </tr>
+</table>
 
 That is over 3 times faster!
 
