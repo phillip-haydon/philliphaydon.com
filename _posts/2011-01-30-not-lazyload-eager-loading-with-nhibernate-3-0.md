@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Not.LazyLoad' - Eager Loading with NHibernate 3.0
+title: Not.LazyLoad - Eager Loading with NHibernate 3.0
 category: NHibernate
 ---
 
