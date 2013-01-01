@@ -231,7 +231,7 @@ So what happens if we wanted more than 1 post, and eager load the relationships?
             Console.WriteLine(" - " + category.Name);
         }
 
-        Console.WriteLine("—-");
+        Console.WriteLine("--");
     }
 
 Nothing special, right? Except... because we get duplicate posts in the last query, imagine what we get when we actually iterate over this result.
@@ -240,34 +240,34 @@ Nothing special, right? Except... because we get duplicate posts in the last que
     Categories:
     - Category 1
     - Category 3
-    —-
+    --
     Post: Post 1
     Categories:
     - Category 1
     - Category 3
-    —-
+    --
     Post: Post 2
     Categories:
     - Category 2
-    —-
+    --
     Post: Post 3
     Categories:
     - Category 1
     - Category 2
     - Category 3
-    —-
+    --
     Post: Post 3
     Categories:
     - Category 1
     - Category 2
     - Category 3
-    —-
+    --
     Post: Post 3
     Categories:
     - Category 1
     - Category 2
     - Category 3
-    —-
+    --
 
 Scary right? We can fix this using NH Transformations.
 
@@ -285,17 +285,17 @@ This formats the result to be distinct posts with the related Categories like so
     Categories:
     - Category 1
     - Category 3
-    —-
+    --
     Post: Post 2
     Categories:
     - Category 2
-    —-
+    --
     Post: Post 3
     Categories:
     - Category 1
     - Category 2
     - Category 3
-    —-
+    --
     
 Perfect!
 
