@@ -75,22 +75,22 @@ Entity Framework 4: `from s in mmc.Members`
 
 The output was as follows:
 
-    ————
+    ----
     LINQ 2 SQL
     Robert
     William
     Charles
-    ————
+    ----
     LightSpeed
     Robert
     William
     Charles
-    ————
+    ----
     NHibernate 3.0
     Robert
     William
     Charles
-    ————
+    ----
     EntityFramework 4
     Robert
     William
@@ -158,18 +158,18 @@ Again, the only difference is the 'in' part of the query.
 
 The output was as follows:
 
-    ————
+    ----
     LINQ 2 SQL
     Robert
     Michael
-    ————
+    ----
     LightSpeed
     Exception: Specified method is not supported.
-    ————
+    ----
     NHibernate 3.0
     Robert
     Michael
-    ————
+    ----
     EntityFramework 4
     Robert
     Michael

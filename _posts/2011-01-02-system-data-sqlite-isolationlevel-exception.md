@@ -47,7 +47,7 @@ So before the change, if i ran the following code (to demonstrate the scenario):
 
 When the test runs, the following error is thrown:
 
-> NHibernate.TransactionException: Begin failed with SQL exception —> System.ArgumentException: isolationLevel
+> NHibernate.TransactionException: Begin failed with SQL exception -> System.ArgumentException: isolationLevel
 
 Now if I update the two exceptions:
 

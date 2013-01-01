@@ -12,7 +12,7 @@ WP7 Nights at the Round Table - Feb 28th Sydney
 Let's get together for some drinks to trade WP7 Dev stories, demos or seek free advice from other devs to help get your app off the ground and into Marketplace. This event will be informal, around bar tables, so bring along your device or laptop if you wish to show people what you have been up to.
 
 **Let us know your coming: **  
-If your on LinkedIn please indicate your attendance here – <http://events.linkedin.com/WP7-Nights-Round-Table-Feb-28th/pub/571016> or in the comments section below.
+If your on LinkedIn please indicate your attendance here - <http://events.linkedin.com/WP7-Nights-Round-Table-Feb-28th/pub/571016> or in the comments section below.
 
 **Date, Time, Location: **  
 6-8pm   
