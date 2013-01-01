@@ -45,7 +45,7 @@ Now the identity only increases every time the app restarts. And to show it gene
 
 ![](/images/ravendb-hilo-3.png)
 
-It took a while of hunting on the net, but it turns out Googling & Binging, or searching (StackOverflow/Google Groups) for the keyword `Lo` doesn’t work, the argument is `capacity` and searching for that on Google Groups lead me here:
+It took a while of hunting on the net, but it turns out Googling & Binging, or searching (StackOverflow/Google Groups) for the keyword `Lo` doesn't work, the argument is `capacity` and searching for that on Google Groups lead me here:
 
 [http://groups.google.com/group/ravendb/browse_thread/thread/95a5b33a5d30eb71/a5197e2e01376e65?lnk=gst&q=capacity#a5197e2e01376e65](http://groups.google.com/group/ravendb/browse_thread/thread/95a5b33a5d30eb71/a5197e2e01376e65?lnk=gst&q=capacity#a5197e2e01376e65)
 

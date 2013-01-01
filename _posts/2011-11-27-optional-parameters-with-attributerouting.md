@@ -6,7 +6,7 @@ category: ASP.NET MVC
 
 I found a little trick with using Optional Parameters with [AttributeRouting](https://github.com/mccalltd/AttributeRouting/wiki/2.-Usage), by using standard optional parameters in the action.
 
-The documentation says you can add an attributes to specify the defaults, or add `=value` to the parameter name, and I guess that’s a more correct way to generate routes, but you can achieve the same affect by making the parameter optional. Like so:
+The documentation says you can add an attributes to specify the defaults, or add `=value` to the parameter name, and I guess that's a more correct way to generate routes, but you can achieve the same affect by making the parameter optional. Like so:
 
     [GET("videos/{?page}")]
     public ActionResult Videos(int page = 1)

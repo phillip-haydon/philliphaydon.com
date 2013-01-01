@@ -11,7 +11,7 @@ Yesterday, my new Windows Phone 7 arrived. I ordered a HTC HD7 from eBay, since 
 
 It's definitely far superior to my iPhone4, after spending a night playing around with it, pretty much everything is better, in my opinion. (I will NEVER hand over money for an Apple product ever again.)
 
-The one flaw that Windows Phone 7 does have, is it’s contact. Microsoft really dropped the ball on the contact, or 'People' as they call them. The idea is great, but it lacks the ability to sync contact with outlook with ease. Contact's are synced to... everything else.
+The one flaw that Windows Phone 7 does have, is it's contact. Microsoft really dropped the ball on the contact, or 'People' as they call them. The idea is great, but it lacks the ability to sync contact with outlook with ease. Contact's are synced to... everything else.
 
 At first I thought outlook contact's could only be synced with exchange, but it turns out you can do it... but you need to sync your contacts to your windows live account,and then to your phone. <http://support.microsoft.com/kb/2454811#21method>
 
