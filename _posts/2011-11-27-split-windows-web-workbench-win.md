@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Split Windows + Web Workbench = Win
-category: 
 ---
 
 One of the cool features of the [Web Workbench](http://www.mindscapehq.com/products/web-workbench/) from Mindscape is the ability to generate the output files. Prior to using the Web Workbench I was using [.LESS{}](http://www.dotlesscss.org/) which uses an HTTP Handler to generate the output files for LESS.
