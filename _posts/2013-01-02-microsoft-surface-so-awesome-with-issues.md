@@ -54,11 +54,9 @@ The thing you can't tell about both these is they are IDENTICAL. When you plug t
 
 ![](/images/surface-issues-5.png)
 
-The first image is using the White, random brand adapter.
+The first image is using the White, random brand adapter. The second image is using the Asus one, both have the exact same chipset. So the drivers can be used for both. From googling it seems there's a lot of USB to LAN Adapters that sport this chipset.
 
-The second image is using the Asus one, both have the exact same chipset. So the drivers can be used for both.
-
-Now if you plug these into Windows 8 (Not Windows RT) windows will automatically find and install the drivers for you. If you attempt to do the same on Windows RT, it fails to install and you are unable to use it.
+However, if you plug these into Windows 8 (Not Windows RT) windows will automatically find and install the drivers for you. If you attempt to do the same on Windows RT, it fails to install and you are unable to use it.
 
 Apparently these drivers are removed from ASIX's website at the request of Microsoft. 
 
