@@ -66,7 +66,7 @@ This REALLY pisses me off, seriously what the fuck is Microsoft thinking, asking
 
 One has to wonder what the hell goes on in Redmond, Microsoft constantly makes really stupid choices. Look at their fragmentated Windows Live ID, lack of support for multiple Live accounts on devices like Windows 8 / Windows Phone which prevent you from signing out of Metro Skype or messaging contacts that exist on different Windows Live account.
 
-I'm so sick of Microsoft doing stupid things like this, soooo here's the drivers
+I'm so sick of Microsoft doing stupid things like this, soooo here's the drivers for [AX88772B / 772A / 772 for Windows RT](/stuffz/AX88772B_772A_772_WinRT_Driver_v3.16.0.1807.zip)
 
 [Right Click and Save](/stuffz/AX88772B_772A_772_WinRT_Driver_v3.16.0.1807.zip)
 
