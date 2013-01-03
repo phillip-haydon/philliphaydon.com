@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Windows Store App - Tiled Background using Mindscape Metro Elements
-category: Windows Store App
+category: Windows 8 App
 ---
 
 Apparently WinRT XAML lacks the ability to tile a background image, and surfing the net seems to come to the conclusion that the only way is to just create a large tiled image in photoshop...
