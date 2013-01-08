@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Azure - Creating a Azure Cloud Service
+title: Azure - Creating an Azure Cloud Service
 category: Azure
 ---
 
