@@ -84,7 +84,7 @@ I'm using RavenHQ, so this sort of needs prior knowledge of RavenDB / HQ to setu
         return base.OnStart();
     }
 
-There is also an `OnStop` method that you can overrie which gives you 30 seconds to clean up and persist any state etc. If you don't manage to clean up in 30 seconds, you're stuffed, it will terminate and you've lost anything you wanted to do... But 30 seconds is a LONG time...
+There is also an `OnStop` method that you can override which gives you 30 seconds to clean up and persist any state etc. If you don't manage to clean up in 30 seconds, you're stuffed, it will terminate and you've lost anything you wanted to do... But 30 seconds is a LONG time...
 
 The second method is `Run` is the task the role is going to run, it contains a while loop with the condition true to make it an infinite loop. This is really important because if you exit out of the loop, your role will terminate. Then it wouldn't really be a background service that is always running!
 
