@@ -43,6 +43,6 @@ Yes C# is created by Microsoft, does that make C# bad? No. Does it mean you shou
 
 People need to stop being so negative towards others in the community, if someone has an opinion like Filip, and you disagree, come up with a constructive argument about why you disagree. You may teach Filip and the community something! Hell, someone might respond to you and you may learn something in return!
 
-The good in the community is when we learn from each others ideas and discussions, weather it's Microsoft creating LINQ and everyone mimics it in other languages the best they can, or the Ruby community coming up with Sinatra and it being the inspiration for NancyFX in the .NET community. 
+The good in the community is when we learn from each others ideas and discussions, whether it's Microsoft creating LINQ and everyone mimics it in other languages the best they can, or the Ruby community coming up with Sinatra and it being the inspiration for NancyFX in the .NET community. 
 
 Stop being an asshole just because you can be anonymous on the internet. 
