@@ -1,10 +1,10 @@
 ---
 layout: post
-title: IT Communities like Hacker News are full of assholes
+title: IT-Communities like Hacker News are full of assholes
 category: Rant
 ---
 
-I only found out about hacker news maybe... 6 months ago? This place is like 4chan for the IT Community, and it's not the only place. The entire internet is full of assholes.
+I only found out about hacker news maybe... 6 months ago? This place is like 4chan for the IT-Community, and it's not the only place. The entire internet is full of assholes.
 
 Filip Ekberg wrote an opinionated [blog post](http://blog.filipekberg.se/2013/01/11/c-is-the-past-the-present-and-the-future/) a few days ago, about how he thinks C# is the past, present and future. After [self promotion](http://news.ycombinator.com/item?id=5042055) on Hacker News, I'm sure a lot of people do, such as [myself](http://news.ycombinator.com/submitted?id=philliphaydon). He got an out pour of comments. 
 
@@ -33,7 +33,7 @@ Filip Ekberg wrote an opinionated [blog post](http://blog.filipekberg.se/2013/01
 
 These are just some of the comments that appeared on Hacker News.
 
-The IT Community is a joke, that we as a collective community spanning 100's or 1000's or more, platforms, languages, frameworks etc, have to resort to personal attacks, and the same old generic bullshit arguments despite how far anything progresses.
+The IT-Community is a joke, that we as a collective community spanning 100's or 1000's or more, platforms, languages, frameworks etc, have to resort to personal attacks, and the same old generic bullshit arguments despite how far anything progresses.
 
 I don't think I'm immune to all this, as a .NET Developer I rant against Microsoft for the stupid things I think they do, I don't like ASP.NET MVC after playing with other frameworks that the .NET Community has some up with, and I'm always ranting about how shit Entity Framework is, but I'm not personally attacking someone or singling out an entire framework just because it was developed by a single company. 
 
