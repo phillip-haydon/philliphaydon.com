@@ -3,10 +3,26 @@ layout: default
 title: philliphaydon.com
 ---
 <ul class="posts">
-  {% for post in site.posts  limit:10 %}
+  {% for post in paginator.posts %}
 <li>
     <h1><a href="{{ post.url | remove:'.html' }}">{{ post.title }}</a> <span style='font-size:8pt; font-weight:normal;'>({{ post.date | date_to_string }})</span></h1> 
-    {{ post.content | }}
+    {{ post.content | split:'<!--excerpt-->' | first }}
+    <p><a href="{{ post.url | remove:'.html' }}">Read more...</a></p>
 </li>
   {% endfor %}
 </ul> 
+
+<!-- Pagination links -->
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="/page{{paginator.previous_page}}" class="previous">Previous</a>
+  {% else %}
+    <span class="previous">Previous</span>
+  {% endif %}
+  <span class="page_number ">Page: {{paginator.page}} of {{paginator.total_pages}}</span>
+  {% if paginator.next_page %}
+    <a href="/page{{paginator.next_page}}" class="next ">Next</a>
+  {% else %}
+    <span class="next ">Next</span>
+  {% endif %}
+</div>
