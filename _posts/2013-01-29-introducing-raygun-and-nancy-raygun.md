@@ -11,7 +11,7 @@ I say a little bit, because besides being a super early beta tester, and a super
 
 Raygun is super easy to setup and implement into your application, in-fact it's really nothing more than creating an app, install the nuget package, and set the key, and away you go. 
 
-There's a simple guide over <http://www.pieterg.com/2013/1/raygunio-has-launched>, so I wont bore you with the same content.
+There's a simple guide over <http://www.pieterg.com/2013/1/raygunio-has-launched>, so I won't bore you with the same content.
 
 ## Nancy.Raygun
 
