@@ -3,7 +3,7 @@ layout: post
 title: Introducing Raygun.io and Nancy.Raygun
 ---
 
-So not long ago I [posted](/2012/10/keep-an-eye-on-raygun-to-zap-all-your-errors-away/) about an up and coming service from <http://www.mindscape.co.nz> called [Raygun](http://www.raygun.io), well last week they went into beta, and I was invited, so since early last week I've been giving their system the run around and provided a little bit of feedback. 
+So not long ago I [posted](/2012/10/keep-an-eye-on-raygun-to-zap-all-your-errors-away/) about an up and coming service from <http://www.mindscapehq.com> called [Raygun](http://www.raygun.io), well last week they went into beta, and I was invited, so since early last week I've been giving their system the run around and provided a little bit of feedback. 
 
 I say a little bit, because besides being a super early beta tester, and a super early product that will grow over time, the beta is quite polished. There was only a few minor issues which they corrected within a day or less. 
 
