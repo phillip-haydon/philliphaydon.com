@@ -16,6 +16,8 @@ Lets begin with the following folder structure defining a 'HomeModule' for both 
 
 Both these HomeModule classes are identical, with the small exception that the Admin one specifies a Root Path.
 
+<!--excerpt-->
+
 ### Root > HomeModule ###
 
     namespace NancyAreasDemo.Modules

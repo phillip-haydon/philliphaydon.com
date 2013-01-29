@@ -16,6 +16,8 @@ One problem I see with putting addresses into it's own table, is the temptation 
 
 Really, the order should have it's own address, otherwise you can never delete or update an address on a customer, and you can't delete the customer. However I digress and this is a topic for another day.
 
+<!--excerpt-->
+
 ## Example by OrmLite ##
 
 This post is about how to do it with NHibernate, but I'm going to start by showing the example in OrmLite, then use the same example for NHibernate.

@@ -26,6 +26,8 @@ Nancy on the other hand supports Content Negotiation out of the box.
 
 In short, it's the ability to serve different versions of a document to the same URI.
 
+<!--excerpt-->
+
 To read more you can visit [Wikipedia](http://en.wikipedia.org/wiki/Content_negotiation) or [SOA Patterns](http://www.soapatterns.org/content_negotiation.php)... or... [Google](http://www.bing.com/)
 
 ## Why should I care? ##

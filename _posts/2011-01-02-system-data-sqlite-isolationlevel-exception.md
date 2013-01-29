@@ -17,7 +17,9 @@ There's two places it checks, the first is in `SQLiteConnection` under `BeginTra
 
     if (isolationLevel != IsolationLevel.Serializable && isolationLevel != IsolationLevel.ReadCommitted)
         throw new ArgumentException("isolationLevel");
-      
+
+<!--excerpt-->
+
 The second is in the same file under Open:
 
     if (_defaultIsolation != IsolationLevel.Serializable && _defaultIsolation != IsolationLevel.ReadCommitted)

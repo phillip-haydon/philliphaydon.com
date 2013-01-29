@@ -20,6 +20,8 @@ Select `Sign in to download crentials`
 
 This will take you to a webpage where you can sign into your Windows Live account that has your Azure Subscriptions, with some instructions. The file will download automatically.
 
+<!--excerpt-->
+
 ![](/images/azure-service-update-3.png)
 
 Now go back to Visual Studio and import the file.

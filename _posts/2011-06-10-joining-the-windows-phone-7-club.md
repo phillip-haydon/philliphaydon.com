@@ -13,6 +13,8 @@ It's definitely far superior to my iPhone4, after spending a night playing aroun
 
 The one flaw that Windows Phone 7 does have, is it's contact. Microsoft really dropped the ball on the contact, or 'People' as they call them. The idea is great, but it lacks the ability to sync contact with outlook with ease. Contact's are synced to... everything else.
 
+<!--excerpt-->
+
 At first I thought outlook contact's could only be synced with exchange, but it turns out you can do it... but you need to sync your contacts to your windows live account,and then to your phone. <http://support.microsoft.com/kb/2454811#21method>
 
 Google Mail contact's is a pain to sync to since it has a habit of adding people to 'My Contact' without asking, and Facebook contacts are included when they don't even include contact details like a mobile number, or email. Which means if you have a lot of friends 'random people' on your friends list, your 'People' section becomes bloated.

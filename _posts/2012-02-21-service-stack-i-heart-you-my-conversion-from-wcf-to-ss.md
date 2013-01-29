@@ -22,6 +22,8 @@ So instead of a Contract, Service, Response DTO, and Request DTO, with 9234823 m
 
 What does that mean?
 
+<!--excerpt-->
+
 Well before I would have something like:
 
     [ServiceContract]

@@ -20,6 +20,8 @@ I'm going to include a new area and a couple of new modules:
 
 I've added a folder called 'Admin' this is to act as an Area as described in my post about Nancy & Areas.
 
+<!--excerpt-->
+
 There are now two Secure modules, both these are really 'dumb' modules that, for the purpose of this sample, do nothing more than manage the authentication for the Main/Admin areas.
 
 ### SecureAdminModule ###

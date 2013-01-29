@@ -23,6 +23,8 @@ Running a query would result in:
  
 Great... But you currently cannot do:
 
+<!--excerpt-->
+
     var video = session.QueryOver<Video>()
                        .Fetch(x => x.FullDescription).Eager
                        .List();

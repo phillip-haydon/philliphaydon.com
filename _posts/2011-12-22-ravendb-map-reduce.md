@@ -24,6 +24,8 @@ I want to get a Count of each Tag across all Articles.
 
 <span class="note">**Note:** Tag is it's own class because I added additional properties to it.</span>
 
+<!--excerpt-->
+
 Now I insert some data:
 
     using (var session = documentStore.OpenSession())

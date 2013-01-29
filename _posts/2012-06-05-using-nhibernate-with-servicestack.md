@@ -16,6 +16,8 @@ I've created a small sample project which can be found [here on GitHub](https://
 
 Utilizing other persistence frameworks is really easy with ServiceStack, the thing with ServiceStack Services is that they are doing something concise, it's a single service implementation, so there's really no need to use repositories for them, you gain absolutely no benefit from using repositories other than adding an additional layer of abstraction and complexity to your services.
 
+<!--excerpt-->
+
 That doesn't mean you don't have to use repositories, if you REALLY want to use them. You can, and I'll add a sample of using a repository with the RestService implementation.
 
 ## Setting Up SS ##

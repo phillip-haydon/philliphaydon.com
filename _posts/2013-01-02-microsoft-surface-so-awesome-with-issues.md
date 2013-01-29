@@ -20,6 +20,8 @@ The Surface Charger has a Magnetic Power Plug, similar to the old L-shaped MagSa
 
 ![](/images/surface-issues-2.png)
 
+<!--excerpt-->
+
 The problem is, just like the old L-shaped MagSafe, it's a PILE OF SHIT. It's the most fiddly thing to try and connect up, and this isn't helped by the fact the Surface has a tappered edge so you need to angle it right for it to snap in. 
 
 Unlike the keyboard cover which snaps on and positions itself, the charger tries to snap itself out of the hole, then you end up wriggling it around to try get it in.

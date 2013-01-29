@@ -21,6 +21,8 @@ In the thread the original poster was complaining about a job ad being advertise
 <!-- -->
 > 35k is a a stupid sallary for a new Grad in this day and age. Heck, as a grad I would even consider 50k too low. Good luck trying to fill that role !!
 
+<!--excerpt-->
+
 And one of my favourites:
 
 > $35k is terrible... what's the point of going to uni and graduating with a degree if 35k is all you get... u might as well get a basic admin job that pays $40-50k...

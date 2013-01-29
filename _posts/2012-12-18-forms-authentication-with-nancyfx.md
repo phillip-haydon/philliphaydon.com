@@ -16,6 +16,8 @@ Nancy supports a module for forms authentication, it works some-what similar to 
 
 If you take a look at the GitHub project, you can see that the implementation is actually really small. So should you want to poke around, there's not much to look at.
 
+<!--excerpt-->
+
 ### Packages ###
 
 First up we need to install the packages, Nancy, Nancy.Hosting.Aspnet, and Nancy.Authentication.Forms

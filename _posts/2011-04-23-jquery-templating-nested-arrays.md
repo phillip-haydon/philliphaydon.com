@@ -39,6 +39,8 @@ So assuming we have a simple json object like...
     
 We can iterate over the people and then their favourite colours by using `each` in the template like so:
 
+<!--excerpt-->
+
     <script id="sample" type="text/x-jquery-tmpl">
         Name: ${firstName} <br />
         Colours: 

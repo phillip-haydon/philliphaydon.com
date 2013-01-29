@@ -21,6 +21,8 @@ What do I mean by spaghetti code? I mean this stuff:
 
 I absolutely detest seeing this sort of thing. It makes me sick, and worst of all you can't pull this sort of code back to an external js file. In Web Forms, spaghetti coding is NOT your presentation, your server control is your presentation, the spaghetti code is your binding, and this should be in the codebehind.
 
+<!--excerpt-->
+
 Right, so what is my solution? Well I basically find all the server controls that are of a particular type, and write the information as a Json array to the HTML doc.
 
 I've put the project on codeplex and named it, [Awesome.ClientID](http://awesomeclientid.codeplex.com/), because everything I do is awesome, atleast I like to think so :)

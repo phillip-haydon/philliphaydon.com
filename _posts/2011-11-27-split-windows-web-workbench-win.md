@@ -21,6 +21,8 @@ I see the error on the right.
 
 If I make a change to the left, (added a background colour) i see the change on the right.
 
+<!--excerpt-->
+
 ![](/images/split-screen-3.png)
 
 This makes it really handy when applying nested rules. Such as nesting a hover rule to an anchor tag. Sometimes I forget to include the colon.

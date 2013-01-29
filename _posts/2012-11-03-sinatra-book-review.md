@@ -14,6 +14,8 @@ Enter [Sinatra Up and Running](http://www.amazon.com/Sinatra-Up-Running-Alan-Har
 
 This book, written by [Alan Harris](https://twitter.com/anachronistic) & [Konstantin Haase](https://twitter.com/konstantinhaase), is brilliant. Clocking in at 103 pages (less than the 122 Amazon states), this book is everything you need to get your feet off the ground with Sinatra and get building applications.
 
+<!--excerpt-->
+
 It tells you about Sinatra, the fundamentals, what's happening behind the scenes for you, and then building your own application. At no point does the book divert away to dribble and get boring, it keeps itself simple and concise.
 
 It doesn't go too in depth that the book is confusing, and it's not too basic that an advanced rubist would get bored.

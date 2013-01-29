@@ -20,6 +20,8 @@ On the left hand side is main content, while on the right hand side is related v
 
 Or something similar, I forget the syntax :)
 
+<!--excerpt-->
+
 This would use the Query String to get the Video Id and pull all related videos and display them.
 
 In Nancy if I was building the same page, I would push down a dynamic model:

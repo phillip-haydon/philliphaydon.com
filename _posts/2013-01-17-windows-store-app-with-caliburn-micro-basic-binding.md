@@ -23,6 +23,8 @@ In our class we want to inherit from `Screen`, this is a Caliburn class that is 
         }
     }
 
+<!--excerpt-->
+
 Screen doesn't require us to implement anything, but it does handle a few things for us, it implements `INotifyPropertyChangedEx`, which inherits from `INotifyPropertyChanged`, which is great because this is exactly what we need!
 
 Next we need to add a new property, but this can't be an autoproperty, we need a backing field so we can invoke `NotifyOfPropertyChange`

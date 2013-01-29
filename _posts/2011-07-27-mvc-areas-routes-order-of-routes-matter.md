@@ -24,6 +24,8 @@ So no root/default, and just a 'Site' area which would be the default.
 
 <span class="note">**Note:**The default route is removed from Global.asax... for now</span>
 
+<!--excerpt-->
+
 This works perfectly fine if all the URL's are accessed like:
 
     http://localhost:147/Site/Home/Index

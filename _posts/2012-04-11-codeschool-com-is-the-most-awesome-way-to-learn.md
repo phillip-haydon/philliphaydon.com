@@ -17,6 +17,8 @@ You're not getting just a video like you would with sites like Plural Sight, Tek
 
 After each lesson in the course, there's a series of challenges which allow you to utilize your new gained knowledge and put it to the test. The Backbone course challenges you to make a small ToDo list application, starting out really basic and slowly modifying the code to follow best practice, or add new features.
 
+<!--excerpt-->
+
 ![](/images/code-school-2.png)
 
 Each challenge builds on top of the previous, it gives you a story with some helpful information on functions to invoke or events to listen to, and you can dive back into the slides to double check things, should you forget.

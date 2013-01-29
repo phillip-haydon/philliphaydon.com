@@ -19,6 +19,8 @@ I setup a really simple example with the following table.
 
 'ProductId' is set to be int/primary key, but identity is false, since we don't want the database generating the id.
 
+<!--excerpt-->
+
 The two HiLo tables are like so:
 
 ### Row Per Table

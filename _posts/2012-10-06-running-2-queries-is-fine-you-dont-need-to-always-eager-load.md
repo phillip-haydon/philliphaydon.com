@@ -19,6 +19,8 @@ There really is nothing wrong with executing two separate queries in this scenar
 
 These queries are fast to execute, and there really is nothing wrong with it! You can add some complexity in your NHibernate mappings by creating a reference so you can Eagerly fetch the reference and have 1 trip to the database etc. But this really isn't where eager fetching is beneficial!
 
+<!--excerpt-->
+
 ### Your database is located off-site ###
 
 A good reason to want to eager fetch to avoid hitting the database again, is because your database server isn't sitting next to your web server.

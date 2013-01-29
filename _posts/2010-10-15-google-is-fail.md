@@ -18,6 +18,8 @@ Except, neither work in Opera...
 
 Except... It actually does work,infact both Google Instant and their fancy Image Search work in Opera.
 
+<!--excerpt-->
+
 If you right click and go to 'Edit Site Preferences' and set it to 'Identify as Firefox',then refresh the page.
 
 ![](/images/google-fail-2.png)

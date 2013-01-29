@@ -12,6 +12,8 @@ If you have a many-to-many it works too since it's the distinct root and the rel
 
 But to select a one-to-many-to-many it's far too complicated to work out what the hell is going on.  Well in my opinion it's far too complicated.
 
+<!--excerpt-->
+
 However if you have a one-to-many-to-one, so three levels deep... Lets say... A blog, with many posts, each with an author.
 
 ![](/images/nhibernate-depth-1.png)

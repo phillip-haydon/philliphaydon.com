@@ -24,6 +24,8 @@ So given a simple ViewModel, and an Action:
 
 and
 
+<!--excerpt-->
+
     public JsonResult Update(int warehouseLocationId, IEnumerable<ProductViewModel> products)
     {
         //Do something with the products...

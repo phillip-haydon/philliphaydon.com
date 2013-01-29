@@ -21,6 +21,8 @@ This VS extension just gets better and better, I primarily got it to write LESS 
 ### BugAid ###
 <http://www.bugaidsoftware.com/>
 
+<!--excerpt-->
+
 This is a relatively new extension, it extends the debugging tools in Visual Studio and gives more information where it can. It was a little annoying at first, but they are listening to the community and fixing issues, adding features, it's coming along nicely and I recommend it!
 
 ### MightyMoose / NCrunch ###

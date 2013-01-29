@@ -23,6 +23,8 @@ The scenario was a **Game Server** which a collection of **Connected Users**.
 
 Given say 3 servers with a bunch of users on each server, and searching for a user who's name begins with 'b' the expected result was along the lines of:
 
+<!--excerpt-->
+
 <table>
   <tbody>
     <tr>

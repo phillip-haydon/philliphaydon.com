@@ -58,6 +58,8 @@ I've setup some really basic test data:
 
 This creates two collections:
 
+<!--excerpt-->
+
 ![](/images/ravendb-what-am-i-persisting-part-3-1.png)
 
 With our Order document looking like:

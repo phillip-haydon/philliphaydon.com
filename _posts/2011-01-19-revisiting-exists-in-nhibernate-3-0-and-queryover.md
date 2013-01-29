@@ -16,6 +16,8 @@ We have a many-to-many relationship between Jobs and Roles. Which looks somethin
 
 I cut a bunch of stuff out but you get the idea.
 
+<!--excerpt-->
+
 So what was required was on the screen was all the Jobs, you expand the Jobs and it lists all the Roles for that Job, sweet. When you add a new Role, it brings up a Drop Down List with all the Roles that are not assigned to the Job.
 
 The existing query was along the lines of:

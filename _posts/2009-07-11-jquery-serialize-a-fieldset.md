@@ -44,6 +44,8 @@ And a basic alert method that shows us the result of the form serialized:
       alert($('form').serialize());
     }
 
+<!--excerpt-->
+
 We end up with a result like:
 
 *image missing*

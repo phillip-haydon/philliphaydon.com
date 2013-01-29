@@ -16,6 +16,8 @@ If you haven't already you will need to install the Azure SDK, so head on over t
 
 The installer actually uses Web Platform Installer, not sure if there's any other way to install it.
 
+<!--excerpt-->
+
 Once installed you can create a brand new project in Visual Studio.
 
 ![](/images/azure-worker-1.png)

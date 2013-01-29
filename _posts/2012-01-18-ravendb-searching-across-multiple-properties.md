@@ -21,6 +21,8 @@ I've setup 10 posts (<a href="http://pastie.org/3200462">click here for the inse
 
 So I'm going to detail here all the data that I've setup.
 
+<!--excerpt-->
+
 ## Tags ##
 
 <table border="0" cellspacing="0" cellpadding="2" width="400">

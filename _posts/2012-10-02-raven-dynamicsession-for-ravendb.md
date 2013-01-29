@@ -22,6 +22,8 @@ Looking at the syntax and thinking about C#'s DynamicObject I decided to see wha
 
 <https://gist.github.com/3798206>
 
+<!--excerpt-->
+
 I basically came up with a really rough working prototype. Currently it doesn't do much, but what it allows you to do is wrap RavenDB's IDocumentSession in what I've called 'DynamicSession' inside this class is a nested class called Chainer, which is/will be responsible for all the method/property chaining that occurs to make the API completely dynamic.
 
 Rather than creating a normal session, you create OpenDynamicSession. All it really does is save you the hassle of having to write two using statements.

@@ -24,6 +24,7 @@ Maybe INT is too big however, maybe we only want a SMALLINT? That will give us 3
 
     DiscriminateSubClassesOnColumn("PostType", (short)0);
     
+<!--excerpt-->
 <!-- -->
 
     PostType   SMALLINT   not null,

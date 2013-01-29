@@ -25,6 +25,8 @@ Nancy.Raygun is on [Github](https://github.com/phillip-haydon/Nancy.Raygun), ins
 
 I've had a few people ask me why I would use Raygun over ELMAH, or AppFail. 
 
+<!--excerpt-->
+
 ELMAH means I have to manage all the exceptions myself, I have to specify where I log it, navigate a clunky unstyled website, besides being an awesome alternative to something like log4net or nlog, it really is out-dated by today's standards.
 
 I have no personal experience with AppFail, and their service is similar, but the main difference is I know Mindscape, they are an awesome team that produce an awesome set of tools like LightSpeed, Web Workbench, and even went out of their way to add a control to their Metro Elements for me. I know what I'm getting is an awesome and will only get more awesome as time goes on.

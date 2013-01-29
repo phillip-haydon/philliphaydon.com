@@ -16,7 +16,7 @@ Filip Ekberg wrote an opinionated [blog post](http://blog.filipekberg.se/2013/01
 > In my work as a software engineer I had to use what was good for my company, not what was good for Microsoft, Apple, or any religion(GNU or whatever).<br>
 > I had to use Java, C#, objective C, python, (and lisp and c and c++). We will never be in the hands of a single company ever.
 
-<!-- -->
+<!--excerpt-->
 
 > He clearly works for MS and probably on the team that works on C#, which is why I find it odd that he touts Mono as a feature. If MS was serious about .NET everywhere, they'd sponsor Mono/Xamarin, or offer native .NET support for OSX and Linux instead of using the Mono community's hard work to toot their own horn.<br>
 > C# is a great language and has evolved beautifully, but many people will still continue to avoid it because it's owned by MS and stuck on Windows (without the help of Mono). The next Google, Facebook or Twitter won't be written with C#.

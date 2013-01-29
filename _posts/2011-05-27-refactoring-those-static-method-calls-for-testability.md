@@ -22,6 +22,8 @@ The code I dealt with was something along the lines of...
     
 *(Example is completely made up for this blog post and isn't actual code from work)*
 
+<!--excerpt-->
+
 The class that calls this is along the lines of...
 
     public class SomeService

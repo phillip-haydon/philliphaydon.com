@@ -14,6 +14,8 @@ But could they not allow you to choose which account MSN contacts are associated
 
 When I first setup my phone I didn't use the Windows Live account I use for MSN (my Hotmail) since it's existed since 1997, it's got 100's of contacts I don't want in my phone-book, a lot of MSN contacts exist from work, or playing online games, or from forums etc. So I used the Windows Live account that I use for MSDN. I added all my contacts and everything was great, (after I imported all my contacts from outlook into Windows Live Contacts)
 
+<!--excerpt-->
+
 I attached my Facebook account, went to People > Settings > Filter Contacts, and turned off Facebook so they do not show in my normal contacts list. This allows me to have normal phone users, but see the Facebook users on the Messaging list.
 
 Now I want to show MSN contacts, so I load up the next Windows Live account, it loads all my contacts, but when I go to messaging, I get NOTHING. No MSN users at all.

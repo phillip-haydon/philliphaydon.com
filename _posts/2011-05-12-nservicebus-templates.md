@@ -23,6 +23,8 @@ NServiceBus Templates includes project and item templates for those building sol
 - Message Handler - default implementation of the IHandleMessages<T> interface
 - EndpointConfig - default implementation of developer endpoint configuration
 
+<!--excerpt-->
+
 **Instructions**  
 
 - Project templates include a custom wizard that will prompt for a directory. This directory should be the path to your NServiceBus assemblies and the generic host.  Select the directory and hit "Finish" to complete the project.

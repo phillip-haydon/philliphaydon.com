@@ -14,6 +14,8 @@ My biggest pet hate?
 
 If I sent a link to an image, I'm sending a god damn LINK. If I wanted to send an image, I would send an image. But I'm not, I'm sending a LINK.
 
+<!--excerpt-->
+
 The windows live team thought "you know what, we will help users by getting the actual image and sending it to the user for them so they don't need to click on the link!".
 
 Great.

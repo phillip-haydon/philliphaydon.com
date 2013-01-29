@@ -21,6 +21,8 @@ That way, when I debug using Visual Studio I could pick the process to profile:
 
 *(Information can be found by right clicking the system try and selecting 'show all applications')*
 
+<!--excerpt-->
+
 However that isn't an option.
 
 I had a few idea's of trying to get it to work such as having multiple start-up projects, in VS and using the 'Profile Startup Project' feature.

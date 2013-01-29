@@ -24,6 +24,8 @@ It uses the default value of 1.
 
 Now when appending a number to the end of the URL:
 
+<!--excerpt-->
+
 ![](/images/attribute-routing-3.png)
 
 It captures the correct value:

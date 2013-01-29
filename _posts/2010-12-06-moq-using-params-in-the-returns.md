@@ -31,6 +31,8 @@ DateRange is just a class with a start/end property of DateTime. The method is s
 
 So the same service is called twice, the issue is when iterating over the dateList, it needs to be filtered based on a DateRange during the day. So say, 8am till 10pm. Removing the stuff outside of that time period during that day.
 
+<!--excerpt-->
+
 The method GetDates would take some rules and based on the date, create the the DateRange for the filter.
 
 To test this method we needed to get some data, and filter it,and check the list had the correct data after being filtered.

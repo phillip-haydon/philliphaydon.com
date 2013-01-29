@@ -25,6 +25,8 @@ Basically the author wanted to write something along the lines of:
 
 Where the query joins to a list of Ids to filter the results out. This however, happens to throw an exception:
 
+<!--excerpt-->
+
 ![](/images/nhibernate-workaround-1.png)
 
 Normally this sort of query would be written like so:

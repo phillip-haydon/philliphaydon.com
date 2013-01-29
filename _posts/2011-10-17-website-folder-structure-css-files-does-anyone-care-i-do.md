@@ -23,6 +23,8 @@ What I prefer to do is structure it so the css folder has it's own images folder
     root/css/images/ 
     root/images
 
+<!--excerpt-->
+
 To take it a step further, I often have images, icons, and fonts.
 
     root/ 

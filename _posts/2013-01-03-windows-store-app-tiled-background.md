@@ -22,6 +22,8 @@ After installing the Metro Elements, in your app you want to add a reference to 
 
 Now in the page attributes you need to include an alias for the MetroElements:
 
+<!--excerpt-->
+
     xmlns:ms="using:Mindscape.MetroElements"
 
 Then you can add the TileBackground element:

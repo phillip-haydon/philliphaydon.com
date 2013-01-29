@@ -39,6 +39,8 @@ I select EMPTY project template.
 
 EMPTY
 
+<!--excerpt-->
+
 So I removed the things I don't need to begin with:
 
     <?xml version="1.0" encoding="utf-8"?>

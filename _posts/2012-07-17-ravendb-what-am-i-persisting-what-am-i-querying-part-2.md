@@ -42,6 +42,8 @@ Taking from part 1's example, lets add a User to the mix:
 
 As you can see I've added 'UserId' to the Order, not a 'User' just the Id part. This is because I don't want direct access to the User. *(It is possible to map a User in RavenDB, but I don't believe that is always a good idea. Save it for special occasions.)*
 
+<!--excerpt-->
+
 If we were modelling this in a Relational Database, we would have a relationship between Order and User, add some foreign keys, and if we threw an ORM into the mix we would probably have an Order object looking like:
 
 ![](/images/ravendb-what-am-i-persisting-part-2-1.png)

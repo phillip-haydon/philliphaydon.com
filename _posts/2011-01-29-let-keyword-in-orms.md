@@ -26,6 +26,8 @@ This nifty query would generate SQL like so:
     
 After commenting in their blog post about it they implemented it and put it into the nightly build. So after some months I finally got around to testing it, for a couple of reasons. Back when NHibernate 3.0 was in Alpha, this technique didn't work! So I thought I would test it out and see if it does, as well as checkout the SQL that's generated.
 
+<!--excerpt-->
+
 I'm using the following ORM's
 
 - LightSpeed 3.11 Nightly Build (3.1 it doesn't work)

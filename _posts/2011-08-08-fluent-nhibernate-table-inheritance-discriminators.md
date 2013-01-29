@@ -31,6 +31,8 @@ These classes are really basic at the moment.
     public class LinkShareWallPost : WallPost
     {
     }
+    
+<!--excerpt-->
 
 First we map the Wall Post:
 

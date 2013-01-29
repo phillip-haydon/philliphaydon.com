@@ -18,6 +18,8 @@ Once this is installed you will get a little icon on your Start Screen:
 
 You can see the Green Arrow:
 
+<!--excerpt-->
+
 <img src="/images/image18.png" />
 
 When you run this for the first time it will ask you to configure some stuff, mainly for the firewall:

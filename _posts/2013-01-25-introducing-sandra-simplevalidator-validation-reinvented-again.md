@@ -19,6 +19,8 @@ So what do you need to do?
 
 First up, install the package. It requires 4.0 or above, it could probably work on 3.5 but who uses that anymore?
 
+<!--excerpt-->
+
 Once installed, you can create a validator
 
     public class UserValidator : ValidateThis<User>

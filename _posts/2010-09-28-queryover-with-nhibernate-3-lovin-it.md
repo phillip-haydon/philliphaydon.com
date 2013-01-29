@@ -17,6 +17,8 @@ With some more criteria, since the data comes from MYOB it's sometimes out of da
 
 Originally this stuff was in a stored procedure, and I needed to write this using QueryOver.
 
+<!--excerpt-->
+
 I broken the query into two pieces, the query against the Product with criteria, and the query against the ProductType, using the Product query as  a Subquery for the ProductType criteria.
 
     var products = QueryOver.Of<Product>()

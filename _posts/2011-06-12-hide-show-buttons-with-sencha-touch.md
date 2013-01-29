@@ -42,6 +42,8 @@ So to start with I have a Panel, with a ToolBar docked to the bottom, a couple o
         }
     });
 
+<!--excerpt-->
+
 At the moment it's all nested, so the first thing I'll do is pull the toolbar items out, I'll also assign them to local variables and create them using the Ext.Button type. This gives us access to the methods and events for the buttons.
 
     var btnCardOne = new Ext.Button({

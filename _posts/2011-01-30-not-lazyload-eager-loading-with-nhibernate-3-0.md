@@ -16,6 +16,8 @@ I think it's best to demonstrate why turning off lazy-loading at the mapping is 
 
 Nothing special but needed something that has a few relationship"s. (I think you can click that image to make it bigger)
 
+<!--excerpt-->
+
 So as we can see, a Post has 4 relationships, and a Comment has a relationship back to the Post and User.
 
 I've mapped it and created some test data:

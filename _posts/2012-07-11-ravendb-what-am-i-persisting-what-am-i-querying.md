@@ -18,6 +18,8 @@ Then when we go to query those relationships we have to join data, when we have 
 
 When working with Document Databases we throw all that out the window and we deal with Root Aggregates. These are objects that are responsible for their child objects, you don't load the child objects individually, they are loaded with the root or parent object.
 
+<!--excerpt-->
+
 The most common example I see is Blog/Posts/Comments, but I'm going to explain an easier scenario.
 
 ## Order/OrderLine ##

@@ -26,6 +26,8 @@ The first solution I came up with was to use Autofac to call Commit on release:
                             {
                                 ((IUnitOfWork) x).Commit();
                             });
+
+<!--excerpt-->
                             
 It works...  but it seemed like a real hack, so I kept digging.
 

@@ -14,6 +14,8 @@ If you right click a Solution and go to 'Properties' you are presented with the 
 
 In "Startup Project" there's an option to select multiple projects, this solution which is a NServiceBus demo, shows 3 projects set to start.
 
+<!--excerpt-->
+
 Ahhh it all makes sense now. 7 years of using Visual Studio and I didn't know this feature existed. All this time I had being starting projects manually from the bin directories thinking "there must be an easier way".
 
 Yet if I Googled "visual studio multiple startup projects" the first link is:

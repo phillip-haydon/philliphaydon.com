@@ -34,6 +34,8 @@ So I have an abstract class Content, with two derived classes, Article and Video
         public string VideoUrl { get; set; }
     }
 
+<!--excerpt-->
+
 Then I initialize the DocumentStore and store a couple of documents.
 
     var documentStore =

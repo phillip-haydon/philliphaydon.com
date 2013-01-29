@@ -25,6 +25,8 @@ This question links to:
 
 This breaks Area's, why? Because to handle an Area it appends `?Area=areaname` to the Url. FAIL. Probably worked great for MVC 1,but considering I've seen it linked in MVC 3 questions,I consider it fail.
 
+<!--excerpt-->
+
 <http://stackoverflow.com/questions/878578/how-can-i-have-lowercase-routes-in-asp-net-mvc/1731652#1731652>
 
 Writing them in lowercase? Really?

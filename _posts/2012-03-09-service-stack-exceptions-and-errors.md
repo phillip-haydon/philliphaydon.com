@@ -18,6 +18,8 @@ Then, it all works in development, and you put it in production, and it doesn't 
 
 And in the end, it was probably a PEBKAC issue where you forgot to put a stupid attribute on a property...
 
+<!--excerpt-->
+
 At my previous job, a couple of my friends were up until about 4am, they spent 16 hours debugging a WCF issue, because it's a pain.
 
 ## Enter Service Stack ##

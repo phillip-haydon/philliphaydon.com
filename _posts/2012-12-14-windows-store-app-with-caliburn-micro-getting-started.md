@@ -18,6 +18,8 @@ The downside is they were very WPF centric, and a few things getting started hav
 
 So, here's my blog series.
 
+<!--excerpt-->
+
 ## Before getting started ##
 
 The most important thing to note about building Windows Store App's is that you can't just reference any old assembly, it has to be either developed for Windows Store, or be created as a portable library. This is because WinRT (Windows Runtime) doesn't contain all the same namespaces as the .NET framework.

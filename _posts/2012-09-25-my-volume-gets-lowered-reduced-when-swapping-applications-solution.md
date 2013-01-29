@@ -20,6 +20,8 @@ The solution? Disable that shit!
 
 <img src="/images/windows-volume-2.png" />
 
+<!--excerpt-->
+
 3) Untick Exclusive Mode:
 
 <img src="/images/windows-volume-3.png" />

@@ -32,6 +32,8 @@ Now if I insert a Dog and Cat:
         session.Store(new Cat() { Name = "Test Cat" });
         session.SaveChanges();
     }
+    
+<!--excerpt-->
 
 What's stored in RavenDB is two separate documents, one for 'dogs' and one for 'cats'.
 

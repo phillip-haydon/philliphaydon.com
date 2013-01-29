@@ -35,6 +35,8 @@ Basically you just need to create a new instance of the `MultiTypeHiLoKeyGenerat
 
 So running up my app once:
 
+<!--excerpt-->
+
 ![](/images/ravendb-hilo-1.png)
 
 And again:

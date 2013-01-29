@@ -23,6 +23,8 @@ Given this rather simple table using IDENTITY.
         Surname nvarchar(100) NOT NULL
     )
 
+<!--excerpt-->
+
 And I'll demo with NEWID() as well.
 
     CREATE TABLE Fruit
