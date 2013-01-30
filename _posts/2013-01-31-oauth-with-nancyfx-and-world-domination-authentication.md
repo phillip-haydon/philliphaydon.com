@@ -129,11 +129,14 @@ And we get redirected back to the website after allowing the authentication with
 That's all there is to it.
 
 The sample can be found on github here:
+
 - <https://github.com/PureKrome/WorldDomination.Web.Authentication/tree/master/Samples/WorldDomination.Web.Authentication.Test.NancyFX2>
 
 You can find the source code on github: 
+
 - <https://github.com/PureKrome/WorldDomination.Web.Authentication>
 
 And the Nuget packages
+
 - <http://www.nuget.org/packages/WorldDomination.Web.Authentication/>
 - <http://www.nuget.org/packages/Nancy.Authentication.WorldDomination/>
