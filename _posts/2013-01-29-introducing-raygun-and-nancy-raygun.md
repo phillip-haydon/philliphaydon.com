@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Introducing Raygun.io and Nancy.Raygun
+category: NancyFX
 ---
 
 So not long ago I [posted](/2012/10/keep-an-eye-on-raygun-to-zap-all-your-errors-away/) about an up and coming service from <http://www.mindscapehq.com> called [Raygun](http://www.raygun.io), well last week they went into beta, and I was invited, so since early last week I've been giving their system the run around and provided a little bit of feedback. 
