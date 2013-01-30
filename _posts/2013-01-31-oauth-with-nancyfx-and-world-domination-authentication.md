@@ -24,6 +24,8 @@ This will install:
 - WorldDomination.Web.Authentication
 - RestSharp
 
+<!--excerpt-->
+
 The first package is the Nancy provider, this wires up all the routes and handles the redirect and callback.
 
 The second package is the actual implementation, this has no dependency on `NancyContext` or `System.Web`
