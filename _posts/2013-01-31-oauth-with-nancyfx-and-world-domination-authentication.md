@@ -53,7 +53,7 @@ Now add the `authenticationProviders` element.
       </providers>
     </authenticationProviders>
     
-<span class="note"**Note:** These are the key/secret you get when you register your application with the providers.</span>
+<span class="note">**Note:** These are the key/secret you get when you register your application with the providers.</span>
 
 You can get the key/secret registering your apps:
 
@@ -87,7 +87,7 @@ If you're using Nancy with the default TinyIoC container, you don't need to regi
 
 Last of all, you need to add some buttons to the screen. This is where you have to link to some specific URLs.
 
-<span class="note"**Note:** These links will be configurable in the future, but for now they are hard-coded.</span>
+<span class="note">**Note:** These links will be configurable in the future, but for now they are hard-coded.</span>
 
 The two URLs used by the system are:
 
@@ -110,7 +110,7 @@ Your callback urls would end up looking like:
 - /authentication/authenticatecallback?providerkey=facebook
 - /authentication/authenticatecallback?providerkey=google
 
-<span class="note"**Note:** The urls are forced to be lowercase because Google is case sensative, so when registering your app with google please make sure the url is registered all lowercase.</span>
+<span class="note">**Note:** The urls are forced to be lowercase because Google is case sensative, so when registering your app with google please make sure the url is registered all lowercase.</span>
 
 And you're done!
 
