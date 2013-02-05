@@ -71,26 +71,24 @@ You can get the key/secret registering your apps:
 
 Unlike Nancy, we need to tell Mvc to register the routes, if you don't mind using the built in routes you can simply call the registration, passing in the route table, and you will get the default routes described in the rest of this blog post.
 
-```csharp
-WorldDominationRouteConfig.RegisterRoutes(RouteTable.Routes);
-```
+
+    WorldDominationRouteConfig.RegisterRoutes(RouteTable.Routes);
+
 
 <span class="note"**Note:** This must be registered BEFORE your own routes, otherwise your default route will override the WorldDomination specific routes and then you will end up with issues such as the controller doesn't exist.</span>
 
 The routes registered are two specific ones:
 
-```csharp
-routes.MapRoute(
-    name: "WorldDominationAutomatedMvc-Redirect",
-    url: "authentication/redirect/{providerkey}/{additionaldata}",
-    defaults: new { controller = "WorldDominationAuthentication", action = "RedirectToProvider", additionaldata = UrlParameter.Optional }
-);
-routes.MapRoute(
-    name: "WorldDominationAutomatedMvc-AuthenticateCallback",
-    url: "authentication/authenticatecallback",
-    defaults: new { controller = "WorldDominationAuthentication", action = "AuthenticateCallback" }
-);
-```
+    routes.MapRoute(
+        name: "WorldDominationAutomatedMvc-Redirect",
+        url: "authentication/redirect/{providerkey}/{additionaldata}",
+        defaults: new { controller = "WorldDominationAuthentication", action = "RedirectToProvider", additionaldata = UrlParameter.Optional }
+    );
+    routes.MapRoute(
+        name: "WorldDominationAutomatedMvc-AuthenticateCallback",
+        url: "authentication/authenticatecallback",
+        defaults: new { controller = "WorldDominationAuthentication", action = "AuthenticateCallback" }
+    );
 
 Alternatively if you want to specify your own routes, you can copy the route registration above and define your own paths.
 
