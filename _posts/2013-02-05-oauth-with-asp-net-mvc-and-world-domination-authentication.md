@@ -40,7 +40,7 @@ The last package is required by `WorldDomination.Web.Authentication` to process 
 
 Now that it's installed, we need to configure it, this is done one of two ways, by adding the information to the `web.config`, or by registering the information in the `Global.asax`
 
-I'm going to show the `web.config` way, but you can visit the github wiki for `WorldDomination.Web.Authentication` on information to configure via the Global.asax.
+I'm going to show the `web.config` way, but you can [visit the github wiki](https://github.com/PureKrome/WorldDomination.Web.Authentication/wiki) for `WorldDomination.Web.Authentication` on information to configure via the Global.asax.
 
 In the `web.config` add a config section like so
 
