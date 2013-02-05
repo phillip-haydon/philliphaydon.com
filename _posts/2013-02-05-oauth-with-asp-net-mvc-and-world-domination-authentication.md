@@ -14,7 +14,7 @@ To save you jumping to the other post, I'll quote myself:
 > 
 > The idea behind this framework is to keep it super simple to implement OAuth into your website, without the bloat. The core framework ONLY deals with Google, Twitter, and Facebook authentication. It doesn't try to create a fancy UI for you, it doesn't require you to write lots and lots of code. You simply give it some info, it redirects, it comes back and gives you the authentication info.
 
-So without further adue...
+So without further adieu...
 
 ### Installing
 
