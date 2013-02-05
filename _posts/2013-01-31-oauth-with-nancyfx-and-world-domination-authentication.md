@@ -100,7 +100,7 @@ Examples: The links you would add to your page would be similar to:
     <a href="/authentication/redirect/Facebook"><img src="/Content/facebook_32.png" /></a>
     <a href="/authentication/redirect/Google"><img src="/Content/google_32.png" /></a>
 
-These links are just normal hyperlinks, giving you absolute freedom and flexibility to style them any way you want. Because we have absolutely NO involvement in the geneartion of the links, we cannot get in the way.
+These links are just normal hyperlinks, giving you absolute freedom and flexibility to style them any way you want. Because we have absolutely NO involvement in the generation of the links, we cannot get in the way.
 
 All you need to do is ensure that the links provided to us look like the above.
 
@@ -110,7 +110,7 @@ Your callback urls would end up looking like:
 - /authentication/authenticatecallback?providerkey=facebook
 - /authentication/authenticatecallback?providerkey=google
 
-<span class="note">**Note:** The urls are forced to be lowercase because Google is case sensative, so when registering your app with google please make sure the url is registered all lowercase.</span>
+<span class="note">**Note:** The urls are forced to be lowercase because Google is case sensitive, so when registering your app with google please make sure the url is registered all lowercase.</span>
 
 And you're done!
 
