@@ -113,3 +113,5 @@ We can see that it hits the correct route.
 ![](/images/nancy-method-override-4.png)
 
 And the item (Product 4) has been removed from the list. So that's it, super simple to override the Method verb in NancyFX :)
+
+<span class="note">**Note:** At the time of writing this, version 0.15.3 only supports `_method` on form posts, but future versions will support both `X-HTTP-Method-Override` and `_method` on both Headers and Forms.</span>
