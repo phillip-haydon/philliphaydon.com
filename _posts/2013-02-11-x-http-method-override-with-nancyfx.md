@@ -34,6 +34,8 @@ This would allow us to define the same route like so
         ... Do Something...
     };
 
+<!--excerpt-->
+
 Since HTML forms only allow GET/POST, the web framework needs to do a little bit of trickery in order to send a request to the correct route/verb. In this case we want to use a POST but have it go to a DELETE route.
 
 MVC offers the ability to use the `HttpMethodOverride` helper to add a hidden input field to a form
