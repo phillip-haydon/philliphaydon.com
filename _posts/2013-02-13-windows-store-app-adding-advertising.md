@@ -41,7 +41,7 @@ Now you can use the Tools to drag/drop the advert control to your Xaml file.
                   
 The two things that are important are the `AdUnitId` and `ApplicationId`, the ApplicationId should get populated automatically using the test value. (the value shown in the code above) if not, you can manually assign it.
 
-To test your advert you need to add a `AdUnitId` specific to the dimentions you want to show, and for the type of advert you want to test.
+To test your advert you need to add a `AdUnitId` specific to the dimensions you want to show, and for the type of advert you want to test.
 
 <table>
   <tbody>
@@ -94,7 +94,7 @@ To test your advert you need to add a `AdUnitId` specific to the dimentions you 
 
 You can find a full list of test modes on [MSDN - Test Mode Values](http://msdn.microsoft.com/en-us/library/advertising-windows-test-mode-values(v=msads.10).aspx)
 
-Find the Height/Width you want, ensure your Ad control is set to the same Height/Width, and assign the corosponding `AdUnitId` to the control.
+Find the Height/Width you want, ensure your Ad control is set to the same Height/Width, and assign the corresponding `AdUnitId` to the control.
 
 Now when you run your app you should get something like
 
