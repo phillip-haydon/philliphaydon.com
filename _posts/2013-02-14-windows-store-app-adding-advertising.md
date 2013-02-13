@@ -19,6 +19,8 @@ There's two main things you need to do (besides installing the correct SDK, I ha
   
 The first part is easy... (well the 2nd part is too... but I didn't realise that at first)
 
+<!--excerpt-->
+
 ## Implementing your advert
 
 Head on over to MSDN to download the [Microsoft Advertising SDK](http://go.microsoft.com/?linkid=9815330) and install it.
