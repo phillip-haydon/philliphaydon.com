@@ -84,6 +84,8 @@ The next thing you want to do is open up the code file for the App.xaml file. By
 
 Below is the recommendation sample from Caliburn.Micro documentation, it does quite a bit including having a basic IoC container for WinRT, and handles View or ViewModel first approach.
 
+<span class="note">**Note:** Caliburn.Micro 1.4.1 has a breaking change, please read the [updated post](/2013/02/windows-store-app-with-caliburn-micro-getting-started-updated/) for info on updating the code below to be compatiable with v1.4.1</span>
+
     using System;
     using System.Collections.Generic;
     using Caliburn.Micro;
