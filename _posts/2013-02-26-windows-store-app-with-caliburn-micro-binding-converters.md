@@ -4,7 +4,7 @@ title: Windows Store App with Caliburn.Micro - Binding Converters
 category: Windows 8 App
 ---
 
-In my last post about Basic Binding we added the ability to Hide/Show a control using Viability property of the control to make it `Visible` or `Collapsed`
+In my last post about [Basic Binding](http://www.philliphaydon.com/2013/01/windows-store-app-with-caliburn-micro-basic-binding) we added the ability to Hide/Show a control using Viability property of the control to make it `Visible` or `Collapsed`
 
 However the View Model shouldn't have any real knowledge of how the view works, meaning it shouldn't actually dictate the visibility using the controls properties.
 
