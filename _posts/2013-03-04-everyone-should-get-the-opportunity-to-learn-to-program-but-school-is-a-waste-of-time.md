@@ -36,7 +36,7 @@ My time at school was SO bad, my english teacher told my parents that there was 
 
 The best thing that happened to me though, was my Dad bought me a Commadore 64, with 3 games, and some BASIC 2 manuals. After playing the games, I learnt to program, I finished most of the book teaching me how to build a question/answer games and other super basic things, and taking what I learnt I built a Hang Man game with ascii graphics. I was 8 years old.
 
-I'm about to turn 27, and despite the fact that I failed year 12 two years in a row and dropped out, and never went to university. I love my life, my job, and I amaze myself with how far I've come, all because my DAD gave me the opportunity to learn to program. 
+I'm about to turn 27, and despite the fact that I failed year 12 two years in a row and dropped out, and never went to university... I love my life, my job, and I amaze myself with how far I've come, all because my DAD gave me the opportunity to learn to program. 
 
 ## My opinion
 
@@ -53,3 +53,7 @@ We hinder the progression of kids by grouping them by age rather than ability. W
 We need to stop blaming kids and coming up with excuses because they don't learn the same way the rest of the kids do. 
 
 We need to teach kids to think and learn, and stop indoctrinating education on them.
+
+**Edit** I posted this on Hacker News, lots of good comments on there, for and against. Enjoyed reading them. 
+
+<http://news.ycombinator.com/item?id=5318224>
