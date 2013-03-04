@@ -18,6 +18,8 @@ There's an awesome TED video by Sir Ken Robinson titled "Do Schools Kill Creativ
 
 **It's worth watching, awesome talk and very funny**
 
+<!--experpt-->
+
 We spend so much time teaching kids they are wrong, teaching them that they are failures because they fail subjects they aren't interested in, while not allowing them to do the things they are interested in.
 
 ## A little about me
