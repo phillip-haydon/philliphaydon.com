@@ -11,11 +11,11 @@ I'm still a .NET Dev but ah... god it's painful going back to VS 2010... The new
 
 ### Still using
 
-- [ReSharper](1)
-- [Mindscape Web Workbench](2)
-- [BugAid](3)
-- [ILSpy](4)
-- [SublimeText 2](5)
+- [ReSharper](http://www.jetbrains.com/resharper/)
+- [Mindscape Web Workbench](http://www.mindscapehq.com/products/web-workbench)
+- [BugAid](http://www.bugaidsoftware.com/)
+- [ILSpy](http://wiki.sharpdevelop.net/ilspy.ashx)
+- [SublimeText 2](http://www.sublimetext.com/2)
 
 ### Raygun.io
 <http://raygun.io>
@@ -62,10 +62,3 @@ I'm still torn between these. Like em both...
 ----
 
 And that's it, I haven't really changed much over the last year. 
-
-
-  [1]: [http://www.jetbrains.com/resharper/]
-  [2]: [http://www.mindscapehq.com/products/web-workbench]
-  [3]: [http://www.bugaidsoftware.com/]
-  [4]: [http://wiki.sharpdevelop.net/ilspy.ashx]
-  [5]: [http://www.sublimetext.com/2]
