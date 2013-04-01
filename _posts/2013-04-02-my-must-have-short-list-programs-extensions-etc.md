@@ -3,7 +3,7 @@ layout: post
 title: My must have (short) list of programs/extensions etc...
 ---
 
-It's been 1 year since I posted my [list][1], well.. 1 year has come and gone, and I missed posting this on the same date. None the less its April now and here's my post.
+It's been 1 year since I posted my [list](http://www.philliphaydon.com/2012/03/my-must-have-short-list-programs-and-extensions-etc/) , well.. 1 year has come and gone, and I missed posting this on the same date. None the less its April now and here's my post.
 
 ### Visual Studio 2012
 
@@ -11,11 +11,11 @@ I'm still a .NET Dev but ah... god it's painful going back to VS 2010... The new
 
 ### Still using
 
-- [ReSharper][2]
-- [Mindscape Web Workbench][3]
-- [BugAid][4]
-- [ILSpy][5]
-- [SublimeText 2][6]
+- [ReSharper][1]
+- [Mindscape Web Workbench][2]
+- [BugAid][3]
+- [ILSpy][4]
+- [SublimeText 2][5]
 
 ### Raygun.io
 <http://raygun.io>
@@ -64,9 +64,8 @@ I'm still torn between these. Like em both...
 And that's it, I haven't really changed much over the last year. 
 
 
-  [1]: [http://www.philliphaydon.com/2012/03/my-must-have-short-list-programs-and-extensions-etc/]
-  [2]: [http://www.jetbrains.com/resharper/]
-  [3]: [http://www.mindscapehq.com/products/web-workbench]
-  [4]: [http://www.bugaidsoftware.com/]
-  [5]: [http://wiki.sharpdevelop.net/ilspy.ashx]
-  [6]: [http://www.sublimetext.com/2]
+  [1]: [http://www.jetbrains.com/resharper/]
+  [2]: [http://www.mindscapehq.com/products/web-workbench]
+  [3]: [http://www.bugaidsoftware.com/]
+  [4]: [http://wiki.sharpdevelop.net/ilspy.ashx]
+  [5]: [http://www.sublimetext.com/2]
