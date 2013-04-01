@@ -11,11 +11,11 @@ I'm still a .NET Dev but ah... god it's painful going back to VS 2010... The new
 
 ### Still using
 
-- [ReSharper][1]
-- [Mindscape Web Workbench][2]
-- [BugAid][3]
-- [ILSpy][4]
-- [SublimeText 2][5]
+- [ReSharper](1)
+- [Mindscape Web Workbench](2)
+- [BugAid](3)
+- [ILSpy](4)
+- [SublimeText 2](5)
 
 ### Raygun.io
 <http://raygun.io>
