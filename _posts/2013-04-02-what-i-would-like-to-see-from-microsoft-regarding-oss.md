@@ -14,6 +14,8 @@ One of the things I think Microsoft does is promote itself against the community
 
 I'm not suggesting that Microsoft actively promotes frameworks like FubuMVC, NancyFX, ServiceStack etc as their own, or in such a way that it overshadows their own stuff. What I would like to see is Microsoft promoting itself along side other frameworks. A lot of the guys who create these other frameworks are advisories for MVC/WebAPI, they help make Microsoft frameworks better, and there's all the people who contribute, and in my personal opinion Microsoft doesn't really give anything back to the community through its main channels.
 
+<!--excerpt-->
+
 People in the community help the community, we all know this stuff exists, but a lot of us are stuck in jobs where we cannot use it because it's not "Microsoft", I think if Microsoft helped promote itself with the community, people outside the community who hear of these things through the main channels would be more willing to integrate non-Microsoft technologies in their existing Microsoft solutions.
 
 ### Ideas
@@ -33,3 +35,5 @@ What I would like to see is Microsoft make creating templates MUCH easier for pe
 ### Your Ideas
 
 I would love for anyone else reading this to add their own ideas on how they think Microsoft can help the Open Source Community. Either on Hacker News (linked below) or in the comments below. Or even blog your own ideas and let me know!
+
+[Hacker News Comments](https://news.ycombinator.com/item?id=5479043)
