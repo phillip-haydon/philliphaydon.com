@@ -16,13 +16,13 @@ These changes are great! Still the same valuable information, but more smartly d
 ### Commenting
 I had an error, that occurred a lot... 
 
-![](/images/raygun-features-javascript-1.jpg)
+![](/images/raygun-features-javascript-1.png)
 
 So after fixing it, which took a little bit of effort to figure out, I commented on it!
 
 <!--excerpt-->
 
-![](/images/raygun-features-javascript-2.jpg)
+![](/images/raygun-features-javascript-2.png)
 
 This is awesome! This is really powerful if the exception reoccurs, and becomes even more powerful if they decide to implement [this suggestion](http://raygun.io/thinktank/suggestion/1012).
 
@@ -30,7 +30,7 @@ This is awesome! This is really powerful if the exception reoccurs, and becomes 
 
 I submitted my app to the Windows App Store, and it got declined, multiple times... But it allowed me to identity a bug in Microsoft Advertising SDK.
 
-![](/images/raygun-features-javascript-3.jpg)
+![](/images/raygun-features-javascript-3.png)
 
 So it turns out there are random scenarios where the Advert Control, doesn't work and causes the app to crash hard. The dump that Microsoft supplies is absolute rubbish, it's massively time consuming and often doesn't give you enough information. 
 
