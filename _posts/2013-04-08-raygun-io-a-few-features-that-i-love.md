@@ -1,7 +1,7 @@
-----
+---
 layout: post
 title: Raygun.io - a few features that I love
-----
+---
 
 I've been using Raygun.io for a couple of months now and seen a whole heap of new features added.
 
