@@ -6,7 +6,7 @@ title: NancyFX - Implementing your own routing!
 With the up and coming release of 0.17 of NancyFX, the routing has been completely rewritten, and now it's super easy to implement your own routing. So I'm going to show you how.
 
 
-### How it works
+## How it works
 
 The routing works by defining a route:
 
@@ -28,36 +28,36 @@ When a request comes in, the segment is compared to the node for a match and ret
 
 These are a bunch of conditions for checking different nodes, currently Nancy supports out of the box the following nodes.
 
-### Existing Nodes
+## Existing Nodes
 This is brief description of the existing nodes that currently exist in 0.17. 
 
-#### CaptureNode
+### CaptureNode
 This node captures `{foo}`, or basically any value defined in the segment.
 
 <!--excerpt-->
 
-#### CaptureNodeWithDefaultValue
+### CaptureNodeWithDefaultValue
 Similar to `CaptureNode`, `{foo?defaultValue}`, allows you to capture any value, with a default value should the value not exist.
 
-#### GreedyCaptureNode
+### GreedyCaptureNode
 This is like the be-all-end-all node `{greedy*}`. It will capture anything in the current segment and onward. Although other segments are still checked. I would think it's rare to ever need this node.
 
-#### LiteralNode
+### LiteralNode
 If nothing else is captured in any other node, then likely hood it's a literal value, this will just capture the segment as is, non-capturing, its just a match or non-match. 
 
-#### OptionalCaptureNode
+### OptionalCaptureNode
 This is like the `CaptureNode` and `CaptureNodeWithDefaultValue`, but it just makes the segment as optional. It can or cannot exist, if it exists it's captured.
 
-#### RegExNode
+### RegExNode
 Wooo Regular Expression support! `(?<foo>\d{2,4})` is a named capture that will find an numeric value between 2-4 digits long, in the segment.
 
-#### GreedyRegExCaptureNode
+### GreedyRegExCaptureNode
 The `GreedyRegExCaptureNode` is a little more complicated, it's a mix between the `RegExNode` and `GreedyCaptureNode`, and supports any number of segments in a regular expression match. i.e `^(?:(?<id>videos/\d{1,10})(?:/{0,1}(?<slug>.*)))$` will match `videos/123` or `videos/123/some-slug-url`.
 
-#### RootNode
+### RootNode
 This node simply dictates that this is the very start of the route segments, the very root. Effectively its `/`
 
-### Implementing your own Node
+## Implementing your own Node
 
 So we're going to create a route constraint. Our node will look like `[foo:even]`, we're saying that the segment will be captured, only if the value is an even number, anything else and it wont match. 
 
@@ -189,7 +189,7 @@ Our final Node looks like so:
 	    }
 	}
 
-### Implementing your own factory
+## Implementing your own factory
 
 You're required to implement your own factory to call the new Node, this is super easy because we can just inherit the existing one.
 
@@ -222,7 +222,7 @@ You can see that the first condition is that I check that the parent is null, th
 
 So by checking its null, we return a RootNode, then the call comes in the second time, it will have a parent node, and then check to see if the segment starts/ends with our criteria.
 
-### Wiring up the new factory
+## Wiring up the new factory
 
 Lastly we need to wire up the factory in the bootstrapper, we can do this by overriding the `NancyInternalConfiguration` property and overriding the `TrieNodeFactory` property with our custom type like so:
 
@@ -239,7 +239,7 @@ Lastly we need to wire up the factory in the bootstrapper, we can do this by ove
 
 Bam, that's it! 
 
-### Does it work?
+## Does it work?
 
 So if we create a new Module called `TestModule` and implement two routes:
 	
