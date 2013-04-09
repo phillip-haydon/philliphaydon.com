@@ -31,30 +31,30 @@ These are a bunch of conditions for checking different nodes, currently Nancy su
 ### Existing Nodes
 This is brief description of the existing nodes that currently exist in 0.17. 
 
-###### CaptureNode
+#### CaptureNode
 This node captures `{foo}`, or basically any value defined in the segment.
 
 <!--excerpt-->
 
-###### CaptureNodeWithDefaultValue
+#### CaptureNodeWithDefaultValue
 Similar to `CaptureNode`, `{foo?defaultValue}`, allows you to capture any value, with a default value should the value not exist.
 
-###### GreedyCaptureNode
+#### GreedyCaptureNode
 This is like the be-all-end-all node `{greedy*}`. It will capture anything in the current segment and onward. Although other segments are still checked. I would think it's rare to ever need this node.
 
-###### LiteralNode
+#### LiteralNode
 If nothing else is captured in any other node, then likely hood it's a literal value, this will just capture the segment as is, non-capturing, its just a match or non-match. 
 
-###### OptionalCaptureNode
+#### OptionalCaptureNode
 This is like the `CaptureNode` and `CaptureNodeWithDefaultValue`, but it just makes the segment as optional. It can or cannot exist, if it exists it's captured.
 
-###### RegExNode
+#### RegExNode
 Wooo Regular Expression support! `(?<foo>\d{2,4})` is a named capture that will find an numeric value between 2-4 digits long, in the segment.
 
-###### GreedyRegExCaptureNode
+#### GreedyRegExCaptureNode
 The `GreedyRegExCaptureNode` is a little more complicated, it's a mix between the `RegExNode` and `GreedyCaptureNode`, and supports any number of segments in a regular expression match. i.e `^(?:(?<id>videos/\d{1,10})(?:/{0,1}(?<slug>.*)))$` will match `videos/123` or `videos/123/some-slug-url`.
 
-###### RootNode
+#### RootNode
 This node simply dictates that this is the very start of the route segments, the very root. Effectively its `/`
 
 ### Implementing your own Node
