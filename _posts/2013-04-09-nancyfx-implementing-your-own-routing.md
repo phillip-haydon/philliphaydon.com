@@ -1,6 +1,7 @@
 ---
 layout: post
 title: NancyFX - Implementing your own routing!
+category: NancyFX
 ---
 
 With the up and coming release of 0.17 of NancyFX, the routing has been completely rewritten, and now it's super easy to implement your own routing. So I'm going to show you how.
