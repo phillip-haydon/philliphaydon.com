@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Keep an eye on Raygun to zap all your errors away.
+category: Raygun
 ---
 
 Mindscape, creator of the awesome [Web Workbench](http://www.mindscapehq.com/products/web-workbench) tool for visual studio as well as other awesome products, made an [announcement](https://twitter.com/MindscapeHQ/status/260851721230761985) today on twitter of a new up coming product they are working on.
