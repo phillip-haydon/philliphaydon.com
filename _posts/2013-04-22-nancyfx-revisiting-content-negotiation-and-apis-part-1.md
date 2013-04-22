@@ -48,7 +48,7 @@ We have a `ProductsModule`, it can `Get` a single product, or it can `Get` a lis
 	    }
 	}
 
-Using a Chrome Plugin called which can be found on the [Chrome Web Store](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?utm_source=chrome-ntp-launcher). 
+Using a Chrome Plugin called Postman which can be found on the [Chrome Web Store](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?utm_source=chrome-ntp-launcher). 
 
 ![](/images/nancyfx-conneg-updated-1.png)
 
