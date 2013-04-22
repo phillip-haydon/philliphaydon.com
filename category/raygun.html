@@ -1,0 +1,17 @@
+---
+layout: default
+title: Category
+---
+<header>
+<div class="head-inner">
+	<h1><a href="/category/">{{ page.title }}</a> - Raygun</h1>
+</div>
+</header>
+
+<ul>
+  {% for post in site.posts %}
+  {% if post.category == "Raygun" %}
+    <li><a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a> <small>({{ post.date | date_to_string }})</small></li>
+  {% endif %}
+  {% endfor %}
+</ul>
