@@ -11,7 +11,7 @@ I thought I would revisit this topic since I don't believe I did it enough justi
 When the browser asks for `text/html` its negotiating with the server. So really your website is an API, your `Views` are just an additional type of content that your API serves up when requested.
 
 
-### Example
+## Example
 Lets say you're building Twitter, the initial page shows a list of tweets, so the browser makes a call to `/tweets` and the server responds with a list of tweets rendered with using HTML.
 
 Once the page has loaded, the client uses JavaScript to load new tweets, so it calls `/tweets` again, this time it returns a `json` result, and the client-side templating engine then renders and appends those to the top of the existing list, keeping the client up to date with the latest tweets.
@@ -22,7 +22,7 @@ What's nice is no new data needed to be written on the server!
 
 <span class="note">**Note:** I'm not going to discuss RESTful API's, that would just create too many arguments.</span>
 
-### Need code please
+## Need code please
 Right so lets see this in action for real. When I demonstrated this in my previous post, I showed a somewhat complicated Negotiate, this time I'm going to show a super simple scenario.
 
 We have a `ProductsModule`, it can `Get` a single product, or it can `Get` a list of products.
@@ -101,7 +101,7 @@ Super super simple, now when we call the same route again we get:
 
 Now we have a Single API that returns JSON, XML, or HTML. 
 
-### Fiddly Issues
+## Fiddly Issues
 Here's where things get fiddly, if we want to return the collection with a view, NancyFX will attempt to convert the `List<Product>` to it's name, and look for the view. This ends up looking for a view by the name of ``List`1``, which you may think will fail, but funnily enough you can actually create a view with the backquote.
 
 So lets create a new file called ``List`1.sshtml`` and populate it with some basic HTML:
@@ -134,5 +134,5 @@ Now if we run up the site again and hit `/products` we get:
 
 ![](/images/nancyfx-conneg-updated-8.png)
 
-### Recap
+## Recap
 So far we have created a single endpoint with very little code that can respond with JSON/XML/HTML. Next I'm going to show how `Negotiate` gives you more flexibility.
