@@ -14,6 +14,8 @@ Then we want to extend one of the Entities, maybe to add some methods and such, 
 
 We create a new `Member.cs` class in the `Partials` folder;
 
+<!--excerpt-->
+
 	namespace SampleNamespacing.Models.Partials
 	{
 	    public partial class Member
