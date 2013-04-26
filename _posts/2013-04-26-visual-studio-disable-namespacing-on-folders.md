@@ -53,3 +53,7 @@ BAM! Right there, `Namespace Provider`! Set that thing to `False` and we get:
 ![](/images/visual-studio-namespacing-5.png)
 
 No more warnings! 
+
+## Wheres this feature come from?
+
+Turns out this is a ReSharper setting! This setting is stored in the `*project*.csproj.DotSettings` file. So if you're using team settings then this setting would be picked up by everyone on the team. 
