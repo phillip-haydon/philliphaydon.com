@@ -1156,6 +1156,6 @@ div.post-note {
   font-size: 8pt;
 }
 div.divider {
-  border: 1px #d4d4d4 solid;
-  margin: 10px 0 15px 0;
+  border-top: 1px #d4d4d4 solid;
+  margin: 40px 0 15px 0;
 }
