@@ -1098,6 +1098,7 @@ ul.archive {
   -moz-border-radius: 4px;
   border-radius: 4px;
   background: #fff;
+  list-style: none;
 }
 
 span.note {
