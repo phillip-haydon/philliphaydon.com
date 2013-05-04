@@ -1149,15 +1149,6 @@ ul.posts {
       }
     
 ul.archive {
-  border: 1px #d4d4d4 solid;
-  border-top: 3px #e05c5c solid;
-  margin: 15px 0;
-  padding: 15px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  background: #fff;
-  box-shadow: 0 2px 6px rgba(100,100,100,.2);
   list-style: none;
 }
 
@@ -1181,4 +1172,27 @@ div.post-note {
 div.divider {
   border-top: 1px #d4d4d4 solid;
   margin: 40px 0 15px 0;
+}
+
+.category-list {
+  padding-left: 25px;
+}
+
+.fancy-container {
+  border: 1px #d4d4d4 solid;
+  margin: 15px 0;
+  padding: 15px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(100,100,100,.2);
+}
+
+.darkishblue {
+  border-top: 3px #409abf solid;
+}
+
+.darkishred {
+  border-top: 3px #e05c5c solid;
 }
