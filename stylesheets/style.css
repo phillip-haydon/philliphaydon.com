@@ -1136,8 +1136,8 @@ ul.posts {
       color: #999;
     }
     
-ul.archive {
-  list-style: none;
+ul.archive li {
+  margin-left: 15px;
 }
 
 span.note {
