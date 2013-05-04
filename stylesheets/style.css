@@ -807,12 +807,6 @@ h4, h5, h6 {
     width: 21%;
     margin-top: 34px;
     margin-bottom: 15px;
-    border: 1px #d4d4d4 solid;
-    background: #fff;
-    padding: 1%;
-    border-top: 3px #abe254 solid;
-    border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(100,100,100,.2);
 }
 
   #masthead h2 {
@@ -1196,4 +1190,12 @@ div.divider {
 
 .lightred {
     border-top: 3px #ff7575 solid;
+}
+
+.orange {
+    border-top: 3px #ff761b solid;
+}
+
+.lightgreen {
+    border-top: 3px #abe254 solid;
 }
