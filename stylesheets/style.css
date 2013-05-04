@@ -19,6 +19,7 @@ html {
 
 body {
     background: #fff;
+    background-image: url(images/pw_maze_white.png);
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
@@ -1081,6 +1082,7 @@ ul.posts {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
+    background: #fff;
   }
   
     ul.posts > li > h1 {
