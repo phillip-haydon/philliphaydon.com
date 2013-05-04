@@ -934,6 +934,7 @@ th {
         width: auto;
         margin-top: 0;
         float: none;
+        margin-bottom: 0;
     }
 
     .site-title, .site-description {
@@ -1000,7 +1001,7 @@ th {
 
 @media only screen and (max-width : 600px) {
     #masthead {
-        margin-top: 40px;
+        
     }
 }
 
