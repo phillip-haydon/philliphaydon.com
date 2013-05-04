@@ -1077,6 +1077,7 @@ div#post {
     -moz-border-radius: 4px;
     border-radius: 4px;
     background: #fff;
+    box-shadow: 0 2px 6px rgba(100,100,100,.2);
 }
   div#post h1 {
     margin: 0;
@@ -1107,6 +1108,7 @@ ul.posts {
     -moz-border-radius: 4px;
     border-radius: 4px;
     background: #fff;
+    box-shadow: 0 2px 6px rgba(100,100,100,.2);
   }
   
     ul.posts > li > h1 {
@@ -1135,6 +1137,7 @@ ul.archive {
   -moz-border-radius: 4px;
   border-radius: 4px;
   background: #fff;
+  box-shadow: 0 2px 6px rgba(100,100,100,.2);
   list-style: none;
 }
 
