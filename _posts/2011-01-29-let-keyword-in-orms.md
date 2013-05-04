@@ -1,7 +1,6 @@
 ---
 layout: post
-title: 
-category: 
+title: Let Keyword in ORMs
 ---
 
 A while ago [MindScape](http://www.mindscapehq.com/) posted a new feature called [Ninja Properties](http://www.mindscapehq.com/blog/index.php/2010/09/14/ninja-domain-properties-in-lightspeed/) for their ORM, LightSpeed. Their post happened to be a scenario I used to solve with LINQ 2 SQL using the 'let' keyword to create a composite type to query against.

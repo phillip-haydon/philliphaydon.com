@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 
-category: 
+title: MVC Routing with Attributes makes routing awesome
+category: ASP.NET MVC
 ---
 
 I evaluated HEAPS of code/libraries and threw in the towel and decided that getting lower-case routes, while still having Area's, was a complete and utter waste of time and effort because they were all crappy, and broke stuff, or didn't work.
