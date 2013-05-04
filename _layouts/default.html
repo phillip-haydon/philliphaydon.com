@@ -68,7 +68,7 @@
                 </aside-->
                 <aside id="linkcat-6" class="widget widget_links">
                     <h1 class="widget-title">Other Blogs</h1>
-                    <ul class='xoxo blogroll'>
+                    <ul class="blogroll">
                         <li><a href="http://www.nickharris.net/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://nickharris.net/']);">Nick Harris</a></li>
                         <li><a href="http://www.mindscapehq.com/blog/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.mindscapehq.com/blog/']);">Mindscape</a></li>
                         <li><a href="http://blog.orangelightning.co.uk/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://blog.orangelightning.co.uk/']);">Phil Jones</a></li>
@@ -82,7 +82,7 @@
                     {% assign year = '2015' %}
                     {% assign month = 'December' %}
 
-                    <ul class="posts">
+                    <ul class="archive-list">
                       {% for post in site.posts %}
                         {% capture postmonth %}{{ post.date | date: "%B" }}{% endcapture %}
                         <!-- {{ postmonth }} {{ month }} -->
