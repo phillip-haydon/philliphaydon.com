@@ -833,7 +833,8 @@ h4, h5, h6 {
     clear: left;
     float: left;
     overflow: hidden;
-    width: 24%;
+    width: 21%;
+    padding: 1%;
 }
 
     #secondary form#searchform input[type="text"].field {
@@ -930,7 +931,8 @@ th {
         width: 100%;
     }
 
-    #masthead {
+    #masthead,
+    #secondary {
         width: auto;
         margin-top: 0;
         float: none;
@@ -1190,4 +1192,8 @@ div.divider {
 
 .lightblue {
     border-top: 3px #00b6e3 solid;
+}
+
+.lightred {
+    border-top: 3px #ff7575 solid;
 }
