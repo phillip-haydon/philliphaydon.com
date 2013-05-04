@@ -12,6 +12,7 @@ title: philliphaydon.com
     {% capture postmonth %}{{ post.date | date: "%B" }}{% endcapture %}
     {% if postmonth != month %}
         {% assign month = postmonth %}
+        {% assign year = postyear %}
         {% if forloop.first %}
         {% else %}
             </ul>
