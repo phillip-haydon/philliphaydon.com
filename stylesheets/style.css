@@ -931,7 +931,7 @@ th {
     }
 
     #masthead {
-        width: 100%;
+        width: auto;
         margin-top: 0;
         float: none;
     }
@@ -950,6 +950,7 @@ th {
     .main-navigation {
         width: auto;
         clear: none;
+        float: none;
     }
 
         .main-navigation li {
