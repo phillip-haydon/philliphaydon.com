@@ -4,7 +4,7 @@ title: philliphaydon.com
 ---
 <ul class="posts">
   {% for post in paginator.posts %}
-<li>
+<li class="fancy-container lightblue">
     <h1>
       <a href="{{ post.url | remove:'.html' }}">{{ post.title }}</a>
       <span>posted on {{ post.date | date_to_string }}</span>
