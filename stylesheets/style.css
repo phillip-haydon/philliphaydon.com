@@ -123,8 +123,8 @@ blockquote {
     border-left: 4px #dfdfdf solid;
     padding: 10px 15px;
     border-radius: 12px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     background-color: #f3f3f3;
 }
 
@@ -592,7 +592,7 @@ ul.children .avatar {
 
 .comment-meta {
     margin-top: -12px;
-    margin-left: 0px;
+    margin-left: 0;
     margin-bottom: 20px;
 }
 
@@ -616,7 +616,7 @@ ul.children .avatar {
 }
 
 .comment-body {
-    margin-left: 0px;
+    margin-left: 0;
     margin-bottom: 40px;
 }
 
@@ -713,7 +713,7 @@ body {
 }
 
 .main-navigation a, #secondary ul li a {
-    padding: 2px 0px;
+    padding: 2px 0;
     text-decoration: none;
     display: block;
 }
@@ -1068,6 +1068,20 @@ pre {
     color: #2b91af;
 }
 
+div#post {
+    border: 1px #d4d4d4 solid;
+    border-top: 3px #84d74d solid;
+    margin: 15px 0;
+    padding: 15px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    background: #fff;
+}
+  div#post h1 {
+    margin-top: 0;
+  }
+
 ul.posts {
     list-style: none;
     margin:0;
@@ -1077,7 +1091,7 @@ ul.posts {
   ul.posts > li {
     border: 1px #d4d4d4 solid;
     border-top: 3px #00b6e3 solid;
-    margin: 15px 0px;
+    margin: 15px 0;
     padding: 15px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -1086,10 +1100,10 @@ ul.posts {
   }
   
     ul.posts > li > h1 {
-      margin-top: 0px;
+      margin-top: 0;
     }
       ul.posts > li > h1 a {
-        margin-top: 0px;
+        margin-top: 0;
         text-decoration: none;
       }
      
@@ -1105,7 +1119,7 @@ ul.posts {
 ul.archive {
   border: 1px #d4d4d4 solid;
   border-top: 3px #e05c5c solid;
-  margin: 15px 0px;
+  margin: 15px 0;
   padding: 15px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
