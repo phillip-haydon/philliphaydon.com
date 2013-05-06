@@ -4,8 +4,6 @@ title: NancyFX - Revisiting Content Negotiation & APIs (Part 1)
 category: NancyFX
 ---
 
-Some random text...
-
 Original Post: [NancyFX and Content Negotiation](/2012/11/nancy-and-content-negotiation)
 
 I thought I would revisit this topic since I don't believe I did it enough justice last time around, and I believe it really is important when creating an API that is going to be consumed not only by the public or client, but **by you also**!
