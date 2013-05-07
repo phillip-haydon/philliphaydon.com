@@ -10,13 +10,13 @@
     <author>
         <name>Phillip Haydon</name>
     </author>
-    <rights>Copyright (c) 2010-2013 Phillip Haydon</rights>
-    {% for post in site.posts limit:20 %}
+    <rights>Copyright (c) 2009 Phillip Haydon</rights>
+    {% for post in site.posts %}
     <entry>
         <title>{{ post.title }}</title>
         <link href="http://www.philliphaydon.com{{ post.url }}/"/>
         <updated>{{ post.date | date_to_xmlschema }}</updated>
-        <id>http://blog.philliphaydon.com{{ post.url }}/</id>
+        <id>http://www.philliphaydon.com{{ post.url }}/</id>
         <summary type="html">{{ post.content | xml_escape }}</summary>
     </entry>
     {% endfor %}
