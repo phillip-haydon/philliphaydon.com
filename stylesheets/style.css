@@ -714,7 +714,7 @@ body {
 .main-navigation a, #secondary ul li a {
     padding: 2px 0;
     text-decoration: none;
-    display: block;
+    display: inline;
 }
 
 #secondary .widget-title {
