@@ -19,6 +19,8 @@ Lets say you have a product catalog, and you can view a particular product on yo
 
 So lets update the `Product` to include `SpecialPrice`
 	
+<!--excerpt-->
+
 	public class Product
 	{
 	    public int Id { get; set; }
