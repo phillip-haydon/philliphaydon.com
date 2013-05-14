@@ -11,7 +11,7 @@
     <atom:link href="http://www.philliphaydon.com/rss" rel="self" type="application/rss+xml" />
     {% for post in site.posts %}
     <item>
-      <title>{{ post.title }}</title>
+      <title>{{ post.title | date_to_xmlschema }}</title>
       <description>{{ post.content | xml_escape }}</description>
       <link>http://www.philliphaydon.com{{ post.url }}/</link>
       <guid isPermaLink="true">http://www.philliphaydon.com{{ post.url }}/</guid>
