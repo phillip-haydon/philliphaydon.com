@@ -12,6 +12,8 @@ I'm currently in the process of slowly building a VM to run a few small websites
 
 The first time creating a VM took me a couple of hours to setup and working, nuking it and starting again took about as long as it took to provision the VM (few minutes)
 
+<!--excerpt-->
+
 ## Things I did wrong :(
 
  1. When I setup the DNS I used the Internal IP Address instead of the Public Virtual IP address. 
