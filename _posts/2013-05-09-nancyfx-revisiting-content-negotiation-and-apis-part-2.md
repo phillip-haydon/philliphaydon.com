@@ -4,8 +4,10 @@ title: NancyFX - Revisiting Content Negotiation & APIs (Part 2)
 category: NancyFX
 ---
 
-
+- Original Post: [NancyFX and Content Negotiation](/2012/11/nancy-and-content-negotiation)
 - [NancyFX - Revisiting Content Negotiation & APIs (Part 1)](/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/)
+- NancyFX - Revisiting Content Negotiation & APIs (Part 2)
+- [NancyFX - Revisiting Content Negotiation & APIs (Part 3)](/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/)
 
 In part 1 I went over a really basic scenario, and one of the fiddly things we had was the view name for returning a collection.
 
