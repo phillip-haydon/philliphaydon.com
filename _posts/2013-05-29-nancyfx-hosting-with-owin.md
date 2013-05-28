@@ -2,6 +2,7 @@
 layout: post
 title: NancyFX - Hosting with OWIN
 category: NancyFX
+published: false
 ---
 
 By now you've probably heard of OWIN, its slowly becoming more and more popular, hell even ThoughtWorks mentioned them on their [Radar](http://www.thoughtworks.com/radar)
@@ -14,7 +15,7 @@ The question of running NancyFX with Owin has been popping up more often lately 
 
 Lets start off by creating a brand new Empty Web Application:
 
-![](D:/Development/phillip-haydon/philliphaydon.com/images/original-images/images/nancyfx-owin-1.png)
+![](/images/nancyfx-owin-1.png)
 
 Once created you should get a semi long list of References...
 
