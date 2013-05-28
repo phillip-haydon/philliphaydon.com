@@ -10,6 +10,7 @@
     <copyright>Copyright (c) 2010 Phillip Haydon</copyright>
     <atom:link href="http://www.philliphaydon.com/rss.xml" rel="self" type="application/rss+xml" />
     {% for post in site.posts %}
+    {% unless post.draft %}
     <item>
       <title>{{ post.title | xml_escape }}</title>
       <description>{{ post.content | xml_escape }}</description>
@@ -17,6 +18,7 @@
       <guid isPermaLink="true">http://www.philliphaydon.com{{ post.url }}/</guid>
       <pubDate>{{ post.date | date: "%a, %d %b %Y 00:00:00 GMT" }}</pubDate>
     </item>
+    {% endunless %}
     {% endfor %}
   </channel>
 </rss>
