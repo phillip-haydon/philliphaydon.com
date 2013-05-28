@@ -4,6 +4,7 @@ title: philliphaydon.com
 ---
 <ul class="posts">
   {% for post in paginator.posts %}
+  {% unless post.draft %}
 <li class="fancy-container lightblue">
     <h1>
       <a href="{{ post.url | remove:'.html' }}">{{ post.title }}</a>
@@ -12,6 +13,7 @@ title: philliphaydon.com
     {{ post.content | split:'<!--excerpt-->' | first }}
     <p><a href="{{ post.url | remove:'.html' }}">Read more...</a></p>
 </li>
+  {% endunless %}
   {% endfor %}
 </ul> 
 

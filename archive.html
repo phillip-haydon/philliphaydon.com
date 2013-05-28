@@ -9,6 +9,7 @@ title: philliphaydon.com
 {% assign month = 'December' %}
 
 {% for post in site.posts %}
+  {% unless post.draft %}
     {% capture postmonth %}{{ post.date | date: "%B" }}{% endcapture %}
     {% if postmonth != month %}
         {% assign month = postmonth %}
@@ -22,5 +23,6 @@ title: philliphaydon.com
     {% endif %}
 
     <li><a href="{{ post.url | remove:'.html' }}">{{ post.title }}</a> (<span>{{ post.date | date_to_string }}</span>)</li>
+  {% endunless %}
 {% endfor %}
 </ul>

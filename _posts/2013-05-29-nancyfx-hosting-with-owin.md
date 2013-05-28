@@ -1,8 +1,8 @@
 ---
 layout: post
 title: NancyFX - Hosting with OWIN
-category: NancyFX
-published: false
+category: NancyFX-TEMP
+draft: true
 ---
 
 By now you've probably heard of OWIN, its slowly becoming more and more popular, hell even ThoughtWorks mentioned them on their [Radar](http://www.thoughtworks.com/radar)
