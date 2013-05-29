@@ -16,6 +16,8 @@ Lets start off by creating a brand new Empty Web Application:
 
 ![](/images/nancyfx-owin-1.png)
 
+<!--excerpt-->
+
 Once created you should get a semi long list of References...
 
 ![](/images/nancyfx-owin-2.png)
