@@ -3,7 +3,7 @@ layout: post
 title: NancyFX - Hosting with OWIN
 category: NancyFX
 ---
-test
+
 By now you've probably heard of OWIN, its slowly becoming more and more popular, hell even ThoughtWorks mentioned them on their [Radar](http://www.thoughtworks.com/radar)
 
 If you want to know what OWIN is, head on over to Paul Glavich's blog post on [Owin, Katana, and getting started](http://weblogs.asp.net/pglavich/)
