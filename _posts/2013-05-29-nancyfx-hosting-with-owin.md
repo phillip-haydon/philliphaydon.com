@@ -113,7 +113,7 @@ We will get an exception thrown...
 
 Luckily if you run into this scenario, you can either fix the namespace, or add a appSetting to your web.config like so:
 
-<add key="owin:AppStartup" value="NancyOwinWeb.App_Start.Startup, NancyOwinWeb" />
+	<add key="owin:AppStartup" value="NancyOwinWeb.App_Start.Startup, NancyOwinWeb" />
 
 ## Codez - Module
 
