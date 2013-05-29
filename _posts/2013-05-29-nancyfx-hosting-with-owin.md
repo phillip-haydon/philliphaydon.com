@@ -1,8 +1,7 @@
 ---
 layout: post
 title: NancyFX - Hosting with OWIN
-category: NancyFX-TEMP
-draft: true
+category: NancyFX
 ---
 
 By now you've probably heard of OWIN, its slowly becoming more and more popular, hell even ThoughtWorks mentioned them on their [Radar](http://www.thoughtworks.com/radar)
@@ -91,6 +90,29 @@ I opt to put this in a folder called App_Start
 
 That's really all that's required to setup Nancy in an Owin project. In the same configuration file you would obviously wire up other middleware, maybe some logging, possibly authentication, maybe... *shudder* you might even consider putting WebAPI in there. BUT please don't ruin your project :)
 
+The namespace is pretty important, if you don't use the default namespace, the Microsoft.Owin host can't find the startup. If for example, we added the App_Start namespace to the class:
+
+	namespace NancyOwinWeb.App_Start
+	{
+	    using Owin;
+	
+	    public class Startup
+	    {
+	        public void Configuration(IAppBuilder app)
+	        {
+	            app.UseNancy();
+	        }
+	    }
+	}
+
+We will get an exception thrown...
+
+![](/images/nancyfx-owin-8.png)
+
+Luckily if you run into this scenario, you can either fix the namespace, or add a appSetting to your web.config like so:
+
+<add key="owin:AppStartup" value="NancyOwinWeb.App_Start.Startup, NancyOwinWeb" />
+
 ## Codez - Module
 
 Now we just need a module, so lets create a nice simple module
@@ -108,7 +130,7 @@ Now we just need a module, so lets create a nice simple module
 	    }
 	}
 
-So now when we run 
+If we ran the app now this would happen...
 
 ![](/images/nancyfx-owin-6.png)
 
@@ -119,17 +141,19 @@ Nice! What about my Web.config file, that file that gets so messy that we all dr
 	<!--
 	  For more information on how to configure your ASP.NET application, please visit
 	  http://go.microsoft.com/fwlink/?LinkId=169433
-	  -->
+    -->
 	
 	<configuration>
 	    <system.web>
 	      <compilation debug="true" targetFramework="4.5" />
 	      <httpRuntime targetFramework="4.5" />
-	    </system.web>
-	
+	    </system.web>	
 	</configuration>
 
 That's it, believe it or not, I haven't changed a single line of this file at all!
 
+Best of all our references are next to nothing!
 
+![](/images/nancyfx-owin-7.png)
 
+So awesome...
