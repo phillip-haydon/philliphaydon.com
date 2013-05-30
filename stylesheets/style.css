@@ -1201,13 +1201,18 @@ div.divider {
     border-top: 3px #abe254 solid;
 }
 div.logos {
-  overflow: hidden;
+    overflow: hidden;
+    margin-bottom: 3px;
 } 
 div.logos a {
-  float: left;
-  line-height: 0px;
-  width: 48px;
-  height: 48px;
-  display: block;
-  margin-right: 1px;
+    float: left;
+    line-height: 0px;
+    width: 48px;
+    height: 48px;
+    display: block;
+    margin-right: 1px;
+    margin-bottom: 2px;
+}
+div.logos a:nth-child(4n) {
+    margin-right: 0px;
 }
