@@ -1200,3 +1200,14 @@ div.divider {
 .lightgreen {
     border-top: 3px #abe254 solid;
 }
+div.logos {
+  overflow: hidden;
+} 
+div.logos a {
+  float: left;
+  line-height: 0px;
+  width: 48px;
+  height: 48px;
+  display: block;
+  margin-right: 1px;
+}
