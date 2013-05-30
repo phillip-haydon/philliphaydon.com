@@ -1210,7 +1210,7 @@ div.logos a {
     width: 48px;
     height: 48px;
     display: block;
-    margin-right: 1px;
+    margin-right: 2px;
     margin-bottom: 2px;
 }
 div.logos a:nth-child(4n) {
