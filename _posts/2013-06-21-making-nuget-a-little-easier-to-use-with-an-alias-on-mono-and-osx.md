@@ -16,6 +16,8 @@ I found a [great post](http://orientman.wordpress.com/2012/12/29/for-the-record-
 
 But I didn't like having to type the following out each time, since I needed to install a few different project packages.
 
+<!--excerpt-->
+
 	mono --runtime=v4.0.30319 NuGet.exe install ./Code/WorldDomination.Web.Authentication/packages.config -OutputDirectory ./packages
 
 All the time, it seemed tedious. So what I did was, moved the NuGet.exe to `~/Tools/`
