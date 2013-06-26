@@ -544,6 +544,8 @@ embed, iframe, object {
 
 #content p img {
     max-width: 100%;
+    border: 1px #ccc solid;
+    border-radius: 4px;
 }
 
 #comments {

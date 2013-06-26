@@ -26,7 +26,7 @@ Select `Ubuntu Server 13.04` from the options, give your new server a name. For 
 
 <!--excerpt-->
 
-![](/images/setup-mono-on-ubuntu-1.png);
+![](/images/setup-mono-on-ubuntu-1.png)
 
 Click next (the little arrow thing) and setup as a Stand-Alone Virtual Machine. Name it and select a region, Next, and bam you're done.
 
