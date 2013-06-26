@@ -9,12 +9,12 @@ layout: default
         | <a href="/category/{{ page.category | downcase | replace: ' ', '-' }}">{{ page.category }}</a>
       {% endif %}
       
-      <div style="float:right">
-        <span class="st_twitter"></span>
-        <span class="st_facebook"></span>
-        <span class="st_googleplus"></span>
-        <span class="st_email"></span>
-        <span class="st_sharethis"></span>
+      <div class="addthis_toolbox addthis_default_style" style="float:right;">
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_linkedin_counter"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
       </div>
     </div>
     
@@ -36,7 +36,5 @@ layout: default
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-    <script>var switchTo5x=true;</script>
-    <script src="http://w.sharethis.com/button/buttons.js"></script>
-    <script>stLight.options({publisher: "ur-f0d955d3-1346-e14c-937c-99bdd7d25d97"});</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
 </div>
