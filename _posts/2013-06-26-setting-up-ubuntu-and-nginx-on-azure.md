@@ -10,7 +10,7 @@ title: Setting up Ubuntu and nginx on Azure
 * Part 4 - Setting up a NancyFX website
 * Part 5 - Setting up a ServiceStack web service
 
-<span class="node">**Note:** I'm breaking this up into 5 parts because otherwise it gets far too long :(</span>
+<span class="note">**Note:** I'm breaking this up into 5 parts because otherwise it gets far too long :(</span>
 
 So after spending a week with OSX, I thought I would see how well I go with setting up Mono on Ubuntu... on Azure. 
 
