@@ -126,7 +126,7 @@ Now, run the command `ls`
 
 If you haven't change the directory then it should be currently empty. So now we can run the command `wget http://localhost` which will issue a request to the `localhost` domain and download the HTML file.
 
-You should end up with your terminal looking like:
+You should end up with your command-line looking like:
 
 	root@mono-sample-ph:~# wget http://localhost
 	--2013-06-26 15:07:43--  http://localhost/
@@ -145,6 +145,10 @@ You should end up with your terminal looking like:
 	root@mono-sample-ph:~#
 
 As you can see when running `ls` again there's now a file called index.html. We can take a quick look at that by running `nano index.html` 
+
+Nano is a text editor that is installed on Ubuntu by default. To exit out of Nano once you're done looking press <kbd>ctrl</kbd> + <kbd>x</kbd> which will close Nano and return you to the command-line.
+
+For a good beginners guide take a look at [The Beginner’s Guide to Nano, the Linux Command-Line Text Editor](http://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/)
 
 ![](/images/setup-mono-on-ubuntu-11.png)
 
