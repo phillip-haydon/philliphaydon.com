@@ -6,7 +6,7 @@ title: Setting up new Website and Domain on nginx
 
 * [Part 1 - Setting up the Virtual Machine and nginx](/2013/06/setting-up-ubuntu-and-nginx-on-azure/)
 * Part 2 - Setting up new Website and Domain on nginx
-* [Part 3 - Setting Mono on nginx](/2013/06/setting-up-mono-on-nginx/)
+* [Part 3 - Setting up Mono on nginx](/2013/06/setting-up-mono-on-nginx/)
 * Part 4 - Setting up a NancyFX website
 * Part 5 - Setting up a ServiceStack web service
 
