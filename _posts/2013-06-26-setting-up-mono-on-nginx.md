@@ -36,6 +36,8 @@ We wont deploy a bin folder or anything like that, it will be almost like deploy
 
 So we are just creating a variable named `test` with some test data, then outputting it to the page. 
 
+<!--excerpt-->
+
 We need to navigate to our site directory by calling `cd /var/www/phillip.pw` followed by creating a new file in nano by calling `nano test.aspx`
 
 This will open up a new nano window. Now you can type in the test code, or paste it in. Now we need to save it by calling <kbd>CTRL</kbd> + <kbd>X</kbd> followed by <kbd>Y</kbd> and <kbd>Enter</kbd>. Same thing we have been doing in the other parts. 
