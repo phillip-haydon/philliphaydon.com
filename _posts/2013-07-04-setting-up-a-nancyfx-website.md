@@ -24,6 +24,8 @@ The easiest way to create a test project is to grab the [Nancy Templates](http:/
 
 Using this method, we can create a new project in Visual Studio and select Nancy Application.
 
+<!--excerpt-->
+
 ![](/images/setup-mono-on-ubuntu-part-4-1.png)
 
 Don't forget to make this a .NET 4.0 project, NOT a .NET 4.5 project. When running Mono 3.0 you can choose .NET 4.5.
