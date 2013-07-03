@@ -7,7 +7,7 @@ title: Setting up Mono on nginx
 * [Part 1 - Setting up the Virtual Machine and nginx](/2013/06/setting-up-ubuntu-and-nginx-on-azure/)
 * [Part 2 - Setting up new Website and Domain on nginx](/2013/06/setting-up-a-new-website-and-domain-on-nginx)
 * Part 3 - Setting up Mono on nginx
-* Part 4 - Setting up a NancyFX website
+* [Part 4 - Setting up a NancyFX website](/2013/07/setting-up-a-nancyfx-website/)
 * Part 5 - Setting up a ServiceStack web service
 
 Now we get to the fun stuff, getting up Mono. I'll be demoing with Mono 2.10 but after this series I may include a 6th part on how build Mono 3.0 from source and run it. 
