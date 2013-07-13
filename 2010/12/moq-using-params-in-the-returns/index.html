@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="last-modified" content="12:03:17 AM" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -36,10 +37,10 @@
     <h1>Moq-Using Params in the Returns</h1>
 
     <div class="post-note">
-      <!--Posted {{ page.date | date_to_long_string }}
-      {% if page.category != null %}
-        | <a href="/category/{{ page.category | downcase | replace: ' ', '-' }}">{{ page.category }}</a>
-      {% endif %}-->
+      posted on @Current.DateFormatted
+      
+        | <a href="/category/unit-testing">Unit Testing</a>
+      
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -123,7 +124,7 @@ IoC.Register&lt;ISomeService&gt;(mockService.Object);
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com{{ page.url }}/";
+	    var disqus_url = "http://www.philliphaydon.com/2010/12/moq-using-params-in-the-returns/";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
