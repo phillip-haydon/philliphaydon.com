@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>philliphaydon.com</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+</head>
+<body class="home blog">
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header fancy-container lightgreen" role="banner">
+            <hgroup>
+                <h1 class="site-title"><a href="/" title="philliphaydon.com" rel="home">philliphaydon.com</a></h1>
+                <h2><small>Works on my PC...</small></h2>
+                <p class="site-description">Pleb from New Zealand who was banished overseas and currently resides in Singapore.</p>
+            </hgroup>
+            <nav role="navigation" class="site-navigation main-navigation">
+                <h1 class="assistive-text">Menu</h1>
+                <div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/category">Categories</a></li>
+                        <li><a href="/archive">Archive</a></li>
+                        <li><a href="/rss">RSS</a> / <a href="/feed">Atom</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="main">
+            <div id="primary" class="site-content">
+                <div id="content" role="main">
+                  
+
+  <ul class="posts">
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/1/windows-store-app-tiled-background/">Windows Store App - Tiled Background using Mindscape Metro Elements</a> 
+        <span>posted on 03 Jan 2013</span>
+      </h1> 
+      <p>Apparently WinRT XAML lacks the ability to tile a background image, and surfing the net seems to come to the conclusion that the only way is to just create a large tiled image in photoshop...</p>
+
+<p>I want to pick a Tile image from <a href="http://subtlepatterns.com/">http://subtlepatterns.com/</a> and just use it, but I <em>can't</em>. So I tried photoshop... (creating a benehoth of an image that is) I tried that, and it... crashed the Simulator, over and over... So I flagged it, instead I decided to put in a feature request over at Mindscape for their Metro Elements:</p>
+
+<p><a href="http://www.mindscapehq.com/thinktank/suggestion/505262">http://www.mindscapehq.com/thinktank/suggestion/505262</a></p>
+
+<p>I asked them to include a TiledBackground, and they delivered! </p>
+
+<p>Currently in the nightly build is the makings of a TiledBackground element.</p>
+
+<p>(To get access to the Nightly builds you will need to purchase a license for Metro Elements, which is well worth it, so go buy a license!)</p>
+
+<p>After installing the Metro Elements, in your app you want to add a reference to Metro Elements:</p>
+
+<p><img src="/images/windows-app-tiled-bg-1.png" alt="" /></p>
+
+<p>Now in the page attributes you need to include an alias for the MetroElements:</p>
+
+
+      <p><a href="/2013/1/windows-store-app-tiled-background/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/1/microsoft-surface-so-awesome-with-issues/">Microsoft Surface... So awesome, with issues...</a> 
+        <span>posted on 02 Jan 2013</span>
+      </h1> 
+      <p>Shortly after the Microsoft Surface was released I got my hands on one, which wasn't exactly easy since they aren't available in Singapore yet. I had to pay $240 extra to get mine shipped from Hong Kong via <a href="http://www.expansys.com.sg">http://www.expansys.com.sg</a> and then an extra $70 for import tax... </p>
+
+<p>But it was 110% worth it. I use the thing ALL the damn time, and dispite it being limited in functionality due to Windows RT, I don't regret the purchase at all. </p>
+
+<p>There's HEAPS of good reviews on the internet about it so I'm not going to bore you with how amazingly awesome the thing is. </p>
+
+<p>What I want to discuss is 3 issues I have.</p>
+
+<h2>Surface Charger</h2>
+
+<p><img src="/images/surface-issues-1.png" alt="" /></p>
+
+<p>The Surface Charger has a Magnetic Power Plug, similar to the old L-shaped MagSafe </p>
+
+<p><img src="/images/surface-issues-2.png" alt="" /></p>
+
+
+      <p><a href="/2013/1/microsoft-surface-so-awesome-with-issues/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/12/configuring-multiple-forms-authentication-sections-with-nancyfx/">Configuring multiple Forms Authentication sections with NancyFX</a> 
+        <span>posted on 20 Dec 2012</span>
+      </h1> 
+      <p>So Phil Jones posted on twitter recently his desire to have multiple Forms Auth's for different area's in a website.</p>
+
+<p>The most common scenario is having an Administration and Member with completely separated logins.</p>
+
+<p><img src="/images/image35.png" /></p>
+
+<p>This is actually really easy in NancyFX. Expanding on my previous post:</p>
+
+<p><a href="/2012/12/forms-authentication-with-nancyfx/">http://www.philliphaydon.com/2012/12/forms-authentication-with-nancyfx/</a></p>
+
+<p>I'm going to include a new area and a couple of new modules:</p>
+
+<p><img src="/images/image36.png" /></p>
+
+<p>I've added a folder called 'Admin' this is to act as an Area as described in my post about Nancy &amp; Areas.</p>
+
+
+      <p><a href="/2012/12/configuring-multiple-forms-authentication-sections-with-nancyfx/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/12/forms-authentication-with-nancyfx/">Forms Authentication with NancyFX</a> 
+        <span>posted on 18 Dec 2012</span>
+      </h1> 
+      <p>There's already quite a bit of documentation on the Nancy wiki about forms authentication, but I wanted to write about it anyway.</p>
+
+<p><span class="note"><strong>Note:</strong> This is written with Nancy 0.14.1 - this may be subject to change in future versions.</span></p>
+
+<p>Nancy supports a module for forms authentication, it works some-what similar to the way forms auth works in ASP.NET, except it's abstracted away and is not part of the core Nancy engine, which is great. It means that if you don't like the way forms authentication works, you can rip it out and write your own from scratch, or download the project and modify it to your hearts content.</p>
+
+<p><a href="http://nuget.org/packages/Nancy.Authentication.Forms">http://nuget.org/packages/Nancy.Authentication.Forms</a></p>
+
+<p><a href="https://github.com/NancyFx/Nancy/tree/master/src/Nancy.Authentication.Forms">https://github.com/NancyFx/Nancy/tree/master/src/Nancy.Authentication.Forms</a></p>
+
+<p>If you take a look at the GitHub project, you can see that the implementation is actually really small. So should you want to poke around, there's not much to look at.</p>
+
+
+      <p><a href="/2012/12/forms-authentication-with-nancyfx/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/12/windows-store-app-and-remote-debugging-on-a-surface-rt/">Windows Store App and Remote Debugging on a Surface RT</a> 
+        <span>posted on 18 Dec 2012</span>
+      </h1> 
+      <p>In order to run your app from Visual Studio on your remote device, in my case I want to run it on my Surface... but you can do this with any remote device such as another desktop, a laptop, a tablet running Windows Pro or RT etc, all you really need to do is install the Remote Debugging tools.</p>
+
+<p><a href="http://www.microsoft.com/visualstudio/eng/downloads#remote-tools">http://www.microsoft.com/visualstudio/eng/downloads#remote-tools</a></p>
+
+<p>For the Surface you just need to download and install:</p>
+
+<p><a href="http://www.microsoft.com/visualstudio/eng/downloads#remote-tools"><img src="/images/image17.png" /></a></p>
+
+<p>Once this is installed you will get a little icon on your Start Screen:</p>
+
+<p><a href="/images/image7.png"><img src="/images/image7.png" /></a></p>
+
+<p>You can see the Green Arrow:</p>
+
+
+      <p><a href="/2012/12/windows-store-app-and-remote-debugging-on-a-surface-rt/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">Windows Store App with Caliburn.Micro - Getting Started</a> 
+        <span>posted on 14 Dec 2012</span>
+      </h1> 
+      <p>So I've been learning Windows 8 development recently, specifically with C#/XAML, and Caliburn.Micro for the MVVM goodness. This is all brand new stuff for me, never done any WPF, Silverlight or Windows Phone dev. So I figured it's a good chance to blog what I'm learning.</p>
+
+<p>In this post I want to show you how to get up and running.</p>
+
+<p>I started by reading the blog posts over at Mindscape.</p>
+
+<p><a href="http://www.mindscapehq.com/blog/index.php/2012/01/12/caliburn-micro-part-1-getting-started/">http://www.mindscapehq.com/blog/index.php/2012/01/12/caliburn-micro-part-1-getting-started/</a></p>
+
+<p>(great series by <a href="https://twitter.com/QuantumNgtmare">@Jason</a>, list of links at bottom of this post)</p>
+
+<p>The downside is they were very WPF centric, and a few things getting started have changed. There's no bootstrapper for example.</p>
+
+<p>So, here's my blog series.</p>
+
+
+      <p><a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/11/using-partial-renders-with-nancy-rather-than-render-actions-like-mvc/">Using Partial Renders with Nancy rather than Render Actions like MVC</a> 
+        <span>posted on 30 Nov 2012</span>
+      </h1> 
+      <p>Today on twitter, <a href="http://blog.orangelightning.co.uk/">Phil Jones</a> (<a href="http://twitter.com/philjones88">@philjones88</a>) asked how you would do RenderAction (ASP.NET MVC extension)</p>
+
+<p>I personally don't like RenderAction in MVC, that's not to say it's bad, I just think it hides away important implementation of a page render. I think RenderAction is a bad abstraction. But this is my personal opinion. So don't hate me for it :)</p>
+
+<p>Rather than using RenderAction I prefer to use Partial views.</p>
+
+<p>Lets look at a youtube site for an example:</p>
+
+<p><img src="/images/partial-renders-nancy-1.png" /></p>
+
+<p>On the left hand side is main content, while on the right hand side is related videos. In ASP.NET MVC we might use something like:</p>
+
+<pre><code>@Html.RenderAction("Related", "Videos");
+</code></pre>
+
+<p>Or something similar, I forget the syntax :)</p>
+
+
+      <p><a href="/2012/11/using-partial-renders-with-nancy-rather-than-render-actions-like-mvc/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/11/nancy-and-content-negotiation/">NancyFX and Content Negotiation</a> 
+        <span>posted on 08 Nov 2012</span>
+      </h1> 
+      <p>This has to be one of the most awesome features of Nancy, Content Negotiation. Recently added in 0.12, it gives you the ability to implement a single route that responds with different versions of the same document, without having to mess up your code with duplicate methods or conditional statements.</p>
+
+<p>When doing this in ASP.NET MVC I would have to check the content type and decide how I want to respond to the request.</p>
+
+<p>This ended up making duplicate methods, one which would be used by a normal GET request, while the 2nd would be for an AJAX request. Or if it was similar, use conditional logic in the single method to decide how the action should respond...</p>
+
+<p>Nancy on the other hand supports Content Negotiation out of the box.</p>
+
+<pre><code>Get["/negotiated"] = parameters =&gt; {
+    return Negotiate
+        .WithModel(new RatPack {FirstName = "Nancy "})
+        .WithMediaRangeModel("text/html", new RatPack {FirstName = "Nancy fancy pants"})
+        .WithView("negotiatedview")
+        .WithHeader("X-Custom", "SomeValue");
+};
+</code></pre>
+
+<p><span class="note"><strong>Note:</strong> Sample taken from Nancy GitHub Repo</span></p>
+
+<h2>What is content negotiation?</h2>
+
+<p>In short, it's the ability to serve different versions of a document to the same URI.</p>
+
+
+      <p><a href="/2012/11/nancy-and-content-negotiation/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/11/sinatra-book-review/">Sinatra Book Review</a> 
+        <span>posted on 03 Nov 2012</span>
+      </h1> 
+      <p>For a while I've been wanting to pick-up Ruby, but not rails, every man and his dog is doing rails and everything I read I feel like it tries to do too much, much in the same way I feel ASP.NET MVC get's in the way too much by trying to do too much for me. I think I've written 'too much' too much. :)</p>
+
+<p>So I'm learning Ruby + Sinatra.</p>
+
+<p>Currently I'm reading <a href="http://www.amazon.com/Programming-Ruby-1-9-Pragmatic-Programmers/dp/1934356085/">Programming Ruby 1.9</a> but I just went on holiday, and figured a smaller book was a better idea to take with me.</p>
+
+<p>Enter <a href="http://www.amazon.com/Sinatra-Up-Running-Alan-Harris/dp/1449304230">Sinatra Up and Running</a></p>
+
+<p>This book, written by <a href="https://twitter.com/anachronistic">Alan Harris</a> &amp; <a href="https://twitter.com/konstantinhaase">Konstantin Haase</a>, is brilliant. Clocking in at 103 pages (less than the 122 Amazon states), this book is everything you need to get your feet off the ground with Sinatra and get building applications.</p>
+
+
+      <p><a href="/2012/11/sinatra-book-review/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/10/keep-an-eye-on-raygun-to-zap-all-your-errors-away/">Keep an eye on Raygun to zap all your errors away.</a> 
+        <span>posted on 24 Oct 2012</span>
+      </h1> 
+      <p>Mindscape, creator of the awesome <a href="http://www.mindscapehq.com/products/web-workbench">Web Workbench</a> tool for visual studio as well as other awesome products, made an <a href="https://twitter.com/MindscapeHQ/status/260851721230761985">announcement</a> today on twitter of a new up coming product they are working on.</p>
+
+<p><a href="http://raygun.io/?ref=1QWEy">Raygun</a></p>
+
+<p>Little is currently known about this since trying to find out more from Mindscape is like squeezing blood from a stone, but what I do know is it's a online error tracking and reporting service, that will allow you to track errors that occur on both the serverside <em>and</em> the clientside.</p>
+
+<p>This looks awesome and quite possible be a great <a href="http://raygun.io/?ref=1QWEy">Elmah Replacement</a> for my projects, since it will have the ability to track clientside issues that usually go unnoticed.</p>
+
+<p>Not only that but the community will be able to contribute their own plugins and extensions to the service!</p>
+
+<p>Apparently Alpha invites will start going out in the next 2 weeks, so head on over to <a href="http://raygun.io/?ref=1QWEy">http://raygun.io/?ref=1QWEy</a> and signup!</p>
+
+      <p><a href="/2012/10/keep-an-eye-on-raygun-to-zap-all-your-errors-away/">Read more...</a></p>
+    </li>
+    
+  </ul> 
+
+  <!-- Pagination links -->
+  <div id="post-pagination" class="pagination">
+
+    
+    <p class="previous">
+      <a href="/page3">Previous Page</a>
+    </p>
+    
+    
+
+    
+    <p class="next">
+      <a href="/page5">Next Page</a>
+    </p>
+    
+
+  </div>
+
+
+                </div>
+                <!-- #content -->
+            </div>
+            <!-- #primary .site-content -->
+
+            <div id="secondary" class="widget-area fancy-container lightred" role="complementary">
+                <aside id="text-5" class="widget widget_text">
+                    <h1 class="widget-title">Follow</h1>
+                    <div class="textwidget logos">
+                        <a href="https://twitter.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"><img src="/stylesheets/images/twitter.png"></a>
+                        <a href="http://stackoverflow.com/users/456813/phill" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://stackoverflow.com']);"><img src="/stylesheets/images/stackoverflow.png"></a>
+                        <a href="http://www.linkedin.com/in/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://www.linkedin.com']);"><img src="/stylesheets/images/linkedin.png"></a>
+                        <a href="https://plus.google.com/u/0/111751877537461442095" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://plus.google.com']);"><img src="/stylesheets/images/googleplus.png"></a>
+                        <a href="https://coderbits.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','https://coderbits.com/philliphaydon']);"><img src="/stylesheets/images/codebits.png"></a>
+                        <a href="https://github.com/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://github.com']);"><img src="/stylesheets/images/github.png"></a>
+                        <a href="http://www.codeschool.com/users/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://codeschool.com']);"><img src="/stylesheets/images/codeschool.png"></a>
+                        <a href="http://www.kickstarter.com/profile/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://kickstarter.com']);"><img src="/stylesheets/images/kickstarter.png"></a>
+                    </div>
+                    <a href="http://stackoverflow.com/users/456813/phill">
+                      <img src="http://stackoverflow.com/users/flair/456813.png" width="208" height="58" alt="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+                    </a>
+                    
+                    <a href="http://nancyfx.org/mvm.html"><img src="/stylesheets/images/mvm.png"></a>
+                    
+                    <div id = "clustrback" style="width:162px; height:133px;  background:#f7f7f7 url(http://clustrmaps.com/admin/3d/images/st4_grey.png)  center no-repeat; text-align:center;">
+                      <a href="http://www2.clustrmaps.com/counter/maps.php?url=http://www.philliphaydon.com/" style="width:160px; display:block; margin:0 auto;" id="clustrMapsLink">
+                        <img src="http://www2.clustrmaps.com/counter/index2.php?url=http://www.philliphaydon.com/" style="border:0px; margin:15px auto;margin:15px auto;" alt="Locations of visitors to this page" title="Locations of visitors to this page" id="clustrMapsImg" />
+                      </a>
+                    </div>
+                </aside>
+                <!--aside id="text-8" class="widget widget_text">
+                    <h1 class="widget-title">Other sites</h1>
+                    <div class="textwidget">
+                        <a href="http://csharptube.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://csharptube.com']);">csharptube.com</a><br />
+                        <a href="http://thisisparrot.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://thisisparrot.com']);">Parrot</a><br />
+                        <a href="http://shitprogrammerswrite.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://shitprogrammerswrite.com']);">Shit programmers write</a><br />
+                    </div>
+                </aside-->
+                <aside id="linkcat-6" class="widget widget_links">
+                    <h1 class="widget-title">Other Blogs</h1>
+                    <ul class='xoxo blogroll'>
+                        <li><a href="http://www.nickharris.net/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://nickharris.net/']);">Nick Harris</a></li>
+                        <li><a href="http://www.mindscapehq.com/blog/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.mindscapehq.com/blog/']);">Mindscape</a></li>
+                        <li><a href="http://blog.orangelightning.co.uk/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://blog.orangelightning.co.uk/']);">Phil Jones</a></li>
+                        <li><a href="http://buildstarted.com/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://buildstarted.com']);">Ben Dornis</a></li>
+                        <li><a href="http://jflood.net/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://jflood.net/']);">Jospeh Flood</a></li>
+                    </ul>
+                    
+                </aside>
+                <aside id="archives-4" class="widget widget_archive">
+                    <h1 class="widget-title">Archive</h1>
+                    
+                    <ul class="posts">
+                    
+                          <li><a href="/archive#2013July">July, 2013</a></li>
+                    
+                          <li><a href="/archive#2013June">June, 2013</a></li>
+                    
+                          <li><a href="/archive#2013May">May, 2013</a></li>
+                    
+                          <li><a href="/archive#2013April">April, 2013</a></li>
+                    
+                          <li><a href="/archive#2013March">March, 2013</a></li>
+                    
+                          <li><a href="/archive#2013February">February, 2013</a></li>
+                    
+                          <li><a href="/archive#2013January">January, 2013</a></li>
+                    
+                          <li><a href="/archive#2012December">December, 2012</a></li>
+                    
+                          <li><a href="/archive#2012November">November, 2012</a></li>
+                    
+                          <li><a href="/archive#2012October">October, 2012</a></li>
+                    
+                          <li><a href="/archive#2012September">September, 2012</a></li>
+                    
+                          <li><a href="/archive#2012July">July, 2012</a></li>
+                    
+                          <li><a href="/archive#2012June">June, 2012</a></li>
+                    
+                          <li><a href="/archive#2012April">April, 2012</a></li>
+                    
+                          <li><a href="/archive#2012March">March, 2012</a></li>
+                    
+                          <li><a href="/archive#2012February">February, 2012</a></li>
+                    
+                          <li><a href="/archive#2012January">January, 2012</a></li>
+                    
+                          <li><a href="/archive#2011December">December, 2011</a></li>
+                    
+                          <li><a href="/archive#2011November">November, 2011</a></li>
+                    
+                          <li><a href="/archive#2011October">October, 2011</a></li>
+                    
+                          <li><a href="/archive#2011September">September, 2011</a></li>
+                    
+                          <li><a href="/archive#2011August">August, 2011</a></li>
+                    
+                          <li><a href="/archive#2011July">July, 2011</a></li>
+                    
+                          <li><a href="/archive#2011June">June, 2011</a></li>
+                    
+                          <li><a href="/archive#2011May">May, 2011</a></li>
+                    
+                          <li><a href="/archive#2011April">April, 2011</a></li>
+                    
+                          <li><a href="/archive#2011March">March, 2011</a></li>
+                    
+                          <li><a href="/archive#2011February">February, 2011</a></li>
+                    
+                          <li><a href="/archive#2011January">January, 2011</a></li>
+                    
+                          <li><a href="/archive#2010December">December, 2010</a></li>
+                    
+                          <li><a href="/archive#2010November">November, 2010</a></li>
+                    
+                          <li><a href="/archive#2010October">October, 2010</a></li>
+                    
+                          <li><a href="/archive#2010September">September, 2010</a></li>
+                    
+                          <li><a href="/archive#2009July">July, 2009</a></li>
+                    
+                    </ul>
+                </aside>
+            </div>
+            <!-- #secondary .widget-area -->
+
+
+        </div>
+        <!-- #main -->
+
+        <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="site-info">
+                Powered by <a href="https://github.com/Sandra/Sandra.Snow" rel="generator">Sandra.Snow</a>.	
+            </div>
+            <!-- .site-info -->
+        </footer>
+        <!-- #colophon .site-footer -->
+    </div>
+    <!-- #page .hfeed .site -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src='/javascripts/prettify.js' type='text/javascript'></script>
+    <!--script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js' type='text/javascript'></script-->
+    <script type='text/javascript'>
+      $(function () {
+        $("pre code").parent().each(function () {
+          if (!$(this).hasClass("prettyprint")) {
+            $(this).addClass("prettyprint");
+            a = true
+          }
+        });
+
+        prettyPrint();
+      });
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-655975-13']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</body>
+</html>

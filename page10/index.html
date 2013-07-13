@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>philliphaydon.com</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+</head>
+<body class="home blog">
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header fancy-container lightgreen" role="banner">
+            <hgroup>
+                <h1 class="site-title"><a href="/" title="philliphaydon.com" rel="home">philliphaydon.com</a></h1>
+                <h2><small>Works on my PC...</small></h2>
+                <p class="site-description">Pleb from New Zealand who was banished overseas and currently resides in Singapore.</p>
+            </hgroup>
+            <nav role="navigation" class="site-navigation main-navigation">
+                <h1 class="assistive-text">Menu</h1>
+                <div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/category">Categories</a></li>
+                        <li><a href="/archive">Archive</a></li>
+                        <li><a href="/rss">RSS</a> / <a href="/feed">Atom</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="main">
+            <div id="primary" class="site-content">
+                <div id="content" role="main">
+                  
+
+  <ul class="posts">
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/1/mindscape-nhibernate-designer-discount/">Mindscape NHibernate Designer Discount</a> 
+        <span>posted on 21 Jan 2011</span>
+      </h1> 
+      <p>Mindscape have a 60% discount on their NHibernate Designer.</p>
+
+<p><a href="http://www.mindscapehq.com/blog/index.php/2011/01/20/60-off-nhibernate-designer-act-fast/">http://www.mindscapehq.com/blog/index.php/2011/01/20/60-off-nhibernate-designer-act-fast/</a></p>
+
+<blockquote>
+  <p>How to obtain this special
+  When making your purchase please enter the following discount code:
+  NHSPECIAL
+  You should immediately see the price drop to $99, saving you $150 USD!</p>
+</blockquote>
+
+<p>Great tool for anyone who hates writing XML or loves GUI's.</p>
+
+      <p><a href="/2011/1/mindscape-nhibernate-designer-discount/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/1/lightspeed-and-eager-loaded-properties/">LightSpeed and Eager Loaded properties</a> 
+        <span>posted on 20 Jan 2011</span>
+      </h1> 
+      <p>Today <a href="http://www.mindscapehq.com/">Mindscape</a>, the makers of the ORM <a href="http://www.mindscapehq.com/products/lightspeed">LightSpeed</a> and other awesome <a href="http://www.mindscapehq.com/products/">products</a> posted a blog on <a href="http://www.mindscapehq.com/blog/index.php/2011/01/19/controlling-lightspeed-entity-loading-with-named-aggregates/">Lazy-Loading/Eager-Loading properties</a> with LightSpeed.</p>
+
+<p>Why can't NHibernate do this! And when I say why can't NHibernate do this, I mean, why can't NHibernate do this with Query/QueryOver.</p>
+
+<p>Ayende detailed this time last year, the ability to <a href="http://ayende.com/Blog/archive/2010/01/27/nhibernate-new-feature-lazy-properties.aspx">lazy-load properties</a>, but currently Query/QueryOver only support One-To-Many and One-To-One relationships.</p>
+
+<p>NHibernate will support the ability to Lazy-Load a property but you can't specify it to be eager loaded.</p>
+
+<p>So you do</p>
+
+<pre><code>Map(x =&gt; x.FullDescription).CustomSqlType("NTEXT") 
+                           .LazyLoad();
+</code></pre>
+
+<p>Running a query would result in:</p>
+
+<p><img src="/images/lightspeed-1.png" alt="" /></p>
+
+<p>Great... But you currently cannot do:</p>
+
+
+      <p><a href="/2011/1/lightspeed-and-eager-loaded-properties/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/1/revisiting-exists-in-nhibernate-3-0-and-queryover/">Revisiting 'Exists' in NHibernate 3.0 and QueryOver</a> 
+        <span>posted on 19 Jan 2011</span>
+      </h1> 
+      <p>A while ago I wrote about <a href="http://www.philliphaydon.com/2010/09/queryover-with-nhibernate-3-lovin-it/">my experience with NHibernate 3.0 and Query over</a> by having a go at converting an application to NH3.0, and faced the challenge of writing a query which contained an 'exists' where clause. At the time my solution resulted in an 'in' clause since I couldn't work out how to do an exists.</p>
+
+<p>Today at work I faced the same challenge, except this time I solved it  WOO Yay for solving things.</p>
+
+<h2>The Problem</h2>
+
+<p>We have a many-to-many relationship between Jobs and Roles. Which looks something along the lines of:</p>
+
+<p><img src="/images/nhibernate-queryover-1.png" alt="" /></p>
+
+<p>I cut a bunch of stuff out but you get the idea.</p>
+
+
+      <p><a href="/2011/1/revisiting-exists-in-nhibernate-3-0-and-queryover/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/1/system-data-sqlite-isolationlevel-exception/">System.Data.SQLite isolationLevel Exception</a> 
+        <span>posted on 02 Jan 2011</span>
+      </h1> 
+      <p>I introduced SQLite to our Unit Testing at work to aid with testing the stuff written with NHibernate, most of our repositories are rather simple but some of them require some specific criteria that it would be nice to test our queries work.</p>
+
+<p>The problem is some of the queries have a transaction with the <code>IsolationLevel</code> as <code>ReadUncommitted</code>.</p>
+
+<p>Everything works perfectly fine until it comes to testing, the problem is SQLite does not support anything other than <code>Serializable</code> and <code>ReadCommitted</code>.</p>
+
+<p>I spent a while trying to see if there was a way to have an interceptor for NHibernate to capture the <code>BeginRequest</code> and replace the isolation level with something that would work, when that failed I took a look at extending the SQLite dialect but that just became confusing.</p>
+
+<p>In the end I reflected the <code>System.Data.SQLite</code> assembly (before i downloaded the sourcecode) to see what was happening when <code>BeginTransaction</code> was being called.</p>
+
+<p>There's two places it checks, the first is in <code>SQLiteConnection</code> under <code>BeginTransaction</code>:</p>
+
+<pre><code>if (isolationLevel != IsolationLevel.Serializable &amp;&amp; isolationLevel != IsolationLevel.ReadCommitted)
+    throw new ArgumentException("isolationLevel");
+</code></pre>
+
+
+      <p><a href="/2011/1/system-data-sqlite-isolationlevel-exception/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2010/12/blog-update-to-wordpress-w-sqlsrv/">Blog Update to WordPress w/ SqlSrv</a> 
+        <span>posted on 28 Dec 2010</span>
+      </h1> 
+      <p>Over the past few days I've moved my blog from BlogEngine.Net to WordPress, since BlogEngine is fail.</p>
+
+<p>I didn't go with a hosted solution since it costs money just to use my own domain name, infact it costs more to use my own domain name than it cost me to register the damn thing. So I investigated blogs and came across:</p>
+
+<p><a href="http://wordpress.visitmix.com/development/installing-wordpress-on-sql-server">http://wordpress.visitmix.com/development/installing-wordpress-on-sql-server</a></p>
+
+<p>Seems someone or somepeople have ported wordpress to work on SQL Server, so people who are on Windows with SQL Server and don't want to use FailSQL MySQL can take advantage of wordpress.</p>
+
+<p>As much as I hate PHP after moving to .Net, the one thing the PHP community did right was all the different CMS and Blog solutions out there, something the .Net community lacks. As far as I'm concerned there is not one good .Net blogging solution available.</p>
+
+<p>Anyway so far I'm happy with the move. </p>
+
+      <p><a href="/2010/12/blog-update-to-wordpress-w-sqlsrv/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2010/12/i-love-clean-client-ids-especially-with-net-2-0/">I love clean client IDs - especially with .Net 2.0!</a> 
+        <span>posted on 26 Dec 2010</span>
+      </h1> 
+      <p>ASP.Net 4.0 got a brand spanking new feature. Clean ClientID's! ABOUT BLOODY TIME... Only, I'm working on a legacy application which can't be migrated to 4.0 :(</p>
+
+<p>So why do we need Nice Readable, predictable ClientID's? I can think of two main reasons, outside of that, I would assume you're doing it wrong.</p>
+
+<ol>
+<li>JavaScript, to find elements...</li>
+<li>JavaScript in external files where you can't write spaghetti code.</li>
+</ol>
+
+<p>What do I mean by spaghetti code? I mean this stuff:</p>
+
+<pre><code>&lt;%= txtUserName.ClientID %&gt;
+&lt;script type="text/javascript"&gt;
+  var element = $('#&lt;%= txtUserName.ClientID %&gt;');
+  var textbox = document.getElementById('&lt;%= txtUserName.ClientID %&gt;');
+&lt;/script&gt;
+</code></pre>
+
+<p>I absolutely detest seeing this sort of thing. It makes me sick, and worst of all you can't pull this sort of code back to an external js file. In Web Forms, spaghetti coding is NOT your presentation, your server control is your presentation, the spaghetti code is your binding, and this should be in the codebehind.</p>
+
+
+      <p><a href="/2010/12/i-love-clean-client-ids-especially-with-net-2-0/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2010/12/moq-using-params-in-the-returns/">Moq-Using Params in the Returns</a> 
+        <span>posted on 06 Dec 2010</span>
+      </h1> 
+      <p>Had an interesting scenario to solve today, while I was away a bunch of unit tests got turned off since they broke during some refactoring, I spent the day fixing theses unit tests.</p>
+
+<p>The method under test had a dependency on another class, it performed two actions on this class.</p>
+
+<ol>
+<li>to get a list of data</li>
+<li>to return a DateRange (this is done in a foreach loop)</li>
+</ol>
+
+<p>DateRange is just a class with a start/end property of DateTime. The method is sort of like this (obviously with proper names I just wrote some random code to illustrate the scenario)</p>
+
+<pre><code>public IEnumerable&lt;Stuff&gt; GetStuff(DateTime dateList)
+{
+    var result = new List&lt;Stuff&gt;();
+    var someService = IoC.Resolve&lt;ISomeService&gt;();
+    var data = someService.GetData();
+
+    foreach (var date in dateList)
+    {
+        var tempDate = date;
+        DateRange range = someService.GetDates(OpenRules, tempDate);
+        //do stuff...
+    }
+
+    return result;
+}
+</code></pre>
+
+<p>So the same service is called twice, the issue is when iterating over the dateList, it needs to be filtered based on a DateRange during the day. So say, 8am till 10pm. Removing the stuff outside of that time period during that day.</p>
+
+
+      <p><a href="/2010/12/moq-using-params-in-the-returns/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2010/12/yay-for-nhibernate-3-0/">Yay for NHibernate 3.0</a> 
+        <span>posted on 05 Dec 2010</span>
+      </h1> 
+      <p>So happy. NHibernate 3.0 just got released.</p>
+
+<p><a href="http://nhforge.org/blogs/nhibernate/archive/2010/12/05/nhibernate-3-0-released.aspx">http://nhforge.org/blogs/nhibernate/archive/2010/12/05/nhibernate-3-0-released.aspx</a></p>
+
+<p>Now to wait for Fluent to be updated and a repository to be shoved on NuGet.</p>
+
+      <p><a href="/2010/12/yay-for-nhibernate-3-0/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2010/12/sydney-alt-net-with-udi-dahan-and-nservicebus-commercial-support/">Sydney Alt.Net with Udi Dahan and NServiceBus Commercial Support</a> 
+        <span>posted on 01 Dec 2010</span>
+      </h1> 
+      <p><span class="note"><strong>Note:</strong> Update 31-12-2012 - This is a really old post and the licensing described in here no longer applies. Please visit <a href="http://nservicebus.com/">http://nservicebus.com/</a></span></p>
+
+<p>Last night I attended the <a href="http://sydney.ozalt.net/">Sydney Alt.Net</a> user group since <a href="http://www.udidahan.com/">Udi Dahan</a> was attending. There was no specific topic, it was an open questions/answers session with Udi. If you're interested you can watch it <a href="http://sydney.ozalt.net/2010/11/november-meeting-recorded-for-your.html">here</a>.</p>
+
+<p>The thing that interested me most was to do with <a href="http://www.nservicebus.com/">NServiceBus</a> commercial support (<em>1 hour 23 minutes in the video if you want to skip ahead</em>). Initially I thought that it was going from Open Source to requiring a license, a license I wouldn't be able to afford for my hobby projects, however someone asked about the licensing.</p>
+
+
+      <p><a href="/2010/12/sydney-alt-net-with-udi-dahan-and-nservicebus-commercial-support/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2010/11/mentally-drained-by-udi-dahan/">Mentally Drained by Udi Dahan.</a> 
+        <span>posted on 27 Nov 2010</span>
+      </h1> 
+      <p>I'm on my first day of recovery after attending <a href="http://www.udidahan.com/">Udi Dahan's</a> <a href="http://www.udidahan.com/training/#Advanced_Distributed_System_Design">Advanced Distributed Systems Design using SOA &amp; DDD</a>. Needless to say I think I'm still in shock.</p>
+
+<p>Udi must be one of the best presenters I've come across, I always thought he talked a little slow when watching videos of him presenting, but it's an entirely different experience when you're sitting in a room listening to him.</p>
+
+<p>He really makes sure you follow and understand, at no point did I feel like I was left behind. Something that intrigued me however, was there was not one question he could not answer... He must have heard every possible question because people started trying to catch him out with some weird example or scenario, and he was able to answer it.</p>
+
+
+      <p><a href="/2010/11/mentally-drained-by-udi-dahan/">Read more...</a></p>
+    </li>
+    
+  </ul> 
+
+  <!-- Pagination links -->
+  <div id="post-pagination" class="pagination">
+
+    
+    <p class="previous">
+      <a href="/page9">Previous Page</a>
+    </p>
+    
+    
+
+    
+    <p class="next">
+      <a href="/page11">Next Page</a>
+    </p>
+    
+
+  </div>
+
+
+                </div>
+                <!-- #content -->
+            </div>
+            <!-- #primary .site-content -->
+
+            <div id="secondary" class="widget-area fancy-container lightred" role="complementary">
+                <aside id="text-5" class="widget widget_text">
+                    <h1 class="widget-title">Follow</h1>
+                    <div class="textwidget logos">
+                        <a href="https://twitter.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"><img src="/stylesheets/images/twitter.png"></a>
+                        <a href="http://stackoverflow.com/users/456813/phill" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://stackoverflow.com']);"><img src="/stylesheets/images/stackoverflow.png"></a>
+                        <a href="http://www.linkedin.com/in/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://www.linkedin.com']);"><img src="/stylesheets/images/linkedin.png"></a>
+                        <a href="https://plus.google.com/u/0/111751877537461442095" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://plus.google.com']);"><img src="/stylesheets/images/googleplus.png"></a>
+                        <a href="https://coderbits.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','https://coderbits.com/philliphaydon']);"><img src="/stylesheets/images/codebits.png"></a>
+                        <a href="https://github.com/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://github.com']);"><img src="/stylesheets/images/github.png"></a>
+                        <a href="http://www.codeschool.com/users/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://codeschool.com']);"><img src="/stylesheets/images/codeschool.png"></a>
+                        <a href="http://www.kickstarter.com/profile/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://kickstarter.com']);"><img src="/stylesheets/images/kickstarter.png"></a>
+                    </div>
+                    <a href="http://stackoverflow.com/users/456813/phill">
+                      <img src="http://stackoverflow.com/users/flair/456813.png" width="208" height="58" alt="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+                    </a>
+                    
+                    <a href="http://nancyfx.org/mvm.html"><img src="/stylesheets/images/mvm.png"></a>
+                    
+                    <div id = "clustrback" style="width:162px; height:133px;  background:#f7f7f7 url(http://clustrmaps.com/admin/3d/images/st4_grey.png)  center no-repeat; text-align:center;">
+                      <a href="http://www2.clustrmaps.com/counter/maps.php?url=http://www.philliphaydon.com/" style="width:160px; display:block; margin:0 auto;" id="clustrMapsLink">
+                        <img src="http://www2.clustrmaps.com/counter/index2.php?url=http://www.philliphaydon.com/" style="border:0px; margin:15px auto;margin:15px auto;" alt="Locations of visitors to this page" title="Locations of visitors to this page" id="clustrMapsImg" />
+                      </a>
+                    </div>
+                </aside>
+                <!--aside id="text-8" class="widget widget_text">
+                    <h1 class="widget-title">Other sites</h1>
+                    <div class="textwidget">
+                        <a href="http://csharptube.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://csharptube.com']);">csharptube.com</a><br />
+                        <a href="http://thisisparrot.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://thisisparrot.com']);">Parrot</a><br />
+                        <a href="http://shitprogrammerswrite.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://shitprogrammerswrite.com']);">Shit programmers write</a><br />
+                    </div>
+                </aside-->
+                <aside id="linkcat-6" class="widget widget_links">
+                    <h1 class="widget-title">Other Blogs</h1>
+                    <ul class='xoxo blogroll'>
+                        <li><a href="http://www.nickharris.net/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://nickharris.net/']);">Nick Harris</a></li>
+                        <li><a href="http://www.mindscapehq.com/blog/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.mindscapehq.com/blog/']);">Mindscape</a></li>
+                        <li><a href="http://blog.orangelightning.co.uk/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://blog.orangelightning.co.uk/']);">Phil Jones</a></li>
+                        <li><a href="http://buildstarted.com/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://buildstarted.com']);">Ben Dornis</a></li>
+                        <li><a href="http://jflood.net/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://jflood.net/']);">Jospeh Flood</a></li>
+                    </ul>
+                    
+                </aside>
+                <aside id="archives-4" class="widget widget_archive">
+                    <h1 class="widget-title">Archive</h1>
+                    
+                    <ul class="posts">
+                    
+                          <li><a href="/archive#2013July">July, 2013</a></li>
+                    
+                          <li><a href="/archive#2013June">June, 2013</a></li>
+                    
+                          <li><a href="/archive#2013May">May, 2013</a></li>
+                    
+                          <li><a href="/archive#2013April">April, 2013</a></li>
+                    
+                          <li><a href="/archive#2013March">March, 2013</a></li>
+                    
+                          <li><a href="/archive#2013February">February, 2013</a></li>
+                    
+                          <li><a href="/archive#2013January">January, 2013</a></li>
+                    
+                          <li><a href="/archive#2012December">December, 2012</a></li>
+                    
+                          <li><a href="/archive#2012November">November, 2012</a></li>
+                    
+                          <li><a href="/archive#2012October">October, 2012</a></li>
+                    
+                          <li><a href="/archive#2012September">September, 2012</a></li>
+                    
+                          <li><a href="/archive#2012July">July, 2012</a></li>
+                    
+                          <li><a href="/archive#2012June">June, 2012</a></li>
+                    
+                          <li><a href="/archive#2012April">April, 2012</a></li>
+                    
+                          <li><a href="/archive#2012March">March, 2012</a></li>
+                    
+                          <li><a href="/archive#2012February">February, 2012</a></li>
+                    
+                          <li><a href="/archive#2012January">January, 2012</a></li>
+                    
+                          <li><a href="/archive#2011December">December, 2011</a></li>
+                    
+                          <li><a href="/archive#2011November">November, 2011</a></li>
+                    
+                          <li><a href="/archive#2011October">October, 2011</a></li>
+                    
+                          <li><a href="/archive#2011September">September, 2011</a></li>
+                    
+                          <li><a href="/archive#2011August">August, 2011</a></li>
+                    
+                          <li><a href="/archive#2011July">July, 2011</a></li>
+                    
+                          <li><a href="/archive#2011June">June, 2011</a></li>
+                    
+                          <li><a href="/archive#2011May">May, 2011</a></li>
+                    
+                          <li><a href="/archive#2011April">April, 2011</a></li>
+                    
+                          <li><a href="/archive#2011March">March, 2011</a></li>
+                    
+                          <li><a href="/archive#2011February">February, 2011</a></li>
+                    
+                          <li><a href="/archive#2011January">January, 2011</a></li>
+                    
+                          <li><a href="/archive#2010December">December, 2010</a></li>
+                    
+                          <li><a href="/archive#2010November">November, 2010</a></li>
+                    
+                          <li><a href="/archive#2010October">October, 2010</a></li>
+                    
+                          <li><a href="/archive#2010September">September, 2010</a></li>
+                    
+                          <li><a href="/archive#2009July">July, 2009</a></li>
+                    
+                    </ul>
+                </aside>
+            </div>
+            <!-- #secondary .widget-area -->
+
+
+        </div>
+        <!-- #main -->
+
+        <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="site-info">
+                Powered by <a href="https://github.com/Sandra/Sandra.Snow" rel="generator">Sandra.Snow</a>.	
+            </div>
+            <!-- .site-info -->
+        </footer>
+        <!-- #colophon .site-footer -->
+    </div>
+    <!-- #page .hfeed .site -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src='/javascripts/prettify.js' type='text/javascript'></script>
+    <!--script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js' type='text/javascript'></script-->
+    <script type='text/javascript'>
+      $(function () {
+        $("pre code").parent().each(function () {
+          if (!$(this).hasClass("prettyprint")) {
+            $(this).addClass("prettyprint");
+            a = true
+          }
+        });
+
+        prettyPrint();
+      });
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-655975-13']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>philliphaydon.com</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+</head>
+<body class="home blog">
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header fancy-container lightgreen" role="banner">
+            <hgroup>
+                <h1 class="site-title"><a href="/" title="philliphaydon.com" rel="home">philliphaydon.com</a></h1>
+                <h2><small>Works on my PC...</small></h2>
+                <p class="site-description">Pleb from New Zealand who was banished overseas and currently resides in Singapore.</p>
+            </hgroup>
+            <nav role="navigation" class="site-navigation main-navigation">
+                <h1 class="assistive-text">Menu</h1>
+                <div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/category">Categories</a></li>
+                        <li><a href="/archive">Archive</a></li>
+                        <li><a href="/rss">RSS</a> / <a href="/feed">Atom</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="main">
+            <div id="primary" class="site-content">
+                <div id="content" role="main">
+                  
+
+  <ul class="posts">
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/10/running-2-queries-is-fine-you-dont-need-to-always-eager-load/">Running 2 queries is fine, you don't need to ALWAYS eager load!</a> 
+        <span>posted on 06 Oct 2012</span>
+      </h1> 
+      <p>Every now-n-then someone comes into JabbR or messages me asking about the best way to load a relationship. Often enough what the person is trying to do is Eager load some reference/relational data.</p>
+
+<p>For example, Order / Customer.</p>
+
+<p>If we want to load an Order and get the Customer information at the same time, we can eagerly fetch this information using an ORM, in RavenDB we can Include the results so that when we query them, the session already has the information and doesn't need to round-trip to the database.</p>
+
+<h3>You don't need to!</h3>
+
+<p>There really is nothing wrong with executing two separate queries in this scenario.</p>
+
+<pre><code>var order = Session.Load&lt;Order&gt;(123); 
+var customer = Session.Load&lt;Customer&gt;(order.CustomerId);
+</code></pre>
+
+<p>These queries are fast to execute, and there really is nothing wrong with it! You can add some complexity in your NHibernate mappings by creating a reference so you can Eagerly fetch the reference and have 1 trip to the database etc. But this really isn't where eager fetching is beneficial!</p>
+
+
+      <p><a href="/2012/10/running-2-queries-is-fine-you-dont-need-to-always-eager-load/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/10/raven-dynamicsession-for-ravendb/">Raven.DynamicSession for RavenDB</a> 
+        <span>posted on 02 Oct 2012</span>
+      </h1> 
+      <p><em>Just a word of warning before you read this. I currently don't recommend using this project. MAYBE in the future you could use it, but for now I think it's just a cool proof of concept or something handy for rapid prototyping.</em></p>
+
+<p>Last week I had a discussion with <a href="https://twitter.com/@PrabirShrestha">@PrabirShrestha</a> in <a href="https://jabbr.net/">JabbR</a> about APIs for MongoDB to achieve something along the lines of:</p>
+
+<pre><code>db.posts.insert({title: ''first''}, function(err, doc){})
+</code></pre>
+
+<p>Example from: <a href="http://alexeypetrushin.github.com/mongo-lite/docs/index.html">http://alexeypetrushin.github.com/mongo-lite/docs/index.html</a></p>
+
+<p>Or</p>
+
+<pre><code>_db.Users.Insert(Name: "Steve", Age: 50);
+</code></pre>
+
+<p>Example from: <a href="http://simplefx.org/simpledata/docs/pages/Modify/AddingData.html">http://simplefx.org/simpledata/docs/pages/Modify/AddingData.html</a></p>
+
+<p>Looking at the syntax and thinking about C#'s DynamicObject I decided to see what I could come up with. I spent the better part of the next 2-3 hours messing around in Visual Studio, chatting and coming back to it, and came up with this gist.</p>
+
+<p><a href="https://gist.github.com/3798206">https://gist.github.com/3798206</a></p>
+
+
+      <p><a href="/2012/10/raven-dynamicsession-for-ravendb/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/9/nancy-and-areas/">NancyFX and Areas</a> 
+        <span>posted on 29 Sep 2012</span>
+      </h1> 
+      <p>A while back <a href="https://twitter.com/ayende">@ayende</a> wrote a <a href="http://ayende.com/blog/156609/reviewing-dinner-party-ndash-nerd-dinner-ported-to-ravendb-on-ravenhq">blog post</a> about <a href="https://github.com/NancyFx/DinnerParty">DinnerParty</a> in which he mentioned <a href="http://nancyfx.org/">NancyFX</a>, a lightweight web framework. <a href="https://twitter.com/jchannon">@jchannon</a> recently wrote about a <a href="http://blog.jonathanchannon.com/2012/09/21/nancyfx-ravendb-nerddinner-and-me/">blog post about NancyFX RavenDB and himself</a>.</p>
+
+<p>So I've spent the better part of the last few months learning it, and needless to say, it's awesome. So I got asked a question, how would I handle 'Areas' with Nancy, like we would with ASP.NET MVC?</p>
+
+<p>Well it's pretty simple, all it really consists of is... a module containing a root path.</p>
+
+<p>Lets begin with the following folder structure defining a 'HomeModule' for both the Root Website, and the Admin section.</p>
+
+<p><img src="/images/nancy-areas-1.png" /></p>
+
+<p>Both these HomeModule classes are identical, with the small exception that the Admin one specifies a Root Path.</p>
+
+
+      <p><a href="/2012/9/nancy-and-areas/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/9/my-volume-gets-lowered-reduced-when-swapping-applications-solution/">My volume gets lowered/reduced when swapping applications (solution)</a> 
+        <span>posted on 25 Sep 2012</span>
+      </h1> 
+      <p>I have absolutely no idea who made this retarded feature but if I met them, I would like to think I would punch them in the face for all the pain they have caused me, of making me reformat my computer thinking I had somehow stuffed up my installation of the OS.</p>
+
+<p>Windows 7 and 8 have this feature which allows an application to take priority of the speakers. Meaning if you're in Application A, and you're playing music, and you swap to Application B, then B will reduce the volume of A so that itself can have louder volume.</p>
+
+<p>This is really annoying when you want to play music, and then you load up a game, and the music is drowned out by game sounds.</p>
+
+<p>The solution? Disable that shit!</p>
+
+<p>1) Go into your Playback devices:</p>
+
+<p><img src="/images/windows-volume-1.png" /></p>
+
+<p>2) Select the device properties:</p>
+
+<p><img src="/images/windows-volume-2.png" /></p>
+
+
+      <p><a href="/2012/9/my-volume-gets-lowered-reduced-when-swapping-applications-solution/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/7/ravendb-what-am-i-persisting-what-am-i-querying-part-3/">RavenDB... What am I persisting, what am I querying? (part 3)</a> 
+        <span>posted on 19 Jul 2012</span>
+      </h1> 
+      <p><a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/">Part 1</a><br />
+<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">Part 2</a>    </p>
+
+<p>In part 3 I want to show you how to query References.</p>
+
+<p>In the previous post I showed you three basic classes that demonstrate a Relationship between Order and OrderLine, and a Reference to User from Order using the UserId.</p>
+
+<p>I've setup some really basic test data:</p>
+
+<pre><code>using (var session = store.OpenSession())
+{
+    session.Store(new User
+    {
+        FirstName = "Phillip",
+        Surname = "Haydon",
+        Username = "phillip.haydon",
+        Password = "somepassword"
+    });
+    session.Store(new User
+    {
+        FirstName = "Edward",
+        Surname = "Norton",
+        Username = "edward.norton",
+        Password = "somepassword"
+    });
+    session.Store(new Order
+    {
+        UserId = "users/1",
+        DateOrdered = DateTime.Now,
+        DateUpdated = DateTime.Now,
+        Status = "Ordered",
+        Lines = new List&lt;OrderLine&gt;
+        {
+            new OrderLine
+            {
+                Discount = 0m,
+                PricePerUnit = 13.95m,
+                Quantity = 5,
+                SkuCode = "SN78"
+            },
+            new OrderLine
+            {
+                Discount = 0m,
+                PricePerUnit = 13.95m,
+                Quantity = 5,
+                SkuCode = "SN78"
+            }
+        }
+    });
+    session.SaveChanges();
+}
+</code></pre>
+
+<p>This creates two collections:</p>
+
+
+      <p><a href="/2012/7/ravendb-what-am-i-persisting-what-am-i-querying-part-3/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/7/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">RavenDB... What am I persisting, what am I querying? (part 2)</a> 
+        <span>posted on 17 Jul 2012</span>
+      </h1> 
+      <p><a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/">Part 1</a><br />
+<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">Part 2</a> I want to discuss Relationships &amp; References, and the difference between the two.<br />
+<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-3/">Part 3</a>  </p>
+
+<p>Taking from part 1's example, lets add a User to the mix:</p>
+
+<pre><code>public class Order
+{
+    public string Id { get; set; }
+    public string UserId { get; set; }
+    public string DateOrdered { get; set; }
+    public string DateUpdated { get; set; }
+    public string Status { get; set; }
+    // Other properties...
+    public IEnumerable&lt;OrderLine&gt; Lines { get; set; }
+}
+
+public class OrderLine
+{
+    public int Quantity { get; set; }
+    public decimal Price { get; set; }
+    public decimal Discount { get; set; }
+    public string SkuCode { get; set; }
+    // Other Properties
+}
+
+public class User
+{
+    public string Id { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }
+    public string FirstName { get; set; }
+    public string Surname { get; set; }
+    // Other Properties
+}
+</code></pre>
+
+<p>As you can see I've added 'UserId' to the Order, not a 'User' just the Id part. This is because I don't want direct access to the User. <em>(It is possible to map a User in RavenDB, but I don't believe that is always a good idea. Save it for special occasions.)</em></p>
+
+
+      <p><a href="/2012/7/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/7/ravendb-what-am-i-persisting-what-am-i-querying/">RavenDB... What am I persisting, what am I querying? (part 1)</a> 
+        <span>posted on 11 Jul 2012</span>
+      </h1> 
+      <p><a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/">Part 1</a><br />
+<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">Part 2</a><br />
+<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-3/">Part 3</a>  </p>
+
+<p>A couple of questions that pop's up a lot in the <a href="https://jabbr.net/#/rooms/RavenDB">#RavenDB</a> <a href="https://jabbr.net/">JabbR</a> chat room by people picking up RavenDB for the first time are; <em>what am I persisting?, and how do I query relationships?.</em></p>
+
+<p>When we use relational databases we often de-normalize our data into multiple tables, usually this is done to get rid of duplication of data. We do this by adding 100's of foreign keys to our tables relating things all over the place, we had a CountryId to our Address, a UserId to our Order, an OrderId to our OrderLine.</p>
+
+<p>There's many reasons why this was done, some of which Oren describes in his <a href="http://ayende.com/blog/153026/embracing-ravendb">Embracing RavenDB post.</a></p>
+
+<p>Then when we go to query those relationships we have to join data, when we have an entity with multiple relationships we end up getting into complex queries with cartesian joins, performance starts to degrade, and things just get messy.</p>
+
+<p>When working with Document Databases we throw all that out the window and we deal with Root Aggregates. These are objects that are responsible for their child objects, you don't load the child objects individually, they are loaded with the root or parent object.</p>
+
+
+      <p><a href="/2012/7/ravendb-what-am-i-persisting-what-am-i-querying/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/6/multiple-iisexpress-sites-profiled-with-dottrace/">Multiple IISExpress Sites profiled with DotTrace</a> 
+        <span>posted on 18 Jun 2012</span>
+      </h1> 
+      <p>Yesterday (14th of June) I had a need to run more than one website while running <a href="http://www.jetbrains.com/">JetBrain's</a> <a href="http://www.jetbrains.com/profiler/">DotTrace</a>, to give a bit of background, Website A needs to redirect to Website B in order to simulate a single sign on.</p>
+
+<p>Website B can't be accessed without using the SSO, so in order to profile Website B I need to run Website A.</p>
+
+<p>The problem is when using DotTrace, I have to select the website I wish to profile:</p>
+
+<p><img src="/images/multiple-iis-1.png" alt="" /></p>
+
+<p>The problem with that, is that when you run the profiler it only starts up one of the websites. I need it to start both.</p>
+
+<p>This would be easy to profile if the Standard Version came with Attach To Process feature. But unfortunately that only comes with Professional.</p>
+
+<p>That way, when I debug using Visual Studio I could pick the process to profile:</p>
+
+<p><img src="/images/multiple-iis-2.png" alt="" /></p>
+
+<p><em>(Information can be found by right clicking the system try and selecting 'show all applications')</em></p>
+
+
+      <p><a href="/2012/6/multiple-iisexpress-sites-profiled-with-dottrace/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/6/asp-net-mvc-4-has-real-empty-project/">ASP.NET MVC 4 has, REAL EMPTY PROJECT!</a> 
+        <span>posted on 05 Jun 2012</span>
+      </h1> 
+      <p>I installed Visual Studio 2012 over the weekend, and was BLOWN AWAY when I created a brand new MVC 4 project to find:</p>
+
+<p><img src="/images/asp-real-empty-1.png" alt="" /></p>
+
+<p>See that 'Empty' project... It now creates:</p>
+
+<p><img src="/images/asp-real-empty-2.png" alt="" /></p>
+
+<p>Look at that, nice and clean. It still forces the whole WebApi thing on you, but atleast they cut out 90% of the rubbish that was in it previously.</p>
+
+<p>I'm REALLY happy with the changes after I previously ranted earlier this year:</p>
+
+<p><a href="/2012/02/mvc-4-project-templates-are-stupid/">MVC 4 Project Templates are stupid</a></p>
+
+<p>Thank you Microsoft!</p>
+
+      <p><a href="/2012/6/asp-net-mvc-4-has-real-empty-project/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/6/using-nhibernate-with-servicestack/">Using NHibernate with ServiceStack</a> 
+        <span>posted on 05 Jun 2012</span>
+      </h1> 
+      <p>A few people have asked me how they can use ServiceStack with other persistence technologies like RavenDB and NHibernate, or if you really must... EntityFramework... Rather than <a href="https://github.com/ServiceStack/ServiceStack.OrmLite">ServiceStack.OrmLite</a> or <a href="https://github.com/ServiceStack/ServiceStack.Redis">ServiceStack.Redis</a> like many of the examples in SS show.</p>
+
+<p><span class="note"><strong>Note:</strong> This isn't about best practice on using NHibernate or ServiceStack, my services are named just to quickly get something up and running.</span></p>
+
+<p><span class="note"><strong>Note 2:</strong> This blog post may not be completely inline with the GitHub repository since I will be updating the repository to include some additional samples in the future.</span></p>
+
+<p>I've created a small sample project which can be found <a href="https://github.com/phillip-haydon/ServiceStack-NHibernate-Sample">here on GitHub</a>, I plan to flesh it out a little bit from the date this is posted, but it's purely there as a sample.</p>
+
+<h2>No Repositories!</h2>
+
+<p>Utilizing other persistence frameworks is really easy with ServiceStack, the thing with ServiceStack Services is that they are doing something concise, it's a single service implementation, so there's really no need to use repositories for them, you gain absolutely no benefit from using repositories other than adding an additional layer of abstraction and complexity to your services.</p>
+
+
+      <p><a href="/2012/6/using-nhibernate-with-servicestack/">Read more...</a></p>
+    </li>
+    
+  </ul> 
+
+  <!-- Pagination links -->
+  <div id="post-pagination" class="pagination">
+
+    
+    <p class="previous">
+      <a href="/page4">Previous Page</a>
+    </p>
+    
+    
+
+    
+    <p class="next">
+      <a href="/page6">Next Page</a>
+    </p>
+    
+
+  </div>
+
+
+                </div>
+                <!-- #content -->
+            </div>
+            <!-- #primary .site-content -->
+
+            <div id="secondary" class="widget-area fancy-container lightred" role="complementary">
+                <aside id="text-5" class="widget widget_text">
+                    <h1 class="widget-title">Follow</h1>
+                    <div class="textwidget logos">
+                        <a href="https://twitter.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"><img src="/stylesheets/images/twitter.png"></a>
+                        <a href="http://stackoverflow.com/users/456813/phill" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://stackoverflow.com']);"><img src="/stylesheets/images/stackoverflow.png"></a>
+                        <a href="http://www.linkedin.com/in/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://www.linkedin.com']);"><img src="/stylesheets/images/linkedin.png"></a>
+                        <a href="https://plus.google.com/u/0/111751877537461442095" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://plus.google.com']);"><img src="/stylesheets/images/googleplus.png"></a>
+                        <a href="https://coderbits.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','https://coderbits.com/philliphaydon']);"><img src="/stylesheets/images/codebits.png"></a>
+                        <a href="https://github.com/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://github.com']);"><img src="/stylesheets/images/github.png"></a>
+                        <a href="http://www.codeschool.com/users/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://codeschool.com']);"><img src="/stylesheets/images/codeschool.png"></a>
+                        <a href="http://www.kickstarter.com/profile/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://kickstarter.com']);"><img src="/stylesheets/images/kickstarter.png"></a>
+                    </div>
+                    <a href="http://stackoverflow.com/users/456813/phill">
+                      <img src="http://stackoverflow.com/users/flair/456813.png" width="208" height="58" alt="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+                    </a>
+                    
+                    <a href="http://nancyfx.org/mvm.html"><img src="/stylesheets/images/mvm.png"></a>
+                    
+                    <div id = "clustrback" style="width:162px; height:133px;  background:#f7f7f7 url(http://clustrmaps.com/admin/3d/images/st4_grey.png)  center no-repeat; text-align:center;">
+                      <a href="http://www2.clustrmaps.com/counter/maps.php?url=http://www.philliphaydon.com/" style="width:160px; display:block; margin:0 auto;" id="clustrMapsLink">
+                        <img src="http://www2.clustrmaps.com/counter/index2.php?url=http://www.philliphaydon.com/" style="border:0px; margin:15px auto;margin:15px auto;" alt="Locations of visitors to this page" title="Locations of visitors to this page" id="clustrMapsImg" />
+                      </a>
+                    </div>
+                </aside>
+                <!--aside id="text-8" class="widget widget_text">
+                    <h1 class="widget-title">Other sites</h1>
+                    <div class="textwidget">
+                        <a href="http://csharptube.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://csharptube.com']);">csharptube.com</a><br />
+                        <a href="http://thisisparrot.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://thisisparrot.com']);">Parrot</a><br />
+                        <a href="http://shitprogrammerswrite.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://shitprogrammerswrite.com']);">Shit programmers write</a><br />
+                    </div>
+                </aside-->
+                <aside id="linkcat-6" class="widget widget_links">
+                    <h1 class="widget-title">Other Blogs</h1>
+                    <ul class='xoxo blogroll'>
+                        <li><a href="http://www.nickharris.net/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://nickharris.net/']);">Nick Harris</a></li>
+                        <li><a href="http://www.mindscapehq.com/blog/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.mindscapehq.com/blog/']);">Mindscape</a></li>
+                        <li><a href="http://blog.orangelightning.co.uk/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://blog.orangelightning.co.uk/']);">Phil Jones</a></li>
+                        <li><a href="http://buildstarted.com/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://buildstarted.com']);">Ben Dornis</a></li>
+                        <li><a href="http://jflood.net/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://jflood.net/']);">Jospeh Flood</a></li>
+                    </ul>
+                    
+                </aside>
+                <aside id="archives-4" class="widget widget_archive">
+                    <h1 class="widget-title">Archive</h1>
+                    
+                    <ul class="posts">
+                    
+                          <li><a href="/archive#2013July">July, 2013</a></li>
+                    
+                          <li><a href="/archive#2013June">June, 2013</a></li>
+                    
+                          <li><a href="/archive#2013May">May, 2013</a></li>
+                    
+                          <li><a href="/archive#2013April">April, 2013</a></li>
+                    
+                          <li><a href="/archive#2013March">March, 2013</a></li>
+                    
+                          <li><a href="/archive#2013February">February, 2013</a></li>
+                    
+                          <li><a href="/archive#2013January">January, 2013</a></li>
+                    
+                          <li><a href="/archive#2012December">December, 2012</a></li>
+                    
+                          <li><a href="/archive#2012November">November, 2012</a></li>
+                    
+                          <li><a href="/archive#2012October">October, 2012</a></li>
+                    
+                          <li><a href="/archive#2012September">September, 2012</a></li>
+                    
+                          <li><a href="/archive#2012July">July, 2012</a></li>
+                    
+                          <li><a href="/archive#2012June">June, 2012</a></li>
+                    
+                          <li><a href="/archive#2012April">April, 2012</a></li>
+                    
+                          <li><a href="/archive#2012March">March, 2012</a></li>
+                    
+                          <li><a href="/archive#2012February">February, 2012</a></li>
+                    
+                          <li><a href="/archive#2012January">January, 2012</a></li>
+                    
+                          <li><a href="/archive#2011December">December, 2011</a></li>
+                    
+                          <li><a href="/archive#2011November">November, 2011</a></li>
+                    
+                          <li><a href="/archive#2011October">October, 2011</a></li>
+                    
+                          <li><a href="/archive#2011September">September, 2011</a></li>
+                    
+                          <li><a href="/archive#2011August">August, 2011</a></li>
+                    
+                          <li><a href="/archive#2011July">July, 2011</a></li>
+                    
+                          <li><a href="/archive#2011June">June, 2011</a></li>
+                    
+                          <li><a href="/archive#2011May">May, 2011</a></li>
+                    
+                          <li><a href="/archive#2011April">April, 2011</a></li>
+                    
+                          <li><a href="/archive#2011March">March, 2011</a></li>
+                    
+                          <li><a href="/archive#2011February">February, 2011</a></li>
+                    
+                          <li><a href="/archive#2011January">January, 2011</a></li>
+                    
+                          <li><a href="/archive#2010December">December, 2010</a></li>
+                    
+                          <li><a href="/archive#2010November">November, 2010</a></li>
+                    
+                          <li><a href="/archive#2010October">October, 2010</a></li>
+                    
+                          <li><a href="/archive#2010September">September, 2010</a></li>
+                    
+                          <li><a href="/archive#2009July">July, 2009</a></li>
+                    
+                    </ul>
+                </aside>
+            </div>
+            <!-- #secondary .widget-area -->
+
+
+        </div>
+        <!-- #main -->
+
+        <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="site-info">
+                Powered by <a href="https://github.com/Sandra/Sandra.Snow" rel="generator">Sandra.Snow</a>.	
+            </div>
+            <!-- .site-info -->
+        </footer>
+        <!-- #colophon .site-footer -->
+    </div>
+    <!-- #page .hfeed .site -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src='/javascripts/prettify.js' type='text/javascript'></script>
+    <!--script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js' type='text/javascript'></script-->
+    <script type='text/javascript'>
+      $(function () {
+        $("pre code").parent().each(function () {
+          if (!$(this).hasClass("prettyprint")) {
+            $(this).addClass("prettyprint");
+            a = true
+          }
+        });
+
+        prettyPrint();
+      });
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-655975-13']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</body>
+</html>

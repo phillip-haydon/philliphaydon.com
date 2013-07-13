@@ -1,67 +1,489 @@
----
-layout: default
-title: philliphaydon.com
----
-<ul class="posts">
-  {% for post in paginator.posts %}
-  {% unless post.draft %}
-<li class="fancy-container lightblue">
-    <h1>
-      <a href="{{ post.url | remove:'.html' }}">{{ post.title }}</a>
-      <span>posted on {{ post.date | date_to_string }}</span>
-    </h1> 
-    {{ post.content | split:'<!--excerpt-->' | first }}
-    <p><a href="{{ post.url | remove:'.html' }}">Read more...</a></p>
-</li>
-  {% endunless %}
-  {% endfor %}
-</ul> 
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>philliphaydon.com</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+</head>
+<body class="home blog">
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header fancy-container lightgreen" role="banner">
+            <hgroup>
+                <h1 class="site-title"><a href="/" title="philliphaydon.com" rel="home">philliphaydon.com</a></h1>
+                <h2><small>Works on my PC...</small></h2>
+                <p class="site-description">Pleb from New Zealand who was banished overseas and currently resides in Singapore.</p>
+            </hgroup>
+            <nav role="navigation" class="site-navigation main-navigation">
+                <h1 class="assistive-text">Menu</h1>
+                <div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/category">Categories</a></li>
+                        <li><a href="/archive">Archive</a></li>
+                        <li><a href="/rss">RSS</a> / <a href="/feed">Atom</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="main">
+            <div id="primary" class="site-content">
+                <div id="content" role="main">
+                  
 
-<!-- Pagination links -->
-<div id="post-pagination" class="pagination">
+  <ul class="posts">
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/7/setting-up-a-nancyfx-website/">Setting up a NancyFX website</a> 
+        <span>posted on 04 Jul 2013</span>
+      </h1> 
+      <ul>
+<li><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Part 1 - Setting up the Virtual Machine and nginx</a></li>
+<li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx">Part 2 - Setting up new Website and Domain on nginx</a></li>
+<li><a href="/2013/06/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li>
+<li>Part 4 - Setting up a NancyFX website</li>
+<li>Part 5 - Setting up a ServiceStack web service</li>
+</ul>
 
-  {% if paginator.previous_page %}
-  <p class="previous">
-    {% if paginator.previous_page == 1 %}
-    <a href="/">Previous Page</a>
-    {% else %}
-    <a href="/page{{paginator.previous_page}}">Previous Page</a>
-    {% endif %}
-  </p>
-  {% else %}
-  <!--p class="previous disabled">
-    <span>Previous Page</span>
-  </p-->
-  {% endif %}
+<p>Time to setup NancyFX on Mono.</p>
 
-  <!--ul class="pages">
-    <li class="page">
-      {% if paginator.page == 1 %}
-      <span class="current-page">1</span>
-      {% else %}
-      <a href="/">1</a>
-      {% endif %}
+<h2>Prelude!</h2>
+
+<p>This series is done using Mono 2.10 and .NET 4.0. This wont work with a 4.5 project since we need Mono 3.0 for that, but I plan to do another series on building Mono from source since there's no package available yet.</p>
+
+<p>Also, this post assumes you've setup FTP to upload the files, I'm not going to go into detail, but you can install <code>vsftpd</code> and Google the setup. If you're new to Linux and followed Parts 1-3 so far, it should be easy enough to setup and install. All you need to do is authenticate using sshftp or sftp, rather than normal ftp. </p>
+
+<h2>Creating a Nancy test project</h2>
+
+<p>The easiest way to create a test project is to grab the <a href="http://visualstudiogallery.msdn.microsoft.com/f1e29f61-4dff-4b1e-a14b-6bd0d307611a">Nancy Templates</a> from the Visual Studio Gallery. </p>
+
+<p>Using this method, we can create a new project in Visual Studio and select Nancy Application.</p>
+
+
+      <p><a href="/2013/7/setting-up-a-nancyfx-website/">Read more...</a></p>
     </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/6/setting-up-mono-on-nginx/">Setting up Mono on nginx</a> 
+        <span>posted on 28 Jun 2013</span>
+      </h1> 
+      <ul>
+<li><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Part 1 - Setting up the Virtual Machine and nginx</a></li>
+<li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx">Part 2 - Setting up new Website and Domain on nginx</a></li>
+<li>Part 3 - Setting up Mono on nginx</li>
+<li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li>
+<li>Part 5 - Setting up a ServiceStack web service</li>
+</ul>
 
-    {% for count in (2..paginator.total_pages) %}
-    <li class="page">
-      {% if count == paginator.page %}
-      <span class="current-page">{{count}}</span>
-      {% else %}
-      <a href="/page{{count}}">{{count}}</a>
-      {% endif %}
+<p>Now we get to the fun stuff, getting up Mono. I'll be demoing with Mono 2.10 but after this series I may include a 6th part on how build Mono 3.0 from source and run it. </p>
+
+<h2>Setting up our test page</h2>
+
+<p>I figured we should start with setting up our test page. Something super simple, we will create a new page that outputs a bit of server side text. </p>
+
+<p>We wont deploy a bin folder or anything like that, it will be almost like deploying Classic ASP. </p>
+
+<pre><code>&lt;%@ Page Language="C#" AutoEventWireup="true" %&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head runat="server"&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+    &lt;% var test = "Hello World! Got an aspx page running on nginx!!!"; %&gt;
+
+    &lt;%= test %&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>So we are just creating a variable named <code>test</code> with some test data, then outputting it to the page. </p>
+
+
+      <p><a href="/2013/6/setting-up-mono-on-nginx/">Read more...</a></p>
     </li>
-    {% endfor %}
-  </ul-->
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/6/setting-up-a-new-website-and-domain-on-nginx/">Setting up new Website and Domain on nginx</a> 
+        <span>posted on 27 Jun 2013</span>
+      </h1> 
+      <ul>
+<li><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Part 1 - Setting up the Virtual Machine and nginx</a></li>
+<li>Part 2 - Setting up new Website and Domain on nginx</li>
+<li><a href="/2013/06/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li>
+<li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li>
+<li>Part 5 - Setting up a ServiceStack web service</li>
+</ul>
 
-  {% if paginator.next_page %}
-  <p class="next">
-    <a href="/page{{paginator.next_page}}">Next Page</a>
-  </p>
-  {% else %}
-  <!--p class="next disabled">
-    <span>Next Page</span>
-  </p-->
-  {% endif %}
+<p>The purpose of series is to be able to create an end-to-end setup of a Linux Server on Azure and deploy a brand new production NancyFX website or ServiceStack service, and not get confused in-between. Like I was when I sussed all this out. :)</p>
 
-</div>
+<h2>Prelude</h2>
+
+<p>When using IIS I think it's safe to say a large majority of us would use the GUI to configure or create new Web Sites. Even though it's actually possible to create a new website and configure it entirely through Powershell.</p>
+
+<p>But, as scary as it sounds it's not too hard to configure a new Website in nginx. I actually think its easier than doing it with Apache, despite the fact that they are relatively similar. </p>
+
+
+      <p><a href="/2013/6/setting-up-a-new-website-and-domain-on-nginx/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/6/setting-up-ubuntu-and-nginx-on-azure/">Setting up Ubuntu and nginx on Azure</a> 
+        <span>posted on 26 Jun 2013</span>
+      </h1> 
+      <ul>
+<li>Part 1 - Setting up the Virtual Machine and nginx</li>
+<li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx/">Part 2 - Setting up new Website and Domain</a></li>
+<li><a href="/2013/06/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li>
+<li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li>
+<li>Part 5 - Setting up a ServiceStack web service</li>
+</ul>
+
+<p><span class="note"><strong>Note:</strong> I'm breaking this up into 5 parts because otherwise it gets far too long :(</span></p>
+
+<p>So after spending a week with OSX, I thought I would see how well I go with setting up Mono on Ubuntu... on Azure. </p>
+
+<p>Turns out it's actually rather simple!</p>
+
+<h2>Setting up the Virtual Machine</h2>
+
+<p>Setting up the virtual machine is pretty straight forward. From the Azure Portal, click the Virtual Machines tab, and select New. </p>
+
+<p>I create mine from the gallery rather than the quick option.</p>
+
+<p>Select <code>Ubuntu Server 13.04</code> from the options, give your new server a name. For Authentication I recommend making a password rather than uploading an SSH key. Only because if you're new or trying this out just to play around, that stuff is probably too difficult for now :)</p>
+
+
+      <p><a href="/2013/6/setting-up-ubuntu-and-nginx-on-azure/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/6/making-nuget-a-little-easier-to-use-with-an-alias-on-mono-and-osx/">Making NuGet a little easier to use with an Alias</a> 
+        <span>posted on 21 Jun 2013</span>
+      </h1> 
+      <p>So I've been in hospital all week with Mycoplasma Infection (or AIDs, doctor says otherwise tho), and figured it would be a good time to mess around with Mono. </p>
+
+<p>So I began by testing WorldDomination.Web.Authentication</p>
+
+<p>While it works GREAT! (Future post maybe) I did run into one issue early on, that is restoring packages. </p>
+
+<p>I found a <a href="http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/">great post</a> by <a href="https://twitter.com/orientman">&#64;orientman</a> about using NuGet on OSX.</p>
+
+<p><a href="http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/">http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/</a></p>
+
+<p>But I didn't like having to type the following out each time, since I needed to install a few different project packages.</p>
+
+
+      <p><a href="/2013/6/making-nuget-a-little-easier-to-use-with-an-alias-on-mono-and-osx/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/5/nancyfx-hosting-with-owin/">NancyFX - Hosting with OWIN</a> 
+        <span>posted on 29 May 2013</span>
+      </h1> 
+      <p>By now you've probably heard of OWIN, its slowly becoming more and more popular, hell even ThoughtWorks mentioned them on their <a href="http://www.thoughtworks.com/radar">Radar</a></p>
+
+<p>If you want to know what OWIN is, head on over to Paul Glavich's blog post on <a href="http://weblogs.asp.net/pglavich/">Owin, Katana, and getting started</a></p>
+
+<p>The question of running NancyFX with Owin has been popping up more often lately so I figured I would show you how to get setup. </p>
+
+<h2>Codez - Project Setup</h2>
+
+<p>Lets start off by creating a brand new Empty Web Application:</p>
+
+<p><img src="/images/nancyfx-owin-1.png" alt="" /></p>
+
+<p>Once created you should get a semi long list of References...</p>
+
+
+      <p><a href="/2013/5/nancyfx-hosting-with-owin/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/5/nancyfx-revisiting-content-negotiation-and-apis-part-3/">NancyFX - Revisiting Content Negotiation & APIs (Part 3)</a> 
+        <span>posted on 20 May 2013</span>
+      </h1> 
+      <ul>
+<li>Original Post: <a href="/2012/11/nancy-and-content-negotiation">NancyFX and Content Negotiation</a></li>
+<li><a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</a></li>
+<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 2)</a></li>
+<li>NancyFX - Revisiting Content Negotiation &amp; APIs (Part 3)</li>
+</ul>
+
+<p>In this last part I want to show you creating your own media type, so far we have gone over a really basic example of returning a response and letting the accept header handle different results, and then we went over how explicitly using <code>Negotiate</code> allows you to customize your response more.</p>
+
+<p>Creating your own Media Type may be something you never have to do, but it can help you solve some strange scenarios, for instance you could have a user request an invoice, rather than clutter your code with:</p>
+
+<pre><code>if (requestedInvoice.Type == "pdf")
+{
+    // get a pdf invoice
+}
+else if (requestedInvoice.Type == "word")
+{
+
+}
+else if (...)
+</code></pre>
+
+<p>You get the picture, this is tedious problematic work, every time we want to supply a new invoice type we need to modify the existing request, what we want to do is just handle a new media type and process it if we know about it.</p>
+
+
+      <p><a href="/2013/5/nancyfx-revisiting-content-negotiation-and-apis-part-3/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/5/setup-my-first-azure-virtual-machine/">Setup my first Azure Virtual Machine!</a> 
+        <span>posted on 16 May 2013</span>
+      </h1> 
+      <p>Every time I touch Azure I'm constantly amazed at how much simpler it is compared to when I tried it back when it had the crappy Silverlight management site.</p>
+
+<p>Infact every time I touch the thing I over-complicate something only to realize it was dead simple to begin with.</p>
+
+<p>I'm currently in the process of slowly building a VM to run a few small websites I'm building in my own time. Based on what I need Azure will cost me $60 less each month for roughly the same specs (with about 256mb less ram)</p>
+
+<p>The first time creating a VM took me a couple of hours to setup and working, nuking it and starting again took about as long as it took to provision the VM (few minutes)</p>
+
+
+      <p><a href="/2013/5/setup-my-first-azure-virtual-machine/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/5/nancyfx-revisiting-content-negotiation-and-apis-part-2/">NancyFX - Revisiting Content Negotiation & APIs (Part 2)</a> 
+        <span>posted on 09 May 2013</span>
+      </h1> 
+      <ul>
+<li>Original Post: <a href="/2012/11/nancy-and-content-negotiation">NancyFX and Content Negotiation</a></li>
+<li><a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</a></li>
+<li>NancyFX - Revisiting Content Negotiation &amp; APIs (Part 2)</li>
+<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 3)</a></li>
+</ul>
+
+<p>In part 1 I went over a really basic scenario, and one of the fiddly things we had was the view name for returning a collection.</p>
+
+<p>Using <code>Negotiate</code> gives as more flexibility on what we can return, allowing us to customize the response to respond differently to different media types or returning partial content in some scenarios.</p>
+
+<p>Going back to my previous post I said we should be able to use the same API to build our website as we expose. But what about when we want to have additional information on the website that isn't pushed out to the client.</p>
+
+<p>Lets say you have a product catalog, and you can view a particular product on your website. You also allow people to pull the content from your site to display on their website as like an affiliate system of some sort. But when you render your product you may have a special, but when you send the product to the consuming client you don't want to include the special for them since it's something specific to your website.</p>
+
+<h2>Show me the codez!</h2>
+
+<p>So lets update the <code>Product</code> to include <code>SpecialPrice</code></p>
+
+
+      <p><a href="/2013/5/nancyfx-revisiting-content-negotiation-and-apis-part-2/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/5/rss-atom-feed-spam-sorry/">RSS/Atom spam :( Sorry...</a> 
+        <span>posted on 07 May 2013</span>
+      </h1> 
+      <p>Sorry to anyone who subscribes to me, I was setting up an RSS since not everything accepts Atom, and I guess it re-processed everything and has spammed everyone.</p>
+
+<p>Real sorry about that :(</p>
+
+      <p><a href="/2013/5/rss-atom-feed-spam-sorry/">Read more...</a></p>
+    </li>
+    
+  </ul> 
+
+  <!-- Pagination links -->
+  <div id="post-pagination" class="pagination">
+
+    
+    
+    <p class="previous">
+      <a href="/">Previous Page</a>
+    </p>
+    
+
+    
+    <p class="next">
+      <a href="/page2">Next Page</a>
+    </p>
+    
+
+  </div>
+
+
+                </div>
+                <!-- #content -->
+            </div>
+            <!-- #primary .site-content -->
+
+            <div id="secondary" class="widget-area fancy-container lightred" role="complementary">
+                <aside id="text-5" class="widget widget_text">
+                    <h1 class="widget-title">Follow</h1>
+                    <div class="textwidget logos">
+                        <a href="https://twitter.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"><img src="/stylesheets/images/twitter.png"></a>
+                        <a href="http://stackoverflow.com/users/456813/phill" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://stackoverflow.com']);"><img src="/stylesheets/images/stackoverflow.png"></a>
+                        <a href="http://www.linkedin.com/in/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://www.linkedin.com']);"><img src="/stylesheets/images/linkedin.png"></a>
+                        <a href="https://plus.google.com/u/0/111751877537461442095" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://plus.google.com']);"><img src="/stylesheets/images/googleplus.png"></a>
+                        <a href="https://coderbits.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','https://coderbits.com/philliphaydon']);"><img src="/stylesheets/images/codebits.png"></a>
+                        <a href="https://github.com/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://github.com']);"><img src="/stylesheets/images/github.png"></a>
+                        <a href="http://www.codeschool.com/users/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://codeschool.com']);"><img src="/stylesheets/images/codeschool.png"></a>
+                        <a href="http://www.kickstarter.com/profile/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://kickstarter.com']);"><img src="/stylesheets/images/kickstarter.png"></a>
+                    </div>
+                    <a href="http://stackoverflow.com/users/456813/phill">
+                      <img src="http://stackoverflow.com/users/flair/456813.png" width="208" height="58" alt="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+                    </a>
+                    
+                    <a href="http://nancyfx.org/mvm.html"><img src="/stylesheets/images/mvm.png"></a>
+                    
+                    <div id = "clustrback" style="width:162px; height:133px;  background:#f7f7f7 url(http://clustrmaps.com/admin/3d/images/st4_grey.png)  center no-repeat; text-align:center;">
+                      <a href="http://www2.clustrmaps.com/counter/maps.php?url=http://www.philliphaydon.com/" style="width:160px; display:block; margin:0 auto;" id="clustrMapsLink">
+                        <img src="http://www2.clustrmaps.com/counter/index2.php?url=http://www.philliphaydon.com/" style="border:0px; margin:15px auto;margin:15px auto;" alt="Locations of visitors to this page" title="Locations of visitors to this page" id="clustrMapsImg" />
+                      </a>
+                    </div>
+                </aside>
+                <!--aside id="text-8" class="widget widget_text">
+                    <h1 class="widget-title">Other sites</h1>
+                    <div class="textwidget">
+                        <a href="http://csharptube.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://csharptube.com']);">csharptube.com</a><br />
+                        <a href="http://thisisparrot.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://thisisparrot.com']);">Parrot</a><br />
+                        <a href="http://shitprogrammerswrite.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://shitprogrammerswrite.com']);">Shit programmers write</a><br />
+                    </div>
+                </aside-->
+                <aside id="linkcat-6" class="widget widget_links">
+                    <h1 class="widget-title">Other Blogs</h1>
+                    <ul class='xoxo blogroll'>
+                        <li><a href="http://www.nickharris.net/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://nickharris.net/']);">Nick Harris</a></li>
+                        <li><a href="http://www.mindscapehq.com/blog/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.mindscapehq.com/blog/']);">Mindscape</a></li>
+                        <li><a href="http://blog.orangelightning.co.uk/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://blog.orangelightning.co.uk/']);">Phil Jones</a></li>
+                        <li><a href="http://buildstarted.com/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://buildstarted.com']);">Ben Dornis</a></li>
+                        <li><a href="http://jflood.net/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://jflood.net/']);">Jospeh Flood</a></li>
+                    </ul>
+                    
+                </aside>
+                <aside id="archives-4" class="widget widget_archive">
+                    <h1 class="widget-title">Archive</h1>
+                    
+                    <ul class="posts">
+                    
+                          <li><a href="/archive#2013July">July, 2013</a></li>
+                    
+                          <li><a href="/archive#2013June">June, 2013</a></li>
+                    
+                          <li><a href="/archive#2013May">May, 2013</a></li>
+                    
+                          <li><a href="/archive#2013April">April, 2013</a></li>
+                    
+                          <li><a href="/archive#2013March">March, 2013</a></li>
+                    
+                          <li><a href="/archive#2013February">February, 2013</a></li>
+                    
+                          <li><a href="/archive#2013January">January, 2013</a></li>
+                    
+                          <li><a href="/archive#2012December">December, 2012</a></li>
+                    
+                          <li><a href="/archive#2012November">November, 2012</a></li>
+                    
+                          <li><a href="/archive#2012October">October, 2012</a></li>
+                    
+                          <li><a href="/archive#2012September">September, 2012</a></li>
+                    
+                          <li><a href="/archive#2012July">July, 2012</a></li>
+                    
+                          <li><a href="/archive#2012June">June, 2012</a></li>
+                    
+                          <li><a href="/archive#2012April">April, 2012</a></li>
+                    
+                          <li><a href="/archive#2012March">March, 2012</a></li>
+                    
+                          <li><a href="/archive#2012February">February, 2012</a></li>
+                    
+                          <li><a href="/archive#2012January">January, 2012</a></li>
+                    
+                          <li><a href="/archive#2011December">December, 2011</a></li>
+                    
+                          <li><a href="/archive#2011November">November, 2011</a></li>
+                    
+                          <li><a href="/archive#2011October">October, 2011</a></li>
+                    
+                          <li><a href="/archive#2011September">September, 2011</a></li>
+                    
+                          <li><a href="/archive#2011August">August, 2011</a></li>
+                    
+                          <li><a href="/archive#2011July">July, 2011</a></li>
+                    
+                          <li><a href="/archive#2011June">June, 2011</a></li>
+                    
+                          <li><a href="/archive#2011May">May, 2011</a></li>
+                    
+                          <li><a href="/archive#2011April">April, 2011</a></li>
+                    
+                          <li><a href="/archive#2011March">March, 2011</a></li>
+                    
+                          <li><a href="/archive#2011February">February, 2011</a></li>
+                    
+                          <li><a href="/archive#2011January">January, 2011</a></li>
+                    
+                          <li><a href="/archive#2010December">December, 2010</a></li>
+                    
+                          <li><a href="/archive#2010November">November, 2010</a></li>
+                    
+                          <li><a href="/archive#2010October">October, 2010</a></li>
+                    
+                          <li><a href="/archive#2010September">September, 2010</a></li>
+                    
+                          <li><a href="/archive#2009July">July, 2009</a></li>
+                    
+                    </ul>
+                </aside>
+            </div>
+            <!-- #secondary .widget-area -->
+
+
+        </div>
+        <!-- #main -->
+
+        <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="site-info">
+                Powered by <a href="https://github.com/Sandra/Sandra.Snow" rel="generator">Sandra.Snow</a>.	
+            </div>
+            <!-- .site-info -->
+        </footer>
+        <!-- #colophon .site-footer -->
+    </div>
+    <!-- #page .hfeed .site -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src='/javascripts/prettify.js' type='text/javascript'></script>
+    <!--script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js' type='text/javascript'></script-->
+    <script type='text/javascript'>
+      $(function () {
+        $("pre code").parent().each(function () {
+          if (!$(this).hasClass("prettyprint")) {
+            $(this).addClass("prettyprint");
+            a = true
+          }
+        });
+
+        prettyPrint();
+      });
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-655975-13']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>philliphaydon.com</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+</head>
+<body class="home blog">
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header fancy-container lightgreen" role="banner">
+            <hgroup>
+                <h1 class="site-title"><a href="/" title="philliphaydon.com" rel="home">philliphaydon.com</a></h1>
+                <h2><small>Works on my PC...</small></h2>
+                <p class="site-description">Pleb from New Zealand who was banished overseas and currently resides in Singapore.</p>
+            </hgroup>
+            <nav role="navigation" class="site-navigation main-navigation">
+                <h1 class="assistive-text">Menu</h1>
+                <div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/category">Categories</a></li>
+                        <li><a href="/archive">Archive</a></li>
+                        <li><a href="/rss">RSS</a> / <a href="/feed">Atom</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="main">
+            <div id="primary" class="site-content">
+                <div id="content" role="main">
+                  
+
+  <ul class="posts">
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/4/codeschool-com-is-the-most-awesome-way-to-learn/">CodeSchool.com is the most awesome way to learn</a> 
+        <span>posted on 11 Apr 2012</span>
+      </h1> 
+      <p>On the 1st of April, Glenn Block posted a link that was too good to be true.</p>
+
+<p><a href="http://www.codeschool.com">http://www.codeschool.com</a></p>
+
+<p><img src="/images/code-school-1.png" alt="" /></p>
+
+<p>I have a habit of checking out most links that don't look like they link to a porn site or some look at photo of me and signup to see me naked. This particular link interested me because his tweet mentioned Backbone, something I've been wanting to learn for a while and that I'm been hoping <a href="https://twitter.com/#!/derickbailey">Derick Bailey</a> would add to his awesome JavaScript video collection: <a href="http://www.watchmecode.net">http://www.watchmecode.net</a> (<strong><em>his JavaScript series is absolutely brilliant and I've learnt SO much from him so go support him so he will make more plz kthxbi</em></strong>)</p>
+
+<p>Anyway CodeSchool allows you to do level 1 of most courses for free, and if you like what you try you can purchase the rest of the course. Buying the courses 1 by 1 is a little bit expensive at $55 USD, but it's well worth the money.</p>
+
+<p>You're not getting just a video like you would with sites like Plural Sight, Tekpub, or any of the many other site's popping up lately.</p>
+
+<p>After each lesson in the course, there's a series of challenges which allow you to utilize your new gained knowledge and put it to the test. The Backbone course challenges you to make a small ToDo list application, starting out really basic and slowly modifying the code to follow best practice, or add new features.</p>
+
+
+      <p><a href="/2012/4/codeschool-com-is-the-most-awesome-way-to-learn/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/3/my-must-have-short-list-programs-and-extensions-etc/">My must have (short) list programs/extensions etc</a> 
+        <span>posted on 24 Mar 2012</span>
+      </h1> 
+      <p>We have all seen these lists before, but I've decided I'll make a list of all the software I use or think are a must have, blog it, then this time next year I can do the list again and see how much it's changed.</p>
+
+<h3>Visual Studio 2010</h3>
+
+<p>What can I say, I'm a .NET Developer :)</p>
+
+<h3>ReSharper</h3>
+
+<p><a href="http://www.jetbrains.com/resharper/">http://www.jetbrains.com/resharper/</a></p>
+
+<p>This should just ship with Visual Studio, without ReSharper I feel so unproductive in VS.</p>
+
+<h3>MindScape Web Workbench</h3>
+
+<p><a href="http://www.mindscapehq.com/products/web-workbench">http://www.mindscapehq.com/products/web-workbench</a></p>
+
+<p>This VS extension just gets better and better, I primarily got it to write LESS and CoffeeScript, but recently they added support for minifying and combining JavaScript and CSS files. Really cool stuff and I highly recommend it.</p>
+
+<h3>BugAid</h3>
+
+<p><a href="http://www.bugaidsoftware.com/">http://www.bugaidsoftware.com/</a></p>
+
+
+      <p><a href="/2012/3/my-must-have-short-list-programs-and-extensions-etc/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/3/ormlite-blobbing-done-with-nhibernate-and-serialized-json/">OrmLite Blobbing done with NHibernate and Serialized JSON...</a> 
+        <span>posted on 19 Mar 2012</span>
+      </h1> 
+      <p>There seems to be a growing trend now with these Micro ORM's, at least that is what I see with <a href="https://github.com/ServiceStack/ServiceStack.OrmLite">ServiceStack.OrmLite</a>, which is the ability to persist properties of an object as a JSON, rather than in separate tables.</p>
+
+<p>Usually with a Relational approach you would create a <code>Customer</code> table, <code>Address</code> table, and most likely shove the Phone Numbers under separate columns of the customer for <code>HomePhone</code> and <code>Mobile</code>.</p>
+
+<p>This means we are limited to two types of phone numbers, and require joining or querying for the addresses.</p>
+
+<p>Do we really need separate columns for phone numbers? Do we really need to persist the addresses in another table?</p>
+
+<p>One problem I see with putting addresses into it's own table, is the temptation to relate them to an Order (assuming this is some sort of eCommerce system) when really there is no relationship between a customer's address, and the address on an order.</p>
+
+<p>Really, the order should have it's own address, otherwise you can never delete or update an address on a customer, and you can't delete the customer. However I digress and this is a topic for another day.</p>
+
+
+      <p><a href="/2012/3/ormlite-blobbing-done-with-nhibernate-and-serialized-json/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/3/service-stack-exceptions-and-errors/">Service Stack Exceptions and Errors</a> 
+        <span>posted on 09 Mar 2012</span>
+      </h1> 
+      <p><span class="note"><strong>Note:</strong> This post on ServiceStack is to do with the C# Client. JavaScript posts will be coming in the future.</span></p>
+
+<p>One of the most painful experiences with WCF is exceptions, if using WCF makes you want to slit your wrists, exceptions in WCF will make you want douse yourself in petrol and light yourself on fire.</p>
+
+<p>Before you even get to your code exceptions, you have to wade yourself through piles of retarded errors to do with Contract Mismatching, Forcefully Disconnected, Binding Issues, Random Faults... The list goes on.</p>
+
+<p>Then, it all works in development, and you put it in production, and it doesn't work, and to debug it you got to modify the config file, setup the <a href="http://msdn.microsoft.com/en-us/library/ms732023.aspx">diagnostics logging</a>, then view it and trawl through piles of crap.</p>
+
+<p><img src="/images/service-stack-errors-1.png" alt="" /></p>
+
+<p>(image taken from: <a href="http://weblogs.asp.net/nmarun/archive/2011/06/10/wcf-service-trace-viewer-part-1.aspx">http://weblogs.asp.net/nmarun/archive/2011/06/10/wcf-service-trace-viewer-part-1.aspx</a>)</p>
+
+<p>And in the end, it was probably a PEBKAC issue where you forgot to put a stupid attribute on a property...</p>
+
+
+      <p><a href="/2012/3/service-stack-exceptions-and-errors/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/3/ravendb-flattening-object-graphs-and-projections/">RavenDB - Flattening Object Graphs and Projections</a> 
+        <span>posted on 04 Mar 2012</span>
+      </h1> 
+      <p>One of the guys in <a href="http://jabbr.net/#/rooms/RavenDB">JabbR RavenDB</a> chat room had a pretty interesting problem that took a while to solve. The problem was that he wasn't trying to return anything to do with the original document, but get a flattened view of some information inside the document.</p>
+
+<p>The scenario was a <strong>Game Server</strong> which a collection of <strong>Connected Users</strong>.</p>
+
+<pre><code>public class GameServer
+{
+    public string Id { get; set; }
+    public string ServerName { get; set; }
+    public IEnumerable&lt;User&gt; ConnectedUser { get; set; }
+    public class User
+    {
+        public string UserId { get; set; }
+        public string Name { get; set; }
+        public DateTimeOffset DateConnected { get; set; }
+    }
+}
+</code></pre>
+
+<p>Given say 3 servers with a bunch of users on each server, and searching for a user who's name begins with 'b' the expected result was along the lines of:</p>
+
+
+      <p><a href="/2012/3/ravendb-flattening-object-graphs-and-projections/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/2/service-stack-i-heart-you-my-conversion-from-wcf-to-ss/">Service Stack... I heart you. My conversion from WCF to SS</a> 
+        <span>posted on 21 Feb 2012</span>
+      </h1> 
+      <p>I've just spent the weekend ripping out that dreaded WCF abomination and replacing it with Service Stack.</p>
+
+<p><a href="http://servicestack.net/">http://servicestack.net/</a></p>
+
+<blockquote>
+  <p>A modern fresh alternative to WCF. Code-first, convention-based, codegen-free. Encourages best-practices high-performance, scalable REST &amp; RPC web services.</p>
+</blockquote>
+
+<p>Over the past couple of months I've been fighting with WCF to the point I wanted to slit my wrists.</p>
+
+<p>So I asked <a href="http://jabbr.net/">JabbR</a> and Twitter if I should use Web API. Well -no- one recommended Web API and everyone recommended Service Stack.</p>
+
+<h2>It's a different way of thinking</h2>
+
+<p>The first noticeable difference between WCF and SS (Service Stack) is that I'm no longer writing a single service class with a butt load of methods. Which is most likely a good thing because after a while they just become hard to manage.</p>
+
+<p>So instead of a Contract, Service, Response DTO, and Request DTO, with 9234823 methods defined in the Contract/Service. It's now <strong>1 Request DTO per Service.</strong></p>
+
+<p>What does that mean?</p>
+
+
+      <p><a href="/2012/2/service-stack-i-heart-you-my-conversion-from-wcf-to-ss/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/2/mvc-4-project-templates-are-stupid/">MVC 4 Project Templates are stupid</a> 
+        <span>posted on 19 Feb 2012</span>
+      </h1> 
+      <p><em>begin rant</em></p>
+
+<p>Thought I would jump on the MVC 4 Beta bandwagon today, installed, create new project... And this is what I'm greeted with:</p>
+
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;packages&gt;
+  &lt;package id="AspNetMvc" version="4.0.20126.16343" /&gt;
+  &lt;package id="AspNetRazor.Core" version="2.0.20126.16343" /&gt;
+  &lt;package id="AspNetWebApi" version="4.0.20126.16343" /&gt;
+  &lt;package id="AspNetWebApi.Core" version="4.0.20126.16343" /&gt;
+  &lt;package id="AspNetWebPages.Core" version="2.0.20126.16343" /&gt;
+  &lt;package id="EntityFramework" version="4.1.10331.0" /&gt;
+  &lt;package id="jQuery" version="1.6.2" /&gt;
+  &lt;package id="jQuery.Ajax.Unobtrusive" version="2.0.20126.16343" /&gt;
+  &lt;package id="jQuery.UI.Combined" version="1.8.11" /&gt;
+  &lt;package id="jQuery.Validation" version="1.8.1" /&gt;
+  &lt;package id="jQuery.Validation.Unobtrusive" version="2.0.20126.16343" /&gt;
+  &lt;package id="knockoutjs" version="2.0.0.0" /&gt;
+  &lt;package id="Microsoft.Web.Infrastructure" version="1.0.0.0" /&gt;
+  &lt;package id="Microsoft.Web.Optimization" version="1.0.0-beta" /&gt;
+  &lt;package id="Modernizr" version="2.0.6" /&gt;
+  &lt;package id="System.Json" version="4.0.20126.16343" /&gt;
+  &lt;package id="System.Net.Http" version="2.0.20126.16343" /&gt;
+  &lt;package id="System.Net.Http.Formatting" version="4.0.20126.16343" /&gt;
+  &lt;package id="System.Web.Http.Common" version="4.0.20126.16343" /&gt;
+  &lt;package id="System.Web.Providers" version="1.1" /&gt;
+  &lt;package id="System.Web.Providers.Core" version="1.0" /&gt;
+&lt;/packages&gt;
+</code></pre>
+
+<p>This is absolutely stupid...</p>
+
+<p>I select EMPTY project template.</p>
+
+<p>EMPTY</p>
+
+
+      <p><a href="/2012/2/mvc-4-project-templates-are-stupid/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/1/ravendb-searching-across-multiple-properties/">RavenDB - Searching across multiple properties</a> 
+        <span>posted on 18 Jan 2012</span>
+      </h1> 
+      <p>Ayende recently posted about <a href="http://ayende.com/blog/152833/orders-search-in-ravendb">Orders Search</a> in RavenDB which got me a little bit excited, since I was pondering how I would do searching in RavenDB without having Full Text Searching from SQL Server.</p>
+
+<p>So digging into it I wanted to try it out for myself how to use it. Given the model:</p>
+
+<pre><code>public class Post
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public IEnumerable&lt;string&gt; Tags { get; set; }
+    public DateTime DatePosted { get; set; }
+}
+</code></pre>
+
+<p>I've setup 10 posts (<a href="http://pastie.org/3200462">click here for the insert pastie</a>) just with some really basic data.</p>
+
+<p>So I'm going to detail here all the data that I've setup.</p>
+
+
+      <p><a href="/2012/1/ravendb-searching-across-multiple-properties/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/12/ravendb-map-reduce/">RavenDB - Map Reduce</a> 
+        <span>posted on 22 Dec 2011</span>
+      </h1> 
+      <p>So, learning Map Reduce in RavenDB I decided that to take what I learnt from the index created in my previous post. I think I picked something rather difficult to begin with, but I've succeeded </p>
+
+<p>Given a document Article which has a collection of Tags.</p>
+
+<p>I want to get a Count of each Tag across all Articles.</p>
+
+<pre><code>public class Content
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public IEnumerable&lt;Tag&gt; Tags { get; set; }
+}
+
+public class Tag
+{
+    public string Name { get; set; }
+}
+</code></pre>
+
+<p><span class="note"><strong>Note:</strong> Tag is it's own class because I added additional properties to it.</span></p>
+
+
+      <p><a href="/2011/12/ravendb-map-reduce/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/12/ravendb-inheritance-revisited/">RavenDB Inheritance-Revisited</a> 
+        <span>posted on 14 Dec 2011</span>
+      </h1> 
+      <p>So after my initial post on <a href="/2011/12/ravendb-inheritance/">RavenDB Inheritance</a>, and the issue I had with polymorphic queries, and seeking help from the guys in <a href="http://jabbr.net/">JabbR</a> and the (RavenDB Google Group)[http://groups.google.com/group/ravendb/browse_thread/thread/c71df8f1cd92e04c], <a href="http://ayende.com/blog/">Ayende</a> ended up doing a screen cast with me where he solved all my problems.</p>
+
+<p>One of the things he asked me was what I was trying to achieve by having a polymorphic query, which was a very good question, something I hadn't really thought about.</p>
+
+<p>The problem I was trying to solve was actually displaying search results.</p>
+
+<h2>The Problem</h2>
+
+<p>So I'm working on a personal project, and I need to display a few things which are similar, but different. There's 3 different types but I'll use two to keep it simple. I've also cut out most of the properties.</p>
+
+<p>So I have an abstract class Content, with two derived classes, Article and Video.</p>
+
+<pre><code>public abstract class Content
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public DateTime DatePublished { get; set; }
+}
+
+public class Article : Content
+{
+    public string HtmlContent { get; set; }
+}
+
+public class Video : Content
+{
+    public string Description { get; set; }
+    public string VideoUrl { get; set; }
+}
+</code></pre>
+
+
+      <p><a href="/2011/12/ravendb-inheritance-revisited/">Read more...</a></p>
+    </li>
+    
+  </ul> 
+
+  <!-- Pagination links -->
+  <div id="post-pagination" class="pagination">
+
+    
+    <p class="previous">
+      <a href="/page5">Previous Page</a>
+    </p>
+    
+    
+
+    
+    <p class="next">
+      <a href="/page7">Next Page</a>
+    </p>
+    
+
+  </div>
+
+
+                </div>
+                <!-- #content -->
+            </div>
+            <!-- #primary .site-content -->
+
+            <div id="secondary" class="widget-area fancy-container lightred" role="complementary">
+                <aside id="text-5" class="widget widget_text">
+                    <h1 class="widget-title">Follow</h1>
+                    <div class="textwidget logos">
+                        <a href="https://twitter.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"><img src="/stylesheets/images/twitter.png"></a>
+                        <a href="http://stackoverflow.com/users/456813/phill" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://stackoverflow.com']);"><img src="/stylesheets/images/stackoverflow.png"></a>
+                        <a href="http://www.linkedin.com/in/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://www.linkedin.com']);"><img src="/stylesheets/images/linkedin.png"></a>
+                        <a href="https://plus.google.com/u/0/111751877537461442095" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://plus.google.com']);"><img src="/stylesheets/images/googleplus.png"></a>
+                        <a href="https://coderbits.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','https://coderbits.com/philliphaydon']);"><img src="/stylesheets/images/codebits.png"></a>
+                        <a href="https://github.com/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://github.com']);"><img src="/stylesheets/images/github.png"></a>
+                        <a href="http://www.codeschool.com/users/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://codeschool.com']);"><img src="/stylesheets/images/codeschool.png"></a>
+                        <a href="http://www.kickstarter.com/profile/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://kickstarter.com']);"><img src="/stylesheets/images/kickstarter.png"></a>
+                    </div>
+                    <a href="http://stackoverflow.com/users/456813/phill">
+                      <img src="http://stackoverflow.com/users/flair/456813.png" width="208" height="58" alt="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+                    </a>
+                    
+                    <a href="http://nancyfx.org/mvm.html"><img src="/stylesheets/images/mvm.png"></a>
+                    
+                    <div id = "clustrback" style="width:162px; height:133px;  background:#f7f7f7 url(http://clustrmaps.com/admin/3d/images/st4_grey.png)  center no-repeat; text-align:center;">
+                      <a href="http://www2.clustrmaps.com/counter/maps.php?url=http://www.philliphaydon.com/" style="width:160px; display:block; margin:0 auto;" id="clustrMapsLink">
+                        <img src="http://www2.clustrmaps.com/counter/index2.php?url=http://www.philliphaydon.com/" style="border:0px; margin:15px auto;margin:15px auto;" alt="Locations of visitors to this page" title="Locations of visitors to this page" id="clustrMapsImg" />
+                      </a>
+                    </div>
+                </aside>
+                <!--aside id="text-8" class="widget widget_text">
+                    <h1 class="widget-title">Other sites</h1>
+                    <div class="textwidget">
+                        <a href="http://csharptube.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://csharptube.com']);">csharptube.com</a><br />
+                        <a href="http://thisisparrot.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://thisisparrot.com']);">Parrot</a><br />
+                        <a href="http://shitprogrammerswrite.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://shitprogrammerswrite.com']);">Shit programmers write</a><br />
+                    </div>
+                </aside-->
+                <aside id="linkcat-6" class="widget widget_links">
+                    <h1 class="widget-title">Other Blogs</h1>
+                    <ul class='xoxo blogroll'>
+                        <li><a href="http://www.nickharris.net/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://nickharris.net/']);">Nick Harris</a></li>
+                        <li><a href="http://www.mindscapehq.com/blog/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.mindscapehq.com/blog/']);">Mindscape</a></li>
+                        <li><a href="http://blog.orangelightning.co.uk/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://blog.orangelightning.co.uk/']);">Phil Jones</a></li>
+                        <li><a href="http://buildstarted.com/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://buildstarted.com']);">Ben Dornis</a></li>
+                        <li><a href="http://jflood.net/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://jflood.net/']);">Jospeh Flood</a></li>
+                    </ul>
+                    
+                </aside>
+                <aside id="archives-4" class="widget widget_archive">
+                    <h1 class="widget-title">Archive</h1>
+                    
+                    <ul class="posts">
+                    
+                          <li><a href="/archive#2013July">July, 2013</a></li>
+                    
+                          <li><a href="/archive#2013June">June, 2013</a></li>
+                    
+                          <li><a href="/archive#2013May">May, 2013</a></li>
+                    
+                          <li><a href="/archive#2013April">April, 2013</a></li>
+                    
+                          <li><a href="/archive#2013March">March, 2013</a></li>
+                    
+                          <li><a href="/archive#2013February">February, 2013</a></li>
+                    
+                          <li><a href="/archive#2013January">January, 2013</a></li>
+                    
+                          <li><a href="/archive#2012December">December, 2012</a></li>
+                    
+                          <li><a href="/archive#2012November">November, 2012</a></li>
+                    
+                          <li><a href="/archive#2012October">October, 2012</a></li>
+                    
+                          <li><a href="/archive#2012September">September, 2012</a></li>
+                    
+                          <li><a href="/archive#2012July">July, 2012</a></li>
+                    
+                          <li><a href="/archive#2012June">June, 2012</a></li>
+                    
+                          <li><a href="/archive#2012April">April, 2012</a></li>
+                    
+                          <li><a href="/archive#2012March">March, 2012</a></li>
+                    
+                          <li><a href="/archive#2012February">February, 2012</a></li>
+                    
+                          <li><a href="/archive#2012January">January, 2012</a></li>
+                    
+                          <li><a href="/archive#2011December">December, 2011</a></li>
+                    
+                          <li><a href="/archive#2011November">November, 2011</a></li>
+                    
+                          <li><a href="/archive#2011October">October, 2011</a></li>
+                    
+                          <li><a href="/archive#2011September">September, 2011</a></li>
+                    
+                          <li><a href="/archive#2011August">August, 2011</a></li>
+                    
+                          <li><a href="/archive#2011July">July, 2011</a></li>
+                    
+                          <li><a href="/archive#2011June">June, 2011</a></li>
+                    
+                          <li><a href="/archive#2011May">May, 2011</a></li>
+                    
+                          <li><a href="/archive#2011April">April, 2011</a></li>
+                    
+                          <li><a href="/archive#2011March">March, 2011</a></li>
+                    
+                          <li><a href="/archive#2011February">February, 2011</a></li>
+                    
+                          <li><a href="/archive#2011January">January, 2011</a></li>
+                    
+                          <li><a href="/archive#2010December">December, 2010</a></li>
+                    
+                          <li><a href="/archive#2010November">November, 2010</a></li>
+                    
+                          <li><a href="/archive#2010October">October, 2010</a></li>
+                    
+                          <li><a href="/archive#2010September">September, 2010</a></li>
+                    
+                          <li><a href="/archive#2009July">July, 2009</a></li>
+                    
+                    </ul>
+                </aside>
+            </div>
+            <!-- #secondary .widget-area -->
+
+
+        </div>
+        <!-- #main -->
+
+        <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="site-info">
+                Powered by <a href="https://github.com/Sandra/Sandra.Snow" rel="generator">Sandra.Snow</a>.	
+            </div>
+            <!-- .site-info -->
+        </footer>
+        <!-- #colophon .site-footer -->
+    </div>
+    <!-- #page .hfeed .site -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src='/javascripts/prettify.js' type='text/javascript'></script>
+    <!--script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js' type='text/javascript'></script-->
+    <script type='text/javascript'>
+      $(function () {
+        $("pre code").parent().each(function () {
+          if (!$(this).hasClass("prettyprint")) {
+            $(this).addClass("prettyprint");
+            a = true
+          }
+        });
+
+        prettyPrint();
+      });
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-655975-13']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</body>
+</html>

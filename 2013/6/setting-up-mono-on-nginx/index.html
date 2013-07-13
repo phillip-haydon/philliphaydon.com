@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>philliphaydon.com</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+</head>
+<body class="home blog">
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header fancy-container lightgreen" role="banner">
+            <hgroup>
+                <h1 class="site-title"><a href="/" title="philliphaydon.com" rel="home">philliphaydon.com</a></h1>
+                <h2><small>Works on my PC...</small></h2>
+                <p class="site-description">Pleb from New Zealand who was banished overseas and currently resides in Singapore.</p>
+            </hgroup>
+            <nav role="navigation" class="site-navigation main-navigation">
+                <h1 class="assistive-text">Menu</h1>
+                <div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/category">Categories</a></li>
+                        <li><a href="/archive">Archive</a></li>
+                        <li><a href="/rss">RSS</a> / <a href="/feed">Atom</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="main">
+            <div id="primary" class="site-content">
+                <div id="content" role="main">
+                  
+
+<div id="post">
+    <h1>Setting up Mono on nginx</h1>
+
+    <div class="post-note">
+      <!--Posted {{ page.date | date_to_long_string }}
+      {% if page.category != null %}
+        | <a href="/category/{{ page.category | downcase | replace: ' ', '-' }}">{{ page.category }}</a>
+      {% endif %}-->
+      
+      <div class="addthis_toolbox addthis_default_style" style="float:right;">
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_linkedin_counter"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+      </div>
+    </div>
+        
+    <ul>
+<li><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Part 1 - Setting up the Virtual Machine and nginx</a></li>
+<li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx">Part 2 - Setting up new Website and Domain on nginx</a></li>
+<li>Part 3 - Setting up Mono on nginx</li>
+<li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li>
+<li>Part 5 - Setting up a ServiceStack web service</li>
+</ul>
+
+<p>Now we get to the fun stuff, getting up Mono. I'll be demoing with Mono 2.10 but after this series I may include a 6th part on how build Mono 3.0 from source and run it. </p>
+
+<h2>Setting up our test page</h2>
+
+<p>I figured we should start with setting up our test page. Something super simple, we will create a new page that outputs a bit of server side text. </p>
+
+<p>We wont deploy a bin folder or anything like that, it will be almost like deploying Classic ASP. </p>
+
+<pre><code>&lt;%@ Page Language="C#" AutoEventWireup="true" %&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head runat="server"&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+    &lt;% var test = "Hello World! Got an aspx page running on nginx!!!"; %&gt;
+
+    &lt;%= test %&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>So we are just creating a variable named <code>test</code> with some test data, then outputting it to the page. </p>
+
+<!--excerpt-->
+
+<p>We need to navigate to our site directory by calling <code>cd /var/www/phillip.pw</code> followed by creating a new file in nano by calling <code>nano test.aspx</code></p>
+
+<p>This will open up a new nano window. Now you can type in the test code, or paste it in. Now we need to save it by calling <kbd>CTRL</kbd> + <kbd>X</kbd> followed by <kbd>Y</kbd> and <kbd>Enter</kbd>. Same thing we have been doing in the other parts. </p>
+
+<h2>Installing Mono</h2>
+
+<p>Now that our test page is ready, we can install Mono by calling <code>apt-get install mono-complete</code>, your window should now look like</p>
+
+<p><img src="/images/setup-mono-on-ubuntu-part-3-1.png" alt="" /></p>
+
+<p>Hit <kbd>Y</kbd> and <kbd>Enter</kbd>, and let it install... this could take a while.</p>
+
+<p>Next we want to install the fastcgi-mono-server4 package. So call <code>apt-get install mono-fastcgi-server4</code> and install. This package is super small so will install quickly.</p>
+
+<p>To quickly test that Mono is installed call <code>mono -V</code> you should get something like so</p>
+
+<p><img src="/images/setup-mono-on-ubuntu-part-3-2.png" alt="" /></p>
+
+<h2>Configuring our website!</h2>
+
+<p>We need to head on over to the nginx server configuration. So call <code>cd /etc/nginx/sites-available</code> followed by <code>nano default</code> so we can edit our site to use the fastcgi stuff.</p>
+
+<p>We need to add the fastcgi stuff, its important to note the include path. If you remember from Part 1 I mentioned the <code>fastcgi_params</code> file, well we need to point to that file. We will modify that next.</p>
+
+<pre><code>server {
+    # the port the site is listening on
+    listen 80;
+
+    # the hostname
+    server_name *.phillip.pw;
+
+    # the path to where we host the site
+    root /var/www/phillip.pw;
+
+    # the default page
+    index index.html;
+
+    location / {
+        fastcgi_index /index.html;
+        fastcgi_pass 127.0.0.1:9000;
+        include /etc/nginx/fastcgi_params;
+    }
+}
+</code></pre>
+
+<p><span class="note">Note how the fastcgi stuff is put into a location followed by a forward slash to indicate that its location is the root. If you put it in the root of server (with no location scope) you will end up with nginx throwing an error like</span> </p>
+
+<blockquote>
+  <p>root@mono-sample-ph:/var/log/mono# nginx
+  nginx: [emerg] "fastcgi_pass" directive is not allowed here in /etc/nginx/sites-enabled/default:34</p>
+</blockquote>
+
+<p>Save the file and exit. </p>
+
+<p>Now drop down 1 level by calling <code>cd ..</code> and then calling <code>ls</code> to view the directory listing.</p>
+
+<p><img src="/images/setup-mono-on-ubuntu-part-3-3.png" alt="" /></p>
+
+<p>We need to modify the fastcgi_params file, we open it up in nano... <code>nano fastcgi_params</code> and we need to add the two following lines of code to the bottom of the file:</p>
+
+<pre><code>fastcgi_param   PATH_INFO               "";
+fastcgi_param   SCRIPT_FILENAME         $document_root$fastcgi_script_name;
+</code></pre>
+
+<p>So you should end up with something like</p>
+
+<p><img src="/images/setup-mono-on-ubuntu-part-3-4.png" alt="" /></p>
+
+<p>Save and exit that file. </p>
+
+<h2>Setting up the Mono Site</h2>
+
+<p>So we need to configure a site in Mono as well. This part was a little confusing for me initially. Basically we need to create all of this manually.</p>
+
+<p>Head back to <code>cd /etc</code> and call <code>ls</code>, in here you should see an file called <code>init.d</code>. Some tutorials on the internet show this file in <code>/etc/rc.d/init.d</code> but this is actually because some versions of Linux put it in 1 place, while other versions put it in the other. And I think those who put it in <code>rc.d</code> do a syslink to the root <code>init.d</code> version. </p>
+
+<p>In any-case on Ubuntu, <code>rc.d</code> does not exist. So we want to navigate into <code>init.d</code> so call <code>cd init.d</code></p>
+
+<p>Create a new directory in here called <code>mono-fastcgi</code> by calling <code>mkdir mono-fastcgi</code> and then navigate to it.</p>
+
+<p>Here we want to create a Web App file, this is a configuration file for our site.</p>
+
+<p>Create a new file with nano... <code>nano phillip.pw.webapp</code></p>
+
+<p>Write the following text into the file:</p>
+
+<pre><code>&lt;apps&gt;
+&lt;web-application&gt;
+        &lt;name&gt;phillip.pw&lt;/name&gt;
+        &lt;vhost&gt;*&lt;/vhost&gt;
+        &lt;vport&gt;80&lt;/vport&gt;
+        &lt;vpath&gt;/&lt;/vpath&gt;
+        &lt;path&gt;/var/www/phillip.pw&lt;/path&gt;
+&lt;/web-application&gt;
+&lt;/apps&gt;
+</code></pre>
+
+<p>All these names and paths should be familiar if you've been following from Parts 1/2</p>
+
+<h2>Setting up the log files</h2>
+
+<p>Now we need to navigate to <code>cd /var/log</code> and create a new directory called mono <code>mkdir mono</code>, navigate into the directory, <code>cd mono</code>, and create a new file called <code>fastcgi.log</code>. To create a new file just call <code>&gt; fastcgi.log</code> which will create a new empty file.</p>
+
+<h2>Registering fastcgi-mono-server</h2>
+
+<p>Lastly we need to configure the server. We can start the FastCGI background process by calling</p>
+
+<p><code>fastcgi-mono-server4 --appconfigdir /etc/init.d/mono-fastcgi /socket=tcp:127.0.0.1:9000 /logfile=/var/log/mono/fastcgi.log &amp;</code></p>
+
+<p>(if it's hard to scroll, here's the same line broken down into pieces)</p>
+
+<pre><code>fastcgi-mono-server4 
+    --appconfigdir /etc/init.d/mono-fastcgi 
+    /socket=tcp:127.0.0.1:9000 
+    /logfile=/var/log/mono/fastcgi.log &amp;
+</code></pre>
+
+<p>Notice the paths match those we just created.</p>
+
+<p>You should have a terminal that looks like:</p>
+
+<p><img src="/images/setup-mono-on-ubuntu-part-3-5.png" alt="" /></p>
+
+<p>Now give nginx a restart by calling <code>service nginx restart</code></p>
+
+<h2>The big test</h2>
+
+<p><img src="/images/setup-mono-on-ubuntu-part-3-6.png" alt="" /></p>
+
+<p>BAM Just like that we now have an ASPX page running on Mono, on nginx, on Ubuntu, on Azure! </p>
+
+
+	<div class="divider"></div>
+	<div id="disqus_thread"></div>
+	<script>
+	    var disqus_shortname = 'philliphaydon';
+	    var disqus_url = "http://www.philliphaydon.com{{ page.url }}/";
+
+	    /* * * DON'T EDIT BELOW THIS LINE * * */
+	    (function () {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+
+</div>
+
+
+                </div>
+                <!-- #content -->
+            </div>
+            <!-- #primary .site-content -->
+
+            <div id="secondary" class="widget-area fancy-container lightred" role="complementary">
+                <aside id="text-5" class="widget widget_text">
+                    <h1 class="widget-title">Follow</h1>
+                    <div class="textwidget logos">
+                        <a href="https://twitter.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"><img src="/stylesheets/images/twitter.png"></a>
+                        <a href="http://stackoverflow.com/users/456813/phill" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://stackoverflow.com']);"><img src="/stylesheets/images/stackoverflow.png"></a>
+                        <a href="http://www.linkedin.com/in/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://www.linkedin.com']);"><img src="/stylesheets/images/linkedin.png"></a>
+                        <a href="https://plus.google.com/u/0/111751877537461442095" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://plus.google.com']);"><img src="/stylesheets/images/googleplus.png"></a>
+                        <a href="https://coderbits.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','https://coderbits.com/philliphaydon']);"><img src="/stylesheets/images/codebits.png"></a>
+                        <a href="https://github.com/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://github.com']);"><img src="/stylesheets/images/github.png"></a>
+                        <a href="http://www.codeschool.com/users/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://codeschool.com']);"><img src="/stylesheets/images/codeschool.png"></a>
+                        <a href="http://www.kickstarter.com/profile/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://kickstarter.com']);"><img src="/stylesheets/images/kickstarter.png"></a>
+                    </div>
+                    <a href="http://stackoverflow.com/users/456813/phill">
+                      <img src="http://stackoverflow.com/users/flair/456813.png" width="208" height="58" alt="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+                    </a>
+                    
+                    <a href="http://nancyfx.org/mvm.html"><img src="/stylesheets/images/mvm.png"></a>
+                    
+                    <div id = "clustrback" style="width:162px; height:133px;  background:#f7f7f7 url(http://clustrmaps.com/admin/3d/images/st4_grey.png)  center no-repeat; text-align:center;">
+                      <a href="http://www2.clustrmaps.com/counter/maps.php?url=http://www.philliphaydon.com/" style="width:160px; display:block; margin:0 auto;" id="clustrMapsLink">
+                        <img src="http://www2.clustrmaps.com/counter/index2.php?url=http://www.philliphaydon.com/" style="border:0px; margin:15px auto;margin:15px auto;" alt="Locations of visitors to this page" title="Locations of visitors to this page" id="clustrMapsImg" />
+                      </a>
+                    </div>
+                </aside>
+                <!--aside id="text-8" class="widget widget_text">
+                    <h1 class="widget-title">Other sites</h1>
+                    <div class="textwidget">
+                        <a href="http://csharptube.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://csharptube.com']);">csharptube.com</a><br />
+                        <a href="http://thisisparrot.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://thisisparrot.com']);">Parrot</a><br />
+                        <a href="http://shitprogrammerswrite.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://shitprogrammerswrite.com']);">Shit programmers write</a><br />
+                    </div>
+                </aside-->
+                <aside id="linkcat-6" class="widget widget_links">
+                    <h1 class="widget-title">Other Blogs</h1>
+                    <ul class='xoxo blogroll'>
+                        <li><a href="http://www.nickharris.net/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://nickharris.net/']);">Nick Harris</a></li>
+                        <li><a href="http://www.mindscapehq.com/blog/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.mindscapehq.com/blog/']);">Mindscape</a></li>
+                        <li><a href="http://blog.orangelightning.co.uk/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://blog.orangelightning.co.uk/']);">Phil Jones</a></li>
+                        <li><a href="http://buildstarted.com/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://buildstarted.com']);">Ben Dornis</a></li>
+                        <li><a href="http://jflood.net/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://jflood.net/']);">Jospeh Flood</a></li>
+                    </ul>
+                    
+                </aside>
+                <aside id="archives-4" class="widget widget_archive">
+                    <h1 class="widget-title">Archive</h1>
+                    
+                    <ul class="posts">
+                    
+                          <li><a href="/archive#2013July">July, 2013</a></li>
+                    
+                          <li><a href="/archive#2013June">June, 2013</a></li>
+                    
+                          <li><a href="/archive#2013May">May, 2013</a></li>
+                    
+                          <li><a href="/archive#2013April">April, 2013</a></li>
+                    
+                          <li><a href="/archive#2013March">March, 2013</a></li>
+                    
+                          <li><a href="/archive#2013February">February, 2013</a></li>
+                    
+                          <li><a href="/archive#2013January">January, 2013</a></li>
+                    
+                          <li><a href="/archive#2012December">December, 2012</a></li>
+                    
+                          <li><a href="/archive#2012November">November, 2012</a></li>
+                    
+                          <li><a href="/archive#2012October">October, 2012</a></li>
+                    
+                          <li><a href="/archive#2012September">September, 2012</a></li>
+                    
+                          <li><a href="/archive#2012July">July, 2012</a></li>
+                    
+                          <li><a href="/archive#2012June">June, 2012</a></li>
+                    
+                          <li><a href="/archive#2012April">April, 2012</a></li>
+                    
+                          <li><a href="/archive#2012March">March, 2012</a></li>
+                    
+                          <li><a href="/archive#2012February">February, 2012</a></li>
+                    
+                          <li><a href="/archive#2012January">January, 2012</a></li>
+                    
+                          <li><a href="/archive#2011December">December, 2011</a></li>
+                    
+                          <li><a href="/archive#2011November">November, 2011</a></li>
+                    
+                          <li><a href="/archive#2011October">October, 2011</a></li>
+                    
+                          <li><a href="/archive#2011September">September, 2011</a></li>
+                    
+                          <li><a href="/archive#2011August">August, 2011</a></li>
+                    
+                          <li><a href="/archive#2011July">July, 2011</a></li>
+                    
+                          <li><a href="/archive#2011June">June, 2011</a></li>
+                    
+                          <li><a href="/archive#2011May">May, 2011</a></li>
+                    
+                          <li><a href="/archive#2011April">April, 2011</a></li>
+                    
+                          <li><a href="/archive#2011March">March, 2011</a></li>
+                    
+                          <li><a href="/archive#2011February">February, 2011</a></li>
+                    
+                          <li><a href="/archive#2011January">January, 2011</a></li>
+                    
+                          <li><a href="/archive#2010December">December, 2010</a></li>
+                    
+                          <li><a href="/archive#2010November">November, 2010</a></li>
+                    
+                          <li><a href="/archive#2010October">October, 2010</a></li>
+                    
+                          <li><a href="/archive#2010September">September, 2010</a></li>
+                    
+                          <li><a href="/archive#2009July">July, 2009</a></li>
+                    
+                    </ul>
+                </aside>
+            </div>
+            <!-- #secondary .widget-area -->
+
+
+        </div>
+        <!-- #main -->
+
+        <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="site-info">
+                Powered by <a href="https://github.com/Sandra/Sandra.Snow" rel="generator">Sandra.Snow</a>.	
+            </div>
+            <!-- .site-info -->
+        </footer>
+        <!-- #colophon .site-footer -->
+    </div>
+    <!-- #page .hfeed .site -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src='/javascripts/prettify.js' type='text/javascript'></script>
+    <!--script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js' type='text/javascript'></script-->
+    <script type='text/javascript'>
+      $(function () {
+        $("pre code").parent().each(function () {
+          if (!$(this).hasClass("prettyprint")) {
+            $(this).addClass("prettyprint");
+            a = true
+          }
+        });
+
+        prettyPrint();
+      });
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-655975-13']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</body>
+</html>
