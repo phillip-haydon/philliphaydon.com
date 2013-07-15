@@ -60,59 +60,6 @@
 
 <p>The ServiceStack team take real care to ensure that it works on Mono, enough so that their website; <a href="http://www.servicestack.net">http://www.servicestack.net</a>, runs on Linux!</p>
 
-<h2>Creating the Sample Project</h2>
-
-<p>One of the great things about ServiceStack is it has a bunch of awesome examples. Head on over to <a href="https://github.com/ServiceStack/ServiceStack.Examples">https://github.com/ServiceStack/ServiceStack.Examples</a> and download the samples. Either by downloading the repository, or cloning it. </p>
-
-<p><img src="/images/setup-mono-on-ubuntu-part-5-1.png" alt="" /></p>
-
-<p>After downloading the ServiceStack Examples, navigate to <code>src</code> and open the <code>ServiceStack.Hello</code> project. </p>
-
-<p><img src="/images/setup-mono-on-ubuntu-part-5-2.png" alt="" /></p>
-
-<p>Running this project we should end up with a small Service Stack sample website like so:</p>
-
-<p><img src="/images/setup-mono-on-ubuntu-part-5-3.png" alt="" /></p>
-
-<h2>Quick local test</h2>
-
-<p>Navigating to the URL; <code>http://localhost:62577/servicestack/metadata</code> we should get the nice meta data screen:</p>
-
-<p><img src="/images/setup-mono-on-ubuntu-part-5-4.png" alt="" /></p>
-
-<p>And navigating to the URL: </p>
-
-<p><code>http://localhost:62577/servicestack/hello/phillip</code></p>
-
-<p>We end up with a response:</p>
-
-<p><img src="/images/setup-mono-on-ubuntu-part-5-5.png" alt="" /></p>
-
-<p>We do need to make one minor change. In the root project of the folder, rename the <code>default.htm</code> file to <code>index.html</code>. This is only so we don't need to modify nginx to look for the default file <code>default.htm</code> :) #lazyme</p>
-
-<h2>Lets deploy it!</h2>
-
-<p>So like the Nancy project, we can publish the project to a folder. The good thing about this sample is it doesn't need any database or anything like that. It's just a straight website with a Hello World service.</p>
-
-<p><img src="/images/setup-mono-on-ubuntu-part-5-6.png" alt="" /></p>
-
-<p>Once deployed we should end up with the ServiceStack site again!</p>
-
-<p><img src="/images/setup-mono-on-ubuntu-part-5-7.png" alt="" /></p>
-
-<p>Navigating to the metadata page we end up with the same screen we had locally!</p>
-
-<p><img src="/images/setup-mono-on-ubuntu-part-5-8.png" alt="" /></p>
-
-<p>And navigating to the test URL we end up with the fancy ServiceStack response! </p>
-
-<p><img src="/images/setup-mono-on-ubuntu-part-5-9.png" alt="" /></p>
-
-<p>Hello, with love from nginx!</p>
-
-<p>That's it, using the best web frameworks, NancyFX and ServiceStack, is super duper happy path easy with Mono!</p>
-
-<p>:)</p>
 
       <p><a href="/2013/07/setting-up-a-servicestack-service/">Read more...</a></p>
     </li>
