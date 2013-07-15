@@ -37,6 +37,35 @@
     
     <li class="fancy-container lightblue">
       <h1>
+        <a href="/2011/09/the-benefits-of-letting-the-orm-generate-the-identity-part-1/">The benefits of letting the ORM generate the Identity (part 1)</a> 
+        <span>posted on 22 Sep 2011</span>
+      </h1> 
+      <p>One thing I've learnt is that letting the database generate the identity for you is a bad thing. It always annoyed me that Oracle never gave a feature like <a href="http://dev.mysql.com/doc/refman/5.0/en/example-auto-increment.html">AUTO_INCREMENT</a> in MySQL or <a href="http://msdn.microsoft.com/en-us/library/aa933196(SQL.80).aspx">IDENTITY</a> in SQL Server. I never understood, when inserting data how do I give it an Id?</p>
+
+<p>Well one of the benefits of ORMs such as NHibernate is we can generate the identity our-self, or rather, the ORM can generate it so we don't rely on the database. This also plays a major part in our code base when we insert a graph or batch of data and how the identity is added to our object.</p>
+
+<p>Ayende <a href="http://ayende.com/blog/3915/nhibernate-avoid-identity-generator-when-possible">recommend avoiding identity</a>.</p>
+
+<p>The thing with using SQL Server"s identity is that we need to select the identity back out after we do an insert. Not only that, when using <a href="http://msdn.microsoft.com/en-us/library/ms190348.aspx">NEWID()</a>/<a href="http://msdn.microsoft.com/en-us/library/ms189786.aspx">NEWSEQUENTIALID()</a> there is no way to select the value back other than using all the fields in a select in order to get the GUID relates to the record with all those values matching.</p>
+
+<p>For example:</p>
+
+<p>Given this rather simple table using IDENTITY.</p>
+
+<pre><code>CREATE TABLE People
+(
+    Id int NOT NULL IDENTITY (1, 1) PRIMARY KEY,
+    FirstName nvarchar(100) NOT NULL,
+    Surname nvarchar(100) NOT NULL
+)
+</code></pre>
+
+
+      <p><a href="/2011/09/the-benefits-of-letting-the-orm-generate-the-identity-part-1/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
         <a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators-part-2/">Fluent NHibernate - Table Inheritance - Discriminators (Part 2)</a> 
         <span>posted on 22 Aug 2011</span>
       </h1> 
@@ -303,34 +332,6 @@ Ext.setup({
 
 
       <p><a href="/2011/06/joining-the-windows-phone-7-club/">Read more...</a></p>
-    </li>
-    
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/05/refactoring-those-static-method-calls-for-testability/">Refactoring those static method calls for testability!</a> 
-        <span>posted on 27 May 2011</span>
-      </h1> 
-      <p>One thing I love about working on a legacy application is the weird things I get to problem solve.</p>
-
-<p>A lot of the old system has an awful lot of static method calls, which doesn't leave much to be desired for when it comes to unit testing. I was working on a piece of the system today which is written in .NET 2.0, and is tightly coupled to everything in existence.</p>
-
-<p>I didn't want to go introduce interfaces and wrapper classes in order to abstract out all the dependencies, but I wanted to unit test the work without having to touch the database, which is what these static method calls were doing.</p>
-
-<p>The code I dealt with was something along the lines of...</p>
-
-<pre><code>public class ProductService
-{
-    public static void Save(Product product)
-    {
-        throw new Exception("This would normally touch a db...");
-    }
-}
-</code></pre>
-
-<p><em>(Example is completely made up for this blog post and isn't actual code from work)</em></p>
-
-
-      <p><a href="/2011/05/refactoring-those-static-method-calls-for-testability/">Read more...</a></p>
     </li>
     
   </ul> 

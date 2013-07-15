@@ -37,6 +37,88 @@
     
     <li class="fancy-container lightblue">
       <h1>
+        <a href="/2013/07/setting-up-a-servicestack-service/">Setting up a ServiceStack Service</a> 
+        <span>posted on 15 Jul 2013</span>
+      </h1> 
+      <ul>
+<li><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Part 1 - Setting up the Virtual Machine and nginx</a></li>
+<li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx">Part 2 - Setting up new Website and Domain on nginx</a></li>
+<li><a href="/2013/06/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li>
+<li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li>
+<li>Part 5 - Setting up a ServiceStack web service</li>
+</ul>
+
+<p>Time to setup a ServiceStack service!</p>
+
+<h2>Prelude!</h2>
+
+<p>ServiceStack is great, specially when you need to support .NET 3.5 and don't have the pleasure of being able to use .NET 4.0/4.5, you're not limited to .NET 3.5, ServiceStack works great with .NET 4.0/4.5 as well!</p>
+
+<p>God forbid we get subjected to having to use WCF...</p>
+
+<p>Setting this up should be super easy, we will use all the same settings as NancyFX, the only difference is we will be running ServiceStack instead. </p>
+
+<p>The ServiceStack team take real care to ensure that it works on Mono, enough so that their website; <a href="http://www.servicestack.net">http://www.servicestack.net</a>, runs on Linux!</p>
+
+<h2>Creating the Sample Project</h2>
+
+<p>One of the great things about ServiceStack is it has a bunch of awesome examples. Head on over to <a href="https://github.com/ServiceStack/ServiceStack.Examples">https://github.com/ServiceStack/ServiceStack.Examples</a> and download the samples. Either by downloading the repository, or cloning it. </p>
+
+<p><img src="/images/setup-mono-on-ubuntu-part-5-1.png" alt="" /></p>
+
+<p>After downloading the ServiceStack Examples, navigate to <code>src</code> and open the <code>ServiceStack.Hello</code> project. </p>
+
+<p><img src="/images/setup-mono-on-ubuntu-part-5-2.png" alt="" /></p>
+
+<p>Running this project we should end up with a small Service Stack sample website like so:</p>
+
+<p><img src="/images/setup-mono-on-ubuntu-part-5-3.png" alt="" /></p>
+
+<h2>Quick local test</h2>
+
+<p>Navigating to the URL; <code>http://localhost:62577/servicestack/metadata</code> we should get the nice meta data screen:</p>
+
+<p><img src="/images/setup-mono-on-ubuntu-part-5-4.png" alt="" /></p>
+
+<p>And navigating to the URL: </p>
+
+<p><code>http://localhost:62577/servicestack/hello/phillip</code></p>
+
+<p>We end up with a response:</p>
+
+<p><img src="/images/setup-mono-on-ubuntu-part-5-5.png" alt="" /></p>
+
+<p>We do need to make one minor change. In the root project of the folder, rename the <code>default.htm</code> file to <code>index.html</code>. This is only so we don't need to modify nginx to look for the default file <code>default.htm</code> :) #lazyme</p>
+
+<h2>Lets deploy it!</h2>
+
+<p>So like the Nancy project, we can publish the project to a folder. The good thing about this sample is it doesn't need any database or anything like that. It's just a straight website with a Hello World service.</p>
+
+<p><img src="/images/setup-mono-on-ubuntu-part-5-6.png" alt="" /></p>
+
+<p>Once deployed we should end up with the ServiceStack site again!</p>
+
+<p><img src="/images/setup-mono-on-ubuntu-part-5-7.png" alt="" /></p>
+
+<p>Navigating to the metadata page we end up with the same screen we had locally!</p>
+
+<p><img src="/images/setup-mono-on-ubuntu-part-5-8.png" alt="" /></p>
+
+<p>And navigating to the test URL we end up with the fancy ServiceStack response! </p>
+
+<p><img src="/images/setup-mono-on-ubuntu-part-5-9.png" alt="" /></p>
+
+<p>Hello, with love from nginx!</p>
+
+<p>That's it, using the best web frameworks, NancyFX and ServiceStack, is super duper happy path easy with Mono!</p>
+
+<p>:)</p>
+
+      <p><a href="/2013/07/setting-up-a-servicestack-service/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
         <a href="/2013/07/setting-up-a-nancyfx-website/">Setting up a NancyFX website</a> 
         <span>posted on 04 Jul 2013</span>
       </h1> 
@@ -45,7 +127,7 @@
 <li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx">Part 2 - Setting up new Website and Domain on nginx</a></li>
 <li><a href="/2013/06/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li>
 <li>Part 4 - Setting up a NancyFX website</li>
-<li>Part 5 - Setting up a ServiceStack web service</li>
+<li><a href="/2013/07/setting-up-a-servicestack-service/">Part 5 - Setting up a ServiceStack web service</a></li>
 </ul>
 
 <p>Time to setup NancyFX on Mono.</p>
@@ -76,7 +158,7 @@
 <li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx">Part 2 - Setting up new Website and Domain on nginx</a></li>
 <li>Part 3 - Setting up Mono on nginx</li>
 <li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li>
-<li>Part 5 - Setting up a ServiceStack web service</li>
+<li><a href="/2013/07/setting-up-a-servicestack-service/">Part 5 - Setting up a ServiceStack web service</a></li>
 </ul>
 
 <p>Now we get to the fun stuff, getting up Mono. I'll be demoing with Mono 2.10 but after this series I may include a 6th part on how build Mono 3.0 from source and run it. </p>
@@ -120,7 +202,7 @@
 <li>Part 2 - Setting up new Website and Domain on nginx</li>
 <li><a href="/2013/06/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li>
 <li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li>
-<li>Part 5 - Setting up a ServiceStack web service</li>
+<li><a href="/2013/07/setting-up-a-servicestack-service/">Part 5 - Setting up a ServiceStack web service</a></li>
 </ul>
 
 <p>The purpose of series is to be able to create an end-to-end setup of a Linux Server on Azure and deploy a brand new production NancyFX website or ServiceStack service, and not get confused in-between. Like I was when I sussed all this out. :)</p>
@@ -145,7 +227,7 @@
 <li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx/">Part 2 - Setting up new Website and Domain</a></li>
 <li><a href="/2013/06/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li>
 <li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li>
-<li>Part 5 - Setting up a ServiceStack web service</li>
+<li><a href="/2013/07/setting-up-a-servicestack-service/">Part 5 - Setting up a ServiceStack web service</a></li>
 </ul>
 
 <p><span class="note"><strong>Note:</strong> I'm breaking this up into 5 parts because otherwise it gets far too long :(</span></p>
@@ -286,18 +368,6 @@ else if (...)
 
 
       <p><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/">Read more...</a></p>
-    </li>
-    
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/05/rss-atom-feed-spam-sorry/">RSS/Atom spam :( Sorry...</a> 
-        <span>posted on 07 May 2013</span>
-      </h1> 
-      <p>Sorry to anyone who subscribes to me, I was setting up an RSS since not everything accepts Atom, and I guess it re-processed everything and has spammed everyone.</p>
-
-<p>Real sorry about that :(</p>
-
-      <p><a href="/2013/05/rss-atom-feed-spam-sorry/">Read more...</a></p>
     </li>
     
   </ul> 

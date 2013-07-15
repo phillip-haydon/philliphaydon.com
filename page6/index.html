@@ -37,6 +37,27 @@
     
     <li class="fancy-container lightblue">
       <h1>
+        <a href="/2012/06/using-nhibernate-with-servicestack/">Using NHibernate with ServiceStack</a> 
+        <span>posted on 05 Jun 2012</span>
+      </h1> 
+      <p>A few people have asked me how they can use ServiceStack with other persistence technologies like RavenDB and NHibernate, or if you really must... EntityFramework... Rather than <a href="https://github.com/ServiceStack/ServiceStack.OrmLite">ServiceStack.OrmLite</a> or <a href="https://github.com/ServiceStack/ServiceStack.Redis">ServiceStack.Redis</a> like many of the examples in SS show.</p>
+
+<p><span class="note"><strong>Note:</strong> This isn't about best practice on using NHibernate or ServiceStack, my services are named just to quickly get something up and running.</span></p>
+
+<p><span class="note"><strong>Note 2:</strong> This blog post may not be completely inline with the GitHub repository since I will be updating the repository to include some additional samples in the future.</span></p>
+
+<p>I've created a small sample project which can be found <a href="https://github.com/phillip-haydon/ServiceStack-NHibernate-Sample">here on GitHub</a>, I plan to flesh it out a little bit from the date this is posted, but it's purely there as a sample.</p>
+
+<h2>No Repositories!</h2>
+
+<p>Utilizing other persistence frameworks is really easy with ServiceStack, the thing with ServiceStack Services is that they are doing something concise, it's a single service implementation, so there's really no need to use repositories for them, you gain absolutely no benefit from using repositories other than adding an additional layer of abstraction and complexity to your services.</p>
+
+
+      <p><a href="/2012/06/using-nhibernate-with-servicestack/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
         <a href="/2012/04/codeschool-com-is-the-most-awesome-way-to-learn/">CodeSchool.com is the most awesome way to learn</a> 
         <span>posted on 11 Apr 2012</span>
       </h1> 
@@ -291,46 +312,6 @@ public class Tag
 
 
       <p><a href="/2011/12/ravendb-map-reduce/">Read more...</a></p>
-    </li>
-    
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/12/ravendb-inheritance-revisited/">RavenDB Inheritance-Revisited</a> 
-        <span>posted on 14 Dec 2011</span>
-      </h1> 
-      <p>So after my initial post on <a href="/2011/12/ravendb-inheritance/">RavenDB Inheritance</a>, and the issue I had with polymorphic queries, and seeking help from the guys in <a href="http://jabbr.net/">JabbR</a> and the (RavenDB Google Group)[http://groups.google.com/group/ravendb/browse_thread/thread/c71df8f1cd92e04c], <a href="http://ayende.com/blog/">Ayende</a> ended up doing a screen cast with me where he solved all my problems.</p>
-
-<p>One of the things he asked me was what I was trying to achieve by having a polymorphic query, which was a very good question, something I hadn't really thought about.</p>
-
-<p>The problem I was trying to solve was actually displaying search results.</p>
-
-<h2>The Problem</h2>
-
-<p>So I'm working on a personal project, and I need to display a few things which are similar, but different. There's 3 different types but I'll use two to keep it simple. I've also cut out most of the properties.</p>
-
-<p>So I have an abstract class Content, with two derived classes, Article and Video.</p>
-
-<pre><code>public abstract class Content
-{
-    public int Id { get; set; }
-    public string Title { get; set; }
-    public DateTime DatePublished { get; set; }
-}
-
-public class Article : Content
-{
-    public string HtmlContent { get; set; }
-}
-
-public class Video : Content
-{
-    public string Description { get; set; }
-    public string VideoUrl { get; set; }
-}
-</code></pre>
-
-
-      <p><a href="/2011/12/ravendb-inheritance-revisited/">Read more...</a></p>
     </li>
     
   </ul> 

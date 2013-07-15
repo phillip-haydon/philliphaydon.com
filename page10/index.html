@@ -37,6 +37,39 @@
     
     <li class="fancy-container lightblue">
       <h1>
+        <a href="/2011/01/let-keyword-in-orms/">Let Keyword in ORMs</a> 
+        <span>posted on 29 Jan 2011</span>
+      </h1> 
+      <p>A while ago <a href="http://www.mindscapehq.com/">MindScape</a> posted a new feature called <a href="http://www.mindscapehq.com/blog/index.php/2010/09/14/ninja-domain-properties-in-lightspeed/">Ninja Properties</a> for their ORM, LightSpeed. Their post happened to be a scenario I used to solve with LINQ 2 SQL using the 'let' keyword to create a composite type to query against.</p>
+
+<p>This would allow you to do something along the lines of:</p>
+
+<pre><code>var poo = from s in ctx.Members
+          let fullname = s.FirstName + " " + s.LastName
+          where fullname == "Robert Williams"
+          select s;
+</code></pre>
+
+<p>This nifty query would generate SQL like so:</p>
+
+<pre><code>SELECT [t1].[Id], [t1].[FirstName], [t1].[LastName]
+FROM (
+    SELECT [t0].[Id], [t0].[FirstName], 
+           [t0].[LastName], 
+           ([t0].[FirstName] + ' ') + [t0].[LastName] AS [value]
+    FROM [Member] AS [t0]
+    ) AS [t1]
+WHERE [t1].[value] = 'Robert Williams'
+</code></pre>
+
+<p>After commenting in their blog post about it they implemented it and put it into the nightly build. So after some months I finally got around to testing it, for a couple of reasons. Back when NHibernate 3.0 was in Alpha, this technique didn't work! So I thought I would test it out and see if it does, as well as checkout the SQL that's generated.</p>
+
+
+      <p><a href="/2011/01/let-keyword-in-orms/">Read more...</a></p>
+    </li>
+    
+    <li class="fancy-container lightblue">
+      <h1>
         <a href="/2011/01/mindscape-nhibernate-designer-discount/">Mindscape NHibernate Designer Discount</a> 
         <span>posted on 21 Jan 2011</span>
       </h1> 
@@ -246,21 +279,6 @@
 
 
       <p><a href="/2010/12/sydney-alt-net-with-udi-dahan-and-nservicebus-commercial-support/">Read more...</a></p>
-    </li>
-    
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2010/11/mentally-drained-by-udi-dahan/">Mentally Drained by Udi Dahan.</a> 
-        <span>posted on 27 Nov 2010</span>
-      </h1> 
-      <p>I'm on my first day of recovery after attending <a href="http://www.udidahan.com/">Udi Dahan's</a> <a href="http://www.udidahan.com/training/#Advanced_Distributed_System_Design">Advanced Distributed Systems Design using SOA &amp; DDD</a>. Needless to say I think I'm still in shock.</p>
-
-<p>Udi must be one of the best presenters I've come across, I always thought he talked a little slow when watching videos of him presenting, but it's an entirely different experience when you're sitting in a room listening to him.</p>
-
-<p>He really makes sure you follow and understand, at no point did I feel like I was left behind. Something that intrigued me however, was there was not one question he could not answer... He must have heard every possible question because people started trying to catch him out with some weird example or scenario, and he was able to answer it.</p>
-
-
-      <p><a href="/2010/11/mentally-drained-by-udi-dahan/">Read more...</a></p>
     </li>
     
   </ul> 
