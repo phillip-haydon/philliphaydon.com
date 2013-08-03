@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 24 Oct 2011
-      
-        | <a href="/category/ravendb">RavenDB</a>
-      
+       | <a href="/category/ravendb">RavenDB</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,62 +49,62 @@
       </div>
     </div>
         
-    <p>Well I'm currently learning RavenDB, it's awesome! But I noticed when I put data in, all the Id's generated every time I ran up my application to test were:</p>
+    &lt;p&gt;Well I'm currently learning RavenDB, it's awesome! But I noticed when I put data in, all the Id's generated every time I ran up my application to test were:&lt;/p&gt;
 
-<p>1, 2, 3, 4, 5...</p>
+&lt;p&gt;1, 2, 3, 4, 5...&lt;/p&gt;
 
-<p>1024, 1025, 1026, 1027, 1028...</p>
+&lt;p&gt;1024, 1025, 1026, 1027, 1028...&lt;/p&gt;
 
-<p>2048, 2049, 2050, 2051, 2052...</p>
+&lt;p&gt;2048, 2049, 2050, 2051, 2052...&lt;/p&gt;
 
-<p>This would be fine after the app is deployed since I wouldn't be restarting it over and over and over, but during development I personally find it annoying that the numbers jump so high.</p>
+&lt;p&gt;This would be fine after the app is deployed since I wouldn't be restarting it over and over and over, but during development I personally find it annoying that the numbers jump so high.&lt;/p&gt;
 
-<p>Fortunately I figured out a way. (which about an hour later I found on Google Groups, granted I had to use a different keyword to find it)</p>
+&lt;p&gt;Fortunately I figured out a way. (which about an hour later I found on Google Groups, granted I had to use a different keyword to find it)&lt;/p&gt;
 
-<p>Basically you just need to create a new instance of the <code>MultiTypeHiLoKeyGenerator</code> class, passing in the arguments and assigning it to the document store:</p>
+&lt;p&gt;Basically you just need to create a new instance of the &lt;code&gt;MultiTypeHiLoKeyGenerator&lt;/code&gt; class, passing in the arguments and assigning it to the document store:&lt;/p&gt;
 
-<pre><code>var documentStore = (new DocumentStore { 
-    Url = "http://localhost:12321/" 
+&lt;pre&gt;&lt;code&gt;var documentStore = (new DocumentStore { 
+    Url = &quot;http://localhost:12321/&quot; 
 }).Initialize();
 
 var generator = new MultiTypeHiLoKeyGenerator(documentStore, 10);
 
 documentStore.Conventions.DocumentKeyGenerator = 
-    entity =&gt; generator.GenerateDocumentKey(documentStore.Conventions, entity);
+    entity =&amp;gt; generator.GenerateDocumentKey(documentStore.Conventions, entity);
 
 using (var session = documentStore.OpenSession())
 {
-    session.Store(new Project() { Title = "Hello World" });
+    session.Store(new Project() { Title = &quot;Hello World&quot; });
     session.SaveChanges();
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>So running up my app once:</p>
+&lt;p&gt;So running up my app once:&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p><img src="/images/ravendb-hilo-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-hilo-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>And again:</p>
+&lt;p&gt;And again:&lt;/p&gt;
 
-<p><img src="/images/ravendb-hilo-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-hilo-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Now the identity only increases every time the app restarts. And to show it generates more than 1 number...</p>
+&lt;p&gt;Now the identity only increases every time the app restarts. And to show it generates more than 1 number...&lt;/p&gt;
 
-<p><img src="/images/ravendb-hilo-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-hilo-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>It took a while of hunting on the net, but it turns out Googling &amp; Binging, or searching (StackOverflow/Google Groups) for the keyword <code>Lo</code> doesn't work, the argument is <code>capacity</code> and searching for that on Google Groups lead me here:</p>
+&lt;p&gt;It took a while of hunting on the net, but it turns out Googling &amp;amp; Binging, or searching (StackOverflow/Google Groups) for the keyword &lt;code&gt;Lo&lt;/code&gt; doesn't work, the argument is &lt;code&gt;capacity&lt;/code&gt; and searching for that on Google Groups lead me here:&lt;/p&gt;
 
-<p><a href="http://groups.google.com/group/ravendb/browse_thread/thread/95a5b33a5d30eb71/a5197e2e01376e65?lnk=gst&amp;q=capacity#a5197e2e01376e65">http://groups.google.com/group/ravendb/browse_thread/thread/95a5b33a5d30eb71/a5197e2e01376e65?lnk=gst&amp;q=capacity#a5197e2e01376e65</a></p>
+&lt;p&gt;&lt;a href=&quot;http://groups.google.com/group/ravendb/browse_thread/thread/95a5b33a5d30eb71/a5197e2e01376e65?lnk=gst&amp;amp;q=capacity#a5197e2e01376e65&quot;&gt;http://groups.google.com/group/ravendb/browse_thread/thread/95a5b33a5d30eb71/a5197e2e01376e65?lnk=gst&amp;amp;q=capacity#a5197e2e01376e65&lt;/a&gt;&lt;/p&gt;
 
-<p>Hopefully someone else finds this useful :)</p>
+&lt;p&gt;Hopefully someone else finds this useful :)&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2011/10/ravendb-changing-the-lo-on-the-hilo-generator/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -118,11 +116,9 @@ using (var session = documentStore.OpenSession())
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -174,77 +170,42 @@ using (var session = documentStore.OpenSession())
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 07 Dec 2011
-      
-        | <a href="/category/jquery">jQuery</a>
-      
+       | <a href="/category/jquery">jQuery</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,70 +49,70 @@
       </div>
     </div>
         
-    <p>Maybe I searched for the wrong thing, but I couldn't find what I was looking for :( My Bing and Google fu failed me.</p>
+    &lt;p&gt;Maybe I searched for the wrong thing, but I couldn't find what I was looking for :( My Bing and Google fu failed me.&lt;/p&gt;
 
-<p>Basically I wanted to post a collection of ViewModels to an MCV action. Turns out it's rather simple.</p>
+&lt;p&gt;Basically I wanted to post a collection of ViewModels to an MCV action. Turns out it's rather simple.&lt;/p&gt;
 
-<p>Lets say I have a bunch of Products, and Products are managed in a WarehouseLocation. A product doesn't have a warehouse location, since it could exist in multiple locations.</p>
+&lt;p&gt;Lets say I have a bunch of Products, and Products are managed in a WarehouseLocation. A product doesn't have a warehouse location, since it could exist in multiple locations.&lt;/p&gt;
 
-<p>If I'm currently working in Location A, I want to post a collection of Products to an action, as well as the WarehouseLocationId.</p>
+&lt;p&gt;If I'm currently working in Location A, I want to post a collection of Products to an action, as well as the WarehouseLocationId.&lt;/p&gt;
 
-<p>So given a simple ViewModel, and an Action:</p>
+&lt;p&gt;So given a simple ViewModel, and an Action:&lt;/p&gt;
 
-<pre><code>public class ProductViewModel
+&lt;pre&gt;&lt;code&gt;public class ProductViewModel
 {
     public int Id { get; set; }
     public string Name { get; set; }
     public decimal Price { get; set; }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>and</p>
+&lt;p&gt;and&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<pre><code>public JsonResult Update(int warehouseLocationId, IEnumerable&lt;ProductViewModel&gt; products)
+&lt;pre&gt;&lt;code&gt;public JsonResult Update(int warehouseLocationId, IEnumerable&amp;lt;ProductViewModel&amp;gt; products)
 {
     //Do something with the products...
-    return Json(new {Staus = "success"});
+    return Json(new {Staus = &quot;success&quot;});
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>I think usually when someone sends data from jQuery it's usually a single parameter,so the JSON would look something like:</p>
+&lt;p&gt;I think usually when someone sends data from jQuery it's usually a single parameter,so the JSON would look something like:&lt;/p&gt;
 
-<pre><code>var data = { id: 1,name: 'test name', price: 15.95 };
-</code></pre>
+&lt;pre&gt;&lt;code&gt;var data = { id: 1,name: 'test name', price: 15.95 };
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This would populate an action that looked like:</p>
+&lt;p&gt;This would populate an action that looked like:&lt;/p&gt;
 
-<pre><code>public JsonResult Update(ProductViewModel product)
-</code></pre>
+&lt;pre&gt;&lt;code&gt;public JsonResult Update(ProductViewModel product)
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>But what I was faced with was passing in two parameters, one of which is a collection...</p>
+&lt;p&gt;But what I was faced with was passing in two parameters, one of which is a collection...&lt;/p&gt;
 
-<p>MVC seems to pair up the posted result with the parameter name, in the same way they it does for Route parameters. So to the JSON needs to look like:</p>
+&lt;p&gt;MVC seems to pair up the posted result with the parameter name, in the same way they it does for Route parameters. So to the JSON needs to look like:&lt;/p&gt;
 
-<pre><code>var data = {
+&lt;pre&gt;&lt;code&gt;var data = {
     warehouseLocationId: 12,
     products: [{
         Id: 1,
-        Name: "Product 1",
+        Name: &quot;Product 1&quot;,
         Price: 15.95
     }, {
         Id: 3,
-        Name: "Product 2",
+        Name: &quot;Product 2&quot;,
         Price: 12.50
     }]
 };
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>As you can see the key's on the first level match the parameter names, while the array on products, match the ViewModel.</p>
+&lt;p&gt;As you can see the key's on the first level match the parameter names, while the array on products, match the ViewModel.&lt;/p&gt;
 
-<p>Taking this exact data and posting it to the action:</p>
+&lt;p&gt;Taking this exact data and posting it to the action:&lt;/p&gt;
 
-<pre><code>$.ajax({
+&lt;pre&gt;&lt;code&gt;$.ajax({
     type: 'POST',
-    url: '@Url.Action("Update", "Home")',
+    url: '@Url.Action(&quot;Update&quot;, &quot;Home&quot;)',
     data: JSON.stringify(data),
     contentType: 'application/json',
     success: function(result) {
@@ -122,34 +120,34 @@
     },
     dataType: 'json'
 });
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>I submit that, and with a breakpoint on my action I see:</p>
+&lt;p&gt;I submit that, and with a breakpoint on my action I see:&lt;/p&gt;
 
-<p><img src="/images/jquery-mvc-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/jquery-mvc-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>^ The warehouseLocationId...</p>
+&lt;p&gt;^ The warehouseLocationId...&lt;/p&gt;
 
-<p><img src="/images/jquery-mvc-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/jquery-mvc-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>^ 2 products with the values:</p>
+&lt;p&gt;^ 2 products with the values:&lt;/p&gt;
 
-<p><img src="/images/jquery-mvc-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/jquery-mvc-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>And:</p>
+&lt;p&gt;And:&lt;/p&gt;
 
-<p><img src="/images/jquery-mvc-4.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/jquery-mvc-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>The exact same data we defined in our JavaScript.</p>
+&lt;p&gt;The exact same data we defined in our JavaScript.&lt;/p&gt;
 
-<p>The really cool thing about this, is you can have nested collections also. Using the same scenario, but extending Product to have a collection of Categories like so:</p>
+&lt;p&gt;The really cool thing about this, is you can have nested collections also. Using the same scenario, but extending Product to have a collection of Categories like so:&lt;/p&gt;
 
-<pre><code>public class ProductViewModel
+&lt;pre&gt;&lt;code&gt;public class ProductViewModel
 {
     public int Id { get; set; }
     public string Name { get; set; }
     public decimal Price { get; set; }
-    public IEnumerable&lt;Category&gt; Categories { get; set; }
+    public IEnumerable&amp;lt;Category&amp;gt; Categories { get; set; }
 }
 
 public class Category
@@ -157,51 +155,51 @@ public class Category
     public int Id { get; set; }
     public string Name { get; set; }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>I can update the JSON object to include Category information on 1 of the two products:</p>
+&lt;p&gt;I can update the JSON object to include Category information on 1 of the two products:&lt;/p&gt;
 
-<pre><code>var data = {
+&lt;pre&gt;&lt;code&gt;var data = {
     warehouseLocationId: 12,
     products: [{
         Id: 1,
-        Name: "Product 1",
+        Name: &quot;Product 1&quot;,
         Price: 15.95
     }, {
         Id: 3,
-        Name: "Product 2",
+        Name: &quot;Product 2&quot;,
         Price: 12.50,
         Categories: [{
             Id: 1,
-            Name: "Category 1"
+            Name: &quot;Category 1&quot;
         }, {
             Id: 1,
-            Name: "Category 2"
+            Name: &quot;Category 2&quot;
         }]
     }]
 };
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>And submit that in the same way as before, capturing the results in the Action we get the first product with null for the categories, since we didn't define it as an empty array:</p>
+&lt;p&gt;And submit that in the same way as before, capturing the results in the Action we get the first product with null for the categories, since we didn't define it as an empty array:&lt;/p&gt;
 
-<p><img src="/images/jquery-mvc-5.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/jquery-mvc-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>While the second Product has 2 items, the first item is Category 1, and the second item is Category 2.</p>
+&lt;p&gt;While the second Product has 2 items, the first item is Category 1, and the second item is Category 2.&lt;/p&gt;
 
-<p><img src="/images/jquery-mvc-6.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/jquery-mvc-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p><img src="/images/jquery-mvc-7.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/jquery-mvc-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>And that's it, easy peasy, sending a collection of ViewModels from jQuery to an MVC Action.</p>
+&lt;p&gt;And that's it, easy peasy, sending a collection of ViewModels from jQuery to an MVC Action.&lt;/p&gt;
 
-<p>I &lt;3 MVC :)</p>
+&lt;p&gt;I &amp;lt;3 MVC :)&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2011/12/post-a-collection-of-viewmodels-to-a-mvc-action-with-jquery/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -213,11 +211,9 @@ public class Category
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -269,77 +265,42 @@ public class Category
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

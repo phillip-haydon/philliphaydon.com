@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -39,7 +39,6 @@
     <div class="post-note">
       posted on 06 Nov 2011
       
-      
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
         <a class="addthis_button_tweet"></a>
@@ -49,54 +48,54 @@
       </div>
     </div>
         
-    <p>I've just spent the last few days trying to find a way to have a Unit of Work with WCF, but it seems no one has a nice clean easy solution.</p>
+    &lt;p&gt;I've just spent the last few days trying to find a way to have a Unit of Work with WCF, but it seems no one has a nice clean easy solution.&lt;/p&gt;
 
-<p>The first, and the only decent solution I found was here:</p>
+&lt;p&gt;The first, and the only decent solution I found was here:&lt;/p&gt;
 
-<p><a href="http://ianfnelson.com/archives/2010/04/09/wcf-nhibernate-unit-of-work-endpoint-behavior">http://ianfnelson.com/archives/2010/04/09/wcf-nhibernate-unit-of-work-endpoint-behavior</a></p>
+&lt;p&gt;&lt;a href=&quot;http://ianfnelson.com/archives/2010/04/09/wcf-nhibernate-unit-of-work-endpoint-behavior&quot;&gt;http://ianfnelson.com/archives/2010/04/09/wcf-nhibernate-unit-of-work-endpoint-behavior&lt;/a&gt;&lt;/p&gt;
 
-<p>The problem I found with this solution is that the ICallContextInitializer as well as the EndpointBehavior is only created once. So it would seem all calls to a service would share the same Unit of Work instance.</p>
+&lt;p&gt;The problem I found with this solution is that the ICallContextInitializer as well as the EndpointBehavior is only created once. So it would seem all calls to a service would share the same Unit of Work instance.&lt;/p&gt;
 
-<p>Maybe Castle Windsor does something fancy and injects a brand new <code>EndpointBehavior</code> every request to a service, but for me, it seemed the <code>ServiceBehavior</code>, <code>EndpointBehavior</code>, and <code>ICallContextInitializer</code> were all created once.</p>
+&lt;p&gt;Maybe Castle Windsor does something fancy and injects a brand new &lt;code&gt;EndpointBehavior&lt;/code&gt; every request to a service, but for me, it seemed the &lt;code&gt;ServiceBehavior&lt;/code&gt;, &lt;code&gt;EndpointBehavior&lt;/code&gt;, and &lt;code&gt;ICallContextInitializer&lt;/code&gt; were all created once.&lt;/p&gt;
 
-<p>This caused my service to resolve a different instance of <code>IUnitOfWork</code> to what was in the <code>ICallContextInitializer</code>.</p>
+&lt;p&gt;This caused my service to resolve a different instance of &lt;code&gt;IUnitOfWork&lt;/code&gt; to what was in the &lt;code&gt;ICallContextInitializer&lt;/code&gt;.&lt;/p&gt;
 
-<h2>Interim Solution 1</h2>
+&lt;h2&gt;Interim Solution 1&lt;/h2&gt;
 
-<p>The first solution I came up with was to use Autofac to call Commit on release:</p>
+&lt;p&gt;The first solution I came up with was to use Autofac to call Commit on release:&lt;/p&gt;
 
-<pre><code>builder.RegisterType(typeof (UnitOfWork))
+&lt;pre&gt;&lt;code&gt;builder.RegisterType(typeof (UnitOfWork))
         .As(typeof (IUnitOfWork))
         .InstancePerLifetimeScope()
-        .OnRelease(x =&gt;
+        .OnRelease(x =&amp;gt;
                         {
                             ((IUnitOfWork) x).Commit();
                         });
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p>It works...  but it seemed like a real hack, so I kept digging.</p>
+&lt;p&gt;It works...  but it seemed like a real hack, so I kept digging.&lt;/p&gt;
 
-<p>I posted on <a href="http://stackoverflow.com/questions/7989918/using-a-custom-endpoint-behavior-with-wcf-and-autofac">StackOverflow</a> &amp; <a href="http://groups.google.com/group/autofac/browse_thread/thread/7310498aea634abd">Autofac Google Group</a>, but so far I haven't had anyone suggest a good solution.</p>
+&lt;p&gt;I posted on &lt;a href=&quot;http://stackoverflow.com/questions/7989918/using-a-custom-endpoint-behavior-with-wcf-and-autofac&quot;&gt;StackOverflow&lt;/a&gt; &amp;amp; &lt;a href=&quot;http://groups.google.com/group/autofac/browse_thread/thread/7310498aea634abd&quot;&gt;Autofac Google Group&lt;/a&gt;, but so far I haven't had anyone suggest a good solution.&lt;/p&gt;
 
-<h2>Solution 2</h2>
+&lt;h2&gt;Solution 2&lt;/h2&gt;
 
-<p>The next took a while to come up with.</p>
+&lt;p&gt;The next took a while to come up with.&lt;/p&gt;
 
-<p><span class="note"><strong>Note:</strong> I don't know if this is an appropriate solution for utilizing a Unit of Work with WCF. It works for me but if there is a better solution I would like to hear it.</span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I don't know if this is an appropriate solution for utilizing a Unit of Work with WCF. It works for me but if there is a better solution I would like to hear it.&lt;/span&gt;&lt;/p&gt;
 
-<p>I started by giving all my classes an interface called IService.</p>
+&lt;p&gt;I started by giving all my classes an interface called IService.&lt;/p&gt;
 
-<pre><code>public interface IService
+&lt;pre&gt;&lt;code&gt;public interface IService
 {
     IUnitOfWork UnitOfWork { get; set; }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>My Service implements this interface:</p>
+&lt;p&gt;My Service implements this interface:&lt;/p&gt;
 
-<pre><code>public class WasteInventoryQueryService : IWasteInventoryQueryService, IService
+&lt;pre&gt;&lt;code&gt;public class WasteInventoryQueryService : IWasteInventoryQueryService, IService
 {
     public IUnitOfWork UnitOfWork { get; set; }
     public IWasteStockRepository WasteStockRepository { get; set; }
@@ -108,18 +107,18 @@
 
     ...
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Next I created some behaviours similar to the linked article.</p>
+&lt;p&gt;Next I created some behaviours similar to the linked article.&lt;/p&gt;
 
-<p>Since finding that the ServiceBehavior, EndpointBehavior and ICallContextInitializer all are created once, I started at the ServiceBehavior.</p>
+&lt;p&gt;Since finding that the ServiceBehavior, EndpointBehavior and ICallContextInitializer all are created once, I started at the ServiceBehavior.&lt;/p&gt;
 
-<p>I created a class called EndpointResolverServiceBehavior, it's purpose is to inject all the endpoint behaviours I create.</p>
+&lt;p&gt;I created a class called EndpointResolverServiceBehavior, it's purpose is to inject all the endpoint behaviours I create.&lt;/p&gt;
 
-<pre><code>public class EndpointResolverServiceBehavior : IServiceBehavior
+&lt;pre&gt;&lt;code&gt;public class EndpointResolverServiceBehavior : IServiceBehavior
 {
-    protected IEnumerable&lt;IEndpointBehavior&gt; EndpointBehaviors { get; set; }
-    public EndpointResolverServiceBehavior(IEnumerable&lt;IEndpointBehavior&gt; endpointBehaviors)
+    protected IEnumerable&amp;lt;IEndpointBehavior&amp;gt; EndpointBehaviors { get; set; }
+    public EndpointResolverServiceBehavior(IEnumerable&amp;lt;IEndpointBehavior&amp;gt; endpointBehaviors)
     {
         EndpointBehaviors = endpointBehaviors;
     }
@@ -132,7 +131,7 @@
 
     public void AddBindingParameters(ServiceDescription serviceDescription, 
         ServiceHostBase serviceHostBase, 
-        Collection&lt;ServiceEndpoint&gt; endpoints, 
+        Collection&amp;lt;ServiceEndpoint&amp;gt; endpoints, 
         BindingParameterCollection bindingParameters)
     {
     }
@@ -150,11 +149,11 @@
 
     #endregion
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Next I created an EndpointBehavior called UnitOfWorkEndpointBehavior, it's purpose is to add the ICallContextInitializer instance.</p>
+&lt;p&gt;Next I created an EndpointBehavior called UnitOfWorkEndpointBehavior, it's purpose is to add the ICallContextInitializer instance.&lt;/p&gt;
 
-<pre><code>public class UnitOfWorkEndpointBehavior : IEndpointBehavior
+&lt;pre&gt;&lt;code&gt;public class UnitOfWorkEndpointBehavior : IEndpointBehavior
 {
     public void AddBindingParameters(ServiceEndpoint endpoint, BindingParameterCollection bindingParameters)
     {
@@ -175,11 +174,11 @@
     {
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>And then is the ICallContextInitializer.</p>
+&lt;p&gt;And then is the ICallContextInitializer.&lt;/p&gt;
 
-<pre><code>public class UnitOfWorkCallContextInitializer : ICallContextInitializer
+&lt;pre&gt;&lt;code&gt;public class UnitOfWorkCallContextInitializer : ICallContextInitializer
 {
     private PropertyInfo _userObjectInfo;
     private readonly BindingFlags _flags = BindingFlags.NonPublic | BindingFlags.Instance;
@@ -187,7 +186,7 @@
     {
         if (_userObjectInfo == null)
             _userObjectInfo = instanceContext.GetType()
-                                                .GetProperty("UserObject", _flags);
+                                                .GetProperty(&quot;UserObject&quot;, _flags);
 
         return _userObjectInfo.GetValue(instanceContext, null) as IService;
     }
@@ -200,51 +199,51 @@
             uow.UnitOfWork.Commit();
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>While debugging I found out that the InstanceContext has a private property which has the current service attached to it:</p>
+&lt;p&gt;While debugging I found out that the InstanceContext has a private property which has the current service attached to it:&lt;/p&gt;
 
-<p><img src="/images/uow-autofac-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/uow-autofac-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p><img src="/images/uow-autofac-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/uow-autofac-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>(click the image for a larger view)</p>
+&lt;p&gt;(click the image for a larger view)&lt;/p&gt;
 
-<p>So I reflected the property and casted it to an IService, and return the result. When the service has been invoked, the result passed out of the 'BeforeInvoke' method, is passed into the 'AfterInvoke'.</p>
+&lt;p&gt;So I reflected the property and casted it to an IService, and return the result. When the service has been invoked, the result passed out of the 'BeforeInvoke' method, is passed into the 'AfterInvoke'.&lt;/p&gt;
 
-<p><img src="/images/uow-autofac-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/uow-autofac-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>So basically I return the result from the BeforeInvoke which is passed into the AfterInvoke. Then I attempt to cast it to an IService again.</p>
+&lt;p&gt;So basically I return the result from the BeforeInvoke which is passed into the AfterInvoke. Then I attempt to cast it to an IService again.&lt;/p&gt;
 
-<p>If the cast is successful, then I can call Commit on my UnitOfWork.</p>
+&lt;p&gt;If the cast is successful, then I can call Commit on my UnitOfWork.&lt;/p&gt;
 
-<p>The last piece is to wire up the Behavior with Autofac.</p>
+&lt;p&gt;The last piece is to wire up the Behavior with Autofac.&lt;/p&gt;
 
-<pre><code>builder.RegisterType(typeof(UnitOfWorkEndpointBehavior)).As(typeof(IEndpointBehavior));
+&lt;pre&gt;&lt;code&gt;builder.RegisterType(typeof(UnitOfWorkEndpointBehavior)).As(typeof(IEndpointBehavior));
 builder.RegisterType(typeof(EndpointResolverServiceBehavior)).As(typeof(IServiceBehavior));
 
 Container = builder.Build();
 
 AutofacHostFactory.Container = Container;
 AutofacHostFactory.HostConfigurationAction =
-    host =&gt;
+    host =&amp;gt;
     {
-        host.Description.Behaviors.Add(Container.Resolve&lt;IServiceBehavior&gt;());
+        host.Description.Behaviors.Add(Container.Resolve&amp;lt;IServiceBehavior&amp;gt;());
     };
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>And it's done. I have a working Unit of Work, that is injected into my Service and Committed after the service has been invoked.</p>
+&lt;p&gt;And it's done. I have a working Unit of Work, that is injected into my Service and Committed after the service has been invoked.&lt;/p&gt;
 
-<p>The only down-side I see to all of this, is that if an exception is thrown that I don't capture, then the UoW will still be committed regardless.</p>
+&lt;p&gt;The only down-side I see to all of this, is that if an exception is thrown that I don't capture, then the UoW will still be committed regardless.&lt;/p&gt;
 
-<p>If anyone has any better solutions, let me know! :)</p>
+&lt;p&gt;If anyone has any better solutions, let me know! :)&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2011/11/unit-of-work-with-wcf-and-autofac/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -256,11 +255,9 @@ AutofacHostFactory.HostConfigurationAction =
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -312,77 +309,42 @@ AutofacHostFactory.HostConfigurationAction =
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

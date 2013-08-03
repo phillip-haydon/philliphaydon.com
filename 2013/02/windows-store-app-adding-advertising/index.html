@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 14 Feb 2013
-      
-        | <a href="/category/windows-8-app">Windows 8 App</a>
-      
+       | <a href="/category/windows-8-app">Windows 8 App</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,141 +49,141 @@
       </div>
     </div>
         
-    <p>I searched for hours trying to figure this out and I think the information is a little scarce or not obvious.</p>
+    &lt;p&gt;I searched for hours trying to figure this out and I think the information is a little scarce or not obvious.&lt;/p&gt;
 
-<p>Basically I wanted to add some advertising to my app, I'm trying to cover multiple different area's in order to learn what's involved, and I thought I had it all down, only to work out that the advert's that were displaying were test adverts and not the real thing.</p>
+&lt;p&gt;Basically I wanted to add some advertising to my app, I'm trying to cover multiple different area's in order to learn what's involved, and I thought I had it all down, only to work out that the advert's that were displaying were test adverts and not the real thing.&lt;/p&gt;
 
-<p>Now don't get me wrong, when you actually do find the correct URL (by searching Advertising rather than Ad) the MSDN link does have all the information, I didn't find this out until my friend actually sent it to me...</p>
+&lt;p&gt;Now don't get me wrong, when you actually do find the correct URL (by searching Advertising rather than Ad) the MSDN link does have all the information, I didn't find this out until my friend actually sent it to me...&lt;/p&gt;
 
-<p><a href="http://msdn.microsoft.com/en-us/library/advertising-windows-sdk(v=msads.10).aspx">http://msdn.microsoft.com/en-us/library/advertising-windows-sdk(v=msads.10).aspx</a></p>
+&lt;p&gt;&lt;a href=&quot;http://msdn.microsoft.com/en-us/library/advertising-windows-sdk(v=msads.10).aspx&quot;&gt;http://msdn.microsoft.com/en-us/library/advertising-windows-sdk(v=msads.10).aspx&lt;/a&gt;&lt;/p&gt;
 
-<p>There's two main things you need to do (besides installing the correct SDK, I had the Beta first time around)</p>
+&lt;p&gt;There's two main things you need to do (besides installing the correct SDK, I had the Beta first time around)&lt;/p&gt;
 
-<ol>
-<li>Implement the advert into your app</li>
-<li>Setup an advertising account</li>
-</ol>
+&lt;ol&gt;
+&lt;li&gt;Implement the advert into your app&lt;/li&gt;
+&lt;li&gt;Setup an advertising account&lt;/li&gt;
+&lt;/ol&gt;
 
-<p>The first part is easy... (well the 2nd part is too... but I didn't realise that at first)</p>
+&lt;p&gt;The first part is easy... (well the 2nd part is too... but I didn't realise that at first)&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<h2>Implementing your advert</h2>
+&lt;h2&gt;Implementing your advert&lt;/h2&gt;
 
-<p>Head on over to MSDN to download the <a href="http://go.microsoft.com/?linkid=9815330">Microsoft Advertising SDK</a> and install it.</p>
+&lt;p&gt;Head on over to MSDN to download the &lt;a href=&quot;http://go.microsoft.com/?linkid=9815330&quot;&gt;Microsoft Advertising SDK&lt;/a&gt; and install it.&lt;/p&gt;
 
-<p>After installing, open up your solution and add a reference to the <code>Microsoft Advertising SDK for Windows 8 (Xaml)</code> assembly. </p>
+&lt;p&gt;After installing, open up your solution and add a reference to the &lt;code&gt;Microsoft Advertising SDK for Windows 8 (Xaml)&lt;/code&gt; assembly. &lt;/p&gt;
 
-<p><img src="/images/win-app-ad-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/win-app-ad-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Now you can use the Tools to drag/drop the advert control to your Xaml file. </p>
+&lt;p&gt;Now you can use the Tools to drag/drop the advert control to your Xaml file. &lt;/p&gt;
 
-<pre><code>&lt;ui:AdControl Name="Advert"
-              Grid.Row="1"
-              Width="728"
-              Height="90"
-              Margin="30,441,0,0"
-              HorizontalAlignment="Left"
-              VerticalAlignment="Top"
-              AdUnitId="10042998"
-              ApplicationId="d25517cb-12d4-4699-8bdc-52040c712cab" /&gt;
-</code></pre>
+&lt;pre&gt;&lt;code&gt;&amp;lt;ui:AdControl Name=&quot;Advert&quot;
+              Grid.Row=&quot;1&quot;
+              Width=&quot;728&quot;
+              Height=&quot;90&quot;
+              Margin=&quot;30,441,0,0&quot;
+              HorizontalAlignment=&quot;Left&quot;
+              VerticalAlignment=&quot;Top&quot;
+              AdUnitId=&quot;10042998&quot;
+              ApplicationId=&quot;d25517cb-12d4-4699-8bdc-52040c712cab&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>The two things that are important are the <code>AdUnitId</code> and <code>ApplicationId</code>, the ApplicationId should get populated automatically using the test value. (the value shown in the code above) if not, you can manually assign it.</p>
+&lt;p&gt;The two things that are important are the &lt;code&gt;AdUnitId&lt;/code&gt; and &lt;code&gt;ApplicationId&lt;/code&gt;, the ApplicationId should get populated automatically using the test value. (the value shown in the code above) if not, you can manually assign it.&lt;/p&gt;
 
-<p>To test your advert you need to add a <code>AdUnitId</code> specific to the dimensions you want to show, and for the type of advert you want to test.</p>
+&lt;p&gt;To test your advert you need to add a &lt;code&gt;AdUnitId&lt;/code&gt; specific to the dimensions you want to show, and for the type of advert you want to test.&lt;/p&gt;
 
-<table>
-  <tbody>
-    <tr>
-      <th>
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;
         pubCenter Ad Unit Size (Width x Height)
-      </th>
-      <th>
+      &lt;/th&gt;
+      &lt;th&gt;
         Experience
-      </th>
-      <th>
+      &lt;/th&gt;
+      &lt;th&gt;
         AdUnitId
-      </th>
-    </tr>
-    <tr>
-      <td>
+      &lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
         160 x 600
-      </td>
-      <td>
+      &lt;/td&gt;
+      &lt;td&gt;
         Windows 8 Image Ad with click to Full Screen Image
-      </td>
-      <td>
+      &lt;/td&gt;
+      &lt;td&gt;
         10043136
-      </td>
-    </tr>
-    <tr>
-      <td>
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
         160 x 600
-      </td>
-      <td>
+      &lt;/td&gt;
+      &lt;td&gt;
         Windows 8 Video Ad with click to Full Screen Video
-      </td>
-      <td>
+      &lt;/td&gt;
+      &lt;td&gt;
         10043135
-      </td>
-      </tr>
-    <tr>
-      <td>
+      &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
         160 x 600
-      </td>
-      <td>
+      &lt;/td&gt;
+      &lt;td&gt;
         Windows 8 Image Ad
-      </td>
-      <td>
+      &lt;/td&gt;
+      &lt;td&gt;
         10043134
-      </td>
-    </tr>
-  </tbody>
-</table>
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
-<p>You can find a full list of test modes on <a href="http://msdn.microsoft.com/en-us/library/advertising-windows-test-mode-values(v=msads.10).aspx">MSDN - Test Mode Values</a></p>
+&lt;p&gt;You can find a full list of test modes on &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/advertising-windows-test-mode-values(v=msads.10).aspx&quot;&gt;MSDN - Test Mode Values&lt;/a&gt;&lt;/p&gt;
 
-<p>Find the Height/Width you want, ensure your Ad control is set to the same Height/Width, and assign the corresponding <code>AdUnitId</code> to the control.</p>
+&lt;p&gt;Find the Height/Width you want, ensure your Ad control is set to the same Height/Width, and assign the corresponding &lt;code&gt;AdUnitId&lt;/code&gt; to the control.&lt;/p&gt;
 
-<p>Now when you run your app you should get something like</p>
+&lt;p&gt;Now when you run your app you should get something like&lt;/p&gt;
 
-<p><img src="/images/win-app-ad-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/win-app-ad-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>The next thing you need to do is add some error handling. To do this you just add the event to the control directly like <code>ErrorOccurred="AdvertErrorOccurred"</code></p>
+&lt;p&gt;The next thing you need to do is add some error handling. To do this you just add the event to the control directly like &lt;code&gt;ErrorOccurred=&quot;AdvertErrorOccurred&quot;&lt;/code&gt;&lt;/p&gt;
 
-<pre><code>void AdvertErrorOccurred(object sender, Microsoft.Advertising.WinRT.UI.AdErrorEventArgs e)
+&lt;pre&gt;&lt;code&gt;void AdvertErrorOccurred(object sender, Microsoft.Advertising.WinRT.UI.AdErrorEventArgs e)
 {
     Advert.Visibility = Visibility.Collapsed;
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>You may want to do something more, maybe try loading a different sized advert. I've chosen to just hide the control instead.</p>
+&lt;p&gt;You may want to do something more, maybe try loading a different sized advert. I've chosen to just hide the control instead.&lt;/p&gt;
 
-<h2>Setup an advertising account</h2>
+&lt;h2&gt;Setup an advertising account&lt;/h2&gt;
 
-<p>Head on over to <a href="https://pubcenter.microsoft.com/">https://pubcenter.microsoft.com/</a> and login with your Windows Live account (or signup)</p>
+&lt;p&gt;Head on over to &lt;a href=&quot;https://pubcenter.microsoft.com/&quot;&gt;https://pubcenter.microsoft.com/&lt;/a&gt; and login with your Windows Live account (or signup)&lt;/p&gt;
 
-<p>First you will need to head on over to the Accounts</p>
+&lt;p&gt;First you will need to head on over to the Accounts&lt;/p&gt;
 
-<p><img src="/images/win-app-ad-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/win-app-ad-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Once you have created an account (you don't need to add a payout right away, you can do that in the future when you've generated some revenue), you need to head on over to Setup.</p>
+&lt;p&gt;Once you have created an account (you don't need to add a payout right away, you can do that in the future when you've generated some revenue), you need to head on over to Setup.&lt;/p&gt;
 
-<p><img src="/images/win-app-ad-4.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/win-app-ad-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>You need to Register your application, and then you need to create an AdUnit. This stuff is really straight forward so should be easy peasy.</p>
+&lt;p&gt;You need to Register your application, and then you need to create an AdUnit. This stuff is really straight forward so should be easy peasy.&lt;/p&gt;
 
-<p>Once you have registered your app (which gives you the <code>ApplicationId</code>) and created an AdUnit (which gives you the <code>AdUnitId</code>) you can replace the values in your app, and publish your app with advertising in it :D</p>
+&lt;p&gt;Once you have registered your app (which gives you the &lt;code&gt;ApplicationId&lt;/code&gt;) and created an AdUnit (which gives you the &lt;code&gt;AdUnitId&lt;/code&gt;) you can replace the values in your app, and publish your app with advertising in it :D&lt;/p&gt;
 
-<p>Although this information is available on the net, I initially had trouble finding it, so hopefully this helps anyone else out with confusion.</p>
+&lt;p&gt;Although this information is available on the net, I initially had trouble finding it, so hopefully this helps anyone else out with confusion.&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2013/02/windows-store-app-adding-advertising/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -197,11 +195,9 @@
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -253,77 +249,42 @@
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 30 Jan 2011
-      
-        | <a href="/category/nhibernate">NHibernate</a>
-      
+       | <a href="/category/nhibernate">NHibernate</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,247 +49,247 @@
       </div>
     </div>
         
-    <p>A friend asked me about fetching relationships with NHibernate when something couldn't be lazy-loaded.</p>
+    &lt;p&gt;A friend asked me about fetching relationships with NHibernate when something couldn't be lazy-loaded.&lt;/p&gt;
 
-<p>The reason it couldn't be lazy-loaded was because he uses Session-Per-Call, my preference is Session-Per-Request. (this is web based, I've never actually used NHibernate in a non-web scenario, yet)</p>
+&lt;p&gt;The reason it couldn't be lazy-loaded was because he uses Session-Per-Call, my preference is Session-Per-Request. (this is web based, I've never actually used NHibernate in a non-web scenario, yet)&lt;/p&gt;
 
-<p>The solution he's currently using is to turn off lazy-loading at the mapping. This is all kinds of bad.</p>
+&lt;p&gt;The solution he's currently using is to turn off lazy-loading at the mapping. This is all kinds of bad.&lt;/p&gt;
 
-<p>I think it's best to demonstrate why turning off lazy-loading at the mapping is bad. I've come up with a, well what I consider pretty standard Blog.</p>
+&lt;p&gt;I think it's best to demonstrate why turning off lazy-loading at the mapping is bad. I've come up with a, well what I consider pretty standard Blog.&lt;/p&gt;
 
-<p><img src="/images/nhibernate-lazy-load-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-lazy-load-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Nothing special but needed something that has a few relationship"s. (I think you can click that image to make it bigger)</p>
+&lt;p&gt;Nothing special but needed something that has a few relationship&quot;s. (I think you can click that image to make it bigger)&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p>So as we can see, a Post has 4 relationships, and a Comment has a relationship back to the Post and User.</p>
+&lt;p&gt;So as we can see, a Post has 4 relationships, and a Comment has a relationship back to the Post and User.&lt;/p&gt;
 
-<p>I've mapped it and created some test data:</p>
+&lt;p&gt;I've mapped it and created some test data:&lt;/p&gt;
 
-<p><a href="/stuffz/NH-Blog-Mappings.cs.txt">View Full Maps</a></p>
+&lt;p&gt;&lt;a href=&quot;/stuffz/NH-Blog-Mappings.cs.txt&quot;&gt;View Full Maps&lt;/a&gt;&lt;/p&gt;
 
-<p><a href="/stuffz/NH-Blog-Scripts.sql.txt">View SQL Script</a></p>
+&lt;p&gt;&lt;a href=&quot;/stuffz/NH-Blog-Scripts.sql.txt&quot;&gt;View SQL Script&lt;/a&gt;&lt;/p&gt;
 
-<p>Right, so the maps are set to Not LazyLoad the relationships.</p>
+&lt;p&gt;Right, so the maps are set to Not LazyLoad the relationships.&lt;/p&gt;
 
-<h3>Post</h3>
+&lt;h3&gt;Post&lt;/h3&gt;
 
-<pre><code>public class PostMap : ClassMap&lt;Post&gt;
+&lt;pre&gt;&lt;code&gt;public class PostMap : ClassMap&amp;lt;Post&amp;gt;
 {
     public PostMap()
     {
-        Id(x =&gt; x.Id);
-        Map(x =&gt; x.Title);
-        Map(x =&gt; x.Content);
-        Map(x =&gt; x.PublishedAt);
-        References(x =&gt; x.Author)
-            .Column("UserId")
+        Id(x =&amp;gt; x.Id);
+        Map(x =&amp;gt; x.Title);
+        Map(x =&amp;gt; x.Content);
+        Map(x =&amp;gt; x.PublishedAt);
+        References(x =&amp;gt; x.Author)
+            .Column(&quot;UserId&quot;)
             .Not.LazyLoad();
 
-        HasManyToMany(x =&gt; x.Tags)
-            .Table("PostTags")
-            .ParentKeyColumn("PostId")
-            .ChildKeyColumn("TagId")
+        HasManyToMany(x =&amp;gt; x.Tags)
+            .Table(&quot;PostTags&quot;)
+            .ParentKeyColumn(&quot;PostId&quot;)
+            .ChildKeyColumn(&quot;TagId&quot;)
             .Not.LazyLoad();
 
-        HasManyToMany(x =&gt; x.Categories)
-            .Table("PostCategories")
-            .ParentKeyColumn("PostId")
-            .ChildKeyColumn("CategoryId")
+        HasManyToMany(x =&amp;gt; x.Categories)
+            .Table(&quot;PostCategories&quot;)
+            .ParentKeyColumn(&quot;PostId&quot;)
+            .ChildKeyColumn(&quot;CategoryId&quot;)
             .Not.LazyLoad();
 
-        HasMany(x =&gt; x.Comments)
-            .KeyColumn("PostId")
+        HasMany(x =&amp;gt; x.Comments)
+            .KeyColumn(&quot;PostId&quot;)
             .Inverse()
             .Not.LazyLoad();
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<h3>Comment</h3>
+&lt;h3&gt;Comment&lt;/h3&gt;
 
-<pre><code>public class CommentMap : ClassMap&lt;Comment&gt;
+&lt;pre&gt;&lt;code&gt;public class CommentMap : ClassMap&amp;lt;Comment&amp;gt;
 {
     public CommentMap()
     {
-        Id(x =&gt; x.Id);
-        Map(x =&gt; x.Content);
-        References(x =&gt; x.Commenter)
-            .Column("UserId")
+        Id(x =&amp;gt; x.Id);
+        Map(x =&amp;gt; x.Content);
+        References(x =&amp;gt; x.Commenter)
+            .Column(&quot;UserId&quot;)
             .Not.LazyLoad();
 
-        References(x =&gt; x.Post)
-            .Column("PostId")
+        References(x =&amp;gt; x.Post)
+            .Column(&quot;PostId&quot;)
             .Not.LazyLoad();
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>I haven't mapped any relationships the other way, keeping it simple, stupid. </p>
+&lt;p&gt;I haven't mapped any relationships the other way, keeping it simple, stupid. &lt;/p&gt;
 
-<p>Right, so lets assume we wanted to load Post 1, and display the Title and the Categories the post was in. We didn't care about the User, or the Comments, or anything like that.</p>
+&lt;p&gt;Right, so lets assume we wanted to load Post 1, and display the Title and the Categories the post was in. We didn't care about the User, or the Comments, or anything like that.&lt;/p&gt;
 
-<pre><code>var sessionFactory = new SessionFactoryManager().CreateSessionFactory();
+&lt;pre&gt;&lt;code&gt;var sessionFactory = new SessionFactoryManager().CreateSessionFactory();
 using (var session = sessionFactory.OpenSession())
 {
-    var post = session.Query&lt;Post&gt;()
-                        .SingleOrDefault(x =&gt; x.Id == 1);
+    var post = session.Query&amp;lt;Post&amp;gt;()
+                        .SingleOrDefault(x =&amp;gt; x.Id == 1);
 
-    Console.WriteLine("Post: " + post.Title);
-    Console.WriteLine("Category: ");
+    Console.WriteLine(&quot;Post: &quot; + post.Title);
+    Console.WriteLine(&quot;Category: &quot;);
 
-    post.Categories.ForEach(x =&gt; Console.WriteLine(x.Name));
+    post.Categories.ForEach(x =&amp;gt; Console.WriteLine(x.Name));
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>If we were writing the query ourselves, all we would want is the Post, and the Categories, well because we mapped all the references and collections as Not.LazyLoad, NHibernate is kind enough to go and grab that information for us. The SQL Generated results in:</p>
+&lt;p&gt;If we were writing the query ourselves, all we would want is the Post, and the Categories, well because we mapped all the references and collections as Not.LazyLoad, NHibernate is kind enough to go and grab that information for us. The SQL Generated results in:&lt;/p&gt;
 
-<p><img src="/images/nhibernate-lazy-load-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-lazy-load-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>(Image is screen shot from <a href="http://www.nhprof.com/">NHProf</a>)</p>
+&lt;p&gt;(Image is screen shot from &lt;a href=&quot;http://www.nhprof.com/&quot;&gt;NHProf&lt;/a&gt;)&lt;/p&gt;
 
-<p>AHHHHH Bad bad bad!!! It's loaded all that information we don't care about!</p>
+&lt;p&gt;AHHHHH Bad bad bad!!! It's loaded all that information we don't care about!&lt;/p&gt;
 
-<p>Right, lets set everything back to normal, and leave Lazy Loading on! Run the same query, and see what happens.</p>
+&lt;p&gt;Right, lets set everything back to normal, and leave Lazy Loading on! Run the same query, and see what happens.&lt;/p&gt;
 
-<h3>Post</h3>
+&lt;h3&gt;Post&lt;/h3&gt;
 
-<pre><code>public class PostMap : ClassMap&lt;Post&gt;
+&lt;pre&gt;&lt;code&gt;public class PostMap : ClassMap&amp;lt;Post&amp;gt;
 {
     public PostMap()
     {
-        Id(x =&gt; x.Id);
-        Map(x =&gt; x.Title);
-        Map(x =&gt; x.Content);
-        Map(x =&gt; x.PublishedAt);
-        References(x =&gt; x.Author)
-            .Column("UserId");
+        Id(x =&amp;gt; x.Id);
+        Map(x =&amp;gt; x.Title);
+        Map(x =&amp;gt; x.Content);
+        Map(x =&amp;gt; x.PublishedAt);
+        References(x =&amp;gt; x.Author)
+            .Column(&quot;UserId&quot;);
 
-        HasManyToMany(x =&gt; x.Tags)
-            .Table("PostTags")
-            .ParentKeyColumn("PostId")
-            .ChildKeyColumn("TagId");
+        HasManyToMany(x =&amp;gt; x.Tags)
+            .Table(&quot;PostTags&quot;)
+            .ParentKeyColumn(&quot;PostId&quot;)
+            .ChildKeyColumn(&quot;TagId&quot;);
 
-        HasManyToMany(x =&gt; x.Categories)
-            .Table("PostCategories")
-            .ParentKeyColumn("PostId")
-            .ChildKeyColumn("CategoryId");
+        HasManyToMany(x =&amp;gt; x.Categories)
+            .Table(&quot;PostCategories&quot;)
+            .ParentKeyColumn(&quot;PostId&quot;)
+            .ChildKeyColumn(&quot;CategoryId&quot;);
 
-        HasMany(x =&gt; x.Comments)
-            .KeyColumn("PostId")
+        HasMany(x =&amp;gt; x.Comments)
+            .KeyColumn(&quot;PostId&quot;)
             .Inverse();
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<h3>Comment</h3>
+&lt;h3&gt;Comment&lt;/h3&gt;
 
-<pre><code>public class CommentMap : ClassMap&lt;Comment&gt;
+&lt;pre&gt;&lt;code&gt;public class CommentMap : ClassMap&amp;lt;Comment&amp;gt;
 {
     public CommentMap()
     {
-        Id(x =&gt; x.Id);
-        Map(x =&gt; x.Content);
-        References(x =&gt; x.Commenter)
-            .Column("UserId");
+        Id(x =&amp;gt; x.Id);
+        Map(x =&amp;gt; x.Content);
+        References(x =&amp;gt; x.Commenter)
+            .Column(&quot;UserId&quot;);
 
-        References(x =&gt; x.Post)
-            .Column("PostId");
+        References(x =&amp;gt; x.Post)
+            .Column(&quot;PostId&quot;);
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Lets see what happens now.</p>
+&lt;p&gt;Lets see what happens now.&lt;/p&gt;
 
-<p><img src="/images/nhibernate-lazy-load-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-lazy-load-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Great! Much nicer, we haven't got all that information we didn't want. The only problem is, what about this scenario?</p>
+&lt;p&gt;Great! Much nicer, we haven't got all that information we didn't want. The only problem is, what about this scenario?&lt;/p&gt;
 
-<pre><code>var sessionFactory = new SessionFactoryManager().CreateSessionFactory();
+&lt;pre&gt;&lt;code&gt;var sessionFactory = new SessionFactoryManager().CreateSessionFactory();
 Post post;
 
 using (var session = sessionFactory.OpenSession())
 {
-    post = session.Query&lt;Post&gt;()
-                  .SingleOrDefault(x =&gt; x.Id == 1);
+    post = session.Query&amp;lt;Post&amp;gt;()
+                  .SingleOrDefault(x =&amp;gt; x.Id == 1);
 
-    Console.WriteLine("Post: " + post.Title);
+    Console.WriteLine(&quot;Post: &quot; + post.Title);
 }
 
-Console.WriteLine("Category: ");
-post.Categories.ForEach(x =&gt; Console.WriteLine(x.Name));
-</code></pre>
+Console.WriteLine(&quot;Category: &quot;);
+post.Categories.ForEach(x =&amp;gt; Console.WriteLine(x.Name));
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Lets assume that the 'using' block was a call to a repository, to get a particular post, and we needed to iterate over the categories a little bit later?</p>
+&lt;p&gt;Lets assume that the 'using' block was a call to a repository, to get a particular post, and we needed to iterate over the categories a little bit later?&lt;/p&gt;
 
-<p><img src="/images/nhibernate-lazy-load-4.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-lazy-load-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Oh no, not what we wanted  because the object is now disconnected from the session, it can't lazy load the categories. This I suspect is the issue my friend got.</p>
+&lt;p&gt;Oh no, not what we wanted  because the object is now disconnected from the session, it can't lazy load the categories. This I suspect is the issue my friend got.&lt;/p&gt;
 
-<p>So the solution? To Eager Load!</p>
+&lt;p&gt;So the solution? To Eager Load!&lt;/p&gt;
 
-<pre><code>Post post;
+&lt;pre&gt;&lt;code&gt;Post post;
 using (var session = sessionFactory.OpenSession())
 {
-    post = session.Query&lt;Post&gt;()
-                    .Where(x =&gt; x.Id == 1)
-                    .Fetch(x =&gt; x.Categories)
+    post = session.Query&amp;lt;Post&amp;gt;()
+                    .Where(x =&amp;gt; x.Id == 1)
+                    .Fetch(x =&amp;gt; x.Categories)
                     .SingleOrDefault();
 
-    Console.WriteLine("Post: " + post.Title);
+    Console.WriteLine(&quot;Post: &quot; + post.Title);
 }
 
-Console.WriteLine("Category: ");
-post.Categories.ForEach(x =&gt; Console.WriteLine(x.Name));
-</code></pre>
+Console.WriteLine(&quot;Category: &quot;);
+post.Categories.ForEach(x =&amp;gt; Console.WriteLine(x.Name));
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This results in a single query being issued:</p>
+&lt;p&gt;This results in a single query being issued:&lt;/p&gt;
 
-<p><img src="/images/nhibernate-lazy-load-5.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-lazy-load-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>What's this query look like?</p>
+&lt;p&gt;What's this query look like?&lt;/p&gt;
 
-<p><img src="/images/nhibernate-lazy-load-6.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-lazy-load-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Not bad! Definitely saves a second trip to the database to grab the categories. But there's a problem, there types of queries result in cartesian product result-set. (Think that's what it's called)</p>
+&lt;p&gt;Not bad! Definitely saves a second trip to the database to grab the categories. But there's a problem, there types of queries result in cartesian product result-set. (Think that's what it's called)&lt;/p&gt;
 
-<p>If we issue that query our-self we end up with this:</p>
+&lt;p&gt;If we issue that query our-self we end up with this:&lt;/p&gt;
 
-<p><img src="/images/nhibernate-lazy-load-7.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-lazy-load-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>We actually get Post back twice, because it's got two categories. It's only because we told NHibernate we wanted a single result that it knew the Root aggregate is distinct.</p>
+&lt;p&gt;We actually get Post back twice, because it's got two categories. It's only because we told NHibernate we wanted a single result that it knew the Root aggregate is distinct.&lt;/p&gt;
 
-<p>So what happens if we wanted more than 1 post, and eager load the relationships?</p>
+&lt;p&gt;So what happens if we wanted more than 1 post, and eager load the relationships?&lt;/p&gt;
 
-<pre><code>var sessionFactory = new SessionFactoryManager().CreateSessionFactory();
-IList&lt;Post&gt; posts;
+&lt;pre&gt;&lt;code&gt;var sessionFactory = new SessionFactoryManager().CreateSessionFactory();
+IList&amp;lt;Post&amp;gt; posts;
 
 using (var session = sessionFactory.OpenSession())
 {
-    posts = session.QueryOver&lt;Post&gt;()
-                    .Fetch(x =&gt; x.Categories).Eager
+    posts = session.QueryOver&amp;lt;Post&amp;gt;()
+                    .Fetch(x =&amp;gt; x.Categories).Eager
                     .List();
 }
 
 foreach (var post in posts)
 {
-    Console.WriteLine("Post: " + post.Title);
+    Console.WriteLine(&quot;Post: &quot; + post.Title);
 
-    Console.WriteLine("Categories:");
+    Console.WriteLine(&quot;Categories:&quot;);
 
     foreach (var category in post.Categories)
     {
-        Console.WriteLine(" - " + category.Name);
+        Console.WriteLine(&quot; - &quot; + category.Name);
     }
 
-    Console.WriteLine("--");
+    Console.WriteLine(&quot;--&quot;);
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Nothing special, right? Except... because we get duplicate posts in the last query, imagine what we get when we actually iterate over this result.</p>
+&lt;p&gt;Nothing special, right? Except... because we get duplicate posts in the last query, imagine what we get when we actually iterate over this result.&lt;/p&gt;
 
-<pre><code>Post: Post 1
+&lt;pre&gt;&lt;code&gt;Post: Post 1
 Categories:
 - Category 1
 - Category 3
@@ -323,22 +321,22 @@ Categories:
 - Category 2
 - Category 3
 --
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Scary right? We can fix this using NH Transformations.</p>
+&lt;p&gt;Scary right? We can fix this using NH Transformations.&lt;/p&gt;
 
-<pre><code>using (var session = sessionFactory.OpenSession())
+&lt;pre&gt;&lt;code&gt;using (var session = sessionFactory.OpenSession())
 {
-    posts = session.QueryOver&lt;Post&gt;()
-                    .Fetch(x =&gt; x.Categories).Eager
+    posts = session.QueryOver&amp;lt;Post&amp;gt;()
+                    .Fetch(x =&amp;gt; x.Categories).Eager
                     .TransformUsing(new DistinctRootEntityResultTransformer())
                     .List();
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This formats the result to be distinct posts with the related Categories like so:</p>
+&lt;p&gt;This formats the result to be distinct posts with the related Categories like so:&lt;/p&gt;
 
-<pre><code>Post: Post 1
+&lt;pre&gt;&lt;code&gt;Post: Post 1
 Categories:
 - Category 1
 - Category 3
@@ -353,20 +351,20 @@ Categories:
 - Category 2
 - Category 3
 --
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Perfect!</p>
+&lt;p&gt;Perfect!&lt;/p&gt;
 
-<p>As you can imagine, eager loading is a pretty powerful feature, but we still have to be careful to not load too many relationships. Because eager loading doesn't break the relationships into different result-set queries, we can end up with inefficient queries because there are too many, or possibly too complex joins.</p>
+&lt;p&gt;As you can imagine, eager loading is a pretty powerful feature, but we still have to be careful to not load too many relationships. Because eager loading doesn't break the relationships into different result-set queries, we can end up with inefficient queries because there are too many, or possibly too complex joins.&lt;/p&gt;
 
-<p>We could over-come some of these BY we, Not.LazyLoadby creating the object graph ourselves by using NHibernates <code>Future&lt;T&gt;</code> feature, to batch queries together to reduce the number of database trips. That's a post for another day.</p>
+&lt;p&gt;We could over-come some of these BY we, Not.LazyLoadby creating the object graph ourselves by using NHibernates &lt;code&gt;Future&amp;lt;T&amp;gt;&lt;/code&gt; feature, to batch queries together to reduce the number of database trips. That's a post for another day.&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2011/01/not-lazyload-eager-loading-with-nhibernate-3-0/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -378,11 +376,9 @@ Categories:
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -434,77 +430,42 @@ Categories:
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

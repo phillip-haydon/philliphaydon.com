@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -39,7 +39,6 @@
     <div class="post-note">
       posted on 25 Jan 2013
       
-      
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
         <a class="addthis_button_tweet"></a>
@@ -49,70 +48,70 @@
       </div>
     </div>
         
-    <p>Yup, I decided to reinvent the wheel, don't hate on me :)</p>
+    &lt;p&gt;Yup, I decided to reinvent the wheel, don't hate on me :)&lt;/p&gt;
 
-<p>So I grew a little fustrated, theres quite a few serverside validation libraries around, but I feel they do too much, are hard to test, yada yada yada...</p>
+&lt;p&gt;So I grew a little fustrated, theres quite a few serverside validation libraries around, but I feel they do too much, are hard to test, yada yada yada...&lt;/p&gt;
 
-<p>So I came up with Sandra.SimpleValidation</p>
+&lt;p&gt;So I came up with Sandra.SimpleValidation&lt;/p&gt;
 
-<p>The idea is that it's dead simple, it requires 0 up front configuration, it doesn't allow you to inject stuff into the validators, validators are newed up once and only once, there's no client-side validation.</p>
+&lt;p&gt;The idea is that it's dead simple, it requires 0 up front configuration, it doesn't allow you to inject stuff into the validators, validators are newed up once and only once, there's no client-side validation.&lt;/p&gt;
 
-<p>I don't believe validation should allow you to do things like inject a repository and query the database, those begin to become Business Rules and should be handled seperately. All it does is validate a model you give it. </p>
+&lt;p&gt;I don't believe validation should allow you to do things like inject a repository and query the database, those begin to become Business Rules and should be handled seperately. All it does is validate a model you give it. &lt;/p&gt;
 
-<p>So what do you need to do?</p>
+&lt;p&gt;So what do you need to do?&lt;/p&gt;
 
-<blockquote>
-  <p>PM> Install-Package Sandra.SimpleValidator</p>
-</blockquote>
+&lt;blockquote&gt;
+  &lt;p&gt;PM&gt; Install-Package Sandra.SimpleValidator&lt;/p&gt;
+&lt;/blockquote&gt;
 
-<p>First up, install the package. It requires 4.0 or above, it could probably work on 3.5 but who uses that anymore?</p>
+&lt;p&gt;First up, install the package. It requires 4.0 or above, it could probably work on 3.5 but who uses that anymore?&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p>Once installed, you can create a validator</p>
+&lt;p&gt;Once installed, you can create a validator&lt;/p&gt;
 
-<pre><code>public class UserValidator : ValidateThis&lt;User&gt;
+&lt;pre&gt;&lt;code&gt;public class UserValidator : ValidateThis&amp;lt;User&amp;gt;
 {
     public UserValidator()
     {
-        For(x =&gt; x.Username)
+        For(x =&amp;gt; x.Username)
             .Ensure(new Required());
 
-        For(x =&gt; x.Email)
+        For(x =&amp;gt; x.Email)
             .Ensure(new Required())
             .Ensure(new Email());
 
-        For(x =&gt; x.Locale)
+        For(x =&amp;gt; x.Locale)
             .Ensure(new Required());
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>If you don't like the default messages you can change those by chaining the rule like so</p>
+&lt;p&gt;If you don't like the default messages you can change those by chaining the rule like so&lt;/p&gt;
 
-<pre><code>public class UserValidator : ValidateThis&lt;User&gt;
+&lt;pre&gt;&lt;code&gt;public class UserValidator : ValidateThis&amp;lt;User&amp;gt;
 {
     public UserValidator()
     {
-        For(x =&gt; x.Username)
-            .Ensure(new Required().WithMessage("Username is required");
+        For(x =&amp;gt; x.Username)
+            .Ensure(new Required().WithMessage(&quot;Username is required&quot;);
 
         ...
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Now you can inject (or create an instance of) the <code>ValidationService</code>.</p>
+&lt;p&gt;Now you can inject (or create an instance of) the &lt;code&gt;ValidationService&lt;/code&gt;.&lt;/p&gt;
 
-<p>Using Nancy with the default <code>TinyIoC</code> container, you can just include this in the module constructor. If you're using MVC you may need to register it depending on the container you're using. In any case it can be a singleton since it only needs to be created once.</p>
+&lt;p&gt;Using Nancy with the default &lt;code&gt;TinyIoC&lt;/code&gt; container, you can just include this in the module constructor. If you're using MVC you may need to register it depending on the container you're using. In any case it can be a singleton since it only needs to be created once.&lt;/p&gt;
 
-<pre><code>public class HomeModule : NancyModule
+&lt;pre&gt;&lt;code&gt;public class HomeModule : NancyModule
 {
     public HomeModule(ValidationService validate)
     {
-        Get["/"] = _ =&gt;
+        Get[&quot;/&quot;] = _ =&amp;gt;
         {
-            var user = this.Bind&lt;User&gt;();
+            var user = this.Bind&amp;lt;User&amp;gt;();
             var validationResult = validate.This(user);
 
             if (validationResult.IsInvalid)
@@ -120,49 +119,49 @@
                 //Handle errors with
                 //validationResult.Messages
 
-                return "Validation has fails :(";
+                return &quot;Validation has fails :(&quot;;
             }
 
-            return "Validation was successful :)";
+            return &quot;Validation was successful :)&quot;;
         };
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Once you've injected the service, you simply call <code>This(...)</code> passing in the object you want to validate. With the result you can then call <code>IsValid</code> or <code>IsInvalid</code> and handle the errors.</p>
+&lt;p&gt;Once you've injected the service, you simply call &lt;code&gt;This(...)&lt;/code&gt; passing in the object you want to validate. With the result you can then call &lt;code&gt;IsValid&lt;/code&gt; or &lt;code&gt;IsInvalid&lt;/code&gt; and handle the errors.&lt;/p&gt;
 
-<p>What's nice about the validator class is that because it's so simple, it's simple to test. Given the example above, we can write a unit test like so.</p>
+&lt;p&gt;What's nice about the validator class is that because it's so simple, it's simple to test. Given the example above, we can write a unit test like so.&lt;/p&gt;
 
-<pre><code>[Fact]
+&lt;pre&gt;&lt;code&gt;[Fact]
 public void Given_Valid_Model_Should_Return_IsValid_As_True()
 {
     var validator = new UserValidator();
     var model = new User
     {
-        Username = "HelloWorld",
-        Email = "test@banana.com",
-        Locale = "en-AU"
+        Username = &quot;HelloWorld&quot;,
+        Email = &quot;test@banana.com&quot;,
+        Locale = &quot;en-AU&quot;
     };
 
     var result = validator.Validate(model);
 
     Assert.True(result.IsValid);
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>That's all there is to it. Currently as of writing this it only supports <code>Required</code>, <code>MinimumLength</code>, <code>MaximumLength</code>, <code>Between</code>, and <code>Email</code> rules. Since that's all I require for my current project. If you want to create your own simply implement <code>IRule</code> and new them up in the <code>Ensure</code> method of the validators.</p>
+&lt;p&gt;That's all there is to it. Currently as of writing this it only supports &lt;code&gt;Required&lt;/code&gt;, &lt;code&gt;MinimumLength&lt;/code&gt;, &lt;code&gt;MaximumLength&lt;/code&gt;, &lt;code&gt;Between&lt;/code&gt;, and &lt;code&gt;Email&lt;/code&gt; rules. Since that's all I require for my current project. If you want to create your own simply implement &lt;code&gt;IRule&lt;/code&gt; and new them up in the &lt;code&gt;Ensure&lt;/code&gt; method of the validators.&lt;/p&gt;
 
-<p>In the future I hope to get Nancy intergration so the validation can be invoked on <code>this.Bind&lt;T&gt;()</code>, but for now you can find the github repo, and nuget</p>
+&lt;p&gt;In the future I hope to get Nancy intergration so the validation can be invoked on &lt;code&gt;this.Bind&amp;lt;T&amp;gt;()&lt;/code&gt;, but for now you can find the github repo, and nuget&lt;/p&gt;
 
-<p><a href="https://github.com/phillip-haydon/Sandra.SimpleValidator">https://github.com/phillip-haydon/Sandra.SimpleValidator</a>
-<a href="https://www.nuget.org/packages/Sandra.SimpleValidator">https://www.nuget.org/packages/Sandra.SimpleValidator</a></p>
+&lt;p&gt;&lt;a href=&quot;https://github.com/phillip-haydon/Sandra.SimpleValidator&quot;&gt;https://github.com/phillip-haydon/Sandra.SimpleValidator&lt;/a&gt;
+&lt;a href=&quot;https://www.nuget.org/packages/Sandra.SimpleValidator&quot;&gt;https://www.nuget.org/packages/Sandra.SimpleValidator&lt;/a&gt;&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2013/01/introducing-sandra-simplevalidator-validation-reinvented-again/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -174,11 +173,9 @@ public void Given_Valid_Model_Should_Return_IsValid_As_True()
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -230,77 +227,42 @@ public void Given_Valid_Model_Should_Return_IsValid_As_True()
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

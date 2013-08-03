@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 21 Jun 2013
-      
-        | <a href="/category/osx-and-mono">OSX and Mono</a>
-      
+       | <a href="/category/osx-and-mono">OSX and Mono</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,49 +49,49 @@
       </div>
     </div>
         
-    <p>So I've been in hospital all week with Mycoplasma Infection (or AIDs, doctor says otherwise tho), and figured it would be a good time to mess around with Mono. </p>
+    &lt;p&gt;So I've been in hospital all week with Mycoplasma Infection (or AIDs, doctor says otherwise tho), and figured it would be a good time to mess around with Mono. &lt;/p&gt;
 
-<p>So I began by testing WorldDomination.Web.Authentication</p>
+&lt;p&gt;So I began by testing WorldDomination.Web.Authentication&lt;/p&gt;
 
-<p>While it works GREAT! (Future post maybe) I did run into one issue early on, that is restoring packages. </p>
+&lt;p&gt;While it works GREAT! (Future post maybe) I did run into one issue early on, that is restoring packages. &lt;/p&gt;
 
-<p>I found a <a href="http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/">great post</a> by <a href="https://twitter.com/orientman">&#64;orientman</a> about using NuGet on OSX.</p>
+&lt;p&gt;I found a &lt;a href=&quot;http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/&quot;&gt;great post&lt;/a&gt; by &lt;a href=&quot;https://twitter.com/orientman&quot;&gt;&amp;#64;orientman&lt;/a&gt; about using NuGet on OSX.&lt;/p&gt;
 
-<p><a href="http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/">http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/</a></p>
+&lt;p&gt;&lt;a href=&quot;http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/&quot;&gt;http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/&lt;/a&gt;&lt;/p&gt;
 
-<p>But I didn't like having to type the following out each time, since I needed to install a few different project packages.</p>
+&lt;p&gt;But I didn't like having to type the following out each time, since I needed to install a few different project packages.&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<pre><code>mono --runtime=v4.0.30319 NuGet.exe install ./Code/WorldDomination.Web.Authentication/packages.config -OutputDirectory ./packages
-</code></pre>
+&lt;pre&gt;&lt;code&gt;mono --runtime=v4.0.30319 NuGet.exe install ./Code/WorldDomination.Web.Authentication/packages.config -OutputDirectory ./packages
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>All the time, it seemed tedious. So what I did was, moved the NuGet.exe to <code>~/Tools/</code></p>
+&lt;p&gt;All the time, it seemed tedious. So what I did was, moved the NuGet.exe to &lt;code&gt;~/Tools/&lt;/code&gt;&lt;/p&gt;
 
-<p><img src="/images/mono-osx-alias-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/mono-osx-alias-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Next in <a href="http://www.iterm2.com/">iTerm 2</a> (I prefer it over Terminal) I set an alias for the common stuff!</p>
+&lt;p&gt;Next in &lt;a href=&quot;http://www.iterm2.com/&quot;&gt;iTerm 2&lt;/a&gt; (I prefer it over Terminal) I set an alias for the common stuff!&lt;/p&gt;
 
-<pre><code>alias nuget='mono --runtime=v4.0.30319 /Users/phillip/Tools/NuGet.exe'
-</code></pre>
+&lt;pre&gt;&lt;code&gt;alias nuget='mono --runtime=v4.0.30319 /Users/phillip/Tools/NuGet.exe'
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Now rather than having to type out all that stuff each time, I can just type out <code>nuget</code></p>
+&lt;p&gt;Now rather than having to type out all that stuff each time, I can just type out &lt;code&gt;nuget&lt;/code&gt;&lt;/p&gt;
 
-<pre><code>nuget install ./Code/WorldDomination.Web.Authentication/packages.config -OutputDirectory ./packages
-</code></pre>
+&lt;pre&gt;&lt;code&gt;nuget install ./Code/WorldDomination.Web.Authentication/packages.config -OutputDirectory ./packages
+&lt;/code&gt;&lt;/pre&gt;
 
-<p><img src="/images/mono-osx-alias-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/mono-osx-alias-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>It also means I can forget about the NuGet.exe file or where I've put it :D</p>
+&lt;p&gt;It also means I can forget about the NuGet.exe file or where I've put it :D&lt;/p&gt;
 
-<p>If you want to check what aliases you have you can run <code>alias -p</code>, and if you want to remove the alias you can call <code>unalias *name*</code>, e.g <code>unalias nuget</code></p>
+&lt;p&gt;If you want to check what aliases you have you can run &lt;code&gt;alias -p&lt;/code&gt;, and if you want to remove the alias you can call &lt;code&gt;unalias *name*&lt;/code&gt;, e.g &lt;code&gt;unalias nuget&lt;/code&gt;&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2013/06/making-nuget-a-little-easier-to-use-with-an-alias-on-mono-and-osx/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -105,11 +103,9 @@
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -161,77 +157,42 @@
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

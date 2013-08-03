@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 27 Jun 2013
-      
-        | <a href="/category/azure">Azure</a>
-      
+       | <a href="/category/azure">Azure</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,55 +49,55 @@
       </div>
     </div>
         
-    <ul>
-<li><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Part 1 - Setting up the Virtual Machine and nginx</a></li>
-<li>Part 2 - Setting up new Website and Domain on nginx</li>
-<li><a href="/2013/06/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li>
-<li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li>
-<li><a href="/2013/07/setting-up-a-servicestack-service/">Part 5 - Setting up a ServiceStack web service</a></li>
-</ul>
+    &lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;/2013/06/setting-up-ubuntu-and-nginx-on-azure/&quot;&gt;Part 1 - Setting up the Virtual Machine and nginx&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Part 2 - Setting up new Website and Domain on nginx&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/2013/06/setting-up-mono-on-nginx/&quot;&gt;Part 3 - Setting up Mono on nginx&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/2013/07/setting-up-a-nancyfx-website/&quot;&gt;Part 4 - Setting up a NancyFX website&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/2013/07/setting-up-a-servicestack-service/&quot;&gt;Part 5 - Setting up a ServiceStack web service&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-<p>The purpose of series is to be able to create an end-to-end setup of a Linux Server on Azure and deploy a brand new production NancyFX website or ServiceStack service, and not get confused in-between. Like I was when I sussed all this out. :)</p>
+&lt;p&gt;The purpose of series is to be able to create an end-to-end setup of a Linux Server on Azure and deploy a brand new production NancyFX website or ServiceStack service, and not get confused in-between. Like I was when I sussed all this out. :)&lt;/p&gt;
 
-<h2>Prelude</h2>
+&lt;h2&gt;Prelude&lt;/h2&gt;
 
-<p>When using IIS I think it's safe to say a large majority of us would use the GUI to configure or create new Web Sites. Even though it's actually possible to create a new website and configure it entirely through Powershell.</p>
+&lt;p&gt;When using IIS I think it's safe to say a large majority of us would use the GUI to configure or create new Web Sites. Even though it's actually possible to create a new website and configure it entirely through Powershell.&lt;/p&gt;
 
-<p>But, as scary as it sounds it's not too hard to configure a new Website in nginx. I actually think its easier than doing it with Apache, despite the fact that they are relatively similar. </p>
+&lt;p&gt;But, as scary as it sounds it's not too hard to configure a new Website in nginx. I actually think its easier than doing it with Apache, despite the fact that they are relatively similar. &lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<h2>Where are sites configured?!?</h2>
+&lt;h2&gt;Where are sites configured?!?&lt;/h2&gt;
 
-<p>The nginx configuration files are in <code>/etc</code>. The etc directory is for all system related configuration files. </p>
+&lt;p&gt;The nginx configuration files are in &lt;code&gt;/etc&lt;/code&gt;. The etc directory is for all system related configuration files. &lt;/p&gt;
 
-<p>To learn about Linux Filesystem Hierarchy, you can read about them here:</p>
+&lt;p&gt;To learn about Linux Filesystem Hierarchy, you can read about them here:&lt;/p&gt;
 
-<p><a href="http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/">http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/</a></p>
+&lt;p&gt;&lt;a href=&quot;http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/&quot;&gt;http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/&lt;/a&gt;&lt;/p&gt;
 
-<p>Navigate to the nginx directory by running the command <code>cd /etc/nginx</code> once you reach the nginx directory run the command <code>ls</code> to see what's in the directory.</p>
+&lt;p&gt;Navigate to the nginx directory by running the command &lt;code&gt;cd /etc/nginx&lt;/code&gt; once you reach the nginx directory run the command &lt;code&gt;ls&lt;/code&gt; to see what's in the directory.&lt;/p&gt;
 
-<p>The directory listing should look something like.</p>
+&lt;p&gt;The directory listing should look something like.&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-2-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-2-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>The main things we will be touching in here are <code>sites-available</code> and <code>fastcgi_params</code>, though the <code>fastcgi_params</code> will be in part 3 when we setup Mono. </p>
+&lt;p&gt;The main things we will be touching in here are &lt;code&gt;sites-available&lt;/code&gt; and &lt;code&gt;fastcgi_params&lt;/code&gt;, though the &lt;code&gt;fastcgi_params&lt;/code&gt; will be in part 3 when we setup Mono. &lt;/p&gt;
 
-<p><code>fastcgi_params</code> is a configuration file, while the <code>sites-available</code> is a folder. Navigate to the folder by calling <code>cd sites-available</code></p>
+&lt;p&gt;&lt;code&gt;fastcgi_params&lt;/code&gt; is a configuration file, while the &lt;code&gt;sites-available&lt;/code&gt; is a folder. Navigate to the folder by calling &lt;code&gt;cd sites-available&lt;/code&gt;&lt;/p&gt;
 
-<p>In here if you call <code>ls</code> you will see there's only 1 file called default. This is the default configuration file, we could add more for nginx but to keep things simple we will simply append our website to this file.</p>
+&lt;p&gt;In here if you call &lt;code&gt;ls&lt;/code&gt; you will see there's only 1 file called default. This is the default configuration file, we could add more for nginx but to keep things simple we will simply append our website to this file.&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-2-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-2-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Now open the file in nano by calling <code>nano default</code></p>
+&lt;p&gt;Now open the file in nano by calling &lt;code&gt;nano default&lt;/code&gt;&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-2-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-2-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>You can see there's a <code>server</code> defined which sort of looks like json. I don't actually know what this formatting is called but it's simply a configuration name with either a value(s) or a scope (defined with braces)</p>
+&lt;p&gt;You can see there's a &lt;code&gt;server&lt;/code&gt; defined which sort of looks like json. I don't actually know what this formatting is called but it's simply a configuration name with either a value(s) or a scope (defined with braces)&lt;/p&gt;
 
-<p>The existing server is setup for localhost. We can add our own, so above the server we want to add the following.</p>
+&lt;p&gt;The existing server is setup for localhost. We can add our own, so above the server we want to add the following.&lt;/p&gt;
 
-<pre><code>server {
+&lt;pre&gt;&lt;code&gt;server {
   # the port the site is listening on
   listen 80;
 
@@ -112,108 +110,108 @@
   # the default page
   index index.html;
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>You should end up with your terminal looking like</p>
+&lt;p&gt;You should end up with your terminal looking like&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-2-4.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-2-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Now we need to save the file. Do this by pressing <kbd>CTRL</kbd> + <kbd>X</kbd></p>
+&lt;p&gt;Now we need to save the file. Do this by pressing &lt;kbd&gt;CTRL&lt;/kbd&gt; + &lt;kbd&gt;X&lt;/kbd&gt;&lt;/p&gt;
 
-<p>It should then confirm you want to make the changes.</p>
+&lt;p&gt;It should then confirm you want to make the changes.&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-2-5.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-2-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Enter <kbd>Y</kbd> to accept the changes, then press <kbd>Enter</kbd> to confirm the filename. Don't change the filename!!!</p>
+&lt;p&gt;Enter &lt;kbd&gt;Y&lt;/kbd&gt; to accept the changes, then press &lt;kbd&gt;Enter&lt;/kbd&gt; to confirm the filename. Don't change the filename!!!&lt;/p&gt;
 
-<p>Now you should be back at the terminal. </p>
+&lt;p&gt;Now you should be back at the terminal. &lt;/p&gt;
 
-<p><span class="note"><strong>Note:</strong> If it says you don't have permission to change the file then you're not a root user or you didn't run nano as a root user by prefixing the command with <code>sudo</code></span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; If it says you don't have permission to change the file then you're not a root user or you didn't run nano as a root user by prefixing the command with &lt;code&gt;sudo&lt;/code&gt;&lt;/span&gt;&lt;/p&gt;
 
-<h2>Creating the site directory</h2>
+&lt;h2&gt;Creating the site directory&lt;/h2&gt;
 
-<p>For the configuration we put the root as <code>/var/www/phillip.pw</code>, this path shouldn't exist yet (except for var) Based on my reading of the Linux Filesystem, this seemed like the best place to put it. If someone disagrees or knows where it should go please leave a comment.</p>
+&lt;p&gt;For the configuration we put the root as &lt;code&gt;/var/www/phillip.pw&lt;/code&gt;, this path shouldn't exist yet (except for var) Based on my reading of the Linux Filesystem, this seemed like the best place to put it. If someone disagrees or knows where it should go please leave a comment.&lt;/p&gt;
 
-<p>Navigate to var by calling <code>cd /var</code>, then calling <code>ls</code>, you should see there is no <code>www</code> folder. So lets create one by calling <code>mkdir www</code>, navigate to the directory; <code>cd www</code>. And make the next directory; <code>mkdir phillip.pw</code>.</p>
+&lt;p&gt;Navigate to var by calling &lt;code&gt;cd /var&lt;/code&gt;, then calling &lt;code&gt;ls&lt;/code&gt;, you should see there is no &lt;code&gt;www&lt;/code&gt; folder. So lets create one by calling &lt;code&gt;mkdir www&lt;/code&gt;, navigate to the directory; &lt;code&gt;cd www&lt;/code&gt;. And make the next directory; &lt;code&gt;mkdir phillip.pw&lt;/code&gt;.&lt;/p&gt;
 
-<p>Your console should look something like this</p>
+&lt;p&gt;Your console should look something like this&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-2-6.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-2-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<h2>The test file</h2>
+&lt;h2&gt;The test file&lt;/h2&gt;
 
-<p>Now that we are inside our hosting directory we need to create a test file. Call <code>nano index.html</code> which will open up a new nano with nothing in it.</p>
+&lt;p&gt;Now that we are inside our hosting directory we need to create a test file. Call &lt;code&gt;nano index.html&lt;/code&gt; which will open up a new nano with nothing in it.&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-2-7.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-2-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Here we can throw some basic HTML in that looks like:</p>
+&lt;p&gt;Here we can throw some basic HTML in that looks like:&lt;/p&gt;
 
-<pre><code>&lt;html&gt;
-&lt;head&gt;
-  &lt;title&gt;Our test page!&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;h1&gt;Hello World from nginx! Our test page works!&lt;/h1&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+&lt;pre&gt;&lt;code&gt;&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+  &amp;lt;title&amp;gt;Our test page!&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+  &amp;lt;h1&amp;gt;Hello World from nginx! Our test page works!&amp;lt;/h1&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Nothing fancy. You can also write this in notepad and then right click on the terminal which will automatically paste the content in.</p>
+&lt;p&gt;Nothing fancy. You can also write this in notepad and then right click on the terminal which will automatically paste the content in.&lt;/p&gt;
 
-<p>Next hit <kbd>CTRL</kbd> + <kbd>X</kbd> to exit, then <kbd>Y</kbd> followed by <kbd>Enter</kbd> to accept the changes and save the file.</p>
+&lt;p&gt;Next hit &lt;kbd&gt;CTRL&lt;/kbd&gt; + &lt;kbd&gt;X&lt;/kbd&gt; to exit, then &lt;kbd&gt;Y&lt;/kbd&gt; followed by &lt;kbd&gt;Enter&lt;/kbd&gt; to accept the changes and save the file.&lt;/p&gt;
 
-<p>Bam we're done! (almost)</p>
+&lt;p&gt;Bam we're done! (almost)&lt;/p&gt;
 
-<h2>Update your domain name!</h2>
+&lt;h2&gt;Update your domain name!&lt;/h2&gt;
 
-<p>Lastly we need to update our domain host records. I'm using <www.namecheap.com> for my hosting. Create a new <code>A</code> record for the domain we defined in our site configuration; <code>phillip.pw</code> using the IP from the Azure portal.</p>
+&lt;p&gt;Lastly we need to update our domain host records. I'm using &lt;www.namecheap.com&gt; for my hosting. Create a new &lt;code&gt;A&lt;/code&gt; record for the domain we defined in our site configuration; &lt;code&gt;phillip.pw&lt;/code&gt; using the IP from the Azure portal.&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-2-8.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-2-8.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Be sure to copy the PUBLIC Virtual IP, and not the Internal IP. Otherwise you may get angry when things don't work when they should. :)</p>
+&lt;p&gt;Be sure to copy the PUBLIC Virtual IP, and not the Internal IP. Otherwise you may get angry when things don't work when they should. :)&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-2-9.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-2-9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Save the changes to your domain host records. </p>
+&lt;p&gt;Save the changes to your domain host records. &lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-2-10.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-2-10.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Running a quick ping test in Windows Command Prompt should resolve to the correct IP.</p>
+&lt;p&gt;Running a quick ping test in Windows Command Prompt should resolve to the correct IP.&lt;/p&gt;
 
-<h2>The BIG Test</h2>
+&lt;h2&gt;The BIG Test&lt;/h2&gt;
 
-<p>So, does it all work?!?</p>
+&lt;p&gt;So, does it all work?!?&lt;/p&gt;
 
-<p>Navigating to the website <code>http://phillip.pw</code> yields:</p>
+&lt;p&gt;Navigating to the website &lt;code&gt;http://phillip.pw&lt;/code&gt; yields:&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-2-11.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-2-11.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Yay! </p>
+&lt;p&gt;Yay! &lt;/p&gt;
 
-<h2>What else?</h2>
+&lt;h2&gt;What else?&lt;/h2&gt;
 
-<p>So we only configured the domain <code>phillip.pw</code>, but what if we want both that and <code>www.phillip.pw</code>. We can update the servername to <code>*.phillip.pw</code> which will wild-card.</p>
+&lt;p&gt;So we only configured the domain &lt;code&gt;phillip.pw&lt;/code&gt;, but what if we want both that and &lt;code&gt;www.phillip.pw&lt;/code&gt;. We can update the servername to &lt;code&gt;*.phillip.pw&lt;/code&gt; which will wild-card.&lt;/p&gt;
 
-<pre><code># the hostname
+&lt;pre&gt;&lt;code&gt;# the hostname
 server_name *.phillip.pw;
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Or if we want to be more specific we can do:</p>
+&lt;p&gt;Or if we want to be more specific we can do:&lt;/p&gt;
 
-<pre><code># the hostname
+&lt;pre&gt;&lt;code&gt;# the hostname
 server_name www.phillip.pw phillip.pw;
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Which will only work for the domain and the <code>www</code> sub domain. </p>
+&lt;p&gt;Which will only work for the domain and the &lt;code&gt;www&lt;/code&gt; sub domain. &lt;/p&gt;
 
-<p>That's all there is to it. Next up... Mono! :D</p>
+&lt;p&gt;That's all there is to it. Next up... Mono! :D&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2013/06/setting-up-a-new-website-and-domain-on-nginx/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -225,11 +223,9 @@ server_name www.phillip.pw phillip.pw;
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -281,77 +277,42 @@ server_name www.phillip.pw phillip.pw;
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

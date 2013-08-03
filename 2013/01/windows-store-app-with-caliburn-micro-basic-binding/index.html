@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 17 Jan 2013
-      
-        | <a href="/category/windows-8-app">Windows 8 App</a>
-      
+       | <a href="/category/windows-8-app">Windows 8 App</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,17 +49,17 @@
       </div>
     </div>
         
-    <p>Continuing on with the SampleProject for a Windows Store App, we will look at binding, this is where we will finally make use of the ViewModel. </p>
+    &lt;p&gt;Continuing on with the SampleProject for a Windows Store App, we will look at binding, this is where we will finally make use of the ViewModel. &lt;/p&gt;
 
-<p>In the previous example we output the text 'Hello World' to the screen, but rather than put it on the screen directly we can load it when we load the view.</p>
+&lt;p&gt;In the previous example we output the text 'Hello World' to the screen, but rather than put it on the screen directly we can load it when we load the view.&lt;/p&gt;
 
-<p>First we need to create a ViewModel, Caliburn works on a naming convention so if your view is named <code>MainView</code>, your view model needs to be naned <code>MainViewModel</code>.</p>
+&lt;p&gt;First we need to create a ViewModel, Caliburn works on a naming convention so if your view is named &lt;code&gt;MainView&lt;/code&gt;, your view model needs to be naned &lt;code&gt;MainViewModel&lt;/code&gt;.&lt;/p&gt;
 
-<p><img src="/images/windows-store-binding-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/windows-store-binding-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>In our class we want to inherit from <code>Screen</code>, this is a Caliburn class that is used to represent a single screen, your application may have many screens but for now we are only dealing with a single screen. </p>
+&lt;p&gt;In our class we want to inherit from &lt;code&gt;Screen&lt;/code&gt;, this is a Caliburn class that is used to represent a single screen, your application may have many screens but for now we are only dealing with a single screen. &lt;/p&gt;
 
-<pre><code>using Caliburn.Micro;
+&lt;pre&gt;&lt;code&gt;using Caliburn.Micro;
 
 namespace SampleProject.ViewModels
 {
@@ -69,15 +67,15 @@ namespace SampleProject.ViewModels
     {
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p>Screen doesn't require us to implement anything, but it does handle a few things for us, it implements <code>INotifyPropertyChangedEx</code>, which inherits from <code>INotifyPropertyChanged</code>, which is great because this is exactly what we need!</p>
+&lt;p&gt;Screen doesn't require us to implement anything, but it does handle a few things for us, it implements &lt;code&gt;INotifyPropertyChangedEx&lt;/code&gt;, which inherits from &lt;code&gt;INotifyPropertyChanged&lt;/code&gt;, which is great because this is exactly what we need!&lt;/p&gt;
 
-<p>Next we need to add a new property, but this can't be an autoproperty, we need a backing field so we can invoke <code>NotifyOfPropertyChange</code></p>
+&lt;p&gt;Next we need to add a new property, but this can't be an autoproperty, we need a backing field so we can invoke &lt;code&gt;NotifyOfPropertyChange&lt;/code&gt;&lt;/p&gt;
 
-<pre><code>private string _message;
+&lt;pre&gt;&lt;code&gt;private string _message;
 public string Message
 {
     get { return _message; }
@@ -89,54 +87,54 @@ public string Message
         NotifyOfPropertyChange();
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This is basically what Resharper generates for us, if we create an autoproperty, we can convert it to a property with backing field that calls <code>NotifyOfPropertyChange</code></p>
+&lt;p&gt;This is basically what Resharper generates for us, if we create an autoproperty, we can convert it to a property with backing field that calls &lt;code&gt;NotifyOfPropertyChange&lt;/code&gt;&lt;/p&gt;
 
-<p><img src="/images/windows-store-binding-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/windows-store-binding-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Now we need to set our message, we are going to do this when the ViewModel is initialized. </p>
+&lt;p&gt;Now we need to set our message, we are going to do this when the ViewModel is initialized. &lt;/p&gt;
 
-<pre><code>protected override void OnInitialize()
+&lt;pre&gt;&lt;code&gt;protected override void OnInitialize()
 {
     base.OnInitialize();
 
-    Message = "Saying: Hello World! :)";
+    Message = &quot;Saying: Hello World! :)&quot;;
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Last of all we need to wire up the <code>TextBlock</code> control to the property, there's a few different ways you can do this, but generally you want to use the <code>{Binding *property*}</code> syntax. </p>
+&lt;p&gt;Last of all we need to wire up the &lt;code&gt;TextBlock&lt;/code&gt; control to the property, there's a few different ways you can do this, but generally you want to use the &lt;code&gt;{Binding *property*}&lt;/code&gt; syntax. &lt;/p&gt;
 
-<p>We can update our button to add the binding to the Text Field.</p>
+&lt;p&gt;We can update our button to add the binding to the Text Field.&lt;/p&gt;
 
-<pre><code>&lt;TextBlock Text="{Binding Message}" FontSize="28"/&gt;
-</code></pre>
+&lt;pre&gt;&lt;code&gt;&amp;lt;TextBlock Text=&quot;{Binding Message}&quot; FontSize=&quot;28&quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Now when we run our app we get the message written in the OnInitialize.</p>
+&lt;p&gt;Now when we run our app we get the message written in the OnInitialize.&lt;/p&gt;
 
-<p><img src="/images/windows-store-binding-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/windows-store-binding-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>If we want to update the text, when we set the <code>Message</code> property, the <code>NotifyOfPropertyChange</code> will be fired and the screen will update with the new text. To show you I've added a button to the screen which invokes a method on the ViewModel.</p>
+&lt;p&gt;If we want to update the text, when we set the &lt;code&gt;Message&lt;/code&gt; property, the &lt;code&gt;NotifyOfPropertyChange&lt;/code&gt; will be fired and the screen will update with the new text. To show you I've added a button to the screen which invokes a method on the ViewModel.&lt;/p&gt;
 
-<pre><code>private void UpdateText()
+&lt;pre&gt;&lt;code&gt;private void UpdateText()
 {
-    Message = "This text was updated";
+    Message = &quot;This text was updated&quot;;
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p><span class="note"><strong>Note:</strong> Don't worry about how this button event is wired up, I'll get to that in future posts.</span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Don't worry about how this button event is wired up, I'll get to that in future posts.&lt;/span&gt;&lt;/p&gt;
 
-<p>When we view the screen we get the default text.</p>
+&lt;p&gt;When we view the screen we get the default text.&lt;/p&gt;
 
-<p><img src="/images/windows-store-binding-4.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/windows-store-binding-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>And when we hit the button, the text is updated.</p>
+&lt;p&gt;And when we hit the button, the text is updated.&lt;/p&gt;
 
-<p><img src="/images/windows-store-binding-5.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/windows-store-binding-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Bindings can be added to pretty much any property you want, for example if we updated the button to change the visibility of the text we can add a new property to the ViewModel.</p>
+&lt;p&gt;Bindings can be added to pretty much any property you want, for example if we updated the button to change the visibility of the text we can add a new property to the ViewModel.&lt;/p&gt;
 
-<pre><code>private Visibility _textBlockVisibility;
+&lt;pre&gt;&lt;code&gt;private Visibility _textBlockVisibility;
 public Visibility TextBlockVisibility
 {
     get { return _textBlockVisibility; }
@@ -148,39 +146,39 @@ public Visibility TextBlockVisibility
         NotifyOfPropertyChange();
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Then update the button to alternate the visibility.</p>
+&lt;p&gt;Then update the button to alternate the visibility.&lt;/p&gt;
 
-<pre><code>private void UpdateText()
+&lt;pre&gt;&lt;code&gt;private void UpdateText()
 {
     var isVisible = TextBlockVisibility == Visibility.Visible;
 
     TextBlockVisibility = isVisible ? Visibility.Collapsed : Visibility.Visible;
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>And finally add the binding to the TextBlock.</p>
+&lt;p&gt;And finally add the binding to the TextBlock.&lt;/p&gt;
 
-<pre><code>&lt;TextBlock FontSize="28" Text="{Binding Message}" Visibility="{Binding TextBlockVisibility}" /&gt;
-</code></pre>
+&lt;pre&gt;&lt;code&gt;&amp;lt;TextBlock FontSize=&quot;28&quot; Text=&quot;{Binding Message}&quot; Visibility=&quot;{Binding TextBlockVisibility}&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Now when we view the page we get the default message.</p>
+&lt;p&gt;Now when we view the page we get the default message.&lt;/p&gt;
 
-<p><img src="/images/windows-store-binding-4.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/windows-store-binding-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>If we hit the button, the message disappears...</p>
+&lt;p&gt;If we hit the button, the message disappears...&lt;/p&gt;
 
-<p><img src="/images/windows-store-binding-6.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/windows-store-binding-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Next I hope to look into a collection of data.</p>
+&lt;p&gt;Next I hope to look into a collection of data.&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2013/01/windows-store-app-with-caliburn-micro-basic-binding/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -192,11 +190,9 @@ public Visibility TextBlockVisibility
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -248,77 +244,42 @@ public Visibility TextBlockVisibility
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

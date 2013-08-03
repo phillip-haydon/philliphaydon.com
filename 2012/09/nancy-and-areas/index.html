@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 29 Sep 2012
-      
-        | <a href="/category/nancyfx">NancyFX</a>
-      
+       | <a href="/category/nancyfx">NancyFX</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,135 +49,135 @@
       </div>
     </div>
         
-    <p>A while back <a href="https://twitter.com/ayende">@ayende</a> wrote a <a href="http://ayende.com/blog/156609/reviewing-dinner-party-ndash-nerd-dinner-ported-to-ravendb-on-ravenhq">blog post</a> about <a href="https://github.com/NancyFx/DinnerParty">DinnerParty</a> in which he mentioned <a href="http://nancyfx.org/">NancyFX</a>, a lightweight web framework. <a href="https://twitter.com/jchannon">@jchannon</a> recently wrote about a <a href="http://blog.jonathanchannon.com/2012/09/21/nancyfx-ravendb-nerddinner-and-me/">blog post about NancyFX RavenDB and himself</a>.</p>
+    &lt;p&gt;A while back &lt;a href=&quot;https://twitter.com/ayende&quot;&gt;@ayende&lt;/a&gt; wrote a &lt;a href=&quot;http://ayende.com/blog/156609/reviewing-dinner-party-ndash-nerd-dinner-ported-to-ravendb-on-ravenhq&quot;&gt;blog post&lt;/a&gt; about &lt;a href=&quot;https://github.com/NancyFx/DinnerParty&quot;&gt;DinnerParty&lt;/a&gt; in which he mentioned &lt;a href=&quot;http://nancyfx.org/&quot;&gt;NancyFX&lt;/a&gt;, a lightweight web framework. &lt;a href=&quot;https://twitter.com/jchannon&quot;&gt;@jchannon&lt;/a&gt; recently wrote about a &lt;a href=&quot;http://blog.jonathanchannon.com/2012/09/21/nancyfx-ravendb-nerddinner-and-me/&quot;&gt;blog post about NancyFX RavenDB and himself&lt;/a&gt;.&lt;/p&gt;
 
-<p>So I've spent the better part of the last few months learning it, and needless to say, it's awesome. So I got asked a question, how would I handle 'Areas' with Nancy, like we would with ASP.NET MVC?</p>
+&lt;p&gt;So I've spent the better part of the last few months learning it, and needless to say, it's awesome. So I got asked a question, how would I handle 'Areas' with Nancy, like we would with ASP.NET MVC?&lt;/p&gt;
 
-<p>Well it's pretty simple, all it really consists of is... a module containing a root path.</p>
+&lt;p&gt;Well it's pretty simple, all it really consists of is... a module containing a root path.&lt;/p&gt;
 
-<p>Lets begin with the following folder structure defining a 'HomeModule' for both the Root Website, and the Admin section.</p>
+&lt;p&gt;Lets begin with the following folder structure defining a 'HomeModule' for both the Root Website, and the Admin section.&lt;/p&gt;
 
-<p><img src="/images/nancy-areas-1.png" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nancy-areas-1.png&quot; /&gt;&lt;/p&gt;
 
-<p>Both these HomeModule classes are identical, with the small exception that the Admin one specifies a Root Path.</p>
+&lt;p&gt;Both these HomeModule classes are identical, with the small exception that the Admin one specifies a Root Path.&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<h3>Root > HomeModule</h3>
+&lt;h3&gt;Root &gt; HomeModule&lt;/h3&gt;
 
-<pre><code>namespace NancyAreasDemo.Modules
+&lt;pre&gt;&lt;code&gt;namespace NancyAreasDemo.Modules
 {
     public class HomeModule : NancyModule
     {
         public HomeModule()
         {
-            Get["/"] = _ =&gt;
+            Get[&quot;/&quot;] = _ =&amp;gt;
             {
-                return "Website Home";
+                return &quot;Website Home&quot;;
             };
         }
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<h3>Root > Admin > HomeModule</h3>
+&lt;h3&gt;Root &gt; Admin &gt; HomeModule&lt;/h3&gt;
 
-<pre><code>namespace NancyAreasDemo.Modules.Admin
+&lt;pre&gt;&lt;code&gt;namespace NancyAreasDemo.Modules.Admin
 {
     public class HomeModule : NancyModule  
     {
-        public HomeModule() : base("admin")
+        public HomeModule() : base(&quot;admin&quot;)
         {
-            Get["/"] = _ =&gt;
+            Get[&quot;/&quot;] = _ =&amp;gt;
             {
-                return "Admin Home";
+                return &quot;Admin Home&quot;;
             };
         }
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>When we run this in a browser now we can get both the Main Website and the Admin section:</p>
+&lt;p&gt;When we run this in a browser now we can get both the Main Website and the Admin section:&lt;/p&gt;
 
-<p><img src="/images/nancy-areas-2.png" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nancy-areas-2.png&quot; /&gt;&lt;/p&gt;
 
-<p>Now let's add some Views.</p>
+&lt;p&gt;Now let's add some Views.&lt;/p&gt;
 
-<p><img src="/images/nancy-areas-3.png" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nancy-areas-3.png&quot; /&gt;&lt;/p&gt;
 
-<p>So for the Area 'Admin' has it's own folder under the Views folder, with it's own 'Home' folder matching the Module name.</p>
+&lt;p&gt;So for the Area 'Admin' has it's own folder under the Views folder, with it's own 'Home' folder matching the Module name.&lt;/p&gt;
 
-<p>This is very similar to using Area's in ASP.NET MVC.</p>
+&lt;p&gt;This is very similar to using Area's in ASP.NET MVC.&lt;/p&gt;
 
-<p>Now we need to add some ViewLocationConventions:</p>
+&lt;p&gt;Now we need to add some ViewLocationConventions:&lt;/p&gt;
 
-<pre><code>protected override void ConfigureConventions(NancyConventions nancyConventions)
+&lt;pre&gt;&lt;code&gt;protected override void ConfigureConventions(NancyConventions nancyConventions)
 {
-    nancyConventions.ViewLocationConventions.Insert(0, (viewName, model, context) =&gt;
+    nancyConventions.ViewLocationConventions.Insert(0, (viewName, model, context) =&amp;gt;
     {
         if (string.IsNullOrWhiteSpace(context.ModulePath))
             return null;
-        return string.Concat("views/", context.ModulePath, "/", context.ModuleName, "/", viewName);
+        return string.Concat(&quot;views/&quot;, context.ModulePath, &quot;/&quot;, context.ModuleName, &quot;/&quot;, viewName);
     });
 
     base.ConfigureConventions(nancyConventions);
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This is configured in the Bootstrapper (<a href="https://github.com/NancyFx/Nancy/wiki/Bootstrapper">read Nancy Bootstrapper docs here</a>) (<a href="https://github.com/NancyFx/Nancy/wiki/View-location-conventions">read the Nancy View Location Convention docs here</a>)</p>
+&lt;p&gt;This is configured in the Bootstrapper (&lt;a href=&quot;https://github.com/NancyFx/Nancy/wiki/Bootstrapper&quot;&gt;read Nancy Bootstrapper docs here&lt;/a&gt;) (&lt;a href=&quot;https://github.com/NancyFx/Nancy/wiki/View-location-conventions&quot;&gt;read the Nancy View Location Convention docs here&lt;/a&gt;)&lt;/p&gt;
 
-<p><span class="note"><strong>Note:</strong> Hoping to get this convention included into Nancy :) if <a href="https://twitter.com/thecodejunkie">@TheCodeJunkie</a> will accept the PR</strong></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Hoping to get this convention included into Nancy :) if &lt;a href=&quot;https://twitter.com/thecodejunkie&quot;&gt;@TheCodeJunkie&lt;/a&gt; will accept the PR&lt;/strong&gt;&lt;/p&gt;
 
-<p><span class="note"><strong>Note 2:</strong> The PR was accepted into 0.13, but you can still create your own conventions.</strong></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note 2:&lt;/strong&gt; The PR was accepted into 0.13, but you can still create your own conventions.&lt;/strong&gt;&lt;/p&gt;
 
-<p>This convention basically tells Nancy to look firstly, for the View in:</p>
+&lt;p&gt;This convention basically tells Nancy to look firstly, for the View in:&lt;/p&gt;
 
-<p>views/<strong><em>module path</em></strong>/<strong><em>module name</em></strong>/<strong><em>view name</em></strong></p>
+&lt;p&gt;views/&lt;strong&gt;&lt;em&gt;module path&lt;/em&gt;&lt;/strong&gt;/&lt;strong&gt;&lt;em&gt;module name&lt;/em&gt;&lt;/strong&gt;/&lt;strong&gt;&lt;em&gt;view name&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 
-<p>If you don't use this convention then you will need to remove the 'Home' directory from the 'Admin' folder and place all your views in there. Which isn't convenient when you have multiple modules in that area.</p>
+&lt;p&gt;If you don't use this convention then you will need to remove the 'Home' directory from the 'Admin' folder and place all your views in there. Which isn't convenient when you have multiple modules in that area.&lt;/p&gt;
 
-<p>Now in the views we can put some sample content:</p>
+&lt;p&gt;Now in the views we can put some sample content:&lt;/p&gt;
 
-<h3>Admin HTML Page</h3>
+&lt;h3&gt;Admin HTML Page&lt;/h3&gt;
 
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head&gt;
-    &lt;title&gt;&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
     This comes from Admin view.
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<h3>Root HTML Page</h3>
+&lt;h3&gt;Root HTML Page&lt;/h3&gt;
 
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head&gt;
-    &lt;title&gt;&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
     This comes from the root view.
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Now when we run the pages:</p>
+&lt;p&gt;Now when we run the pages:&lt;/p&gt;
 
-<p><img src="/images/nancy-areas-4.png" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nancy-areas-4.png&quot; /&gt;&lt;/p&gt;
 
-<p>And that's it. Nice quick simple Area's using Nancy!</p>
+&lt;p&gt;And that's it. Nice quick simple Area's using Nancy!&lt;/p&gt;
 
-<p>You can view the <a href="https://github.com/phillip-haydon/NancyAreasDemo">GitHub repository</a> for the demo used to write this blog post.</p>
+&lt;p&gt;You can view the &lt;a href=&quot;https://github.com/phillip-haydon/NancyAreasDemo&quot;&gt;GitHub repository&lt;/a&gt; for the demo used to write this blog post.&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2012/09/nancy-and-areas/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -191,11 +189,9 @@
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -247,77 +243,42 @@
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -39,7 +39,6 @@
     <div class="post-note">
       posted on 18 Jun 2012
       
-      
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
         <a class="addthis_button_tweet"></a>
@@ -49,216 +48,216 @@
       </div>
     </div>
         
-    <p>Yesterday (14th of June) I had a need to run more than one website while running <a href="http://www.jetbrains.com/">JetBrain's</a> <a href="http://www.jetbrains.com/profiler/">DotTrace</a>, to give a bit of background, Website A needs to redirect to Website B in order to simulate a single sign on.</p>
+    &lt;p&gt;Yesterday (14th of June) I had a need to run more than one website while running &lt;a href=&quot;http://www.jetbrains.com/&quot;&gt;JetBrain's&lt;/a&gt; &lt;a href=&quot;http://www.jetbrains.com/profiler/&quot;&gt;DotTrace&lt;/a&gt;, to give a bit of background, Website A needs to redirect to Website B in order to simulate a single sign on.&lt;/p&gt;
 
-<p>Website B can't be accessed without using the SSO, so in order to profile Website B I need to run Website A.</p>
+&lt;p&gt;Website B can't be accessed without using the SSO, so in order to profile Website B I need to run Website A.&lt;/p&gt;
 
-<p>The problem is when using DotTrace, I have to select the website I wish to profile:</p>
+&lt;p&gt;The problem is when using DotTrace, I have to select the website I wish to profile:&lt;/p&gt;
 
-<p><img src="/images/multiple-iis-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/multiple-iis-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>The problem with that, is that when you run the profiler it only starts up one of the websites. I need it to start both.</p>
+&lt;p&gt;The problem with that, is that when you run the profiler it only starts up one of the websites. I need it to start both.&lt;/p&gt;
 
-<p>This would be easy to profile if the Standard Version came with Attach To Process feature. But unfortunately that only comes with Professional.</p>
+&lt;p&gt;This would be easy to profile if the Standard Version came with Attach To Process feature. But unfortunately that only comes with Professional.&lt;/p&gt;
 
-<p>That way, when I debug using Visual Studio I could pick the process to profile:</p>
+&lt;p&gt;That way, when I debug using Visual Studio I could pick the process to profile:&lt;/p&gt;
 
-<p><img src="/images/multiple-iis-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/multiple-iis-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p><em>(Information can be found by right clicking the system try and selecting 'show all applications')</em></p>
+&lt;p&gt;&lt;em&gt;(Information can be found by right clicking the system try and selecting 'show all applications')&lt;/em&gt;&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p>However that isn't an option.</p>
+&lt;p&gt;However that isn't an option.&lt;/p&gt;
 
-<p>I had a few idea's of trying to get it to work such as having multiple start-up projects, in VS and using the 'Profile Startup Project' feature.</p>
+&lt;p&gt;I had a few idea's of trying to get it to work such as having multiple start-up projects, in VS and using the 'Profile Startup Project' feature.&lt;/p&gt;
 
-<h2>The Solution</h2>
+&lt;h2&gt;The Solution&lt;/h2&gt;
 
-<p>The solution was to run IISExpress with the parameters to startup the sites. The problem with this approach is that you cannot specify an array of website's to start.</p>
+&lt;p&gt;The solution was to run IISExpress with the parameters to startup the sites. The problem with this approach is that you cannot specify an array of website's to start.&lt;/p&gt;
 
-<p>IISExpress gives you the following options when you run /?</p>
+&lt;p&gt;IISExpress gives you the following options when you run /?&lt;/p&gt;
 
-<p><strong>/config:config-file</strong><br />
-The full path to the applicationhost.config file. The default value is the IISExpressconfigapplicationhost.config file that is located in the user"s Documents folder.</p>
+&lt;p&gt;&lt;strong&gt;/config:config-file&lt;/strong&gt;&lt;br /&gt;
+The full path to the applicationhost.config file. The default value is the IISExpressconfigapplicationhost.config file that is located in the user&quot;s Documents folder.&lt;/p&gt;
 
-<p><strong>/site:site-name</strong><br />
-The name of the site to launch, as described in the applicationhost.config file.</p>
+&lt;p&gt;&lt;strong&gt;/site:site-name&lt;/strong&gt;&lt;br /&gt;
+The name of the site to launch, as described in the applicationhost.config file.&lt;/p&gt;
 
-<p><em>*/siteid:site-id *</em><br />
-The ID of the site to launch, as described in the applicationhost.config file.</p>
+&lt;p&gt;&lt;em&gt;*/siteid:site-id *&lt;/em&gt;&lt;br /&gt;
+The ID of the site to launch, as described in the applicationhost.config file.&lt;/p&gt;
 
-<p><em>*/path:app-path *</em><br />
-The full physical path of the application to run. You cannot combine this option with the /config and related options.</p>
+&lt;p&gt;&lt;em&gt;*/path:app-path *&lt;/em&gt;&lt;br /&gt;
+The full physical path of the application to run. You cannot combine this option with the /config and related options.&lt;/p&gt;
 
-<p><em>*/port:port-number *</em><br />
-The port to which the application will bind. The default value is 8080. You must also specify the /path option.</p>
+&lt;p&gt;&lt;em&gt;*/port:port-number *&lt;/em&gt;&lt;br /&gt;
+The port to which the application will bind. The default value is 8080. You must also specify the /path option.&lt;/p&gt;
 
-<p><em>*/clr:clr-version *</em><br />
-The .NET Framework version (e.g. v2.0) to use to run the application. The default value is v4.0. You must also specify the /path option.</p>
+&lt;p&gt;&lt;em&gt;*/clr:clr-version *&lt;/em&gt;&lt;br /&gt;
+The .NET Framework version (e.g. v2.0) to use to run the application. The default value is v4.0. You must also specify the /path option.&lt;/p&gt;
 
-<p><em>*/systray:true|false *</em><br />
-Enables or disables the system tray application. The default value is true.</p>
+&lt;p&gt;&lt;em&gt;*/systray:true|false *&lt;/em&gt;&lt;br /&gt;
+Enables or disables the system tray application. The default value is true.&lt;/p&gt;
 
-<p><em>*/trace:trace-level *</em><br />
-Valid values are "none", "n", "info", "i", "warning", "w", "error", and "e". The default value is none.</p>
+&lt;p&gt;&lt;em&gt;*/trace:trace-level *&lt;/em&gt;&lt;br /&gt;
+Valid values are &quot;none&quot;, &quot;n&quot;, &quot;info&quot;, &quot;i&quot;, &quot;warning&quot;, &quot;w&quot;, &quot;error&quot;, and &quot;e&quot;. The default value is none.&lt;/p&gt;
 
-<p>If we look at the applicationhost.config file for the site entries we get:</p>
+&lt;p&gt;If we look at the applicationhost.config file for the site entries we get:&lt;/p&gt;
 
-<pre><code>&lt;sites&gt;
-  &lt;site name="TestProjectOne" id="1"&gt;
-    &lt;application path="/" applicationPool="Clr4IntegratedAppPool"&gt;
-      &lt;virtualDirectory path="/" physicalPath="C:\Users\phillip\Documents\Visual Studio 2010\Projects\TestProjectOne\TestProjectOne" /&gt;
-    &lt;/application&gt;
-    &lt;bindings&gt;
-      &lt;binding protocol="http" bindingInformation="*:7946:localhost" /&gt;
-    &lt;/bindings&gt;
-  &lt;/site&gt;
-  &lt;site name="TestProjectTwo" id="2"&gt;
-    &lt;application path="/" applicationPool="Clr4IntegratedAppPool"&gt;
-      &lt;virtualDirectory path="/" physicalPath="C:\Users\phillip\Documents\Visual Studio 2010\Projects\TestProjectOne\TestProjectTwo" /&gt;
-    &lt;/application&gt;
-    &lt;bindings&gt;
-      &lt;binding protocol="http" bindingInformation="*:8921:localhost" /&gt;
-    &lt;/bindings&gt;
-  &lt;/site&gt;
-  &lt;siteDefaults&gt;
-    &lt;logFile logFormat="W3C" directory="%IIS_USER_HOME%\Logs" /&gt;
-    &lt;traceFailedRequestsLogging directory="%IIS_USER_HOME%\TraceLogFiles" enabled="true" maxLogFileSizeKB="1024" /&gt;
-  &lt;/siteDefaults&gt;
-  &lt;applicationDefaults applicationPool="Clr4IntegratedAppPool" /&gt;
-  &lt;virtualDirectoryDefaults allowSubDirConfig="true" /&gt;
-&lt;/sites&gt;
-</code></pre>
+&lt;pre&gt;&lt;code&gt;&amp;lt;sites&amp;gt;
+  &amp;lt;site name=&quot;TestProjectOne&quot; id=&quot;1&quot;&amp;gt;
+    &amp;lt;application path=&quot;/&quot; applicationPool=&quot;Clr4IntegratedAppPool&quot;&amp;gt;
+      &amp;lt;virtualDirectory path=&quot;/&quot; physicalPath=&quot;C:\Users\phillip\Documents\Visual Studio 2010\Projects\TestProjectOne\TestProjectOne&quot; /&amp;gt;
+    &amp;lt;/application&amp;gt;
+    &amp;lt;bindings&amp;gt;
+      &amp;lt;binding protocol=&quot;http&quot; bindingInformation=&quot;*:7946:localhost&quot; /&amp;gt;
+    &amp;lt;/bindings&amp;gt;
+  &amp;lt;/site&amp;gt;
+  &amp;lt;site name=&quot;TestProjectTwo&quot; id=&quot;2&quot;&amp;gt;
+    &amp;lt;application path=&quot;/&quot; applicationPool=&quot;Clr4IntegratedAppPool&quot;&amp;gt;
+      &amp;lt;virtualDirectory path=&quot;/&quot; physicalPath=&quot;C:\Users\phillip\Documents\Visual Studio 2010\Projects\TestProjectOne\TestProjectTwo&quot; /&amp;gt;
+    &amp;lt;/application&amp;gt;
+    &amp;lt;bindings&amp;gt;
+      &amp;lt;binding protocol=&quot;http&quot; bindingInformation=&quot;*:8921:localhost&quot; /&amp;gt;
+    &amp;lt;/bindings&amp;gt;
+  &amp;lt;/site&amp;gt;
+  &amp;lt;siteDefaults&amp;gt;
+    &amp;lt;logFile logFormat=&quot;W3C&quot; directory=&quot;%IIS_USER_HOME%\Logs&quot; /&amp;gt;
+    &amp;lt;traceFailedRequestsLogging directory=&quot;%IIS_USER_HOME%\TraceLogFiles&quot; enabled=&quot;true&quot; maxLogFileSizeKB=&quot;1024&quot; /&amp;gt;
+  &amp;lt;/siteDefaults&amp;gt;
+  &amp;lt;applicationDefaults applicationPool=&quot;Clr4IntegratedAppPool&quot; /&amp;gt;
+  &amp;lt;virtualDirectoryDefaults allowSubDirConfig=&quot;true&quot; /&amp;gt;
+&amp;lt;/sites&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>As you can see there's nothing special in the website's. Except for one thing!</p>
+&lt;p&gt;As you can see there's nothing special in the website's. Except for one thing!&lt;/p&gt;
 
-<p>This attribute:</p>
+&lt;p&gt;This attribute:&lt;/p&gt;
 
-<pre><code>applicationPool="Clr4IntegratedAppPool"
-</code></pre>
+&lt;pre&gt;&lt;code&gt;applicationPool=&quot;Clr4IntegratedAppPool&quot;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>What IISExpress doesn't tell you is that you can start an application pool.</p>
+&lt;p&gt;What IISExpress doesn't tell you is that you can start an application pool.&lt;/p&gt;
 
-<p>Running the command <code>/AppPool:Clr4IntegratedAppPool</code> gives us:</p>
+&lt;p&gt;Running the command &lt;code&gt;/AppPool:Clr4IntegratedAppPool&lt;/code&gt; gives us:&lt;/p&gt;
 
-<pre><code>C:\Program Files (x86)\IIS Express&gt;iisexpress.exe /AppPool:Clr4IntegratedAppPool  
-
-Starting IIS Express ...   
-Successfully registered URL "http://localhost:7946/" for site "TestProjectOne" application "/"   
-Successfully registered URL "http://localhost:8921/" for site "TestProjectTwo" application "/"   
-Registration completed   
-IIS Express is running.   
-Enter "Q" to stop IIS Express 
-</code></pre>
-
-<p>To get this working with DotTrace, we just need to select > Profile Application</p>
-
-<p><img src="/images/multiple-iis-3.png" alt="" /></p>
-
-<p>Running this will run IISExpress and all the website's under the same process id:</p>
-
-<p><a href="/images/multiple-iis-4.png"><img src="/images/multiple-iis-4.png" alt="" /></a></p>
-
-<p>(click to enlarge)</p>
-
-<p>Bam, not we're now able to run multiple sites at once, and even profile them all at once!</p>
-
-<h2>The Catch</h2>
-
-<p>There is one gotcha with this approach, if you work on multiple sites, you end up running those up as well:</p>
-
-<pre><code>C:\Program Files (x86)\IIS Express&gt;iisexpress.exe /AppPool:Clr4IntegratedAppPool  
+&lt;pre&gt;&lt;code&gt;C:\Program Files (x86)\IIS Express&amp;gt;iisexpress.exe /AppPool:Clr4IntegratedAppPool  
 
 Starting IIS Express ...   
-Successfully registered URL "http://localhost:7946/" for site "TestProjectOne" application "/"   
-Successfully registered URL "http://localhost:8921/" for site "TestProjectTwo" application "/"   
-Successfully registered URL "http://localhost:16207/" for site "JabbR" application "/"   
+Successfully registered URL &quot;http://localhost:7946/&quot; for site &quot;TestProjectOne&quot; application &quot;/&quot;   
+Successfully registered URL &quot;http://localhost:8921/&quot; for site &quot;TestProjectTwo&quot; application &quot;/&quot;   
 Registration completed   
 IIS Express is running.   
-Enter "Q" to stop IIS Express
-</code></pre>
+Enter &quot;Q&quot; to stop IIS Express 
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This can be fixed easily, to get around this, simply open up your applicationhost.config file located in:</p>
+&lt;p&gt;To get this working with DotTrace, we just need to select &gt; Profile Application&lt;/p&gt;
 
-<pre><code>C:Users\\*user\*\DocumentsIIS\Expressconfig\applicationhost.config
-</code></pre>
+&lt;p&gt;&lt;img src=&quot;/images/multiple-iis-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Locate the application pools:</p>
+&lt;p&gt;Running this will run IISExpress and all the website's under the same process id:&lt;/p&gt;
 
-<pre><code>&lt;applicationPools&gt;
-  &lt;add name="Clr4IntegratedAppPool" managedRuntimeVersion="v4.0" managedPipelineMode="Integrated" CLRConfigFile="%IIS_USER_HOME%\config\aspnet.config" autoStart="true" /&gt;
-  &lt;add name="Clr4ClassicAppPool" managedRuntimeVersion="v4.0" managedPipelineMode="Classic" CLRConfigFile="%IIS_USER_HOME%\config\aspnet.config" autoStart="true" /&gt;
-  &lt;add name="Clr2IntegratedAppPool" managedRuntimeVersion="v2.0" managedPipelineMode="Integrated" CLRConfigFile="%IIS_USER_HOME%\config\aspnet.config" autoStart="true" /&gt;
-  &lt;add name="Clr2ClassicAppPool" managedRuntimeVersion="v2.0" managedPipelineMode="Classic" CLRConfigFile="%IIS_USER_HOME%\config\aspnet.config" autoStart="true" /&gt;
-  &lt;add name="UnmanagedClassicAppPool" managedRuntimeVersion="" managedPipelineMode="Classic" autoStart="true" /&gt;
-  &lt;applicationPoolDefaults managedRuntimeLoader="v4.0"&gt;
-    &lt;processModel /&gt;
-  &lt;/applicationPoolDefaults&gt;
-&lt;/applicationPools&gt;
-</code></pre>
+&lt;p&gt;&lt;a href=&quot;/images/multiple-iis-4.png&quot;&gt;&lt;img src=&quot;/images/multiple-iis-4.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-<p>Add a new entry:</p>
+&lt;p&gt;(click to enlarge)&lt;/p&gt;
 
-<pre><code>&lt;add name="TestProjectAppPool" managedRuntimeVersion="v4.0" managedPipelineMode="Integrated" CLRConfigFile="%IIS_USER_HOME%\config\aspnet.config" autoStart="true" /&gt;
-</code></pre>
+&lt;p&gt;Bam, not we're now able to run multiple sites at once, and even profile them all at once!&lt;/p&gt;
 
-<p>And update your website's to use this new application pool:</p>
+&lt;h2&gt;The Catch&lt;/h2&gt;
 
-<pre><code>&lt;site name="TestProjectOne" id="1"&gt;
-  &lt;application path="/" applicationPool="TestProjectAppPool"&gt;
-    &lt;virtualDirectory path="/" physicalPath="C:\Users\phillip\Documents\Visual Studio 2010\Projects\TestProjectOne\TestProjectOne" /&gt;
-  &lt;/application&gt;
-  &lt;bindings&gt;
-    &lt;binding protocol="http" bindingInformation="*:7946:localhost" /&gt;
-  &lt;/bindings&gt;
-&lt;/site&gt;
-&lt;site name="TestProjectTwo" id="2"&gt;
-  &lt;application path="/" applicationPool="TestProjectAppPool"&gt;
-    &lt;virtualDirectory path="/" physicalPath="C:\Users\phillip\Documents\Visual Studio 2010\Projects\TestProjectOne\TestProjectTwo" /&gt;
-  &lt;/application&gt;
-  &lt;bindings&gt;
-    &lt;binding protocol="http" bindingInformation="*:8921:localhost" /&gt;
-  &lt;/bindings&gt;
-&lt;/site&gt;
-&lt;site name="JabbR" id="3"&gt;
-  &lt;application path="/" applicationPool="Clr4IntegratedAppPool"&gt;
-    &lt;virtualDirectory path="/" physicalPath="D:\Development\phillip-haydon\JabbR\JabbR" /&gt;
-  &lt;/application&gt;
-  &lt;bindings&gt;
-    &lt;binding protocol="http" bindingInformation="*:16207:localhost" /&gt;
-  &lt;/bindings&gt;
-&lt;/site&gt;
-</code></pre>
+&lt;p&gt;There is one gotcha with this approach, if you work on multiple sites, you end up running those up as well:&lt;/p&gt;
 
-<p>Now we can run our new application pool:</p>
+&lt;pre&gt;&lt;code&gt;C:\Program Files (x86)\IIS Express&amp;gt;iisexpress.exe /AppPool:Clr4IntegratedAppPool  
 
-<pre><code>C:\Program Files (x86)\IIS Express&gt;iisexpress.exe /AppPool:TestProjectAppPool  
+Starting IIS Express ...   
+Successfully registered URL &quot;http://localhost:7946/&quot; for site &quot;TestProjectOne&quot; application &quot;/&quot;   
+Successfully registered URL &quot;http://localhost:8921/&quot; for site &quot;TestProjectTwo&quot; application &quot;/&quot;   
+Successfully registered URL &quot;http://localhost:16207/&quot; for site &quot;JabbR&quot; application &quot;/&quot;   
+Registration completed   
+IIS Express is running.   
+Enter &quot;Q&quot; to stop IIS Express
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This can be fixed easily, to get around this, simply open up your applicationhost.config file located in:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;C:Users\\*user\*\DocumentsIIS\Expressconfig\applicationhost.config
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Locate the application pools:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;applicationPools&amp;gt;
+  &amp;lt;add name=&quot;Clr4IntegratedAppPool&quot; managedRuntimeVersion=&quot;v4.0&quot; managedPipelineMode=&quot;Integrated&quot; CLRConfigFile=&quot;%IIS_USER_HOME%\config\aspnet.config&quot; autoStart=&quot;true&quot; /&amp;gt;
+  &amp;lt;add name=&quot;Clr4ClassicAppPool&quot; managedRuntimeVersion=&quot;v4.0&quot; managedPipelineMode=&quot;Classic&quot; CLRConfigFile=&quot;%IIS_USER_HOME%\config\aspnet.config&quot; autoStart=&quot;true&quot; /&amp;gt;
+  &amp;lt;add name=&quot;Clr2IntegratedAppPool&quot; managedRuntimeVersion=&quot;v2.0&quot; managedPipelineMode=&quot;Integrated&quot; CLRConfigFile=&quot;%IIS_USER_HOME%\config\aspnet.config&quot; autoStart=&quot;true&quot; /&amp;gt;
+  &amp;lt;add name=&quot;Clr2ClassicAppPool&quot; managedRuntimeVersion=&quot;v2.0&quot; managedPipelineMode=&quot;Classic&quot; CLRConfigFile=&quot;%IIS_USER_HOME%\config\aspnet.config&quot; autoStart=&quot;true&quot; /&amp;gt;
+  &amp;lt;add name=&quot;UnmanagedClassicAppPool&quot; managedRuntimeVersion=&quot;&quot; managedPipelineMode=&quot;Classic&quot; autoStart=&quot;true&quot; /&amp;gt;
+  &amp;lt;applicationPoolDefaults managedRuntimeLoader=&quot;v4.0&quot;&amp;gt;
+    &amp;lt;processModel /&amp;gt;
+  &amp;lt;/applicationPoolDefaults&amp;gt;
+&amp;lt;/applicationPools&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add a new entry:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;add name=&quot;TestProjectAppPool&quot; managedRuntimeVersion=&quot;v4.0&quot; managedPipelineMode=&quot;Integrated&quot; CLRConfigFile=&quot;%IIS_USER_HOME%\config\aspnet.config&quot; autoStart=&quot;true&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And update your website's to use this new application pool:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;site name=&quot;TestProjectOne&quot; id=&quot;1&quot;&amp;gt;
+  &amp;lt;application path=&quot;/&quot; applicationPool=&quot;TestProjectAppPool&quot;&amp;gt;
+    &amp;lt;virtualDirectory path=&quot;/&quot; physicalPath=&quot;C:\Users\phillip\Documents\Visual Studio 2010\Projects\TestProjectOne\TestProjectOne&quot; /&amp;gt;
+  &amp;lt;/application&amp;gt;
+  &amp;lt;bindings&amp;gt;
+    &amp;lt;binding protocol=&quot;http&quot; bindingInformation=&quot;*:7946:localhost&quot; /&amp;gt;
+  &amp;lt;/bindings&amp;gt;
+&amp;lt;/site&amp;gt;
+&amp;lt;site name=&quot;TestProjectTwo&quot; id=&quot;2&quot;&amp;gt;
+  &amp;lt;application path=&quot;/&quot; applicationPool=&quot;TestProjectAppPool&quot;&amp;gt;
+    &amp;lt;virtualDirectory path=&quot;/&quot; physicalPath=&quot;C:\Users\phillip\Documents\Visual Studio 2010\Projects\TestProjectOne\TestProjectTwo&quot; /&amp;gt;
+  &amp;lt;/application&amp;gt;
+  &amp;lt;bindings&amp;gt;
+    &amp;lt;binding protocol=&quot;http&quot; bindingInformation=&quot;*:8921:localhost&quot; /&amp;gt;
+  &amp;lt;/bindings&amp;gt;
+&amp;lt;/site&amp;gt;
+&amp;lt;site name=&quot;JabbR&quot; id=&quot;3&quot;&amp;gt;
+  &amp;lt;application path=&quot;/&quot; applicationPool=&quot;Clr4IntegratedAppPool&quot;&amp;gt;
+    &amp;lt;virtualDirectory path=&quot;/&quot; physicalPath=&quot;D:\Development\phillip-haydon\JabbR\JabbR&quot; /&amp;gt;
+  &amp;lt;/application&amp;gt;
+  &amp;lt;bindings&amp;gt;
+    &amp;lt;binding protocol=&quot;http&quot; bindingInformation=&quot;*:16207:localhost&quot; /&amp;gt;
+  &amp;lt;/bindings&amp;gt;
+&amp;lt;/site&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we can run our new application pool:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;C:\Program Files (x86)\IIS Express&amp;gt;iisexpress.exe /AppPool:TestProjectAppPool  
 
 Starting IIS Express ...  
-Successfully registered URL "http://localhost:7946/" for site "TestProjectOne" application "/"  
-Successfully registered URL "http://localhost:8921/" for site "TestProjectTwo" application "/"  
+Successfully registered URL &quot;http://localhost:7946/&quot; for site &quot;TestProjectOne&quot; application &quot;/&quot;  
+Successfully registered URL &quot;http://localhost:8921/&quot; for site &quot;TestProjectTwo&quot; application &quot;/&quot;  
 Registration completed  
 IIS Express is running.  
-Enter "Q" to stop IIS Express  
-</code></pre>
+Enter &quot;Q&quot; to stop IIS Express  
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>And now when we profile we only get the two websites we want, running.</p>
+&lt;p&gt;And now when we profile we only get the two websites we want, running.&lt;/p&gt;
 
-<p>Even though DotTrace Standard Edition doesn't allow you to attach to process, you can easily debug across multiple sites, without the need of upgrading to the Pro edition.</p>
+&lt;p&gt;Even though DotTrace Standard Edition doesn't allow you to attach to process, you can easily debug across multiple sites, without the need of upgrading to the Pro edition.&lt;/p&gt;
 
-<p>It would be really cool if JetBrains could add a new option to the IIS Expression Application profile screen, so that we can select the application pool to run if we want to start up multiple websites:</p>
+&lt;p&gt;It would be really cool if JetBrains could add a new option to the IIS Expression Application profile screen, so that we can select the application pool to run if we want to start up multiple websites:&lt;/p&gt;
 
-<p><img src="/images/multiple-iis-5.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/multiple-iis-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>That would be awesome :) and I think it would be really easy for them to implement!</p>
+&lt;p&gt;That would be awesome :) and I think it would be really easy for them to implement!&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2012/06/multiple-iisexpress-sites-profiled-with-dottrace/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -270,11 +269,9 @@ Enter "Q" to stop IIS Express
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -326,77 +323,42 @@ Enter "Q" to stop IIS Express
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

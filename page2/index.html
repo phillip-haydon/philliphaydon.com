@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -34,375 +34,369 @@
                   
 
   <ul class="posts">
-    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 2)</a> 
+        <span>posted on 09 May 2013</span>
+      </h1> 
+      &lt;ul&gt;
+&lt;li&gt;Original Post: &lt;a href=&quot;/2012/11/nancy-and-content-negotiation&quot;&gt;NancyFX and Content Negotiation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/&quot;&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 1)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 2)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/&quot;&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 3)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In part 1 I went over a really basic scenario, and one of the fiddly things we had was the view name for returning a collection.&lt;/p&gt;
+
+&lt;p&gt;Using &lt;code&gt;Negotiate&lt;/code&gt; gives as more flexibility on what we can return, allowing us to customize the response to respond differently to different media types or returning partial content in some scenarios.&lt;/p&gt;
+
+&lt;p&gt;Going back to my previous post I said we should be able to use the same API to build our website as we expose. But what about when we want to have additional information on the website that isn't pushed out to the client.&lt;/p&gt;
+
+&lt;p&gt;Lets say you have a product catalog, and you can view a particular product on your website. You also allow people to pull the content from your site to display on their website as like an affiliate system of some sort. But when you render your product you may have a special, but when you send the product to the consuming client you don't want to include the special for them since it's something specific to your website.&lt;/p&gt;
+
+&lt;h2&gt;Show me the codez!&lt;/h2&gt;
+
+&lt;p&gt;So lets update the &lt;code&gt;Product&lt;/code&gt; to include &lt;code&gt;SpecialPrice&lt;/code&gt;&lt;/p&gt;
+
+
+      <p><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/05/rss-atom-feed-spam-sorry/">RSS/Atom spam :( Sorry...</a> 
         <span>posted on 07 May 2013</span>
       </h1> 
-      <p>Sorry to anyone who subscribes to me, I was setting up an RSS since not everything accepts Atom, and I guess it re-processed everything and has spammed everyone.</p>
+      &lt;p&gt;Sorry to anyone who subscribes to me, I was setting up an RSS since not everything accepts Atom, and I guess it re-processed everything and has spammed everyone.&lt;/p&gt;
 
-<p>Real sorry about that :(</p>
+&lt;p&gt;Real sorry about that :(&lt;/p&gt;
 
       <p><a href="/2013/05/rss-atom-feed-spam-sorry/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/04/visual-studio-disable-namespacing-on-folders/">Disabling Namespaces on folders in Visual Studio</a> 
         <span>posted on 26 Apr 2013</span>
       </h1> 
-      <p>I just discovered this little trick I found in Visual Studio to turn off namespacing on a folder. Not sure how after 8 years I only just found this.</p>
+      &lt;p&gt;I just discovered this little trick I found in Visual Studio to turn off namespacing on a folder. Not sure how after 8 years I only just found this.&lt;/p&gt;
 
-<h2>The Problem</h2>
+&lt;h2&gt;The Problem&lt;/h2&gt;
 
-<p>Lets assume we're working with Entity Framework... (shiver)... We create a Data Model, add all our Entities and away we go. </p>
+&lt;p&gt;Lets assume we're working with Entity Framework... (shiver)... We create a Data Model, add all our Entities and away we go. &lt;/p&gt;
 
-<p>Then we want to extend one of the Entities, maybe to add some methods and such, so we need to create some partial classes. So far we have:</p>
+&lt;p&gt;Then we want to extend one of the Entities, maybe to add some methods and such, so we need to create some partial classes. So far we have:&lt;/p&gt;
 
-<p><img src="/images/visual-studio-namespacing-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/visual-studio-namespacing-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>We create a new <code>Member.cs</code> class in the <code>Partials</code> folder;</p>
+&lt;p&gt;We create a new &lt;code&gt;Member.cs&lt;/code&gt; class in the &lt;code&gt;Partials&lt;/code&gt; folder;&lt;/p&gt;
 
 
       <p><a href="/2013/04/visual-studio-disable-namespacing-on-folders/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">NancyFX - Revisiting Content Negotiation & APIs (Part 1)</a> 
+        <a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</a> 
         <span>posted on 22 Apr 2013</span>
       </h1> 
-      <ul>
-<li>Original Post: <a href="/2012/11/nancy-and-content-negotiation">NancyFX and Content Negotiation</a></li>
-<li>NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</li>
-<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 2)</a></li>
-<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 3)</a></li>
-</ul>
+      &lt;ul&gt;
+&lt;li&gt;Original Post: &lt;a href=&quot;/2012/11/nancy-and-content-negotiation&quot;&gt;NancyFX and Content Negotiation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 1)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/&quot;&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 2)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/&quot;&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 3)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-<p>I thought I would revisit this topic since I don't believe I did it enough justice last time around, and I believe it really is important when creating an API that is going to be consumed not only by the public or client, but <strong>by you also</strong>!</p>
+&lt;p&gt;I thought I would revisit this topic since I don't believe I did it enough justice last time around, and I believe it really is important when creating an API that is going to be consumed not only by the public or client, but &lt;strong&gt;by you also&lt;/strong&gt;!&lt;/p&gt;
 
-<p>When the browser asks for <code>text/html</code> its negotiating with the server. So really your website is an API, your <code>Views</code> are just an additional type of content that your API serves up when requested.</p>
+&lt;p&gt;When the browser asks for &lt;code&gt;text/html&lt;/code&gt; its negotiating with the server. So really your website is an API, your &lt;code&gt;Views&lt;/code&gt; are just an additional type of content that your API serves up when requested.&lt;/p&gt;
 
-<h2>Example</h2>
+&lt;h2&gt;Example&lt;/h2&gt;
 
-<p>Lets say you're building Twitter, the initial page shows a list of tweets, so the browser makes a call to <code>/tweets</code> and the server responds with a list of tweets rendered with using HTML.</p>
+&lt;p&gt;Lets say you're building Twitter, the initial page shows a list of tweets, so the browser makes a call to &lt;code&gt;/tweets&lt;/code&gt; and the server responds with a list of tweets rendered with using HTML.&lt;/p&gt;
 
-<p>Once the page has loaded, the client uses JavaScript to load new tweets, so it calls <code>/tweets</code> again, this time it returns a <code>json</code> result, and the client-side templating engine then renders and appends those to the top of the existing list, keeping the client up to date with the latest tweets.</p>
+&lt;p&gt;Once the page has loaded, the client uses JavaScript to load new tweets, so it calls &lt;code&gt;/tweets&lt;/code&gt; again, this time it returns a &lt;code&gt;json&lt;/code&gt; result, and the client-side templating engine then renders and appends those to the top of the existing list, keeping the client up to date with the latest tweets.&lt;/p&gt;
 
-<p>What's nice is no new data needed to be written on the server! </p>
+&lt;p&gt;What's nice is no new data needed to be written on the server! &lt;/p&gt;
 
 
       <p><a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/04/nancyfx-implementing-your-own-routing/">NancyFX - Implementing your own routing!</a> 
         <span>posted on 09 Apr 2013</span>
       </h1> 
-      <p>With the up and coming release of 0.17 of NancyFX, the routing has been completely rewritten, and now it's super easy to implement your own routing. So I'm going to show you how.</p>
+      &lt;p&gt;With the up and coming release of 0.17 of NancyFX, the routing has been completely rewritten, and now it's super easy to implement your own routing. So I'm going to show you how.&lt;/p&gt;
 
-<h2>How it works</h2>
+&lt;h2&gt;How it works&lt;/h2&gt;
 
-<p>The routing works by defining a route:</p>
+&lt;p&gt;The routing works by defining a route:&lt;/p&gt;
 
-<p><code>Get["/products/{id}"]</code></p>
+&lt;p&gt;&lt;code&gt;Get[&quot;/products/{id}&quot;]&lt;/code&gt;&lt;/p&gt;
 
-<p>The route is then broken up into segments:</p>
+&lt;p&gt;The route is then broken up into segments:&lt;/p&gt;
 
-<ol>
-<li><code>products</code></li>
-<li><code>{id}</code></li>
-</ol>
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;products&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;{id}&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
-<p>Each segment is checked against a Node Condition in the <code>TrieNodeFactory</code> like so</p>
+&lt;p&gt;Each segment is checked against a Node Condition in the &lt;code&gt;TrieNodeFactory&lt;/code&gt; like so&lt;/p&gt;
 
-<pre><code>if (segment.StartsWith("(") &amp;&amp; segment.EndsWith(")"))
+&lt;pre&gt;&lt;code&gt;if (segment.StartsWith(&quot;(&quot;) &amp;amp;&amp;amp; segment.EndsWith(&quot;)&quot;))
 {
     return new RegExNode(parent, segment, this);
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>When a request comes in, the segment is compared to the node for a match and returns true/false + the captured parameter. </p>
+&lt;p&gt;When a request comes in, the segment is compared to the node for a match and returns true/false + the captured parameter. &lt;/p&gt;
 
-<p>These are a bunch of conditions for checking different nodes, currently Nancy supports out of the box the following nodes.</p>
+&lt;p&gt;These are a bunch of conditions for checking different nodes, currently Nancy supports out of the box the following nodes.&lt;/p&gt;
 
-<h2>Existing Nodes</h2>
+&lt;h2&gt;Existing Nodes&lt;/h2&gt;
 
-<p>This is brief description of the existing nodes that currently exist in 0.17. </p>
+&lt;p&gt;This is brief description of the existing nodes that currently exist in 0.17. &lt;/p&gt;
 
-<h3>CaptureNode</h3>
+&lt;h3&gt;CaptureNode&lt;/h3&gt;
 
-<p>This node captures <code>{foo}</code>, or basically any value defined in the segment.</p>
+&lt;p&gt;This node captures &lt;code&gt;{foo}&lt;/code&gt;, or basically any value defined in the segment.&lt;/p&gt;
 
 
       <p><a href="/2013/04/nancyfx-implementing-your-own-routing/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/04/raygun-io-javascript-error-logging/">Raygun.io - JavaScript error logging!</a> 
         <span>posted on 09 Apr 2013</span>
       </h1> 
-      <p>Often when building applications we worry about error handling on the server, we may not do anything with the logs after we log those errors :P but we care about them enough to attempt to make the code resilient enough to not fall over should an error occur. </p>
+      &lt;p&gt;Often when building applications we worry about error handling on the server, we may not do anything with the logs after we log those errors :P but we care about them enough to attempt to make the code resilient enough to not fall over should an error occur. &lt;/p&gt;
 
-<p>But often we overlook errors happening on the client, and if a user hits one of those errors we don't know about it, unless they are kind enough to tell us. Should they tell us, we can't reproduce it, don't know where it's happening, etc etc.</p>
+&lt;p&gt;But often we overlook errors happening on the client, and if a user hits one of those errors we don't know about it, unless they are kind enough to tell us. Should they tell us, we can't reproduce it, don't know where it's happening, etc etc.&lt;/p&gt;
 
-<p>Its really important that we give the end user a good user experience, and that means ensuring that the client code is functioning well! If an error occurs and prevents the code from being executed, we could lose a customer, and if this happens with one customer, it could be happening with many.</p>
+&lt;p&gt;Its really important that we give the end user a good user experience, and that means ensuring that the client code is functioning well! If an error occurs and prevents the code from being executed, we could lose a customer, and if this happens with one customer, it could be happening with many.&lt;/p&gt;
 
-<p>Enter Raygun</p>
+&lt;p&gt;Enter Raygun&lt;/p&gt;
 
-<p><img src="/images/raygun-javascript-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/raygun-javascript-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Raygun offers a <a href="https://github.com/MindscapeHQ/raygun4js">JavaScript API</a> that's super easy to wire up to capture all errors by default, in-fact it's one line of code, not including the reference to the Raygun JS file.</p>
+&lt;p&gt;Raygun offers a &lt;a href=&quot;https://github.com/MindscapeHQ/raygun4js&quot;&gt;JavaScript API&lt;/a&gt; that's super easy to wire up to capture all errors by default, in-fact it's one line of code, not including the reference to the Raygun JS file.&lt;/p&gt;
 
-<h3>Download and Install</h3>
+&lt;h3&gt;Download and Install&lt;/h3&gt;
 
-<p>Unfortunately there's no NuGet for this yet, hopefully they will add one in the future. </p>
+&lt;p&gt;Unfortunately there's no NuGet for this yet, hopefully they will add one in the future. &lt;/p&gt;
 
-<p>Head on over to the MindscapeHQ <a href="https://github.com/MindscapeHQ/raygun4js/tree/master/dist">Github Repository</a> and download the file <code>raygun.min.js</code> (or grab the non-minified version if you wish), and reference in your app. </p>
+&lt;p&gt;Head on over to the MindscapeHQ &lt;a href=&quot;https://github.com/MindscapeHQ/raygun4js/tree/master/dist&quot;&gt;Github Repository&lt;/a&gt; and download the file &lt;code&gt;raygun.min.js&lt;/code&gt; (or grab the non-minified version if you wish), and reference in your app. &lt;/p&gt;
 
-<pre><code>&lt;script src="/scripts/raygun.min.js"&gt;&lt;/script&gt;
-</code></pre>
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;/scripts/raygun.min.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<h3>Configuring Raygun</h3>
+&lt;h3&gt;Configuring Raygun&lt;/h3&gt;
 
-<p>Usually when you want to wire up an event to capture all errors you would need to do something like:</p>
+&lt;p&gt;Usually when you want to wire up an event to capture all errors you would need to do something like:&lt;/p&gt;
 
-<pre><code>window.onerror = function someError(errorMsg, url, lineNumber) {
+&lt;pre&gt;&lt;code&gt;window.onerror = function someError(errorMsg, url, lineNumber) {
     //handle the error
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>But there's a lot more to error handling on the client than just the <code>onerror</code> event. So rather than just giving you the ability to send the error, Raygun offers the ability to attach itself to the <code>onerror</code> event and capture as much necessary information as it can to give you the best possible information.</p>
+&lt;p&gt;But there's a lot more to error handling on the client than just the &lt;code&gt;onerror&lt;/code&gt; event. So rather than just giving you the ability to send the error, Raygun offers the ability to attach itself to the &lt;code&gt;onerror&lt;/code&gt; event and capture as much necessary information as it can to give you the best possible information.&lt;/p&gt;
 
-<p>So to setup Raygun all we need to do is:</p>
+&lt;p&gt;So to setup Raygun all we need to do is:&lt;/p&gt;
 
-<pre><code>&lt;script&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;script&amp;gt;
   Raygun.init('yourApiKey').attach();
-&lt;/script&gt;
-</code></pre>
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>You can share the same API key for Client/Server, so if you're already using Raygun for your Web Application, you can use the same API key for the Client. </p>
+&lt;p&gt;You can share the same API key for Client/Server, so if you're already using Raygun for your Web Application, you can use the same API key for the Client. &lt;/p&gt;
 
-<p>Should you want to stop capturing errors you can call:</p>
+&lt;p&gt;Should you want to stop capturing errors you can call:&lt;/p&gt;
 
-<pre><code>Raygun.detach();
-</code></pre>
+&lt;pre&gt;&lt;code&gt;Raygun.detach();
+&lt;/code&gt;&lt;/pre&gt;
 
-<h3>Lets see it in action!</h3>
+&lt;h3&gt;Lets see it in action!&lt;/h3&gt;
 
-<p>Lets start out by capturing unhandled exceptions/errors, in a new project we will create a new index.html file with the following:</p>
+&lt;p&gt;Lets start out by capturing unhandled exceptions/errors, in a new project we will create a new index.html file with the following:&lt;/p&gt;
 
-<pre><code>&lt;script src="scripts/raygun.min.js"&gt;&lt;/script&gt;
-&lt;script&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;scripts/raygun.min.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
 
     (function() {
-      Raygun.init("* my key *").attach();
+      Raygun.init(&quot;* my key *&quot;).attach();
 
       var test = function() {
-        throw "Something went wrong!";
+        throw &quot;Something went wrong!&quot;;
       };
 
       test();
 
     })();
 
-&lt;/script&gt;
-</code></pre>
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Running up the page we should get an error in the chrome console:</p>
+&lt;p&gt;Running up the page we should get an error in the chrome console:&lt;/p&gt;
 
-<p><img src="/images/raygun-javascript-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/raygun-javascript-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Now if we head on over to the Raygun.io Dashboard</p>
+&lt;p&gt;Now if we head on over to the Raygun.io Dashboard&lt;/p&gt;
 
-<p><img src="/images/raygun-javascript-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/raygun-javascript-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>We can see our error was logged. Lets do something a little different next, lets add a 2nd JavaScript file, and call a function inside that file:</p>
+&lt;p&gt;We can see our error was logged. Lets do something a little different next, lets add a 2nd JavaScript file, and call a function inside that file:&lt;/p&gt;
 
-<p>In our <code>sample.js</code> file we have:</p>
+&lt;p&gt;In our &lt;code&gt;sample.js&lt;/code&gt; file we have:&lt;/p&gt;
 
-<pre><code>function DoSomething(value) {
+&lt;pre&gt;&lt;code&gt;function DoSomething(value) {
 
     return Math.power(value, value);
 
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>The method <code>power</code> doesn't exist on <code>Math</code>, it should be <code>pow</code>, so we should get an error when calling it. </p>
+&lt;p&gt;The method &lt;code&gt;power&lt;/code&gt; doesn't exist on &lt;code&gt;Math&lt;/code&gt;, it should be &lt;code&gt;pow&lt;/code&gt;, so we should get an error when calling it. &lt;/p&gt;
 
-<p>Now in our page we can include the <code>sample.js</code> file, and call the method:</p>
+&lt;p&gt;Now in our page we can include the &lt;code&gt;sample.js&lt;/code&gt; file, and call the method:&lt;/p&gt;
 
-<pre><code>&lt;script src="scripts/raygun.min.js"&gt;&lt;/script&gt;
-&lt;script src="scripts/sample.js"&gt;&lt;/script&gt;
-&lt;script&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;scripts/raygun.min.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&quot;scripts/sample.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
 
     (function() {
-        Raygun.init("* my key *").attach();
+        Raygun.init(&quot;* my key *&quot;).attach();
 
         var total = DoSomething(100);
 
         console.log(total);     
     })();
 
-&lt;/script&gt;
-</code></pre>
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p><img src="/images/raygun-javascript-4.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/raygun-javascript-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>As you can see we captured the same error in Chrome as we did on the Raygun dashboard.</p>
+&lt;p&gt;As you can see we captured the same error in Chrome as we did on the Raygun dashboard.&lt;/p&gt;
 
-<p>Raygun also tries to capture as much information to help you sort out the issue as it can, such as the error, when it occurred, and where it occurred. </p>
+&lt;p&gt;Raygun also tries to capture as much information to help you sort out the issue as it can, such as the error, when it occurred, and where it occurred. &lt;/p&gt;
 
-<p><img src="/images/raygun-javascript-6.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/raygun-javascript-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>It tells you the URL and Browser it occurred on:</p>
+&lt;p&gt;It tells you the URL and Browser it occurred on:&lt;/p&gt;
 
-<p><img src="/images/raygun-javascript-5.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/raygun-javascript-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>It even tells you </p>
+&lt;p&gt;It even tells you &lt;/p&gt;
 
       <p><a href="/2013/04/raygun-io-javascript-error-logging/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/04/raygun-io-a-few-features-that-i-love/">Raygun.io - a few features that I love</a> 
         <span>posted on 08 Apr 2013</span>
       </h1> 
-      <p>I've been using Raygun.io for a couple of months now and seen a whole heap of new features added.</p>
+      &lt;p&gt;I've been using Raygun.io for a couple of months now and seen a whole heap of new features added.&lt;/p&gt;
 
-<h3>Email Spam</h3>
+&lt;h3&gt;Email Spam&lt;/h3&gt;
 
-<p>If you had multiple apps you would get spammed with 1 summary email each day for each app, now you get an aggregation of all apps which is much nicer. </p>
+&lt;p&gt;If you had multiple apps you would get spammed with 1 summary email each day for each app, now you get an aggregation of all apps which is much nicer. &lt;/p&gt;
 
-<p>If you receive an email for an exception, and that exception keeps occurring, it will email you a little while later saying that you're still receiving the exception, the rate at which its occurring, and if it's happening more or less.</p>
+&lt;p&gt;If you receive an email for an exception, and that exception keeps occurring, it will email you a little while later saying that you're still receiving the exception, the rate at which its occurring, and if it's happening more or less.&lt;/p&gt;
 
-<p>These changes are great! Still the same valuable information, but more smartly distributed to the user.</p>
+&lt;p&gt;These changes are great! Still the same valuable information, but more smartly distributed to the user.&lt;/p&gt;
 
-<h3>Commenting</h3>
+&lt;h3&gt;Commenting&lt;/h3&gt;
 
-<p>I had an error, that occurred a lot... </p>
+&lt;p&gt;I had an error, that occurred a lot... &lt;/p&gt;
 
-<p><img src="/images/raygun-features-javascript-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/raygun-features-javascript-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>So after fixing it, which took a little bit of effort to figure out, I commented on it!</p>
+&lt;p&gt;So after fixing it, which took a little bit of effort to figure out, I commented on it!&lt;/p&gt;
 
 
       <p><a href="/2013/04/raygun-io-a-few-features-that-i-love/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/04/my-must-have-short-list-programs-extensions-etc/">My must have (short) list of programs/extensions etc...</a> 
         <span>posted on 02 Apr 2013</span>
       </h1> 
-      <p>It's been 1 year since I posted my <a href="http://www.philliphaydon.com/2012/03/my-must-have-short-list-programs-and-extensions-etc/">list</a> , well.. 1 year has come and gone, and I missed posting this on the same date. None the less its April now and here's my post.</p>
+      &lt;p&gt;It's been 1 year since I posted my &lt;a href=&quot;http://www.philliphaydon.com/2012/03/my-must-have-short-list-programs-and-extensions-etc/&quot;&gt;list&lt;/a&gt; , well.. 1 year has come and gone, and I missed posting this on the same date. None the less its April now and here's my post.&lt;/p&gt;
 
-<h3>Visual Studio 2012</h3>
+&lt;h3&gt;Visual Studio 2012&lt;/h3&gt;
 
-<p>I'm still a .NET Dev but ah... god it's painful going back to VS 2010... The new Black Theme makes this so much easier to use while sitting in the dark. </p>
+&lt;p&gt;I'm still a .NET Dev but ah... god it's painful going back to VS 2010... The new Black Theme makes this so much easier to use while sitting in the dark. &lt;/p&gt;
 
-<h3>Still using</h3>
+&lt;h3&gt;Still using&lt;/h3&gt;
 
-<ul>
-<li><a href="http://www.jetbrains.com/resharper/">ReSharper</a></li>
-<li><a href="http://www.mindscapehq.com/products/web-workbench">Mindscape Web Workbench</a></li>
-<li><a href="http://www.bugaidsoftware.com/">BugAid</a></li>
-<li><a href="http://wiki.sharpdevelop.net/ilspy.ashx">ILSpy</a></li>
-<li><a href="http://www.sublimetext.com/2">SublimeText 2</a></li>
-</ul>
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.jetbrains.com/resharper/&quot;&gt;ReSharper&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.mindscapehq.com/products/web-workbench&quot;&gt;Mindscape Web Workbench&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.bugaidsoftware.com/&quot;&gt;BugAid&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://wiki.sharpdevelop.net/ilspy.ashx&quot;&gt;ILSpy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.sublimetext.com/2&quot;&gt;SublimeText 2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-<h3>Raygun.io</h3>
+&lt;h3&gt;Raygun.io&lt;/h3&gt;
 
-<p><a href="http://raygun.io">http://raygun.io</a></p>
+&lt;p&gt;&lt;a href=&quot;http://raygun.io&quot;&gt;http://raygun.io&lt;/a&gt;&lt;/p&gt;
 
-<p>This Software as a Service for Error Handling has replaced my use of ELMAH. It's simply amazing. Been tracking errors in my applications more closely with this.</p>
+&lt;p&gt;This Software as a Service for Error Handling has replaced my use of ELMAH. It's simply amazing. Been tracking errors in my applications more closely with this.&lt;/p&gt;
 
 
       <p><a href="/2013/04/my-must-have-short-list-programs-extensions-etc/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/04/what-i-would-like-to-see-from-microsoft-regarding-oss/">What I would like to see from Microsoft regarding OSS</a> 
         <span>posted on 02 Apr 2013</span>
       </h1> 
-      <p>I had an awesome conversation on Monday with Glenn Block about Microsoft in regards to OSS, as a result Glenn asked me to write a post about what I would like to see Microsoft do.</p>
+      &lt;p&gt;I had an awesome conversation on Monday with Glenn Block about Microsoft in regards to OSS, as a result Glenn asked me to write a post about what I would like to see Microsoft do.&lt;/p&gt;
 
-<p>To be clear, everyone has their own opinions about what Microsoft is doing with Open Source Software, whats working, whats not, that isn't the point of this post. This is about what I would like to see, and why.</p>
+&lt;p&gt;To be clear, everyone has their own opinions about what Microsoft is doing with Open Source Software, whats working, whats not, that isn't the point of this post. This is about what I would like to see, and why.&lt;/p&gt;
 
-<h3>Promote itself with the community, not against it</h3>
+&lt;h3&gt;Promote itself with the community, not against it&lt;/h3&gt;
 
-<p>One of the things I think Microsoft does is promote itself against the community, it has opened sourced MVC and WebAPI, but people outside the community don't know about the alternatives. </p>
+&lt;p&gt;One of the things I think Microsoft does is promote itself against the community, it has opened sourced MVC and WebAPI, but people outside the community don't know about the alternatives. &lt;/p&gt;
 
-<p>I'm not suggesting that Microsoft actively promotes frameworks like FubuMVC, NancyFX, ServiceStack etc as their own, or in such a way that it overshadows their own stuff. What I would like to see is Microsoft promoting itself along side other frameworks. A lot of the guys who create these other frameworks are advisories for MVC/WebAPI, they help make Microsoft frameworks better, and there's all the people who contribute, and in my personal opinion Microsoft doesn't really give anything back to the community through its main channels.</p>
+&lt;p&gt;I'm not suggesting that Microsoft actively promotes frameworks like FubuMVC, NancyFX, ServiceStack etc as their own, or in such a way that it overshadows their own stuff. What I would like to see is Microsoft promoting itself along side other frameworks. A lot of the guys who create these other frameworks are advisories for MVC/WebAPI, they help make Microsoft frameworks better, and there's all the people who contribute, and in my personal opinion Microsoft doesn't really give anything back to the community through its main channels.&lt;/p&gt;
 
 
       <p><a href="/2013/04/what-i-would-like-to-see-from-microsoft-regarding-oss/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/03/everyone-should-get-the-opportunity-to-learn-to-program-but-school-is-a-waste-of-time/">Everyone should get the opportunity to learn to program, but school is a waste of time</a> 
         <span>posted on 04 Mar 2013</span>
       </h1> 
-      <p>I just got done reading a <a href="http://blog.filipekberg.se/2013/03/04/everyone-should-learn-programming/">blog post</a> by <a href="https://twitter.com/fekberg">@fekberg</a> titled "Everyone Should Learn Programming"</p>
+      &lt;p&gt;I just got done reading a &lt;a href=&quot;http://blog.filipekberg.se/2013/03/04/everyone-should-learn-programming/&quot;&gt;blog post&lt;/a&gt; by &lt;a href=&quot;https://twitter.com/fekberg&quot;&gt;@fekberg&lt;/a&gt; titled &quot;Everyone Should Learn Programming&quot;&lt;/p&gt;
 
-<p>This idea that everyone should learn to program seems to be a growing trend. But I disagree. </p>
+&lt;p&gt;This idea that everyone should learn to program seems to be a growing trend. But I disagree. &lt;/p&gt;
 
-<p>I don't think <code>everyone</code> should learn to program, I think everyone should get the opportunity to learn to program. Schooling in general is a waste of time because it caters to this idea that life evolves around English, Math, Art, Science and General Knowledge. But real life doesn't, and these things don't help children figure out what they are good at or enjoy.</p>
+&lt;p&gt;I don't think &lt;code&gt;everyone&lt;/code&gt; should learn to program, I think everyone should get the opportunity to learn to program. Schooling in general is a waste of time because it caters to this idea that life evolves around English, Math, Art, Science and General Knowledge. But real life doesn't, and these things don't help children figure out what they are good at or enjoy.&lt;/p&gt;
 
-<p>There's an awesome TED video by Sir Ken Robinson titled "Do Schools Kill Creativity"</p>
+&lt;p&gt;There's an awesome TED video by Sir Ken Robinson titled &quot;Do Schools Kill Creativity&quot;&lt;/p&gt;
 
-<p><a href="http://www.youtube.com/watch?v=iG9CE55wbtY">http://www.youtube.com/watch?v=iG9CE55wbtY</a></p>
+&lt;p&gt;&lt;a href=&quot;http://www.youtube.com/watch?v=iG9CE55wbtY&quot;&gt;http://www.youtube.com/watch?v=iG9CE55wbtY&lt;/a&gt;&lt;/p&gt;
 
-<p><object width="480" height="360"><param name="movie" value="https://www.youtube.com/v/iG9CE55wbtY?hl=en_US&amp;version=3&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="https://www.youtube.com/v/iG9CE55wbtY?hl=en_US&amp;version=3&amp;rel=0" type="application/x-shockwave-flash" width="480" height="360" allowscriptaccess="always" allowfullscreen="true"></embed></object></p>
+&lt;p&gt;&lt;object width=&quot;480&quot; height=&quot;360&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;https://www.youtube.com/v/iG9CE55wbtY?hl=en_US&amp;amp;version=3&amp;amp;rel=0&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;https://www.youtube.com/v/iG9CE55wbtY?hl=en_US&amp;amp;version=3&amp;amp;rel=0&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;480&quot; height=&quot;360&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot;&gt;&lt;/embed&gt;&lt;/object&gt;&lt;/p&gt;
 
-<p><strong>It's worth watching, awesome talk and very funny</strong></p>
+&lt;p&gt;&lt;strong&gt;It's worth watching, awesome talk and very funny&lt;/strong&gt;&lt;/p&gt;
 
 
       <p><a href="/2013/03/everyone-should-get-the-opportunity-to-learn-to-program-but-school-is-a-waste-of-time/">Read more...</a></p>
     </li>
-    
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/02/windows-store-app-with-caliburn-micro-binding-converters/">Windows Store App with Caliburn.Micro - Binding Converters</a> 
-        <span>posted on 26 Feb 2013</span>
-      </h1> 
-      <p>In my last post about <a href="http://www.philliphaydon.com/2013/01/windows-store-app-with-caliburn-micro-basic-binding">Basic Binding</a> we added the ability to Hide/Show a control using Viability property of the control to make it <code>Visible</code> or <code>Collapsed</code></p>
-
-<p>However the View Model shouldn't have any real knowledge of how the view works, meaning it shouldn't actually dictate the visibility using the controls properties.</p>
-
-<p><span class="note"><strong>Note:</strong> I left this out of the original post because I wanted to keep it 'Basic' without confusing binding with converters and such, making the topic more complicated</span></p>
-
-<p>If in the future you changed from say <code>TextBlock</code> to a 3rd party control called <code>BananaTextBlock</code> and that 3rd party decided that they were not going to use the built in Viability enum, and instead decided to create their own naming convention, and enum etc. You would be forced to change your ViewModel, which isn't good.</p>
-
-<p>That's where Value Converters come in handy. </p>
-
-
-      <p><a href="/2013/02/windows-store-app-with-caliburn-micro-binding-converters/">Read more...</a></p>
-    </li>
-    
   </ul> 
 
   <!-- Pagination links -->
   <div id="post-pagination" class="pagination">
 
-    
-    
+
     <p class="previous">
       <a href="/">Previous Page</a>
     </p>
-    
 
-    
     <p class="next">
       <a href="/page3">Next Page</a>
     </p>
-    
 
   </div>
 
@@ -458,77 +452,42 @@
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 22 Aug 2011
-      
-        | <a href="/category/nhibernate">NHibernate</a>
-      
+       | <a href="/category/nhibernate">NHibernate</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,72 +49,72 @@
       </div>
     </div>
         
-    <p>This is part two, to my post about <a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators/">Table Inheritance using Discriminators</a>, in this post I just want to demonstrate the outcome when the sub-classes have their own properties, or possibly a property that maps to the same column.</p>
+    &lt;p&gt;This is part two, to my post about &lt;a href=&quot;/2011/08/fluent-nhibernate-table-inheritance-discriminators/&quot;&gt;Table Inheritance using Discriminators&lt;/a&gt;, in this post I just want to demonstrate the outcome when the sub-classes have their own properties, or possibly a property that maps to the same column.&lt;/p&gt;
 
-<p>First thing however is Mark Perry pointed out in the comments that specifying a value for the baseClassDiscriminator will force it to store the value in the database as an INT rather than a a VARCHAR.</p>
+&lt;p&gt;First thing however is Mark Perry pointed out in the comments that specifying a value for the baseClassDiscriminator will force it to store the value in the database as an INT rather than a a VARCHAR.&lt;/p&gt;
 
-<pre><code>DiscriminateSubClassesOnColumn("PostType", 0);
-</code></pre>
+&lt;pre&gt;&lt;code&gt;DiscriminateSubClassesOnColumn(&quot;PostType&quot;, 0);
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This will create the table with an INT like so:</p>
+&lt;p&gt;This will create the table with an INT like so:&lt;/p&gt;
 
-<pre><code>create table WallPost (
+&lt;pre&gt;&lt;code&gt;create table WallPost (
   Id         UNIQUEIDENTIFIER   not null,
   PostType   INT   not null,
   DatePosted DATETIME   null,
   Title      NVARCHAR(255)   null,
   Content    NVARCHAR(255)   null,
     primary key ( Id ))
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Maybe INT is too big however, maybe we only want a SMALLINT? That will give us 32k sub-classes...</p>
+&lt;p&gt;Maybe INT is too big however, maybe we only want a SMALLINT? That will give us 32k sub-classes...&lt;/p&gt;
 
-<pre><code>DiscriminateSubClassesOnColumn("PostType", (short)0);
-</code></pre>
+&lt;pre&gt;&lt;code&gt;DiscriminateSubClassesOnColumn(&quot;PostType&quot;, (short)0);
+&lt;/code&gt;&lt;/pre&gt;
 
-<!--excerpt-->
-<!-- -->
+&lt;!--excerpt--&gt;
+&lt;!-- --&gt;
 
-<pre><code>PostType   SMALLINT   not null,
-</code></pre>
+&lt;pre&gt;&lt;code&gt;PostType   SMALLINT   not null,
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>But even that is too many, so maybe we need TINYINT, that gives us 0-255. I doubt you would ever have 255 sub-classes, so we can specify the discriminator as a byte.</p>
+&lt;p&gt;But even that is too many, so maybe we need TINYINT, that gives us 0-255. I doubt you would ever have 255 sub-classes, so we can specify the discriminator as a byte.&lt;/p&gt;
 
-<pre><code>DiscriminateSubClassesOnColumn("PostType", (byte)0);
-</code></pre>
+&lt;pre&gt;&lt;code&gt;DiscriminateSubClassesOnColumn(&quot;PostType&quot;, (byte)0);
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>And that gives us:</p>
+&lt;p&gt;And that gives us:&lt;/p&gt;
 
-<pre><code>create table WallPost (
+&lt;pre&gt;&lt;code&gt;create table WallPost (
   Id         UNIQUEIDENTIFIER   not null,
   PostType   TINYINT   not null,
   DatePosted DATETIME   null,
   Title      NVARCHAR(255)   null,
   Content    NVARCHAR(255)   null,
     primary key ( Id ))
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Nice, much better.</p>
+&lt;p&gt;Nice, much better.&lt;/p&gt;
 
-<p>Not to mention when querying now, it uses the INT value rather than the number being used as a string like before:</p>
+&lt;p&gt;Not to mention when querying now, it uses the INT value rather than the number being used as a string like before:&lt;/p&gt;
 
-<pre><code>SELECT this_.Id         as Id0_0_,
+&lt;pre&gt;&lt;code&gt;SELECT this_.Id         as Id0_0_,
        this_.DatePosted as DatePosted0_0_,
        this_.Title      as Title0_0_,
        this_.Content    as Content0_0_
 FROM   WallPost this_
 WHERE  this_.PostType = 1
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>So the next thing I want to show is what happens when we add a property to 1 sub-class and not the other. (or properties than exist in 1, and properties that exist in the other)</p>
+&lt;p&gt;So the next thing I want to show is what happens when we add a property to 1 sub-class and not the other. (or properties than exist in 1, and properties that exist in the other)&lt;/p&gt;
 
-<p>Give the same example as my previous post, I've added one property to the class, a 'Url' property.</p>
+&lt;p&gt;Give the same example as my previous post, I've added one property to the class, a 'Url' property.&lt;/p&gt;
 
-<p><img src="/images/fnh-table-inheritance-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/fnh-table-inheritance-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>This will get created as a normal column in the database.</p>
+&lt;p&gt;This will get created as a normal column in the database.&lt;/p&gt;
 
-<pre><code>create table WallPost (
+&lt;pre&gt;&lt;code&gt;create table WallPost (
   Id         UNIQUEIDENTIFIER   not null,
   PostType   TINYINT   not null,
   DatePosted DATETIME   null,
@@ -124,32 +122,32 @@ WHERE  this_.PostType = 1
   Content    NVARCHAR(255)   null,
   Url        NVARCHAR(255)   null,
     primary key ( Id ))
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>When we insert now, a LinkShare and a Text wallpost:</p>
+&lt;p&gt;When we insert now, a LinkShare and a Text wallpost:&lt;/p&gt;
 
-<pre><code>var wallPost = new TextWallPost
+&lt;pre&gt;&lt;code&gt;var wallPost = new TextWallPost
 {
     DatePosted = DateTime.Now,
-    Title = "My First Wall Post",
-    Content = "Is Awesome!"
+    Title = &quot;My First Wall Post&quot;,
+    Content = &quot;Is Awesome!&quot;
 };
 
 var linkPost = new LinkShareWallPost()
 {
     DatePosted = DateTime.Now,
-    Title = "My First Link Share",
-    Content = "Is Awesome!",
-    Url = "http://www.philliphaydon.com/"
+    Title = &quot;My First Link Share&quot;,
+    Content = &quot;Is Awesome!&quot;,
+    Url = &quot;http://www.philliphaydon.com/&quot;
 };
 
 session.Save(wallPost);
 session.Save(linkPost);
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>The link share one will include the Url.</p>
+&lt;p&gt;The link share one will include the Url.&lt;/p&gt;
 
-<pre><code>- statement #1
+&lt;pre&gt;&lt;code&gt;- statement #1
 INSERT INTO WallPost
            (DatePosted,
             Title,
@@ -176,66 +174,66 @@ VALUES     ('2011-08-21T23:53:10.00' /* @p0 */,
             'http://www.philliphaydon.com/' /* @p3 */,
             2,
             '5edfe0f2-e179-4615-88e4-9f460189a284' /* @p4 */)
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>The 'Url' column must be null, or have a default value assigned to it so that when inserting a Text wallpost, the column doesn't need to be specified.</p>
+&lt;p&gt;The 'Url' column must be null, or have a default value assigned to it so that when inserting a Text wallpost, the column doesn't need to be specified.&lt;/p&gt;
 
-<p>If we query for the base class:</p>
+&lt;p&gt;If we query for the base class:&lt;/p&gt;
 
-<pre><code>var result = session.QueryOver&lt;WallPost&gt;().List();
-</code></pre>
+&lt;pre&gt;&lt;code&gt;var result = session.QueryOver&amp;lt;WallPost&amp;gt;().List();
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This will query for all columns:</p>
+&lt;p&gt;This will query for all columns:&lt;/p&gt;
 
-<pre><code>SELECT this_.Id         as Id0_0_,
+&lt;pre&gt;&lt;code&gt;SELECT this_.Id         as Id0_0_,
        this_.DatePosted as DatePosted0_0_,
        this_.Title      as Title0_0_,
        this_.Content    as Content0_0_,
        this_.Url        as Url0_0_,
        this_.PostType   as PostType0_0_
 FROM   WallPost this_
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Just like it did before. No changes, likewise if we query for just the Text wallpost, it will not include the 'Url' column:</p>
+&lt;p&gt;Just like it did before. No changes, likewise if we query for just the Text wallpost, it will not include the 'Url' column:&lt;/p&gt;
 
-<pre><code>var result = session.QueryOver&lt;TextWallPost&gt;().List();
-</code></pre>
+&lt;pre&gt;&lt;code&gt;var result = session.QueryOver&amp;lt;TextWallPost&amp;gt;().List();
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Results in:</p>
+&lt;p&gt;Results in:&lt;/p&gt;
 
-<pre><code>SELECT this_.Id         as Id0_0_,
+&lt;pre&gt;&lt;code&gt;SELECT this_.Id         as Id0_0_,
        this_.DatePosted as DatePosted0_0_,
        this_.Title      as Title0_0_,
        this_.Content    as Content0_0_
 FROM   WallPost this_
 WHERE  this_.PostType = 1
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>If we query for the LinkShare wall post:</p>
+&lt;p&gt;If we query for the LinkShare wall post:&lt;/p&gt;
 
-<pre><code>var result = session.QueryOver&lt;LinkShareWallPost&gt;().List();
-</code></pre>
+&lt;pre&gt;&lt;code&gt;var result = session.QueryOver&amp;lt;LinkShareWallPost&amp;gt;().List();
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This results in the 'Url' column being selected:</p>
+&lt;p&gt;This results in the 'Url' column being selected:&lt;/p&gt;
 
-<pre><code>SELECT this_.Id         as Id0_0_,
+&lt;pre&gt;&lt;code&gt;SELECT this_.Id         as Id0_0_,
        this_.DatePosted as DatePosted0_0_,
        this_.Title      as Title0_0_,
        this_.Content    as Content0_0_,
        this_.Url        as Url0_0_
 FROM   WallPost this_
 WHERE  this_.PostType = 2
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>So NHibernate is efficient in that it only queries for what it actually needs. If you extend your sub-classes out to have a couple of properties each then they will only query for the required fields for that sub-class.</p>
+&lt;p&gt;So NHibernate is efficient in that it only queries for what it actually needs. If you extend your sub-classes out to have a couple of properties each then they will only query for the required fields for that sub-class.&lt;/p&gt;
 
-<p>It is possible for sub-classes to share properties. For example if introduced a new sub-class, MovieShare, which has a VideoUrl, as well as a SiteUrl property:</p>
+&lt;p&gt;It is possible for sub-classes to share properties. For example if introduced a new sub-class, MovieShare, which has a VideoUrl, as well as a SiteUrl property:&lt;/p&gt;
 
-<p><img src="/images/fnh-table-inheritance-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/fnh-table-inheritance-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>We can map the classes like so:</p>
+&lt;p&gt;We can map the classes like so:&lt;/p&gt;
 
-<pre><code>public class TextWallPostMap : SubclassMap&lt;TextWallPost&gt;
+&lt;pre&gt;&lt;code&gt;public class TextWallPostMap : SubclassMap&amp;lt;TextWallPost&amp;gt;
 {
     public TextWallPostMap()
     {
@@ -243,31 +241,31 @@ WHERE  this_.PostType = 2
     }
 }
 
-public class LinkShareWallPostMap : SubclassMap&lt;LinkShareWallPost&gt;
+public class LinkShareWallPostMap : SubclassMap&amp;lt;LinkShareWallPost&amp;gt;
 {
     public LinkShareWallPostMap()
     {
         DiscriminatorValue(2);
 
-        Map(x =&gt; x.Url).Column("Url");
+        Map(x =&amp;gt; x.Url).Column(&quot;Url&quot;);
     }
 }
 
-public class MovieShareWallPostMap : SubclassMap&lt;MovieShareWallPost&gt;
+public class MovieShareWallPostMap : SubclassMap&amp;lt;MovieShareWallPost&amp;gt;
 {
     public MovieShareWallPostMap()
     {
         DiscriminatorValue(3);
 
-        Map(x =&gt; x.SiteUrl).Column("Url");
-        Map(x =&gt; x.VideoUrl).Column("VideoUrl");
+        Map(x =&amp;gt; x.SiteUrl).Column(&quot;Url&quot;);
+        Map(x =&amp;gt; x.VideoUrl).Column(&quot;VideoUrl&quot;);
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>When the table is created, 'Url' column is only created once:</p>
+&lt;p&gt;When the table is created, 'Url' column is only created once:&lt;/p&gt;
 
-<pre><code>create table WallPost (
+&lt;pre&gt;&lt;code&gt;create table WallPost (
   Id         UNIQUEIDENTIFIER   not null,
   PostType   TINYINT   not null,
   DatePosted DATETIME   null,
@@ -276,42 +274,42 @@ public class MovieShareWallPostMap : SubclassMap&lt;MovieShareWallPost&gt;
   Url        NVARCHAR(255)   null,
   VideoUrl   NVARCHAR(255)   null,
     primary key ( Id ))
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Now when we insert:</p>
+&lt;p&gt;Now when we insert:&lt;/p&gt;
 
-<pre><code>var wallPost = new TextWallPost
+&lt;pre&gt;&lt;code&gt;var wallPost = new TextWallPost
 {
     DatePosted = DateTime.Now,
-    Title = "My First Wall Post",
-    Content = "Is Awesome!"
+    Title = &quot;My First Wall Post&quot;,
+    Content = &quot;Is Awesome!&quot;
 };
 
 var linkPost = new LinkShareWallPost()
 {
     DatePosted = DateTime.Now,
-    Title = "My First Link Share",
-    Content = "Is Awesome!",
-    Url = "http://www.philliphaydon.com/"
+    Title = &quot;My First Link Share&quot;,
+    Content = &quot;Is Awesome!&quot;,
+    Url = &quot;http://www.philliphaydon.com/&quot;
 };
 
 var moviePost = new MovieShareWallPost()
 {
     DatePosted = DateTime.Now,
-    Title = "My First Movie Share",
-    Content = "Is Awesome!",
-    SiteUrl = "http://www.philliphaydon.com/",
-    VideoUrl = "http://www.youtube.com/watch?v=GaoLU6zKaws"
+    Title = &quot;My First Movie Share&quot;,
+    Content = &quot;Is Awesome!&quot;,
+    SiteUrl = &quot;http://www.philliphaydon.com/&quot;,
+    VideoUrl = &quot;http://www.youtube.com/watch?v=GaoLU6zKaws&quot;
 };
 
 session.Save(wallPost);
 session.Save(linkPost);
 session.Save(moviePost);
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>The insert will share the same 'Url' column for both the LinkShare, and the MovieShare:</p>
+&lt;p&gt;The insert will share the same 'Url' column for both the LinkShare, and the MovieShare:&lt;/p&gt;
 
-<pre><code>- statement #1
+&lt;pre&gt;&lt;code&gt;- statement #1
 INSERT INTO WallPost
            (DatePosted,
             Title,
@@ -355,22 +353,22 @@ VALUES     ('2011-08-22T00:22:05.00' /* @p0 */,
             'http://www.youtube.com/watch?v=GaoLU6zKaws' /* @p4 */,
             3,
             '6bc80750-3fb2-4830-bccf-9f47000611d0' /* @p5 */)
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>And querying is still as it was before. No changes.</p>
+&lt;p&gt;And querying is still as it was before. No changes.&lt;/p&gt;
 
-<p>One really important thing to remember is. You cannot change a type from 1 type to another, meaning you cannot change a LinkShare to a MovieShare. Any sub-class you create should never have any reason to change, if for some reason it DOES change, you should delete it, and create a new one.</p>
+&lt;p&gt;One really important thing to remember is. You cannot change a type from 1 type to another, meaning you cannot change a LinkShare to a MovieShare. Any sub-class you create should never have any reason to change, if for some reason it DOES change, you should delete it, and create a new one.&lt;/p&gt;
 
-<p>By that I mean delete the object, and insert a new one of the specified sub-class. While it is possible to use native SQL to change the discriminator value, there's no way to do it in HQL, Criteria, LINQ, or QueryOver, because it's just wrong. If it needs to change, you probably need to re-think your domain and persistence.</p>
+&lt;p&gt;By that I mean delete the object, and insert a new one of the specified sub-class. While it is possible to use native SQL to change the discriminator value, there's no way to do it in HQL, Criteria, LINQ, or QueryOver, because it's just wrong. If it needs to change, you probably need to re-think your domain and persistence.&lt;/p&gt;
 
-<p>Next post will be about Table per Sub-Class mapping.</p>
+&lt;p&gt;Next post will be about Table per Sub-Class mapping.&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2011/08/fluent-nhibernate-table-inheritance-discriminators-part-2/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -382,11 +380,9 @@ VALUES     ('2011-08-22T00:22:05.00' /* @p0 */,
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -438,77 +434,42 @@ VALUES     ('2011-08-22T00:22:05.00' /* @p0 */,
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

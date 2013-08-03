@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 21 Feb 2012
-      
-        | <a href="/category/servicestack">ServiceStack</a>
-      
+       | <a href="/category/servicestack">ServiceStack</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,31 +49,31 @@
       </div>
     </div>
         
-    <p>I've just spent the weekend ripping out that dreaded WCF abomination and replacing it with Service Stack.</p>
+    &lt;p&gt;I've just spent the weekend ripping out that dreaded WCF abomination and replacing it with Service Stack.&lt;/p&gt;
 
-<p><a href="http://servicestack.net/">http://servicestack.net/</a></p>
+&lt;p&gt;&lt;a href=&quot;http://servicestack.net/&quot;&gt;http://servicestack.net/&lt;/a&gt;&lt;/p&gt;
 
-<blockquote>
-  <p>A modern fresh alternative to WCF. Code-first, convention-based, codegen-free. Encourages best-practices high-performance, scalable REST &amp; RPC web services.</p>
-</blockquote>
+&lt;blockquote&gt;
+  &lt;p&gt;A modern fresh alternative to WCF. Code-first, convention-based, codegen-free. Encourages best-practices high-performance, scalable REST &amp;amp; RPC web services.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-<p>Over the past couple of months I've been fighting with WCF to the point I wanted to slit my wrists.</p>
+&lt;p&gt;Over the past couple of months I've been fighting with WCF to the point I wanted to slit my wrists.&lt;/p&gt;
 
-<p>So I asked <a href="http://jabbr.net/">JabbR</a> and Twitter if I should use Web API. Well -no- one recommended Web API and everyone recommended Service Stack.</p>
+&lt;p&gt;So I asked &lt;a href=&quot;http://jabbr.net/&quot;&gt;JabbR&lt;/a&gt; and Twitter if I should use Web API. Well -no- one recommended Web API and everyone recommended Service Stack.&lt;/p&gt;
 
-<h2>It's a different way of thinking</h2>
+&lt;h2&gt;It's a different way of thinking&lt;/h2&gt;
 
-<p>The first noticeable difference between WCF and SS (Service Stack) is that I'm no longer writing a single service class with a butt load of methods. Which is most likely a good thing because after a while they just become hard to manage.</p>
+&lt;p&gt;The first noticeable difference between WCF and SS (Service Stack) is that I'm no longer writing a single service class with a butt load of methods. Which is most likely a good thing because after a while they just become hard to manage.&lt;/p&gt;
 
-<p>So instead of a Contract, Service, Response DTO, and Request DTO, with 9234823 methods defined in the Contract/Service. It's now <strong>1 Request DTO per Service.</strong></p>
+&lt;p&gt;So instead of a Contract, Service, Response DTO, and Request DTO, with 9234823 methods defined in the Contract/Service. It's now &lt;strong&gt;1 Request DTO per Service.&lt;/strong&gt;&lt;/p&gt;
 
-<p>What does that mean?</p>
+&lt;p&gt;What does that mean?&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p>Well before I would have something like:</p>
+&lt;p&gt;Well before I would have something like:&lt;/p&gt;
 
-<pre><code>[ServiceContract]
+&lt;pre&gt;&lt;code&gt;[ServiceContract]
 public interface IMemberQueryService
 {
     [OperationContract]
@@ -86,27 +84,27 @@ public interface IMemberQueryService
     [OperationContract]
     MemberResponse ByOpenId(string openId);
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Obviously with the actual service implementation and all that jazz.</p>
+&lt;p&gt;Obviously with the actual service implementation and all that jazz.&lt;/p&gt;
 
-<h2>Implementation with Service Stack</h2>
+&lt;h2&gt;Implementation with Service Stack&lt;/h2&gt;
 
-<p>Now with Service Stack I would write that as a single service. This means I need a request class.</p>
+&lt;p&gt;Now with Service Stack I would write that as a single service. This means I need a request class.&lt;/p&gt;
 
-<pre><code>public class MemberRequest
+&lt;pre&gt;&lt;code&gt;public class MemberRequest
 {
     public string Id { get; set; }
     public string OpenId { get; set; }
     public string Email { get; set; }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p><span class="note"><strong>Note:</strong> My 'Id' is a string because I'm using RavenDB and this is an a real example</span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; My 'Id' is a string because I'm using RavenDB and this is an a real example&lt;/span&gt;&lt;/p&gt;
 
-<p>The next class,the Service itself:</p>
+&lt;p&gt;The next class,the Service itself:&lt;/p&gt;
 
-<pre><code>public class MemberService : IService&lt;MemberRequest&gt;
+&lt;pre&gt;&lt;code&gt;public class MemberService : IService&amp;lt;MemberRequest&amp;gt;
 {
     private IDocumentStore DocumentStore { get; set; }
     public MemberService(IDocumentStore documentStore)
@@ -118,15 +116,15 @@ public interface IMemberQueryService
     {
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>So now I have a Request and a Service. But the request is meant to handle what the WCF service with three methods was doing, so how is this implemented.</p>
+&lt;p&gt;So now I have a Request and a Service. But the request is meant to handle what the WCF service with three methods was doing, so how is this implemented.&lt;/p&gt;
 
-<p>Well rather than having three methods, I simply add the results to a collection and return the result.</p>
+&lt;p&gt;Well rather than having three methods, I simply add the results to a collection and return the result.&lt;/p&gt;
 
-<p>The full implementation of this service looks like so:</p>
+&lt;p&gt;The full implementation of this service looks like so:&lt;/p&gt;
 
-<pre><code>public class MemberService : IService&lt;MemberRequest&gt;
+&lt;pre&gt;&lt;code&gt;public class MemberService : IService&amp;lt;MemberRequest&amp;gt;
 {
     private IDocumentStore DocumentStore { get; set; }
     public MemberService(IDocumentStore documentStore)
@@ -136,58 +134,58 @@ public interface IMemberQueryService
 
     public object Execute(MemberRequest request)
     {
-        var result = new List&lt;MemberResponse.Member&gt;();
+        var result = new List&amp;lt;MemberResponse.Member&amp;gt;();
 
         using (var session = DocumentStore.OpenSession())
         {
             if (!string.IsNullOrWhiteSpace(request.Id))
             {
-                var member = session.Load&lt;Member&gt;(request.Id);
+                var member = session.Load&amp;lt;Member&amp;gt;(request.Id);
                 if (member != null)
-                    result.Add(member.TranslateTo&lt;MemberResponse.Member&gt;());
+                    result.Add(member.TranslateTo&amp;lt;MemberResponse.Member&amp;gt;());
             }
 
             if (!string.IsNullOrWhiteSpace(request.Email))
             {
-                var member = session.Query&lt;Member, All_Members&gt;()
-                                    .SingleOrDefault(x =&gt; x.Email == request.Email);
+                var member = session.Query&amp;lt;Member, All_Members&amp;gt;()
+                                    .SingleOrDefault(x =&amp;gt; x.Email == request.Email);
 
                 if (member != null)
-                    result.Add(member.TranslateTo&lt;MemberResponse.Member&gt;());
+                    result.Add(member.TranslateTo&amp;lt;MemberResponse.Member&amp;gt;());
             }
 
             if (!string.IsNullOrWhiteSpace(request.OpenId))
             {
-                var member = session.Query&lt;Member, All_Members&gt;()
-                                    .SingleOrDefault(x =&gt; x.OpenId == request.OpenId);
+                var member = session.Query&amp;lt;Member, All_Members&amp;gt;()
+                                    .SingleOrDefault(x =&amp;gt; x.OpenId == request.OpenId);
 
-                if (member != null &amp;&amp; member.OpenId.Equals(request.OpenId, StringComparison.Ordinal))
-                    result.Add(member.TranslateTo&lt;MemberResponse.Member&gt;());
+                if (member != null &amp;amp;&amp;amp; member.OpenId.Equals(request.OpenId, StringComparison.Ordinal))
+                    result.Add(member.TranslateTo&amp;lt;MemberResponse.Member&amp;gt;());
             }
         }
 
         return new MemberResponse { Results = result };
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>So if I have any of the information defined on the request object, I simply query for it.</p>
+&lt;p&gt;So if I have any of the information defined on the request object, I simply query for it.&lt;/p&gt;
 
-<p>Now if you're looking at the method you're probably thinking the same thing I thought when I first looked at something similar. How the fark do I query that? <em>Well I'll explain that soon</em>. :)</p>
+&lt;p&gt;Now if you're looking at the method you're probably thinking the same thing I thought when I first looked at something similar. How the fark do I query that? &lt;em&gt;Well I'll explain that soon&lt;/em&gt;. :)&lt;/p&gt;
 
-<p>The last thing missing tho is the Response.</p>
+&lt;p&gt;The last thing missing tho is the Response.&lt;/p&gt;
 
-<p>There's a couple of things to note, in the code above I actually translate my Model to a DTO, this is done using the <code>TranslateTo&lt;T&gt;</code> method. This maps the object from 1 object to another, providing the two models share similar properties. This is exactly the same as AutoMapper except it doesn't handle relationships.</p>
+&lt;p&gt;There's a couple of things to note, in the code above I actually translate my Model to a DTO, this is done using the &lt;code&gt;TranslateTo&amp;lt;T&amp;gt;&lt;/code&gt; method. This maps the object from 1 object to another, providing the two models share similar properties. This is exactly the same as AutoMapper except it doesn't handle relationships.&lt;/p&gt;
 
-<p>It is possible to handle relationships however and I'll demonstrate that in future posts.</p>
+&lt;p&gt;It is possible to handle relationships however and I'll demonstrate that in future posts.&lt;/p&gt;
 
-<p>Now one thing that annoyed me with WCF was getting null objects as a response. The approach used here is I have a MemberResponse which has a collection of Results.</p>
+&lt;p&gt;Now one thing that annoyed me with WCF was getting null objects as a response. The approach used here is I have a MemberResponse which has a collection of Results.&lt;/p&gt;
 
-<p>The actual DTO looks like so:</p>
+&lt;p&gt;The actual DTO looks like so:&lt;/p&gt;
 
-<pre><code>public class MemberResponse : IHasResponseStatus
+&lt;pre&gt;&lt;code&gt;public class MemberResponse : IHasResponseStatus
 {
-    public IEnumerable&lt;Member&gt; Results { get; set; }
+    public IEnumerable&amp;lt;Member&amp;gt; Results { get; set; }
     public class Member
     {
         public string Id { get; set; }
@@ -200,31 +198,31 @@ public interface IMemberQueryService
 
     public ResponseStatus ResponseStatus { get; set; }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p><span class="note"><strong>Note:</strong> I like to use nested classes for the results because I can name it what it is, and modify it without breaking any other Response classes I make in the future.</span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I like to use nested classes for the results because I can name it what it is, and modify it without breaking any other Response classes I make in the future.&lt;/span&gt;&lt;/p&gt;
 
-<p>The response implements the interface <code>IHasResponseStatus</code> (which I think needs to be renamed to ICanHazResponseStatus) which provides the property ResponseStatus, this allows SS to attach it's own information about the response such as exception information.</p>
+&lt;p&gt;The response implements the interface &lt;code&gt;IHasResponseStatus&lt;/code&gt; (which I think needs to be renamed to ICanHazResponseStatus) which provides the property ResponseStatus, this allows SS to attach it's own information about the response such as exception information.&lt;/p&gt;
 
-<p>So rather than WCF where it just faults and throws exceptions and falls over and starts a fire, it just returns a response and gives you the information about it. AWESOME!</p>
+&lt;p&gt;So rather than WCF where it just faults and throws exceptions and falls over and starts a fire, it just returns a response and gives you the information about it. AWESOME!&lt;/p&gt;
 
-<p>Also I've added the Member as a collection so that I can have multiple results if I need, maybe I want to find a user who has an OpenId of 'xyz' and an email of 'abc' so I can link them. No need to write yet ANOTHER WCF method.</p>
+&lt;p&gt;Also I've added the Member as a collection so that I can have multiple results if I need, maybe I want to find a user who has an OpenId of 'xyz' and an email of 'abc' so I can link them. No need to write yet ANOTHER WCF method.&lt;/p&gt;
 
-<h2>Configuration</h2>
+&lt;h2&gt;Configuration&lt;/h2&gt;
 
-<p>Configuration in WCF is always a pain in the ass, specially when dealing with message sizes, buffers, bindings and endpoints, so on and so forth somebody shoot me because WCF configuration is the bane of my existence.</p>
+&lt;p&gt;Configuration in WCF is always a pain in the ass, specially when dealing with message sizes, buffers, bindings and endpoints, so on and so forth somebody shoot me because WCF configuration is the bane of my existence.&lt;/p&gt;
 
-<p>Configuring SS is so easy that I over configured it to begin with. While configuring SS I realised I can remove Autofac, AutoMapper and a bunch of configuration code. The end result was the following:</p>
+&lt;p&gt;Configuring SS is so easy that I over configured it to begin with. While configuring SS I realised I can remove Autofac, AutoMapper and a bunch of configuration code. The end result was the following:&lt;/p&gt;
 
-<pre><code>public class Global : System.Web.HttpApplication
+&lt;pre&gt;&lt;code&gt;public class Global : System.Web.HttpApplication
 {
     public class QueryServiceAppHost : AppHostBase
     {
         private readonly IContainerAdapter _containerAdapter;
         public QueryServiceAppHost(IDocumentStore documentStore)
-            : base("ITCompiler Query Services", typeof(MemberService).Assembly)
+            : base(&quot;ITCompiler Query Services&quot;, typeof(MemberService).Assembly)
         {
-            base.Container.Register&lt;IDocumentStore&gt;(documentStore);
+            base.Container.Register&amp;lt;IDocumentStore&amp;gt;(documentStore);
 
             base.SetConfig(new EndpointHostConfig { DebugMode = true });
         }
@@ -248,8 +246,8 @@ public interface IMemberQueryService
     {
         var documentStore = new DocumentStore
         {
-            ConnectionStringName = "RavenDB",
-            DefaultDatabase = "ITCompiler"
+            ConnectionStringName = &quot;RavenDB&quot;,
+            DefaultDatabase = &quot;ITCompiler&quot;
         }.Initialize();
 
         IndexCreation.CreateIndexes(typeof(All_Members).Assembly, documentStore);
@@ -257,80 +255,80 @@ public interface IMemberQueryService
         return documentStore;
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>I would show you the original configuration I had for WCF but you would probably freak out and run.</p>
+&lt;p&gt;I would show you the original configuration I had for WCF but you would probably freak out and run.&lt;/p&gt;
 
-<p>But I've cut out Autofac, AutoMapper, and it's really just 'Configure RavenDB' and 'Initialize SS'</p>
+&lt;p&gt;But I've cut out Autofac, AutoMapper, and it's really just 'Configure RavenDB' and 'Initialize SS'&lt;/p&gt;
 
-<p>I didn't touch the .config file, didn't do anything special to setup SS, simply created a AppHost class and registered my Document Store.</p>
+&lt;p&gt;I didn't touch the .config file, didn't do anything special to setup SS, simply created a AppHost class and registered my Document Store.&lt;/p&gt;
 
-<h2>Querying the Services</h2>
+&lt;h2&gt;Querying the Services&lt;/h2&gt;
 
-<p>The last piece to the puzzle was querying the newly written services. Usually with WCF I configure the ChannelFactory and then inject a new Channel for every controller that needs specific services.</p>
+&lt;p&gt;The last piece to the puzzle was querying the newly written services. Usually with WCF I configure the ChannelFactory and then inject a new Channel for every controller that needs specific services.&lt;/p&gt;
 
-<p>This caused a lot of configuration since each configured service has it's own endpoint I ended up with a lot of code.</p>
+&lt;p&gt;This caused a lot of configuration since each configured service has it's own endpoint I ended up with a lot of code.&lt;/p&gt;
 
-<p>SS creates a reusable client for querying, and all it needs is the base URL of the service host.</p>
+&lt;p&gt;SS creates a reusable client for querying, and all it needs is the base URL of the service host.&lt;/p&gt;
 
-<p>I first started just by creating a new client like so:</p>
+&lt;p&gt;I first started just by creating a new client like so:&lt;/p&gt;
 
-<pre><code>var client = new JsonServiceClient("http://localhost:9001");
-</code></pre>
+&lt;pre&gt;&lt;code&gt;var client = new JsonServiceClient(&quot;http://localhost:9001&quot;);
+&lt;/code&gt;&lt;/pre&gt;
 
-<p><span class="note"><strong>Note:</strong> I use the JSON service client but there's a few to choose from, XML, JSV, WCF, SOAP, etc.</span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I use the JSON service client but there's a few to choose from, XML, JSV, WCF, SOAP, etc.&lt;/span&gt;&lt;/p&gt;
 
-<p>Now when calling the client I can specify the response and pass in a request, so lets say I wanted to get a use by email address:</p>
+&lt;p&gt;Now when calling the client I can specify the response and pass in a request, so lets say I wanted to get a use by email address:&lt;/p&gt;
 
-<pre><code>client.Send&lt;MemberResponse&gt;(new MemberRequest
+&lt;pre&gt;&lt;code&gt;client.Send&amp;lt;MemberResponse&amp;gt;(new MemberRequest
 {
-    Email = "bob@googlelymail.com"
+    Email = &quot;bob@googlelymail.com&quot;
 });
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This sends a request, and works out which service to invoke, passes in the request, and returns the result.</p>
+&lt;p&gt;This sends a request, and works out which service to invoke, passes in the request, and returns the result.&lt;/p&gt;
 
-<p>It couldn't be easier. If I wanted to find a user by Id, just pass a request with just the Id.</p>
+&lt;p&gt;It couldn't be easier. If I wanted to find a user by Id, just pass a request with just the Id.&lt;/p&gt;
 
-<p>Now I setup my application with two different projects, one for Queries, and one for Commands. So when I setup my client I just created two really simple classes:</p>
+&lt;p&gt;Now I setup my application with two different projects, one for Queries, and one for Commands. So when I setup my client I just created two really simple classes:&lt;/p&gt;
 
-<pre><code>public class QueryServiceClient : JsonServiceClient
+&lt;pre&gt;&lt;code&gt;public class QueryServiceClient : JsonServiceClient
 {
     public QueryServiceClient(string url) : base(url) { }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>And another for Commands named CommandServiceClient.</p>
+&lt;p&gt;And another for Commands named CommandServiceClient.&lt;/p&gt;
 
-<p>Then I registered them in Autofac (on the MVC site I'm still using Autofac)</p>
+&lt;p&gt;Then I registered them in Autofac (on the MVC site I'm still using Autofac)&lt;/p&gt;
 
-<pre><code>builder.RegisterType&lt;QueryServiceClient&gt;()
-       .WithParameter(new NamedParameter("url", QueryServicesUrl))
+&lt;pre&gt;&lt;code&gt;builder.RegisterType&amp;lt;QueryServiceClient&amp;gt;()
+       .WithParameter(new NamedParameter(&quot;url&quot;, QueryServicesUrl))
        .AsSelf()
        .SingleInstance();
 
-builder.RegisterType&lt;CommandServiceClient&gt;()
-       .WithParameter(new NamedParameter("url", CommandServicesUrl))
+builder.RegisterType&amp;lt;CommandServiceClient&amp;gt;()
+       .WithParameter(new NamedParameter(&quot;url&quot;, CommandServicesUrl))
        .AsSelf()
        .SingleInstance();
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Now I can just inject those two service clients and reuse them over and over.</p>
+&lt;p&gt;Now I can just inject those two service clients and reuse them over and over.&lt;/p&gt;
 
-<h2>Conclusion</h2>
+&lt;h2&gt;Conclusion&lt;/h2&gt;
 
-<p>I had to change my way of thinking and to be honest, I threw in the towel pretty early on. But I stuck with it. I was lucky enough to have help from the creator himself, <a href="http://www.twitter.com/demisbellot">@demisbellot</a> in the <a href="http://jabbr.net/#/rooms/servicestack">JabbR ServiceSack</a> room.</p>
+&lt;p&gt;I had to change my way of thinking and to be honest, I threw in the towel pretty early on. But I stuck with it. I was lucky enough to have help from the creator himself, &lt;a href=&quot;http://www.twitter.com/demisbellot&quot;&gt;@demisbellot&lt;/a&gt; in the &lt;a href=&quot;http://jabbr.net/#/rooms/servicestack&quot;&gt;JabbR ServiceSack&lt;/a&gt; room.&lt;/p&gt;
 
-<p>He was kind enough to answer all my woes and put me on the right path, regardless of how silly my questions probably were.</p>
+&lt;p&gt;He was kind enough to answer all my woes and put me on the right path, regardless of how silly my questions probably were.&lt;/p&gt;
 
-<p>After a little perseverance I'm now completely in love with Service Stack and I look forward to learning more of it's capabilities around Error Handling, REST, and Messaging.</p>
+&lt;p&gt;After a little perseverance I'm now completely in love with Service Stack and I look forward to learning more of it's capabilities around Error Handling, REST, and Messaging.&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2012/02/service-stack-i-heart-you-my-conversion-from-wcf-to-ss/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -342,11 +340,9 @@ builder.RegisterType&lt;CommandServiceClient&gt;()
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -398,77 +394,42 @@ builder.RegisterType&lt;CommandServiceClient&gt;()
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

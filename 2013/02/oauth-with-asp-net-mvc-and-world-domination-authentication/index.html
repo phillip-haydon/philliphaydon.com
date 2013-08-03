@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 05 Feb 2013
-      
-        | <a href="/category/asp.net-mvc">ASP.NET MVC</a>
-      
+       | <a href="/category/asp.net-mvc">ASP.NET MVC</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,204 +49,204 @@
       </div>
     </div>
         
-    <p>This post is a follow on from my previous post <a href="/2013/01/oauth-with-nancyfx-and-world-domination-authentication/">OAuth with NancyFX and WorldDomination.Web.Authentication</a> except this demonstrates how you can use WorldDomination.Web.Authentication with ASP.NET MVC, writing only minimal code in the process.</p>
+    &lt;p&gt;This post is a follow on from my previous post &lt;a href=&quot;/2013/01/oauth-with-nancyfx-and-world-domination-authentication/&quot;&gt;OAuth with NancyFX and WorldDomination.Web.Authentication&lt;/a&gt; except this demonstrates how you can use WorldDomination.Web.Authentication with ASP.NET MVC, writing only minimal code in the process.&lt;/p&gt;
 
-<p>To save you jumping to the other post, I'll quote myself:</p>
+&lt;p&gt;To save you jumping to the other post, I'll quote myself:&lt;/p&gt;
 
-<blockquote>
-  <p>One of the biggest pains of building websites, in my opinion, is implementing OAuth providers, it's often fiddly, doesn't work, and frameworks that are created to try make things easier, don't seem to make it easier. </p>
+&lt;blockquote&gt;
+  &lt;p&gt;One of the biggest pains of building websites, in my opinion, is implementing OAuth providers, it's often fiddly, doesn't work, and frameworks that are created to try make things easier, don't seem to make it easier. &lt;/p&gt;
   
-  <p>So <a href="https://github.com/PureKrome">PureKrome</a> and myself decided to create <a href="http://www.nuget.org/packages/WorldDomination.Web.Authentication/">WorldDomination: Web Authentication</a></p>
+  &lt;p&gt;So &lt;a href=&quot;https://github.com/PureKrome&quot;&gt;PureKrome&lt;/a&gt; and myself decided to create &lt;a href=&quot;http://www.nuget.org/packages/WorldDomination.Web.Authentication/&quot;&gt;WorldDomination: Web Authentication&lt;/a&gt;&lt;/p&gt;
   
-  <p>The idea behind this framework is to keep it super simple to implement OAuth into your website, without the bloat. The core framework ONLY deals with Google, Twitter, and Facebook authentication. It doesn't try to create a fancy UI for you, it doesn't require you to write lots and lots of code. You simply give it some info, it redirects, it comes back and gives you the authentication info.</p>
-</blockquote>
+  &lt;p&gt;The idea behind this framework is to keep it super simple to implement OAuth into your website, without the bloat. The core framework ONLY deals with Google, Twitter, and Facebook authentication. It doesn't try to create a fancy UI for you, it doesn't require you to write lots and lots of code. You simply give it some info, it redirects, it comes back and gives you the authentication info.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-<p>So without further adieu...</p>
+&lt;p&gt;So without further adieu...&lt;/p&gt;
 
-<h3>Installing</h3>
+&lt;h3&gt;Installing&lt;/h3&gt;
 
-<p>Installing the library for MVC requires installing the MVC specific library.</p>
+&lt;p&gt;Installing the library for MVC requires installing the MVC specific library.&lt;/p&gt;
 
-<blockquote>
-  <p>PM> Install-Package WorldDomination.Web.Authentication.Mvc</p>
-</blockquote>
+&lt;blockquote&gt;
+  &lt;p&gt;PM&gt; Install-Package WorldDomination.Web.Authentication.Mvc&lt;/p&gt;
+&lt;/blockquote&gt;
 
-<p>This will install:</p>
+&lt;p&gt;This will install:&lt;/p&gt;
 
-<ul>
-<li>WorldDomination.Web.Authentication.Mvc</li>
-<li>WorldDomination.Web.Authentication</li>
-<li>RestSharp</li>
-</ul>
+&lt;ul&gt;
+&lt;li&gt;WorldDomination.Web.Authentication.Mvc&lt;/li&gt;
+&lt;li&gt;WorldDomination.Web.Authentication&lt;/li&gt;
+&lt;li&gt;RestSharp&lt;/li&gt;
+&lt;/ul&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p>The first package is the ASP.NET MVC provider, this wires up all the routes and handles the redirect and callback.</p>
+&lt;p&gt;The first package is the ASP.NET MVC provider, this wires up all the routes and handles the redirect and callback.&lt;/p&gt;
 
-<p>The second package is the actual implementation, this has no dependency on <code>NancyContext</code> or <code>System.Web</code></p>
+&lt;p&gt;The second package is the actual implementation, this has no dependency on &lt;code&gt;NancyContext&lt;/code&gt; or &lt;code&gt;System.Web&lt;/code&gt;&lt;/p&gt;
 
-<p>The last package is required by <code>WorldDomination.Web.Authentication</code> to process the callback and deserialize the response.</p>
+&lt;p&gt;The last package is required by &lt;code&gt;WorldDomination.Web.Authentication&lt;/code&gt; to process the callback and deserialize the response.&lt;/p&gt;
 
-<h3>Configuring</h3>
+&lt;h3&gt;Configuring&lt;/h3&gt;
 
-<p>Now that it's installed, we need to configure it, this is done one of two ways, by adding the information to the <code>web.config</code>, or by registering the information in the <code>Global.asax</code></p>
+&lt;p&gt;Now that it's installed, we need to configure it, this is done one of two ways, by adding the information to the &lt;code&gt;web.config&lt;/code&gt;, or by registering the information in the &lt;code&gt;Global.asax&lt;/code&gt;&lt;/p&gt;
 
-<p>I'm going to show the <code>web.config</code> way, but you can <a href="https://github.com/PureKrome/WorldDomination.Web.Authentication/wiki">visit the github wiki</a> for <code>WorldDomination.Web.Authentication</code> on information to configure via the Global.asax.</p>
+&lt;p&gt;I'm going to show the &lt;code&gt;web.config&lt;/code&gt; way, but you can &lt;a href=&quot;https://github.com/PureKrome/WorldDomination.Web.Authentication/wiki&quot;&gt;visit the github wiki&lt;/a&gt; for &lt;code&gt;WorldDomination.Web.Authentication&lt;/code&gt; on information to configure via the Global.asax.&lt;/p&gt;
 
-<p>In the <code>web.config</code> add a config section like so</p>
+&lt;p&gt;In the &lt;code&gt;web.config&lt;/code&gt; add a config section like so&lt;/p&gt;
 
-<pre><code>&lt;section name="authenticationProviders"
-         type="WorldDomination.Web.Authentication.Config.ProviderConfiguration, WorldDomination.Web.Authentication" /&gt;
-</code></pre>
+&lt;pre&gt;&lt;code&gt;&amp;lt;section name=&quot;authenticationProviders&quot;
+         type=&quot;WorldDomination.Web.Authentication.Config.ProviderConfiguration, WorldDomination.Web.Authentication&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Now add the <code>authenticationProviders</code> element.</p>
+&lt;p&gt;Now add the &lt;code&gt;authenticationProviders&lt;/code&gt; element.&lt;/p&gt;
 
-<pre><code>&lt;authenticationProviders&gt;
-  &lt;providers&gt;
-    &lt;add name="Facebook" key="470874...41" secret="02bb584...332fe2" /&gt;
-    &lt;add name="Google" key="58714009...ent.com" secret="npk...ooxCEY" /&gt;
-    &lt;add name="Twitter" key="Rb7qNNP...znFTbF6Q" secret="pP...7hu9c" /&gt;
-  &lt;/providers&gt;
-&lt;/authenticationProviders&gt;
-</code></pre>
+&lt;pre&gt;&lt;code&gt;&amp;lt;authenticationProviders&amp;gt;
+  &amp;lt;providers&amp;gt;
+    &amp;lt;add name=&quot;Facebook&quot; key=&quot;470874...41&quot; secret=&quot;02bb584...332fe2&quot; /&amp;gt;
+    &amp;lt;add name=&quot;Google&quot; key=&quot;58714009...ent.com&quot; secret=&quot;npk...ooxCEY&quot; /&amp;gt;
+    &amp;lt;add name=&quot;Twitter&quot; key=&quot;Rb7qNNP...znFTbF6Q&quot; secret=&quot;pP...7hu9c&quot; /&amp;gt;
+  &amp;lt;/providers&amp;gt;
+&amp;lt;/authenticationProviders&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p><span class="note"><strong>Note:</strong> These are the key/secret you get when you register your application with the providers.</span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; These are the key/secret you get when you register your application with the providers.&lt;/span&gt;&lt;/p&gt;
 
-<p>You can get the key/secret registering your apps:</p>
+&lt;p&gt;You can get the key/secret registering your apps:&lt;/p&gt;
 
-<ul>
-<li>Facebook: http://developers.facebook.com/docs/howtos/login/server-side-login/</li>
-<li>Twitter: https://dev.twitter.com/</li>
-<li>Google: https://code.google.com/apis/console/?pli=1#access</li>
-</ul>
+&lt;ul&gt;
+&lt;li&gt;Facebook: http://developers.facebook.com/docs/howtos/login/server-side-login/&lt;/li&gt;
+&lt;li&gt;Twitter: https://dev.twitter.com/&lt;/li&gt;
+&lt;li&gt;Google: https://code.google.com/apis/console/?pli=1#access&lt;/li&gt;
+&lt;/ul&gt;
 
-<p><span class="note"<strong>Note:</strong> Please refer to the 'Adding some buttons' section on the URLs for use when registering.</span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&lt;strong&gt;Note:&lt;/strong&gt; Please refer to the 'Adding some buttons' section on the URLs for use when registering.&lt;/span&gt;&lt;/p&gt;
 
-<h3>Registering the routes</h3>
+&lt;h3&gt;Registering the routes&lt;/h3&gt;
 
-<p>Unlike Nancy, we need to tell Mvc to register the routes, if you don't mind using the built in routes you can simply call the registration, passing in the route table, and you will get the default routes described in the rest of this blog post.</p>
+&lt;p&gt;Unlike Nancy, we need to tell Mvc to register the routes, if you don't mind using the built in routes you can simply call the registration, passing in the route table, and you will get the default routes described in the rest of this blog post.&lt;/p&gt;
 
-<pre><code>WorldDominationRouteConfig.RegisterRoutes(RouteTable.Routes);
-</code></pre>
+&lt;pre&gt;&lt;code&gt;WorldDominationRouteConfig.RegisterRoutes(RouteTable.Routes);
+&lt;/code&gt;&lt;/pre&gt;
 
-<p><span class="note"<strong>Note:</strong> This must be registered BEFORE your own routes, otherwise your default route will override the WorldDomination specific routes and then you will end up with issues such as the controller doesn't exist.</span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&lt;strong&gt;Note:&lt;/strong&gt; This must be registered BEFORE your own routes, otherwise your default route will override the WorldDomination specific routes and then you will end up with issues such as the controller doesn't exist.&lt;/span&gt;&lt;/p&gt;
 
-<p>The routes registered are two specific ones:</p>
+&lt;p&gt;The routes registered are two specific ones:&lt;/p&gt;
 
-<pre><code>routes.MapRoute(
-    name: "WorldDominationAutomatedMvc-Redirect",
-    url: "authentication/redirect/{providerkey}/{additionaldata}",
-    defaults: new { controller = "WorldDominationAuthentication", action = "RedirectToProvider", additionaldata = UrlParameter.Optional }
+&lt;pre&gt;&lt;code&gt;routes.MapRoute(
+    name: &quot;WorldDominationAutomatedMvc-Redirect&quot;,
+    url: &quot;authentication/redirect/{providerkey}/{additionaldata}&quot;,
+    defaults: new { controller = &quot;WorldDominationAuthentication&quot;, action = &quot;RedirectToProvider&quot;, additionaldata = UrlParameter.Optional }
 );
 routes.MapRoute(
-    name: "WorldDominationAutomatedMvc-AuthenticateCallback",
-    url: "authentication/authenticatecallback",
-    defaults: new { controller = "WorldDominationAuthentication", action = "AuthenticateCallback" }
+    name: &quot;WorldDominationAutomatedMvc-AuthenticateCallback&quot;,
+    url: &quot;authentication/authenticatecallback&quot;,
+    defaults: new { controller = &quot;WorldDominationAuthentication&quot;, action = &quot;AuthenticateCallback&quot; }
 );
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Alternatively if you want to specify your own routes, you can copy the route registration above and define your own paths.</p>
+&lt;p&gt;Alternatively if you want to specify your own routes, you can copy the route registration above and define your own paths.&lt;/p&gt;
 
-<h3>Implementing your callback</h3>
+&lt;h3&gt;Implementing your callback&lt;/h3&gt;
 
-<p>Now you need to implement a callback, this callback is what YOU want to do with the result from a successful (or failed) authentication, you need to implement this because we don't know what you have planned, if you want to create a session, set a cookie, use form authentication, what ever, that's up to you.</p>
+&lt;p&gt;Now you need to implement a callback, this callback is what YOU want to do with the result from a successful (or failed) authentication, you need to implement this because we don't know what you have planned, if you want to create a session, set a cookie, use form authentication, what ever, that's up to you.&lt;/p&gt;
 
-<p>To do this you can create a new class and implement the interface <code>IAuthenticationCallbackProvider</code></p>
+&lt;p&gt;To do this you can create a new class and implement the interface &lt;code&gt;IAuthenticationCallbackProvider&lt;/code&gt;&lt;/p&gt;
 
-<pre><code>public class SampleCallbackProvider : IAuthenticationCallbackProvider
+&lt;pre&gt;&lt;code&gt;public class SampleCallbackProvider : IAuthenticationCallbackProvider
 {
     public ActionResult Process(HttpContextBase context, AuthenticateCallbackData model)
     {
         return new ViewResult
         {
-            ViewName = "AuthenticateCallback",
+            ViewName = &quot;AuthenticateCallback&quot;,
             ViewData = new ViewDataDictionary(model)
         };
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This example will simply respond with the view <code>AuthenticateCallback</code> and pass it the model with the data returned from the provider. Ideally you would check to see if the user is new, or if you need to add him to your database, or authenticate him with your system. </p>
+&lt;p&gt;This example will simply respond with the view &lt;code&gt;AuthenticateCallback&lt;/code&gt; and pass it the model with the data returned from the provider. Ideally you would check to see if the user is new, or if you need to add him to your database, or authenticate him with your system. &lt;/p&gt;
 
-<p>You can take a look at the implementation used by JabbR <a href="https://github.com/davidfowl/JabbR/blob/master/JabbR/Nancy/JabbRAuthenticationCallbackProvider.cs">here</a>, which I've mirrored as a <a href="https://gist.github.com/4674109">gist here</a> in-case it is changed or moved and the link becomes dead.</p>
+&lt;p&gt;You can take a look at the implementation used by JabbR &lt;a href=&quot;https://github.com/davidfowl/JabbR/blob/master/JabbR/Nancy/JabbRAuthenticationCallbackProvider.cs&quot;&gt;here&lt;/a&gt;, which I've mirrored as a &lt;a href=&quot;https://gist.github.com/4674109&quot;&gt;gist here&lt;/a&gt; in-case it is changed or moved and the link becomes dead.&lt;/p&gt;
 
-<p>Although the JabbR implementation is for NancyFX, it will give you an idea of what you can achieve. The main difference is the MVC version will pass you the HttpContext of the current controller, while the NancyFX one passes you the NancyModule. The implementation would be pretty much identical.</p>
+&lt;p&gt;Although the JabbR implementation is for NancyFX, it will give you an idea of what you can achieve. The main difference is the MVC version will pass you the HttpContext of the current controller, while the NancyFX one passes you the NancyModule. The implementation would be pretty much identical.&lt;/p&gt;
 
-<h3>Adding some buttons</h3>
+&lt;h3&gt;Adding some buttons&lt;/h3&gt;
 
-<p>Last of all, you need to add some buttons to the screen. This is where you have to link to some specific URLs.</p>
+&lt;p&gt;Last of all, you need to add some buttons to the screen. This is where you have to link to some specific URLs.&lt;/p&gt;
 
-<p><span class="note"><strong>Note:</strong> These links will be configurable in the future, but for now they are hard-coded.</span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; These links will be configurable in the future, but for now they are hard-coded.&lt;/span&gt;&lt;/p&gt;
 
-<p>The two URLs used by the system are:</p>
+&lt;p&gt;The two URLs used by the system are:&lt;/p&gt;
 
-<ul>
-<li>Redirect: /authentication/redirect/<em>provider key</em></li>
-<li>Callback: /authentication/authenticatecallback?providerkey=<em>provider key</em></li>
-</ul>
+&lt;ul&gt;
+&lt;li&gt;Redirect: /authentication/redirect/&lt;em&gt;provider key&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Callback: /authentication/authenticatecallback?providerkey=&lt;em&gt;provider key&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-<p>Examples: The links you would add to your page would be similar to:</p>
+&lt;p&gt;Examples: The links you would add to your page would be similar to:&lt;/p&gt;
 
-<pre><code>&lt;a href="/authentication/redirect/Twitter"&gt;&lt;img src="/Content/twitter_32.png" /&gt;&lt;/a&gt;
-&lt;a href="/authentication/redirect/Facebook"&gt;&lt;img src="/Content/facebook_32.png" /&gt;&lt;/a&gt;
-&lt;a href="/authentication/redirect/Google"&gt;&lt;img src="/Content/google_32.png" /&gt;&lt;/a&gt;
-</code></pre>
+&lt;pre&gt;&lt;code&gt;&amp;lt;a href=&quot;/authentication/redirect/Twitter&quot;&amp;gt;&amp;lt;img src=&quot;/Content/twitter_32.png&quot; /&amp;gt;&amp;lt;/a&amp;gt;
+&amp;lt;a href=&quot;/authentication/redirect/Facebook&quot;&amp;gt;&amp;lt;img src=&quot;/Content/facebook_32.png&quot; /&amp;gt;&amp;lt;/a&amp;gt;
+&amp;lt;a href=&quot;/authentication/redirect/Google&quot;&amp;gt;&amp;lt;img src=&quot;/Content/google_32.png&quot; /&amp;gt;&amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>These links are just normal hyperlinks, giving you absolute freedom and flexibility to style them any way you want. Because we have absolutely NO involvement in the generation of the links, we cannot get in the way.</p>
+&lt;p&gt;These links are just normal hyperlinks, giving you absolute freedom and flexibility to style them any way you want. Because we have absolutely NO involvement in the generation of the links, we cannot get in the way.&lt;/p&gt;
 
-<p>All you need to do is ensure that the links provided to us look like the above.</p>
+&lt;p&gt;All you need to do is ensure that the links provided to us look like the above.&lt;/p&gt;
 
-<p>Your callback urls would end up looking like:</p>
+&lt;p&gt;Your callback urls would end up looking like:&lt;/p&gt;
 
-<ul>
-<li>/authentication/authenticatecallback?providerkey=twitter</li>
-<li>/authentication/authenticatecallback?providerkey=facebook</li>
-<li>/authentication/authenticatecallback?providerkey=google</li>
-</ul>
+&lt;ul&gt;
+&lt;li&gt;/authentication/authenticatecallback?providerkey=twitter&lt;/li&gt;
+&lt;li&gt;/authentication/authenticatecallback?providerkey=facebook&lt;/li&gt;
+&lt;li&gt;/authentication/authenticatecallback?providerkey=google&lt;/li&gt;
+&lt;/ul&gt;
 
-<p><span class="note"><strong>Note:</strong> The urls are forced to be lowercase because Google is case sensitive, so when registering your app with google please make sure the url is registered all lowercase.</span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; The urls are forced to be lowercase because Google is case sensitive, so when registering your app with google please make sure the url is registered all lowercase.&lt;/span&gt;&lt;/p&gt;
 
-<p>And you're done!</p>
+&lt;p&gt;And you're done!&lt;/p&gt;
 
-<p>Now you can run your app:</p>
+&lt;p&gt;Now you can run your app:&lt;/p&gt;
 
-<p><img src="/images/jabbr-authentication-sample-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/jabbr-authentication-sample-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>We click on Google:</p>
+&lt;p&gt;We click on Google:&lt;/p&gt;
 
-<p><img src="/images/jabbr-authentication-sample-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/jabbr-authentication-sample-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>And we get redirected back to the website after allowing the authentication with Google:</p>
+&lt;p&gt;And we get redirected back to the website after allowing the authentication with Google:&lt;/p&gt;
 
-<p><img src="/images/jabbr-authentication-sample-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/jabbr-authentication-sample-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>That's all there is to it.</p>
+&lt;p&gt;That's all there is to it.&lt;/p&gt;
 
-<p>The sample can be found on github here:</p>
+&lt;p&gt;The sample can be found on github here:&lt;/p&gt;
 
-<ul>
-<li><a href="https://github.com/PureKrome/WorldDomination.Web.Authentication/tree/master/Samples/MvcAutomatedSample">https://github.com/PureKrome/WorldDomination.Web.Authentication/tree/master/Samples/MvcAutomatedSample</a></li>
-</ul>
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/PureKrome/WorldDomination.Web.Authentication/tree/master/Samples/MvcAutomatedSample&quot;&gt;https://github.com/PureKrome/WorldDomination.Web.Authentication/tree/master/Samples/MvcAutomatedSample&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-<p>You can find the source code on github: </p>
+&lt;p&gt;You can find the source code on github: &lt;/p&gt;
 
-<ul>
-<li><a href="https://github.com/PureKrome/WorldDomination.Web.Authentication">https://github.com/PureKrome/WorldDomination.Web.Authentication</a></li>
-</ul>
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/PureKrome/WorldDomination.Web.Authentication&quot;&gt;https://github.com/PureKrome/WorldDomination.Web.Authentication&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-<p>And the Nuget packages</p>
+&lt;p&gt;And the Nuget packages&lt;/p&gt;
 
-<ul>
-<li><a href="http://www.nuget.org/packages/WorldDomination.Web.Authentication/">http://www.nuget.org/packages/WorldDomination.Web.Authentication/</a></li>
-<li><a href="http://www.nuget.org/packages/WorldDomination.Web.Authentication.Mvc/">http://www.nuget.org/packages/WorldDomination.Web.Authentication.Mvc/</a></li>
-</ul>
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.nuget.org/packages/WorldDomination.Web.Authentication/&quot;&gt;http://www.nuget.org/packages/WorldDomination.Web.Authentication/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.nuget.org/packages/WorldDomination.Web.Authentication.Mvc/&quot;&gt;http://www.nuget.org/packages/WorldDomination.Web.Authentication.Mvc/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2013/02/oauth-with-asp-net-mvc-and-world-domination-authentication/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -260,11 +258,9 @@ routes.MapRoute(
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -316,77 +312,42 @@ routes.MapRoute(
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

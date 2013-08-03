@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 04 Jul 2013
-      
-        | <a href="/category/azure">Azure</a>
-      
+       | <a href="/category/azure">Azure</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,104 +49,104 @@
       </div>
     </div>
         
-    <ul>
-<li><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Part 1 - Setting up the Virtual Machine and nginx</a></li>
-<li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx">Part 2 - Setting up new Website and Domain on nginx</a></li>
-<li><a href="/2013/06/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li>
-<li>Part 4 - Setting up a NancyFX website</li>
-<li><a href="/2013/07/setting-up-a-servicestack-service/">Part 5 - Setting up a ServiceStack web service</a></li>
-</ul>
+    &lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;/2013/06/setting-up-ubuntu-and-nginx-on-azure/&quot;&gt;Part 1 - Setting up the Virtual Machine and nginx&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/2013/06/setting-up-a-new-website-and-domain-on-nginx&quot;&gt;Part 2 - Setting up new Website and Domain on nginx&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/2013/06/setting-up-mono-on-nginx/&quot;&gt;Part 3 - Setting up Mono on nginx&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Part 4 - Setting up a NancyFX website&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/2013/07/setting-up-a-servicestack-service/&quot;&gt;Part 5 - Setting up a ServiceStack web service&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-<p>Time to setup NancyFX on Mono.</p>
+&lt;p&gt;Time to setup NancyFX on Mono.&lt;/p&gt;
 
-<h2>Prelude!</h2>
+&lt;h2&gt;Prelude!&lt;/h2&gt;
 
-<p>This series is done using Mono 2.10 and .NET 4.0. This wont work with a 4.5 project since we need Mono 3.0 for that, but I plan to do another series on building Mono from source since there's no package available yet.</p>
+&lt;p&gt;This series is done using Mono 2.10 and .NET 4.0. This wont work with a 4.5 project since we need Mono 3.0 for that, but I plan to do another series on building Mono from source since there's no package available yet.&lt;/p&gt;
 
-<p>Also, this post assumes you've setup FTP to upload the files, I'm not going to go into detail, but you can install <code>vsftpd</code> and Google the setup. If you're new to Linux and followed Parts 1-3 so far, it should be easy enough to setup and install. All you need to do is authenticate using sshftp or sftp, rather than normal ftp. </p>
+&lt;p&gt;Also, this post assumes you've setup FTP to upload the files, I'm not going to go into detail, but you can install &lt;code&gt;vsftpd&lt;/code&gt; and Google the setup. If you're new to Linux and followed Parts 1-3 so far, it should be easy enough to setup and install. All you need to do is authenticate using sshftp or sftp, rather than normal ftp. &lt;/p&gt;
 
-<h2>Creating a Nancy test project</h2>
+&lt;h2&gt;Creating a Nancy test project&lt;/h2&gt;
 
-<p>The easiest way to create a test project is to grab the <a href="http://visualstudiogallery.msdn.microsoft.com/f1e29f61-4dff-4b1e-a14b-6bd0d307611a">Nancy Templates</a> from the Visual Studio Gallery. </p>
+&lt;p&gt;The easiest way to create a test project is to grab the &lt;a href=&quot;http://visualstudiogallery.msdn.microsoft.com/f1e29f61-4dff-4b1e-a14b-6bd0d307611a&quot;&gt;Nancy Templates&lt;/a&gt; from the Visual Studio Gallery. &lt;/p&gt;
 
-<p>Using this method, we can create a new project in Visual Studio and select Nancy Application.</p>
+&lt;p&gt;Using this method, we can create a new project in Visual Studio and select Nancy Application.&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-4-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Don't forget to make this a .NET 4.0 project, NOT a .NET 4.5 project. When running Mono 3.0 you can choose .NET 4.5.</p>
+&lt;p&gt;Don't forget to make this a .NET 4.0 project, NOT a .NET 4.5 project. When running Mono 3.0 you can choose .NET 4.5.&lt;/p&gt;
 
-<p>Once created press F5 and you should end up with a screen like so:</p>
+&lt;p&gt;Once created press F5 and you should end up with a screen like so:&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-4-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>BUT, before we can publish, we need to update Nancy to the beta version (version 0.18.0) because 0.17.1 doesn't work on Mono 2.10. Hopefully if you're reading this shortly after its being published 0.18.0 will be out and you can.</p>
+&lt;p&gt;BUT, before we can publish, we need to update Nancy to the beta version (version 0.18.0) because 0.17.1 doesn't work on Mono 2.10. Hopefully if you're reading this shortly after its being published 0.18.0 will be out and you can.&lt;/p&gt;
 
-<hr />
+&lt;hr /&gt;
 
-<p>Updating the Nuget Packages. We need to add the Nancy CI builds to out options.</p>
+&lt;p&gt;Updating the Nuget Packages. We need to add the Nancy CI builds to out options.&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-4-4.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>And we can remove the references from the project to <code>Nancy</code> and <code>Nancy.Hosting.Aspnet</code></p>
+&lt;p&gt;And we can remove the references from the project to &lt;code&gt;Nancy&lt;/code&gt; and &lt;code&gt;Nancy.Hosting.Aspnet&lt;/code&gt;&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-4-5.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>And now you can run the commands:</p>
+&lt;p&gt;And now you can run the commands:&lt;/p&gt;
 
-<p><code>install-package Nancy</code></p>
+&lt;p&gt;&lt;code&gt;install-package Nancy&lt;/code&gt;&lt;/p&gt;
 
-<p><code>install-package Nancy.Hosting.Aspnet</code></p>
+&lt;p&gt;&lt;code&gt;install-package Nancy.Hosting.Aspnet&lt;/code&gt;&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-4-6.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<hr />
+&lt;hr /&gt;
 
-<p>Now we can publish the website. I'm just going to publish to the file system since this is a learning exercise. </p>
+&lt;p&gt;Now we can publish the website. I'm just going to publish to the file system since this is a learning exercise. &lt;/p&gt;
 
-<h2>Deployment</h2>
+&lt;h2&gt;Deployment&lt;/h2&gt;
 
-<p>Now that we've created and updated our Nancy project, published it. Now we can deploy it! </p>
+&lt;p&gt;Now that we've created and updated our Nancy project, published it. Now we can deploy it! &lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-4-7.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>So we can remove the html files we manually created in the previous posts, and deploy our Nancy website to the FTP. </p>
+&lt;p&gt;So we can remove the html files we manually created in the previous posts, and deploy our Nancy website to the FTP. &lt;/p&gt;
 
-<h2>Does it work?</h2>
+&lt;h2&gt;Does it work?&lt;/h2&gt;
 
-<p>If we visit the site now, most likely we will end up with:</p>
+&lt;p&gt;If we visit the site now, most likely we will end up with:&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-4-8.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-8.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>This is because we originally configured our fastcgi index to be <code>index.aspx</code></p>
+&lt;p&gt;This is because we originally configured our fastcgi index to be &lt;code&gt;index.aspx&lt;/code&gt;&lt;/p&gt;
 
-<h2>Configure the default page</h2>
+&lt;h2&gt;Configure the default page&lt;/h2&gt;
 
-<p>We can update our nginx configuration now, call <code>nano /etc/nginx/sites-available/default</code></p>
+&lt;p&gt;We can update our nginx configuration now, call &lt;code&gt;nano /etc/nginx/sites-available/default&lt;/code&gt;&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-4-9.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Remove the <code>index.aspx</code> part so the index is just <code>/</code> and nothing else.</p>
+&lt;p&gt;Remove the &lt;code&gt;index.aspx&lt;/code&gt; part so the index is just &lt;code&gt;/&lt;/code&gt; and nothing else.&lt;/p&gt;
 
-<p>Now we can restart nginx to make sure the changes are picked up... <code>service nginx restart</code></p>
+&lt;p&gt;Now we can restart nginx to make sure the changes are picked up... &lt;code&gt;service nginx restart&lt;/code&gt;&lt;/p&gt;
 
-<h2>Now does it work?!?</h2>
+&lt;h2&gt;Now does it work?!?&lt;/h2&gt;
 
-<p>Now we can give it a restart anddddddddddd.....</p>
+&lt;p&gt;Now we can give it a restart anddddddddddd.....&lt;/p&gt;
 
-<p><img src="/images/setup-mono-on-ubuntu-part-4-10.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-10.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>BAM! Now we have Nancy... Running on Mono... on nginx... Ubuntu... on Azure...</p>
+&lt;p&gt;BAM! Now we have Nancy... Running on Mono... on nginx... Ubuntu... on Azure...&lt;/p&gt;
 
-<p>How awesome is that! </p>
+&lt;p&gt;How awesome is that! &lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2013/07/setting-up-a-nancyfx-website/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -160,11 +158,9 @@
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -216,77 +212,42 @@
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

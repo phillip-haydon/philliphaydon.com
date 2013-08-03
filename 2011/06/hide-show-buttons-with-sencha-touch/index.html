@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -34,11 +34,10 @@
                   
 
 <div id="post">
-    <h1>Hide & Show Buttons with Sencha Touch</h1>
+    <h1>Hide &amp; Show Buttons with Sencha Touch</h1>
 
     <div class="post-note">
       posted on 12 Jun 2011
-      
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -49,19 +48,19 @@
       </div>
     </div>
         
-    <p>I'm currently building a demo for work using <a href="http://www.sencha.com/products/touch/">Sencha Touch mobile JavaScript framework</a>, and needed to change the state of some buttons dependent on which 'card' is shown.</p>
+    &lt;p&gt;I'm currently building a demo for work using &lt;a href=&quot;http://www.sencha.com/products/touch/&quot;&gt;Sencha Touch mobile JavaScript framework&lt;/a&gt;, and needed to change the state of some buttons dependent on which 'card' is shown.&lt;/p&gt;
 
-<p>The Doc Api is a little hard to follow in my opinion, but I eventually worked it out.</p>
+&lt;p&gt;The Doc Api is a little hard to follow in my opinion, but I eventually worked it out.&lt;/p&gt;
 
-<p>In hindsight I guess I could have used a single button to do this, but I will demonstrate it with two.</p>
+&lt;p&gt;In hindsight I guess I could have used a single button to do this, but I will demonstrate it with two.&lt;/p&gt;
 
-<p>To demonstrate this I'm going to use a Panel, with the buttons to flick between the cards. Instead of using a TabPanel.</p>
+&lt;p&gt;To demonstrate this I'm going to use a Panel, with the buttons to flick between the cards. Instead of using a TabPanel.&lt;/p&gt;
 
-<p>So to start with I have a Panel, with a ToolBar docked to the bottom, a couple of buttons, and two cards.</p>
+&lt;p&gt;So to start with I have a Panel, with a ToolBar docked to the bottom, a couple of buttons, and two cards.&lt;/p&gt;
 
-<p><img src="/images/sencha-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/sencha-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<pre><code>var rootPanel;
+&lt;pre&gt;&lt;code&gt;var rootPanel;
 Ext.setup({
     onReady: function () {
         rootPanel = new Ext.Panel({
@@ -87,13 +86,13 @@ Ext.setup({
         });
     }
 });
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p>At the moment it's all nested, so the first thing I'll do is pull the toolbar items out, I'll also assign them to local variables and create them using the Ext.Button type. This gives us access to the methods and events for the buttons.</p>
+&lt;p&gt;At the moment it's all nested, so the first thing I'll do is pull the toolbar items out, I'll also assign them to local variables and create them using the Ext.Button type. This gives us access to the methods and events for the buttons.&lt;/p&gt;
 
-<pre><code>var btnCardOne = new Ext.Button({
+&lt;pre&gt;&lt;code&gt;var btnCardOne = new Ext.Button({
     html: 'Card 1 Button'
 });
 
@@ -102,19 +101,19 @@ var btnCardTwo = new Ext.Button({
     hidden: true,
     html: 'Card 2 Button'
 });
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>items: [btnCardOne, btnCardTwo]</p>
+&lt;p&gt;items: [btnCardOne, btnCardTwo]&lt;/p&gt;
 
-<p>You will notice I also set the second button's state to be hidden.</p>
+&lt;p&gt;You will notice I also set the second button's state to be hidden.&lt;/p&gt;
 
-<p><img src="/images/sencha-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/sencha-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>So we still have the same screen, less one button.</p>
+&lt;p&gt;So we still have the same screen, less one button.&lt;/p&gt;
 
-<p>Next we want to add an event to the button, like so:</p>
+&lt;p&gt;Next we want to add an event to the button, like so:&lt;/p&gt;
 
-<pre><code>var btnCardOne = new Ext.Button({
+&lt;pre&gt;&lt;code&gt;var btnCardOne = new Ext.Button({
     html: 'Card 1 Button',
     handler: function () {
         rootPanel.setActiveItem(1, { type: 'slide' });
@@ -133,20 +132,20 @@ var btnCardTwo = new Ext.Button({
         btnCardTwo.setVisible(false);
     }
 });
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Because the buttons are just local variables we can access them in each event, so in the first button, we want to set the active item (card) to 1, turn off button one, and turn on button two.</p>
+&lt;p&gt;Because the buttons are just local variables we can access them in each event, so in the first button, we want to set the active item (card) to 1, turn off button one, and turn on button two.&lt;/p&gt;
 
-<p>Then in the second button, we do the opposite. Now clicking each button flicks between the two.</p>
+&lt;p&gt;Then in the second button, we do the opposite. Now clicking each button flicks between the two.&lt;/p&gt;
 
-<p><img src="/images/sencha-3.png" alt="" /> <img src="/images/sencha-4.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/sencha-3.png&quot; alt=&quot;&quot; /&gt; &lt;img src=&quot;/images/sencha-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2011/06/hide-show-buttons-with-sencha-touch/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -158,11 +157,9 @@ var btnCardTwo = new Ext.Button({
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -214,77 +211,42 @@ var btnCardTwo = new Ext.Button({
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

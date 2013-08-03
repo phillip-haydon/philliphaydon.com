@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 05 Jun 2012
-      
-        | <a href="/category/servicestack">ServiceStack</a>
-      
+       | <a href="/category/servicestack">ServiceStack</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,46 +49,46 @@
       </div>
     </div>
         
-    <p>A few people have asked me how they can use ServiceStack with other persistence technologies like RavenDB and NHibernate, or if you really must... EntityFramework... Rather than <a href="https://github.com/ServiceStack/ServiceStack.OrmLite">ServiceStack.OrmLite</a> or <a href="https://github.com/ServiceStack/ServiceStack.Redis">ServiceStack.Redis</a> like many of the examples in SS show.</p>
+    &lt;p&gt;A few people have asked me how they can use ServiceStack with other persistence technologies like RavenDB and NHibernate, or if you really must... EntityFramework... Rather than &lt;a href=&quot;https://github.com/ServiceStack/ServiceStack.OrmLite&quot;&gt;ServiceStack.OrmLite&lt;/a&gt; or &lt;a href=&quot;https://github.com/ServiceStack/ServiceStack.Redis&quot;&gt;ServiceStack.Redis&lt;/a&gt; like many of the examples in SS show.&lt;/p&gt;
 
-<p><span class="note"><strong>Note:</strong> This isn't about best practice on using NHibernate or ServiceStack, my services are named just to quickly get something up and running.</span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; This isn't about best practice on using NHibernate or ServiceStack, my services are named just to quickly get something up and running.&lt;/span&gt;&lt;/p&gt;
 
-<p><span class="note"><strong>Note 2:</strong> This blog post may not be completely inline with the GitHub repository since I will be updating the repository to include some additional samples in the future.</span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note 2:&lt;/strong&gt; This blog post may not be completely inline with the GitHub repository since I will be updating the repository to include some additional samples in the future.&lt;/span&gt;&lt;/p&gt;
 
-<p>I've created a small sample project which can be found <a href="https://github.com/phillip-haydon/ServiceStack-NHibernate-Sample">here on GitHub</a>, I plan to flesh it out a little bit from the date this is posted, but it's purely there as a sample.</p>
+&lt;p&gt;I've created a small sample project which can be found &lt;a href=&quot;https://github.com/phillip-haydon/ServiceStack-NHibernate-Sample&quot;&gt;here on GitHub&lt;/a&gt;, I plan to flesh it out a little bit from the date this is posted, but it's purely there as a sample.&lt;/p&gt;
 
-<h2>No Repositories!</h2>
+&lt;h2&gt;No Repositories!&lt;/h2&gt;
 
-<p>Utilizing other persistence frameworks is really easy with ServiceStack, the thing with ServiceStack Services is that they are doing something concise, it's a single service implementation, so there's really no need to use repositories for them, you gain absolutely no benefit from using repositories other than adding an additional layer of abstraction and complexity to your services.</p>
+&lt;p&gt;Utilizing other persistence frameworks is really easy with ServiceStack, the thing with ServiceStack Services is that they are doing something concise, it's a single service implementation, so there's really no need to use repositories for them, you gain absolutely no benefit from using repositories other than adding an additional layer of abstraction and complexity to your services.&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p>That doesn't mean you don't have to use repositories, if you REALLY want to use them. You can, and I'll add a sample of using a repository with the RestService implementation.</p>
+&lt;p&gt;That doesn't mean you don't have to use repositories, if you REALLY want to use them. You can, and I'll add a sample of using a repository with the RestService implementation.&lt;/p&gt;
 
-<h2>Setting Up SS</h2>
+&lt;h2&gt;Setting Up SS&lt;/h2&gt;
 
-<p>Assuming you've setup NHibernate and your mappings, all we need to do is setup ServiceStack.</p>
+&lt;p&gt;Assuming you've setup NHibernate and your mappings, all we need to do is setup ServiceStack.&lt;/p&gt;
 
-<p>First things first! Install ServiceStack.</p>
+&lt;p&gt;First things first! Install ServiceStack.&lt;/p&gt;
 
-<pre><code>PM&gt; Install-Package ServiceStack
-</code></pre>
+&lt;pre&gt;&lt;code&gt;PM&amp;gt; Install-Package ServiceStack
+&lt;/code&gt;&lt;/pre&gt;
 
-<p><span class="note"><strong>Note:</strong> You can use ServiceStack.Host.* (replace the * with MVC or ASPNET) which will automatically configure the web.config. Personally I prefer to do it myself.</span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; You can use ServiceStack.Host.* (replace the * with MVC or ASPNET) which will automatically configure the web.config. Personally I prefer to do it myself.&lt;/span&gt;&lt;/p&gt;
 
-<p>Using the Package Manager (or GUI) install Service Stack into your project. This should add the required code to the web.config, if not you can double check your web config is setup like shown <a href="https://github.com/ServiceStack/ServiceStack/wiki/Create-your-first-webservice">here</a>.</p>
+&lt;p&gt;Using the Package Manager (or GUI) install Service Stack into your project. This should add the required code to the web.config, if not you can double check your web config is setup like shown &lt;a href=&quot;https://github.com/ServiceStack/ServiceStack/wiki/Create-your-first-webservice&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-<p>Next in the global.asax we want to create an AppHost and configure it:</p>
+&lt;p&gt;Next in the global.asax we want to create an AppHost and configure it:&lt;/p&gt;
 
-<pre><code>public class Global : HttpApplication
+&lt;pre&gt;&lt;code&gt;public class Global : HttpApplication
 {
     public class SampleServiceAppHost : AppHostBase
     {
         private readonly IContainerAdapter _containerAdapter;
         public SampleServiceAppHost(ISessionFactory sessionFactory)
-            : base("Service Stack with Fluent NHibernate Sample", typeof(ProductFindService).Assembly)
+            : base(&quot;Service Stack with Fluent NHibernate Sample&quot;, typeof(ProductFindService).Assembly)
         {
-            base.Container.Register&lt;ISessionFactory&gt;(sessionFactory);
+            base.Container.Register&amp;lt;ISessionFactory&amp;gt;(sessionFactory);
         }
 
         public override void Configure(Funq.Container container)
@@ -106,36 +104,36 @@
         (new SampleServiceAppHost(factory)).Init();
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>In our service host we take in our NHibernate Session Factory, and we wire it up to <a href="https://github.com/ServiceStack/ServiceStack/wiki/The-IoC-container">Funq (the default IoC container SS uses)</a>, this is so when the Service is resolved, it gets the SessionFactory to create a Session.</p>
+&lt;p&gt;In our service host we take in our NHibernate Session Factory, and we wire it up to &lt;a href=&quot;https://github.com/ServiceStack/ServiceStack/wiki/The-IoC-container&quot;&gt;Funq (the default IoC container SS uses)&lt;/a&gt;, this is so when the Service is resolved, it gets the SessionFactory to create a Session.&lt;/p&gt;
 
-<p>If you were using RavenDB, this is where you would inject your DocumentStore, and if you were using EntityFramework, you would inject that DataContext thing it uses.</p>
+&lt;p&gt;If you were using RavenDB, this is where you would inject your DocumentStore, and if you were using EntityFramework, you would inject that DataContext thing it uses.&lt;/p&gt;
 
-<p>So when the application is started, we create the SessionFactory, and create an instance of the AppHost, passing in the SessionFactory.</p>
+&lt;p&gt;So when the application is started, we create the SessionFactory, and create an instance of the AppHost, passing in the SessionFactory.&lt;/p&gt;
 
-<h2>Services</h2>
+&lt;h2&gt;Services&lt;/h2&gt;
 
-<p>Now that SS is setup, we need to implement our services. This part is just as easy.</p>
+&lt;p&gt;Now that SS is setup, we need to implement our services. This part is just as easy.&lt;/p&gt;
 
-<p>In some of the SS samples such as <a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.MovieRest/MovieService.cs#L135">this one</a>, dependencies are injected via the properties. Personally I don't like this, because the service is absolutely dependent on that dependency. It cannot function without it, so in my opinion this dependency should be done via the constructor.</p>
+&lt;p&gt;In some of the SS samples such as &lt;a href=&quot;https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.MovieRest/MovieService.cs#L135&quot;&gt;this one&lt;/a&gt;, dependencies are injected via the properties. Personally I don't like this, because the service is absolutely dependent on that dependency. It cannot function without it, so in my opinion this dependency should be done via the constructor.&lt;/p&gt;
 
-<p>I'm not going to go over EVERY service implementation, I'm only going to show Insert and Select By Id.</p>
+&lt;p&gt;I'm not going to go over EVERY service implementation, I'm only going to show Insert and Select By Id.&lt;/p&gt;
 
-<h2>Insert</h2>
+&lt;h2&gt;Insert&lt;/h2&gt;
 
-<p>Besides the model defined for NHibernate, we need our Service Request Model, and we need our implementation.</p>
+&lt;p&gt;Besides the model defined for NHibernate, we need our Service Request Model, and we need our implementation.&lt;/p&gt;
 
-<pre><code>public class ProductInsert
+&lt;pre&gt;&lt;code&gt;public class ProductInsert
 {
     public string Name { get; set; }
     public string Description { get; set; }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This is our Service Request Model, really plain and simple DTO used for doing a Product Insert.</p>
+&lt;p&gt;This is our Service Request Model, really plain and simple DTO used for doing a Product Insert.&lt;/p&gt;
 
-<pre><code>public class ProductInsertService : ServiceBase&lt;ProductInsert&gt;
+&lt;pre&gt;&lt;code&gt;public class ProductInsertService : ServiceBase&amp;lt;ProductInsert&amp;gt;
 {
     public ISessionFactory NHSessionFactory { get; set; }
     public ProductInsertService(ISessionFactory sessionFactory)
@@ -148,7 +146,7 @@
         using (var session = NHSessionFactory.OpenSession())
         using (var tx = session.BeginTransaction())
         {
-            var result = request.TranslateTo&lt;Product&gt;();
+            var result = request.TranslateTo&amp;lt;Product&amp;gt;();
 
             session.Save(result);
 
@@ -158,50 +156,50 @@
         return null;
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This is our Service Implementation, as you can see we have a constructor which takes in the <code>ISessionFactory</code>, this is our NHibernate <code>ISessionFactory</code>, you need to be careful here since ServiceStack has it's own <code>ISessionFactory</code>:</p>
+&lt;p&gt;This is our Service Implementation, as you can see we have a constructor which takes in the &lt;code&gt;ISessionFactory&lt;/code&gt;, this is our NHibernate &lt;code&gt;ISessionFactory&lt;/code&gt;, you need to be careful here since ServiceStack has it's own &lt;code&gt;ISessionFactory&lt;/code&gt;:&lt;/p&gt;
 
-<p><img src="/images/servicestack-nhibernate-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/servicestack-nhibernate-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>We need to make sure this is the NHibernate one:</p>
+&lt;p&gt;We need to make sure this is the NHibernate one:&lt;/p&gt;
 
-<p><img src="/images/servicestack-nhibernate-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/servicestack-nhibernate-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>You can of course, inject your Unit Of Work, or the NHibernate Session, or what ever you like, if you're using Repositories you may opt to inject an instance of your desired repository such as <code>IProductRepository</code>. For this example I'm using NHibernates SessionFactory so that the service is responsible for opening a Session and Transaction.</p>
+&lt;p&gt;You can of course, inject your Unit Of Work, or the NHibernate Session, or what ever you like, if you're using Repositories you may opt to inject an instance of your desired repository such as &lt;code&gt;IProductRepository&lt;/code&gt;. For this example I'm using NHibernates SessionFactory so that the service is responsible for opening a Session and Transaction.&lt;/p&gt;
 
-<p>So that's all there is to it, inject your SessionFactory, or your desired persistence implementation, and do your thing.</p>
+&lt;p&gt;So that's all there is to it, inject your SessionFactory, or your desired persistence implementation, and do your thing.&lt;/p&gt;
 
-<p>The cool thing about ServiceStack is it has built in functionality to do mapping.</p>
+&lt;p&gt;The cool thing about ServiceStack is it has built in functionality to do mapping.&lt;/p&gt;
 
-<pre><code>var result = request.TranslateTo&lt;Product&gt;();
-</code></pre>
+&lt;pre&gt;&lt;code&gt;var result = request.TranslateTo&amp;lt;Product&amp;gt;();
+&lt;/code&gt;&lt;/pre&gt;
 
-<p><code>TranslateTo&lt;T&gt;</code> is functionality built into ServiceStack for mapping 1 object to another.</p>
+&lt;p&gt;&lt;code&gt;TranslateTo&amp;lt;T&amp;gt;&lt;/code&gt; is functionality built into ServiceStack for mapping 1 object to another.&lt;/p&gt;
 
-<p>If you want to update an object, ServiceStack handles that too using PopulateWith.</p>
+&lt;p&gt;If you want to update an object, ServiceStack handles that too using PopulateWith.&lt;/p&gt;
 
-<pre><code>var existing = session.Get&lt;Product&gt;(request.Id)
+&lt;pre&gt;&lt;code&gt;var existing = session.Get&amp;lt;Product&amp;gt;(request.Id)
                       .PopulateWith(request);
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>No need to introduce anything like AutoMapper.</p>
+&lt;p&gt;No need to introduce anything like AutoMapper.&lt;/p&gt;
 
-<h2>Select By Id</h2>
+&lt;h2&gt;Select By Id&lt;/h2&gt;
 
-<p>This service I've called <code>ProductFindService</code>, in the future there will be a <code>ProductSearchService</code> to show selection by criteria.</p>
+&lt;p&gt;This service I've called &lt;code&gt;ProductFindService&lt;/code&gt;, in the future there will be a &lt;code&gt;ProductSearchService&lt;/code&gt; to show selection by criteria.&lt;/p&gt;
 
-<p>Like the Insert service, I've defined a simple model which only has an Id property for selecting the product out:</p>
+&lt;p&gt;Like the Insert service, I've defined a simple model which only has an Id property for selecting the product out:&lt;/p&gt;
 
-<pre><code>public class ProductFind
+&lt;pre&gt;&lt;code&gt;public class ProductFind
 {
     public Guid Id { get; set; }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>In addition to the Request Model I have a Response Model:</p>
+&lt;p&gt;In addition to the Request Model I have a Response Model:&lt;/p&gt;
 
-<pre><code>public class ProductFindResponse : IHasResponseStatus
+&lt;pre&gt;&lt;code&gt;public class ProductFindResponse : IHasResponseStatus
 {
     public class Product
     {
@@ -213,19 +211,19 @@
     public Product Result { get; set; }
     public ResponseStatus ResponseStatus { get; set; }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This has a nested Product class which defines all the properties of a Product. The outer Response object has a Result and Status. (<a href="http://www.philliphaydon.com/2012/03/service-stack-exceptions-and-errors/">status is for Exception/Error information</a>)</p>
+&lt;p&gt;This has a nested Product class which defines all the properties of a Product. The outer Response object has a Result and Status. (&lt;a href=&quot;http://www.philliphaydon.com/2012/03/service-stack-exceptions-and-errors/&quot;&gt;status is for Exception/Error information&lt;/a&gt;)&lt;/p&gt;
 
-<p>As you can see the Response is the same name as the Request, with Response appended to the end, so that SS can create this object itself.</p>
+&lt;p&gt;As you can see the Response is the same name as the Request, with Response appended to the end, so that SS can create this object itself.&lt;/p&gt;
 
-<p>When I setup these Request/Response objects in Visual Studio, I use an extension called <a href="http://visualstudiogallery.msdn.microsoft.com/9d6ef0ce-2bef-4a82-9a84-7718caa5bb45">NestIn</a> which allows me to select the two classes and nest the Response under the Request like so:</p>
+&lt;p&gt;When I setup these Request/Response objects in Visual Studio, I use an extension called &lt;a href=&quot;http://visualstudiogallery.msdn.microsoft.com/9d6ef0ce-2bef-4a82-9a84-7718caa5bb45&quot;&gt;NestIn&lt;/a&gt; which allows me to select the two classes and nest the Response under the Request like so:&lt;/p&gt;
 
-<p><img src="/images/servicestack-nhibernate-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/servicestack-nhibernate-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>The service is similar to the insert, we inject the SessionFactory, open a Session, no transaction (unless you want to use 2nd level caching, but that's beyond this post) and select out the Product:</p>
+&lt;p&gt;The service is similar to the insert, we inject the SessionFactory, open a Session, no transaction (unless you want to use 2nd level caching, but that's beyond this post) and select out the Product:&lt;/p&gt;
 
-<pre><code>public class ProductFindService : ServiceBase&lt;ProductFind&gt;
+&lt;pre&gt;&lt;code&gt;public class ProductFindService : ServiceBase&amp;lt;ProductFind&amp;gt;
 {
     public ISessionFactory NHSessionFactory { get; set; }
     public ProductFindService(ISessionFactory sessionFactory)
@@ -237,31 +235,31 @@
     {
         using (var session = NHSessionFactory.OpenSession())
         {
-            var result = session.Load&lt;Models.Product&gt;(request.Id);
+            var result = session.Load&amp;lt;Models.Product&amp;gt;(request.Id);
 
             return new ProductFindResponse
             {
-                Result = result.TranslateTo&lt;ProductFindResponse.Product&gt;()
+                Result = result.TranslateTo&amp;lt;ProductFindResponse.Product&amp;gt;()
             };
         }
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Lastly we return a new Response object, and translate the result from NHibernate to the Response result.</p>
+&lt;p&gt;Lastly we return a new Response object, and translate the result from NHibernate to the Response result.&lt;/p&gt;
 
-<p>Easy peasy :)</p>
+&lt;p&gt;Easy peasy :)&lt;/p&gt;
 
-<p>Swapping out NHibernate for anything else like RavenDB or MongoDB is super easy. I hope this helps those few people who have asked me how to use other persistence frameworks get up and running.</p>
+&lt;p&gt;Swapping out NHibernate for anything else like RavenDB or MongoDB is super easy. I hope this helps those few people who have asked me how to use other persistence frameworks get up and running.&lt;/p&gt;
 
-<p>I find it amazing how little code you're required to write to get a ServiceStack Service up and running.</p>
+&lt;p&gt;I find it amazing how little code you're required to write to get a ServiceStack Service up and running.&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2012/06/using-nhibernate-with-servicestack/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -273,11 +271,9 @@
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -329,77 +325,42 @@
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

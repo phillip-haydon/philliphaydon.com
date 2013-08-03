@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 18 Dec 2012
-      
-        | <a href="/category/windows-8-app">Windows 8 App</a>
-      
+       | <a href="/category/windows-8-app">Windows 8 App</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,74 +49,74 @@
       </div>
     </div>
         
-    <p>In order to run your app from Visual Studio on your remote device, in my case I want to run it on my Surface... but you can do this with any remote device such as another desktop, a laptop, a tablet running Windows Pro or RT etc, all you really need to do is install the Remote Debugging tools.</p>
+    &lt;p&gt;In order to run your app from Visual Studio on your remote device, in my case I want to run it on my Surface... but you can do this with any remote device such as another desktop, a laptop, a tablet running Windows Pro or RT etc, all you really need to do is install the Remote Debugging tools.&lt;/p&gt;
 
-<p><a href="http://www.microsoft.com/visualstudio/eng/downloads#remote-tools">http://www.microsoft.com/visualstudio/eng/downloads#remote-tools</a></p>
+&lt;p&gt;&lt;a href=&quot;http://www.microsoft.com/visualstudio/eng/downloads#remote-tools&quot;&gt;http://www.microsoft.com/visualstudio/eng/downloads#remote-tools&lt;/a&gt;&lt;/p&gt;
 
-<p>For the Surface you just need to download and install:</p>
+&lt;p&gt;For the Surface you just need to download and install:&lt;/p&gt;
 
-<p><a href="http://www.microsoft.com/visualstudio/eng/downloads#remote-tools"><img src="/images/image17.png" /></a></p>
+&lt;p&gt;&lt;a href=&quot;http://www.microsoft.com/visualstudio/eng/downloads#remote-tools&quot;&gt;&lt;img src=&quot;/images/image17.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-<p>Once this is installed you will get a little icon on your Start Screen:</p>
+&lt;p&gt;Once this is installed you will get a little icon on your Start Screen:&lt;/p&gt;
 
-<p><a href="/images/image7.png"><img src="/images/image7.png" /></a></p>
+&lt;p&gt;&lt;a href=&quot;/images/image7.png&quot;&gt;&lt;img src=&quot;/images/image7.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-<p>You can see the Green Arrow:</p>
+&lt;p&gt;You can see the Green Arrow:&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p><img src="/images/image18.png" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/image18.png&quot; /&gt;&lt;/p&gt;
 
-<p>When you run this for the first time it will ask you to configure some stuff, mainly for the firewall:</p>
+&lt;p&gt;When you run this for the first time it will ask you to configure some stuff, mainly for the firewall:&lt;/p&gt;
 
-<p><img src="/images/image19.png" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/image19.png&quot; /&gt;&lt;/p&gt;
 
-<p>You only need to do this once. Once this is done you will get the following screen:</p>
+&lt;p&gt;You only need to do this once. Once this is done you will get the following screen:&lt;/p&gt;
 
-<p><img src="/images/image20.png" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/image20.png&quot; /&gt;&lt;/p&gt;
 
-<p>Now you're all ready for some awesome remote debugging!</p>
+&lt;p&gt;Now you're all ready for some awesome remote debugging!&lt;/p&gt;
 
-<p>In Visual Studio you need to select 'Remote Machine' in the debug list:</p>
+&lt;p&gt;In Visual Studio you need to select 'Remote Machine' in the debug list:&lt;/p&gt;
 
-<p><img src="/images/image21.png" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/image21.png&quot; /&gt;&lt;/p&gt;
 
-<p>This opens up a remote debug connection:</p>
+&lt;p&gt;This opens up a remote debug connection:&lt;/p&gt;
 
-<p><img src="/images/image22.png" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/image22.png&quot; /&gt;&lt;/p&gt;
 
-<p>Enter in the IP for the Surface. (You can get this by calling 'ipconfig' in command line) After pressing select the window will close, and you will be ready!</p>
+&lt;p&gt;Enter in the IP for the Surface. (You can get this by calling 'ipconfig' in command line) After pressing select the window will close, and you will be ready!&lt;/p&gt;
 
-<p>Now you just need to debug the app. Using the same app from the previous post I've put a break point on the MainView constructor:</p>
+&lt;p&gt;Now you just need to debug the app. Using the same app from the previous post I've put a break point on the MainView constructor:&lt;/p&gt;
 
-<p><img src="/images/image23.png" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/image23.png&quot; /&gt;&lt;/p&gt;
 
-<p>When I begin debugging makes a request to the device and authenticates:</p>
+&lt;p&gt;When I begin debugging makes a request to the device and authenticates:&lt;/p&gt;
 
-<p><img src="/images/image24.png" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/image24.png&quot; /&gt;&lt;/p&gt;
 
-<p><span class="note"><strong>Note:</strong> If you're debugging on a device that is logged in with a different user, then Visual Studio will prompt you for credentials. Because I'm using the same LiveID on both my Desktop and Surface, it doesn't prompt me to login.</strong></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; If you're debugging on a device that is logged in with a different user, then Visual Studio will prompt you for credentials. Because I'm using the same LiveID on both my Desktop and Surface, it doesn't prompt me to login.&lt;/strong&gt;&lt;/p&gt;
 
-<p>Once connected, it will install the app just like it does on your desktop, and then automatically runs and debugs the app:</p>
+&lt;p&gt;Once connected, it will install the app just like it does on your desktop, and then automatically runs and debugs the app:&lt;/p&gt;
 
-<p><img src="/images/image25.png" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/image25.png&quot; /&gt;&lt;/p&gt;
 
-<p>And as you can see:</p>
+&lt;p&gt;And as you can see:&lt;/p&gt;
 
-<p><img src="/images/image26.png" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/image26.png&quot; /&gt;&lt;/p&gt;
 
-<p>My shinny Surface screen running the Hello World sample from the previous post.</p>
+&lt;p&gt;My shinny Surface screen running the Hello World sample from the previous post.&lt;/p&gt;
 
-<p>Debugging allows you to step through code just the same as doing it locally :)</p>
+&lt;p&gt;Debugging allows you to step through code just the same as doing it locally :)&lt;/p&gt;
 
-<p>Hopefully this helps anyone who has had difficulty or confusion debugging on remote devices.</p>
+&lt;p&gt;Hopefully this helps anyone who has had difficulty or confusion debugging on remote devices.&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2012/12/windows-store-app-and-remote-debugging-on-a-surface-rt/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -130,11 +128,9 @@
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -186,77 +182,42 @@
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

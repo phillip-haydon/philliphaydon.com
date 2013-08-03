@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -34,25 +34,44 @@
                   
 
   <ul class="posts">
-    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/01/not-lazyload-eager-loading-with-nhibernate-3-0/">Not.LazyLoad - Eager Loading with NHibernate 3.0</a> 
+        <span>posted on 30 Jan 2011</span>
+      </h1> 
+      &lt;p&gt;A friend asked me about fetching relationships with NHibernate when something couldn't be lazy-loaded.&lt;/p&gt;
+
+&lt;p&gt;The reason it couldn't be lazy-loaded was because he uses Session-Per-Call, my preference is Session-Per-Request. (this is web based, I've never actually used NHibernate in a non-web scenario, yet)&lt;/p&gt;
+
+&lt;p&gt;The solution he's currently using is to turn off lazy-loading at the mapping. This is all kinds of bad.&lt;/p&gt;
+
+&lt;p&gt;I think it's best to demonstrate why turning off lazy-loading at the mapping is bad. I've come up with a, well what I consider pretty standard Blog.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-lazy-load-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nothing special but needed something that has a few relationship&quot;s. (I think you can click that image to make it bigger)&lt;/p&gt;
+
+
+      <p><a href="/2011/01/not-lazyload-eager-loading-with-nhibernate-3-0/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/01/let-keyword-in-orms/">Let Keyword in ORMs</a> 
         <span>posted on 29 Jan 2011</span>
       </h1> 
-      <p>A while ago <a href="http://www.mindscapehq.com/">MindScape</a> posted a new feature called <a href="http://www.mindscapehq.com/blog/index.php/2010/09/14/ninja-domain-properties-in-lightspeed/">Ninja Properties</a> for their ORM, LightSpeed. Their post happened to be a scenario I used to solve with LINQ 2 SQL using the 'let' keyword to create a composite type to query against.</p>
+      &lt;p&gt;A while ago &lt;a href=&quot;http://www.mindscapehq.com/&quot;&gt;MindScape&lt;/a&gt; posted a new feature called &lt;a href=&quot;http://www.mindscapehq.com/blog/index.php/2010/09/14/ninja-domain-properties-in-lightspeed/&quot;&gt;Ninja Properties&lt;/a&gt; for their ORM, LightSpeed. Their post happened to be a scenario I used to solve with LINQ 2 SQL using the 'let' keyword to create a composite type to query against.&lt;/p&gt;
 
-<p>This would allow you to do something along the lines of:</p>
+&lt;p&gt;This would allow you to do something along the lines of:&lt;/p&gt;
 
-<pre><code>var poo = from s in ctx.Members
-          let fullname = s.FirstName + " " + s.LastName
-          where fullname == "Robert Williams"
+&lt;pre&gt;&lt;code&gt;var poo = from s in ctx.Members
+          let fullname = s.FirstName + &quot; &quot; + s.LastName
+          where fullname == &quot;Robert Williams&quot;
           select s;
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This nifty query would generate SQL like so:</p>
+&lt;p&gt;This nifty query would generate SQL like so:&lt;/p&gt;
 
-<pre><code>SELECT [t1].[Id], [t1].[FirstName], [t1].[LastName]
+&lt;pre&gt;&lt;code&gt;SELECT [t1].[Id], [t1].[FirstName], [t1].[LastName]
 FROM (
     SELECT [t0].[Id], [t0].[FirstName], 
            [t0].[LastName], 
@@ -60,179 +79,172 @@ FROM (
     FROM [Member] AS [t0]
     ) AS [t1]
 WHERE [t1].[value] = 'Robert Williams'
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>After commenting in their blog post about it they implemented it and put it into the nightly build. So after some months I finally got around to testing it, for a couple of reasons. Back when NHibernate 3.0 was in Alpha, this technique didn't work! So I thought I would test it out and see if it does, as well as checkout the SQL that's generated.</p>
+&lt;p&gt;After commenting in their blog post about it they implemented it and put it into the nightly build. So after some months I finally got around to testing it, for a couple of reasons. Back when NHibernate 3.0 was in Alpha, this technique didn't work! So I thought I would test it out and see if it does, as well as checkout the SQL that's generated.&lt;/p&gt;
 
 
       <p><a href="/2011/01/let-keyword-in-orms/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/01/mindscape-nhibernate-designer-discount/">Mindscape NHibernate Designer Discount</a> 
         <span>posted on 21 Jan 2011</span>
       </h1> 
-      <p>Mindscape have a 60% discount on their NHibernate Designer.</p>
+      &lt;p&gt;Mindscape have a 60% discount on their NHibernate Designer.&lt;/p&gt;
 
-<p><a href="http://www.mindscapehq.com/blog/index.php/2011/01/20/60-off-nhibernate-designer-act-fast/">http://www.mindscapehq.com/blog/index.php/2011/01/20/60-off-nhibernate-designer-act-fast/</a></p>
+&lt;p&gt;&lt;a href=&quot;http://www.mindscapehq.com/blog/index.php/2011/01/20/60-off-nhibernate-designer-act-fast/&quot;&gt;http://www.mindscapehq.com/blog/index.php/2011/01/20/60-off-nhibernate-designer-act-fast/&lt;/a&gt;&lt;/p&gt;
 
-<blockquote>
-  <p>How to obtain this special
+&lt;blockquote&gt;
+  &lt;p&gt;How to obtain this special
   When making your purchase please enter the following discount code:
   NHSPECIAL
-  You should immediately see the price drop to $99, saving you $150 USD!</p>
-</blockquote>
+  You should immediately see the price drop to $99, saving you $150 USD!&lt;/p&gt;
+&lt;/blockquote&gt;
 
-<p>Great tool for anyone who hates writing XML or loves GUI's.</p>
+&lt;p&gt;Great tool for anyone who hates writing XML or loves GUI's.&lt;/p&gt;
 
       <p><a href="/2011/01/mindscape-nhibernate-designer-discount/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/01/lightspeed-and-eager-loaded-properties/">LightSpeed and Eager Loaded properties</a> 
         <span>posted on 20 Jan 2011</span>
       </h1> 
-      <p>Today <a href="http://www.mindscapehq.com/">Mindscape</a>, the makers of the ORM <a href="http://www.mindscapehq.com/products/lightspeed">LightSpeed</a> and other awesome <a href="http://www.mindscapehq.com/products/">products</a> posted a blog on <a href="http://www.mindscapehq.com/blog/index.php/2011/01/19/controlling-lightspeed-entity-loading-with-named-aggregates/">Lazy-Loading/Eager-Loading properties</a> with LightSpeed.</p>
+      &lt;p&gt;Today &lt;a href=&quot;http://www.mindscapehq.com/&quot;&gt;Mindscape&lt;/a&gt;, the makers of the ORM &lt;a href=&quot;http://www.mindscapehq.com/products/lightspeed&quot;&gt;LightSpeed&lt;/a&gt; and other awesome &lt;a href=&quot;http://www.mindscapehq.com/products/&quot;&gt;products&lt;/a&gt; posted a blog on &lt;a href=&quot;http://www.mindscapehq.com/blog/index.php/2011/01/19/controlling-lightspeed-entity-loading-with-named-aggregates/&quot;&gt;Lazy-Loading/Eager-Loading properties&lt;/a&gt; with LightSpeed.&lt;/p&gt;
 
-<p>Why can't NHibernate do this! And when I say why can't NHibernate do this, I mean, why can't NHibernate do this with Query/QueryOver.</p>
+&lt;p&gt;Why can't NHibernate do this! And when I say why can't NHibernate do this, I mean, why can't NHibernate do this with Query/QueryOver.&lt;/p&gt;
 
-<p>Ayende detailed this time last year, the ability to <a href="http://ayende.com/Blog/archive/2010/01/27/nhibernate-new-feature-lazy-properties.aspx">lazy-load properties</a>, but currently Query/QueryOver only support One-To-Many and One-To-One relationships.</p>
+&lt;p&gt;Ayende detailed this time last year, the ability to &lt;a href=&quot;http://ayende.com/Blog/archive/2010/01/27/nhibernate-new-feature-lazy-properties.aspx&quot;&gt;lazy-load properties&lt;/a&gt;, but currently Query/QueryOver only support One-To-Many and One-To-One relationships.&lt;/p&gt;
 
-<p>NHibernate will support the ability to Lazy-Load a property but you can't specify it to be eager loaded.</p>
+&lt;p&gt;NHibernate will support the ability to Lazy-Load a property but you can't specify it to be eager loaded.&lt;/p&gt;
 
-<p>So you do</p>
+&lt;p&gt;So you do&lt;/p&gt;
 
-<pre><code>Map(x =&gt; x.FullDescription).CustomSqlType("NTEXT") 
+&lt;pre&gt;&lt;code&gt;Map(x =&amp;gt; x.FullDescription).CustomSqlType(&quot;NTEXT&quot;) 
                            .LazyLoad();
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Running a query would result in:</p>
+&lt;p&gt;Running a query would result in:&lt;/p&gt;
 
-<p><img src="/images/lightspeed-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/lightspeed-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Great... But you currently cannot do:</p>
+&lt;p&gt;Great... But you currently cannot do:&lt;/p&gt;
 
 
       <p><a href="/2011/01/lightspeed-and-eager-loaded-properties/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/01/revisiting-exists-in-nhibernate-3-0-and-queryover/">Revisiting 'Exists' in NHibernate 3.0 and QueryOver</a> 
         <span>posted on 19 Jan 2011</span>
       </h1> 
-      <p>A while ago I wrote about <a href="http://www.philliphaydon.com/2010/09/queryover-with-nhibernate-3-lovin-it/">my experience with NHibernate 3.0 and Query over</a> by having a go at converting an application to NH3.0, and faced the challenge of writing a query which contained an 'exists' where clause. At the time my solution resulted in an 'in' clause since I couldn't work out how to do an exists.</p>
+      &lt;p&gt;A while ago I wrote about &lt;a href=&quot;http://www.philliphaydon.com/2010/09/queryover-with-nhibernate-3-lovin-it/&quot;&gt;my experience with NHibernate 3.0 and Query over&lt;/a&gt; by having a go at converting an application to NH3.0, and faced the challenge of writing a query which contained an 'exists' where clause. At the time my solution resulted in an 'in' clause since I couldn't work out how to do an exists.&lt;/p&gt;
 
-<p>Today at work I faced the same challenge, except this time I solved it  WOO Yay for solving things.</p>
+&lt;p&gt;Today at work I faced the same challenge, except this time I solved it  WOO Yay for solving things.&lt;/p&gt;
 
-<h2>The Problem</h2>
+&lt;h2&gt;The Problem&lt;/h2&gt;
 
-<p>We have a many-to-many relationship between Jobs and Roles. Which looks something along the lines of:</p>
+&lt;p&gt;We have a many-to-many relationship between Jobs and Roles. Which looks something along the lines of:&lt;/p&gt;
 
-<p><img src="/images/nhibernate-queryover-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-queryover-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>I cut a bunch of stuff out but you get the idea.</p>
+&lt;p&gt;I cut a bunch of stuff out but you get the idea.&lt;/p&gt;
 
 
       <p><a href="/2011/01/revisiting-exists-in-nhibernate-3-0-and-queryover/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/01/system-data-sqlite-isolationlevel-exception/">System.Data.SQLite isolationLevel Exception</a> 
         <span>posted on 02 Jan 2011</span>
       </h1> 
-      <p>I introduced SQLite to our Unit Testing at work to aid with testing the stuff written with NHibernate, most of our repositories are rather simple but some of them require some specific criteria that it would be nice to test our queries work.</p>
+      &lt;p&gt;I introduced SQLite to our Unit Testing at work to aid with testing the stuff written with NHibernate, most of our repositories are rather simple but some of them require some specific criteria that it would be nice to test our queries work.&lt;/p&gt;
 
-<p>The problem is some of the queries have a transaction with the <code>IsolationLevel</code> as <code>ReadUncommitted</code>.</p>
+&lt;p&gt;The problem is some of the queries have a transaction with the &lt;code&gt;IsolationLevel&lt;/code&gt; as &lt;code&gt;ReadUncommitted&lt;/code&gt;.&lt;/p&gt;
 
-<p>Everything works perfectly fine until it comes to testing, the problem is SQLite does not support anything other than <code>Serializable</code> and <code>ReadCommitted</code>.</p>
+&lt;p&gt;Everything works perfectly fine until it comes to testing, the problem is SQLite does not support anything other than &lt;code&gt;Serializable&lt;/code&gt; and &lt;code&gt;ReadCommitted&lt;/code&gt;.&lt;/p&gt;
 
-<p>I spent a while trying to see if there was a way to have an interceptor for NHibernate to capture the <code>BeginRequest</code> and replace the isolation level with something that would work, when that failed I took a look at extending the SQLite dialect but that just became confusing.</p>
+&lt;p&gt;I spent a while trying to see if there was a way to have an interceptor for NHibernate to capture the &lt;code&gt;BeginRequest&lt;/code&gt; and replace the isolation level with something that would work, when that failed I took a look at extending the SQLite dialect but that just became confusing.&lt;/p&gt;
 
-<p>In the end I reflected the <code>System.Data.SQLite</code> assembly (before i downloaded the sourcecode) to see what was happening when <code>BeginTransaction</code> was being called.</p>
+&lt;p&gt;In the end I reflected the &lt;code&gt;System.Data.SQLite&lt;/code&gt; assembly (before i downloaded the sourcecode) to see what was happening when &lt;code&gt;BeginTransaction&lt;/code&gt; was being called.&lt;/p&gt;
 
-<p>There's two places it checks, the first is in <code>SQLiteConnection</code> under <code>BeginTransaction</code>:</p>
+&lt;p&gt;There's two places it checks, the first is in &lt;code&gt;SQLiteConnection&lt;/code&gt; under &lt;code&gt;BeginTransaction&lt;/code&gt;:&lt;/p&gt;
 
-<pre><code>if (isolationLevel != IsolationLevel.Serializable &amp;&amp; isolationLevel != IsolationLevel.ReadCommitted)
-    throw new ArgumentException("isolationLevel");
-</code></pre>
+&lt;pre&gt;&lt;code&gt;if (isolationLevel != IsolationLevel.Serializable &amp;amp;&amp;amp; isolationLevel != IsolationLevel.ReadCommitted)
+    throw new ArgumentException(&quot;isolationLevel&quot;);
+&lt;/code&gt;&lt;/pre&gt;
 
 
       <p><a href="/2011/01/system-data-sqlite-isolationlevel-exception/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2010/12/blog-update-to-wordpress-w-sqlsrv/">Blog Update to WordPress w/ SqlSrv</a> 
         <span>posted on 28 Dec 2010</span>
       </h1> 
-      <p>Over the past few days I've moved my blog from BlogEngine.Net to WordPress, since BlogEngine is fail.</p>
+      &lt;p&gt;Over the past few days I've moved my blog from BlogEngine.Net to WordPress, since BlogEngine is fail.&lt;/p&gt;
 
-<p>I didn't go with a hosted solution since it costs money just to use my own domain name, infact it costs more to use my own domain name than it cost me to register the damn thing. So I investigated blogs and came across:</p>
+&lt;p&gt;I didn't go with a hosted solution since it costs money just to use my own domain name, infact it costs more to use my own domain name than it cost me to register the damn thing. So I investigated blogs and came across:&lt;/p&gt;
 
-<p><a href="http://wordpress.visitmix.com/development/installing-wordpress-on-sql-server">http://wordpress.visitmix.com/development/installing-wordpress-on-sql-server</a></p>
+&lt;p&gt;&lt;a href=&quot;http://wordpress.visitmix.com/development/installing-wordpress-on-sql-server&quot;&gt;http://wordpress.visitmix.com/development/installing-wordpress-on-sql-server&lt;/a&gt;&lt;/p&gt;
 
-<p>Seems someone or somepeople have ported wordpress to work on SQL Server, so people who are on Windows with SQL Server and don't want to use FailSQL MySQL can take advantage of wordpress.</p>
+&lt;p&gt;Seems someone or somepeople have ported wordpress to work on SQL Server, so people who are on Windows with SQL Server and don't want to use FailSQL MySQL can take advantage of wordpress.&lt;/p&gt;
 
-<p>As much as I hate PHP after moving to .Net, the one thing the PHP community did right was all the different CMS and Blog solutions out there, something the .Net community lacks. As far as I'm concerned there is not one good .Net blogging solution available.</p>
+&lt;p&gt;As much as I hate PHP after moving to .Net, the one thing the PHP community did right was all the different CMS and Blog solutions out there, something the .Net community lacks. As far as I'm concerned there is not one good .Net blogging solution available.&lt;/p&gt;
 
-<p>Anyway so far I'm happy with the move. </p>
+&lt;p&gt;Anyway so far I'm happy with the move. &lt;/p&gt;
 
       <p><a href="/2010/12/blog-update-to-wordpress-w-sqlsrv/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2010/12/i-love-clean-client-ids-especially-with-net-2-0/">I love clean client IDs - especially with .Net 2.0!</a> 
         <span>posted on 26 Dec 2010</span>
       </h1> 
-      <p>ASP.Net 4.0 got a brand spanking new feature. Clean ClientID's! ABOUT BLOODY TIME... Only, I'm working on a legacy application which can't be migrated to 4.0 :(</p>
+      &lt;p&gt;ASP.Net 4.0 got a brand spanking new feature. Clean ClientID's! ABOUT BLOODY TIME... Only, I'm working on a legacy application which can't be migrated to 4.0 :(&lt;/p&gt;
 
-<p>So why do we need Nice Readable, predictable ClientID's? I can think of two main reasons, outside of that, I would assume you're doing it wrong.</p>
+&lt;p&gt;So why do we need Nice Readable, predictable ClientID's? I can think of two main reasons, outside of that, I would assume you're doing it wrong.&lt;/p&gt;
 
-<ol>
-<li>JavaScript, to find elements...</li>
-<li>JavaScript in external files where you can't write spaghetti code.</li>
-</ol>
+&lt;ol&gt;
+&lt;li&gt;JavaScript, to find elements...&lt;/li&gt;
+&lt;li&gt;JavaScript in external files where you can't write spaghetti code.&lt;/li&gt;
+&lt;/ol&gt;
 
-<p>What do I mean by spaghetti code? I mean this stuff:</p>
+&lt;p&gt;What do I mean by spaghetti code? I mean this stuff:&lt;/p&gt;
 
-<pre><code>&lt;%= txtUserName.ClientID %&gt;
-&lt;script type="text/javascript"&gt;
-  var element = $('#&lt;%= txtUserName.ClientID %&gt;');
-  var textbox = document.getElementById('&lt;%= txtUserName.ClientID %&gt;');
-&lt;/script&gt;
-</code></pre>
+&lt;pre&gt;&lt;code&gt;&amp;lt;%= txtUserName.ClientID %&amp;gt;
+&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
+  var element = $('#&amp;lt;%= txtUserName.ClientID %&amp;gt;');
+  var textbox = document.getElementById('&amp;lt;%= txtUserName.ClientID %&amp;gt;');
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>I absolutely detest seeing this sort of thing. It makes me sick, and worst of all you can't pull this sort of code back to an external js file. In Web Forms, spaghetti coding is NOT your presentation, your server control is your presentation, the spaghetti code is your binding, and this should be in the codebehind.</p>
+&lt;p&gt;I absolutely detest seeing this sort of thing. It makes me sick, and worst of all you can't pull this sort of code back to an external js file. In Web Forms, spaghetti coding is NOT your presentation, your server control is your presentation, the spaghetti code is your binding, and this should be in the codebehind.&lt;/p&gt;
 
 
       <p><a href="/2010/12/i-love-clean-client-ids-especially-with-net-2-0/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2010/12/moq-using-params-in-the-returns/">Moq-Using Params in the Returns</a> 
         <span>posted on 06 Dec 2010</span>
       </h1> 
-      <p>Had an interesting scenario to solve today, while I was away a bunch of unit tests got turned off since they broke during some refactoring, I spent the day fixing theses unit tests.</p>
+      &lt;p&gt;Had an interesting scenario to solve today, while I was away a bunch of unit tests got turned off since they broke during some refactoring, I spent the day fixing theses unit tests.&lt;/p&gt;
 
-<p>The method under test had a dependency on another class, it performed two actions on this class.</p>
+&lt;p&gt;The method under test had a dependency on another class, it performed two actions on this class.&lt;/p&gt;
 
-<ol>
-<li>to get a list of data</li>
-<li>to return a DateRange (this is done in a foreach loop)</li>
-</ol>
+&lt;ol&gt;
+&lt;li&gt;to get a list of data&lt;/li&gt;
+&lt;li&gt;to return a DateRange (this is done in a foreach loop)&lt;/li&gt;
+&lt;/ol&gt;
 
-<p>DateRange is just a class with a start/end property of DateTime. The method is sort of like this (obviously with proper names I just wrote some random code to illustrate the scenario)</p>
+&lt;p&gt;DateRange is just a class with a start/end property of DateTime. The method is sort of like this (obviously with proper names I just wrote some random code to illustrate the scenario)&lt;/p&gt;
 
-<pre><code>public IEnumerable&lt;Stuff&gt; GetStuff(DateTime dateList)
+&lt;pre&gt;&lt;code&gt;public IEnumerable&amp;lt;Stuff&amp;gt; GetStuff(DateTime dateList)
 {
-    var result = new List&lt;Stuff&gt;();
-    var someService = IoC.Resolve&lt;ISomeService&gt;();
+    var result = new List&amp;lt;Stuff&amp;gt;();
+    var someService = IoC.Resolve&amp;lt;ISomeService&amp;gt;();
     var data = someService.GetData();
 
     foreach (var date in dateList)
@@ -244,60 +256,39 @@ WHERE [t1].[value] = 'Robert Williams'
 
     return result;
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>So the same service is called twice, the issue is when iterating over the dateList, it needs to be filtered based on a DateRange during the day. So say, 8am till 10pm. Removing the stuff outside of that time period during that day.</p>
+&lt;p&gt;So the same service is called twice, the issue is when iterating over the dateList, it needs to be filtered based on a DateRange during the day. So say, 8am till 10pm. Removing the stuff outside of that time period during that day.&lt;/p&gt;
 
 
       <p><a href="/2010/12/moq-using-params-in-the-returns/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2010/12/yay-for-nhibernate-3-0/">Yay for NHibernate 3.0</a> 
         <span>posted on 05 Dec 2010</span>
       </h1> 
-      <p>So happy. NHibernate 3.0 just got released.</p>
+      &lt;p&gt;So happy. NHibernate 3.0 just got released.&lt;/p&gt;
 
-<p><a href="http://nhforge.org/blogs/nhibernate/archive/2010/12/05/nhibernate-3-0-released.aspx">http://nhforge.org/blogs/nhibernate/archive/2010/12/05/nhibernate-3-0-released.aspx</a></p>
+&lt;p&gt;&lt;a href=&quot;http://nhforge.org/blogs/nhibernate/archive/2010/12/05/nhibernate-3-0-released.aspx&quot;&gt;http://nhforge.org/blogs/nhibernate/archive/2010/12/05/nhibernate-3-0-released.aspx&lt;/a&gt;&lt;/p&gt;
 
-<p>Now to wait for Fluent to be updated and a repository to be shoved on NuGet.</p>
+&lt;p&gt;Now to wait for Fluent to be updated and a repository to be shoved on NuGet.&lt;/p&gt;
 
       <p><a href="/2010/12/yay-for-nhibernate-3-0/">Read more...</a></p>
     </li>
-    
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2010/12/sydney-alt-net-with-udi-dahan-and-nservicebus-commercial-support/">Sydney Alt.Net with Udi Dahan and NServiceBus Commercial Support</a> 
-        <span>posted on 01 Dec 2010</span>
-      </h1> 
-      <p><span class="note"><strong>Note:</strong> Update 31-12-2012 - This is a really old post and the licensing described in here no longer applies. Please visit <a href="http://nservicebus.com/">http://nservicebus.com/</a></span></p>
-
-<p>Last night I attended the <a href="http://sydney.ozalt.net/">Sydney Alt.Net</a> user group since <a href="http://www.udidahan.com/">Udi Dahan</a> was attending. There was no specific topic, it was an open questions/answers session with Udi. If you're interested you can watch it <a href="http://sydney.ozalt.net/2010/11/november-meeting-recorded-for-your.html">here</a>.</p>
-
-<p>The thing that interested me most was to do with <a href="http://www.nservicebus.com/">NServiceBus</a> commercial support (<em>1 hour 23 minutes in the video if you want to skip ahead</em>). Initially I thought that it was going from Open Source to requiring a license, a license I wouldn't be able to afford for my hobby projects, however someone asked about the licensing.</p>
-
-
-      <p><a href="/2010/12/sydney-alt-net-with-udi-dahan-and-nservicebus-commercial-support/">Read more...</a></p>
-    </li>
-    
   </ul> 
 
   <!-- Pagination links -->
   <div id="post-pagination" class="pagination">
 
-    
     <p class="previous">
       <a href="/page9">Previous Page</a>
     </p>
-    
-    
 
-    
+
     <p class="next">
       <a href="/page11">Next Page</a>
     </p>
-    
 
   </div>
 
@@ -353,77 +344,42 @@ WHERE [t1].[value] = 'Robert Williams'
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

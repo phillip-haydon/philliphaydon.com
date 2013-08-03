@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -34,84 +34,112 @@
                   
 
   <ul class="posts">
-    
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/10/website-folder-structure-css-files-does-anyone-care-i-do/">Website Folder Structure? CSS Files? Does anyone care? I do...</a> 
+        <span>posted on 17 Oct 2011</span>
+      </h1> 
+      &lt;p&gt;When we build website's, more often than not we have: Separation of Concerns. Even if at most it's just basic 3-tier Architecture&lt;/p&gt;
+
+&lt;p&gt;What annoys me though is a lot of time no one ever thinks about separation of concerns when it comes to the folder structure of their website, and where things go.&lt;/p&gt;
+
+&lt;h2&gt;Folders&lt;/h2&gt;
+
+&lt;p&gt;The one thing that annoys me above all else, is when 'layout images' (images for layout, design, styling etc) of the website, are shoved into the same folder that holds what I call &quot;Content Images&quot;.&lt;/p&gt;
+
+&lt;p&gt;For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root/ 
+root/css/ 
+root/images/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What I prefer to do is structure it so the css folder has it's own images folder, specifically for layout images.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root/ 
+root/css/ 
+root/css/images/ 
+root/images
+&lt;/code&gt;&lt;/pre&gt;
+
+
+      <p><a href="/2011/10/website-folder-structure-css-files-does-anyone-care-i-do/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/09/the-benefits-of-letting-the-orm-generate-the-identity-part-1/">The benefits of letting the ORM generate the Identity (part 1)</a> 
         <span>posted on 22 Sep 2011</span>
       </h1> 
-      <p>One thing I've learnt is that letting the database generate the identity for you is a bad thing. It always annoyed me that Oracle never gave a feature like <a href="http://dev.mysql.com/doc/refman/5.0/en/example-auto-increment.html">AUTO_INCREMENT</a> in MySQL or <a href="http://msdn.microsoft.com/en-us/library/aa933196(SQL.80).aspx">IDENTITY</a> in SQL Server. I never understood, when inserting data how do I give it an Id?</p>
+      &lt;p&gt;One thing I've learnt is that letting the database generate the identity for you is a bad thing. It always annoyed me that Oracle never gave a feature like &lt;a href=&quot;http://dev.mysql.com/doc/refman/5.0/en/example-auto-increment.html&quot;&gt;AUTO_INCREMENT&lt;/a&gt; in MySQL or &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/aa933196(SQL.80).aspx&quot;&gt;IDENTITY&lt;/a&gt; in SQL Server. I never understood, when inserting data how do I give it an Id?&lt;/p&gt;
 
-<p>Well one of the benefits of ORMs such as NHibernate is we can generate the identity our-self, or rather, the ORM can generate it so we don't rely on the database. This also plays a major part in our code base when we insert a graph or batch of data and how the identity is added to our object.</p>
+&lt;p&gt;Well one of the benefits of ORMs such as NHibernate is we can generate the identity our-self, or rather, the ORM can generate it so we don't rely on the database. This also plays a major part in our code base when we insert a graph or batch of data and how the identity is added to our object.&lt;/p&gt;
 
-<p>Ayende <a href="http://ayende.com/blog/3915/nhibernate-avoid-identity-generator-when-possible">recommend avoiding identity</a>.</p>
+&lt;p&gt;Ayende &lt;a href=&quot;http://ayende.com/blog/3915/nhibernate-avoid-identity-generator-when-possible&quot;&gt;recommend avoiding identity&lt;/a&gt;.&lt;/p&gt;
 
-<p>The thing with using SQL Server"s identity is that we need to select the identity back out after we do an insert. Not only that, when using <a href="http://msdn.microsoft.com/en-us/library/ms190348.aspx">NEWID()</a>/<a href="http://msdn.microsoft.com/en-us/library/ms189786.aspx">NEWSEQUENTIALID()</a> there is no way to select the value back other than using all the fields in a select in order to get the GUID relates to the record with all those values matching.</p>
+&lt;p&gt;The thing with using SQL Server&quot;s identity is that we need to select the identity back out after we do an insert. Not only that, when using &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/ms190348.aspx&quot;&gt;NEWID()&lt;/a&gt;/&lt;a href=&quot;http://msdn.microsoft.com/en-us/library/ms189786.aspx&quot;&gt;NEWSEQUENTIALID()&lt;/a&gt; there is no way to select the value back other than using all the fields in a select in order to get the GUID relates to the record with all those values matching.&lt;/p&gt;
 
-<p>For example:</p>
+&lt;p&gt;For example:&lt;/p&gt;
 
-<p>Given this rather simple table using IDENTITY.</p>
+&lt;p&gt;Given this rather simple table using IDENTITY.&lt;/p&gt;
 
-<pre><code>CREATE TABLE People
+&lt;pre&gt;&lt;code&gt;CREATE TABLE People
 (
     Id int NOT NULL IDENTITY (1, 1) PRIMARY KEY,
     FirstName nvarchar(100) NOT NULL,
     Surname nvarchar(100) NOT NULL
 )
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
 
       <p><a href="/2011/09/the-benefits-of-letting-the-orm-generate-the-identity-part-1/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators-part-2/">Fluent NHibernate - Table Inheritance - Discriminators (Part 2)</a> 
         <span>posted on 22 Aug 2011</span>
       </h1> 
-      <p>This is part two, to my post about <a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators/">Table Inheritance using Discriminators</a>, in this post I just want to demonstrate the outcome when the sub-classes have their own properties, or possibly a property that maps to the same column.</p>
+      &lt;p&gt;This is part two, to my post about &lt;a href=&quot;/2011/08/fluent-nhibernate-table-inheritance-discriminators/&quot;&gt;Table Inheritance using Discriminators&lt;/a&gt;, in this post I just want to demonstrate the outcome when the sub-classes have their own properties, or possibly a property that maps to the same column.&lt;/p&gt;
 
-<p>First thing however is Mark Perry pointed out in the comments that specifying a value for the baseClassDiscriminator will force it to store the value in the database as an INT rather than a a VARCHAR.</p>
+&lt;p&gt;First thing however is Mark Perry pointed out in the comments that specifying a value for the baseClassDiscriminator will force it to store the value in the database as an INT rather than a a VARCHAR.&lt;/p&gt;
 
-<pre><code>DiscriminateSubClassesOnColumn("PostType", 0);
-</code></pre>
+&lt;pre&gt;&lt;code&gt;DiscriminateSubClassesOnColumn(&quot;PostType&quot;, 0);
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This will create the table with an INT like so:</p>
+&lt;p&gt;This will create the table with an INT like so:&lt;/p&gt;
 
-<pre><code>create table WallPost (
+&lt;pre&gt;&lt;code&gt;create table WallPost (
   Id         UNIQUEIDENTIFIER   not null,
   PostType   INT   not null,
   DatePosted DATETIME   null,
   Title      NVARCHAR(255)   null,
   Content    NVARCHAR(255)   null,
     primary key ( Id ))
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Maybe INT is too big however, maybe we only want a SMALLINT? That will give us 32k sub-classes...</p>
+&lt;p&gt;Maybe INT is too big however, maybe we only want a SMALLINT? That will give us 32k sub-classes...&lt;/p&gt;
 
-<pre><code>DiscriminateSubClassesOnColumn("PostType", (short)0);
-</code></pre>
+&lt;pre&gt;&lt;code&gt;DiscriminateSubClassesOnColumn(&quot;PostType&quot;, (short)0);
+&lt;/code&gt;&lt;/pre&gt;
 
 
       <p><a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators-part-2/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/08/nhibernate-work-around-is-not-really-a-work-around/">NHibernate Work-Around is not really a Work-Around...</a> 
         <span>posted on 15 Aug 2011</span>
       </h1> 
-      <p>Over the weekend I came across a blog post about NHibernate, and an apparent work-around for a feature not supported by NHibernate.</p>
+      &lt;p&gt;Over the weekend I came across a blog post about NHibernate, and an apparent work-around for a feature not supported by NHibernate.&lt;/p&gt;
 
-<p>The original post can be found here: <a href="http://www.arrangeactassert.com/nhibernate-linq-workaround-for-system-notsupportedexception/">nHibernate LINQ workaround for System.NotSupportedException</a></p>
+&lt;p&gt;The original post can be found here: &lt;a href=&quot;http://www.arrangeactassert.com/nhibernate-linq-workaround-for-system-notsupportedexception/&quot;&gt;nHibernate LINQ workaround for System.NotSupportedException&lt;/a&gt;&lt;/p&gt;
 
-<p>Basically the author wanted to write something along the lines of:</p>
+&lt;p&gt;Basically the author wanted to write something along the lines of:&lt;/p&gt;
 
-<pre><code>var fruitIds = new List&lt;int&gt; { 5, 8, 13 };
+&lt;pre&gt;&lt;code&gt;var fruitIds = new List&amp;lt;int&amp;gt; { 5, 8, 13 };
 
 using (var session = factory.OpenSession())
 {
-    var result = from f in session.Query&lt;NHFruit&gt;()
+    var result = from f in session.Query&amp;lt;NHFruit&amp;gt;()
                  join i in fruitIds
                      on f.Id equals i
                  select f;
@@ -119,63 +147,61 @@ using (var session = factory.OpenSession())
     foreach (var fruit in result)
         Console.WriteLine(fruit.Name);
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Where the query joins to a list of Ids to filter the results out. This however, happens to throw an exception:</p>
+&lt;p&gt;Where the query joins to a list of Ids to filter the results out. This however, happens to throw an exception:&lt;/p&gt;
 
 
       <p><a href="/2011/08/nhibernate-work-around-is-not-really-a-work-around/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/08/mvc-routing-with-attributes-makes-routing-awesome/">MVC Routing with Attributes makes routing awesome</a> 
         <span>posted on 09 Aug 2011</span>
       </h1> 
-      <p>I evaluated HEAPS of code/libraries and threw in the towel and decided that getting lower-case routes, while still having Area's, was a complete and utter waste of time and effort because they were all crappy, and broke stuff, or didn't work.</p>
+      &lt;p&gt;I evaluated HEAPS of code/libraries and threw in the towel and decided that getting lower-case routes, while still having Area's, was a complete and utter waste of time and effort because they were all crappy, and broke stuff, or didn't work.&lt;/p&gt;
 
-<p>That was until my mate Brad grabbed <a href="https://github.com/mccalltd/AttributeRouting">AttributeRouting</a> from <a href="http://nuget.org/List/Packages/AttributeRouting">Nuget</a>. Oh well you know what, this is the best thing sliced bread.</p>
+&lt;p&gt;That was until my mate Brad grabbed &lt;a href=&quot;https://github.com/mccalltd/AttributeRouting&quot;&gt;AttributeRouting&lt;/a&gt; from &lt;a href=&quot;http://nuget.org/List/Packages/AttributeRouting&quot;&gt;Nuget&lt;/a&gt;. Oh well you know what, this is the best thing sliced bread.&lt;/p&gt;
 
-<p>First and foremost, it solved the number 1 issue I had with routing, lowercase Urls. This is how simple is it to make Routes lowercase.</p>
+&lt;p&gt;First and foremost, it solved the number 1 issue I had with routing, lowercase Urls. This is how simple is it to make Routes lowercase.&lt;/p&gt;
 
-<pre><code>routes.MapAttributeRoutes(config =&gt;
+&lt;pre&gt;&lt;code&gt;routes.MapAttributeRoutes(config =&amp;gt;
 {
     config.UseLowercaseRoutes = true;
 });
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Wow... Yet you bing for lowercase routes, and you end up with strange solutions... Here's a couple.</p>
+&lt;p&gt;Wow... Yet you bing for lowercase routes, and you end up with strange solutions... Here's a couple.&lt;/p&gt;
 
-<p><a href="http://stackoverflow.com/questions/878578/how-can-i-have-lowercase-routes-in-asp-net-mvc">http://stackoverflow.com/questions/878578/how-can-i-have-lowercase-routes-in-asp-net-mvc</a></p>
+&lt;p&gt;&lt;a href=&quot;http://stackoverflow.com/questions/878578/how-can-i-have-lowercase-routes-in-asp-net-mvc&quot;&gt;http://stackoverflow.com/questions/878578/how-can-i-have-lowercase-routes-in-asp-net-mvc&lt;/a&gt;&lt;/p&gt;
 
-<p>This question links to:</p>
+&lt;p&gt;This question links to:&lt;/p&gt;
 
-<p><a href="http://coderjournal.com/2008/03/force-mvc-route-url-lowercase/">http://coderjournal.com/2008/03/force-mvc-route-url-lowercase/</a></p>
+&lt;p&gt;&lt;a href=&quot;http://coderjournal.com/2008/03/force-mvc-route-url-lowercase/&quot;&gt;http://coderjournal.com/2008/03/force-mvc-route-url-lowercase/&lt;/a&gt;&lt;/p&gt;
 
-<p>This breaks Area's, why? Because to handle an Area it appends <code>?Area=areaname</code> to the Url. FAIL. Probably worked great for MVC 1,but considering I've seen it linked in MVC 3 questions,I consider it fail.</p>
+&lt;p&gt;This breaks Area's, why? Because to handle an Area it appends &lt;code&gt;?Area=areaname&lt;/code&gt; to the Url. FAIL. Probably worked great for MVC 1,but considering I've seen it linked in MVC 3 questions,I consider it fail.&lt;/p&gt;
 
 
       <p><a href="/2011/08/mvc-routing-with-attributes-makes-routing-awesome/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators/">Fluent NHibernate - Table Inheritance - Discriminators</a> 
         <span>posted on 08 Aug 2011</span>
       </h1> 
-      <p>So a long time ago <a href="http://jameskovacs.com/">James Kovacs</a> posted a article about <a href="http://nhforge.org/blogs/nhibernate/archive/2011/02/16/get-load-polymorphism-in-nhibernate-3.aspx">get/load polymorphism</a> with NHibernate, which was cool and all but I always wanted to know how to map it all in Fluent NHibernate. I worked it out at the time but I guess it's taken me 7 months to write it down.</p>
+      &lt;p&gt;So a long time ago &lt;a href=&quot;http://jameskovacs.com/&quot;&gt;James Kovacs&lt;/a&gt; posted a article about &lt;a href=&quot;http://nhforge.org/blogs/nhibernate/archive/2011/02/16/get-load-polymorphism-in-nhibernate-3.aspx&quot;&gt;get/load polymorphism&lt;/a&gt; with NHibernate, which was cool and all but I always wanted to know how to map it all in Fluent NHibernate. I worked it out at the time but I guess it's taken me 7 months to write it down.&lt;/p&gt;
 
-<p>First up is using a single table, mapping them to multiple classes, this is done using a discriminator. Fluent NHibernate calls this 'table-per-class-hierarchy strategy', which doesn't make sense to me. But meh.</p>
+&lt;p&gt;First up is using a single table, mapping them to multiple classes, this is done using a discriminator. Fluent NHibernate calls this 'table-per-class-hierarchy strategy', which doesn't make sense to me. But meh.&lt;/p&gt;
 
-<p>So I'm going to begin with the following classes to demonstrate this:</p>
+&lt;p&gt;So I'm going to begin with the following classes to demonstrate this:&lt;/p&gt;
 
-<p><img src="/images/fnh-descrim-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/fnh-descrim-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>So if I was to select all WallPost's it would give me instances of LinkShare, and Text wall posts.</p>
+&lt;p&gt;So if I was to select all WallPost's it would give me instances of LinkShare, and Text wall posts.&lt;/p&gt;
 
-<p>These classes are really basic at the moment.</p>
+&lt;p&gt;These classes are really basic at the moment.&lt;/p&gt;
 
-<pre><code>public class WallPost
+&lt;pre&gt;&lt;code&gt;public class WallPost
 {
     public virtual Guid Id { get; set; }
     public virtual DateTime DatePosted { get; set; }
@@ -190,100 +216,96 @@ public class TextWallPost : WallPost
 public class LinkShareWallPost : WallPost
 {
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
 
       <p><a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/07/mvc-areas-routes-order-of-routes-matter/">MVC +Areas + Routes... Order of Routes Matter!</a> 
         <span>posted on 27 Jul 2011</span>
       </h1> 
-      <p>The order in which routes are registered, really is pretty damn important, otherwise it can have really strange side-effects.</p>
+      &lt;p&gt;The order in which routes are registered, really is pretty damn important, otherwise it can have really strange side-effects.&lt;/p&gt;
 
-<p>I have a site, which has 3 areas, and no default... 'non-area'.</p>
+&lt;p&gt;I have a site, which has 3 areas, and no default... 'non-area'.&lt;/p&gt;
 
-<ul>
-<li>Admin</li>
-<li>Members</li>
-<li>Site</li>
-</ul>
+&lt;ul&gt;
+&lt;li&gt;Admin&lt;/li&gt;
+&lt;li&gt;Members&lt;/li&gt;
+&lt;li&gt;Site&lt;/li&gt;
+&lt;/ul&gt;
 
-<p>So rather than having the structure:</p>
+&lt;p&gt;So rather than having the structure:&lt;/p&gt;
 
-<p><img src="/images/mvc-routes-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/mvc-routes-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Where the root/default site is in the main directory, with two areas. I wanted this structure:</p>
+&lt;p&gt;Where the root/default site is in the main directory, with two areas. I wanted this structure:&lt;/p&gt;
 
-<p><img src="/images/mvc-routes-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/mvc-routes-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>So no root/default, and just a 'Site' area which would be the default.</p>
+&lt;p&gt;So no root/default, and just a 'Site' area which would be the default.&lt;/p&gt;
 
-<p><span class="note"><strong>Note:</strong>The default route is removed from Global.asax... for now</span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt;The default route is removed from Global.asax... for now&lt;/span&gt;&lt;/p&gt;
 
 
       <p><a href="/2011/07/mvc-areas-routes-order-of-routes-matter/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/07/nservicebus-video-on-dnrtv/">NServiceBus Video on dnrTV</a> 
         <span>posted on 19 Jul 2011</span>
       </h1> 
-      <p>Good introduction video on dnrTV with Udi Dahan for getting started with NServiceBus.</p>
+      &lt;p&gt;Good introduction video on dnrTV with Udi Dahan for getting started with NServiceBus.&lt;/p&gt;
 
-<p>It's pretty recent too, June 23rd, 2011.</p>
+&lt;p&gt;It's pretty recent too, June 23rd, 2011.&lt;/p&gt;
 
-<blockquote>
-  <p><strong>Udi Dahan on NServiceBus</strong>  </p>
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Udi Dahan on NServiceBus&lt;/strong&gt;  &lt;/p&gt;
   
-  <p>Udi Dahan shows you how to use the fabulous NServiceBus to provide reliable messaging using both a request/response and publish/subscribe architecture. He shows how much easier it is to use NServiceBus than to use WCF for reliable messaging.</p>
-</blockquote>
+  &lt;p&gt;Udi Dahan shows you how to use the fabulous NServiceBus to provide reliable messaging using both a request/response and publish/subscribe architecture. He shows how much easier it is to use NServiceBus than to use WCF for reliable messaging.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-<p><a href="http://dnrtv.com/default.aspx?ShowID=202">http://dnrtv.com/default.aspx?ShowID=202</a></p>
+&lt;p&gt;&lt;a href=&quot;http://dnrtv.com/default.aspx?ShowID=202&quot;&gt;http://dnrtv.com/default.aspx?ShowID=202&lt;/a&gt;&lt;/p&gt;
 
       <p><a href="/2011/07/nservicebus-video-on-dnrtv/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/07/getting-started-nservicebus-with-multiple-startup-projects/">Getting Started - NServiceBus with Multiple Startup Projects</a> 
         <span>posted on 11 Jul 2011</span>
       </h1> 
-      <p>I never actually realized this, but one of the things that baffled me was how Udi Dahan, when giving his training, or when playing with the NServiceBus demo's... How multiple projected were started.</p>
+      &lt;p&gt;I never actually realized this, but one of the things that baffled me was how Udi Dahan, when giving his training, or when playing with the NServiceBus demo's... How multiple projected were started.&lt;/p&gt;
 
-<p>It actually made implementing NServiceBus somewhat difficult for me to begin with, because I never knew Visual Studio had a feature to specify multiple projects as startup projects.</p>
+&lt;p&gt;It actually made implementing NServiceBus somewhat difficult for me to begin with, because I never knew Visual Studio had a feature to specify multiple projects as startup projects.&lt;/p&gt;
 
-<p><img src="/images/getting-started-nservicebus-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/getting-started-nservicebus-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>If you right click a Solution and go to 'Properties' you are presented with the above window.</p>
+&lt;p&gt;If you right click a Solution and go to 'Properties' you are presented with the above window.&lt;/p&gt;
 
-<p>In "Startup Project" there's an option to select multiple projects, this solution which is a NServiceBus demo, shows 3 projects set to start.</p>
+&lt;p&gt;In &quot;Startup Project&quot; there's an option to select multiple projects, this solution which is a NServiceBus demo, shows 3 projects set to start.&lt;/p&gt;
 
 
       <p><a href="/2011/07/getting-started-nservicebus-with-multiple-startup-projects/">Read more...</a></p>
     </li>
-    
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2011/06/hide-show-buttons-with-sencha-touch/">Hide & Show Buttons with Sencha Touch</a> 
+        <a href="/2011/06/hide-show-buttons-with-sencha-touch/">Hide &amp; Show Buttons with Sencha Touch</a> 
         <span>posted on 12 Jun 2011</span>
       </h1> 
-      <p>I'm currently building a demo for work using <a href="http://www.sencha.com/products/touch/">Sencha Touch mobile JavaScript framework</a>, and needed to change the state of some buttons dependent on which 'card' is shown.</p>
+      &lt;p&gt;I'm currently building a demo for work using &lt;a href=&quot;http://www.sencha.com/products/touch/&quot;&gt;Sencha Touch mobile JavaScript framework&lt;/a&gt;, and needed to change the state of some buttons dependent on which 'card' is shown.&lt;/p&gt;
 
-<p>The Doc Api is a little hard to follow in my opinion, but I eventually worked it out.</p>
+&lt;p&gt;The Doc Api is a little hard to follow in my opinion, but I eventually worked it out.&lt;/p&gt;
 
-<p>In hindsight I guess I could have used a single button to do this, but I will demonstrate it with two.</p>
+&lt;p&gt;In hindsight I guess I could have used a single button to do this, but I will demonstrate it with two.&lt;/p&gt;
 
-<p>To demonstrate this I'm going to use a Panel, with the buttons to flick between the cards. Instead of using a TabPanel.</p>
+&lt;p&gt;To demonstrate this I'm going to use a Panel, with the buttons to flick between the cards. Instead of using a TabPanel.&lt;/p&gt;
 
-<p>So to start with I have a Panel, with a ToolBar docked to the bottom, a couple of buttons, and two cards.</p>
+&lt;p&gt;So to start with I have a Panel, with a ToolBar docked to the bottom, a couple of buttons, and two cards.&lt;/p&gt;
 
-<p><img src="/images/sencha-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/sencha-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<pre><code>var rootPanel;
+&lt;pre&gt;&lt;code&gt;var rootPanel;
 Ext.setup({
     onReady: function () {
         rootPanel = new Ext.Panel({
@@ -309,48 +331,24 @@ Ext.setup({
         });
     }
 });
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
 
       <p><a href="/2011/06/hide-show-buttons-with-sencha-touch/">Read more...</a></p>
     </li>
-    
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/06/joining-the-windows-phone-7-club/">Joining the Windows Phone 7 Club</a> 
-        <span>posted on 10 Jun 2011</span>
-      </h1> 
-      <p>Yesterday, my new Windows Phone 7 arrived. I ordered a HTC HD7 from eBay, since it's like $350 cheaper than buying it from an Australian retailer. Not only that it seems carriers aren't supporting WP7 too much yet, as two shopped that I enquired about the phone, both tried to talk me out of getting a WP7.</p>
-
-<p><img src="/images/windows-phone-club-1.png" alt="" /> <img src="/images/windows-phone-club-2.png" alt="" /></p>
-
-<p>(Photos from <a href="http://www.gsmarena.com/htc_hd7-pictures-3338.php">http://www.gsmarena.com/htc_hd7-pictures-3338.php</a>)</p>
-
-<p>It's definitely far superior to my iPhone4, after spending a night playing around with it, pretty much everything is better, in my opinion. (I will NEVER hand over money for an Apple product ever again.)</p>
-
-<p>The one flaw that Windows Phone 7 does have, is it's contact. Microsoft really dropped the ball on the contact, or 'People' as they call them. The idea is great, but it lacks the ability to sync contact with outlook with ease. Contact's are synced to... everything else.</p>
-
-
-      <p><a href="/2011/06/joining-the-windows-phone-7-club/">Read more...</a></p>
-    </li>
-    
   </ul> 
 
   <!-- Pagination links -->
   <div id="post-pagination" class="pagination">
 
-    
     <p class="previous">
       <a href="/page7">Previous Page</a>
     </p>
-    
-    
 
-    
+
     <p class="next">
       <a href="/page9">Next Page</a>
     </p>
-    
 
   </div>
 
@@ -406,77 +404,42 @@ Ext.setup({
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

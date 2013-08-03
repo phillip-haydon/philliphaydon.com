@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 14 Dec 2011
-      
-        | <a href="/category/ravendb">RavenDB</a>
-      
+       | <a href="/category/ravendb">RavenDB</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,19 +49,19 @@
       </div>
     </div>
         
-    <p>So after my initial post on <a href="/2011/12/ravendb-inheritance/">RavenDB Inheritance</a>, and the issue I had with polymorphic queries, and seeking help from the guys in <a href="http://jabbr.net/">JabbR</a> and the (RavenDB Google Group)[http://groups.google.com/group/ravendb/browse_thread/thread/c71df8f1cd92e04c], <a href="http://ayende.com/blog/">Ayende</a> ended up doing a screen cast with me where he solved all my problems.</p>
+    &lt;p&gt;So after my initial post on &lt;a href=&quot;/2011/12/ravendb-inheritance/&quot;&gt;RavenDB Inheritance&lt;/a&gt;, and the issue I had with polymorphic queries, and seeking help from the guys in &lt;a href=&quot;http://jabbr.net/&quot;&gt;JabbR&lt;/a&gt; and the (RavenDB Google Group)[http://groups.google.com/group/ravendb/browse_thread/thread/c71df8f1cd92e04c], &lt;a href=&quot;http://ayende.com/blog/&quot;&gt;Ayende&lt;/a&gt; ended up doing a screen cast with me where he solved all my problems.&lt;/p&gt;
 
-<p>One of the things he asked me was what I was trying to achieve by having a polymorphic query, which was a very good question, something I hadn't really thought about.</p>
+&lt;p&gt;One of the things he asked me was what I was trying to achieve by having a polymorphic query, which was a very good question, something I hadn't really thought about.&lt;/p&gt;
 
-<p>The problem I was trying to solve was actually displaying search results.</p>
+&lt;p&gt;The problem I was trying to solve was actually displaying search results.&lt;/p&gt;
 
-<h2>The Problem</h2>
+&lt;h2&gt;The Problem&lt;/h2&gt;
 
-<p>So I'm working on a personal project, and I need to display a few things which are similar, but different. There's 3 different types but I'll use two to keep it simple. I've also cut out most of the properties.</p>
+&lt;p&gt;So I'm working on a personal project, and I need to display a few things which are similar, but different. There's 3 different types but I'll use two to keep it simple. I've also cut out most of the properties.&lt;/p&gt;
 
-<p>So I have an abstract class Content, with two derived classes, Article and Video.</p>
+&lt;p&gt;So I have an abstract class Content, with two derived classes, Article and Video.&lt;/p&gt;
 
-<pre><code>public abstract class Content
+&lt;pre&gt;&lt;code&gt;public abstract class Content
 {
     public int Id { get; set; }
     public string Title { get; set; }
@@ -80,16 +78,16 @@ public class Video : Content
     public string Description { get; set; }
     public string VideoUrl { get; set; }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p>Then I initialize the DocumentStore and store a couple of documents.</p>
+&lt;p&gt;Then I initialize the DocumentStore and store a couple of documents.&lt;/p&gt;
 
-<pre><code>var documentStore =
+&lt;pre&gt;&lt;code&gt;var documentStore =
     (new DocumentStore()
             {
-                Url = "http://localhost:8080"
+                Url = &quot;http://localhost:8080&quot;
             }).Initialize();
 
 using (var session = documentStore.OpenSession())
@@ -97,31 +95,31 @@ using (var session = documentStore.OpenSession())
     session.Store(new Video
     {
         DatePublished = DateTime.Now,
-        Description = "Test Description for a Video",
-        Title = "Test Title for a Video",
-        VideoUrl = "http://www.youtube.com/watch?v=PGz9GokDkkg"
+        Description = &quot;Test Description for a Video&quot;,
+        Title = &quot;Test Title for a Video&quot;,
+        VideoUrl = &quot;http://www.youtube.com/watch?v=PGz9GokDkkg&quot;
     });
 
     session.Store(new Article
     {
         DatePublished = DateTime.Now,
-        Title = "Test Title for an Article",
-        HtmlContent = "Some content for the article..."
+        Title = &quot;Test Title for an Article&quot;,
+        HtmlContent = &quot;Some content for the article...&quot;
     });
 
     session.SaveChanges();
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This time I'm not using the Convention to store the two documents as 'Content', rather I'm allowing it to store them as what they are. This gives me a result in Raven like:</p>
+&lt;p&gt;This time I'm not using the Convention to store the two documents as 'Content', rather I'm allowing it to store them as what they are. This gives me a result in Raven like:&lt;/p&gt;
 
-<p><img src="/images/ravendb-inheritance-revisited-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-inheritance-revisited-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Now if I query for Video:</p>
+&lt;p&gt;Now if I query for Video:&lt;/p&gt;
 
-<pre><code>using (var session = documentStore.OpenSession())
+&lt;pre&gt;&lt;code&gt;using (var session = documentStore.OpenSession())
 {
-    var result = session.Query&lt;Video&gt;().ToList();
+    var result = session.Query&amp;lt;Video&amp;gt;().ToList();
 
     foreach (var content in result)
     {
@@ -129,29 +127,29 @@ using (var session = documentStore.OpenSession())
         Console.WriteLine(content.Title);
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>I get the output of the first Document.</p>
+&lt;p&gt;I get the output of the first Document.&lt;/p&gt;
 
-<p><img src="/images/ravendb-inheritance-revisited-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-inheritance-revisited-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Likewise if I select 'Article' I get the Article document that I previously stored.</p>
+&lt;p&gt;Likewise if I select 'Article' I get the Article document that I previously stored.&lt;/p&gt;
 
-<p>So how do I get a list of Content?</p>
+&lt;p&gt;So how do I get a list of Content?&lt;/p&gt;
 
-<h2>The Solution</h2>
+&lt;h2&gt;The Solution&lt;/h2&gt;
 
-<p>So, the solution is really, really easy, it's an index.</p>
+&lt;p&gt;So, the solution is really, really easy, it's an index.&lt;/p&gt;
 
-<p>The first thing Ayende showed me was creating the index in RavenDB Management Studio, then he showed me doing it in code. I'm just going to show it done in code.</p>
+&lt;p&gt;The first thing Ayende showed me was creating the index in RavenDB Management Studio, then he showed me doing it in code. I'm just going to show it done in code.&lt;/p&gt;
 
-<p>I created a class called 'All_Content' (with an underscore) like so:</p>
+&lt;p&gt;I created a class called 'All_Content' (with an underscore) like so:&lt;/p&gt;
 
-<pre><code>public class All_Content : AbstractMultiMapIndexCreationTask
+&lt;pre&gt;&lt;code&gt;public class All_Content : AbstractMultiMapIndexCreationTask
 {
     public All_Content()
     {
-        AddMap&lt;Article&gt;(articles =&gt; from article in articles
+        AddMap&amp;lt;Article&amp;gt;(articles =&amp;gt; from article in articles
                                     select new
                                     {
                                         article.Id,
@@ -159,7 +157,7 @@ using (var session = documentStore.OpenSession())
                                         article.DatePublished
                                     });
 
-        AddMap&lt;Video&gt;(videos =&gt; from video in videos
+        AddMap&amp;lt;Video&amp;gt;(videos =&amp;gt; from video in videos
                                 select new
                                 {
                                     video.Id,
@@ -168,30 +166,30 @@ using (var session = documentStore.OpenSession())
                                 });
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p><em>It reminds me of writing a Union View in SQL Server in some ways.</em> It basically maps to the Articles and Videos, but only selects the things I need. Those of which would actually be displayed to the screen or that are common between the two document types.</p>
+&lt;p&gt;&lt;em&gt;It reminds me of writing a Union View in SQL Server in some ways.&lt;/em&gt; It basically maps to the Articles and Videos, but only selects the things I need. Those of which would actually be displayed to the screen or that are common between the two document types.&lt;/p&gt;
 
-<p>Then I create the index right after I initialize the DocumentStore:</p>
+&lt;p&gt;Then I create the index right after I initialize the DocumentStore:&lt;/p&gt;
 
-<pre><code>IndexCreation.CreateIndexes(typeof(All_Content).Assembly, documentStore);
-</code></pre>
+&lt;pre&gt;&lt;code&gt;IndexCreation.CreateIndexes(typeof(All_Content).Assembly, documentStore);
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This creates the index in RavenDB for me.</p>
+&lt;p&gt;This creates the index in RavenDB for me.&lt;/p&gt;
 
-<p><img src="/images/ravendb-inheritance-revisited-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-inheritance-revisited-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>As you can see, even tho I specified the class index with an underscore, it converts it to All/Content, that's a really nice way of presenting it. I think it will go well for being able to create descriptive indexes in the future.</p>
+&lt;p&gt;As you can see, even tho I specified the class index with an underscore, it converts it to All/Content, that's a really nice way of presenting it. I think it will go well for being able to create descriptive indexes in the future.&lt;/p&gt;
 
-<p>And the index itself:</p>
+&lt;p&gt;And the index itself:&lt;/p&gt;
 
-<p><img src="/images/ravendb-inheritance-revisited-4.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-inheritance-revisited-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Now I need to actually query against the index. That's also really really easy. When I specify the type, I can specify the index with it:</p>
+&lt;p&gt;Now I need to actually query against the index. That's also really really easy. When I specify the type, I can specify the index with it:&lt;/p&gt;
 
-<pre><code>using (var session = documentStore.OpenSession())
+&lt;pre&gt;&lt;code&gt;using (var session = documentStore.OpenSession())
 {
-    var result = session.Query&lt;Content, All_Content&gt;().ToList();
+    var result = session.Query&amp;lt;Content, All_Content&amp;gt;().ToList();
 
     foreach (var content in result)
     {
@@ -199,35 +197,35 @@ using (var session = documentStore.OpenSession())
         Console.WriteLine(content.Title);
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Now when I run this I get the output:</p>
+&lt;p&gt;Now when I run this I get the output:&lt;/p&gt;
 
-<p><img src="/images/ravendb-inheritance-revisited-5.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-inheritance-revisited-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Awesome!</p>
+&lt;p&gt;Awesome!&lt;/p&gt;
 
-<p>The really interesting thing I found is that if I look at what's returned:</p>
+&lt;p&gt;The really interesting thing I found is that if I look at what's returned:&lt;/p&gt;
 
-<p><img src="/images/ravendb-inheritance-revisited-6.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-inheritance-revisited-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Are the correct CLR types that I originally defined. So I haven't lost all the additional fields by not defining them. I'm still learning but for now I assume it allows those fields to be searchable.</p>
+&lt;p&gt;Are the correct CLR types that I originally defined. So I haven't lost all the additional fields by not defining them. I'm still learning but for now I assume it allows those fields to be searchable.&lt;/p&gt;
 
-<h2>Extras</h2>
+&lt;h2&gt;Extras&lt;/h2&gt;
 
-<p>One of the additional things Ayende showed me was that you can include other documents that don't inherit from the base type. You can include those in the index map, and then rather than returning a concrete type, you can specify object, or dynamic.</p>
+&lt;p&gt;One of the additional things Ayende showed me was that you can include other documents that don't inherit from the base type. You can include those in the index map, and then rather than returning a concrete type, you can specify object, or dynamic.&lt;/p&gt;
 
-<pre><code>var result = session.Query&lt;dynamic, All_Content&gt;().ToList();
-</code></pre>
+&lt;pre&gt;&lt;code&gt;var result = session.Query&amp;lt;dynamic, All_Content&amp;gt;().ToList();
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>RavenDB is really powerful. It's truly amazing, and so much nicer to work with in .NET than other document databases like MongoDB.</p>
+&lt;p&gt;RavenDB is really powerful. It's truly amazing, and so much nicer to work with in .NET than other document databases like MongoDB.&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2011/12/ravendb-inheritance-revisited/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -239,11 +237,9 @@ using (var session = documentStore.OpenSession())
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -295,77 +291,42 @@ using (var session = documentStore.OpenSession())
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 22 Dec 2011
-      
-        | <a href="/category/ravendb">RavenDB</a>
-      
+       | <a href="/category/ravendb">RavenDB</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,210 +49,210 @@
       </div>
     </div>
         
-    <p>So, learning Map Reduce in RavenDB I decided that to take what I learnt from the index created in my previous post. I think I picked something rather difficult to begin with, but I've succeeded </p>
+    &lt;p&gt;So, learning Map Reduce in RavenDB I decided that to take what I learnt from the index created in my previous post. I think I picked something rather difficult to begin with, but I've succeeded &lt;/p&gt;
 
-<p>Given a document Article which has a collection of Tags.</p>
+&lt;p&gt;Given a document Article which has a collection of Tags.&lt;/p&gt;
 
-<p>I want to get a Count of each Tag across all Articles.</p>
+&lt;p&gt;I want to get a Count of each Tag across all Articles.&lt;/p&gt;
 
-<pre><code>public class Content
+&lt;pre&gt;&lt;code&gt;public class Content
 {
     public int Id { get; set; }
     public string Title { get; set; }
-    public IEnumerable&lt;Tag&gt; Tags { get; set; }
+    public IEnumerable&amp;lt;Tag&amp;gt; Tags { get; set; }
 }
 
 public class Tag
 {
     public string Name { get; set; }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p><span class="note"><strong>Note:</strong> Tag is it's own class because I added additional properties to it.</span></p>
+&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Tag is it's own class because I added additional properties to it.&lt;/span&gt;&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p>Now I insert some data:</p>
+&lt;p&gt;Now I insert some data:&lt;/p&gt;
 
-<pre><code>using (var session = documentStore.OpenSession())
+&lt;pre&gt;&lt;code&gt;using (var session = documentStore.OpenSession())
 {
     session.Store(new Content
     {
-        Title = "Test Title for a Video",
-        Tags = new List&lt;Tag&gt;
+        Title = &quot;Test Title for a Video&quot;,
+        Tags = new List&amp;lt;Tag&amp;gt;
         {
-            new Tag() {Name = "c#"},
-            new Tag() {Name = "autofac"},
-            new Tag() {Name = "asp.net"},
+            new Tag() {Name = &quot;c#&quot;},
+            new Tag() {Name = &quot;autofac&quot;},
+            new Tag() {Name = &quot;asp.net&quot;},
         }
     });
     session.Store(new Content
     {
-        Title = "Test Title for an Article",
-        Tags = new List&lt;Tag&gt;
+        Title = &quot;Test Title for an Article&quot;,
+        Tags = new List&amp;lt;Tag&amp;gt;
         {
-            new Tag() {Name = "c#"},
-            new Tag() {Name = "nhibernate"},
-            new Tag() {Name = "fluent-nhibernate"},
-            new Tag() {Name = "mvc"}
+            new Tag() {Name = &quot;c#&quot;},
+            new Tag() {Name = &quot;nhibernate&quot;},
+            new Tag() {Name = &quot;fluent-nhibernate&quot;},
+            new Tag() {Name = &quot;mvc&quot;}
         }
     });
     session.Store(new Content
     {
-        Title = "Test Title for an Article",
-        Tags = new List&lt;Tag&gt;
+        Title = &quot;Test Title for an Article&quot;,
+        Tags = new List&amp;lt;Tag&amp;gt;
         {
-            new Tag() {Name = "ravendb"},
-            new Tag() {Name = "asp.net"},
-            new Tag() {Name = "autofac"},
-            new Tag() {Name = "c#"}
+            new Tag() {Name = &quot;ravendb&quot;},
+            new Tag() {Name = &quot;asp.net&quot;},
+            new Tag() {Name = &quot;autofac&quot;},
+            new Tag() {Name = &quot;c#&quot;}
         }
     });
     session.SaveChanges();
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>So I'm expecting a count of:</p>
+&lt;p&gt;So I'm expecting a count of:&lt;/p&gt;
 
-<ul>
-<li>3 x c#</li>
-<li>2 x autofac</li>
-<li>2 x asp.net</li>
-<li>1 x ravendb</li>
-<li>1 x mvc</li>
-<li>1 x nhibernate</li>
-<li>1 x fluent-nhibernate</li>
-</ul>
+&lt;ul&gt;
+&lt;li&gt;3 x c#&lt;/li&gt;
+&lt;li&gt;2 x autofac&lt;/li&gt;
+&lt;li&gt;2 x asp.net&lt;/li&gt;
+&lt;li&gt;1 x ravendb&lt;/li&gt;
+&lt;li&gt;1 x mvc&lt;/li&gt;
+&lt;li&gt;1 x nhibernate&lt;/li&gt;
+&lt;li&gt;1 x fluent-nhibernate&lt;/li&gt;
+&lt;/ul&gt;
 
-<p>I'm going to pull these out with a defined type rather than dynamic/object, so I've created a new class with Count and Name:</p>
+&lt;p&gt;I'm going to pull these out with a defined type rather than dynamic/object, so I've created a new class with Count and Name:&lt;/p&gt;
 
-<pre><code>public class TagResult
+&lt;pre&gt;&lt;code&gt;public class TagResult
 {
     public int      Count   { get; set; }
     public string   Name    { get; set; }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>So creating a new Index:</p>
+&lt;p&gt;So creating a new Index:&lt;/p&gt;
 
-<pre><code>public class All_Tags : AbstractMultiMapIndexCreationTask&lt;TagResult&gt;
+&lt;pre&gt;&lt;code&gt;public class All_Tags : AbstractMultiMapIndexCreationTask&amp;lt;TagResult&amp;gt;
 {
     public All_Tags()
     {
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>The first thing I need to do is map out ONLY the Tag's, when I select out the Tag's, I'm also going to include another field called Count, with a default value of 1. This is so I can re-use it to sum the total number of times the tag is used.</p>
+&lt;p&gt;The first thing I need to do is map out ONLY the Tag's, when I select out the Tag's, I'm also going to include another field called Count, with a default value of 1. This is so I can re-use it to sum the total number of times the tag is used.&lt;/p&gt;
 
-<pre><code>AddMap&lt;Content&gt;(contents =&gt; from content in contents
+&lt;pre&gt;&lt;code&gt;AddMap&amp;lt;Content&amp;gt;(contents =&amp;gt; from content in contents
                             from tag in content.Tags
                             select new
                             {
                                 Name = tag.Name,
                                 Count = 1
                             });
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This would give me a result that contains duplicates for the tags. Along the lines of:</p>
+&lt;p&gt;This would give me a result that contains duplicates for the tags. Along the lines of:&lt;/p&gt;
 
-<table>
-  <tr>
-    <td>c#</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>c#</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>c#</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>autofac</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>autofac</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>asp.net</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>asp.net</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>ravendb</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>mvc</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>nhibernate</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>fluent-nhibernate</td>
-    <td>1</td>
-  </tr>
-</table>
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td&gt;c#&lt;/td&gt;
+    &lt;td&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;c#&lt;/td&gt;
+    &lt;td&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;c#&lt;/td&gt;
+    &lt;td&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;autofac&lt;/td&gt;
+    &lt;td&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;autofac&lt;/td&gt;
+    &lt;td&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;asp.net&lt;/td&gt;
+    &lt;td&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;asp.net&lt;/td&gt;
+    &lt;td&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;ravendb&lt;/td&gt;
+    &lt;td&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;mvc&lt;/td&gt;
+    &lt;td&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;nhibernate&lt;/td&gt;
+    &lt;td&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;fluent-nhibernate&lt;/td&gt;
+    &lt;td&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
 
-<p>So what I need to do in the Reduce, is group the tags together by their Name.</p>
+&lt;p&gt;So what I need to do in the Reduce, is group the tags together by their Name.&lt;/p&gt;
 
-<pre><code>Reduce = results =&gt; from result in results
+&lt;pre&gt;&lt;code&gt;Reduce = results =&amp;gt; from result in results
                     group result by result.Name into tag
                     select new
                     {
-                        Count = tag.Sum(x =&gt; x.Count),
+                        Count = tag.Sum(x =&amp;gt; x.Count),
                         Name = tag.Key,
                     };
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>So here, I group all the tags together by their name, but I also sum the 'count' value together to get the total number of times the tag is used.</p>
+&lt;p&gt;So here, I group all the tags together by their name, but I also sum the 'count' value together to get the total number of times the tag is used.&lt;/p&gt;
 
-<p>Now run up the app and view the index:</p>
+&lt;p&gt;Now run up the app and view the index:&lt;/p&gt;
 
-<p><img src="/images/ravendb-map-reduce-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-map-reduce-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Now if I query the index:</p>
+&lt;p&gt;Now if I query the index:&lt;/p&gt;
 
-<p><img src="/images/ravendb-map-reduce-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-map-reduce-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Awesome. Now to query this, I have to use the TagResult class defined previously, and the All_Tags index just created.</p>
+&lt;p&gt;Awesome. Now to query this, I have to use the TagResult class defined previously, and the All_Tags index just created.&lt;/p&gt;
 
-<pre><code>using (var session = documentStore.OpenSession())
+&lt;pre&gt;&lt;code&gt;using (var session = documentStore.OpenSession())
 {
-    var result = session.Query&lt;TagResult, All_Tags&gt;()
+    var result = session.Query&amp;lt;TagResult, All_Tags&amp;gt;()
                         .ToList();
     foreach (var tag in result)
     {
-        Console.WriteLine(tag.Count + " x " + tag.Name);
+        Console.WriteLine(tag.Count + &quot; x &quot; + tag.Name);
     }
 
     session.SaveChanges();
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Running this I get the following result:</p>
+&lt;p&gt;Running this I get the following result:&lt;/p&gt;
 
-<p><img src="/images/ravendb-map-reduce-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-map-reduce-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>The results I expected previously.</p>
+&lt;p&gt;The results I expected previously.&lt;/p&gt;
 
-<p>So there you have it. Map Reduce.</p>
+&lt;p&gt;So there you have it. Map Reduce.&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2011/12/ravendb-map-reduce/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -266,11 +264,9 @@ public class Tag
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -322,77 +318,42 @@ public class Tag
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

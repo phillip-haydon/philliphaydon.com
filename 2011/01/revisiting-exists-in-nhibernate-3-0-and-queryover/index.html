@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 19 Jan 2011
-      
-        | <a href="/category/nhibernate">NHibernate</a>
-      
+       | <a href="/category/nhibernate">NHibernate</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,25 +49,25 @@
       </div>
     </div>
         
-    <p>A while ago I wrote about <a href="http://www.philliphaydon.com/2010/09/queryover-with-nhibernate-3-lovin-it/">my experience with NHibernate 3.0 and Query over</a> by having a go at converting an application to NH3.0, and faced the challenge of writing a query which contained an 'exists' where clause. At the time my solution resulted in an 'in' clause since I couldn't work out how to do an exists.</p>
+    &lt;p&gt;A while ago I wrote about &lt;a href=&quot;http://www.philliphaydon.com/2010/09/queryover-with-nhibernate-3-lovin-it/&quot;&gt;my experience with NHibernate 3.0 and Query over&lt;/a&gt; by having a go at converting an application to NH3.0, and faced the challenge of writing a query which contained an 'exists' where clause. At the time my solution resulted in an 'in' clause since I couldn't work out how to do an exists.&lt;/p&gt;
 
-<p>Today at work I faced the same challenge, except this time I solved it  WOO Yay for solving things.</p>
+&lt;p&gt;Today at work I faced the same challenge, except this time I solved it  WOO Yay for solving things.&lt;/p&gt;
 
-<h2>The Problem</h2>
+&lt;h2&gt;The Problem&lt;/h2&gt;
 
-<p>We have a many-to-many relationship between Jobs and Roles. Which looks something along the lines of:</p>
+&lt;p&gt;We have a many-to-many relationship between Jobs and Roles. Which looks something along the lines of:&lt;/p&gt;
 
-<p><img src="/images/nhibernate-queryover-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-queryover-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>I cut a bunch of stuff out but you get the idea.</p>
+&lt;p&gt;I cut a bunch of stuff out but you get the idea.&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p>So what was required was on the screen was all the Jobs, you expand the Jobs and it lists all the Roles for that Job, sweet. When you add a new Role, it brings up a Drop Down List with all the Roles that are not assigned to the Job.</p>
+&lt;p&gt;So what was required was on the screen was all the Jobs, you expand the Jobs and it lists all the Roles for that Job, sweet. When you add a new Role, it brings up a Drop Down List with all the Roles that are not assigned to the Job.&lt;/p&gt;
 
-<p>The existing query was along the lines of:</p>
+&lt;p&gt;The existing query was along the lines of:&lt;/p&gt;
 
-<pre><code>SELECT   r.RoleId,
+&lt;pre&gt;&lt;code&gt;SELECT   r.RoleId,
          r.Name,
          r.IsEnabled,
          r.RoleType
@@ -79,33 +77,33 @@ WHERE    [IsEnabled] = 1
                               FROM   JobRole j
                               WHERE  j.JobId = 2
                                      AND j.RoleId != 1)
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This worked great, except it was hard coded in XML and someone added a new column,and it brokeded stuff. Good thing is we are migrating to Fluent NHibernate.</p>
+&lt;p&gt;This worked great, except it was hard coded in XML and someone added a new column,and it brokeded stuff. Good thing is we are migrating to Fluent NHibernate.&lt;/p&gt;
 
-<p>Now I could have written this query to be identical to the original,except I decided I wanted to get that damn exists working.</p>
+&lt;p&gt;Now I could have written this query to be identical to the original,except I decided I wanted to get that damn exists working.&lt;/p&gt;
 
-<h2>The Solution</h2>
+&lt;h2&gt;The Solution&lt;/h2&gt;
 
-<p>The first thing I noticed, which I did NOT see when i originally tried this back on Alpha was 'WhereExists'</p>
+&lt;p&gt;The first thing I noticed, which I did NOT see when i originally tried this back on Alpha was 'WhereExists'&lt;/p&gt;
 
-<p>My first attempt (<strong><em>which did NOT work</em></strong>) was as follows:</p>
+&lt;p&gt;My first attempt (&lt;strong&gt;&lt;em&gt;which did NOT work&lt;/em&gt;&lt;/strong&gt;) was as follows:&lt;/p&gt;
 
-<pre><code>var existing = QueryOver.Of&lt;JobRole&gt;()
-                        .Where(x =&gt; x.Job.JobId == jobId)
-                        .And(x =&gt; x.Role.RoleId != roleId)
-                        .Select(x =&gt; x.Role);
+&lt;pre&gt;&lt;code&gt;var existing = QueryOver.Of&amp;lt;JobRole&amp;gt;()
+                        .Where(x =&amp;gt; x.Job.JobId == jobId)
+                        .And(x =&amp;gt; x.Role.RoleId != roleId)
+                        .Select(x =&amp;gt; x.Role);
 
-result = Session.QueryOver&lt;Role&gt;()
-                .Where(x =&gt; x.IsEnabled)
+result = Session.QueryOver&amp;lt;Role&amp;gt;()
+                .Where(x =&amp;gt; x.IsEnabled)
                 .WithSubquery.WhereNotExists(existing)
-                .OrderBy(x =&gt; x.Name).Asc
+                .OrderBy(x =&amp;gt; x.Name).Asc
                 .List();
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This produced SQL that was relatively close! But the outer query wasn't filtering the sub query.</p>
+&lt;p&gt;This produced SQL that was relatively close! But the outer query wasn't filtering the sub query.&lt;/p&gt;
 
-<pre><code>SELECT   this_.RoleId          as RoleId4_0_,
+&lt;pre&gt;&lt;code&gt;SELECT   this_.RoleId          as RoleId4_0_,
          this_.Name            as Name4_0_,
          this_.IsEnabled       as IsEnabled4_0_,
          this_.RoleType        as RoleType4_0_
@@ -115,27 +113,27 @@ WHERE    this_.IsEnabled = 1 /* @p0 */
                          FROM   JobRole this_0_
                          WHERE  this_0_.JobId = 4 /* @p1 */
                                 and not (this_0_.RoleId = 0 /* @p2 */))
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>So I created an alias (<strong><em>which did work</em></strong>) like so:</p>
+&lt;p&gt;So I created an alias (&lt;strong&gt;&lt;em&gt;which did work&lt;/em&gt;&lt;/strong&gt;) like so:&lt;/p&gt;
 
-<pre><code>Role roleAlias = null;
-var existing = QueryOver.Of&lt;JobRole&gt;()
-                        .Where(x =&gt; x.Job.JobId == jobId)
-                        .And(x =&gt; x.Role.RoleId != roleId)
-                        .And(x =&gt; x.Role.RoleId == roleAlias.RoleId)
-                        .Select(x =&gt; x.Role);
+&lt;pre&gt;&lt;code&gt;Role roleAlias = null;
+var existing = QueryOver.Of&amp;lt;JobRole&amp;gt;()
+                        .Where(x =&amp;gt; x.Job.JobId == jobId)
+                        .And(x =&amp;gt; x.Role.RoleId != roleId)
+                        .And(x =&amp;gt; x.Role.RoleId == roleAlias.RoleId)
+                        .Select(x =&amp;gt; x.Role);
 
-result = Session.QueryOver&lt;Role&gt;(() =&gt; roleAlias)
-                .Where(x =&gt; x.IsEnabled)
+result = Session.QueryOver&amp;lt;Role&amp;gt;(() =&amp;gt; roleAlias)
+                .Where(x =&amp;gt; x.IsEnabled)
                 .WithSubquery.WhereNotExists(existing)
-                .OrderBy(x =&gt; x.Name).Asc
+                .OrderBy(x =&amp;gt; x.Name).Asc
                 .List();
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>The alias is null to begin with, and I use it in the detached query (the 2nd And), then when I create the outer query which will be my results, I create the alias by specifying it in the QueryOver. This wires up the SQL to use the outer query to filter the sub query like so:</p>
+&lt;p&gt;The alias is null to begin with, and I use it in the detached query (the 2nd And), then when I create the outer query which will be my results, I create the alias by specifying it in the QueryOver. This wires up the SQL to use the outer query to filter the sub query like so:&lt;/p&gt;
 
-<pre><code>SELECT   this_.RoleId          as RoleId4_0_,
+&lt;pre&gt;&lt;code&gt;SELECT   this_.RoleId          as RoleId4_0_,
          this_.Name            as Name4_0_,
          this_.IsEnabled       as IsEnabled4_0_,
          this_.RoleType        as RoleType4_0_
@@ -146,16 +144,16 @@ WHERE    this_.IsEnabled = 1 /* @p0 */
                          WHERE  this_0_.JobId = 4 /* @p1 */
                                 and not (this_0_.RoleId = 0 /* @p2 */)
                                 and this_0_.RoleId = this_.RoleId)
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>So it turns out it's actually really easy, I just wish there was more documentation on this stuff since books like <a href="https://www.packtpub.com/nhibernate-3-0-cookbook/book">NHibernate 3.0 Cookbook</a> fail at giving any real detail on NH3.0... No offense to <a href="http://jasondentler.com/blog">Jason</a> because I think the book is great, but it could have been much better if it focused on NH3.0 and using it rather than having so much non-3.0 related stuff in it.</p>
+&lt;p&gt;So it turns out it's actually really easy, I just wish there was more documentation on this stuff since books like &lt;a href=&quot;https://www.packtpub.com/nhibernate-3-0-cookbook/book&quot;&gt;NHibernate 3.0 Cookbook&lt;/a&gt; fail at giving any real detail on NH3.0... No offense to &lt;a href=&quot;http://jasondentler.com/blog&quot;&gt;Jason&lt;/a&gt; because I think the book is great, but it could have been much better if it focused on NH3.0 and using it rather than having so much non-3.0 related stuff in it.&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2011/01/revisiting-exists-in-nhibernate-3-0-and-queryover/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -167,11 +165,9 @@ WHERE    this_.IsEnabled = 1 /* @p0 */
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -223,77 +219,42 @@ WHERE    this_.IsEnabled = 1 /* @p0 */
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

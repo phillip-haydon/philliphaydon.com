@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 30 Nov 2012
-      
-        | <a href="/category/nancyfx">NancyFX</a>
-      
+       | <a href="/category/nancyfx">NancyFX</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,74 +49,74 @@
       </div>
     </div>
         
-    <p>Today on twitter, <a href="http://blog.orangelightning.co.uk/">Phil Jones</a> (<a href="http://twitter.com/philjones88">@philjones88</a>) asked how you would do RenderAction (ASP.NET MVC extension)</p>
+    &lt;p&gt;Today on twitter, &lt;a href=&quot;http://blog.orangelightning.co.uk/&quot;&gt;Phil Jones&lt;/a&gt; (&lt;a href=&quot;http://twitter.com/philjones88&quot;&gt;@philjones88&lt;/a&gt;) asked how you would do RenderAction (ASP.NET MVC extension)&lt;/p&gt;
 
-<p>I personally don't like RenderAction in MVC, that's not to say it's bad, I just think it hides away important implementation of a page render. I think RenderAction is a bad abstraction. But this is my personal opinion. So don't hate me for it :)</p>
+&lt;p&gt;I personally don't like RenderAction in MVC, that's not to say it's bad, I just think it hides away important implementation of a page render. I think RenderAction is a bad abstraction. But this is my personal opinion. So don't hate me for it :)&lt;/p&gt;
 
-<p>Rather than using RenderAction I prefer to use Partial views.</p>
+&lt;p&gt;Rather than using RenderAction I prefer to use Partial views.&lt;/p&gt;
 
-<p>Lets look at a youtube site for an example:</p>
+&lt;p&gt;Lets look at a youtube site for an example:&lt;/p&gt;
 
-<p><img src="/images/partial-renders-nancy-1.png" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/partial-renders-nancy-1.png&quot; /&gt;&lt;/p&gt;
 
-<p>On the left hand side is main content, while on the right hand side is related videos. In ASP.NET MVC we might use something like:</p>
+&lt;p&gt;On the left hand side is main content, while on the right hand side is related videos. In ASP.NET MVC we might use something like:&lt;/p&gt;
 
-<pre><code>@Html.RenderAction("Related", "Videos");
-</code></pre>
+&lt;pre&gt;&lt;code&gt;@Html.RenderAction(&quot;Related&quot;, &quot;Videos&quot;);
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Or something similar, I forget the syntax :)</p>
+&lt;p&gt;Or something similar, I forget the syntax :)&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p>This would use the Query String to get the Video Id and pull all related videos and display them.</p>
+&lt;p&gt;This would use the Query String to get the Video Id and pull all related videos and display them.&lt;/p&gt;
 
-<p>In Nancy if I was building the same page, I would push down a dynamic model:</p>
+&lt;p&gt;In Nancy if I was building the same page, I would push down a dynamic model:&lt;/p&gt;
 
-<pre><code>@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase&lt;dynamic&gt;
-</code></pre>
+&lt;pre&gt;&lt;code&gt;@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase&amp;lt;dynamic&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Then in the Module, query for the video + the recommended data:</p>
+&lt;p&gt;Then in the Module, query for the video + the recommended data:&lt;/p&gt;
 
-<pre><code>public class VideosModule : RavenModule
+&lt;pre&gt;&lt;code&gt;public class VideosModule : RavenModule
 {
     public VideosModule(IDocumentStore documentStore) : base(documentStore)
     {
-        Get["/videos/{id}"] = _ =&gt;
+        Get[&quot;/videos/{id}&quot;] = _ =&amp;gt;
         {
-            Model.Videos = DocumentSession.Load&lt;Video&gt;(_.id);
-            Model.Recommended = DocumentSession.Query&lt;Video, Videos_Recommended&gt;().Where(x =&gt; x.VideoId == _.id);
-            return View["display-video", Model];
+            Model.Videos = DocumentSession.Load&amp;lt;Video&amp;gt;(_.id);
+            Model.Recommended = DocumentSession.Query&amp;lt;Video, Videos_Recommended&amp;gt;().Where(x =&amp;gt; x.VideoId == _.id);
+            return View[&quot;display-video&quot;, Model];
         };
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Model is implemented as an ExpandoObject on the RavenModule:</p>
+&lt;p&gt;Model is implemented as an ExpandoObject on the RavenModule:&lt;/p&gt;
 
-<pre><code>public abstract class RavenModule : NancyModule
+&lt;pre&gt;&lt;code&gt;public abstract class RavenModule : NancyModule
 {
     protected dynamic Model = new ExpandoObject();
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Now on my display-video view, I add:</p>
+&lt;p&gt;Now on my display-video view, I add:&lt;/p&gt;
 
-<pre><code>@Html.Partial("recommended", Model.Recommended)
-</code></pre>
+&lt;pre&gt;&lt;code&gt;@Html.Partial(&quot;recommended&quot;, Model.Recommended)
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This 'recommended' view is the same as the 'display-video' view, in that it uses dynamic also.</p>
+&lt;p&gt;This 'recommended' view is the same as the 'display-video' view, in that it uses dynamic also.&lt;/p&gt;
 
-<p>That's all there is to it.</p>
+&lt;p&gt;That's all there is to it.&lt;/p&gt;
 
-<p>In regards to information displayed on the Master Page (or master layout, what ever you want to call it) Because the 'Model' is defined on the base module, you can implement properties for menu, footer, member details, etc. And still use Partials to render those also.</p>
+&lt;p&gt;In regards to information displayed on the Master Page (or master layout, what ever you want to call it) Because the 'Model' is defined on the base module, you can implement properties for menu, footer, member details, etc. And still use Partials to render those also.&lt;/p&gt;
 
-<p>I'll add a Git Repo for this project in the near future.</p>
+&lt;p&gt;I'll add a Git Repo for this project in the near future.&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2012/11/using-partial-renders-with-nancy-rather-than-render-actions-like-mvc/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -130,11 +128,9 @@
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -186,77 +182,42 @@
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

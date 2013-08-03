@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 19 Jul 2012
-      
-        | <a href="/category/ravendb">RavenDB</a>
-      
+       | <a href="/category/ravendb">RavenDB</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,170 +49,170 @@
       </div>
     </div>
         
-    <p><a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/">Part 1</a><br />
-<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">Part 2</a>    </p>
+    &lt;p&gt;&lt;a href=&quot;/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/&quot;&gt;Part 1&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/&quot;&gt;Part 2&lt;/a&gt;    &lt;/p&gt;
 
-<p>In part 3 I want to show you how to query References.</p>
+&lt;p&gt;In part 3 I want to show you how to query References.&lt;/p&gt;
 
-<p>In the previous post I showed you three basic classes that demonstrate a Relationship between Order and OrderLine, and a Reference to User from Order using the UserId.</p>
+&lt;p&gt;In the previous post I showed you three basic classes that demonstrate a Relationship between Order and OrderLine, and a Reference to User from Order using the UserId.&lt;/p&gt;
 
-<p>I've setup some really basic test data:</p>
+&lt;p&gt;I've setup some really basic test data:&lt;/p&gt;
 
-<pre><code>using (var session = store.OpenSession())
+&lt;pre&gt;&lt;code&gt;using (var session = store.OpenSession())
 {
     session.Store(new User
     {
-        FirstName = "Phillip",
-        Surname = "Haydon",
-        Username = "phillip.haydon",
-        Password = "somepassword"
+        FirstName = &quot;Phillip&quot;,
+        Surname = &quot;Haydon&quot;,
+        Username = &quot;phillip.haydon&quot;,
+        Password = &quot;somepassword&quot;
     });
     session.Store(new User
     {
-        FirstName = "Edward",
-        Surname = "Norton",
-        Username = "edward.norton",
-        Password = "somepassword"
+        FirstName = &quot;Edward&quot;,
+        Surname = &quot;Norton&quot;,
+        Username = &quot;edward.norton&quot;,
+        Password = &quot;somepassword&quot;
     });
     session.Store(new Order
     {
-        UserId = "users/1",
+        UserId = &quot;users/1&quot;,
         DateOrdered = DateTime.Now,
         DateUpdated = DateTime.Now,
-        Status = "Ordered",
-        Lines = new List&lt;OrderLine&gt;
+        Status = &quot;Ordered&quot;,
+        Lines = new List&amp;lt;OrderLine&amp;gt;
         {
             new OrderLine
             {
                 Discount = 0m,
                 PricePerUnit = 13.95m,
                 Quantity = 5,
-                SkuCode = "SN78"
+                SkuCode = &quot;SN78&quot;
             },
             new OrderLine
             {
                 Discount = 0m,
                 PricePerUnit = 13.95m,
                 Quantity = 5,
-                SkuCode = "SN78"
+                SkuCode = &quot;SN78&quot;
             }
         }
     });
     session.SaveChanges();
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>This creates two collections:</p>
+&lt;p&gt;This creates two collections:&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p><img src="/images/ravendb-what-am-i-persisting-part-3-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-what-am-i-persisting-part-3-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>With our Order document looking like:</p>
+&lt;p&gt;With our Order document looking like:&lt;/p&gt;
 
-<pre><code>{
-  "UserId": "users/1",
-  "DateOrdered": "2012-07-13T23:34:40.5542680",
-  "DateUpdated": "2012-07-13T23:34:40.5542680",
-  "Status": "Ordered",
-  "Lines": [
+&lt;pre&gt;&lt;code&gt;{
+  &quot;UserId&quot;: &quot;users/1&quot;,
+  &quot;DateOrdered&quot;: &quot;2012-07-13T23:34:40.5542680&quot;,
+  &quot;DateUpdated&quot;: &quot;2012-07-13T23:34:40.5542680&quot;,
+  &quot;Status&quot;: &quot;Ordered&quot;,
+  &quot;Lines&quot;: [
     {
-      "PricePerUnit": 13.95,
-      "Quantity": 5,
-      "Discount": 0.0,
-      "SkuCode": "SN78"
+      &quot;PricePerUnit&quot;: 13.95,
+      &quot;Quantity&quot;: 5,
+      &quot;Discount&quot;: 0.0,
+      &quot;SkuCode&quot;: &quot;SN78&quot;
     },
     {
-      "PricePerUnit": 13.95,
-      "Quantity": 5,
-      "Discount": 0.0,
-      "SkuCode": "SN78"
+      &quot;PricePerUnit&quot;: 13.95,
+      &quot;Quantity&quot;: 5,
+      &quot;Discount&quot;: 0.0,
+      &quot;SkuCode&quot;: &quot;SN78&quot;
     }
   ]
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>What's cool about RavenDB Studio is that it shows us that the UserId is a reference.</p>
+&lt;p&gt;What's cool about RavenDB Studio is that it shows us that the UserId is a reference.&lt;/p&gt;
 
-<p><img src="/images/ravendb-what-am-i-persisting-part-3-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-what-am-i-persisting-part-3-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>RavenDB links the reference up for you as well so you can click it and it will navigate you directly to the document that is being referenced.</p>
+&lt;p&gt;RavenDB links the reference up for you as well so you can click it and it will navigate you directly to the document that is being referenced.&lt;/p&gt;
 
-<p>There are three ways that we can load this data in code.</p>
+&lt;p&gt;There are three ways that we can load this data in code.&lt;/p&gt;
 
-<ul>
-<li>Roundtrip to the store</li>
-<li>Include</li>
-<li>Transform</li>
-</ul>
+&lt;ul&gt;
+&lt;li&gt;Roundtrip to the store&lt;/li&gt;
+&lt;li&gt;Include&lt;/li&gt;
+&lt;li&gt;Transform&lt;/li&gt;
+&lt;/ul&gt;
 
-<h2>Roundtrip to the store</h2>
+&lt;h2&gt;Roundtrip to the store&lt;/h2&gt;
 
-<p>This method is easy peasy, and it's pretty similar to something you would do when working with a relational database.</p>
+&lt;p&gt;This method is easy peasy, and it's pretty similar to something you would do when working with a relational database.&lt;/p&gt;
 
-<p>We do this by calling Load on the Order, then using the value from <code>Order.UserId</code> to load the User.</p>
+&lt;p&gt;We do this by calling Load on the Order, then using the value from &lt;code&gt;Order.UserId&lt;/code&gt; to load the User.&lt;/p&gt;
 
-<pre><code>using (var session = store.OpenSession())
+&lt;pre&gt;&lt;code&gt;using (var session = store.OpenSession())
 {
-    var order = session.Load&lt;Order&gt;("orders/1");
-    var user = session.Load&lt;User&gt;(order.UserId);
-    Console.WriteLine("Lines: " + order.Lines.Count());
-    Console.WriteLine("FirstName: " + user.FirstName);
+    var order = session.Load&amp;lt;Order&amp;gt;(&quot;orders/1&quot;);
+    var user = session.Load&amp;lt;User&amp;gt;(order.UserId);
+    Console.WriteLine(&quot;Lines: &quot; + order.Lines.Count());
+    Console.WriteLine(&quot;FirstName: &quot; + user.FirstName);
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>When we run this we get an output like so:</p>
+&lt;p&gt;When we run this we get an output like so:&lt;/p&gt;
 
-<p><img src="/images/ravendb-what-am-i-persisting-part-3-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-what-am-i-persisting-part-3-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>The problem with this approach is that we have to go to RavenDB twice, shown here:</p>
+&lt;p&gt;The problem with this approach is that we have to go to RavenDB twice, shown here:&lt;/p&gt;
 
-<p><img src="/images/ravendb-what-am-i-persisting-part-3-4.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-what-am-i-persisting-part-3-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>But it achieves the desired result.</p>
+&lt;p&gt;But it achieves the desired result.&lt;/p&gt;
 
-<h2>Include</h2>
+&lt;h2&gt;Include&lt;/h2&gt;
 
-<p>The include method is very similar, the only difference is we tell RavenDB to include the User when we fetch the Order.</p>
+&lt;p&gt;The include method is very similar, the only difference is we tell RavenDB to include the User when we fetch the Order.&lt;/p&gt;
 
-<p>This can be done like so:</p>
+&lt;p&gt;This can be done like so:&lt;/p&gt;
 
-<pre><code>using (var session = store.OpenSession())
+&lt;pre&gt;&lt;code&gt;using (var session = store.OpenSession())
 {
-    var order = session.Include&lt;Order&gt;(x =&gt; x.UserId)
-                       .Load&lt;Order&gt;("orders/1");
-    var user = session.Load&lt;User&gt;(order.UserId);
-    Console.WriteLine("Lines: " + order.Lines.Count());
-    Console.WriteLine("FirstName: " + user.FirstName);
+    var order = session.Include&amp;lt;Order&amp;gt;(x =&amp;gt; x.UserId)
+                       .Load&amp;lt;Order&amp;gt;(&quot;orders/1&quot;);
+    var user = session.Load&amp;lt;User&amp;gt;(order.UserId);
+    Console.WriteLine(&quot;Lines: &quot; + order.Lines.Count());
+    Console.WriteLine(&quot;FirstName: &quot; + user.FirstName);
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>As you can see all we have done is add the Include method to our initial query.</p>
+&lt;p&gt;As you can see all we have done is add the Include method to our initial query.&lt;/p&gt;
 
-<p>When we run this we get the exact same output, the difference this time is that RavenDB will issue 1 query for data.</p>
+&lt;p&gt;When we run this we get the exact same output, the difference this time is that RavenDB will issue 1 query for data.&lt;/p&gt;
 
-<p><img src="/images/ravendb-what-am-i-persisting-part-3-5.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-what-am-i-persisting-part-3-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>So the first query for Order, includes the User. This User object is now part of the current RavenDB Session, so now when we load the User on the next line it doesn't need to go to RavenDB to fetch it, it already has it.</p>
+&lt;p&gt;So the first query for Order, includes the User. This User object is now part of the current RavenDB Session, so now when we load the User on the next line it doesn't need to go to RavenDB to fetch it, it already has it.&lt;/p&gt;
 
-<h2>Transform</h2>
+&lt;h2&gt;Transform&lt;/h2&gt;
 
-<p>This last method is quite different to the last two, it involves writing an index and implementing TransformResults.</p>
+&lt;p&gt;This last method is quite different to the last two, it involves writing an index and implementing TransformResults.&lt;/p&gt;
 
-<p>First we start by defining an index, which basically just grabs the UserId in the map, then looks up the user in the transform.</p>
+&lt;p&gt;First we start by defining an index, which basically just grabs the UserId in the map, then looks up the user in the transform.&lt;/p&gt;
 
-<pre><code>public class Order_WithUser : AbstractIndexCreationTask&lt;Order&gt;
+&lt;pre&gt;&lt;code&gt;public class Order_WithUser : AbstractIndexCreationTask&amp;lt;Order&amp;gt;
 {
     public Order_WithUser()
     {
-        Map = o =&gt; from s in o
+        Map = o =&amp;gt; from s in o
                    select new
                    {
                        s.UserId
                    };
-        TransformResults = (database, results) =&gt;
+        TransformResults = (database, results) =&amp;gt;
             from s in results
-            let user = database.Load&lt;User&gt;(s.UserId)
+            let user = database.Load&amp;lt;User&amp;gt;(s.UserId)
             select new
             {
                 s.Id,
@@ -227,44 +225,44 @@
             };
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Then we can query it and return it as a new model that includes the User <em>(this could also be added to the Order and not persisted but I've made it a separate model for demonstration)</em></p>
+&lt;p&gt;Then we can query it and return it as a new model that includes the User &lt;em&gt;(this could also be added to the Order and not persisted but I've made it a separate model for demonstration)&lt;/em&gt;&lt;/p&gt;
 
-<pre><code>public class OrderResult
+&lt;pre&gt;&lt;code&gt;public class OrderResult
 {
     public string Id { get; set; }
     public string UserId { get; set; }
     public DateTime DateOrdered { get; set; }
     public DateTime DateUpdated { get; set; }
     public string Status { get; set; }
-    public IEnumerable&lt;OrderLine&gt; Lines { get; set; }
+    public IEnumerable&amp;lt;OrderLine&amp;gt; Lines { get; set; }
     public User User { get; set; }
 }
 
 using (var session = store.OpenSession())
 {
-    var order = session.Query&lt;Order, Order_WithUser&gt;()
-                       .Where(x =&gt; x.Id == "orders/1")
-                       .AsProjection&lt;OrderResult&gt;()
+    var order = session.Query&amp;lt;Order, Order_WithUser&amp;gt;()
+                       .Where(x =&amp;gt; x.Id == &quot;orders/1&quot;)
+                       .AsProjection&amp;lt;OrderResult&amp;gt;()
                        .SingleOrDefault();
-    Console.WriteLine("Lines: " + order.Lines.Count());
-    Console.WriteLine("FirstName: " + order.User.FirstName);
+    Console.WriteLine(&quot;Lines: &quot; + order.Lines.Count());
+    Console.WriteLine(&quot;FirstName: &quot; + order.User.FirstName);
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>When we run this again we get the same results, however in RavenDB we have had to query against an index, rather than just grabbing the document as is.</p>
+&lt;p&gt;When we run this again we get the same results, however in RavenDB we have had to query against an index, rather than just grabbing the document as is.&lt;/p&gt;
 
-<p><img src="/images/ravendb-what-am-i-persisting-part-3-6.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/ravendb-what-am-i-persisting-part-3-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>That concludes part 3. Any questions, leave a comment or join the <a href="http://jabbr.net/#/rooms/RavenDB">JabbR RavenDB</a> chat room.</p>
+&lt;p&gt;That concludes part 3. Any questions, leave a comment or join the &lt;a href=&quot;http://jabbr.net/#/rooms/RavenDB&quot;&gt;JabbR RavenDB&lt;/a&gt; chat room.&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-3/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -276,11 +274,9 @@ using (var session = store.OpenSession())
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -332,77 +328,42 @@ using (var session = store.OpenSession())
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

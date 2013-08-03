@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 09 Apr 2013
-      
-        | <a href="/category/raygun">Raygun</a>
-      
+       | <a href="/category/raygun">Raygun</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,131 +49,131 @@
       </div>
     </div>
         
-    <p>Often when building applications we worry about error handling on the server, we may not do anything with the logs after we log those errors :P but we care about them enough to attempt to make the code resilient enough to not fall over should an error occur. </p>
+    &lt;p&gt;Often when building applications we worry about error handling on the server, we may not do anything with the logs after we log those errors :P but we care about them enough to attempt to make the code resilient enough to not fall over should an error occur. &lt;/p&gt;
 
-<p>But often we overlook errors happening on the client, and if a user hits one of those errors we don't know about it, unless they are kind enough to tell us. Should they tell us, we can't reproduce it, don't know where it's happening, etc etc.</p>
+&lt;p&gt;But often we overlook errors happening on the client, and if a user hits one of those errors we don't know about it, unless they are kind enough to tell us. Should they tell us, we can't reproduce it, don't know where it's happening, etc etc.&lt;/p&gt;
 
-<p>Its really important that we give the end user a good user experience, and that means ensuring that the client code is functioning well! If an error occurs and prevents the code from being executed, we could lose a customer, and if this happens with one customer, it could be happening with many.</p>
+&lt;p&gt;Its really important that we give the end user a good user experience, and that means ensuring that the client code is functioning well! If an error occurs and prevents the code from being executed, we could lose a customer, and if this happens with one customer, it could be happening with many.&lt;/p&gt;
 
-<p>Enter Raygun</p>
+&lt;p&gt;Enter Raygun&lt;/p&gt;
 
-<p><img src="/images/raygun-javascript-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/raygun-javascript-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Raygun offers a <a href="https://github.com/MindscapeHQ/raygun4js">JavaScript API</a> that's super easy to wire up to capture all errors by default, in-fact it's one line of code, not including the reference to the Raygun JS file.</p>
+&lt;p&gt;Raygun offers a &lt;a href=&quot;https://github.com/MindscapeHQ/raygun4js&quot;&gt;JavaScript API&lt;/a&gt; that's super easy to wire up to capture all errors by default, in-fact it's one line of code, not including the reference to the Raygun JS file.&lt;/p&gt;
 
-<h3>Download and Install</h3>
+&lt;h3&gt;Download and Install&lt;/h3&gt;
 
-<p>Unfortunately there's no NuGet for this yet, hopefully they will add one in the future. </p>
+&lt;p&gt;Unfortunately there's no NuGet for this yet, hopefully they will add one in the future. &lt;/p&gt;
 
-<p>Head on over to the MindscapeHQ <a href="https://github.com/MindscapeHQ/raygun4js/tree/master/dist">Github Repository</a> and download the file <code>raygun.min.js</code> (or grab the non-minified version if you wish), and reference in your app. </p>
+&lt;p&gt;Head on over to the MindscapeHQ &lt;a href=&quot;https://github.com/MindscapeHQ/raygun4js/tree/master/dist&quot;&gt;Github Repository&lt;/a&gt; and download the file &lt;code&gt;raygun.min.js&lt;/code&gt; (or grab the non-minified version if you wish), and reference in your app. &lt;/p&gt;
 
-<pre><code>&lt;script src="/scripts/raygun.min.js"&gt;&lt;/script&gt;
-</code></pre>
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;/scripts/raygun.min.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<h3>Configuring Raygun</h3>
+&lt;h3&gt;Configuring Raygun&lt;/h3&gt;
 
-<p>Usually when you want to wire up an event to capture all errors you would need to do something like:</p>
+&lt;p&gt;Usually when you want to wire up an event to capture all errors you would need to do something like:&lt;/p&gt;
 
-<pre><code>window.onerror = function someError(errorMsg, url, lineNumber) {
+&lt;pre&gt;&lt;code&gt;window.onerror = function someError(errorMsg, url, lineNumber) {
     //handle the error
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>But there's a lot more to error handling on the client than just the <code>onerror</code> event. So rather than just giving you the ability to send the error, Raygun offers the ability to attach itself to the <code>onerror</code> event and capture as much necessary information as it can to give you the best possible information.</p>
+&lt;p&gt;But there's a lot more to error handling on the client than just the &lt;code&gt;onerror&lt;/code&gt; event. So rather than just giving you the ability to send the error, Raygun offers the ability to attach itself to the &lt;code&gt;onerror&lt;/code&gt; event and capture as much necessary information as it can to give you the best possible information.&lt;/p&gt;
 
-<p>So to setup Raygun all we need to do is:</p>
+&lt;p&gt;So to setup Raygun all we need to do is:&lt;/p&gt;
 
-<pre><code>&lt;script&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;script&amp;gt;
   Raygun.init('yourApiKey').attach();
-&lt;/script&gt;
-</code></pre>
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>You can share the same API key for Client/Server, so if you're already using Raygun for your Web Application, you can use the same API key for the Client. </p>
+&lt;p&gt;You can share the same API key for Client/Server, so if you're already using Raygun for your Web Application, you can use the same API key for the Client. &lt;/p&gt;
 
-<p>Should you want to stop capturing errors you can call:</p>
+&lt;p&gt;Should you want to stop capturing errors you can call:&lt;/p&gt;
 
-<pre><code>Raygun.detach();
-</code></pre>
+&lt;pre&gt;&lt;code&gt;Raygun.detach();
+&lt;/code&gt;&lt;/pre&gt;
 
-<h3>Lets see it in action!</h3>
+&lt;h3&gt;Lets see it in action!&lt;/h3&gt;
 
-<p>Lets start out by capturing unhandled exceptions/errors, in a new project we will create a new index.html file with the following:</p>
+&lt;p&gt;Lets start out by capturing unhandled exceptions/errors, in a new project we will create a new index.html file with the following:&lt;/p&gt;
 
-<pre><code>&lt;script src="scripts/raygun.min.js"&gt;&lt;/script&gt;
-&lt;script&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;scripts/raygun.min.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
 
     (function() {
-      Raygun.init("* my key *").attach();
+      Raygun.init(&quot;* my key *&quot;).attach();
 
       var test = function() {
-        throw "Something went wrong!";
+        throw &quot;Something went wrong!&quot;;
       };
 
       test();
 
     })();
 
-&lt;/script&gt;
-</code></pre>
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Running up the page we should get an error in the chrome console:</p>
+&lt;p&gt;Running up the page we should get an error in the chrome console:&lt;/p&gt;
 
-<p><img src="/images/raygun-javascript-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/raygun-javascript-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Now if we head on over to the Raygun.io Dashboard</p>
+&lt;p&gt;Now if we head on over to the Raygun.io Dashboard&lt;/p&gt;
 
-<p><img src="/images/raygun-javascript-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/raygun-javascript-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>We can see our error was logged. Lets do something a little different next, lets add a 2nd JavaScript file, and call a function inside that file:</p>
+&lt;p&gt;We can see our error was logged. Lets do something a little different next, lets add a 2nd JavaScript file, and call a function inside that file:&lt;/p&gt;
 
-<p>In our <code>sample.js</code> file we have:</p>
+&lt;p&gt;In our &lt;code&gt;sample.js&lt;/code&gt; file we have:&lt;/p&gt;
 
-<pre><code>function DoSomething(value) {
+&lt;pre&gt;&lt;code&gt;function DoSomething(value) {
 
     return Math.power(value, value);
 
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>The method <code>power</code> doesn't exist on <code>Math</code>, it should be <code>pow</code>, so we should get an error when calling it. </p>
+&lt;p&gt;The method &lt;code&gt;power&lt;/code&gt; doesn't exist on &lt;code&gt;Math&lt;/code&gt;, it should be &lt;code&gt;pow&lt;/code&gt;, so we should get an error when calling it. &lt;/p&gt;
 
-<p>Now in our page we can include the <code>sample.js</code> file, and call the method:</p>
+&lt;p&gt;Now in our page we can include the &lt;code&gt;sample.js&lt;/code&gt; file, and call the method:&lt;/p&gt;
 
-<pre><code>&lt;script src="scripts/raygun.min.js"&gt;&lt;/script&gt;
-&lt;script src="scripts/sample.js"&gt;&lt;/script&gt;
-&lt;script&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;scripts/raygun.min.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&quot;scripts/sample.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
 
     (function() {
-        Raygun.init("* my key *").attach();
+        Raygun.init(&quot;* my key *&quot;).attach();
 
         var total = DoSomething(100);
 
         console.log(total);     
     })();
 
-&lt;/script&gt;
-</code></pre>
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-<p><img src="/images/raygun-javascript-4.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/raygun-javascript-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>As you can see we captured the same error in Chrome as we did on the Raygun dashboard.</p>
+&lt;p&gt;As you can see we captured the same error in Chrome as we did on the Raygun dashboard.&lt;/p&gt;
 
-<p>Raygun also tries to capture as much information to help you sort out the issue as it can, such as the error, when it occurred, and where it occurred. </p>
+&lt;p&gt;Raygun also tries to capture as much information to help you sort out the issue as it can, such as the error, when it occurred, and where it occurred. &lt;/p&gt;
 
-<p><img src="/images/raygun-javascript-6.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/raygun-javascript-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>It tells you the URL and Browser it occurred on:</p>
+&lt;p&gt;It tells you the URL and Browser it occurred on:&lt;/p&gt;
 
-<p><img src="/images/raygun-javascript-5.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/raygun-javascript-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>It even tells you </p>
+&lt;p&gt;It even tells you &lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2013/04/raygun-io-javascript-error-logging/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -187,11 +185,9 @@
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -243,77 +239,42 @@
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

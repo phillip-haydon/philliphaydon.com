@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 27 May 2011
-      
-        | <a href="/category/unit-testing">Unit Testing</a>
-      
+       | <a href="/category/unit-testing">Unit Testing</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,30 +49,30 @@
       </div>
     </div>
         
-    <p>One thing I love about working on a legacy application is the weird things I get to problem solve.</p>
+    &lt;p&gt;One thing I love about working on a legacy application is the weird things I get to problem solve.&lt;/p&gt;
 
-<p>A lot of the old system has an awful lot of static method calls, which doesn't leave much to be desired for when it comes to unit testing. I was working on a piece of the system today which is written in .NET 2.0, and is tightly coupled to everything in existence.</p>
+&lt;p&gt;A lot of the old system has an awful lot of static method calls, which doesn't leave much to be desired for when it comes to unit testing. I was working on a piece of the system today which is written in .NET 2.0, and is tightly coupled to everything in existence.&lt;/p&gt;
 
-<p>I didn't want to go introduce interfaces and wrapper classes in order to abstract out all the dependencies, but I wanted to unit test the work without having to touch the database, which is what these static method calls were doing.</p>
+&lt;p&gt;I didn't want to go introduce interfaces and wrapper classes in order to abstract out all the dependencies, but I wanted to unit test the work without having to touch the database, which is what these static method calls were doing.&lt;/p&gt;
 
-<p>The code I dealt with was something along the lines of...</p>
+&lt;p&gt;The code I dealt with was something along the lines of...&lt;/p&gt;
 
-<pre><code>public class ProductService
+&lt;pre&gt;&lt;code&gt;public class ProductService
 {
     public static void Save(Product product)
     {
-        throw new Exception("This would normally touch a db...");
+        throw new Exception(&quot;This would normally touch a db...&quot;);
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p><em>(Example is completely made up for this blog post and isn't actual code from work)</em></p>
+&lt;p&gt;&lt;em&gt;(Example is completely made up for this blog post and isn't actual code from work)&lt;/em&gt;&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p>The class that calls this is along the lines of...</p>
+&lt;p&gt;The class that calls this is along the lines of...&lt;/p&gt;
 
-<pre><code>public class SomeService
+&lt;pre&gt;&lt;code&gt;public class SomeService
 {
     public void DoSomething(User user, Product product)
     {
@@ -86,11 +84,11 @@
         //Do some more stuff...
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>So there's a direct call to the static method 'Save', now unit testing this class, like...</p>
+&lt;p&gt;So there's a direct call to the static method 'Save', now unit testing this class, like...&lt;/p&gt;
 
-<pre><code>[TestMethod]
+&lt;pre&gt;&lt;code&gt;[TestMethod]
 public void Test()
 {
     //Arrange
@@ -107,13 +105,13 @@ public void Test()
     //Assert
     Assert.AreEqual(4.5d, product.Price);
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Running the test I would like to expect a result of '4.5' for the price, but what I get is the exception thrown from the ProductService.</p>
+&lt;p&gt;Running the test I would like to expect a result of '4.5' for the price, but what I get is the exception thrown from the ProductService.&lt;/p&gt;
 
-<p>The solution, that didn't involve interfaces, a wrapper around the service, etc.</p>
+&lt;p&gt;The solution, that didn't involve interfaces, a wrapper around the service, etc.&lt;/p&gt;
 
-<pre><code>public class SomeService
+&lt;pre&gt;&lt;code&gt;public class SomeService
 {
     internal delegate void ProductServiceDelegate (Product product);
     private ProductServiceDelegate _productServiceDelegate;
@@ -140,13 +138,13 @@ public void Test()
         //Do some more stuff...
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>So what I've done is introduce a delegate for the ProductService's 'Save' method, and made it internal with 'InternalsVisibleTo' on the AssemblyInfo file so that unit testing project can see it.</p>
+&lt;p&gt;So what I've done is introduce a delegate for the ProductService's 'Save' method, and made it internal with 'InternalsVisibleTo' on the AssemblyInfo file so that unit testing project can see it.&lt;/p&gt;
 
-<p>Now I can update the unit test with:</p>
+&lt;p&gt;Now I can update the unit test with:&lt;/p&gt;
 
-<pre><code>[TestMethod]
+&lt;pre&gt;&lt;code&gt;[TestMethod]
 public void TestMethod1()
 {
     SomeService serviceUnderTest = new SomeService();
@@ -169,16 +167,16 @@ public void TestMethod1()
     Assert.AreEqual(4.5d, product.Price);
     Assert.AreEqual(1, product.Id);
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>So on the class under test I add a test method to the property which just sets the Id of the product to '1', to simulate that the product was saved, and now I don't have to worry about the dependency on the ProductService class anymore.</p>
+&lt;p&gt;So on the class under test I add a test method to the property which just sets the Id of the product to '1', to simulate that the product was saved, and now I don't have to worry about the dependency on the ProductService class anymore.&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2011/05/refactoring-those-static-method-calls-for-testability/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -190,11 +188,9 @@ public void TestMethod1()
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -246,77 +242,42 @@ public void TestMethod1()
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

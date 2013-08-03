@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 10 Jan 2013
-      
-        | <a href="/category/azure">Azure</a>
-      
+       | <a href="/category/azure">Azure</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,66 +49,66 @@
       </div>
     </div>
         
-    <p>In my previous <a href="/2013/01/creating-an-azure-cloud-service">post</a> I created an Azure Cloud Service from scratch and deployed it, however I manually logged into Azure Portal and uploaded the packages.</p>
+    &lt;p&gt;In my previous &lt;a href=&quot;/2013/01/creating-an-azure-cloud-service&quot;&gt;post&lt;/a&gt; I created an Azure Cloud Service from scratch and deployed it, however I manually logged into Azure Portal and uploaded the packages.&lt;/p&gt;
 
-<p><a href="http://twitter.com/cloudnick">@cloudnick</a> commented saying that I could that you can use publish directly from Visual Studio. So!</p>
+&lt;p&gt;&lt;a href=&quot;http://twitter.com/cloudnick&quot;&gt;@cloudnick&lt;/a&gt; commented saying that I could that you can use publish directly from Visual Studio. So!&lt;/p&gt;
 
-<h2>Publishing from Visual Studio directly to Azure</h2>
+&lt;h2&gt;Publishing from Visual Studio directly to Azure&lt;/h2&gt;
 
-<p>Using the exact same setup as yesterday, rightclick the MyWorker project and select Publish.</p>
+&lt;p&gt;Using the exact same setup as yesterday, rightclick the MyWorker project and select Publish.&lt;/p&gt;
 
-<p><img src="/images/azure-service-update-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/azure-service-update-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Select <code>Sign in to download crentials</code></p>
+&lt;p&gt;Select &lt;code&gt;Sign in to download crentials&lt;/code&gt;&lt;/p&gt;
 
-<p><img src="/images/azure-service-update-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/azure-service-update-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>This will take you to a webpage where you can sign into your Windows Live account that has your Azure Subscriptions, with some instructions. The file will download automatically.</p>
+&lt;p&gt;This will take you to a webpage where you can sign into your Windows Live account that has your Azure Subscriptions, with some instructions. The file will download automatically.&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p><img src="/images/azure-service-update-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/azure-service-update-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>Now go back to Visual Studio and import the file.</p>
+&lt;p&gt;Now go back to Visual Studio and import the file.&lt;/p&gt;
 
-<p><img src="/images/azure-service-update-4.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/azure-service-update-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>This will open a new screen with some options, it will pre-select any existing cloud service you have, or you can create a new one by dropping down the menu and selecting 'Create New...' if you don't already have one created you can create a new one.</p>
+&lt;p&gt;This will open a new screen with some options, it will pre-select any existing cloud service you have, or you can create a new one by dropping down the menu and selecting 'Create New...' if you don't already have one created you can create a new one.&lt;/p&gt;
 
-<p>I'm going to select the existing one.</p>
+&lt;p&gt;I'm going to select the existing one.&lt;/p&gt;
 
-<p><img src="/images/azure-service-update-5.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/azure-service-update-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>View the summary to save the profile, that way you can re-use it for future deployments. If you press save and want to rename it, you can drop the menu down and select Manage, then you can modify the name.</p>
+&lt;p&gt;View the summary to save the profile, that way you can re-use it for future deployments. If you press save and want to rename it, you can drop the menu down and select Manage, then you can modify the name.&lt;/p&gt;
 
-<p><img src="/images/azure-service-update-6.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/azure-service-update-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>If all is successful, Visual Studio will open up a Windows Azure Acvitity Log which will show you the deployment process.</p>
+&lt;p&gt;If all is successful, Visual Studio will open up a Windows Azure Acvitity Log which will show you the deployment process.&lt;/p&gt;
 
-<p><img src="/images/azure-service-update-7.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/azure-service-update-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>This process takes a little while, I guess it depends on your internet connection, I'm on a pretty fast connection but I'm in Singapore, so latency is quite a bit to the US.</p>
+&lt;p&gt;This process takes a little while, I guess it depends on your internet connection, I'm on a pretty fast connection but I'm in Singapore, so latency is quite a bit to the US.&lt;/p&gt;
 
-<p>Infact it took a about 3 minutes to deploy, for most of that time it looked like.</p>
+&lt;p&gt;Infact it took a about 3 minutes to deploy, for most of that time it looked like.&lt;/p&gt;
 
-<p><img src="/images/azure-service-update-8.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/azure-service-update-8.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>But don't worry, if you leave it long enough, eventually it will end up like.</p>
+&lt;p&gt;But don't worry, if you leave it long enough, eventually it will end up like.&lt;/p&gt;
 
-<p><img src="/images/azure-service-update-9.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/azure-service-update-9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>And that's it, now checking RavenHQ again.</p>
+&lt;p&gt;And that's it, now checking RavenHQ again.&lt;/p&gt;
 
-<p><img src="/images/azure-service-update-10.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/azure-service-update-10.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>So to avoid ever even having to login to Azure Portal, you can Create and Publish a Cloud Service all from within Visual Studio.</p>
+&lt;p&gt;So to avoid ever even having to login to Azure Portal, you can Create and Publish a Cloud Service all from within Visual Studio.&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2013/01/using-publish-to-deploy-azure-cloud-service/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -122,11 +120,9 @@
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -178,77 +174,42 @@
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-07-16T02:19:40.3245757+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -38,9 +38,7 @@
 
     <div class="post-note">
       posted on 13 Apr 2011
-      
-        | <a href="/category/nhibernate">NHibernate</a>
-      
+       | <a href="/category/nhibernate">NHibernate</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,103 +49,103 @@
       </div>
     </div>
         
-    <p>The title may be a bit leading, this isn't about querying one-to-many-to-many, that is simply not possible. Well it may be possible, but it's not practical by any means.</p>
+    &lt;p&gt;The title may be a bit leading, this isn't about querying one-to-many-to-many, that is simply not possible. Well it may be possible, but it's not practical by any means.&lt;/p&gt;
 
-<p>It's not practical because when querying for one-to-many you end up with a cartesian product. With a one-to-many it's easy to transform the data knowing the root is a single result while the relationship is a collection of all the results.</p>
+&lt;p&gt;It's not practical because when querying for one-to-many you end up with a cartesian product. With a one-to-many it's easy to transform the data knowing the root is a single result while the relationship is a collection of all the results.&lt;/p&gt;
 
-<p>If you have a many-to-many it works too since it's the distinct root and the relating collection of all results for a single root item.</p>
+&lt;p&gt;If you have a many-to-many it works too since it's the distinct root and the relating collection of all results for a single root item.&lt;/p&gt;
 
-<p>But to select a one-to-many-to-many it's far too complicated to work out what the hell is going on.  Well in my opinion it's far too complicated.</p>
+&lt;p&gt;But to select a one-to-many-to-many it's far too complicated to work out what the hell is going on.  Well in my opinion it's far too complicated.&lt;/p&gt;
 
-<!--excerpt-->
+&lt;!--excerpt--&gt;
 
-<p>However if you have a one-to-many-to-one, so three levels deep... Lets say... A blog, with many posts, each with an author.</p>
+&lt;p&gt;However if you have a one-to-many-to-one, so three levels deep... Lets say... A blog, with many posts, each with an author.&lt;/p&gt;
 
-<p><img src="/images/nhibernate-depth-1.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-depth-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>We can query the 3rd level with the posts relatively easily.</p>
+&lt;p&gt;We can query the 3rd level with the posts relatively easily.&lt;/p&gt;
 
-<p>If we take a relatively simple query, to fetch a blog with posts and display the title/author like so:</p>
+&lt;p&gt;If we take a relatively simple query, to fetch a blog with posts and display the title/author like so:&lt;/p&gt;
 
-<pre><code>var sessionFactory = new SessionFactoryManager().CreateSessionFactory();
+&lt;pre&gt;&lt;code&gt;var sessionFactory = new SessionFactoryManager().CreateSessionFactory();
 
 Blog blog = null;
 
 using (var session = sessionFactory.OpenSession())
 {
-    blog = session.QueryOver&lt;Blog&gt;()
-                  .Where(x =&gt; x.Id == 1)
-                  .Fetch(x =&gt; x.Posts).Eager
+    blog = session.QueryOver&amp;lt;Blog&amp;gt;()
+                  .Where(x =&amp;gt; x.Id == 1)
+                  .Fetch(x =&amp;gt; x.Posts).Eager
                   .SingleOrDefault();
 
     Console.WriteLine(blog.Name);
-    Console.WriteLine("--");
+    Console.WriteLine(&quot;--&quot;);
 
     foreach (var post in blog.Posts)
     {
-        Console.WriteLine("Title: " + post.Title);
-        Console.WriteLine("Author: " + post.Author.FirstName);
-        Console.WriteLine("--");
+        Console.WriteLine(&quot;Title: &quot; + post.Title);
+        Console.WriteLine(&quot;Author: &quot; + post.Author.FirstName);
+        Console.WriteLine(&quot;--&quot;);
     }
 }
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>We can eager load the posts...</p>
+&lt;p&gt;We can eager load the posts...&lt;/p&gt;
 
-<p><img src="/images/nhibernate-depth-2.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-depth-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>No problems. Except when we grab the Author, we end up with a select+n scenario...</p>
+&lt;p&gt;No problems. Except when we grab the Author, we end up with a select+n scenario...&lt;/p&gt;
 
-<p><img src="/images/nhibernate-depth-3.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-depth-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>This is bad bad bad! So the idea would be to eager load the Author with the post, the problem is .Fetch() doesn't allow you to specify a property of a collection...</p>
+&lt;p&gt;This is bad bad bad! So the idea would be to eager load the Author with the post, the problem is .Fetch() doesn't allow you to specify a property of a collection...&lt;/p&gt;
 
-<p>That's where 'JoinAlias' comes in handy, I assume this stuff comes from HQL/Criteria, but I prefer not to use that stuff.</p>
+&lt;p&gt;That's where 'JoinAlias' comes in handy, I assume this stuff comes from HQL/Criteria, but I prefer not to use that stuff.&lt;/p&gt;
 
-<p>Instead of using 'Fetch' we are going to replace it with a 'JoinAlias' like so:</p>
+&lt;p&gt;Instead of using 'Fetch' we are going to replace it with a 'JoinAlias' like so:&lt;/p&gt;
 
-<pre><code>Post posts = null;
+&lt;pre&gt;&lt;code&gt;Post posts = null;
 Author author = null;
-blog = session.QueryOver&lt;Blog&gt;()
-              .Where(x =&gt; x.Id == 1)
-              .JoinAlias(x =&gt; x.Posts, () =&gt; posts)
-              .JoinAlias(() =&gt; posts.Author, () =&gt; author)
+blog = session.QueryOver&amp;lt;Blog&amp;gt;()
+              .Where(x =&amp;gt; x.Id == 1)
+              .JoinAlias(x =&amp;gt; x.Posts, () =&amp;gt; posts)
+              .JoinAlias(() =&amp;gt; posts.Author, () =&amp;gt; author)
               .SingleOrDefault();
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>Opps...</p>
+&lt;p&gt;Opps...&lt;/p&gt;
 
-<p><img src="/images/nhibernate-depth-4.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-depth-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>It's executed two queries, the first query looks fine...</p>
+&lt;p&gt;It's executed two queries, the first query looks fine...&lt;/p&gt;
 
-<p><img src="/images/nhibernate-depth-5.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-depth-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p>The data returned is correct too, except NH doesn't seem to think so, it actually queries for the Posts a second time.</p>
+&lt;p&gt;The data returned is correct too, except NH doesn't seem to think so, it actually queries for the Posts a second time.&lt;/p&gt;
 
-<p>However, updating the query to specify a join type:</p>
+&lt;p&gt;However, updating the query to specify a join type:&lt;/p&gt;
 
-<pre><code>Post posts = null;
+&lt;pre&gt;&lt;code&gt;Post posts = null;
 Author author = null;
-blog = session.QueryOver&lt;Blog&gt;()
-              .Where(x =&gt; x.Id == 1)
-              .JoinAlias(x =&gt; x.Posts, () =&gt; posts, JoinType.LeftOuterJoin)
-              .JoinAlias(() =&gt; posts.Author, () =&gt; author)
+blog = session.QueryOver&amp;lt;Blog&amp;gt;()
+              .Where(x =&amp;gt; x.Id == 1)
+              .JoinAlias(x =&amp;gt; x.Posts, () =&amp;gt; posts, JoinType.LeftOuterJoin)
+              .JoinAlias(() =&amp;gt; posts.Author, () =&amp;gt; author)
               .SingleOrDefault();
-</code></pre>
+&lt;/code&gt;&lt;/pre&gt;
 
-<p>We end up with a single query, with all the correct results.</p>
+&lt;p&gt;We end up with a single query, with all the correct results.&lt;/p&gt;
 
-<p><img src="/images/nhibernate-depth-6.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-depth-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-<p><img src="/images/nhibernate-depth-7.png" alt="" /></p>
+&lt;p&gt;&lt;img src=&quot;/images/nhibernate-depth-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 
 	<div class="divider"></div>
 	<div id="disqus_thread"></div>
 	<script>
 	    var disqus_shortname = 'philliphaydon';
-	    var disqus_url = "http://www.philliphaydon.com/2011/04/nhibernate-querying-relationships-are-depth/";
+	    var disqus_url = "http://www.philliphaydon.com@Model.Url";
 
 	    /* * * DON'T EDIT BELOW THIS LINE * * */
 	    (function () {
@@ -159,11 +157,9 @@ blog = session.QueryOver&lt;Blog&gt;()
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
-
-
                 </div>
                 <!-- #content -->
             </div>
@@ -215,77 +211,42 @@ blog = session.QueryOver&lt;Blog&gt;()
                 </aside>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
-                    
                     <ul class="posts">
-                    
+                          <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
-                    
                           <li><a href="/archive#2013June">June, 2013</a></li>
-                    
                           <li><a href="/archive#2013May">May, 2013</a></li>
-                    
                           <li><a href="/archive#2013April">April, 2013</a></li>
-                    
                           <li><a href="/archive#2013March">March, 2013</a></li>
-                    
                           <li><a href="/archive#2013February">February, 2013</a></li>
-                    
                           <li><a href="/archive#2013January">January, 2013</a></li>
-                    
                           <li><a href="/archive#2012December">December, 2012</a></li>
-                    
                           <li><a href="/archive#2012November">November, 2012</a></li>
-                    
                           <li><a href="/archive#2012October">October, 2012</a></li>
-                    
                           <li><a href="/archive#2012September">September, 2012</a></li>
-                    
                           <li><a href="/archive#2012July">July, 2012</a></li>
-                    
                           <li><a href="/archive#2012June">June, 2012</a></li>
-                    
                           <li><a href="/archive#2012April">April, 2012</a></li>
-                    
                           <li><a href="/archive#2012March">March, 2012</a></li>
-                    
                           <li><a href="/archive#2012February">February, 2012</a></li>
-                    
                           <li><a href="/archive#2012January">January, 2012</a></li>
-                    
                           <li><a href="/archive#2011December">December, 2011</a></li>
-                    
                           <li><a href="/archive#2011November">November, 2011</a></li>
-                    
                           <li><a href="/archive#2011October">October, 2011</a></li>
-                    
                           <li><a href="/archive#2011September">September, 2011</a></li>
-                    
                           <li><a href="/archive#2011August">August, 2011</a></li>
-                    
                           <li><a href="/archive#2011July">July, 2011</a></li>
-                    
                           <li><a href="/archive#2011June">June, 2011</a></li>
-                    
                           <li><a href="/archive#2011May">May, 2011</a></li>
-                    
                           <li><a href="/archive#2011April">April, 2011</a></li>
-                    
                           <li><a href="/archive#2011March">March, 2011</a></li>
-                    
                           <li><a href="/archive#2011February">February, 2011</a></li>
-                    
                           <li><a href="/archive#2011January">January, 2011</a></li>
-                    
                           <li><a href="/archive#2010December">December, 2010</a></li>
-                    
                           <li><a href="/archive#2010November">November, 2010</a></li>
-                    
                           <li><a href="/archive#2010October">October, 2010</a></li>
-                    
                           <li><a href="/archive#2010September">September, 2010</a></li>
-                    
                           <li><a href="/archive#2009July">July, 2009</a></li>
-                    
                     </ul>
                 </aside>
             </div>
