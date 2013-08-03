@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,38 +49,38 @@
       </div>
     </div>
         
-    &lt;p&gt;I found a little trick with using Optional Parameters with &lt;a href=&quot;https://github.com/mccalltd/AttributeRouting/wiki/2.-Usage&quot;&gt;AttributeRouting&lt;/a&gt;, by using standard optional parameters in the action.&lt;/p&gt;
+    <p>I found a little trick with using Optional Parameters with <a href="https://github.com/mccalltd/AttributeRouting/wiki/2.-Usage">AttributeRouting</a>, by using standard optional parameters in the action.</p>
 
-&lt;p&gt;The documentation says you can add an attributes to specify the defaults, or add &lt;code&gt;=value&lt;/code&gt; to the parameter name, and I guess that's a more correct way to generate routes, but you can achieve the same affect by making the parameter optional. Like so:&lt;/p&gt;
+<p>The documentation says you can add an attributes to specify the defaults, or add <code>=value</code> to the parameter name, and I guess that's a more correct way to generate routes, but you can achieve the same affect by making the parameter optional. Like so:</p>
 
-&lt;pre&gt;&lt;code&gt;[GET(&quot;videos/{?page}&quot;)]
+<pre><code>[GET("videos/{?page}")]
 public ActionResult Videos(int page = 1)
 {
-    return View(&quot;Result&quot;);
+    return View("Result");
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;If I browse to the URL:&lt;/p&gt;
+<p>If I browse to the URL:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/attribute-routing-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/attribute-routing-1.png" alt="" /></p>
 
-&lt;p&gt;It uses the default value of 1.&lt;/p&gt;
+<p>It uses the default value of 1.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/attribute-routing-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/attribute-routing-2.png" alt="" /></p>
 
-&lt;p&gt;Now when appending a number to the end of the URL:&lt;/p&gt;
+<p>Now when appending a number to the end of the URL:</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;&lt;img src=&quot;/images/attribute-routing-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/attribute-routing-3.png" alt="" /></p>
 
-&lt;p&gt;It captures the correct value:&lt;/p&gt;
+<p>It captures the correct value:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/attribute-routing-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/attribute-routing-4.png" alt="" /></p>
 
-&lt;p&gt;I prefer this method, the optional parameter on the action is more quickly identified, than looking at the attribute to see the defaults. (in my opinion)&lt;/p&gt;
+<p>I prefer this method, the optional parameter on the action is more quickly identified, than looking at the attribute to see the defaults. (in my opinion)</p>
 
-&lt;p&gt;Ahh AttributeRouting, how I love you.&lt;/p&gt;
+<p>Ahh AttributeRouting, how I love you.</p>
 
 
 	<div class="divider"></div>

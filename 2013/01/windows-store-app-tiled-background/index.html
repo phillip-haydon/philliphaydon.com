@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,47 +49,47 @@
       </div>
     </div>
         
-    &lt;p&gt;Apparently WinRT XAML lacks the ability to tile a background image, and surfing the net seems to come to the conclusion that the only way is to just create a large tiled image in photoshop...&lt;/p&gt;
+    <p>Apparently WinRT XAML lacks the ability to tile a background image, and surfing the net seems to come to the conclusion that the only way is to just create a large tiled image in photoshop...</p>
 
-&lt;p&gt;I want to pick a Tile image from &lt;a href=&quot;http://subtlepatterns.com/&quot;&gt;http://subtlepatterns.com/&lt;/a&gt; and just use it, but I &lt;em&gt;can't&lt;/em&gt;. So I tried photoshop... (creating a benehoth of an image that is) I tried that, and it... crashed the Simulator, over and over... So I flagged it, instead I decided to put in a feature request over at Mindscape for their Metro Elements:&lt;/p&gt;
+<p>I want to pick a Tile image from <a href="http://subtlepatterns.com/">http://subtlepatterns.com/</a> and just use it, but I <em>can't</em>. So I tried photoshop... (creating a benehoth of an image that is) I tried that, and it... crashed the Simulator, over and over... So I flagged it, instead I decided to put in a feature request over at Mindscape for their Metro Elements:</p>
 
-&lt;p&gt;&lt;a href=&quot;http://www.mindscapehq.com/thinktank/suggestion/505262&quot;&gt;http://www.mindscapehq.com/thinktank/suggestion/505262&lt;/a&gt;&lt;/p&gt;
+<p><a href="http://www.mindscapehq.com/thinktank/suggestion/505262">http://www.mindscapehq.com/thinktank/suggestion/505262</a></p>
 
-&lt;p&gt;I asked them to include a TiledBackground, and they delivered! &lt;/p&gt;
+<p>I asked them to include a TiledBackground, and they delivered! </p>
 
-&lt;p&gt;Currently in the nightly build is the makings of a TiledBackground element.&lt;/p&gt;
+<p>Currently in the nightly build is the makings of a TiledBackground element.</p>
 
-&lt;p&gt;(To get access to the Nightly builds you will need to purchase a license for Metro Elements, which is well worth it, so go buy a license!)&lt;/p&gt;
+<p>(To get access to the Nightly builds you will need to purchase a license for Metro Elements, which is well worth it, so go buy a license!)</p>
 
-&lt;p&gt;After installing the Metro Elements, in your app you want to add a reference to Metro Elements:&lt;/p&gt;
+<p>After installing the Metro Elements, in your app you want to add a reference to Metro Elements:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/windows-app-tiled-bg-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/windows-app-tiled-bg-1.png" alt="" /></p>
 
-&lt;p&gt;Now in the page attributes you need to include an alias for the MetroElements:&lt;/p&gt;
+<p>Now in the page attributes you need to include an alias for the MetroElements:</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;pre&gt;&lt;code&gt;xmlns:ms=&quot;using:Mindscape.MetroElements&quot;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>xmlns:ms="using:Mindscape.MetroElements"
+</code></pre>
 
-&lt;p&gt;Then you can add the TileBackground element:&lt;/p&gt;
+<p>Then you can add the TileBackground element:</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;ms:TileBackground ImageSource=&quot;/Assets/debut_dark.png&quot; /&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>&lt;ms:TileBackground ImageSource="/Assets/debut_dark.png" /&gt;
+</code></pre>
 
-&lt;p&gt;And that's all there is to it! How simple is that?&lt;/p&gt;
+<p>And that's all there is to it! How simple is that?</p>
 
-&lt;p&gt;Now when you run the app, you should end up with the Hello World looking like:&lt;/p&gt;
+<p>Now when you run the app, you should end up with the Hello World looking like:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/windows-app-tiled-bg-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/windows-app-tiled-bg-2.png" alt="" /></p>
 
-&lt;p&gt;It may be a little hard to see on the screen shot, but we now have a tiled background. The background used here is this image:&lt;/p&gt;
+<p>It may be a little hard to see on the screen shot, but we now have a tiled background. The background used here is this image:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/windows-app-tiled-bg-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/windows-app-tiled-bg-3.png" alt="" /></p>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Currently the tiled-background is not viewable in the designer, it can only be viewed when debugging. This may be fixed in the future, but it's a minor issue.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> Currently the tiled-background is not viewable in the designer, it can only be viewed when debugging. This may be fixed in the future, but it's a minor issue.</span></p>
 
-&lt;p&gt;Thanks a lot to the Mindscape team for implementing this feature so quickly. I love you guys!&lt;/p&gt;
+<p>Thanks a lot to the Mindscape team for implementing this feature so quickly. I love you guys!</p>
 
 
 	<div class="divider"></div>

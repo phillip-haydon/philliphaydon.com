@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,68 +49,68 @@
       </div>
     </div>
         
-    &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/06/setting-up-ubuntu-and-nginx-on-azure/&quot;&gt;Part 1 - Setting up the Virtual Machine and nginx&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/06/setting-up-a-new-website-and-domain-on-nginx&quot;&gt;Part 2 - Setting up new Website and Domain on nginx&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Part 3 - Setting up Mono on nginx&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/07/setting-up-a-nancyfx-website/&quot;&gt;Part 4 - Setting up a NancyFX website&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/07/setting-up-a-servicestack-service/&quot;&gt;Part 5 - Setting up a ServiceStack web service&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+    <ul>
+<li><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Part 1 - Setting up the Virtual Machine and nginx</a></li>
+<li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx">Part 2 - Setting up new Website and Domain on nginx</a></li>
+<li>Part 3 - Setting up Mono on nginx</li>
+<li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li>
+<li><a href="/2013/07/setting-up-a-servicestack-service/">Part 5 - Setting up a ServiceStack web service</a></li>
+</ul>
 
-&lt;p&gt;Now we get to the fun stuff, getting up Mono. I'll be demoing with Mono 2.10 but after this series I may include a 6th part on how build Mono 3.0 from source and run it. &lt;/p&gt;
+<p>Now we get to the fun stuff, getting up Mono. I'll be demoing with Mono 2.10 but after this series I may include a 6th part on how build Mono 3.0 from source and run it. </p>
 
-&lt;h2&gt;Setting up our test page&lt;/h2&gt;
+<h2>Setting up our test page</h2>
 
-&lt;p&gt;I figured we should start with setting up our test page. Something super simple, we will create a new page that outputs a bit of server side text. &lt;/p&gt;
+<p>I figured we should start with setting up our test page. Something super simple, we will create a new page that outputs a bit of server side text. </p>
 
-&lt;p&gt;We wont deploy a bin folder or anything like that, it will be almost like deploying Classic ASP. &lt;/p&gt;
+<p>We wont deploy a bin folder or anything like that, it will be almost like deploying Classic ASP. </p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;%@ Page Language=&quot;C#&quot; AutoEventWireup=&quot;true&quot; %&amp;gt;
+<pre><code>&lt;%@ Page Language="C#" AutoEventWireup="true" %&gt;
 
-&amp;lt;!DOCTYPE html&amp;gt;
-&amp;lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&amp;gt;
-&amp;lt;head runat=&quot;server&quot;&amp;gt;
-    &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
-&amp;lt;/head&amp;gt;
-&amp;lt;body&amp;gt;
-    &amp;lt;div&amp;gt;
-    &amp;lt;% var test = &quot;Hello World! Got an aspx page running on nginx!!!&quot;; %&amp;gt;
+&lt;!DOCTYPE html&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head runat="server"&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+    &lt;% var test = "Hello World! Got an aspx page running on nginx!!!"; %&gt;
 
-    &amp;lt;%= test %&amp;gt;
-    &amp;lt;/div&amp;gt;
-&amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+    &lt;%= test %&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 
-&lt;p&gt;So we are just creating a variable named &lt;code&gt;test&lt;/code&gt; with some test data, then outputting it to the page. &lt;/p&gt;
+<p>So we are just creating a variable named <code>test</code> with some test data, then outputting it to the page. </p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;We need to navigate to our site directory by calling &lt;code&gt;cd /var/www/phillip.pw&lt;/code&gt; followed by creating a new file in nano by calling &lt;code&gt;nano test.aspx&lt;/code&gt;&lt;/p&gt;
+<p>We need to navigate to our site directory by calling <code>cd /var/www/phillip.pw</code> followed by creating a new file in nano by calling <code>nano test.aspx</code></p>
 
-&lt;p&gt;This will open up a new nano window. Now you can type in the test code, or paste it in. Now we need to save it by calling &lt;kbd&gt;CTRL&lt;/kbd&gt; + &lt;kbd&gt;X&lt;/kbd&gt; followed by &lt;kbd&gt;Y&lt;/kbd&gt; and &lt;kbd&gt;Enter&lt;/kbd&gt;. Same thing we have been doing in the other parts. &lt;/p&gt;
+<p>This will open up a new nano window. Now you can type in the test code, or paste it in. Now we need to save it by calling <kbd>CTRL</kbd> + <kbd>X</kbd> followed by <kbd>Y</kbd> and <kbd>Enter</kbd>. Same thing we have been doing in the other parts. </p>
 
-&lt;h2&gt;Installing Mono&lt;/h2&gt;
+<h2>Installing Mono</h2>
 
-&lt;p&gt;Now that our test page is ready, we can install Mono by calling &lt;code&gt;apt-get install mono-complete&lt;/code&gt;, your window should now look like&lt;/p&gt;
+<p>Now that our test page is ready, we can install Mono by calling <code>apt-get install mono-complete</code>, your window should now look like</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-3-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-3-1.png" alt="" /></p>
 
-&lt;p&gt;Hit &lt;kbd&gt;Y&lt;/kbd&gt; and &lt;kbd&gt;Enter&lt;/kbd&gt;, and let it install... this could take a while.&lt;/p&gt;
+<p>Hit <kbd>Y</kbd> and <kbd>Enter</kbd>, and let it install... this could take a while.</p>
 
-&lt;p&gt;Next we want to install the fastcgi-mono-server4 package. So call &lt;code&gt;apt-get install mono-fastcgi-server4&lt;/code&gt; and install. This package is super small so will install quickly.&lt;/p&gt;
+<p>Next we want to install the fastcgi-mono-server4 package. So call <code>apt-get install mono-fastcgi-server4</code> and install. This package is super small so will install quickly.</p>
 
-&lt;p&gt;To quickly test that Mono is installed call &lt;code&gt;mono -V&lt;/code&gt; you should get something like so&lt;/p&gt;
+<p>To quickly test that Mono is installed call <code>mono -V</code> you should get something like so</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-3-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-3-2.png" alt="" /></p>
 
-&lt;h2&gt;Configuring our website!&lt;/h2&gt;
+<h2>Configuring our website!</h2>
 
-&lt;p&gt;We need to head on over to the nginx server configuration. So call &lt;code&gt;cd /etc/nginx/sites-available&lt;/code&gt; followed by &lt;code&gt;nano default&lt;/code&gt; so we can edit our site to use the fastcgi stuff.&lt;/p&gt;
+<p>We need to head on over to the nginx server configuration. So call <code>cd /etc/nginx/sites-available</code> followed by <code>nano default</code> so we can edit our site to use the fastcgi stuff.</p>
 
-&lt;p&gt;We need to add the fastcgi stuff, its important to note the include path. If you remember from Part 1 I mentioned the &lt;code&gt;fastcgi_params&lt;/code&gt; file, well we need to point to that file. We will modify that next.&lt;/p&gt;
+<p>We need to add the fastcgi stuff, its important to note the include path. If you remember from Part 1 I mentioned the <code>fastcgi_params</code> file, well we need to point to that file. We will modify that next.</p>
 
-&lt;pre&gt;&lt;code&gt;server {
+<pre><code>server {
     # the port the site is listening on
     listen 80;
 
@@ -129,93 +129,93 @@
         include /etc/nginx/fastcgi_params;
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;Note how the fastcgi stuff is put into a location followed by a forward slash to indicate that its location is the root. If you put it in the root of server (with no location scope) you will end up with nginx throwing an error like&lt;/span&gt; &lt;/p&gt;
+<p><span class="note">Note how the fastcgi stuff is put into a location followed by a forward slash to indicate that its location is the root. If you put it in the root of server (with no location scope) you will end up with nginx throwing an error like</span> </p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;root@mono-sample-ph:/var/log/mono# nginx
-  nginx: [emerg] &quot;fastcgi_pass&quot; directive is not allowed here in /etc/nginx/sites-enabled/default:34&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>root@mono-sample-ph:/var/log/mono# nginx
+  nginx: [emerg] "fastcgi_pass" directive is not allowed here in /etc/nginx/sites-enabled/default:34</p>
+</blockquote>
 
-&lt;p&gt;Save the file and exit. &lt;/p&gt;
+<p>Save the file and exit. </p>
 
-&lt;p&gt;Now drop down 1 level by calling &lt;code&gt;cd ..&lt;/code&gt; and then calling &lt;code&gt;ls&lt;/code&gt; to view the directory listing.&lt;/p&gt;
+<p>Now drop down 1 level by calling <code>cd ..</code> and then calling <code>ls</code> to view the directory listing.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-3-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-3-3.png" alt="" /></p>
 
-&lt;p&gt;We need to modify the fastcgi_params file, we open it up in nano... &lt;code&gt;nano fastcgi_params&lt;/code&gt; and we need to add the two following lines of code to the bottom of the file:&lt;/p&gt;
+<p>We need to modify the fastcgi_params file, we open it up in nano... <code>nano fastcgi_params</code> and we need to add the two following lines of code to the bottom of the file:</p>
 
-&lt;pre&gt;&lt;code&gt;fastcgi_param   PATH_INFO               &quot;&quot;;
+<pre><code>fastcgi_param   PATH_INFO               "";
 fastcgi_param   SCRIPT_FILENAME         $document_root$fastcgi_script_name;
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So you should end up with something like&lt;/p&gt;
+<p>So you should end up with something like</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-3-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-3-4.png" alt="" /></p>
 
-&lt;p&gt;Save and exit that file. &lt;/p&gt;
+<p>Save and exit that file. </p>
 
-&lt;h2&gt;Setting up the Mono Site&lt;/h2&gt;
+<h2>Setting up the Mono Site</h2>
 
-&lt;p&gt;So we need to configure a site in Mono as well. This part was a little confusing for me initially. Basically we need to create all of this manually.&lt;/p&gt;
+<p>So we need to configure a site in Mono as well. This part was a little confusing for me initially. Basically we need to create all of this manually.</p>
 
-&lt;p&gt;Head back to &lt;code&gt;cd /etc&lt;/code&gt; and call &lt;code&gt;ls&lt;/code&gt;, in here you should see an file called &lt;code&gt;init.d&lt;/code&gt;. Some tutorials on the internet show this file in &lt;code&gt;/etc/rc.d/init.d&lt;/code&gt; but this is actually because some versions of Linux put it in 1 place, while other versions put it in the other. And I think those who put it in &lt;code&gt;rc.d&lt;/code&gt; do a syslink to the root &lt;code&gt;init.d&lt;/code&gt; version. &lt;/p&gt;
+<p>Head back to <code>cd /etc</code> and call <code>ls</code>, in here you should see an file called <code>init.d</code>. Some tutorials on the internet show this file in <code>/etc/rc.d/init.d</code> but this is actually because some versions of Linux put it in 1 place, while other versions put it in the other. And I think those who put it in <code>rc.d</code> do a syslink to the root <code>init.d</code> version. </p>
 
-&lt;p&gt;In any-case on Ubuntu, &lt;code&gt;rc.d&lt;/code&gt; does not exist. So we want to navigate into &lt;code&gt;init.d&lt;/code&gt; so call &lt;code&gt;cd init.d&lt;/code&gt;&lt;/p&gt;
+<p>In any-case on Ubuntu, <code>rc.d</code> does not exist. So we want to navigate into <code>init.d</code> so call <code>cd init.d</code></p>
 
-&lt;p&gt;Create a new directory in here called &lt;code&gt;mono-fastcgi&lt;/code&gt; by calling &lt;code&gt;mkdir mono-fastcgi&lt;/code&gt; and then navigate to it.&lt;/p&gt;
+<p>Create a new directory in here called <code>mono-fastcgi</code> by calling <code>mkdir mono-fastcgi</code> and then navigate to it.</p>
 
-&lt;p&gt;Here we want to create a Web App file, this is a configuration file for our site.&lt;/p&gt;
+<p>Here we want to create a Web App file, this is a configuration file for our site.</p>
 
-&lt;p&gt;Create a new file with nano... &lt;code&gt;nano phillip.pw.webapp&lt;/code&gt;&lt;/p&gt;
+<p>Create a new file with nano... <code>nano phillip.pw.webapp</code></p>
 
-&lt;p&gt;Write the following text into the file:&lt;/p&gt;
+<p>Write the following text into the file:</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;apps&amp;gt;
-&amp;lt;web-application&amp;gt;
-        &amp;lt;name&amp;gt;phillip.pw&amp;lt;/name&amp;gt;
-        &amp;lt;vhost&amp;gt;*&amp;lt;/vhost&amp;gt;
-        &amp;lt;vport&amp;gt;80&amp;lt;/vport&amp;gt;
-        &amp;lt;vpath&amp;gt;/&amp;lt;/vpath&amp;gt;
-        &amp;lt;path&amp;gt;/var/www/phillip.pw&amp;lt;/path&amp;gt;
-&amp;lt;/web-application&amp;gt;
-&amp;lt;/apps&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>&lt;apps&gt;
+&lt;web-application&gt;
+        &lt;name&gt;phillip.pw&lt;/name&gt;
+        &lt;vhost&gt;*&lt;/vhost&gt;
+        &lt;vport&gt;80&lt;/vport&gt;
+        &lt;vpath&gt;/&lt;/vpath&gt;
+        &lt;path&gt;/var/www/phillip.pw&lt;/path&gt;
+&lt;/web-application&gt;
+&lt;/apps&gt;
+</code></pre>
 
-&lt;p&gt;All these names and paths should be familiar if you've been following from Parts 1/2&lt;/p&gt;
+<p>All these names and paths should be familiar if you've been following from Parts 1/2</p>
 
-&lt;h2&gt;Setting up the log files&lt;/h2&gt;
+<h2>Setting up the log files</h2>
 
-&lt;p&gt;Now we need to navigate to &lt;code&gt;cd /var/log&lt;/code&gt; and create a new directory called mono &lt;code&gt;mkdir mono&lt;/code&gt;, navigate into the directory, &lt;code&gt;cd mono&lt;/code&gt;, and create a new file called &lt;code&gt;fastcgi.log&lt;/code&gt;. To create a new file just call &lt;code&gt;&amp;gt; fastcgi.log&lt;/code&gt; which will create a new empty file.&lt;/p&gt;
+<p>Now we need to navigate to <code>cd /var/log</code> and create a new directory called mono <code>mkdir mono</code>, navigate into the directory, <code>cd mono</code>, and create a new file called <code>fastcgi.log</code>. To create a new file just call <code>&gt; fastcgi.log</code> which will create a new empty file.</p>
 
-&lt;h2&gt;Registering fastcgi-mono-server&lt;/h2&gt;
+<h2>Registering fastcgi-mono-server</h2>
 
-&lt;p&gt;Lastly we need to configure the server. We can start the FastCGI background process by calling&lt;/p&gt;
+<p>Lastly we need to configure the server. We can start the FastCGI background process by calling</p>
 
-&lt;p&gt;&lt;code&gt;fastcgi-mono-server4 --appconfigdir /etc/init.d/mono-fastcgi /socket=tcp:127.0.0.1:9000 /logfile=/var/log/mono/fastcgi.log &amp;amp;&lt;/code&gt;&lt;/p&gt;
+<p><code>fastcgi-mono-server4 --appconfigdir /etc/init.d/mono-fastcgi /socket=tcp:127.0.0.1:9000 /logfile=/var/log/mono/fastcgi.log &amp;</code></p>
 
-&lt;p&gt;(if it's hard to scroll, here's the same line broken down into pieces)&lt;/p&gt;
+<p>(if it's hard to scroll, here's the same line broken down into pieces)</p>
 
-&lt;pre&gt;&lt;code&gt;fastcgi-mono-server4 
+<pre><code>fastcgi-mono-server4 
     --appconfigdir /etc/init.d/mono-fastcgi 
     /socket=tcp:127.0.0.1:9000 
-    /logfile=/var/log/mono/fastcgi.log &amp;amp;
-&lt;/code&gt;&lt;/pre&gt;
+    /logfile=/var/log/mono/fastcgi.log &amp;
+</code></pre>
 
-&lt;p&gt;Notice the paths match those we just created.&lt;/p&gt;
+<p>Notice the paths match those we just created.</p>
 
-&lt;p&gt;You should have a terminal that looks like:&lt;/p&gt;
+<p>You should have a terminal that looks like:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-3-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-3-5.png" alt="" /></p>
 
-&lt;p&gt;Now give nginx a restart by calling &lt;code&gt;service nginx restart&lt;/code&gt;&lt;/p&gt;
+<p>Now give nginx a restart by calling <code>service nginx restart</code></p>
 
-&lt;h2&gt;The big test&lt;/h2&gt;
+<h2>The big test</h2>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-3-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-3-6.png" alt="" /></p>
 
-&lt;p&gt;BAM Just like that we now have an ASPX page running on Mono, on nginx, on Ubuntu, on Azure! &lt;/p&gt;
+<p>BAM Just like that we now have an ASPX page running on Mono, on nginx, on Ubuntu, on Azure! </p>
 
 
 	<div class="divider"></div>

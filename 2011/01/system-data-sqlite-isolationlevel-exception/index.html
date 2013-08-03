@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -48,35 +48,35 @@
       </div>
     </div>
         
-    &lt;p&gt;I introduced SQLite to our Unit Testing at work to aid with testing the stuff written with NHibernate, most of our repositories are rather simple but some of them require some specific criteria that it would be nice to test our queries work.&lt;/p&gt;
+    <p>I introduced SQLite to our Unit Testing at work to aid with testing the stuff written with NHibernate, most of our repositories are rather simple but some of them require some specific criteria that it would be nice to test our queries work.</p>
 
-&lt;p&gt;The problem is some of the queries have a transaction with the &lt;code&gt;IsolationLevel&lt;/code&gt; as &lt;code&gt;ReadUncommitted&lt;/code&gt;.&lt;/p&gt;
+<p>The problem is some of the queries have a transaction with the <code>IsolationLevel</code> as <code>ReadUncommitted</code>.</p>
 
-&lt;p&gt;Everything works perfectly fine until it comes to testing, the problem is SQLite does not support anything other than &lt;code&gt;Serializable&lt;/code&gt; and &lt;code&gt;ReadCommitted&lt;/code&gt;.&lt;/p&gt;
+<p>Everything works perfectly fine until it comes to testing, the problem is SQLite does not support anything other than <code>Serializable</code> and <code>ReadCommitted</code>.</p>
 
-&lt;p&gt;I spent a while trying to see if there was a way to have an interceptor for NHibernate to capture the &lt;code&gt;BeginRequest&lt;/code&gt; and replace the isolation level with something that would work, when that failed I took a look at extending the SQLite dialect but that just became confusing.&lt;/p&gt;
+<p>I spent a while trying to see if there was a way to have an interceptor for NHibernate to capture the <code>BeginRequest</code> and replace the isolation level with something that would work, when that failed I took a look at extending the SQLite dialect but that just became confusing.</p>
 
-&lt;p&gt;In the end I reflected the &lt;code&gt;System.Data.SQLite&lt;/code&gt; assembly (before i downloaded the sourcecode) to see what was happening when &lt;code&gt;BeginTransaction&lt;/code&gt; was being called.&lt;/p&gt;
+<p>In the end I reflected the <code>System.Data.SQLite</code> assembly (before i downloaded the sourcecode) to see what was happening when <code>BeginTransaction</code> was being called.</p>
 
-&lt;p&gt;There's two places it checks, the first is in &lt;code&gt;SQLiteConnection&lt;/code&gt; under &lt;code&gt;BeginTransaction&lt;/code&gt;:&lt;/p&gt;
+<p>There's two places it checks, the first is in <code>SQLiteConnection</code> under <code>BeginTransaction</code>:</p>
 
-&lt;pre&gt;&lt;code&gt;if (isolationLevel != IsolationLevel.Serializable &amp;amp;&amp;amp; isolationLevel != IsolationLevel.ReadCommitted)
-    throw new ArgumentException(&quot;isolationLevel&quot;);
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>if (isolationLevel != IsolationLevel.Serializable &amp;&amp; isolationLevel != IsolationLevel.ReadCommitted)
+    throw new ArgumentException("isolationLevel");
+</code></pre>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;The second is in the same file under Open:&lt;/p&gt;
+<p>The second is in the same file under Open:</p>
 
-&lt;pre&gt;&lt;code&gt;if (_defaultIsolation != IsolationLevel.Serializable &amp;amp;&amp;amp; _defaultIsolation != IsolationLevel.ReadCommitted)
-    throw new NotSupportedException(&quot;Invalid Default IsolationLevel specified&quot;);
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>if (_defaultIsolation != IsolationLevel.Serializable &amp;&amp; _defaultIsolation != IsolationLevel.ReadCommitted)
+    throw new NotSupportedException("Invalid Default IsolationLevel specified");
+</code></pre>
 
-&lt;p&gt;The second one is only if you've configured SQLite to have a default isolationLevel, so I've changed both.&lt;/p&gt;
+<p>The second one is only if you've configured SQLite to have a default isolationLevel, so I've changed both.</p>
 
-&lt;p&gt;So before the change, if i ran the following code (to demonstrate the scenario):&lt;/p&gt;
+<p>So before the change, if i ran the following code (to demonstrate the scenario):</p>
 
-&lt;pre&gt;&lt;code&gt;[TestMethod] 
+<pre><code>[TestMethod] 
 public void SQLite_WithTransction_ShouldNotThowException() 
 { 
     object id;
@@ -85,7 +85,7 @@ public void SQLite_WithTransction_ShouldNotThowException()
     { 
         id = _session.Save(new Test 
         { 
-            Name = &quot;Test&quot; 
+            Name = "Test" 
         });
 
         tx.Commit(); 
@@ -93,37 +93,37 @@ public void SQLite_WithTransction_ShouldNotThowException()
 
     Assert.AreEqual(1, Convert.ToInt32(id)); 
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;When the test runs, the following error is thrown:&lt;/p&gt;
+<p>When the test runs, the following error is thrown:</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;NHibernate.TransactionException: Begin failed with SQL exception -&gt; System.ArgumentException: isolationLevel&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>NHibernate.TransactionException: Begin failed with SQL exception -> System.ArgumentException: isolationLevel</p>
+</blockquote>
 
-&lt;p&gt;Now if I update the two exceptions:&lt;/p&gt;
+<p>Now if I update the two exceptions:</p>
 
-&lt;pre&gt;&lt;code&gt;if (_defaultIsolation != IsolationLevel.Serializable &amp;amp;&amp;amp; _defaultIsolation != IsolationLevel.ReadCommitted)
+<pre><code>if (_defaultIsolation != IsolationLevel.Serializable &amp;&amp; _defaultIsolation != IsolationLevel.ReadCommitted)
     _defaultIsolation = IsolationLevel.ReadCommitted;
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;And&lt;/p&gt;
+<p>And</p>
 
-&lt;pre&gt;&lt;code&gt;if (isolationLevel != IsolationLevel.Serializable &amp;amp;&amp;amp; isolationLevel != IsolationLevel.ReadCommitted)
+<pre><code>if (isolationLevel != IsolationLevel.Serializable &amp;&amp; isolationLevel != IsolationLevel.ReadCommitted)
     isolationLevel = _defaultIsolation;
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Compile and all that stuff...&lt;/p&gt;
+<p>Compile and all that stuff...</p>
 
-&lt;p&gt;Now when I run the test:&lt;/p&gt;
+<p>Now when I run the test:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/sqlite-exception-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/sqlite-exception-1.png" alt="" /></p>
 
-&lt;p&gt;Problem solved, now I can run unit tests against repositories that happen to use Isolation Levels not supported by SQLite.&lt;/p&gt;
+<p>Problem solved, now I can run unit tests against repositories that happen to use Isolation Levels not supported by SQLite.</p>
 
-&lt;p&gt;&lt;a href=&quot;/stuffz/System.Data_.SQLite.ForTesting.zip&quot;&gt;System.Data.SQLite.ForTesting.zip&lt;/a&gt;&lt;/p&gt;
+<p><a href="/stuffz/System.Data_.SQLite.ForTesting.zip">System.Data.SQLite.ForTesting.zip</a></p>
 
-&lt;p&gt;Attached is the assembly if anyone else wants to use it for their tests.&lt;/p&gt;
+<p>Attached is the assembly if anyone else wants to use it for their tests.</p>
 
 
 	<div class="divider"></div>

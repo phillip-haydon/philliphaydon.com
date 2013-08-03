@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -39,26 +39,26 @@
         <a href="/2011/12/ravendb-map-reduce/">RavenDB - Map Reduce</a> 
         <span>posted on 22 Dec 2011</span>
       </h1> 
-      &lt;p&gt;So, learning Map Reduce in RavenDB I decided that to take what I learnt from the index created in my previous post. I think I picked something rather difficult to begin with, but I've succeeded &lt;/p&gt;
+      <p>So, learning Map Reduce in RavenDB I decided that to take what I learnt from the index created in my previous post. I think I picked something rather difficult to begin with, but I've succeeded </p>
 
-&lt;p&gt;Given a document Article which has a collection of Tags.&lt;/p&gt;
+<p>Given a document Article which has a collection of Tags.</p>
 
-&lt;p&gt;I want to get a Count of each Tag across all Articles.&lt;/p&gt;
+<p>I want to get a Count of each Tag across all Articles.</p>
 
-&lt;pre&gt;&lt;code&gt;public class Content
+<pre><code>public class Content
 {
     public int Id { get; set; }
     public string Title { get; set; }
-    public IEnumerable&amp;lt;Tag&amp;gt; Tags { get; set; }
+    public IEnumerable&lt;Tag&gt; Tags { get; set; }
 }
 
 public class Tag
 {
     public string Name { get; set; }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Tag is it's own class because I added additional properties to it.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> Tag is it's own class because I added additional properties to it.</span></p>
 
 
       <p><a href="/2011/12/ravendb-map-reduce/">Read more...</a></p>
@@ -68,19 +68,19 @@ public class Tag
         <a href="/2011/12/ravendb-inheritance-revisited/">RavenDB Inheritance-Revisited</a> 
         <span>posted on 14 Dec 2011</span>
       </h1> 
-      &lt;p&gt;So after my initial post on &lt;a href=&quot;/2011/12/ravendb-inheritance/&quot;&gt;RavenDB Inheritance&lt;/a&gt;, and the issue I had with polymorphic queries, and seeking help from the guys in &lt;a href=&quot;http://jabbr.net/&quot;&gt;JabbR&lt;/a&gt; and the (RavenDB Google Group)[http://groups.google.com/group/ravendb/browse_thread/thread/c71df8f1cd92e04c], &lt;a href=&quot;http://ayende.com/blog/&quot;&gt;Ayende&lt;/a&gt; ended up doing a screen cast with me where he solved all my problems.&lt;/p&gt;
+      <p>So after my initial post on <a href="/2011/12/ravendb-inheritance/">RavenDB Inheritance</a>, and the issue I had with polymorphic queries, and seeking help from the guys in <a href="http://jabbr.net/">JabbR</a> and the (RavenDB Google Group)[http://groups.google.com/group/ravendb/browse_thread/thread/c71df8f1cd92e04c], <a href="http://ayende.com/blog/">Ayende</a> ended up doing a screen cast with me where he solved all my problems.</p>
 
-&lt;p&gt;One of the things he asked me was what I was trying to achieve by having a polymorphic query, which was a very good question, something I hadn't really thought about.&lt;/p&gt;
+<p>One of the things he asked me was what I was trying to achieve by having a polymorphic query, which was a very good question, something I hadn't really thought about.</p>
 
-&lt;p&gt;The problem I was trying to solve was actually displaying search results.&lt;/p&gt;
+<p>The problem I was trying to solve was actually displaying search results.</p>
 
-&lt;h2&gt;The Problem&lt;/h2&gt;
+<h2>The Problem</h2>
 
-&lt;p&gt;So I'm working on a personal project, and I need to display a few things which are similar, but different. There's 3 different types but I'll use two to keep it simple. I've also cut out most of the properties.&lt;/p&gt;
+<p>So I'm working on a personal project, and I need to display a few things which are similar, but different. There's 3 different types but I'll use two to keep it simple. I've also cut out most of the properties.</p>
 
-&lt;p&gt;So I have an abstract class Content, with two derived classes, Article and Video.&lt;/p&gt;
+<p>So I have an abstract class Content, with two derived classes, Article and Video.</p>
 
-&lt;pre&gt;&lt;code&gt;public abstract class Content
+<pre><code>public abstract class Content
 {
     public int Id { get; set; }
     public string Title { get; set; }
@@ -97,7 +97,7 @@ public class Video : Content
     public string Description { get; set; }
     public string VideoUrl { get; set; }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
 
       <p><a href="/2011/12/ravendb-inheritance-revisited/">Read more...</a></p>
@@ -107,17 +107,17 @@ public class Video : Content
         <a href="/2011/12/ravendb-inheritance/">RavenDB Inheritance</a> 
         <span>posted on 10 Dec 2011</span>
       </h1> 
-      &lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Updated solution: &lt;a href=&quot;http://www.philliphaydon.com/2011/12/ravendb-inheritance-revisited/&quot;&gt;http://www.philliphaydon.com/2011/12/ravendb-inheritance-revisited/&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+      <p><span class="note"><strong>Note:</strong> Updated solution: <a href="http://www.philliphaydon.com/2011/12/ravendb-inheritance-revisited/">http://www.philliphaydon.com/2011/12/ravendb-inheritance-revisited/</a></span></p>
 
-&lt;p&gt;Continuing my learning of RavenDB, I wanted to see how it handled Inheritance.&lt;/p&gt;
+<p>Continuing my learning of RavenDB, I wanted to see how it handled Inheritance.</p>
 
-&lt;p&gt;I found: &lt;a href=&quot;http://ravendb.net/faq/polymorphic-indexes&quot;&gt;http://ravendb.net/faq/polymorphic-indexes&lt;/a&gt;&lt;/p&gt;
+<p>I found: <a href="http://ravendb.net/faq/polymorphic-indexes">http://ravendb.net/faq/polymorphic-indexes</a></p>
 
-&lt;p&gt;Which showed what to do allow you to select over all types of &lt;code&gt;Animal&lt;/code&gt; for the example shown. So I wanted to see what happens before and after using this method.&lt;/p&gt;
+<p>Which showed what to do allow you to select over all types of <code>Animal</code> for the example shown. So I wanted to see what happens before and after using this method.</p>
 
-&lt;p&gt;So like the example shown I've created an &lt;code&gt;Animal&lt;/code&gt;, with a &lt;code&gt;Dog&lt;/code&gt; and &lt;code&gt;Cat&lt;/code&gt;.&lt;/p&gt;
+<p>So like the example shown I've created an <code>Animal</code>, with a <code>Dog</code> and <code>Cat</code>.</p>
 
-&lt;pre&gt;&lt;code&gt;public abstract class Animal
+<pre><code>public abstract class Animal
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -126,17 +126,17 @@ public class Video : Content
 public class Dog : Animal { }
 
 public class Cat : Animal { }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Now if I insert a Dog and Cat:&lt;/p&gt;
+<p>Now if I insert a Dog and Cat:</p>
 
-&lt;pre&gt;&lt;code&gt;using (var session = documentStore.OpenSession())
+<pre><code>using (var session = documentStore.OpenSession())
 {
-    session.Store(new Dog() { Name = &quot;Test Dog&quot; });
-    session.Store(new Cat() { Name = &quot;Test Cat&quot; });
+    session.Store(new Dog() { Name = "Test Dog" });
+    session.Store(new Cat() { Name = "Test Cat" });
     session.SaveChanges();
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
 
       <p><a href="/2011/12/ravendb-inheritance/">Read more...</a></p>
@@ -146,25 +146,25 @@ public class Cat : Animal { }
         <a href="/2011/12/post-a-collection-of-viewmodels-to-a-mvc-action-with-jquery/">Post a collection of ViewModel's to a MVC Action with jQuery</a> 
         <span>posted on 07 Dec 2011</span>
       </h1> 
-      &lt;p&gt;Maybe I searched for the wrong thing, but I couldn't find what I was looking for :( My Bing and Google fu failed me.&lt;/p&gt;
+      <p>Maybe I searched for the wrong thing, but I couldn't find what I was looking for :( My Bing and Google fu failed me.</p>
 
-&lt;p&gt;Basically I wanted to post a collection of ViewModels to an MCV action. Turns out it's rather simple.&lt;/p&gt;
+<p>Basically I wanted to post a collection of ViewModels to an MCV action. Turns out it's rather simple.</p>
 
-&lt;p&gt;Lets say I have a bunch of Products, and Products are managed in a WarehouseLocation. A product doesn't have a warehouse location, since it could exist in multiple locations.&lt;/p&gt;
+<p>Lets say I have a bunch of Products, and Products are managed in a WarehouseLocation. A product doesn't have a warehouse location, since it could exist in multiple locations.</p>
 
-&lt;p&gt;If I'm currently working in Location A, I want to post a collection of Products to an action, as well as the WarehouseLocationId.&lt;/p&gt;
+<p>If I'm currently working in Location A, I want to post a collection of Products to an action, as well as the WarehouseLocationId.</p>
 
-&lt;p&gt;So given a simple ViewModel, and an Action:&lt;/p&gt;
+<p>So given a simple ViewModel, and an Action:</p>
 
-&lt;pre&gt;&lt;code&gt;public class ProductViewModel
+<pre><code>public class ProductViewModel
 {
     public int Id { get; set; }
     public string Name { get; set; }
     public decimal Price { get; set; }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;and&lt;/p&gt;
+<p>and</p>
 
 
       <p><a href="/2011/12/post-a-collection-of-viewmodels-to-a-mvc-action-with-jquery/">Read more...</a></p>
@@ -174,26 +174,26 @@ public class Cat : Animal { }
         <a href="/2011/11/optional-parameters-with-attributerouting/">Optional Parameters with AttributeRouting</a> 
         <span>posted on 27 Nov 2011</span>
       </h1> 
-      &lt;p&gt;I found a little trick with using Optional Parameters with &lt;a href=&quot;https://github.com/mccalltd/AttributeRouting/wiki/2.-Usage&quot;&gt;AttributeRouting&lt;/a&gt;, by using standard optional parameters in the action.&lt;/p&gt;
+      <p>I found a little trick with using Optional Parameters with <a href="https://github.com/mccalltd/AttributeRouting/wiki/2.-Usage">AttributeRouting</a>, by using standard optional parameters in the action.</p>
 
-&lt;p&gt;The documentation says you can add an attributes to specify the defaults, or add &lt;code&gt;=value&lt;/code&gt; to the parameter name, and I guess that's a more correct way to generate routes, but you can achieve the same affect by making the parameter optional. Like so:&lt;/p&gt;
+<p>The documentation says you can add an attributes to specify the defaults, or add <code>=value</code> to the parameter name, and I guess that's a more correct way to generate routes, but you can achieve the same affect by making the parameter optional. Like so:</p>
 
-&lt;pre&gt;&lt;code&gt;[GET(&quot;videos/{?page}&quot;)]
+<pre><code>[GET("videos/{?page}")]
 public ActionResult Videos(int page = 1)
 {
-    return View(&quot;Result&quot;);
+    return View("Result");
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;If I browse to the URL:&lt;/p&gt;
+<p>If I browse to the URL:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/attribute-routing-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/attribute-routing-1.png" alt="" /></p>
 
-&lt;p&gt;It uses the default value of 1.&lt;/p&gt;
+<p>It uses the default value of 1.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/attribute-routing-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/attribute-routing-2.png" alt="" /></p>
 
-&lt;p&gt;Now when appending a number to the end of the URL:&lt;/p&gt;
+<p>Now when appending a number to the end of the URL:</p>
 
 
       <p><a href="/2011/11/optional-parameters-with-attributerouting/">Read more...</a></p>
@@ -203,23 +203,23 @@ public ActionResult Videos(int page = 1)
         <a href="/2011/11/split-windows-web-workbench-win/">Split Windows + Web Workbench = Win</a> 
         <span>posted on 27 Nov 2011</span>
       </h1> 
-      &lt;p&gt;One of the cool features of the &lt;a href=&quot;http://www.mindscapehq.com/products/web-workbench/&quot;&gt;Web Workbench&lt;/a&gt; from Mindscape is the ability to generate the output files. Prior to using the Web Workbench I was using &lt;a href=&quot;http://www.dotlesscss.org/&quot;&gt;.LESS{}&lt;/a&gt; which uses an HTTP Handler to generate the output files for LESS.&lt;/p&gt;
+      <p>One of the cool features of the <a href="http://www.mindscapehq.com/products/web-workbench/">Web Workbench</a> from Mindscape is the ability to generate the output files. Prior to using the Web Workbench I was using <a href="http://www.dotlesscss.org/">.LESS{}</a> which uses an HTTP Handler to generate the output files for LESS.</p>
 
-&lt;p&gt;The problem with this is sometimes I would write some CSS and not realise I missed something only to find my site doesn't display anything, then I have to figure out what I did wrong.&lt;/p&gt;
+<p>The problem with this is sometimes I would write some CSS and not realise I missed something only to find my site doesn't display anything, then I have to figure out what I did wrong.</p>
 
-&lt;p&gt;With the Web Workbench, and it's ability to generate the files every time I save, makes me less error prone.&lt;/p&gt;
+<p>With the Web Workbench, and it's ability to generate the files every time I save, makes me less error prone.</p>
 
-&lt;p&gt;But the most efficient way of working with it I found (when writing a lot of CSS in 1 sitting) is to split my windows so the first window has where I'm writing, and the second window has the generated CSS file.&lt;/p&gt;
+<p>But the most efficient way of working with it I found (when writing a lot of CSS in 1 sitting) is to split my windows so the first window has where I'm writing, and the second window has the generated CSS file.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/split-screen-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/split-screen-1.png" alt="" /></p>
 
-&lt;p&gt;If I make an error on the left side:&lt;/p&gt;
+<p>If I make an error on the left side:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/split-screen-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/split-screen-2.png" alt="" /></p>
 
-&lt;p&gt;I see the error on the right.&lt;/p&gt;
+<p>I see the error on the right.</p>
 
-&lt;p&gt;If I make a change to the left, (added a background colour) i see the change on the right.&lt;/p&gt;
+<p>If I make a change to the left, (added a background colour) i see the change on the right.</p>
 
 
       <p><a href="/2011/11/split-windows-web-workbench-win/">Read more...</a></p>
@@ -229,30 +229,30 @@ public ActionResult Videos(int page = 1)
         <a href="/2011/11/unit-of-work-with-wcf-and-autofac/">Unit of Work with WCF and Autofac</a> 
         <span>posted on 06 Nov 2011</span>
       </h1> 
-      &lt;p&gt;I've just spent the last few days trying to find a way to have a Unit of Work with WCF, but it seems no one has a nice clean easy solution.&lt;/p&gt;
+      <p>I've just spent the last few days trying to find a way to have a Unit of Work with WCF, but it seems no one has a nice clean easy solution.</p>
 
-&lt;p&gt;The first, and the only decent solution I found was here:&lt;/p&gt;
+<p>The first, and the only decent solution I found was here:</p>
 
-&lt;p&gt;&lt;a href=&quot;http://ianfnelson.com/archives/2010/04/09/wcf-nhibernate-unit-of-work-endpoint-behavior&quot;&gt;http://ianfnelson.com/archives/2010/04/09/wcf-nhibernate-unit-of-work-endpoint-behavior&lt;/a&gt;&lt;/p&gt;
+<p><a href="http://ianfnelson.com/archives/2010/04/09/wcf-nhibernate-unit-of-work-endpoint-behavior">http://ianfnelson.com/archives/2010/04/09/wcf-nhibernate-unit-of-work-endpoint-behavior</a></p>
 
-&lt;p&gt;The problem I found with this solution is that the ICallContextInitializer as well as the EndpointBehavior is only created once. So it would seem all calls to a service would share the same Unit of Work instance.&lt;/p&gt;
+<p>The problem I found with this solution is that the ICallContextInitializer as well as the EndpointBehavior is only created once. So it would seem all calls to a service would share the same Unit of Work instance.</p>
 
-&lt;p&gt;Maybe Castle Windsor does something fancy and injects a brand new &lt;code&gt;EndpointBehavior&lt;/code&gt; every request to a service, but for me, it seemed the &lt;code&gt;ServiceBehavior&lt;/code&gt;, &lt;code&gt;EndpointBehavior&lt;/code&gt;, and &lt;code&gt;ICallContextInitializer&lt;/code&gt; were all created once.&lt;/p&gt;
+<p>Maybe Castle Windsor does something fancy and injects a brand new <code>EndpointBehavior</code> every request to a service, but for me, it seemed the <code>ServiceBehavior</code>, <code>EndpointBehavior</code>, and <code>ICallContextInitializer</code> were all created once.</p>
 
-&lt;p&gt;This caused my service to resolve a different instance of &lt;code&gt;IUnitOfWork&lt;/code&gt; to what was in the &lt;code&gt;ICallContextInitializer&lt;/code&gt;.&lt;/p&gt;
+<p>This caused my service to resolve a different instance of <code>IUnitOfWork</code> to what was in the <code>ICallContextInitializer</code>.</p>
 
-&lt;h2&gt;Interim Solution 1&lt;/h2&gt;
+<h2>Interim Solution 1</h2>
 
-&lt;p&gt;The first solution I came up with was to use Autofac to call Commit on release:&lt;/p&gt;
+<p>The first solution I came up with was to use Autofac to call Commit on release:</p>
 
-&lt;pre&gt;&lt;code&gt;builder.RegisterType(typeof (UnitOfWork))
+<pre><code>builder.RegisterType(typeof (UnitOfWork))
         .As(typeof (IUnitOfWork))
         .InstancePerLifetimeScope()
-        .OnRelease(x =&amp;gt;
+        .OnRelease(x =&gt;
                         {
                             ((IUnitOfWork) x).Commit();
                         });
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
 
       <p><a href="/2011/11/unit-of-work-with-wcf-and-autofac/">Read more...</a></p>
@@ -262,15 +262,15 @@ public ActionResult Videos(int page = 1)
         <a href="/2011/11/windows-phone-windows-live-and-msn/">Windows Phone, Windows Live and MSN</a> 
         <span>posted on 02 Nov 2011</span>
       </h1> 
-      &lt;p&gt;Windows Phone 7.5 has been getting some awesome reviews, and rightly so. The thing is amazing. I really think Microsoft has begun leading the way for the mobile platform.&lt;/p&gt;
+      <p>Windows Phone 7.5 has been getting some awesome reviews, and rightly so. The thing is amazing. I really think Microsoft has begun leading the way for the mobile platform.</p>
 
-&lt;p&gt;But I'm highly pissed off with the Windows Phone team. Why? &lt;strong&gt;Because to use MSN, your msn contacts must be associated with the first live account you register to the phone.&lt;/strong&gt;&lt;/p&gt;
+<p>But I'm highly pissed off with the Windows Phone team. Why? <strong>Because to use MSN, your msn contacts must be associated with the first live account you register to the phone.</strong></p>
 
-&lt;p&gt;I don't even know what to say about this, it's so silly. I understand that it might get confusing to allow multiple Facebook accounts, multiple Windows Live accounts, etc.&lt;/p&gt;
+<p>I don't even know what to say about this, it's so silly. I understand that it might get confusing to allow multiple Facebook accounts, multiple Windows Live accounts, etc.</p>
 
-&lt;p&gt;But could they not allow you to choose which account MSN contacts are associated to?&lt;/p&gt;
+<p>But could they not allow you to choose which account MSN contacts are associated to?</p>
 
-&lt;p&gt;When I first setup my phone I didn't use the Windows Live account I use for MSN (my Hotmail) since it's existed since 1997, it's got 100's of contacts I don't want in my phone-book, a lot of MSN contacts exist from work, or playing online games, or from forums etc. So I used the Windows Live account that I use for MSDN. I added all my contacts and everything was great, (after I imported all my contacts from outlook into Windows Live Contacts)&lt;/p&gt;
+<p>When I first setup my phone I didn't use the Windows Live account I use for MSN (my Hotmail) since it's existed since 1997, it's got 100's of contacts I don't want in my phone-book, a lot of MSN contacts exist from work, or playing online games, or from forums etc. So I used the Windows Live account that I use for MSDN. I added all my contacts and everything was great, (after I imported all my contacts from outlook into Windows Live Contacts)</p>
 
 
       <p><a href="/2011/11/windows-phone-windows-live-and-msn/">Read more...</a></p>
@@ -280,37 +280,37 @@ public ActionResult Videos(int page = 1)
         <a href="/2011/10/ravendb-changing-the-lo-on-the-hilo-generator/">RavenDB - Changing the Lo on the HiLo Generator</a> 
         <span>posted on 24 Oct 2011</span>
       </h1> 
-      &lt;p&gt;Well I'm currently learning RavenDB, it's awesome! But I noticed when I put data in, all the Id's generated every time I ran up my application to test were:&lt;/p&gt;
+      <p>Well I'm currently learning RavenDB, it's awesome! But I noticed when I put data in, all the Id's generated every time I ran up my application to test were:</p>
 
-&lt;p&gt;1, 2, 3, 4, 5...&lt;/p&gt;
+<p>1, 2, 3, 4, 5...</p>
 
-&lt;p&gt;1024, 1025, 1026, 1027, 1028...&lt;/p&gt;
+<p>1024, 1025, 1026, 1027, 1028...</p>
 
-&lt;p&gt;2048, 2049, 2050, 2051, 2052...&lt;/p&gt;
+<p>2048, 2049, 2050, 2051, 2052...</p>
 
-&lt;p&gt;This would be fine after the app is deployed since I wouldn't be restarting it over and over and over, but during development I personally find it annoying that the numbers jump so high.&lt;/p&gt;
+<p>This would be fine after the app is deployed since I wouldn't be restarting it over and over and over, but during development I personally find it annoying that the numbers jump so high.</p>
 
-&lt;p&gt;Fortunately I figured out a way. (which about an hour later I found on Google Groups, granted I had to use a different keyword to find it)&lt;/p&gt;
+<p>Fortunately I figured out a way. (which about an hour later I found on Google Groups, granted I had to use a different keyword to find it)</p>
 
-&lt;p&gt;Basically you just need to create a new instance of the &lt;code&gt;MultiTypeHiLoKeyGenerator&lt;/code&gt; class, passing in the arguments and assigning it to the document store:&lt;/p&gt;
+<p>Basically you just need to create a new instance of the <code>MultiTypeHiLoKeyGenerator</code> class, passing in the arguments and assigning it to the document store:</p>
 
-&lt;pre&gt;&lt;code&gt;var documentStore = (new DocumentStore { 
-    Url = &quot;http://localhost:12321/&quot; 
+<pre><code>var documentStore = (new DocumentStore { 
+    Url = "http://localhost:12321/" 
 }).Initialize();
 
 var generator = new MultiTypeHiLoKeyGenerator(documentStore, 10);
 
 documentStore.Conventions.DocumentKeyGenerator = 
-    entity =&amp;gt; generator.GenerateDocumentKey(documentStore.Conventions, entity);
+    entity =&gt; generator.GenerateDocumentKey(documentStore.Conventions, entity);
 
 using (var session = documentStore.OpenSession())
 {
-    session.Store(new Project() { Title = &quot;Hello World&quot; });
+    session.Store(new Project() { Title = "Hello World" });
     session.SaveChanges();
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So running up my app once:&lt;/p&gt;
+<p>So running up my app once:</p>
 
 
       <p><a href="/2011/10/ravendb-changing-the-lo-on-the-hilo-generator/">Read more...</a></p>
@@ -320,15 +320,15 @@ using (var session = documentStore.OpenSession())
         <a href="/2011/10/nhibernate-designer-2/">NHibernate Designer 2</a> 
         <span>posted on 20 Oct 2011</span>
       </h1> 
-      &lt;p&gt;The guys at MindScape have released their next version of NHibernate Designer, which now supports Fluent NHibernate and a whole heap of new features.&lt;/p&gt;
+      <p>The guys at MindScape have released their next version of NHibernate Designer, which now supports Fluent NHibernate and a whole heap of new features.</p>
 
-&lt;p&gt;They also dropped the price down to just $99!&lt;/p&gt;
+<p>They also dropped the price down to just $99!</p>
 
-&lt;p&gt;I recommend checking it out&lt;/p&gt;
+<p>I recommend checking it out</p>
 
-&lt;p&gt;&lt;a href=&quot;http://www.mindscapehq.com/blog/index.php/2011/10/19/nhibernate-designer-2-is-here/&quot;&gt;http://www.mindscapehq.com/blog/index.php/2011/10/19/nhibernate-designer-2-is-here/&lt;/a&gt;&lt;/p&gt;
+<p><a href="http://www.mindscapehq.com/blog/index.php/2011/10/19/nhibernate-designer-2-is-here/">http://www.mindscapehq.com/blog/index.php/2011/10/19/nhibernate-designer-2-is-here/</a></p>
 
-&lt;p&gt;&lt;a href=&quot;http://www.mindscapehq.com/products/nhdesigner&quot;&gt;http://www.mindscapehq.com/products/nhdesigner&lt;/a&gt;&lt;/p&gt;
+<p><a href="http://www.mindscapehq.com/products/nhdesigner">http://www.mindscapehq.com/products/nhdesigner</a></p>
 
       <p><a href="/2011/10/nhibernate-designer-2/">Read more...</a></p>
     </li>

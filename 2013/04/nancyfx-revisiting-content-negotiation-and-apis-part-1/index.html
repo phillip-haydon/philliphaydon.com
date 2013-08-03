@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,48 +49,48 @@
       </div>
     </div>
         
-    &lt;ul&gt;
-&lt;li&gt;Original Post: &lt;a href=&quot;/2012/11/nancy-and-content-negotiation&quot;&gt;NancyFX and Content Negotiation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 1)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/&quot;&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 2)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/&quot;&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 3)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+    <ul>
+<li>Original Post: <a href="/2012/11/nancy-and-content-negotiation">NancyFX and Content Negotiation</a></li>
+<li>NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</li>
+<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 2)</a></li>
+<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 3)</a></li>
+</ul>
 
-&lt;p&gt;I thought I would revisit this topic since I don't believe I did it enough justice last time around, and I believe it really is important when creating an API that is going to be consumed not only by the public or client, but &lt;strong&gt;by you also&lt;/strong&gt;!&lt;/p&gt;
+<p>I thought I would revisit this topic since I don't believe I did it enough justice last time around, and I believe it really is important when creating an API that is going to be consumed not only by the public or client, but <strong>by you also</strong>!</p>
 
-&lt;p&gt;When the browser asks for &lt;code&gt;text/html&lt;/code&gt; its negotiating with the server. So really your website is an API, your &lt;code&gt;Views&lt;/code&gt; are just an additional type of content that your API serves up when requested.&lt;/p&gt;
+<p>When the browser asks for <code>text/html</code> its negotiating with the server. So really your website is an API, your <code>Views</code> are just an additional type of content that your API serves up when requested.</p>
 
-&lt;h2&gt;Example&lt;/h2&gt;
+<h2>Example</h2>
 
-&lt;p&gt;Lets say you're building Twitter, the initial page shows a list of tweets, so the browser makes a call to &lt;code&gt;/tweets&lt;/code&gt; and the server responds with a list of tweets rendered with using HTML.&lt;/p&gt;
+<p>Lets say you're building Twitter, the initial page shows a list of tweets, so the browser makes a call to <code>/tweets</code> and the server responds with a list of tweets rendered with using HTML.</p>
 
-&lt;p&gt;Once the page has loaded, the client uses JavaScript to load new tweets, so it calls &lt;code&gt;/tweets&lt;/code&gt; again, this time it returns a &lt;code&gt;json&lt;/code&gt; result, and the client-side templating engine then renders and appends those to the top of the existing list, keeping the client up to date with the latest tweets.&lt;/p&gt;
+<p>Once the page has loaded, the client uses JavaScript to load new tweets, so it calls <code>/tweets</code> again, this time it returns a <code>json</code> result, and the client-side templating engine then renders and appends those to the top of the existing list, keeping the client up to date with the latest tweets.</p>
 
-&lt;p&gt;What's nice is no new data needed to be written on the server! &lt;/p&gt;
+<p>What's nice is no new data needed to be written on the server! </p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I'm not going to discuss RESTful API's, that would just create too many arguments.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> I'm not going to discuss RESTful API's, that would just create too many arguments.</span></p>
 
-&lt;h2&gt;Need code please&lt;/h2&gt;
+<h2>Need code please</h2>
 
-&lt;p&gt;Right so lets see this in action for real. When I demonstrated this in my previous post, I showed a somewhat complicated Negotiate, this time I'm going to show a super simple scenario.&lt;/p&gt;
+<p>Right so lets see this in action for real. When I demonstrated this in my previous post, I showed a somewhat complicated Negotiate, this time I'm going to show a super simple scenario.</p>
 
-&lt;p&gt;We have a &lt;code&gt;ProductsModule&lt;/code&gt;, it can &lt;code&gt;Get&lt;/code&gt; a single product, or it can &lt;code&gt;Get&lt;/code&gt; a list of products.&lt;/p&gt;
+<p>We have a <code>ProductsModule</code>, it can <code>Get</code> a single product, or it can <code>Get</code> a list of products.</p>
 
-&lt;pre&gt;&lt;code&gt;public class ProductsModule : NancyModule
+<pre><code>public class ProductsModule : NancyModule
 {
     public ProductsModule(IProductRepository productRepository)
-        :base(&quot;products&quot;)
+        :base("products")
     {
-        Get[&quot;/{id}&quot;] = _ =&amp;gt;
+        Get["/{id}"] = _ =&gt;
         {
             var product = productRepository.Get((int)_.id);
 
             return product;
         };
 
-        Get[&quot;/&quot;] = _ =&amp;gt;
+        Get["/"] = _ =&gt;
         {
             var products = productRepository.List();
 
@@ -98,91 +98,91 @@
         };
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Using a Chrome Plugin called Postman which can be found on the &lt;a href=&quot;https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?utm_source=chrome-ntp-launcher&quot;&gt;Chrome Web Store&lt;/a&gt;. &lt;/p&gt;
+<p>Using a Chrome Plugin called Postman which can be found on the <a href="https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?utm_source=chrome-ntp-launcher">Chrome Web Store</a>. </p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-1.png" alt="" /></p>
 
-&lt;p&gt;We can invoke some calls to get some data. We specify the &lt;code&gt;URL&lt;/code&gt;, the &lt;code&gt;VERB&lt;/code&gt;, and add some Headers. In this case we will add a single header. &lt;code&gt;Accept&lt;/code&gt; where we specify that we want &lt;code&gt;application/xml&lt;/code&gt;. &lt;/p&gt;
+<p>We can invoke some calls to get some data. We specify the <code>URL</code>, the <code>VERB</code>, and add some Headers. In this case we will add a single header. <code>Accept</code> where we specify that we want <code>application/xml</code>. </p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-2.png" alt="" /></p>
 
-&lt;p&gt;When we invoke this, we get an XML result of our products:&lt;/p&gt;
+<p>When we invoke this, we get an XML result of our products:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-3.png" alt="" /></p>
 
-&lt;p&gt;When we do the same call but we specify the &lt;code&gt;Accept&lt;/code&gt; header with &lt;code&gt;application/json&lt;/code&gt; we get a JSON result. &lt;/p&gt;
+<p>When we do the same call but we specify the <code>Accept</code> header with <code>application/json</code> we get a JSON result. </p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-4.png" alt="" /></p>
 
-&lt;p&gt;Nice right? So far we haven't written any code other than returning some data to a endpoint we specified. Lets take a look at the first route, its a Get By Id route, and all we're returning is a single Product.&lt;/p&gt;
+<p>Nice right? So far we haven't written any code other than returning some data to a endpoint we specified. Lets take a look at the first route, its a Get By Id route, and all we're returning is a single Product.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-5.png" alt="" /></p>
 
-&lt;p&gt;Now if we specify the Accept as something the browser would ask for, &lt;code&gt;text/html&lt;/code&gt; we would expect rendered HTML.&lt;/p&gt;
+<p>Now if we specify the Accept as something the browser would ask for, <code>text/html</code> we would expect rendered HTML.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-6.png" alt="" /></p>
 
-&lt;p&gt;Bam we get an error, but this is only because the view doesn't exist yet. By default NancyFX looks for a view of the same name of the type returned.&lt;/p&gt;
+<p>Bam we get an error, but this is only because the view doesn't exist yet. By default NancyFX looks for a view of the same name of the type returned.</p>
 
-&lt;p&gt;Since we returned a 'product', the view name that Nancy will look for is &lt;code&gt;typeof(Product).Name&lt;/code&gt; or &lt;code&gt;Product&lt;/code&gt;. So if we create a new product view to display some data:&lt;/p&gt;
+<p>Since we returned a 'product', the view name that Nancy will look for is <code>typeof(Product).Name</code> or <code>Product</code>. So if we create a new product view to display some data:</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
-&amp;lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&amp;gt;
-&amp;lt;head&amp;gt;
-    &amp;lt;meta charset=&quot;utf-8&quot; /&amp;gt;
-    &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
-&amp;lt;/head&amp;gt;
-&amp;lt;body&amp;gt;
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-    &amp;lt;div&amp;gt;
+    &lt;div&gt;
         Id: [ERR!]
-        &amp;lt;br /&amp;gt;
+        &lt;br /&gt;
         Name: [ERR!]
-        &amp;lt;br /&amp;gt;
+        &lt;br /&gt;
         Price: $[ERR!]
-    &amp;lt;/div&amp;gt;
+    &lt;/div&gt;
 
-&amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 
-&lt;p&gt;Super super simple, now when we call the same route again we get:&lt;/p&gt;
+<p>Super super simple, now when we call the same route again we get:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-7.png" alt="" /></p>
 
-&lt;p&gt;Now we have a Single API that returns JSON, XML, or HTML. &lt;/p&gt;
+<p>Now we have a Single API that returns JSON, XML, or HTML. </p>
 
-&lt;h2&gt;Fiddly Issues&lt;/h2&gt;
+<h2>Fiddly Issues</h2>
 
-&lt;p&gt;Here's where things get fiddly, if we want to return the collection with a view, NancyFX will attempt to convert the &lt;code&gt;List&amp;lt;Product&amp;gt;&lt;/code&gt; to it's name, and look for the view. This ends up looking for a view by the name of &lt;code&gt;List`1&lt;/code&gt;, which you may think will fail, but funnily enough you can actually create a view with the backquote.&lt;/p&gt;
+<p>Here's where things get fiddly, if we want to return the collection with a view, NancyFX will attempt to convert the <code>List&lt;Product&gt;</code> to it's name, and look for the view. This ends up looking for a view by the name of <code>List`1</code>, which you may think will fail, but funnily enough you can actually create a view with the backquote.</p>
 
-&lt;p&gt;So lets create a new file called &lt;code&gt;List`1.sshtml&lt;/code&gt; and populate it with some basic HTML:&lt;/p&gt;
+<p>So lets create a new file called <code>List`1.sshtml</code> and populate it with some basic HTML:</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt; 
-&amp;lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&amp;gt;
-&amp;lt;head&amp;gt;
-    &amp;lt;meta charset=&quot;utf-8&quot; /&amp;gt;
-    &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
-&amp;lt;/head&amp;gt;
-&amp;lt;body&amp;gt;
+<pre><code>&lt;!DOCTYPE html&gt; 
+&lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
     [ERR!]
 
-&amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; in case you're wondering, this isn't Razor, this is Nancy's Super Simple View Engine :)&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> in case you're wondering, this isn't Razor, this is Nancy's Super Simple View Engine :)</span></p>
 
-&lt;p&gt;Now if we run up the site again and hit &lt;code&gt;/products&lt;/code&gt; we get:&lt;/p&gt;
+<p>Now if we run up the site again and hit <code>/products</code> we get:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-8.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-8.png" alt="" /></p>
 
-&lt;h2&gt;Recap&lt;/h2&gt;
+<h2>Recap</h2>
 
-&lt;p&gt;So far we have created a single endpoint with very little code that can respond with JSON/XML/HTML. Next I'm going to show how &lt;code&gt;Negotiate&lt;/code&gt; gives you more flexibility.&lt;/p&gt;
+<p>So far we have created a single endpoint with very little code that can respond with JSON/XML/HTML. Next I'm going to show how <code>Negotiate</code> gives you more flexibility.</p>
 
 
 	<div class="divider"></div>

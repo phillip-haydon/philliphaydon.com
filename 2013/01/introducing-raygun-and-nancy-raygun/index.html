@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,35 +49,35 @@
       </div>
     </div>
         
-    &lt;p&gt;So not long ago I &lt;a href=&quot;/2012/10/keep-an-eye-on-raygun-to-zap-all-your-errors-away/&quot;&gt;posted&lt;/a&gt; about an up and coming service from &lt;a href=&quot;http://www.mindscapehq.com&quot;&gt;http://www.mindscapehq.com&lt;/a&gt; called &lt;a href=&quot;http://www.raygun.io&quot;&gt;Raygun&lt;/a&gt;, well last week they went into beta, and I was invited, so since early last week I've been giving their system the run around and provided a little bit of feedback. &lt;/p&gt;
+    <p>So not long ago I <a href="/2012/10/keep-an-eye-on-raygun-to-zap-all-your-errors-away/">posted</a> about an up and coming service from <a href="http://www.mindscapehq.com">http://www.mindscapehq.com</a> called <a href="http://www.raygun.io">Raygun</a>, well last week they went into beta, and I was invited, so since early last week I've been giving their system the run around and provided a little bit of feedback. </p>
 
-&lt;p&gt;I say a little bit, because besides being a super early beta tester, and a super early product that will grow over time, the beta is quite polished. There was only a few minor issues which they corrected within a day or less. &lt;/p&gt;
+<p>I say a little bit, because besides being a super early beta tester, and a super early product that will grow over time, the beta is quite polished. There was only a few minor issues which they corrected within a day or less. </p>
 
-&lt;p&gt;&lt;img src=&quot;/images/raygun-beta-robby-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/raygun-beta-robby-1.png" alt="" /></p>
 
-&lt;p&gt;Raygun is super easy to setup and implement into your application, in-fact it's really nothing more than creating an app, install the nuget package, and set the key, and away you go. &lt;/p&gt;
+<p>Raygun is super easy to setup and implement into your application, in-fact it's really nothing more than creating an app, install the nuget package, and set the key, and away you go. </p>
 
-&lt;p&gt;There's a simple guide over &lt;a href=&quot;http://www.pieterg.com/2013/1/raygunio-has-launched&quot;&gt;http://www.pieterg.com/2013/1/raygunio-has-launched&lt;/a&gt;, so I won't bore you with the same content.&lt;/p&gt;
+<p>There's a simple guide over <a href="http://www.pieterg.com/2013/1/raygunio-has-launched">http://www.pieterg.com/2013/1/raygunio-has-launched</a>, so I won't bore you with the same content.</p>
 
-&lt;h2&gt;Nancy.Raygun&lt;/h2&gt;
+<h2>Nancy.Raygun</h2>
 
-&lt;p&gt;Currently the &lt;a href=&quot;https://www.nuget.org/packages/Mindscape.Raygun4Net/&quot;&gt;offical Nuget package&lt;/a&gt; has a dependency on System.Web which isn't very nice for Nancy, so I've created &lt;a href=&quot;https://www.nuget.org/packages/Nancy.Raygun/&quot;&gt;Nancy.Raygun&lt;/a&gt;&lt;/p&gt;
+<p>Currently the <a href="https://www.nuget.org/packages/Mindscape.Raygun4Net/">offical Nuget package</a> has a dependency on System.Web which isn't very nice for Nancy, so I've created <a href="https://www.nuget.org/packages/Nancy.Raygun/">Nancy.Raygun</a></p>
 
-&lt;p&gt;It has no dependency on &lt;code&gt;System.Web&lt;/code&gt;, and uses the &lt;code&gt;NancyContext&lt;/code&gt; rather than &lt;code&gt;HttpContext.Current&lt;/code&gt;, it also implements &lt;code&gt;IApplicationStartup&lt;/code&gt; so that it automatically wires itself up for handling errors for you.&lt;/p&gt;
+<p>It has no dependency on <code>System.Web</code>, and uses the <code>NancyContext</code> rather than <code>HttpContext.Current</code>, it also implements <code>IApplicationStartup</code> so that it automatically wires itself up for handling errors for you.</p>
 
-&lt;p&gt;Nancy.Raygun is on &lt;a href=&quot;https://github.com/phillip-haydon/Nancy.Raygun&quot;&gt;Github&lt;/a&gt;, installing the nuget package will add the web.config for you so all you need to do is add the key and away you go.&lt;/p&gt;
+<p>Nancy.Raygun is on <a href="https://github.com/phillip-haydon/Nancy.Raygun">Github</a>, installing the nuget package will add the web.config for you so all you need to do is add the key and away you go.</p>
 
-&lt;h2&gt;Why Raygun?&lt;/h2&gt;
+<h2>Why Raygun?</h2>
 
-&lt;p&gt;I've had a few people ask me why I would use Raygun over ELMAH, or AppFail. &lt;/p&gt;
+<p>I've had a few people ask me why I would use Raygun over ELMAH, or AppFail. </p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;ELMAH means I have to manage all the exceptions myself, I have to specify where I log it, navigate a clunky unstyled website, besides being an awesome alternative to something like log4net or nlog, it really is out-dated by today's standards.&lt;/p&gt;
+<p>ELMAH means I have to manage all the exceptions myself, I have to specify where I log it, navigate a clunky unstyled website, besides being an awesome alternative to something like log4net or nlog, it really is out-dated by today's standards.</p>
 
-&lt;p&gt;I have no personal experience with AppFail, and their service is similar, but the main difference is I know Mindscape, they are an awesome team that produce an awesome set of tools like LightSpeed, Web Workbench, and even went out of their way to add a control to their Metro Elements for me. I know what I'm getting is an awesome and will only get more awesome as time goes on.&lt;/p&gt;
+<p>I have no personal experience with AppFail, and their service is similar, but the main difference is I know Mindscape, they are an awesome team that produce an awesome set of tools like LightSpeed, Web Workbench, and even went out of their way to add a control to their Metro Elements for me. I know what I'm getting is an awesome and will only get more awesome as time goes on.</p>
 
-&lt;p&gt;So right now, I've ripped out ELMAH from all my projects and replaced it with Raygun, and I'm not looking back at all. &lt;/p&gt;
+<p>So right now, I've ripped out ELMAH from all my projects and replaced it with Raygun, and I'm not looking back at all. </p>
 
 
 	<div class="divider"></div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,67 +49,67 @@
       </div>
     </div>
         
-    &lt;p&gt;In order to run your app from Visual Studio on your remote device, in my case I want to run it on my Surface... but you can do this with any remote device such as another desktop, a laptop, a tablet running Windows Pro or RT etc, all you really need to do is install the Remote Debugging tools.&lt;/p&gt;
+    <p>In order to run your app from Visual Studio on your remote device, in my case I want to run it on my Surface... but you can do this with any remote device such as another desktop, a laptop, a tablet running Windows Pro or RT etc, all you really need to do is install the Remote Debugging tools.</p>
 
-&lt;p&gt;&lt;a href=&quot;http://www.microsoft.com/visualstudio/eng/downloads#remote-tools&quot;&gt;http://www.microsoft.com/visualstudio/eng/downloads#remote-tools&lt;/a&gt;&lt;/p&gt;
+<p><a href="http://www.microsoft.com/visualstudio/eng/downloads#remote-tools">http://www.microsoft.com/visualstudio/eng/downloads#remote-tools</a></p>
 
-&lt;p&gt;For the Surface you just need to download and install:&lt;/p&gt;
+<p>For the Surface you just need to download and install:</p>
 
-&lt;p&gt;&lt;a href=&quot;http://www.microsoft.com/visualstudio/eng/downloads#remote-tools&quot;&gt;&lt;img src=&quot;/images/image17.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+<p><a href="http://www.microsoft.com/visualstudio/eng/downloads#remote-tools"><img src="/images/image17.png" /></a></p>
 
-&lt;p&gt;Once this is installed you will get a little icon on your Start Screen:&lt;/p&gt;
+<p>Once this is installed you will get a little icon on your Start Screen:</p>
 
-&lt;p&gt;&lt;a href=&quot;/images/image7.png&quot;&gt;&lt;img src=&quot;/images/image7.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+<p><a href="/images/image7.png"><img src="/images/image7.png" /></a></p>
 
-&lt;p&gt;You can see the Green Arrow:&lt;/p&gt;
+<p>You can see the Green Arrow:</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;&lt;img src=&quot;/images/image18.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/image18.png" /></p>
 
-&lt;p&gt;When you run this for the first time it will ask you to configure some stuff, mainly for the firewall:&lt;/p&gt;
+<p>When you run this for the first time it will ask you to configure some stuff, mainly for the firewall:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/image19.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/image19.png" /></p>
 
-&lt;p&gt;You only need to do this once. Once this is done you will get the following screen:&lt;/p&gt;
+<p>You only need to do this once. Once this is done you will get the following screen:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/image20.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/image20.png" /></p>
 
-&lt;p&gt;Now you're all ready for some awesome remote debugging!&lt;/p&gt;
+<p>Now you're all ready for some awesome remote debugging!</p>
 
-&lt;p&gt;In Visual Studio you need to select 'Remote Machine' in the debug list:&lt;/p&gt;
+<p>In Visual Studio you need to select 'Remote Machine' in the debug list:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/image21.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/image21.png" /></p>
 
-&lt;p&gt;This opens up a remote debug connection:&lt;/p&gt;
+<p>This opens up a remote debug connection:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/image22.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/image22.png" /></p>
 
-&lt;p&gt;Enter in the IP for the Surface. (You can get this by calling 'ipconfig' in command line) After pressing select the window will close, and you will be ready!&lt;/p&gt;
+<p>Enter in the IP for the Surface. (You can get this by calling 'ipconfig' in command line) After pressing select the window will close, and you will be ready!</p>
 
-&lt;p&gt;Now you just need to debug the app. Using the same app from the previous post I've put a break point on the MainView constructor:&lt;/p&gt;
+<p>Now you just need to debug the app. Using the same app from the previous post I've put a break point on the MainView constructor:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/image23.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/image23.png" /></p>
 
-&lt;p&gt;When I begin debugging makes a request to the device and authenticates:&lt;/p&gt;
+<p>When I begin debugging makes a request to the device and authenticates:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/image24.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/image24.png" /></p>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; If you're debugging on a device that is logged in with a different user, then Visual Studio will prompt you for credentials. Because I'm using the same LiveID on both my Desktop and Surface, it doesn't prompt me to login.&lt;/strong&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> If you're debugging on a device that is logged in with a different user, then Visual Studio will prompt you for credentials. Because I'm using the same LiveID on both my Desktop and Surface, it doesn't prompt me to login.</strong></p>
 
-&lt;p&gt;Once connected, it will install the app just like it does on your desktop, and then automatically runs and debugs the app:&lt;/p&gt;
+<p>Once connected, it will install the app just like it does on your desktop, and then automatically runs and debugs the app:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/image25.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/image25.png" /></p>
 
-&lt;p&gt;And as you can see:&lt;/p&gt;
+<p>And as you can see:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/image26.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/image26.png" /></p>
 
-&lt;p&gt;My shinny Surface screen running the Hello World sample from the previous post.&lt;/p&gt;
+<p>My shinny Surface screen running the Hello World sample from the previous post.</p>
 
-&lt;p&gt;Debugging allows you to step through code just the same as doing it locally :)&lt;/p&gt;
+<p>Debugging allows you to step through code just the same as doing it locally :)</p>
 
-&lt;p&gt;Hopefully this helps anyone who has had difficulty or confusion debugging on remote devices.&lt;/p&gt;
+<p>Hopefully this helps anyone who has had difficulty or confusion debugging on remote devices.</p>
 
 
 	<div class="divider"></div>

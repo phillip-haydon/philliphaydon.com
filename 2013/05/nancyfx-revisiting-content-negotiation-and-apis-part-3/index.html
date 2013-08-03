@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,98 +49,98 @@
       </div>
     </div>
         
-    &lt;ul&gt;
-&lt;li&gt;Original Post: &lt;a href=&quot;/2012/11/nancy-and-content-negotiation&quot;&gt;NancyFX and Content Negotiation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/&quot;&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 1)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/&quot;&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 2)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 3)&lt;/li&gt;
-&lt;/ul&gt;
+    <ul>
+<li>Original Post: <a href="/2012/11/nancy-and-content-negotiation">NancyFX and Content Negotiation</a></li>
+<li><a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</a></li>
+<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 2)</a></li>
+<li>NancyFX - Revisiting Content Negotiation &amp; APIs (Part 3)</li>
+</ul>
 
-&lt;p&gt;In this last part I want to show you creating your own media type, so far we have gone over a really basic example of returning a response and letting the accept header handle different results, and then we went over how explicitly using &lt;code&gt;Negotiate&lt;/code&gt; allows you to customize your response more.&lt;/p&gt;
+<p>In this last part I want to show you creating your own media type, so far we have gone over a really basic example of returning a response and letting the accept header handle different results, and then we went over how explicitly using <code>Negotiate</code> allows you to customize your response more.</p>
 
-&lt;p&gt;Creating your own Media Type may be something you never have to do, but it can help you solve some strange scenarios, for instance you could have a user request an invoice, rather than clutter your code with:&lt;/p&gt;
+<p>Creating your own Media Type may be something you never have to do, but it can help you solve some strange scenarios, for instance you could have a user request an invoice, rather than clutter your code with:</p>
 
-&lt;pre&gt;&lt;code&gt;if (requestedInvoice.Type == &quot;pdf&quot;)
+<pre><code>if (requestedInvoice.Type == "pdf")
 {
     // get a pdf invoice
 }
-else if (requestedInvoice.Type == &quot;word&quot;)
+else if (requestedInvoice.Type == "word")
 {
 
 }
 else if (...)
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;You get the picture, this is tedious problematic work, every time we want to supply a new invoice type we need to modify the existing request, what we want to do is just handle a new media type and process it if we know about it.&lt;/p&gt;
+<p>You get the picture, this is tedious problematic work, every time we want to supply a new invoice type we need to modify the existing request, what we want to do is just handle a new media type and process it if we know about it.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; To keep this simple I'm going to show a simple CSV Processor, you can look at NancyFX code on how a ViewProcessor works if you want to hook up a View to a Word/PDF processor.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> To keep this simple I'm going to show a simple CSV Processor, you can look at NancyFX code on how a ViewProcessor works if you want to hook up a View to a Word/PDF processor.</span></p>
 
-&lt;h2&gt;Codez is what I need!&lt;/h2&gt;
+<h2>Codez is what I need!</h2>
 
-&lt;p&gt;There's 3 things we need to create&lt;/p&gt;
+<p>There's 3 things we need to create</p>
 
-&lt;ol&gt;
-&lt;li&gt;CsvProcessor&lt;/li&gt;
-&lt;li&gt;CsvSerializer&lt;/li&gt;
-&lt;li&gt;CsvResponse&lt;/li&gt;
-&lt;/ol&gt;
+<ol>
+<li>CsvProcessor</li>
+<li>CsvSerializer</li>
+<li>CsvResponse</li>
+</ol>
 
-&lt;p&gt;The &lt;code&gt;CsvProcessor&lt;/code&gt; takes the request, checks to see if it can handle the request, and if it can, it uses the &lt;code&gt;CsvSerializer&lt;/code&gt; to process the request and return a &lt;code&gt;CsvResponse&lt;/code&gt;&lt;/p&gt;
+<p>The <code>CsvProcessor</code> takes the request, checks to see if it can handle the request, and if it can, it uses the <code>CsvSerializer</code> to process the request and return a <code>CsvResponse</code></p>
 
-&lt;h2&gt;Csv Response&lt;/h2&gt;
+<h2>Csv Response</h2>
 
-&lt;p&gt;This class is modeled off the Json Response, it takes a model and a serializer, sets all the correct headers for the response, serializes the response, and this is what is returned to the client.&lt;/p&gt;
+<p>This class is modeled off the Json Response, it takes a model and a serializer, sets all the correct headers for the response, serializes the response, and this is what is returned to the client.</p>
 
-&lt;pre&gt;&lt;code&gt;public class CsvResponse&amp;lt;TModel&amp;gt; : Response
+<pre><code>public class CsvResponse&lt;TModel&gt; : Response
 {
     public CsvResponse(TModel model, ISerializer serializer)
     {
         if (serializer == null)
         {
-            throw new InvalidOperationException(&quot;CSV Serializer not set&quot;);
+            throw new InvalidOperationException("CSV Serializer not set");
         }
 
         this.Contents = GetJsonContents(model, serializer);
-        this.ContentType = &quot;text/csv&quot;;
+        this.ContentType = "text/csv";
         this.StatusCode = HttpStatusCode.OK;
     }
 
-    private static Action&amp;lt;Stream&amp;gt; GetJsonContents(TModel model, ISerializer serializer)
+    private static Action&lt;Stream&gt; GetJsonContents(TModel model, ISerializer serializer)
     {
-        return stream =&amp;gt; serializer.Serialize(&quot;text/csv&quot;, model, stream);
+        return stream =&gt; serializer.Serialize("text/csv", model, stream);
     }
 }
 
-public class CsvResponse : CsvResponse&amp;lt;object&amp;gt;
+public class CsvResponse : CsvResponse&lt;object&gt;
 {
     public CsvResponse(object model, ISerializer serializer)
         : base(model, serializer)
     {
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;You don't REALLY need this class, I would say its a highly recommended optional. If you don't create this class it just means your processor needs to do all the work of setting up the response.&lt;/p&gt;
+<p>You don't REALLY need this class, I would say its a highly recommended optional. If you don't create this class it just means your processor needs to do all the work of setting up the response.</p>
 
-&lt;h2&gt;Csv Serializer&lt;/h2&gt;
+<h2>Csv Serializer</h2>
 
-&lt;p&gt;To handle serialization of the model to a CSV file I'm using &lt;code&gt;ServiceStack.Text&lt;/code&gt; which comes with its own serializer! &lt;/p&gt;
+<p>To handle serialization of the model to a CSV file I'm using <code>ServiceStack.Text</code> which comes with its own serializer! </p>
 
-&lt;pre&gt;&lt;code&gt;public class CsvSerializer : ISerializer
+<pre><code>public class CsvSerializer : ISerializer
 {
     public bool CanSerialize(string contentType)
     {
         return IsCsvType(contentType);
     }
 
-    public IEnumerable&amp;lt;string&amp;gt; Extensions
+    public IEnumerable&lt;string&gt; Extensions
     {
-        get { yield return &quot;csv&quot;; }
+        get { yield return "csv"; }
     }
 
-    public void Serialize&amp;lt;TModel&amp;gt;(string contentType, TModel model, Stream outputStream)
+    public void Serialize&lt;TModel&gt;(string contentType, TModel model, Stream outputStream)
     {
         using (var writer = new StreamWriter(new UnclosableStreamWrapper(outputStream)))
         {
@@ -157,40 +157,40 @@ public class CsvResponse : CsvResponse&amp;lt;object&amp;gt;
 
         var contentMimeType = contentType.Split(';')[0];
 
-        return contentMimeType.Equals(&quot;text/csv&quot;, StringComparison.InvariantCultureIgnoreCase) ||
-               contentMimeType.StartsWith(&quot;text/csv&quot;, StringComparison.InvariantCultureIgnoreCase);
+        return contentMimeType.Equals("text/csv", StringComparison.InvariantCultureIgnoreCase) ||
+               contentMimeType.StartsWith("text/csv", StringComparison.InvariantCultureIgnoreCase);
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;The serializer needs to implement &lt;code&gt;ISerializer&lt;/code&gt;, NancyFX will automatically pick up and register this class for you, so all you need to do is create it.&lt;/p&gt;
+<p>The serializer needs to implement <code>ISerializer</code>, NancyFX will automatically pick up and register this class for you, so all you need to do is create it.</p>
 
-&lt;p&gt;The &lt;code&gt;CanSerialize&lt;/code&gt; method is very important, in the &lt;code&gt;CsvProcessor&lt;/code&gt; we will invoke all serializers until we find one that can handle serializing the content for the requested processor.&lt;/p&gt;
+<p>The <code>CanSerialize</code> method is very important, in the <code>CsvProcessor</code> we will invoke all serializers until we find one that can handle serializing the content for the requested processor.</p>
 
-&lt;h2&gt;Csv Processor&lt;/h2&gt;
+<h2>Csv Processor</h2>
 
-&lt;p&gt;Lastly we have the processor.&lt;/p&gt;
+<p>Lastly we have the processor.</p>
 
-&lt;pre&gt;&lt;code&gt;public class CsvProcessor : IResponseProcessor
+<pre><code>public class CsvProcessor : IResponseProcessor
 {
     private readonly ISerializer serializer;
 
-    private static readonly IEnumerable&amp;lt;Tuple&amp;lt;string, MediaRange&amp;gt;&amp;gt; extensionMappings =
-        new[] { new Tuple&amp;lt;string, MediaRange&amp;gt;(&quot;csv&quot;, MediaRange.FromString(&quot;text/csv&quot;)) };
+    private static readonly IEnumerable&lt;Tuple&lt;string, MediaRange&gt;&gt; extensionMappings =
+        new[] { new Tuple&lt;string, MediaRange&gt;("csv", MediaRange.FromString("text/csv")) };
 
-    public CsvProcessor(IEnumerable&amp;lt;ISerializer&amp;gt; serializers)
+    public CsvProcessor(IEnumerable&lt;ISerializer&gt; serializers)
     {
-        this.serializer = serializers.FirstOrDefault(x =&amp;gt; x.CanSerialize(&quot;text/csv&quot;));
+        this.serializer = serializers.FirstOrDefault(x =&gt; x.CanSerialize("text/csv"));
     }
 
-    public IEnumerable&amp;lt;Tuple&amp;lt;string, MediaRange&amp;gt;&amp;gt; ExtensionMappings
+    public IEnumerable&lt;Tuple&lt;string, MediaRange&gt;&gt; ExtensionMappings
     {
         get { return extensionMappings; }
     }
 
     public ProcessorMatch CanProcess(MediaRange requestedMediaRange, dynamic model, NancyContext context)
     {
-        if (requestedMediaRange.Matches(&quot;text/csv&quot;))
+        if (requestedMediaRange.Matches("text/csv"))
         {
             return new ProcessorMatch
             {
@@ -211,62 +211,62 @@ public class CsvResponse : CsvResponse&amp;lt;object&amp;gt;
         return new CsvResponse(model, this.serializer);
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This class has 3 methods and a constructor.&lt;/p&gt;
+<p>This class has 3 methods and a constructor.</p>
 
-&lt;p&gt;The &lt;code&gt;Constructor&lt;/code&gt; simply works out which serializer it requires.&lt;/p&gt;
+<p>The <code>Constructor</code> simply works out which serializer it requires.</p>
 
-&lt;p&gt;&lt;code&gt;ExtensionMapping&lt;/code&gt; specifies which extension can be used on a request to call the processor. i.e if you can't pass in accepts headers, you can end the url with &lt;code&gt;.csv&lt;/code&gt; and the processor will be invoked!&lt;/p&gt;
+<p><code>ExtensionMapping</code> specifies which extension can be used on a request to call the processor. i.e if you can't pass in accepts headers, you can end the url with <code>.csv</code> and the processor will be invoked!</p>
 
-&lt;p&gt;&lt;code&gt;CanProcess&lt;/code&gt; checks to see if the request can be processed.&lt;/p&gt;
+<p><code>CanProcess</code> checks to see if the request can be processed.</p>
 
-&lt;p&gt;Lastly &lt;code&gt;Process&lt;/code&gt; simply processes the request.&lt;/p&gt;
+<p>Lastly <code>Process</code> simply processes the request.</p>
 
-&lt;h2&gt;Lets see it in action!&lt;/h2&gt;
+<h2>Lets see it in action!</h2>
 
-&lt;p&gt;Using the EXACT same routes we defined on the previous posts, we can simply modify the header to ask for &lt;code&gt;text/csv&lt;/code&gt;&lt;/p&gt;
+<p>Using the EXACT same routes we defined on the previous posts, we can simply modify the header to ask for <code>text/csv</code></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-part3-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-part3-1.png" alt="" /></p>
 
-&lt;p&gt;And we get all our data serialized to CSV format! We didn't have to modify the bootstrapper or anything, Nancy just sees the implemented interfaces and says MINE! :D&lt;/p&gt;
+<p>And we get all our data serialized to CSV format! We didn't have to modify the bootstrapper or anything, Nancy just sees the implemented interfaces and says MINE! :D</p>
 
-&lt;h2&gt;What about the Extension mentioned earlier!&lt;/h2&gt;
+<h2>What about the Extension mentioned earlier!</h2>
 
-&lt;p&gt;In the processor we had the following&lt;/p&gt;
+<p>In the processor we had the following</p>
 
-&lt;pre&gt;&lt;code&gt;private static readonly IEnumerable&amp;lt;Tuple&amp;lt;string, MediaRange&amp;gt;&amp;gt; extensionMappings =
-    new[] { new Tuple&amp;lt;string, MediaRange&amp;gt;(&quot;csv&quot;, MediaRange.FromString(&quot;text/csv&quot;)) };
+<pre><code>private static readonly IEnumerable&lt;Tuple&lt;string, MediaRange&gt;&gt; extensionMappings =
+    new[] { new Tuple&lt;string, MediaRange&gt;("csv", MediaRange.FromString("text/csv")) };
 
-public IEnumerable&amp;lt;Tuple&amp;lt;string, MediaRange&amp;gt;&amp;gt; ExtensionMappings
+public IEnumerable&lt;Tuple&lt;string, MediaRange&gt;&gt; ExtensionMappings
 {
     get { return extensionMappings; }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Well when you access a url with &lt;code&gt;.json&lt;/code&gt; or &lt;code&gt;.csv&lt;/code&gt;, it will response with that as a file!&lt;/p&gt;
+<p>Well when you access a url with <code>.json</code> or <code>.csv</code>, it will response with that as a file!</p>
 
-&lt;p&gt;If we have the following page&lt;/p&gt;
+<p>If we have the following page</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-part3-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-part3-2.png" alt="" /></p>
 
-&lt;p&gt;We add the extension &lt;code&gt;.json&lt;/code&gt; to the end&lt;/p&gt;
+<p>We add the extension <code>.json</code> to the end</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-part3-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-part3-3.png" alt="" /></p>
 
-&lt;p&gt;Nancy Replies! (The JSON format shown done using &lt;a href=&quot;https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc?hl=en&quot;&gt;JSONView chrome extension&lt;/a&gt;&lt;/p&gt;
+<p>Nancy Replies! (The JSON format shown done using <a href="https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc?hl=en">JSONView chrome extension</a></p>
 
-&lt;p&gt;If we update to &lt;code&gt;.csv&lt;/code&gt;&lt;/p&gt;
+<p>If we update to <code>.csv</code></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-part3-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-part3-4.png" alt="" /></p>
 
-&lt;p&gt;And if we open the file up&lt;/p&gt;
+<p>And if we open the file up</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-part3-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-part3-5.png" alt="" /></p>
 
-&lt;p&gt;That's all there is to it!&lt;/p&gt;
+<p>That's all there is to it!</p>
 
-&lt;p&gt;Hope this helps anyone with Conneg or Conneg with NancyFX :)&lt;/p&gt;
+<p>Hope this helps anyone with Conneg or Conneg with NancyFX :)</p>
 
 
 	<div class="divider"></div>

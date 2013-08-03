@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,111 +49,111 @@
       </div>
     </div>
         
-    &lt;p&gt;Forms in HTML only allow you to use the method's POST and GET, I'm not sure if this would be classified as a limitation or not, but it does introduce a slight problem when you want to create a nice API taking advantage of verbs such as PUT and DELETE, when you can only POST and GET. &lt;/p&gt;
+    <p>Forms in HTML only allow you to use the method's POST and GET, I'm not sure if this would be classified as a limitation or not, but it does introduce a slight problem when you want to create a nice API taking advantage of verbs such as PUT and DELETE, when you can only POST and GET. </p>
 
-&lt;p&gt;This means if you want to delete something you have to use a different URL, like:&lt;/p&gt;
+<p>This means if you want to delete something you have to use a different URL, like:</p>
 
-&lt;p&gt;&lt;code&gt;/products/123/delete&lt;/code&gt;&lt;/p&gt;
+<p><code>/products/123/delete</code></p>
 
-&lt;p&gt;Then define a route like&lt;/p&gt;
+<p>Then define a route like</p>
 
-&lt;pre&gt;&lt;code&gt;Post[&quot;/products/{id}/delete&quot;] = _ =&amp;gt;
+<pre><code>Post["/products/{id}/delete"] = _ =&gt;
 {
     ... Do Something...
 };
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This isn't exactly ideal, what we would prefer to have is a more semantic route.&lt;/p&gt;
+<p>This isn't exactly ideal, what we would prefer to have is a more semantic route.</p>
 
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;GET&lt;/code&gt; -&gt; gets an object&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DELETE&lt;/code&gt; -&gt; deletes an object&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;PUT&lt;/code&gt; -&gt; modifies an object&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;PATCH&lt;/code&gt; -&gt; modifies part of an object&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;POST&lt;/code&gt; -&gt; creates an object&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li><code>GET</code> -> gets an object</li>
+<li><code>DELETE</code> -> deletes an object</li>
+<li><code>PUT</code> -> modifies an object</li>
+<li><code>PATCH</code> -> modifies part of an object</li>
+<li><code>POST</code> -> creates an object</li>
+</ul>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I'm no expert on this stuff so the VERBs above may not be correct wording.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> I'm no expert on this stuff so the VERBs above may not be correct wording.</span></p>
 
-&lt;p&gt;This would allow us to define the same route like so&lt;/p&gt;
+<p>This would allow us to define the same route like so</p>
 
-&lt;pre&gt;&lt;code&gt;Delete[&quot;/products/{id}&quot;] = _ =&amp;gt;
+<pre><code>Delete["/products/{id}"] = _ =&gt;
 {
     ... Do Something...
 };
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;Since HTML forms only allow GET/POST, the web framework needs to do a little bit of trickery in order to send a request to the correct route/verb. In this case we want to use a POST but have it go to a DELETE route.&lt;/p&gt;
+<p>Since HTML forms only allow GET/POST, the web framework needs to do a little bit of trickery in order to send a request to the correct route/verb. In this case we want to use a POST but have it go to a DELETE route.</p>
 
-&lt;p&gt;MVC offers the ability to use the &lt;code&gt;HttpMethodOverride&lt;/code&gt; helper to add a hidden input field to a form&lt;/p&gt;
+<p>MVC offers the ability to use the <code>HttpMethodOverride</code> helper to add a hidden input field to a form</p>
 
-&lt;pre&gt;&lt;code&gt;@Html.HttpMethodOverride(HttpVerbs.Delete)
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>@Html.HttpMethodOverride(HttpVerbs.Delete)
+</code></pre>
 
-&lt;p&gt;This will generate a hidden field like so&lt;/p&gt;
+<p>This will generate a hidden field like so</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;input name=&quot;X-HTTP-Method-Override&quot; type=&quot;hidden&quot; value=&quot;DELETE&quot; /&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>&lt;input name="X-HTTP-Method-Override" type="hidden" value="DELETE" /&gt;
+</code></pre>
 
-&lt;p&gt;NancyFX also allows you to override the Method, but the field is actually named &lt;code&gt;_method&lt;/code&gt;&lt;/p&gt;
+<p>NancyFX also allows you to override the Method, but the field is actually named <code>_method</code></p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;input type=&quot;hidden&quot; name=&quot;_method&quot; value=&quot;DELETE&quot;/&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>&lt;input type="hidden" name="_method" value="DELETE"/&gt;
+</code></pre>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I'm not actually sure &lt;em&gt;why&lt;/em&gt; the NancyFX team decided to name it &lt;code&gt;_method&lt;/code&gt; rather than &lt;code&gt;X-HTTP-Method-Override&lt;/code&gt;, though from reading it seems if you're posting a form it should be &lt;code&gt;_method&lt;/code&gt;, but if you're sending it via headers it should be &lt;code&gt;X-HTTP-Method-Override&lt;/code&gt; (turns out they followed Sinatra)&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> I'm not actually sure <em>why</em> the NancyFX team decided to name it <code>_method</code> rather than <code>X-HTTP-Method-Override</code>, though from reading it seems if you're posting a form it should be <code>_method</code>, but if you're sending it via headers it should be <code>X-HTTP-Method-Override</code> (turns out they followed Sinatra)</span></p>
 
-&lt;p&gt;Give a super basic scenario, I defined a module&lt;/p&gt;
+<p>Give a super basic scenario, I defined a module</p>
 
-&lt;pre&gt;&lt;code&gt;public ProductsModule() : base(&quot;products&quot;)
+<pre><code>public ProductsModule() : base("products")
 {
-    Get[&quot;/&quot;] = _ =&amp;gt; View[&quot;index&quot;, Products];
+    Get["/"] = _ =&gt; View["index", Products];
 
-    Delete[&quot;/{id}&quot;] = _ =&amp;gt;
+    Delete["/{id}"] = _ =&gt;
     {
-        Products.Remove(Products.Single(x =&amp;gt; x.Id == (int)_.id));
+        Products.Remove(Products.Single(x =&gt; x.Id == (int)_.id));
 
-        return View[&quot;index&quot;, Products];
+        return View["index", Products];
     };
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Products is just a static list products. The view contains the following&lt;/p&gt;
+<p>Products is just a static list products. The view contains the following</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;ul&amp;gt;
+<pre><code>&lt;ul&gt;
   [ERR!]
-&amp;lt;/ul&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/ul&gt;
+</code></pre>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; This demo is using the Nancy Super Simple View Engine, not Razor :)&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> This demo is using the Nancy Super Simple View Engine, not Razor :)</span></p>
 
-&lt;p&gt;This renders the page like&lt;/p&gt;
+<p>This renders the page like</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancy-method-override-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancy-method-override-1.png" alt="" /></p>
 
-&lt;p&gt;Clicking on the delete button&lt;/p&gt;
+<p>Clicking on the delete button</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancy-method-override-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancy-method-override-2.png" alt="" /></p>
 
-&lt;p&gt;As you can see, it doesn't hit the Delete route, so if we update the View to contain the &lt;code&gt;_method&lt;/code&gt; field&lt;/p&gt;
+<p>As you can see, it doesn't hit the Delete route, so if we update the View to contain the <code>_method</code> field</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;ul&amp;gt;
+<pre><code>&lt;ul&gt;
   [ERR!]
-&amp;lt;/ul&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/ul&gt;
+</code></pre>
 
-&lt;p&gt;And now click the delete button again&lt;/p&gt;
+<p>And now click the delete button again</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancy-method-override-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancy-method-override-3.png" alt="" /></p>
 
-&lt;p&gt;We can see that it hits the correct route.&lt;/p&gt;
+<p>We can see that it hits the correct route.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancy-method-override-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancy-method-override-4.png" alt="" /></p>
 
-&lt;p&gt;And the item (Product 4) has been removed from the list. So that's it, super simple to override the Method verb in NancyFX :)&lt;/p&gt;
+<p>And the item (Product 4) has been removed from the list. So that's it, super simple to override the Method verb in NancyFX :)</p>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; At the time of writing this, version 0.15.3 only supports &lt;code&gt;_method&lt;/code&gt; on form posts, but the next version will support both &lt;code&gt;X-HTTP-Method-Override&lt;/code&gt; and &lt;code&gt;_method&lt;/code&gt; on both Headers and Forms.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> At the time of writing this, version 0.15.3 only supports <code>_method</code> on form posts, but the next version will support both <code>X-HTTP-Method-Override</code> and <code>_method</code> on both Headers and Forms.</span></p>
 
 
 	<div class="divider"></div>

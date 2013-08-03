@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,102 +49,102 @@
       </div>
     </div>
         
-    &lt;p&gt;Ayende recently posted about &lt;a href=&quot;http://ayende.com/blog/152833/orders-search-in-ravendb&quot;&gt;Orders Search&lt;/a&gt; in RavenDB which got me a little bit excited, since I was pondering how I would do searching in RavenDB without having Full Text Searching from SQL Server.&lt;/p&gt;
+    <p>Ayende recently posted about <a href="http://ayende.com/blog/152833/orders-search-in-ravendb">Orders Search</a> in RavenDB which got me a little bit excited, since I was pondering how I would do searching in RavenDB without having Full Text Searching from SQL Server.</p>
 
-&lt;p&gt;So digging into it I wanted to try it out for myself how to use it. Given the model:&lt;/p&gt;
+<p>So digging into it I wanted to try it out for myself how to use it. Given the model:</p>
 
-&lt;pre&gt;&lt;code&gt;public class Post
+<pre><code>public class Post
 {
     public int Id { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
-    public IEnumerable&amp;lt;string&amp;gt; Tags { get; set; }
+    public IEnumerable&lt;string&gt; Tags { get; set; }
     public DateTime DatePosted { get; set; }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;I've setup 10 posts (&lt;a href=&quot;http://pastie.org/3200462&quot;&gt;click here for the insert pastie&lt;/a&gt;) just with some really basic data.&lt;/p&gt;
+<p>I've setup 10 posts (<a href="http://pastie.org/3200462">click here for the insert pastie</a>) just with some really basic data.</p>
 
-&lt;p&gt;So I'm going to detail here all the data that I've setup.&lt;/p&gt;
+<p>So I'm going to detail here all the data that I've setup.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;h2&gt;Tags&lt;/h2&gt;
+<h2>Tags</h2>
 
-&lt;table border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;2&quot; width=&quot;400&quot;&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;&lt;strong&gt;Tag Name&lt;/strong&gt;&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;&lt;strong&gt;# of Posts Containing Tag&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;html&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;c#&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;6&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;ravendb&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;nhibernate&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;javascript&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;coffeescript&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;less&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;search&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;6&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;closures&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;jquery&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;css&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;queryover&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;mapreduce&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;200&quot;&gt;4&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+<table border="0" cellspacing="0" cellpadding="2" width="400">
+  <tbody>
+    <tr>
+      <td valign="top" width="200"><strong>Tag Name</strong></td>
+      <td valign="top" width="200"><strong># of Posts Containing Tag</strong></td>
+    </tr>
+    <tr>
+      <td valign="top" width="200">html</td>
+      <td valign="top" width="200">3</td>
+    </tr>
+    <tr>
+      <td valign="top" width="200">c#</td>
+      <td valign="top" width="200">6</td>
+    </tr>
+    <tr>
+      <td valign="top" width="200">ravendb</td>
+      <td valign="top" width="200">4</td>
+    </tr>
+    <tr>
+      <td valign="top" width="200">nhibernate</td>
+      <td valign="top" width="200">3</td>
+    </tr>
+    <tr>
+      <td valign="top" width="200">javascript</td>
+      <td valign="top" width="200">1</td>
+    </tr>
+    <tr>
+      <td valign="top" width="200">coffeescript</td>
+      <td valign="top" width="200">2</td>
+    </tr>
+    <tr>
+      <td valign="top" width="200">less</td>
+      <td valign="top" width="200">3</td>
+    </tr>
+    <tr>
+      <td valign="top" width="200">search</td>
+      <td valign="top" width="200">6</td>
+    </tr>
+    <tr>
+      <td valign="top" width="200">closures</td>
+      <td valign="top" width="200">1</td>
+    </tr>
+    <tr>
+      <td valign="top" width="200">jquery</td>
+      <td valign="top" width="200">2</td>
+    </tr>
+    <tr>
+      <td valign="top" width="200">css</td>
+      <td valign="top" width="200">1</td>
+    </tr>
+    <tr>
+      <td valign="top" width="200">queryover</td>
+      <td valign="top" width="200">2</td>
+    </tr>
+    <tr>
+      <td valign="top" width="200">mapreduce</td>
+      <td valign="top" width="200">4</td>
+    </tr>
+  </tbody>
+</table>
 
-&lt;h2&gt;Titles&lt;/h2&gt;
+<h2>Titles</h2>
 
-&lt;p&gt;Nothing interesting, just 'Test Post X' for each one to identify them.&lt;/p&gt;
+<p>Nothing interesting, just 'Test Post X' for each one to identify them.</p>
 
-&lt;h2&gt;Description&lt;/h2&gt;
+<h2>Description</h2>
 
-&lt;p&gt;Basically for this testing I've taken the blog post names of a few things from Google Reader, that some-way relate to the tags above. Take a look at the script mentioned above to see the data.&lt;/p&gt;
+<p>Basically for this testing I've taken the blog post names of a few things from Google Reader, that some-way relate to the tags above. Take a look at the script mentioned above to see the data.</p>
 
-&lt;h2&gt;Creating the Index&lt;/h2&gt;
+<h2>Creating the Index</h2>
 
-&lt;p&gt;So the first thing I want to do is create a Map with a Reduce Result, but we aren't going to add the Reduce to the index, since we don't need it to store that data or do anything with it. We purely want the Reduce Result that matches the map, so that we can query against it.&lt;/p&gt;
+<p>So the first thing I want to do is create a Map with a Reduce Result, but we aren't going to add the Reduce to the index, since we don't need it to store that data or do anything with it. We purely want the Reduce Result that matches the map, so that we can query against it.</p>
 
-&lt;pre&gt;&lt;code&gt;public class Post_Search : AbstractIndexCreationTask&amp;lt;Post, Post_Search.ReduceResult&amp;gt;
+<pre><code>public class Post_Search : AbstractIndexCreationTask&lt;Post, Post_Search.ReduceResult&gt;
 {
     public class ReduceResult
     {
@@ -154,7 +154,7 @@
 
     public Post_Search()
     {
-        Map = posts =&amp;gt; 
+        Map = posts =&gt; 
               from post in posts
               select new 
               {
@@ -167,118 +167,118 @@
               };
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This index is a little bit funky, and differs from what Ayende showed in his example. I wanted to try something a little different.&lt;/p&gt;
+<p>This index is a little bit funky, and differs from what Ayende showed in his example. I wanted to try something a little different.</p>
 
-&lt;p&gt;In my scenario I have a collection of Tag's that I wanted to include in the search, this the tags is already a collection, I concatenate the additional array of items I want to add into the map.&lt;/p&gt;
+<p>In my scenario I have a collection of Tag's that I wanted to include in the search, this the tags is already a collection, I concatenate the additional array of items I want to add into the map.</p>
 
-&lt;p&gt;The SearchQuery is the property that we will search against, while the DatePosted wont be included in the Search, but is there to provide additional filtering on my search.&lt;/p&gt;
+<p>The SearchQuery is the property that we will search against, while the DatePosted wont be included in the Search, but is there to provide additional filtering on my search.</p>
 
-&lt;h2&gt;Querying&lt;/h2&gt;
+<h2>Querying</h2>
 
-&lt;p&gt;Querying threw me off at first, because in order to query against this index, we have to specify the ReduceResult class.&lt;/p&gt;
+<p>Querying threw me off at first, because in order to query against this index, we have to specify the ReduceResult class.</p>
 
-&lt;p&gt;So we end up with the starting of our query looking like this:&lt;/p&gt;
+<p>So we end up with the starting of our query looking like this:</p>
 
-&lt;pre&gt;&lt;code&gt;var result = session.Query&amp;lt;Post_Search.ReduceResult, Post_Search&amp;gt;()
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>var result = session.Query&lt;Post_Search.ReduceResult, Post_Search&gt;()
+</code></pre>
 
-&lt;p&gt;At first I thought &quot;oh, that means we end up with a ReduceResult result type, this is pointless and useless&quot;. But I commented on Ayende's blog post and it turns out we can call 'As&lt;T&gt;' on the query.&lt;/p&gt;
+<p>At first I thought "oh, that means we end up with a ReduceResult result type, this is pointless and useless". But I commented on Ayende's blog post and it turns out we can call 'As<T>' on the query.</p>
 
-&lt;p&gt;Without filtering the results just yet, our query would look like the following:&lt;/p&gt;
+<p>Without filtering the results just yet, our query would look like the following:</p>
 
-&lt;pre&gt;&lt;code&gt;var result = session.Query&amp;lt;Post_Search.ReduceResult, Post_Search&amp;gt;()
-                    .As&amp;lt;Post&amp;gt;()
+<pre><code>var result = session.Query&lt;Post_Search.ReduceResult, Post_Search&gt;()
+                    .As&lt;Post&gt;()
                     .ToList();
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So if I run this up now, for a quick test, I should get 10 results back of type Post&lt;/p&gt;
+<p>So if I run this up now, for a quick test, I should get 10 results back of type Post</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-searching-1.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-searching-1.png" /></p>
 
-&lt;p&gt;Great!&lt;/p&gt;
+<p>Great!</p>
 
-&lt;p&gt;So now I need to begin filtering out the results. To begin with I'm doing to use the .Where extension. Since we are looking an object array, we can't directly compare it to a string, but if we explicitly cast it to an object we can look for:&lt;/p&gt;
+<p>So now I need to begin filtering out the results. To begin with I'm doing to use the .Where extension. Since we are looking an object array, we can't directly compare it to a string, but if we explicitly cast it to an object we can look for:</p>
 
-&lt;p&gt;coffeescript expecting 2 results:&lt;/p&gt;
+<p>coffeescript expecting 2 results:</p>
 
-&lt;pre&gt;&lt;code&gt;var result = session.Query&amp;lt;Post_Search.ReduceResult, Post_Search&amp;gt;()
-                    .Where(x =&amp;gt; x.SearchQuery == (object)&quot;coffeescript&quot;)
-                    .As&amp;lt;Post&amp;gt;()
+<pre><code>var result = session.Query&lt;Post_Search.ReduceResult, Post_Search&gt;()
+                    .Where(x =&gt; x.SearchQuery == (object)"coffeescript")
+                    .As&lt;Post&gt;()
                     .ToList();
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-searching-2.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-searching-2.png" /></p>
 
-&lt;p&gt;How about javascript expecting 2 (1 via Tag and 1 via the Description)&lt;/p&gt;
+<p>How about javascript expecting 2 (1 via Tag and 1 via the Description)</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-searching-3.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-searching-3.png" /></p>
 
-&lt;p&gt;Oh, we didn't get the desired result... This is because the search is only doing a search on an exact match. Since the search value is an exact match of the tag, the result is returned.&lt;/p&gt;
+<p>Oh, we didn't get the desired result... This is because the search is only doing a search on an exact match. Since the search value is an exact match of the tag, the result is returned.</p>
 
-&lt;p&gt;So to fix this we need to make the index analysed. Adding to the index:&lt;/p&gt;
+<p>So to fix this we need to make the index analysed. Adding to the index:</p>
 
-&lt;pre&gt;&lt;code&gt;Index(x =&amp;gt; x.SearchQuery, FieldIndexing.Analyzed);
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>Index(x =&gt; x.SearchQuery, FieldIndexing.Analyzed);
+</code></pre>
 
-&lt;p&gt;If we run the exact same query again:&lt;/p&gt;
+<p>If we run the exact same query again:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-searching-4.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-searching-4.png" /></p>
 
-&lt;p&gt;Now we get 2 results.&lt;/p&gt;
+<p>Now we get 2 results.</p>
 
-&lt;p&gt;Now to try something a little bit different, using 'Search', if we wanted to search for something like mvc which happens to only be in the description, rather than using 'Where' like shown above, we can use 'Search' like so:&lt;/p&gt;
+<p>Now to try something a little bit different, using 'Search', if we wanted to search for something like mvc which happens to only be in the description, rather than using 'Where' like shown above, we can use 'Search' like so:</p>
 
-&lt;pre&gt;&lt;code&gt;var result = session.Query&amp;lt;Post_Search.ReduceResult, Post_Search&amp;gt;()
-                    .Search(x =&amp;gt; x.SearchQuery, &quot;mvc&quot;)
-                    .As&amp;lt;Post&amp;gt;()
+<pre><code>var result = session.Query&lt;Post_Search.ReduceResult, Post_Search&gt;()
+                    .Search(x =&gt; x.SearchQuery, "mvc")
+                    .As&lt;Post&gt;()
                     .ToList();
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This will give us the same result, except it looks much cleaner&lt;/p&gt;
+<p>This will give us the same result, except it looks much cleaner</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-searching-5.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-searching-5.png" /></p>
 
-&lt;p&gt;Now there's 1 catch I've found with this, which is searching is always an exact match. I'm not sure (no research done into lucene yet) if lucene has the ability to do a wild-card type search similar to SQL like: '%mvc%', but you can get suggestions from this.&lt;/p&gt;
+<p>Now there's 1 catch I've found with this, which is searching is always an exact match. I'm not sure (no research done into lucene yet) if lucene has the ability to do a wild-card type search similar to SQL like: '%mvc%', but you can get suggestions from this.</p>
 
-&lt;p&gt;For example if I search for 'coffee' rather than 'coffeescript' I would expect all documents containing 'coffee' to be returned. This doesn't happen. It does give you suggestions though.&lt;/p&gt;
+<p>For example if I search for 'coffee' rather than 'coffeescript' I would expect all documents containing 'coffee' to be returned. This doesn't happen. It does give you suggestions though.</p>
 
-&lt;p&gt;Looking at the management studio for 'coffee' :&lt;/p&gt;
+<p>Looking at the management studio for 'coffee' :</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-searching-6.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-searching-6.png" /></p>
 
-&lt;p&gt;&lt;em&gt;Side Comment: I think it would be cool if RavenDB provided the ability to have say include suggestions, like:&lt;/em&gt;&lt;/p&gt;
+<p><em>Side Comment: I think it would be cool if RavenDB provided the ability to have say include suggestions, like:</em></p>
 
-&lt;pre&gt;&lt;code&gt;var result = session.Query&amp;lt;Post_Search.ReduceResult, Post_Search&amp;gt;()
-                    .Search(x =&amp;gt; x.SearchQuery, &quot;coffee&quot;)
+<pre><code>var result = session.Query&lt;Post_Search.ReduceResult, Post_Search&gt;()
+                    .Search(x =&gt; x.SearchQuery, "coffee")
                     .IncludeAllSuggestions()
-                    .As&amp;lt;Post&amp;gt;()
+                    .As&lt;Post&gt;()
                     .ToList();
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Or other variations such as:&lt;/p&gt;
+<p>Or other variations such as:</p>
 
-&lt;ul&gt;
-&lt;li&gt;.Suggestions.IncludeAll()&lt;/li&gt;
-&lt;li&gt;.Suggestions.IncludeTop(3)&lt;/li&gt;
-&lt;li&gt;.Suggestions.IncludeAll(WhenResults.AreEmpty)&lt;/li&gt;
-&lt;li&gt;.Suggestions.IncludeAll(WhenResults.AreLessThan, 10)&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li>.Suggestions.IncludeAll()</li>
+<li>.Suggestions.IncludeTop(3)</li>
+<li>.Suggestions.IncludeAll(WhenResults.AreEmpty)</li>
+<li>.Suggestions.IncludeAll(WhenResults.AreLessThan, 10)</li>
+</ul>
 
-&lt;p&gt;Hopefully you can work out where I'm going with this?&lt;/p&gt;
+<p>Hopefully you can work out where I'm going with this?</p>
 
-&lt;p&gt;Ok continuing on. Why do we need to call 'As&lt;T&gt;()' on the query?&lt;/p&gt;
+<p>Ok continuing on. Why do we need to call 'As<T>()' on the query?</p>
 
-&lt;p&gt;Well from my understanding of how RavenDB works is like this, when we create an index, it's creating a sub-set of data that points to the document in RavenDB.&lt;/p&gt;
+<p>Well from my understanding of how RavenDB works is like this, when we create an index, it's creating a sub-set of data that points to the document in RavenDB.</p>
 
-&lt;p&gt;For example I have all those documents inserted (&lt;a href=&quot;http://pastie.org/3200462&quot;&gt;link for the lazy&lt;/a&gt;), and these are all stored like so:&lt;/p&gt;
+<p>For example I have all those documents inserted (<a href="http://pastie.org/3200462">link for the lazy</a>), and these are all stored like so:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-searching-7.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-searching-7.png" /></p>
 
-&lt;p&gt;When we created the index with the following Map:&lt;/p&gt;
+<p>When we created the index with the following Map:</p>
 
-&lt;pre&gt;&lt;code&gt;Map = posts =&amp;gt; 
+<pre><code>Map = posts =&gt; 
       from post in posts
       select new 
       {
@@ -289,52 +289,52 @@
           }),
           DatePosted = post.DatePosted
       };
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;It basically created an index that looks like this, for the data above:&lt;/p&gt;
+<p>It basically created an index that looks like this, for the data above:</p>
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; rowspan=&quot;2&quot; width=&quot;50&quot;&gt;posts/2&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;540&quot;&gt;SearchQuery: [&quot;c#&quot;, &quot;nhibernate&quot;, &quot;search&quot;, &quot;queryover&quot;, &quot;Benjamin Day slides us into &quot;How to be a C# ninja in 10 easy steps&quot;&quot;, &quot;Test Post 2&quot;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot;&gt;DatePosted: &quot;2012-01-02T00:00:00.0000000&quot;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+<table>
+  <tbody>
+    <tr>
+      <td valign="top" rowspan="2" width="50">posts/2</td>
+      <td valign="top" width="540">SearchQuery: ["c#", "nhibernate", "search", "queryover", "Benjamin Day slides us into "How to be a C# ninja in 10 easy steps"", "Test Post 2"</td>
+    </tr>
+    <tr>
+      <td valign="top">DatePosted: "2012-01-02T00:00:00.0000000"</td>
+    </tr>
+  </tbody>
+</table>
 
-&lt;p&gt;So the index actually points directly to a Document in RavenDB, when we search against the index, if a match is found, the index returns the Id 'posts/2' back, and that knows to go to the posts collection and grab the document with Id 2.&lt;/p&gt;
+<p>So the index actually points directly to a Document in RavenDB, when we search against the index, if a match is found, the index returns the Id 'posts/2' back, and that knows to go to the posts collection and grab the document with Id 2.</p>
 
-&lt;p&gt;The problem with the query is we need to specify an object to query against.&lt;/p&gt;
+<p>The problem with the query is we need to specify an object to query against.</p>
 
-&lt;p&gt;So we introduced the ReduceResult &lt;em&gt;(not sure on this naming but I took it from Ayende's blog)&lt;/em&gt;, this allows us to specify the Properties we defined in our index, as search criteria, but now our query is expecting ReduceResult:&lt;/p&gt;
+<p>So we introduced the ReduceResult <em>(not sure on this naming but I took it from Ayende's blog)</em>, this allows us to specify the Properties we defined in our index, as search criteria, but now our query is expecting ReduceResult:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-searching-8.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-searching-8.png" /></p>
 
-&lt;p&gt;By specifying as we are telling the query that our result is going to be a type of 'Post':&lt;/p&gt;
+<p>By specifying as we are telling the query that our result is going to be a type of 'Post':</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-searching-9.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-searching-9.png" /></p>
 
-&lt;h2&gt;Conclusion&lt;/h2&gt;
+<h2>Conclusion</h2>
 
-&lt;p&gt;This functionality is really cool, it allows us to easily search against multiple different properties without having to create messy conjunctions in our LINQ. If we were to attempt to do this without an index, we would probably end up writing something like:&lt;/p&gt;
+<p>This functionality is really cool, it allows us to easily search against multiple different properties without having to create messy conjunctions in our LINQ. If we were to attempt to do this without an index, we would probably end up writing something like:</p>
 
-&lt;pre&gt;&lt;code&gt;var result = session.Query&amp;lt;Post&amp;gt;()
-                    .Where(x =&amp;gt;
-                            x.Description.Contains(&quot;c#&quot;)
+<pre><code>var result = session.Query&lt;Post&gt;()
+                    .Where(x =&gt;
+                            x.Description.Contains("c#")
                             ||
-                            x.Tags.Any(y =&amp;gt; y == &quot;c#&quot;)
+                            x.Tags.Any(y =&gt; y == "c#")
                             ||
-                            x.Title.Contains(&quot;c#&quot;)
+                            x.Title.Contains("c#")
                         )
                     .ToList();
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;And really, that's just nasty... Specially considering we get the same results for writing more readable code:&lt;/p&gt;
+<p>And really, that's just nasty... Specially considering we get the same results for writing more readable code:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-searching-10.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-searching-10.png" /></p>
 
 
 	<div class="divider"></div>

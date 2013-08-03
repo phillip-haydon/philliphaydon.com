@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,72 +49,72 @@
       </div>
     </div>
         
-    &lt;p&gt;This is part two, to my post about &lt;a href=&quot;/2011/08/fluent-nhibernate-table-inheritance-discriminators/&quot;&gt;Table Inheritance using Discriminators&lt;/a&gt;, in this post I just want to demonstrate the outcome when the sub-classes have their own properties, or possibly a property that maps to the same column.&lt;/p&gt;
+    <p>This is part two, to my post about <a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators/">Table Inheritance using Discriminators</a>, in this post I just want to demonstrate the outcome when the sub-classes have their own properties, or possibly a property that maps to the same column.</p>
 
-&lt;p&gt;First thing however is Mark Perry pointed out in the comments that specifying a value for the baseClassDiscriminator will force it to store the value in the database as an INT rather than a a VARCHAR.&lt;/p&gt;
+<p>First thing however is Mark Perry pointed out in the comments that specifying a value for the baseClassDiscriminator will force it to store the value in the database as an INT rather than a a VARCHAR.</p>
 
-&lt;pre&gt;&lt;code&gt;DiscriminateSubClassesOnColumn(&quot;PostType&quot;, 0);
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>DiscriminateSubClassesOnColumn("PostType", 0);
+</code></pre>
 
-&lt;p&gt;This will create the table with an INT like so:&lt;/p&gt;
+<p>This will create the table with an INT like so:</p>
 
-&lt;pre&gt;&lt;code&gt;create table WallPost (
+<pre><code>create table WallPost (
   Id         UNIQUEIDENTIFIER   not null,
   PostType   INT   not null,
   DatePosted DATETIME   null,
   Title      NVARCHAR(255)   null,
   Content    NVARCHAR(255)   null,
     primary key ( Id ))
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Maybe INT is too big however, maybe we only want a SMALLINT? That will give us 32k sub-classes...&lt;/p&gt;
+<p>Maybe INT is too big however, maybe we only want a SMALLINT? That will give us 32k sub-classes...</p>
 
-&lt;pre&gt;&lt;code&gt;DiscriminateSubClassesOnColumn(&quot;PostType&quot;, (short)0);
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>DiscriminateSubClassesOnColumn("PostType", (short)0);
+</code></pre>
 
-&lt;!--excerpt--&gt;
-&lt;!-- --&gt;
+<!--excerpt-->
+<!-- -->
 
-&lt;pre&gt;&lt;code&gt;PostType   SMALLINT   not null,
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>PostType   SMALLINT   not null,
+</code></pre>
 
-&lt;p&gt;But even that is too many, so maybe we need TINYINT, that gives us 0-255. I doubt you would ever have 255 sub-classes, so we can specify the discriminator as a byte.&lt;/p&gt;
+<p>But even that is too many, so maybe we need TINYINT, that gives us 0-255. I doubt you would ever have 255 sub-classes, so we can specify the discriminator as a byte.</p>
 
-&lt;pre&gt;&lt;code&gt;DiscriminateSubClassesOnColumn(&quot;PostType&quot;, (byte)0);
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>DiscriminateSubClassesOnColumn("PostType", (byte)0);
+</code></pre>
 
-&lt;p&gt;And that gives us:&lt;/p&gt;
+<p>And that gives us:</p>
 
-&lt;pre&gt;&lt;code&gt;create table WallPost (
+<pre><code>create table WallPost (
   Id         UNIQUEIDENTIFIER   not null,
   PostType   TINYINT   not null,
   DatePosted DATETIME   null,
   Title      NVARCHAR(255)   null,
   Content    NVARCHAR(255)   null,
     primary key ( Id ))
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Nice, much better.&lt;/p&gt;
+<p>Nice, much better.</p>
 
-&lt;p&gt;Not to mention when querying now, it uses the INT value rather than the number being used as a string like before:&lt;/p&gt;
+<p>Not to mention when querying now, it uses the INT value rather than the number being used as a string like before:</p>
 
-&lt;pre&gt;&lt;code&gt;SELECT this_.Id         as Id0_0_,
+<pre><code>SELECT this_.Id         as Id0_0_,
        this_.DatePosted as DatePosted0_0_,
        this_.Title      as Title0_0_,
        this_.Content    as Content0_0_
 FROM   WallPost this_
 WHERE  this_.PostType = 1
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So the next thing I want to show is what happens when we add a property to 1 sub-class and not the other. (or properties than exist in 1, and properties that exist in the other)&lt;/p&gt;
+<p>So the next thing I want to show is what happens when we add a property to 1 sub-class and not the other. (or properties than exist in 1, and properties that exist in the other)</p>
 
-&lt;p&gt;Give the same example as my previous post, I've added one property to the class, a 'Url' property.&lt;/p&gt;
+<p>Give the same example as my previous post, I've added one property to the class, a 'Url' property.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/fnh-table-inheritance-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/fnh-table-inheritance-1.png" alt="" /></p>
 
-&lt;p&gt;This will get created as a normal column in the database.&lt;/p&gt;
+<p>This will get created as a normal column in the database.</p>
 
-&lt;pre&gt;&lt;code&gt;create table WallPost (
+<pre><code>create table WallPost (
   Id         UNIQUEIDENTIFIER   not null,
   PostType   TINYINT   not null,
   DatePosted DATETIME   null,
@@ -122,32 +122,32 @@ WHERE  this_.PostType = 1
   Content    NVARCHAR(255)   null,
   Url        NVARCHAR(255)   null,
     primary key ( Id ))
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;When we insert now, a LinkShare and a Text wallpost:&lt;/p&gt;
+<p>When we insert now, a LinkShare and a Text wallpost:</p>
 
-&lt;pre&gt;&lt;code&gt;var wallPost = new TextWallPost
+<pre><code>var wallPost = new TextWallPost
 {
     DatePosted = DateTime.Now,
-    Title = &quot;My First Wall Post&quot;,
-    Content = &quot;Is Awesome!&quot;
+    Title = "My First Wall Post",
+    Content = "Is Awesome!"
 };
 
 var linkPost = new LinkShareWallPost()
 {
     DatePosted = DateTime.Now,
-    Title = &quot;My First Link Share&quot;,
-    Content = &quot;Is Awesome!&quot;,
-    Url = &quot;http://www.philliphaydon.com/&quot;
+    Title = "My First Link Share",
+    Content = "Is Awesome!",
+    Url = "http://www.philliphaydon.com/"
 };
 
 session.Save(wallPost);
 session.Save(linkPost);
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;The link share one will include the Url.&lt;/p&gt;
+<p>The link share one will include the Url.</p>
 
-&lt;pre&gt;&lt;code&gt;- statement #1
+<pre><code>- statement #1
 INSERT INTO WallPost
            (DatePosted,
             Title,
@@ -174,66 +174,66 @@ VALUES     ('2011-08-21T23:53:10.00' /* @p0 */,
             'http://www.philliphaydon.com/' /* @p3 */,
             2,
             '5edfe0f2-e179-4615-88e4-9f460189a284' /* @p4 */)
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;The 'Url' column must be null, or have a default value assigned to it so that when inserting a Text wallpost, the column doesn't need to be specified.&lt;/p&gt;
+<p>The 'Url' column must be null, or have a default value assigned to it so that when inserting a Text wallpost, the column doesn't need to be specified.</p>
 
-&lt;p&gt;If we query for the base class:&lt;/p&gt;
+<p>If we query for the base class:</p>
 
-&lt;pre&gt;&lt;code&gt;var result = session.QueryOver&amp;lt;WallPost&amp;gt;().List();
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>var result = session.QueryOver&lt;WallPost&gt;().List();
+</code></pre>
 
-&lt;p&gt;This will query for all columns:&lt;/p&gt;
+<p>This will query for all columns:</p>
 
-&lt;pre&gt;&lt;code&gt;SELECT this_.Id         as Id0_0_,
+<pre><code>SELECT this_.Id         as Id0_0_,
        this_.DatePosted as DatePosted0_0_,
        this_.Title      as Title0_0_,
        this_.Content    as Content0_0_,
        this_.Url        as Url0_0_,
        this_.PostType   as PostType0_0_
 FROM   WallPost this_
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Just like it did before. No changes, likewise if we query for just the Text wallpost, it will not include the 'Url' column:&lt;/p&gt;
+<p>Just like it did before. No changes, likewise if we query for just the Text wallpost, it will not include the 'Url' column:</p>
 
-&lt;pre&gt;&lt;code&gt;var result = session.QueryOver&amp;lt;TextWallPost&amp;gt;().List();
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>var result = session.QueryOver&lt;TextWallPost&gt;().List();
+</code></pre>
 
-&lt;p&gt;Results in:&lt;/p&gt;
+<p>Results in:</p>
 
-&lt;pre&gt;&lt;code&gt;SELECT this_.Id         as Id0_0_,
+<pre><code>SELECT this_.Id         as Id0_0_,
        this_.DatePosted as DatePosted0_0_,
        this_.Title      as Title0_0_,
        this_.Content    as Content0_0_
 FROM   WallPost this_
 WHERE  this_.PostType = 1
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;If we query for the LinkShare wall post:&lt;/p&gt;
+<p>If we query for the LinkShare wall post:</p>
 
-&lt;pre&gt;&lt;code&gt;var result = session.QueryOver&amp;lt;LinkShareWallPost&amp;gt;().List();
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>var result = session.QueryOver&lt;LinkShareWallPost&gt;().List();
+</code></pre>
 
-&lt;p&gt;This results in the 'Url' column being selected:&lt;/p&gt;
+<p>This results in the 'Url' column being selected:</p>
 
-&lt;pre&gt;&lt;code&gt;SELECT this_.Id         as Id0_0_,
+<pre><code>SELECT this_.Id         as Id0_0_,
        this_.DatePosted as DatePosted0_0_,
        this_.Title      as Title0_0_,
        this_.Content    as Content0_0_,
        this_.Url        as Url0_0_
 FROM   WallPost this_
 WHERE  this_.PostType = 2
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So NHibernate is efficient in that it only queries for what it actually needs. If you extend your sub-classes out to have a couple of properties each then they will only query for the required fields for that sub-class.&lt;/p&gt;
+<p>So NHibernate is efficient in that it only queries for what it actually needs. If you extend your sub-classes out to have a couple of properties each then they will only query for the required fields for that sub-class.</p>
 
-&lt;p&gt;It is possible for sub-classes to share properties. For example if introduced a new sub-class, MovieShare, which has a VideoUrl, as well as a SiteUrl property:&lt;/p&gt;
+<p>It is possible for sub-classes to share properties. For example if introduced a new sub-class, MovieShare, which has a VideoUrl, as well as a SiteUrl property:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/fnh-table-inheritance-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/fnh-table-inheritance-2.png" alt="" /></p>
 
-&lt;p&gt;We can map the classes like so:&lt;/p&gt;
+<p>We can map the classes like so:</p>
 
-&lt;pre&gt;&lt;code&gt;public class TextWallPostMap : SubclassMap&amp;lt;TextWallPost&amp;gt;
+<pre><code>public class TextWallPostMap : SubclassMap&lt;TextWallPost&gt;
 {
     public TextWallPostMap()
     {
@@ -241,31 +241,31 @@ WHERE  this_.PostType = 2
     }
 }
 
-public class LinkShareWallPostMap : SubclassMap&amp;lt;LinkShareWallPost&amp;gt;
+public class LinkShareWallPostMap : SubclassMap&lt;LinkShareWallPost&gt;
 {
     public LinkShareWallPostMap()
     {
         DiscriminatorValue(2);
 
-        Map(x =&amp;gt; x.Url).Column(&quot;Url&quot;);
+        Map(x =&gt; x.Url).Column("Url");
     }
 }
 
-public class MovieShareWallPostMap : SubclassMap&amp;lt;MovieShareWallPost&amp;gt;
+public class MovieShareWallPostMap : SubclassMap&lt;MovieShareWallPost&gt;
 {
     public MovieShareWallPostMap()
     {
         DiscriminatorValue(3);
 
-        Map(x =&amp;gt; x.SiteUrl).Column(&quot;Url&quot;);
-        Map(x =&amp;gt; x.VideoUrl).Column(&quot;VideoUrl&quot;);
+        Map(x =&gt; x.SiteUrl).Column("Url");
+        Map(x =&gt; x.VideoUrl).Column("VideoUrl");
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;When the table is created, 'Url' column is only created once:&lt;/p&gt;
+<p>When the table is created, 'Url' column is only created once:</p>
 
-&lt;pre&gt;&lt;code&gt;create table WallPost (
+<pre><code>create table WallPost (
   Id         UNIQUEIDENTIFIER   not null,
   PostType   TINYINT   not null,
   DatePosted DATETIME   null,
@@ -274,42 +274,42 @@ public class MovieShareWallPostMap : SubclassMap&amp;lt;MovieShareWallPost&amp;g
   Url        NVARCHAR(255)   null,
   VideoUrl   NVARCHAR(255)   null,
     primary key ( Id ))
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Now when we insert:&lt;/p&gt;
+<p>Now when we insert:</p>
 
-&lt;pre&gt;&lt;code&gt;var wallPost = new TextWallPost
+<pre><code>var wallPost = new TextWallPost
 {
     DatePosted = DateTime.Now,
-    Title = &quot;My First Wall Post&quot;,
-    Content = &quot;Is Awesome!&quot;
+    Title = "My First Wall Post",
+    Content = "Is Awesome!"
 };
 
 var linkPost = new LinkShareWallPost()
 {
     DatePosted = DateTime.Now,
-    Title = &quot;My First Link Share&quot;,
-    Content = &quot;Is Awesome!&quot;,
-    Url = &quot;http://www.philliphaydon.com/&quot;
+    Title = "My First Link Share",
+    Content = "Is Awesome!",
+    Url = "http://www.philliphaydon.com/"
 };
 
 var moviePost = new MovieShareWallPost()
 {
     DatePosted = DateTime.Now,
-    Title = &quot;My First Movie Share&quot;,
-    Content = &quot;Is Awesome!&quot;,
-    SiteUrl = &quot;http://www.philliphaydon.com/&quot;,
-    VideoUrl = &quot;http://www.youtube.com/watch?v=GaoLU6zKaws&quot;
+    Title = "My First Movie Share",
+    Content = "Is Awesome!",
+    SiteUrl = "http://www.philliphaydon.com/",
+    VideoUrl = "http://www.youtube.com/watch?v=GaoLU6zKaws"
 };
 
 session.Save(wallPost);
 session.Save(linkPost);
 session.Save(moviePost);
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;The insert will share the same 'Url' column for both the LinkShare, and the MovieShare:&lt;/p&gt;
+<p>The insert will share the same 'Url' column for both the LinkShare, and the MovieShare:</p>
 
-&lt;pre&gt;&lt;code&gt;- statement #1
+<pre><code>- statement #1
 INSERT INTO WallPost
            (DatePosted,
             Title,
@@ -353,15 +353,15 @@ VALUES     ('2011-08-22T00:22:05.00' /* @p0 */,
             'http://www.youtube.com/watch?v=GaoLU6zKaws' /* @p4 */,
             3,
             '6bc80750-3fb2-4830-bccf-9f47000611d0' /* @p5 */)
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;And querying is still as it was before. No changes.&lt;/p&gt;
+<p>And querying is still as it was before. No changes.</p>
 
-&lt;p&gt;One really important thing to remember is. You cannot change a type from 1 type to another, meaning you cannot change a LinkShare to a MovieShare. Any sub-class you create should never have any reason to change, if for some reason it DOES change, you should delete it, and create a new one.&lt;/p&gt;
+<p>One really important thing to remember is. You cannot change a type from 1 type to another, meaning you cannot change a LinkShare to a MovieShare. Any sub-class you create should never have any reason to change, if for some reason it DOES change, you should delete it, and create a new one.</p>
 
-&lt;p&gt;By that I mean delete the object, and insert a new one of the specified sub-class. While it is possible to use native SQL to change the discriminator value, there's no way to do it in HQL, Criteria, LINQ, or QueryOver, because it's just wrong. If it needs to change, you probably need to re-think your domain and persistence.&lt;/p&gt;
+<p>By that I mean delete the object, and insert a new one of the specified sub-class. While it is possible to use native SQL to change the discriminator value, there's no way to do it in HQL, Criteria, LINQ, or QueryOver, because it's just wrong. If it needs to change, you probably need to re-think your domain and persistence.</p>
 
-&lt;p&gt;Next post will be about Table per Sub-Class mapping.&lt;/p&gt;
+<p>Next post will be about Table per Sub-Class mapping.</p>
 
 
 	<div class="divider"></div>

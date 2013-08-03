@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -48,70 +48,70 @@
       </div>
     </div>
         
-    &lt;p&gt;Yup, I decided to reinvent the wheel, don't hate on me :)&lt;/p&gt;
+    <p>Yup, I decided to reinvent the wheel, don't hate on me :)</p>
 
-&lt;p&gt;So I grew a little fustrated, theres quite a few serverside validation libraries around, but I feel they do too much, are hard to test, yada yada yada...&lt;/p&gt;
+<p>So I grew a little fustrated, theres quite a few serverside validation libraries around, but I feel they do too much, are hard to test, yada yada yada...</p>
 
-&lt;p&gt;So I came up with Sandra.SimpleValidation&lt;/p&gt;
+<p>So I came up with Sandra.SimpleValidation</p>
 
-&lt;p&gt;The idea is that it's dead simple, it requires 0 up front configuration, it doesn't allow you to inject stuff into the validators, validators are newed up once and only once, there's no client-side validation.&lt;/p&gt;
+<p>The idea is that it's dead simple, it requires 0 up front configuration, it doesn't allow you to inject stuff into the validators, validators are newed up once and only once, there's no client-side validation.</p>
 
-&lt;p&gt;I don't believe validation should allow you to do things like inject a repository and query the database, those begin to become Business Rules and should be handled seperately. All it does is validate a model you give it. &lt;/p&gt;
+<p>I don't believe validation should allow you to do things like inject a repository and query the database, those begin to become Business Rules and should be handled seperately. All it does is validate a model you give it. </p>
 
-&lt;p&gt;So what do you need to do?&lt;/p&gt;
+<p>So what do you need to do?</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;PM&gt; Install-Package Sandra.SimpleValidator&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>PM> Install-Package Sandra.SimpleValidator</p>
+</blockquote>
 
-&lt;p&gt;First up, install the package. It requires 4.0 or above, it could probably work on 3.5 but who uses that anymore?&lt;/p&gt;
+<p>First up, install the package. It requires 4.0 or above, it could probably work on 3.5 but who uses that anymore?</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;Once installed, you can create a validator&lt;/p&gt;
+<p>Once installed, you can create a validator</p>
 
-&lt;pre&gt;&lt;code&gt;public class UserValidator : ValidateThis&amp;lt;User&amp;gt;
+<pre><code>public class UserValidator : ValidateThis&lt;User&gt;
 {
     public UserValidator()
     {
-        For(x =&amp;gt; x.Username)
+        For(x =&gt; x.Username)
             .Ensure(new Required());
 
-        For(x =&amp;gt; x.Email)
+        For(x =&gt; x.Email)
             .Ensure(new Required())
             .Ensure(new Email());
 
-        For(x =&amp;gt; x.Locale)
+        For(x =&gt; x.Locale)
             .Ensure(new Required());
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;If you don't like the default messages you can change those by chaining the rule like so&lt;/p&gt;
+<p>If you don't like the default messages you can change those by chaining the rule like so</p>
 
-&lt;pre&gt;&lt;code&gt;public class UserValidator : ValidateThis&amp;lt;User&amp;gt;
+<pre><code>public class UserValidator : ValidateThis&lt;User&gt;
 {
     public UserValidator()
     {
-        For(x =&amp;gt; x.Username)
-            .Ensure(new Required().WithMessage(&quot;Username is required&quot;);
+        For(x =&gt; x.Username)
+            .Ensure(new Required().WithMessage("Username is required");
 
         ...
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Now you can inject (or create an instance of) the &lt;code&gt;ValidationService&lt;/code&gt;.&lt;/p&gt;
+<p>Now you can inject (or create an instance of) the <code>ValidationService</code>.</p>
 
-&lt;p&gt;Using Nancy with the default &lt;code&gt;TinyIoC&lt;/code&gt; container, you can just include this in the module constructor. If you're using MVC you may need to register it depending on the container you're using. In any case it can be a singleton since it only needs to be created once.&lt;/p&gt;
+<p>Using Nancy with the default <code>TinyIoC</code> container, you can just include this in the module constructor. If you're using MVC you may need to register it depending on the container you're using. In any case it can be a singleton since it only needs to be created once.</p>
 
-&lt;pre&gt;&lt;code&gt;public class HomeModule : NancyModule
+<pre><code>public class HomeModule : NancyModule
 {
     public HomeModule(ValidationService validate)
     {
-        Get[&quot;/&quot;] = _ =&amp;gt;
+        Get["/"] = _ =&gt;
         {
-            var user = this.Bind&amp;lt;User&amp;gt;();
+            var user = this.Bind&lt;User&gt;();
             var validationResult = validate.This(user);
 
             if (validationResult.IsInvalid)
@@ -119,42 +119,42 @@
                 //Handle errors with
                 //validationResult.Messages
 
-                return &quot;Validation has fails :(&quot;;
+                return "Validation has fails :(";
             }
 
-            return &quot;Validation was successful :)&quot;;
+            return "Validation was successful :)";
         };
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Once you've injected the service, you simply call &lt;code&gt;This(...)&lt;/code&gt; passing in the object you want to validate. With the result you can then call &lt;code&gt;IsValid&lt;/code&gt; or &lt;code&gt;IsInvalid&lt;/code&gt; and handle the errors.&lt;/p&gt;
+<p>Once you've injected the service, you simply call <code>This(...)</code> passing in the object you want to validate. With the result you can then call <code>IsValid</code> or <code>IsInvalid</code> and handle the errors.</p>
 
-&lt;p&gt;What's nice about the validator class is that because it's so simple, it's simple to test. Given the example above, we can write a unit test like so.&lt;/p&gt;
+<p>What's nice about the validator class is that because it's so simple, it's simple to test. Given the example above, we can write a unit test like so.</p>
 
-&lt;pre&gt;&lt;code&gt;[Fact]
+<pre><code>[Fact]
 public void Given_Valid_Model_Should_Return_IsValid_As_True()
 {
     var validator = new UserValidator();
     var model = new User
     {
-        Username = &quot;HelloWorld&quot;,
-        Email = &quot;test@banana.com&quot;,
-        Locale = &quot;en-AU&quot;
+        Username = "HelloWorld",
+        Email = "test@banana.com",
+        Locale = "en-AU"
     };
 
     var result = validator.Validate(model);
 
     Assert.True(result.IsValid);
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;That's all there is to it. Currently as of writing this it only supports &lt;code&gt;Required&lt;/code&gt;, &lt;code&gt;MinimumLength&lt;/code&gt;, &lt;code&gt;MaximumLength&lt;/code&gt;, &lt;code&gt;Between&lt;/code&gt;, and &lt;code&gt;Email&lt;/code&gt; rules. Since that's all I require for my current project. If you want to create your own simply implement &lt;code&gt;IRule&lt;/code&gt; and new them up in the &lt;code&gt;Ensure&lt;/code&gt; method of the validators.&lt;/p&gt;
+<p>That's all there is to it. Currently as of writing this it only supports <code>Required</code>, <code>MinimumLength</code>, <code>MaximumLength</code>, <code>Between</code>, and <code>Email</code> rules. Since that's all I require for my current project. If you want to create your own simply implement <code>IRule</code> and new them up in the <code>Ensure</code> method of the validators.</p>
 
-&lt;p&gt;In the future I hope to get Nancy intergration so the validation can be invoked on &lt;code&gt;this.Bind&amp;lt;T&amp;gt;()&lt;/code&gt;, but for now you can find the github repo, and nuget&lt;/p&gt;
+<p>In the future I hope to get Nancy intergration so the validation can be invoked on <code>this.Bind&lt;T&gt;()</code>, but for now you can find the github repo, and nuget</p>
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/phillip-haydon/Sandra.SimpleValidator&quot;&gt;https://github.com/phillip-haydon/Sandra.SimpleValidator&lt;/a&gt;
-&lt;a href=&quot;https://www.nuget.org/packages/Sandra.SimpleValidator&quot;&gt;https://www.nuget.org/packages/Sandra.SimpleValidator&lt;/a&gt;&lt;/p&gt;
+<p><a href="https://github.com/phillip-haydon/Sandra.SimpleValidator">https://github.com/phillip-haydon/Sandra.SimpleValidator</a>
+<a href="https://www.nuget.org/packages/Sandra.SimpleValidator">https://www.nuget.org/packages/Sandra.SimpleValidator</a></p>
 
 
 	<div class="divider"></div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,247 +49,247 @@
       </div>
     </div>
         
-    &lt;p&gt;A friend asked me about fetching relationships with NHibernate when something couldn't be lazy-loaded.&lt;/p&gt;
+    <p>A friend asked me about fetching relationships with NHibernate when something couldn't be lazy-loaded.</p>
 
-&lt;p&gt;The reason it couldn't be lazy-loaded was because he uses Session-Per-Call, my preference is Session-Per-Request. (this is web based, I've never actually used NHibernate in a non-web scenario, yet)&lt;/p&gt;
+<p>The reason it couldn't be lazy-loaded was because he uses Session-Per-Call, my preference is Session-Per-Request. (this is web based, I've never actually used NHibernate in a non-web scenario, yet)</p>
 
-&lt;p&gt;The solution he's currently using is to turn off lazy-loading at the mapping. This is all kinds of bad.&lt;/p&gt;
+<p>The solution he's currently using is to turn off lazy-loading at the mapping. This is all kinds of bad.</p>
 
-&lt;p&gt;I think it's best to demonstrate why turning off lazy-loading at the mapping is bad. I've come up with a, well what I consider pretty standard Blog.&lt;/p&gt;
+<p>I think it's best to demonstrate why turning off lazy-loading at the mapping is bad. I've come up with a, well what I consider pretty standard Blog.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-lazy-load-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-lazy-load-1.png" alt="" /></p>
 
-&lt;p&gt;Nothing special but needed something that has a few relationship&quot;s. (I think you can click that image to make it bigger)&lt;/p&gt;
+<p>Nothing special but needed something that has a few relationship"s. (I think you can click that image to make it bigger)</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;So as we can see, a Post has 4 relationships, and a Comment has a relationship back to the Post and User.&lt;/p&gt;
+<p>So as we can see, a Post has 4 relationships, and a Comment has a relationship back to the Post and User.</p>
 
-&lt;p&gt;I've mapped it and created some test data:&lt;/p&gt;
+<p>I've mapped it and created some test data:</p>
 
-&lt;p&gt;&lt;a href=&quot;/stuffz/NH-Blog-Mappings.cs.txt&quot;&gt;View Full Maps&lt;/a&gt;&lt;/p&gt;
+<p><a href="/stuffz/NH-Blog-Mappings.cs.txt">View Full Maps</a></p>
 
-&lt;p&gt;&lt;a href=&quot;/stuffz/NH-Blog-Scripts.sql.txt&quot;&gt;View SQL Script&lt;/a&gt;&lt;/p&gt;
+<p><a href="/stuffz/NH-Blog-Scripts.sql.txt">View SQL Script</a></p>
 
-&lt;p&gt;Right, so the maps are set to Not LazyLoad the relationships.&lt;/p&gt;
+<p>Right, so the maps are set to Not LazyLoad the relationships.</p>
 
-&lt;h3&gt;Post&lt;/h3&gt;
+<h3>Post</h3>
 
-&lt;pre&gt;&lt;code&gt;public class PostMap : ClassMap&amp;lt;Post&amp;gt;
+<pre><code>public class PostMap : ClassMap&lt;Post&gt;
 {
     public PostMap()
     {
-        Id(x =&amp;gt; x.Id);
-        Map(x =&amp;gt; x.Title);
-        Map(x =&amp;gt; x.Content);
-        Map(x =&amp;gt; x.PublishedAt);
-        References(x =&amp;gt; x.Author)
-            .Column(&quot;UserId&quot;)
+        Id(x =&gt; x.Id);
+        Map(x =&gt; x.Title);
+        Map(x =&gt; x.Content);
+        Map(x =&gt; x.PublishedAt);
+        References(x =&gt; x.Author)
+            .Column("UserId")
             .Not.LazyLoad();
 
-        HasManyToMany(x =&amp;gt; x.Tags)
-            .Table(&quot;PostTags&quot;)
-            .ParentKeyColumn(&quot;PostId&quot;)
-            .ChildKeyColumn(&quot;TagId&quot;)
+        HasManyToMany(x =&gt; x.Tags)
+            .Table("PostTags")
+            .ParentKeyColumn("PostId")
+            .ChildKeyColumn("TagId")
             .Not.LazyLoad();
 
-        HasManyToMany(x =&amp;gt; x.Categories)
-            .Table(&quot;PostCategories&quot;)
-            .ParentKeyColumn(&quot;PostId&quot;)
-            .ChildKeyColumn(&quot;CategoryId&quot;)
+        HasManyToMany(x =&gt; x.Categories)
+            .Table("PostCategories")
+            .ParentKeyColumn("PostId")
+            .ChildKeyColumn("CategoryId")
             .Not.LazyLoad();
 
-        HasMany(x =&amp;gt; x.Comments)
-            .KeyColumn(&quot;PostId&quot;)
+        HasMany(x =&gt; x.Comments)
+            .KeyColumn("PostId")
             .Inverse()
             .Not.LazyLoad();
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;h3&gt;Comment&lt;/h3&gt;
+<h3>Comment</h3>
 
-&lt;pre&gt;&lt;code&gt;public class CommentMap : ClassMap&amp;lt;Comment&amp;gt;
+<pre><code>public class CommentMap : ClassMap&lt;Comment&gt;
 {
     public CommentMap()
     {
-        Id(x =&amp;gt; x.Id);
-        Map(x =&amp;gt; x.Content);
-        References(x =&amp;gt; x.Commenter)
-            .Column(&quot;UserId&quot;)
+        Id(x =&gt; x.Id);
+        Map(x =&gt; x.Content);
+        References(x =&gt; x.Commenter)
+            .Column("UserId")
             .Not.LazyLoad();
 
-        References(x =&amp;gt; x.Post)
-            .Column(&quot;PostId&quot;)
+        References(x =&gt; x.Post)
+            .Column("PostId")
             .Not.LazyLoad();
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;I haven't mapped any relationships the other way, keeping it simple, stupid. &lt;/p&gt;
+<p>I haven't mapped any relationships the other way, keeping it simple, stupid. </p>
 
-&lt;p&gt;Right, so lets assume we wanted to load Post 1, and display the Title and the Categories the post was in. We didn't care about the User, or the Comments, or anything like that.&lt;/p&gt;
+<p>Right, so lets assume we wanted to load Post 1, and display the Title and the Categories the post was in. We didn't care about the User, or the Comments, or anything like that.</p>
 
-&lt;pre&gt;&lt;code&gt;var sessionFactory = new SessionFactoryManager().CreateSessionFactory();
+<pre><code>var sessionFactory = new SessionFactoryManager().CreateSessionFactory();
 using (var session = sessionFactory.OpenSession())
 {
-    var post = session.Query&amp;lt;Post&amp;gt;()
-                        .SingleOrDefault(x =&amp;gt; x.Id == 1);
+    var post = session.Query&lt;Post&gt;()
+                        .SingleOrDefault(x =&gt; x.Id == 1);
 
-    Console.WriteLine(&quot;Post: &quot; + post.Title);
-    Console.WriteLine(&quot;Category: &quot;);
+    Console.WriteLine("Post: " + post.Title);
+    Console.WriteLine("Category: ");
 
-    post.Categories.ForEach(x =&amp;gt; Console.WriteLine(x.Name));
+    post.Categories.ForEach(x =&gt; Console.WriteLine(x.Name));
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;If we were writing the query ourselves, all we would want is the Post, and the Categories, well because we mapped all the references and collections as Not.LazyLoad, NHibernate is kind enough to go and grab that information for us. The SQL Generated results in:&lt;/p&gt;
+<p>If we were writing the query ourselves, all we would want is the Post, and the Categories, well because we mapped all the references and collections as Not.LazyLoad, NHibernate is kind enough to go and grab that information for us. The SQL Generated results in:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-lazy-load-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-lazy-load-2.png" alt="" /></p>
 
-&lt;p&gt;(Image is screen shot from &lt;a href=&quot;http://www.nhprof.com/&quot;&gt;NHProf&lt;/a&gt;)&lt;/p&gt;
+<p>(Image is screen shot from <a href="http://www.nhprof.com/">NHProf</a>)</p>
 
-&lt;p&gt;AHHHHH Bad bad bad!!! It's loaded all that information we don't care about!&lt;/p&gt;
+<p>AHHHHH Bad bad bad!!! It's loaded all that information we don't care about!</p>
 
-&lt;p&gt;Right, lets set everything back to normal, and leave Lazy Loading on! Run the same query, and see what happens.&lt;/p&gt;
+<p>Right, lets set everything back to normal, and leave Lazy Loading on! Run the same query, and see what happens.</p>
 
-&lt;h3&gt;Post&lt;/h3&gt;
+<h3>Post</h3>
 
-&lt;pre&gt;&lt;code&gt;public class PostMap : ClassMap&amp;lt;Post&amp;gt;
+<pre><code>public class PostMap : ClassMap&lt;Post&gt;
 {
     public PostMap()
     {
-        Id(x =&amp;gt; x.Id);
-        Map(x =&amp;gt; x.Title);
-        Map(x =&amp;gt; x.Content);
-        Map(x =&amp;gt; x.PublishedAt);
-        References(x =&amp;gt; x.Author)
-            .Column(&quot;UserId&quot;);
+        Id(x =&gt; x.Id);
+        Map(x =&gt; x.Title);
+        Map(x =&gt; x.Content);
+        Map(x =&gt; x.PublishedAt);
+        References(x =&gt; x.Author)
+            .Column("UserId");
 
-        HasManyToMany(x =&amp;gt; x.Tags)
-            .Table(&quot;PostTags&quot;)
-            .ParentKeyColumn(&quot;PostId&quot;)
-            .ChildKeyColumn(&quot;TagId&quot;);
+        HasManyToMany(x =&gt; x.Tags)
+            .Table("PostTags")
+            .ParentKeyColumn("PostId")
+            .ChildKeyColumn("TagId");
 
-        HasManyToMany(x =&amp;gt; x.Categories)
-            .Table(&quot;PostCategories&quot;)
-            .ParentKeyColumn(&quot;PostId&quot;)
-            .ChildKeyColumn(&quot;CategoryId&quot;);
+        HasManyToMany(x =&gt; x.Categories)
+            .Table("PostCategories")
+            .ParentKeyColumn("PostId")
+            .ChildKeyColumn("CategoryId");
 
-        HasMany(x =&amp;gt; x.Comments)
-            .KeyColumn(&quot;PostId&quot;)
+        HasMany(x =&gt; x.Comments)
+            .KeyColumn("PostId")
             .Inverse();
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;h3&gt;Comment&lt;/h3&gt;
+<h3>Comment</h3>
 
-&lt;pre&gt;&lt;code&gt;public class CommentMap : ClassMap&amp;lt;Comment&amp;gt;
+<pre><code>public class CommentMap : ClassMap&lt;Comment&gt;
 {
     public CommentMap()
     {
-        Id(x =&amp;gt; x.Id);
-        Map(x =&amp;gt; x.Content);
-        References(x =&amp;gt; x.Commenter)
-            .Column(&quot;UserId&quot;);
+        Id(x =&gt; x.Id);
+        Map(x =&gt; x.Content);
+        References(x =&gt; x.Commenter)
+            .Column("UserId");
 
-        References(x =&amp;gt; x.Post)
-            .Column(&quot;PostId&quot;);
+        References(x =&gt; x.Post)
+            .Column("PostId");
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Lets see what happens now.&lt;/p&gt;
+<p>Lets see what happens now.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-lazy-load-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-lazy-load-3.png" alt="" /></p>
 
-&lt;p&gt;Great! Much nicer, we haven't got all that information we didn't want. The only problem is, what about this scenario?&lt;/p&gt;
+<p>Great! Much nicer, we haven't got all that information we didn't want. The only problem is, what about this scenario?</p>
 
-&lt;pre&gt;&lt;code&gt;var sessionFactory = new SessionFactoryManager().CreateSessionFactory();
+<pre><code>var sessionFactory = new SessionFactoryManager().CreateSessionFactory();
 Post post;
 
 using (var session = sessionFactory.OpenSession())
 {
-    post = session.Query&amp;lt;Post&amp;gt;()
-                  .SingleOrDefault(x =&amp;gt; x.Id == 1);
+    post = session.Query&lt;Post&gt;()
+                  .SingleOrDefault(x =&gt; x.Id == 1);
 
-    Console.WriteLine(&quot;Post: &quot; + post.Title);
+    Console.WriteLine("Post: " + post.Title);
 }
 
-Console.WriteLine(&quot;Category: &quot;);
-post.Categories.ForEach(x =&amp;gt; Console.WriteLine(x.Name));
-&lt;/code&gt;&lt;/pre&gt;
+Console.WriteLine("Category: ");
+post.Categories.ForEach(x =&gt; Console.WriteLine(x.Name));
+</code></pre>
 
-&lt;p&gt;Lets assume that the 'using' block was a call to a repository, to get a particular post, and we needed to iterate over the categories a little bit later?&lt;/p&gt;
+<p>Lets assume that the 'using' block was a call to a repository, to get a particular post, and we needed to iterate over the categories a little bit later?</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-lazy-load-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-lazy-load-4.png" alt="" /></p>
 
-&lt;p&gt;Oh no, not what we wanted  because the object is now disconnected from the session, it can't lazy load the categories. This I suspect is the issue my friend got.&lt;/p&gt;
+<p>Oh no, not what we wanted  because the object is now disconnected from the session, it can't lazy load the categories. This I suspect is the issue my friend got.</p>
 
-&lt;p&gt;So the solution? To Eager Load!&lt;/p&gt;
+<p>So the solution? To Eager Load!</p>
 
-&lt;pre&gt;&lt;code&gt;Post post;
+<pre><code>Post post;
 using (var session = sessionFactory.OpenSession())
 {
-    post = session.Query&amp;lt;Post&amp;gt;()
-                    .Where(x =&amp;gt; x.Id == 1)
-                    .Fetch(x =&amp;gt; x.Categories)
+    post = session.Query&lt;Post&gt;()
+                    .Where(x =&gt; x.Id == 1)
+                    .Fetch(x =&gt; x.Categories)
                     .SingleOrDefault();
 
-    Console.WriteLine(&quot;Post: &quot; + post.Title);
+    Console.WriteLine("Post: " + post.Title);
 }
 
-Console.WriteLine(&quot;Category: &quot;);
-post.Categories.ForEach(x =&amp;gt; Console.WriteLine(x.Name));
-&lt;/code&gt;&lt;/pre&gt;
+Console.WriteLine("Category: ");
+post.Categories.ForEach(x =&gt; Console.WriteLine(x.Name));
+</code></pre>
 
-&lt;p&gt;This results in a single query being issued:&lt;/p&gt;
+<p>This results in a single query being issued:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-lazy-load-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-lazy-load-5.png" alt="" /></p>
 
-&lt;p&gt;What's this query look like?&lt;/p&gt;
+<p>What's this query look like?</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-lazy-load-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-lazy-load-6.png" alt="" /></p>
 
-&lt;p&gt;Not bad! Definitely saves a second trip to the database to grab the categories. But there's a problem, there types of queries result in cartesian product result-set. (Think that's what it's called)&lt;/p&gt;
+<p>Not bad! Definitely saves a second trip to the database to grab the categories. But there's a problem, there types of queries result in cartesian product result-set. (Think that's what it's called)</p>
 
-&lt;p&gt;If we issue that query our-self we end up with this:&lt;/p&gt;
+<p>If we issue that query our-self we end up with this:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-lazy-load-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-lazy-load-7.png" alt="" /></p>
 
-&lt;p&gt;We actually get Post back twice, because it's got two categories. It's only because we told NHibernate we wanted a single result that it knew the Root aggregate is distinct.&lt;/p&gt;
+<p>We actually get Post back twice, because it's got two categories. It's only because we told NHibernate we wanted a single result that it knew the Root aggregate is distinct.</p>
 
-&lt;p&gt;So what happens if we wanted more than 1 post, and eager load the relationships?&lt;/p&gt;
+<p>So what happens if we wanted more than 1 post, and eager load the relationships?</p>
 
-&lt;pre&gt;&lt;code&gt;var sessionFactory = new SessionFactoryManager().CreateSessionFactory();
-IList&amp;lt;Post&amp;gt; posts;
+<pre><code>var sessionFactory = new SessionFactoryManager().CreateSessionFactory();
+IList&lt;Post&gt; posts;
 
 using (var session = sessionFactory.OpenSession())
 {
-    posts = session.QueryOver&amp;lt;Post&amp;gt;()
-                    .Fetch(x =&amp;gt; x.Categories).Eager
+    posts = session.QueryOver&lt;Post&gt;()
+                    .Fetch(x =&gt; x.Categories).Eager
                     .List();
 }
 
 foreach (var post in posts)
 {
-    Console.WriteLine(&quot;Post: &quot; + post.Title);
+    Console.WriteLine("Post: " + post.Title);
 
-    Console.WriteLine(&quot;Categories:&quot;);
+    Console.WriteLine("Categories:");
 
     foreach (var category in post.Categories)
     {
-        Console.WriteLine(&quot; - &quot; + category.Name);
+        Console.WriteLine(" - " + category.Name);
     }
 
-    Console.WriteLine(&quot;--&quot;);
+    Console.WriteLine("--");
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Nothing special, right? Except... because we get duplicate posts in the last query, imagine what we get when we actually iterate over this result.&lt;/p&gt;
+<p>Nothing special, right? Except... because we get duplicate posts in the last query, imagine what we get when we actually iterate over this result.</p>
 
-&lt;pre&gt;&lt;code&gt;Post: Post 1
+<pre><code>Post: Post 1
 Categories:
 - Category 1
 - Category 3
@@ -321,22 +321,22 @@ Categories:
 - Category 2
 - Category 3
 --
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Scary right? We can fix this using NH Transformations.&lt;/p&gt;
+<p>Scary right? We can fix this using NH Transformations.</p>
 
-&lt;pre&gt;&lt;code&gt;using (var session = sessionFactory.OpenSession())
+<pre><code>using (var session = sessionFactory.OpenSession())
 {
-    posts = session.QueryOver&amp;lt;Post&amp;gt;()
-                    .Fetch(x =&amp;gt; x.Categories).Eager
+    posts = session.QueryOver&lt;Post&gt;()
+                    .Fetch(x =&gt; x.Categories).Eager
                     .TransformUsing(new DistinctRootEntityResultTransformer())
                     .List();
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This formats the result to be distinct posts with the related Categories like so:&lt;/p&gt;
+<p>This formats the result to be distinct posts with the related Categories like so:</p>
 
-&lt;pre&gt;&lt;code&gt;Post: Post 1
+<pre><code>Post: Post 1
 Categories:
 - Category 1
 - Category 3
@@ -351,13 +351,13 @@ Categories:
 - Category 2
 - Category 3
 --
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Perfect!&lt;/p&gt;
+<p>Perfect!</p>
 
-&lt;p&gt;As you can imagine, eager loading is a pretty powerful feature, but we still have to be careful to not load too many relationships. Because eager loading doesn't break the relationships into different result-set queries, we can end up with inefficient queries because there are too many, or possibly too complex joins.&lt;/p&gt;
+<p>As you can imagine, eager loading is a pretty powerful feature, but we still have to be careful to not load too many relationships. Because eager loading doesn't break the relationships into different result-set queries, we can end up with inefficient queries because there are too many, or possibly too complex joins.</p>
 
-&lt;p&gt;We could over-come some of these BY we, Not.LazyLoadby creating the object graph ourselves by using NHibernates &lt;code&gt;Future&amp;lt;T&amp;gt;&lt;/code&gt; feature, to batch queries together to reduce the number of database trips. That's a post for another day.&lt;/p&gt;
+<p>We could over-come some of these BY we, Not.LazyLoadby creating the object graph ourselves by using NHibernates <code>Future&lt;T&gt;</code> feature, to batch queries together to reduce the number of database trips. That's a post for another day.</p>
 
 
 	<div class="divider"></div>

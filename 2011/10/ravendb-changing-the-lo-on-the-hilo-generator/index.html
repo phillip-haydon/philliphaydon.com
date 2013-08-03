@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,55 +49,55 @@
       </div>
     </div>
         
-    &lt;p&gt;Well I'm currently learning RavenDB, it's awesome! But I noticed when I put data in, all the Id's generated every time I ran up my application to test were:&lt;/p&gt;
+    <p>Well I'm currently learning RavenDB, it's awesome! But I noticed when I put data in, all the Id's generated every time I ran up my application to test were:</p>
 
-&lt;p&gt;1, 2, 3, 4, 5...&lt;/p&gt;
+<p>1, 2, 3, 4, 5...</p>
 
-&lt;p&gt;1024, 1025, 1026, 1027, 1028...&lt;/p&gt;
+<p>1024, 1025, 1026, 1027, 1028...</p>
 
-&lt;p&gt;2048, 2049, 2050, 2051, 2052...&lt;/p&gt;
+<p>2048, 2049, 2050, 2051, 2052...</p>
 
-&lt;p&gt;This would be fine after the app is deployed since I wouldn't be restarting it over and over and over, but during development I personally find it annoying that the numbers jump so high.&lt;/p&gt;
+<p>This would be fine after the app is deployed since I wouldn't be restarting it over and over and over, but during development I personally find it annoying that the numbers jump so high.</p>
 
-&lt;p&gt;Fortunately I figured out a way. (which about an hour later I found on Google Groups, granted I had to use a different keyword to find it)&lt;/p&gt;
+<p>Fortunately I figured out a way. (which about an hour later I found on Google Groups, granted I had to use a different keyword to find it)</p>
 
-&lt;p&gt;Basically you just need to create a new instance of the &lt;code&gt;MultiTypeHiLoKeyGenerator&lt;/code&gt; class, passing in the arguments and assigning it to the document store:&lt;/p&gt;
+<p>Basically you just need to create a new instance of the <code>MultiTypeHiLoKeyGenerator</code> class, passing in the arguments and assigning it to the document store:</p>
 
-&lt;pre&gt;&lt;code&gt;var documentStore = (new DocumentStore { 
-    Url = &quot;http://localhost:12321/&quot; 
+<pre><code>var documentStore = (new DocumentStore { 
+    Url = "http://localhost:12321/" 
 }).Initialize();
 
 var generator = new MultiTypeHiLoKeyGenerator(documentStore, 10);
 
 documentStore.Conventions.DocumentKeyGenerator = 
-    entity =&amp;gt; generator.GenerateDocumentKey(documentStore.Conventions, entity);
+    entity =&gt; generator.GenerateDocumentKey(documentStore.Conventions, entity);
 
 using (var session = documentStore.OpenSession())
 {
-    session.Store(new Project() { Title = &quot;Hello World&quot; });
+    session.Store(new Project() { Title = "Hello World" });
     session.SaveChanges();
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So running up my app once:&lt;/p&gt;
+<p>So running up my app once:</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-hilo-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-hilo-1.png" alt="" /></p>
 
-&lt;p&gt;And again:&lt;/p&gt;
+<p>And again:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-hilo-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-hilo-2.png" alt="" /></p>
 
-&lt;p&gt;Now the identity only increases every time the app restarts. And to show it generates more than 1 number...&lt;/p&gt;
+<p>Now the identity only increases every time the app restarts. And to show it generates more than 1 number...</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-hilo-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-hilo-3.png" alt="" /></p>
 
-&lt;p&gt;It took a while of hunting on the net, but it turns out Googling &amp;amp; Binging, or searching (StackOverflow/Google Groups) for the keyword &lt;code&gt;Lo&lt;/code&gt; doesn't work, the argument is &lt;code&gt;capacity&lt;/code&gt; and searching for that on Google Groups lead me here:&lt;/p&gt;
+<p>It took a while of hunting on the net, but it turns out Googling &amp; Binging, or searching (StackOverflow/Google Groups) for the keyword <code>Lo</code> doesn't work, the argument is <code>capacity</code> and searching for that on Google Groups lead me here:</p>
 
-&lt;p&gt;&lt;a href=&quot;http://groups.google.com/group/ravendb/browse_thread/thread/95a5b33a5d30eb71/a5197e2e01376e65?lnk=gst&amp;amp;q=capacity#a5197e2e01376e65&quot;&gt;http://groups.google.com/group/ravendb/browse_thread/thread/95a5b33a5d30eb71/a5197e2e01376e65?lnk=gst&amp;amp;q=capacity#a5197e2e01376e65&lt;/a&gt;&lt;/p&gt;
+<p><a href="http://groups.google.com/group/ravendb/browse_thread/thread/95a5b33a5d30eb71/a5197e2e01376e65?lnk=gst&amp;q=capacity#a5197e2e01376e65">http://groups.google.com/group/ravendb/browse_thread/thread/95a5b33a5d30eb71/a5197e2e01376e65?lnk=gst&amp;q=capacity#a5197e2e01376e65</a></p>
 
-&lt;p&gt;Hopefully someone else finds this useful :)&lt;/p&gt;
+<p>Hopefully someone else finds this useful :)</p>
 
 
 	<div class="divider"></div>

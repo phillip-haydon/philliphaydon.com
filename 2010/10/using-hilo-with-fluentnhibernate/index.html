@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,82 +49,82 @@
       </div>
     </div>
         
-    &lt;p&gt;I spend ages trying to find some documentation or tutorial on how to use HiLo with FluentNHibernate after reading:&lt;/p&gt;
+    <p>I spend ages trying to find some documentation or tutorial on how to use HiLo with FluentNHibernate after reading:</p>
 
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://ayende.com/Blog/archive/2009/03/20/nhibernate-avoid-identity-generator-when-possible.aspx&quot;&gt;NHibernate: Avoid identity generator when possible&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://connect.microsoft.com/SQLServer/feedback/details/328811/scope-identity-sometimes-returns-incorrect-value&quot;&gt;SCOPE_IDENTITY() sometimes returns incorrect value&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://nhforge.org/blogs/nhibernate/archive/2009/03/20/nhibernate-poid-generators-revealed.aspx&quot;&gt;NHibernate POID Generators revealed&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://fabiomaulo.blogspot.com/2008/12/identity-never-ending-story.html&quot;&gt;Identity: The never ending story&lt;/a&gt; - BTW they are &lt;a href=&quot;http://www.imdb.com/title/tt1386664/&quot;&gt;remaking&lt;/a&gt; &lt;a href=&quot;http://www.imdb.com/title/tt0088323/&quot;&gt;The NeverEnding Story&lt;/a&gt;. Bastards!!!&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li><a href="http://ayende.com/Blog/archive/2009/03/20/nhibernate-avoid-identity-generator-when-possible.aspx">NHibernate: Avoid identity generator when possible</a></li>
+<li><a href="https://connect.microsoft.com/SQLServer/feedback/details/328811/scope-identity-sometimes-returns-incorrect-value">SCOPE_IDENTITY() sometimes returns incorrect value</a></li>
+<li><a href="http://nhforge.org/blogs/nhibernate/archive/2009/03/20/nhibernate-poid-generators-revealed.aspx">NHibernate POID Generators revealed</a></li>
+<li><a href="http://fabiomaulo.blogspot.com/2008/12/identity-never-ending-story.html">Identity: The never ending story</a> - BTW they are <a href="http://www.imdb.com/title/tt1386664/">remaking</a> <a href="http://www.imdb.com/title/tt0088323/">The NeverEnding Story</a>. Bastards!!!</li>
+</ul>
 
-&lt;p&gt;As it turns out, it's really easy to setup. I figured out two ways of doing it, the HiLo table having a single row, with each column for each table 'Hi'. Or a row for each table.&lt;/p&gt;
+<p>As it turns out, it's really easy to setup. I figured out two ways of doing it, the HiLo table having a single row, with each column for each table 'Hi'. Or a row for each table.</p>
 
-&lt;p&gt;I setup a really simple example with the following table.&lt;/p&gt;
+<p>I setup a really simple example with the following table.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-hilo-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-hilo-1.png" alt="" /></p>
 
-&lt;p&gt;'ProductId' is set to be int/primary key, but identity is false, since we don't want the database generating the id.&lt;/p&gt;
+<p>'ProductId' is set to be int/primary key, but identity is false, since we don't want the database generating the id.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;The two HiLo tables are like so:&lt;/p&gt;
+<p>The two HiLo tables are like so:</p>
 
-&lt;h3&gt;Row Per Table&lt;/h3&gt;
+<h3>Row Per Table</h3>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-hilo-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-hilo-2.png" alt="" /></p>
 
-&lt;h3&gt;Column Per Table&lt;/h3&gt;
+<h3>Column Per Table</h3>
 
-&lt;p&gt;(shows only a single column, but for each table you would add a new column)&lt;/p&gt;
+<p>(shows only a single column, but for each table you would add a new column)</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-hilo-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-hilo-3.png" alt="" /></p>
 
-&lt;p&gt;Then all you need to do is setup the Fluent Mappings.&lt;/p&gt;
+<p>Then all you need to do is setup the Fluent Mappings.</p>
 
-&lt;h2&gt;Row Per Table&lt;/h2&gt;
+<h2>Row Per Table</h2>
 
-&lt;p&gt;So for Row Per Table, the mapping for Product would look like this:&lt;/p&gt;
+<p>So for Row Per Table, the mapping for Product would look like this:</p>
 
-&lt;pre&gt;&lt;code&gt;public class ProductMap : ClassMap&amp;lt;Product&amp;gt;
+<pre><code>public class ProductMap : ClassMap&lt;Product&gt;
 {
     public ProductMap()
     {
-        Id(x =&amp;gt; x.Id).Column(&quot;ProductId&quot;)
+        Id(x =&gt; x.Id).Column("ProductId")
                      .GeneratedBy
-                     .HiLo(&quot;NH_HiLo&quot;, &quot;NextHi&quot;, &quot;1000&quot;, &quot;TableKey = ''Product''&quot;);
-        Map(x =&amp;gt; x.Name);
+                     .HiLo("NH_HiLo", "NextHi", "1000", "TableKey = ''Product''");
+        Map(x =&gt; x.Name);
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;HiLo takes the parameters (TableName, ColumnName, MaxLo, Where). Where is an override that we will use since we need to specify the row to return. So if we insert a single row into our table:&lt;/p&gt;
+<p>HiLo takes the parameters (TableName, ColumnName, MaxLo, Where). Where is an override that we will use since we need to specify the row to return. So if we insert a single row into our table:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-hilo-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-hilo-4.png" alt="" /></p>
 
-&lt;p&gt;We pass in our where clause as &lt;code&gt;TableKey = &quot;Product&quot;&lt;/code&gt;, so that it knows which row to get the NextHi from.&lt;/p&gt;
+<p>We pass in our where clause as <code>TableKey = "Product"</code>, so that it knows which row to get the NextHi from.</p>
 
-&lt;p&gt;For each new table we would just add a new row and a default NextHi value. Every time the SessionFactory is created it would grab the NextHi value and increment it by 1.&lt;/p&gt;
+<p>For each new table we would just add a new row and a default NextHi value. Every time the SessionFactory is created it would grab the NextHi value and increment it by 1.</p>
 
-&lt;h2&gt;Column Per Table&lt;/h2&gt;
+<h2>Column Per Table</h2>
 
-&lt;p&gt;Column Per Table is very similar, except we don't need the where parameter, we only need to specify the column to look at. Assuming we were using the Column Per Table with the HiLo2 table, our mapping would look like this:&lt;/p&gt;
+<p>Column Per Table is very similar, except we don't need the where parameter, we only need to specify the column to look at. Assuming we were using the Column Per Table with the HiLo2 table, our mapping would look like this:</p>
 
-&lt;pre&gt;&lt;code&gt;public class ProductMap : ClassMap&amp;lt;Product&amp;gt;
+<pre><code>public class ProductMap : ClassMap&lt;Product&gt;
 {
     public ProductMap()
     {
-        Id(x =&amp;gt; x.Id).Column(&quot;ProductId&quot;)
+        Id(x =&gt; x.Id).Column("ProductId")
                      .GeneratedBy
-                     .HiLo(&quot;NH_HiLo2&quot;, &quot;Product_NextHi&quot;, &quot;1000&quot;);
-        Map(x =&amp;gt; x.Name);
+                     .HiLo("NH_HiLo2", "Product_NextHi", "1000");
+        Map(x =&gt; x.Name);
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;We would need to add a single row to our table like so:&lt;/p&gt;
+<p>We would need to add a single row to our table like so:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-hilo-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-hilo-5.png" alt="" /></p>
 
 
 	<div class="divider"></div>

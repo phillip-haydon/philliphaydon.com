@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,40 +49,40 @@
       </div>
     </div>
         
-    &lt;p&gt;&lt;a href=&quot;/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/&quot;&gt;Part 1&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/&quot;&gt;Part 2&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-3/&quot;&gt;Part 3&lt;/a&gt;  &lt;/p&gt;
+    <p><a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/">Part 1</a><br />
+<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">Part 2</a><br />
+<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-3/">Part 3</a>  </p>
 
-&lt;p&gt;A couple of questions that pop's up a lot in the &lt;a href=&quot;https://jabbr.net/#/rooms/RavenDB&quot;&gt;#RavenDB&lt;/a&gt; &lt;a href=&quot;https://jabbr.net/&quot;&gt;JabbR&lt;/a&gt; chat room by people picking up RavenDB for the first time are; &lt;em&gt;what am I persisting?, and how do I query relationships?.&lt;/em&gt;&lt;/p&gt;
+<p>A couple of questions that pop's up a lot in the <a href="https://jabbr.net/#/rooms/RavenDB">#RavenDB</a> <a href="https://jabbr.net/">JabbR</a> chat room by people picking up RavenDB for the first time are; <em>what am I persisting?, and how do I query relationships?.</em></p>
 
-&lt;p&gt;When we use relational databases we often de-normalize our data into multiple tables, usually this is done to get rid of duplication of data. We do this by adding 100's of foreign keys to our tables relating things all over the place, we had a CountryId to our Address, a UserId to our Order, an OrderId to our OrderLine.&lt;/p&gt;
+<p>When we use relational databases we often de-normalize our data into multiple tables, usually this is done to get rid of duplication of data. We do this by adding 100's of foreign keys to our tables relating things all over the place, we had a CountryId to our Address, a UserId to our Order, an OrderId to our OrderLine.</p>
 
-&lt;p&gt;There's many reasons why this was done, some of which Oren describes in his &lt;a href=&quot;http://ayende.com/blog/153026/embracing-ravendb&quot;&gt;Embracing RavenDB post.&lt;/a&gt;&lt;/p&gt;
+<p>There's many reasons why this was done, some of which Oren describes in his <a href="http://ayende.com/blog/153026/embracing-ravendb">Embracing RavenDB post.</a></p>
 
-&lt;p&gt;Then when we go to query those relationships we have to join data, when we have an entity with multiple relationships we end up getting into complex queries with cartesian joins, performance starts to degrade, and things just get messy.&lt;/p&gt;
+<p>Then when we go to query those relationships we have to join data, when we have an entity with multiple relationships we end up getting into complex queries with cartesian joins, performance starts to degrade, and things just get messy.</p>
 
-&lt;p&gt;When working with Document Databases we throw all that out the window and we deal with Root Aggregates. These are objects that are responsible for their child objects, you don't load the child objects individually, they are loaded with the root or parent object.&lt;/p&gt;
+<p>When working with Document Databases we throw all that out the window and we deal with Root Aggregates. These are objects that are responsible for their child objects, you don't load the child objects individually, they are loaded with the root or parent object.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;The most common example I see is Blog/Posts/Comments, but I'm going to explain an easier scenario.&lt;/p&gt;
+<p>The most common example I see is Blog/Posts/Comments, but I'm going to explain an easier scenario.</p>
 
-&lt;h2&gt;Order/OrderLine&lt;/h2&gt;
+<h2>Order/OrderLine</h2>
 
-&lt;p&gt;The Order/Orderline is much easier to understand since it's a scenario would probably always end up being the same in every system.&lt;/p&gt;
+<p>The Order/Orderline is much easier to understand since it's a scenario would probably always end up being the same in every system.</p>
 
-&lt;p&gt;It also easier to understand because when displaying an OrderLine in any system, it's always displayed with the Order details, and never by itself. So when we query for the Order it makes sense to always get the OrderLine at the same time.&lt;/p&gt;
+<p>It also easier to understand because when displaying an OrderLine in any system, it's always displayed with the Order details, and never by itself. So when we query for the Order it makes sense to always get the OrderLine at the same time.</p>
 
-&lt;p&gt;When working with Business Rules applied to an Order, they almost always apply to the OrderLines also, so again you're working with the entire Order, not a portion of it.&lt;/p&gt;
+<p>When working with Business Rules applied to an Order, they almost always apply to the OrderLines also, so again you're working with the entire Order, not a portion of it.</p>
 
-&lt;p&gt;When starting out it's hard to imagine, but the OrderLine is actually part of the Order, it's not a separate entity, it's just when we persist it in two tables since that makes more sense in a relational database, and it ends up feeling like two separate things, when in reality, it's still the same object.&lt;/p&gt;
+<p>When starting out it's hard to imagine, but the OrderLine is actually part of the Order, it's not a separate entity, it's just when we persist it in two tables since that makes more sense in a relational database, and it ends up feeling like two separate things, when in reality, it's still the same object.</p>
 
-&lt;pre&gt;&lt;code&gt;public class Order
+<pre><code>public class Order
 {
     public string Id { get; set; }
     // Other properties...
 
-    public IEnumerable&amp;lt;OrderLine&amp;gt; Lines { get; set; }
+    public IEnumerable&lt;OrderLine&gt; Lines { get; set; }
 }
 
 public class OrderLine
@@ -94,53 +94,53 @@ public class OrderLine
 
     // Other Properties
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So when we persist this with a Relational Database these would go into two different tables. Order and OrderLine tables, joined by a foreign key.&lt;/p&gt;
+<p>So when we persist this with a Relational Database these would go into two different tables. Order and OrderLine tables, joined by a foreign key.</p>
 
-&lt;p&gt;But now that we are thinking about the Root Aggregate, the Order, when we persist this with RavenDB we persist just the Order. When we persist 'just the order' that means we persist the ENTIRE Order object, &lt;em&gt;including the OrderLines, since they are the Order&lt;/em&gt;.&lt;/p&gt;
+<p>But now that we are thinking about the Root Aggregate, the Order, when we persist this with RavenDB we persist just the Order. When we persist 'just the order' that means we persist the ENTIRE Order object, <em>including the OrderLines, since they are the Order</em>.</p>
 
-&lt;p&gt;When persisted to RavenDB we end up with a JSON document that looks similar to:&lt;/p&gt;
+<p>When persisted to RavenDB we end up with a JSON document that looks similar to:</p>
 
-&lt;pre&gt;&lt;code&gt;{
+<pre><code>{
     Id: 'orders/123',
     Lines: [
         { Quantity: 1, Price: 12.95, Discount: null, SkuCode: 'N1C3' },
         { Quantity: 3, Price: 6.23, Discount: null, SkuCode: 'F4K21' }
     ]
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I purposely left out other properties for now.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> I purposely left out other properties for now.</span></p>
 
-&lt;p&gt;As you can see we are persisting the entire root object itself. We don't put OrderLines into a separate document or collection.&lt;/p&gt;
+<p>As you can see we are persisting the entire root object itself. We don't put OrderLines into a separate document or collection.</p>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I do realise I've mentioned persisting the entire object multiple times, but it's something that some people find hard to wrap their head around at first. It confused me when I first started messing around with MongoDB.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> I do realise I've mentioned persisting the entire object multiple times, but it's something that some people find hard to wrap their head around at first. It confused me when I first started messing around with MongoDB.</span></p>
 
-&lt;p&gt;When we query for the Order: &lt;code&gt;session.Load&amp;lt;Order&amp;gt;(&quot;orders/123&quot;);&lt;/code&gt; we end up fetching all the OrderLines at the same time. No joins, no separate queries, just the entire order.&lt;/p&gt;
+<p>When we query for the Order: <code>session.Load&lt;Order&gt;("orders/123");</code> we end up fetching all the OrderLines at the same time. No joins, no separate queries, just the entire order.</p>
 
-&lt;p&gt;In a relational database we would have had to issue 2 separate queries, or join the tables together, like:&lt;/p&gt;
+<p>In a relational database we would have had to issue 2 separate queries, or join the tables together, like:</p>
 
-&lt;pre&gt;&lt;code&gt;SELECT * FROM [Order] o
+<pre><code>SELECT * FROM [Order] o
 LEFT JOIN [OrderLine] ol
     ON o.Id = Ol.OrderId
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This makes querying the database more complicated than it needs to be. There are other ways around this in a relational database, you can &lt;a href=&quot;/2012/03/ormlite-blobbing-done-with-nhibernate-and-serialized-json/&quot;&gt;blob the OrderLines&lt;/a&gt;. But then you lose the ability to search against OrderLines.&lt;/p&gt;
+<p>This makes querying the database more complicated than it needs to be. There are other ways around this in a relational database, you can <a href="/2012/03/ormlite-blobbing-done-with-nhibernate-and-serialized-json/">blob the OrderLines</a>. But then you lose the ability to search against OrderLines.</p>
 
-&lt;h2&gt;Why this example and not Post/Comments?&lt;/h2&gt;
+<h2>Why this example and not Post/Comments?</h2>
 
-&lt;p&gt;I don't think Post/Comments is a good example to work from, Comment's can be displayed with a Post, and without a Post, they can be paged, displayed on an individual page, in a 'latest comments' column on your blog, etc.&lt;/p&gt;
+<p>I don't think Post/Comments is a good example to work from, Comment's can be displayed with a Post, and without a Post, they can be paged, displayed on an individual page, in a 'latest comments' column on your blog, etc.</p>
 
-&lt;p&gt;Some of these scenarios may justify putting Comments into their own collection.&lt;/p&gt;
+<p>Some of these scenarios may justify putting Comments into their own collection.</p>
 
-&lt;p&gt;However, more often than not, non-popular blogs such as my own only occur a few comments, so there's no real reason to put them in their own collection, you can easily get away with putting them on the Post document.&lt;/p&gt;
+<p>However, more often than not, non-popular blogs such as my own only occur a few comments, so there's no real reason to put them in their own collection, you can easily get away with putting them on the Post document.</p>
 
-&lt;p&gt;I think this comes down to personal preference and the business problem you're trying to solve, but for a learning exercise it makes it harder to understand. My personal preference is to store Comment's in a separate collection, because you click through from the post listing screen to the post and load the comment's, and if there are &gt; x number of comments then I would page them and only display the latest comments, or high rated comments if they were rated voted up/down.&lt;/p&gt;
+<p>I think this comes down to personal preference and the business problem you're trying to solve, but for a learning exercise it makes it harder to understand. My personal preference is to store Comment's in a separate collection, because you click through from the post listing screen to the post and load the comment's, and if there are > x number of comments then I would page them and only display the latest comments, or high rated comments if they were rated voted up/down.</p>
 
-&lt;p&gt;I hope that clear's up what's being persisted.&lt;/p&gt;
+<p>I hope that clear's up what's being persisted.</p>
 
-&lt;p&gt;&lt;strong&gt;In part 2 I'm going to go over References &lt;em&gt;(Relationships)&lt;/em&gt;, and in part 3 MapReduce &lt;em&gt;(doing all those fancy SQL queries inside RavenDB and what is happening)&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+<p><strong>In part 2 I'm going to go over References <em>(Relationships)</em>, and in part 3 MapReduce <em>(doing all those fancy SQL queries inside RavenDB and what is happening)</em></strong></p>
 
 
 	<div class="divider"></div>

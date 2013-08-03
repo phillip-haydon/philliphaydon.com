@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,50 +49,50 @@
       </div>
     </div>
         
-    &lt;p&gt;This has to be one of the most awesome features of Nancy, Content Negotiation. Recently added in 0.12, it gives you the ability to implement a single route that responds with different versions of the same document, without having to mess up your code with duplicate methods or conditional statements.&lt;/p&gt;
+    <p>This has to be one of the most awesome features of Nancy, Content Negotiation. Recently added in 0.12, it gives you the ability to implement a single route that responds with different versions of the same document, without having to mess up your code with duplicate methods or conditional statements.</p>
 
-&lt;p&gt;When doing this in ASP.NET MVC I would have to check the content type and decide how I want to respond to the request.&lt;/p&gt;
+<p>When doing this in ASP.NET MVC I would have to check the content type and decide how I want to respond to the request.</p>
 
-&lt;p&gt;This ended up making duplicate methods, one which would be used by a normal GET request, while the 2nd would be for an AJAX request. Or if it was similar, use conditional logic in the single method to decide how the action should respond...&lt;/p&gt;
+<p>This ended up making duplicate methods, one which would be used by a normal GET request, while the 2nd would be for an AJAX request. Or if it was similar, use conditional logic in the single method to decide how the action should respond...</p>
 
-&lt;p&gt;Nancy on the other hand supports Content Negotiation out of the box.&lt;/p&gt;
+<p>Nancy on the other hand supports Content Negotiation out of the box.</p>
 
-&lt;pre&gt;&lt;code&gt;Get[&quot;/negotiated&quot;] = parameters =&amp;gt; {
+<pre><code>Get["/negotiated"] = parameters =&gt; {
     return Negotiate
-        .WithModel(new RatPack {FirstName = &quot;Nancy &quot;})
-        .WithMediaRangeModel(&quot;text/html&quot;, new RatPack {FirstName = &quot;Nancy fancy pants&quot;})
-        .WithView(&quot;negotiatedview&quot;)
-        .WithHeader(&quot;X-Custom&quot;, &quot;SomeValue&quot;);
+        .WithModel(new RatPack {FirstName = "Nancy "})
+        .WithMediaRangeModel("text/html", new RatPack {FirstName = "Nancy fancy pants"})
+        .WithView("negotiatedview")
+        .WithHeader("X-Custom", "SomeValue");
 };
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Sample taken from Nancy GitHub Repo&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> Sample taken from Nancy GitHub Repo</span></p>
 
-&lt;h2&gt;What is content negotiation?&lt;/h2&gt;
+<h2>What is content negotiation?</h2>
 
-&lt;p&gt;In short, it's the ability to serve different versions of a document to the same URI.&lt;/p&gt;
+<p>In short, it's the ability to serve different versions of a document to the same URI.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;To read more you can visit &lt;a href=&quot;http://en.wikipedia.org/wiki/Content_negotiation&quot;&gt;Wikipedia&lt;/a&gt; or &lt;a href=&quot;http://www.soapatterns.org/content_negotiation.php&quot;&gt;SOA Patterns&lt;/a&gt;... or... &lt;a href=&quot;http://www.bing.com/&quot;&gt;Google&lt;/a&gt;&lt;/p&gt;
+<p>To read more you can visit <a href="http://en.wikipedia.org/wiki/Content_negotiation">Wikipedia</a> or <a href="http://www.soapatterns.org/content_negotiation.php">SOA Patterns</a>... or... <a href="http://www.bing.com/">Google</a></p>
 
-&lt;h2&gt;Why should I care?&lt;/h2&gt;
+<h2>Why should I care?</h2>
 
-&lt;p&gt;Well lets assume we're building a website and we have a shopping cart, we get to the checkout page and there's a button to delete the item from your cart.&lt;/p&gt;
+<p>Well lets assume we're building a website and we have a shopping cart, we get to the checkout page and there's a button to delete the item from your cart.</p>
 
-&lt;p&gt;You want to give a really nice user experience by not posting back the entire page. You would rather just tell the server to delete the item from the cart, and do a quick update on the screen, and avoid the whole page reloading.&lt;/p&gt;
+<p>You want to give a really nice user experience by not posting back the entire page. You would rather just tell the server to delete the item from the cart, and do a quick update on the screen, and avoid the whole page reloading.</p>
 
-&lt;p&gt;However what if the page is taking a long time to load, and as a result, the JavaScript hasn't been executed and wired up all the events to the buttons to delete items from your cart, you still want to be able to post the entire page and maintain the usability of the page.&lt;/p&gt;
+<p>However what if the page is taking a long time to load, and as a result, the JavaScript hasn't been executed and wired up all the events to the buttons to delete items from your cart, you still want to be able to post the entire page and maintain the usability of the page.</p>
 
-&lt;p&gt;The same scenario occurs if the user has (unlikely) turned JavaScript off.&lt;/p&gt;
+<p>The same scenario occurs if the user has (unlikely) turned JavaScript off.</p>
 
-&lt;h2&gt;Implementation&lt;/h2&gt;
+<h2>Implementation</h2>
 
-&lt;p&gt;So using the example above, deleting an item from a cart and updating the page, using JavaScript verses a full postback of the page, using the exact same route.&lt;/p&gt;
+<p>So using the example above, deleting an item from a cart and updating the page, using JavaScript verses a full postback of the page, using the exact same route.</p>
 
-&lt;p&gt;Let's create a really basic module:&lt;/p&gt;
+<p>Let's create a really basic module:</p>
 
-&lt;pre&gt;&lt;code&gt;public class HomeModule : NancyModule
+<pre><code>public class HomeModule : NancyModule
 {
     public class Product
     {
@@ -100,13 +100,13 @@
         public string Name { get; set; }
         public decimal Price { get; set; }
     }
-    public static IList&amp;lt;Product&amp;gt; Products = new List&amp;lt;Product&amp;gt;()
+    public static IList&lt;Product&gt; Products = new List&lt;Product&gt;()
     {
-        new Product {Id = 1, Name = &quot;Surface&quot;, Price = 499},
-        new Product {Id = 2, Name = &quot;iPad&quot;, Price = 899},
-        new Product {Id = 3, Name = &quot;Nexus 10&quot;, Price = 599},
-        new Product {Id = 4, Name = &quot;Think Pad&quot;, Price = 499},
-        new Product {Id = 5, Name = &quot;Yoga&quot;, Price = 699},
+        new Product {Id = 1, Name = "Surface", Price = 499},
+        new Product {Id = 2, Name = "iPad", Price = 899},
+        new Product {Id = 3, Name = "Nexus 10", Price = 599},
+        new Product {Id = 4, Name = "Think Pad", Price = 499},
+        new Product {Id = 5, Name = "Yoga", Price = 699},
     };
 
     public dynamic Model = new ExpandoObject();
@@ -115,80 +115,80 @@
     {
         Model.Deleted = false;
 
-        Get[&quot;/&quot;] = _ =&amp;gt;
+        Get["/"] = _ =&gt;
         {
             Model.Products = Products;
 
-            return View[&quot;index&quot;, Model];
+            return View["index", Model];
         };
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;I've nested a Product class in there, and created a static list of products for demo.&lt;/p&gt;
+<p>I've nested a Product class in there, and created a static list of products for demo.</p>
 
-&lt;p&gt;We need a View to go with this to display the Products:&lt;/p&gt;
+<p>We need a View to go with this to display the Products:</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;h2&amp;gt;Products&amp;lt;/h2&amp;gt;
-&amp;lt;p&amp;gt;Posted back using: &amp;lt;span class=&quot;status&quot;&amp;gt;@if ((bool)Model.Deleted) { @Html.Raw(&quot;Full Postback&quot;); }&amp;lt;/span&amp;gt;&amp;lt;/p&amp;gt;
+<pre><code>&lt;h2&gt;Products&lt;/h2&gt;
+&lt;p&gt;Posted back using: &lt;span class="status"&gt;@if ((bool)Model.Deleted) { @Html.Raw("Full Postback"); }&lt;/span&gt;&lt;/p&gt;
 
-&amp;lt;table&amp;gt;
-  &amp;lt;thead&amp;gt;
-    &amp;lt;tr&amp;gt;
-      &amp;lt;th style=&quot;width: 50px;&quot;&amp;gt;Id&amp;lt;/th&amp;gt;
-      &amp;lt;th style=&quot;width: 90px;&quot;&amp;gt;Name&amp;lt;/th&amp;gt;
-      &amp;lt;th style=&quot;width: 50px;&quot;&amp;gt;Price&amp;lt;/th&amp;gt;
-      &amp;lt;th style=&quot;width: 150px;&quot;&amp;gt;&amp;amp;nbsp;&amp;lt;/th&amp;gt;
-      &amp;lt;th style=&quot;width: 160px;&quot;&amp;gt;&amp;amp;nbsp;&amp;lt;/th&amp;gt;
-    &amp;lt;/tr&amp;gt;
-  &amp;lt;/thead&amp;gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style="width: 50px;"&gt;Id&lt;/th&gt;
+      &lt;th style="width: 90px;"&gt;Name&lt;/th&gt;
+      &lt;th style="width: 50px;"&gt;Price&lt;/th&gt;
+      &lt;th style="width: 150px;"&gt;&amp;nbsp;&lt;/th&gt;
+      &lt;th style="width: 160px;"&gt;&amp;nbsp;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
 
   @foreach (var product in Model.Products)
   {
-    &amp;lt;tr&amp;gt;
-      &amp;lt;td&amp;gt;@product.Id&amp;lt;/td&amp;gt;
-      &amp;lt;td&amp;gt;@product.Name&amp;lt;/td&amp;gt;
-      &amp;lt;td&amp;gt;@product.Price.ToString(&quot;c&quot;)&amp;lt;/td&amp;gt;
-      &amp;lt;td&amp;gt;&amp;lt;a href=&quot;/delete/@product.Id&quot;&amp;gt;Delete With JavaScript&amp;lt;/a&amp;gt;&amp;lt;/td&amp;gt;
-      &amp;lt;td&amp;gt;&amp;lt;a href=&quot;/delete/@product.Id&quot;&amp;gt;Delete Without JavaScript&amp;lt;/a&amp;gt;&amp;lt;/td&amp;gt;
-    &amp;lt;/tr&amp;gt;  
+    &lt;tr&gt;
+      &lt;td&gt;@product.Id&lt;/td&gt;
+      &lt;td&gt;@product.Name&lt;/td&gt;
+      &lt;td&gt;@product.Price.ToString("c")&lt;/td&gt;
+      &lt;td&gt;&lt;a href="/delete/@product.Id"&gt;Delete With JavaScript&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="/delete/@product.Id"&gt;Delete Without JavaScript&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;  
   }
-&amp;lt;/table&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/table&gt;
+</code></pre>
 
-&lt;p&gt;This rendered will display the following:&lt;/p&gt;
+<p>This rendered will display the following:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancy-conneg-1.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancy-conneg-1.png" /></p>
 
-&lt;p&gt;So when we press the 'Delete Without JavaScript' button we want it to remove the item, so we can add a new route:&lt;/p&gt;
+<p>So when we press the 'Delete Without JavaScript' button we want it to remove the item, so we can add a new route:</p>
 
-&lt;pre&gt;&lt;code&gt;Get[@&quot;/delete/{id}&quot;] = _ =&amp;gt;
+<pre><code>Get[@"/delete/{id}"] = _ =&gt;
 {
     var id      = (int) _.id;
-    var item    = Products.Single(x =&amp;gt; x.Id == id);
+    var item    = Products.Single(x =&gt; x.Id == id);
 
     Products.Remove(item);
     Model.Products = Products;
     Model.Deleted = true;
 
-    return View[&quot;index&quot;, Model];
+    return View["index", Model];
 };
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Now if we press the button:&lt;/p&gt;
+<p>Now if we press the button:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancy-conneg-2.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancy-conneg-2.png" /></p>
 
-&lt;p&gt;We can see the URL has updated, and the 3rd item was deleted from the list. It also updated the text to day it used a full postpack. We can see that a full postback has occurred since the URL changed.&lt;/p&gt;
+<p>We can see the URL has updated, and the 3rd item was deleted from the list. It also updated the text to day it used a full postpack. We can see that a full postback has occurred since the URL changed.</p>
 
-&lt;p&gt;Now we want to make the 'Delete With JavaScript' button work.&lt;/p&gt;
+<p>Now we want to make the 'Delete With JavaScript' button work.</p>
 
-&lt;p&gt;So we can add some JavaScript:&lt;/p&gt;
+<p>So we can add some JavaScript:</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;script src=&quot;/Scripts/jquery-1.8.2.min.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
-&amp;lt;script&amp;gt;
+<pre><code>&lt;script src="/Scripts/jquery-1.8.2.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
   (function ($) {
-    $(document).on(&quot;click&quot;, 'a:contains(Delete With JavaScript)', function (e) {
+    $(document).on("click", 'a:contains(Delete With JavaScript)', function (e) {
 
       e.preventDefault();
 
@@ -203,24 +203,24 @@
       }).success(function (data) {
         if (data.Deleted === true) {
           tr.remove();
-          $('.status').text(&quot;Using JavaScript&quot;);
+          $('.status').text("Using JavaScript");
         }
       });
 
     });
 
   })(jQuery);
-&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/script&gt;
+</code></pre>
 
-&lt;p&gt;So this just looks for an anchor tag with the text 'Delete With JavaScript' since we don't want to stop the other buttons from working.&lt;/p&gt;
+<p>So this just looks for an anchor tag with the text 'Delete With JavaScript' since we don't want to stop the other buttons from working.</p>
 
-&lt;p&gt;Now we need to update the Route to handle content negotiation.&lt;/p&gt;
+<p>Now we need to update the Route to handle content negotiation.</p>
 
-&lt;pre&gt;&lt;code&gt;Get[@&quot;/delete/{id}&quot;] = _ =&amp;gt;
+<pre><code>Get[@"/delete/{id}"] = _ =&gt;
 {
     var id      = (int) _.id;
-    var item    = Products.Single(x =&amp;gt; x.Id == id);
+    var item    = Products.Single(x =&gt; x.Id == id);
 
     Products.Remove(item);
     Model.Products = Products;
@@ -228,35 +228,35 @@
 
     return Negotiate
         .WithModel((object) Model)
-        .WithMediaRangeModel(&quot;application/json&quot;, new
+        .WithMediaRangeModel("application/json", new
         {
             Model.Deleted
         })
-        .WithView(&quot;index&quot;);
+        .WithView("index");
 };
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;The implementation is identical to before, the only difference is we replaced 'View' with 'Negotiate'.&lt;/p&gt;
+<p>The implementation is identical to before, the only difference is we replaced 'View' with 'Negotiate'.</p>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; The Model being returned is Dynamic, this allows me to just add the properties to it without having to define a static class. As a result I have to cast the Model to an object when passing it into the method 'WithModel', if I was using a static class I wouldn't need to do this.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> The Model being returned is Dynamic, this allows me to just add the properties to it without having to define a static class. As a result I have to cast the Model to an object when passing it into the method 'WithModel', if I was using a static class I wouldn't need to do this.</span></p>
 
-&lt;p&gt;If the type if different, in this case the request was for application/json, then we pass back only the data we need, rather than everything.&lt;/p&gt;
+<p>If the type if different, in this case the request was for application/json, then we pass back only the data we need, rather than everything.</p>
 
-&lt;p&gt;Now if we run the same page again but we click on 'Delete With JavaScript'&lt;/p&gt;
+<p>Now if we run the same page again but we click on 'Delete With JavaScript'</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancy-conneg-3.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancy-conneg-3.png" /></p>
 
-&lt;p&gt;This time when we delete item 4, the URL hasn't changed, but it's removed the item and said it was done using the JavaScript.&lt;/p&gt;
+<p>This time when we delete item 4, the URL hasn't changed, but it's removed the item and said it was done using the JavaScript.</p>
 
-&lt;p&gt;Now when we click either link, both scenarios are handled by the one route.&lt;/p&gt;
+<p>Now when we click either link, both scenarios are handled by the one route.</p>
 
-&lt;h2&gt;Also...&lt;/h2&gt;
+<h2>Also...</h2>
 
-&lt;p&gt;This isn't limited to just this use case, if you're building an API and you want the route to respond with XML or JSON, or maybe even your own content type, this is an awesome feature that you can use to handle these scenarios so your consumers can get what they want, in the format they want, with no effort from you.&lt;/p&gt;
+<p>This isn't limited to just this use case, if you're building an API and you want the route to respond with XML or JSON, or maybe even your own content type, this is an awesome feature that you can use to handle these scenarios so your consumers can get what they want, in the format they want, with no effort from you.</p>
 
-&lt;p&gt;Content Negotiation - Is Awesome.&lt;/p&gt;
+<p>Content Negotiation - Is Awesome.</p>
 
-&lt;p&gt;The demo for this project can be found &lt;a href=&quot;https://github.com/phillip-haydon/NancyConnegDemo&quot;&gt;here on github&lt;/a&gt;.&lt;/p&gt;
+<p>The demo for this project can be found <a href="https://github.com/phillip-haydon/NancyConnegDemo">here on github</a>.</p>
 
 
 	<div class="divider"></div>

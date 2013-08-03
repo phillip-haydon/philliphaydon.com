@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,203 +49,203 @@
       </div>
     </div>
         
-    &lt;p&gt;So, learning Map Reduce in RavenDB I decided that to take what I learnt from the index created in my previous post. I think I picked something rather difficult to begin with, but I've succeeded &lt;/p&gt;
+    <p>So, learning Map Reduce in RavenDB I decided that to take what I learnt from the index created in my previous post. I think I picked something rather difficult to begin with, but I've succeeded </p>
 
-&lt;p&gt;Given a document Article which has a collection of Tags.&lt;/p&gt;
+<p>Given a document Article which has a collection of Tags.</p>
 
-&lt;p&gt;I want to get a Count of each Tag across all Articles.&lt;/p&gt;
+<p>I want to get a Count of each Tag across all Articles.</p>
 
-&lt;pre&gt;&lt;code&gt;public class Content
+<pre><code>public class Content
 {
     public int Id { get; set; }
     public string Title { get; set; }
-    public IEnumerable&amp;lt;Tag&amp;gt; Tags { get; set; }
+    public IEnumerable&lt;Tag&gt; Tags { get; set; }
 }
 
 public class Tag
 {
     public string Name { get; set; }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Tag is it's own class because I added additional properties to it.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> Tag is it's own class because I added additional properties to it.</span></p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;Now I insert some data:&lt;/p&gt;
+<p>Now I insert some data:</p>
 
-&lt;pre&gt;&lt;code&gt;using (var session = documentStore.OpenSession())
+<pre><code>using (var session = documentStore.OpenSession())
 {
     session.Store(new Content
     {
-        Title = &quot;Test Title for a Video&quot;,
-        Tags = new List&amp;lt;Tag&amp;gt;
+        Title = "Test Title for a Video",
+        Tags = new List&lt;Tag&gt;
         {
-            new Tag() {Name = &quot;c#&quot;},
-            new Tag() {Name = &quot;autofac&quot;},
-            new Tag() {Name = &quot;asp.net&quot;},
+            new Tag() {Name = "c#"},
+            new Tag() {Name = "autofac"},
+            new Tag() {Name = "asp.net"},
         }
     });
     session.Store(new Content
     {
-        Title = &quot;Test Title for an Article&quot;,
-        Tags = new List&amp;lt;Tag&amp;gt;
+        Title = "Test Title for an Article",
+        Tags = new List&lt;Tag&gt;
         {
-            new Tag() {Name = &quot;c#&quot;},
-            new Tag() {Name = &quot;nhibernate&quot;},
-            new Tag() {Name = &quot;fluent-nhibernate&quot;},
-            new Tag() {Name = &quot;mvc&quot;}
+            new Tag() {Name = "c#"},
+            new Tag() {Name = "nhibernate"},
+            new Tag() {Name = "fluent-nhibernate"},
+            new Tag() {Name = "mvc"}
         }
     });
     session.Store(new Content
     {
-        Title = &quot;Test Title for an Article&quot;,
-        Tags = new List&amp;lt;Tag&amp;gt;
+        Title = "Test Title for an Article",
+        Tags = new List&lt;Tag&gt;
         {
-            new Tag() {Name = &quot;ravendb&quot;},
-            new Tag() {Name = &quot;asp.net&quot;},
-            new Tag() {Name = &quot;autofac&quot;},
-            new Tag() {Name = &quot;c#&quot;}
+            new Tag() {Name = "ravendb"},
+            new Tag() {Name = "asp.net"},
+            new Tag() {Name = "autofac"},
+            new Tag() {Name = "c#"}
         }
     });
     session.SaveChanges();
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So I'm expecting a count of:&lt;/p&gt;
+<p>So I'm expecting a count of:</p>
 
-&lt;ul&gt;
-&lt;li&gt;3 x c#&lt;/li&gt;
-&lt;li&gt;2 x autofac&lt;/li&gt;
-&lt;li&gt;2 x asp.net&lt;/li&gt;
-&lt;li&gt;1 x ravendb&lt;/li&gt;
-&lt;li&gt;1 x mvc&lt;/li&gt;
-&lt;li&gt;1 x nhibernate&lt;/li&gt;
-&lt;li&gt;1 x fluent-nhibernate&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li>3 x c#</li>
+<li>2 x autofac</li>
+<li>2 x asp.net</li>
+<li>1 x ravendb</li>
+<li>1 x mvc</li>
+<li>1 x nhibernate</li>
+<li>1 x fluent-nhibernate</li>
+</ul>
 
-&lt;p&gt;I'm going to pull these out with a defined type rather than dynamic/object, so I've created a new class with Count and Name:&lt;/p&gt;
+<p>I'm going to pull these out with a defined type rather than dynamic/object, so I've created a new class with Count and Name:</p>
 
-&lt;pre&gt;&lt;code&gt;public class TagResult
+<pre><code>public class TagResult
 {
     public int      Count   { get; set; }
     public string   Name    { get; set; }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So creating a new Index:&lt;/p&gt;
+<p>So creating a new Index:</p>
 
-&lt;pre&gt;&lt;code&gt;public class All_Tags : AbstractMultiMapIndexCreationTask&amp;lt;TagResult&amp;gt;
+<pre><code>public class All_Tags : AbstractMultiMapIndexCreationTask&lt;TagResult&gt;
 {
     public All_Tags()
     {
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;The first thing I need to do is map out ONLY the Tag's, when I select out the Tag's, I'm also going to include another field called Count, with a default value of 1. This is so I can re-use it to sum the total number of times the tag is used.&lt;/p&gt;
+<p>The first thing I need to do is map out ONLY the Tag's, when I select out the Tag's, I'm also going to include another field called Count, with a default value of 1. This is so I can re-use it to sum the total number of times the tag is used.</p>
 
-&lt;pre&gt;&lt;code&gt;AddMap&amp;lt;Content&amp;gt;(contents =&amp;gt; from content in contents
+<pre><code>AddMap&lt;Content&gt;(contents =&gt; from content in contents
                             from tag in content.Tags
                             select new
                             {
                                 Name = tag.Name,
                                 Count = 1
                             });
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This would give me a result that contains duplicates for the tags. Along the lines of:&lt;/p&gt;
+<p>This would give me a result that contains duplicates for the tags. Along the lines of:</p>
 
-&lt;table&gt;
-  &lt;tr&gt;
-    &lt;td&gt;c#&lt;/td&gt;
-    &lt;td&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;c#&lt;/td&gt;
-    &lt;td&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;c#&lt;/td&gt;
-    &lt;td&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;autofac&lt;/td&gt;
-    &lt;td&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;autofac&lt;/td&gt;
-    &lt;td&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;asp.net&lt;/td&gt;
-    &lt;td&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;asp.net&lt;/td&gt;
-    &lt;td&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;ravendb&lt;/td&gt;
-    &lt;td&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;mvc&lt;/td&gt;
-    &lt;td&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;nhibernate&lt;/td&gt;
-    &lt;td&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;fluent-nhibernate&lt;/td&gt;
-    &lt;td&gt;1&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
+<table>
+  <tr>
+    <td>c#</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>c#</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>c#</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>autofac</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>autofac</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>asp.net</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>asp.net</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>ravendb</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>mvc</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>nhibernate</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>fluent-nhibernate</td>
+    <td>1</td>
+  </tr>
+</table>
 
-&lt;p&gt;So what I need to do in the Reduce, is group the tags together by their Name.&lt;/p&gt;
+<p>So what I need to do in the Reduce, is group the tags together by their Name.</p>
 
-&lt;pre&gt;&lt;code&gt;Reduce = results =&amp;gt; from result in results
+<pre><code>Reduce = results =&gt; from result in results
                     group result by result.Name into tag
                     select new
                     {
-                        Count = tag.Sum(x =&amp;gt; x.Count),
+                        Count = tag.Sum(x =&gt; x.Count),
                         Name = tag.Key,
                     };
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So here, I group all the tags together by their name, but I also sum the 'count' value together to get the total number of times the tag is used.&lt;/p&gt;
+<p>So here, I group all the tags together by their name, but I also sum the 'count' value together to get the total number of times the tag is used.</p>
 
-&lt;p&gt;Now run up the app and view the index:&lt;/p&gt;
+<p>Now run up the app and view the index:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-map-reduce-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-map-reduce-1.png" alt="" /></p>
 
-&lt;p&gt;Now if I query the index:&lt;/p&gt;
+<p>Now if I query the index:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-map-reduce-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-map-reduce-2.png" alt="" /></p>
 
-&lt;p&gt;Awesome. Now to query this, I have to use the TagResult class defined previously, and the All_Tags index just created.&lt;/p&gt;
+<p>Awesome. Now to query this, I have to use the TagResult class defined previously, and the All_Tags index just created.</p>
 
-&lt;pre&gt;&lt;code&gt;using (var session = documentStore.OpenSession())
+<pre><code>using (var session = documentStore.OpenSession())
 {
-    var result = session.Query&amp;lt;TagResult, All_Tags&amp;gt;()
+    var result = session.Query&lt;TagResult, All_Tags&gt;()
                         .ToList();
     foreach (var tag in result)
     {
-        Console.WriteLine(tag.Count + &quot; x &quot; + tag.Name);
+        Console.WriteLine(tag.Count + " x " + tag.Name);
     }
 
     session.SaveChanges();
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Running this I get the following result:&lt;/p&gt;
+<p>Running this I get the following result:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-map-reduce-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-map-reduce-3.png" alt="" /></p>
 
-&lt;p&gt;The results I expected previously.&lt;/p&gt;
+<p>The results I expected previously.</p>
 
-&lt;p&gt;So there you have it. Map Reduce.&lt;/p&gt;
+<p>So there you have it. Map Reduce.</p>
 
 
 	<div class="divider"></div>

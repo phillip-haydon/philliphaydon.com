@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,29 +49,29 @@
       </div>
     </div>
         
-    &lt;p&gt;Browsing the net today for something to do with Fluent NHibernate I came across a blog post.&lt;/p&gt;
+    <p>Browsing the net today for something to do with Fluent NHibernate I came across a blog post.</p>
 
-&lt;p&gt;&lt;a href=&quot;http://frankmao.com/2011/01/14/nhibernate-subquery/&quot;&gt;http://frankmao.com/2011/01/14/nhibernate-subquery/&lt;/a&gt;&lt;/p&gt;
+<p><a href="http://frankmao.com/2011/01/14/nhibernate-subquery/">http://frankmao.com/2011/01/14/nhibernate-subquery/</a></p>
 
-&lt;p&gt;The blog post is to do with Subquery, but I got a little bit confused since the post itself doesn't have anything to do with Subqueries.&lt;/p&gt;
+<p>The blog post is to do with Subquery, but I got a little bit confused since the post itself doesn't have anything to do with Subqueries.</p>
 
-&lt;p&gt;About the actual post tho, NHibernate.Linq does actually support Min/Max operators.&lt;/p&gt;
+<p>About the actual post tho, NHibernate.Linq does actually support Min/Max operators.</p>
 
-&lt;p&gt;Infact I just wrote a quick test to see the SQL it generated, the following code:&lt;/p&gt;
+<p>Infact I just wrote a quick test to see the SQL it generated, the following code:</p>
 
-&lt;pre&gt;&lt;code&gt;var result = session.Linq&amp;lt;TestProduct&amp;gt;().Max(x =&amp;gt; x.Value);
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>var result = session.Linq&lt;TestProduct&gt;().Max(x =&gt; x.Value);
+</code></pre>
 
-&lt;p&gt;Generates the following SQL.&lt;/p&gt;
+<p>Generates the following SQL.</p>
 
-&lt;pre&gt;&lt;code&gt;SELECT max(this_.Value) as y0_
+<pre><code>SELECT max(this_.Value) as y0_
 FROM   [TestProduct] this_
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;NHibernate.Linq has basically been deprecated however since NH3.0 has it's own built in Linq provider, rewriting that query in NH3.0 would look like:&lt;/p&gt;
+<p>NHibernate.Linq has basically been deprecated however since NH3.0 has it's own built in Linq provider, rewriting that query in NH3.0 would look like:</p>
 
-&lt;pre&gt;&lt;code&gt;var result = session.Query&amp;lt;BaseClass&amp;gt;().Max(x =&amp;gt; x.Id);
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>var result = session.Query&lt;BaseClass&gt;().Max(x =&gt; x.Id);
+</code></pre>
 
 
 	<div class="divider"></div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,13 +49,13 @@
       </div>
     </div>
         
-    &lt;p&gt;&lt;a href=&quot;/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/&quot;&gt;Part 1&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/&quot;&gt;Part 2&lt;/a&gt; I want to discuss Relationships &amp;amp; References, and the difference between the two.&lt;br /&gt;
-&lt;a href=&quot;/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-3/&quot;&gt;Part 3&lt;/a&gt;  &lt;/p&gt;
+    <p><a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/">Part 1</a><br />
+<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">Part 2</a> I want to discuss Relationships &amp; References, and the difference between the two.<br />
+<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-3/">Part 3</a>  </p>
 
-&lt;p&gt;Taking from part 1's example, lets add a User to the mix:&lt;/p&gt;
+<p>Taking from part 1's example, lets add a User to the mix:</p>
 
-&lt;pre&gt;&lt;code&gt;public class Order
+<pre><code>public class Order
 {
     public string Id { get; set; }
     public string UserId { get; set; }
@@ -63,7 +63,7 @@
     public string DateUpdated { get; set; }
     public string Status { get; set; }
     // Other properties...
-    public IEnumerable&amp;lt;OrderLine&amp;gt; Lines { get; set; }
+    public IEnumerable&lt;OrderLine&gt; Lines { get; set; }
 }
 
 public class OrderLine
@@ -84,75 +84,75 @@ public class User
     public string Surname { get; set; }
     // Other Properties
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;As you can see I've added 'UserId' to the Order, not a 'User' just the Id part. This is because I don't want direct access to the User. &lt;em&gt;(It is possible to map a User in RavenDB, but I don't believe that is always a good idea. Save it for special occasions.)&lt;/em&gt;&lt;/p&gt;
+<p>As you can see I've added 'UserId' to the Order, not a 'User' just the Id part. This is because I don't want direct access to the User. <em>(It is possible to map a User in RavenDB, but I don't believe that is always a good idea. Save it for special occasions.)</em></p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;If we were modelling this in a Relational Database, we would have a relationship between Order and User, add some foreign keys, and if we threw an ORM into the mix we would probably have an Order object looking like:&lt;/p&gt;
+<p>If we were modelling this in a Relational Database, we would have a relationship between Order and User, add some foreign keys, and if we threw an ORM into the mix we would probably have an Order object looking like:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-what-am-i-persisting-part-2-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-what-am-i-persisting-part-2-1.png" alt="" /></p>
 
-&lt;p&gt;Where we wire up the User object inside the Order. This in the long run lets to all sorts of problem. Then we would eager load the User when we fetch the order, maybe on the order we need to fetch the product, so on and so forth. It just gets messy and complicated.&lt;/p&gt;
+<p>Where we wire up the User object inside the Order. This in the long run lets to all sorts of problem. Then we would eager load the User when we fetch the order, maybe on the order we need to fetch the product, so on and so forth. It just gets messy and complicated.</p>
 
-&lt;p&gt;So rather than adding the User object to the Order, in RavenDB we would just add the UserId. But why are we doing this? Below I have modelled the Relational Database Table Structure.&lt;/p&gt;
+<p>So rather than adding the User object to the Order, in RavenDB we would just add the UserId. But why are we doing this? Below I have modelled the Relational Database Table Structure.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-what-am-i-persisting-part-2-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-what-am-i-persisting-part-2-2.png" alt="" /></p>
 
-&lt;p&gt;As you can see I've highlighted two Foreign Keys. But I've named them both differently, one is a reference and one is a relationship.&lt;/p&gt;
+<p>As you can see I've highlighted two Foreign Keys. But I've named them both differently, one is a reference and one is a relationship.</p>
 
-&lt;h2&gt;Reference&lt;/h2&gt;
+<h2>Reference</h2>
 
-&lt;p&gt;The reference has no real purpose other than to maintain referential integrity in the database. Not for our sake, but mainly because we want to keep our DBAs happy. The problem with this however, is we don't actually need it. An order can still exist in the system without a User. We still know who paid for it by the billing information, and we know who it was shipped to from the shipping information.&lt;/p&gt;
+<p>The reference has no real purpose other than to maintain referential integrity in the database. Not for our sake, but mainly because we want to keep our DBAs happy. The problem with this however, is we don't actually need it. An order can still exist in the system without a User. We still know who paid for it by the billing information, and we know who it was shipped to from the shipping information.</p>
 
-&lt;p&gt;Maybe the user wanted to specify what email or phone number to contact them. This information isn't information that belongs to the user. The only reason we have 'UserId' is to so when that user logs into the application, we know which orders belong to him, the information on those orders don't relate to the User other. This is not a relationship, it's a reference. A reference to the User.&lt;/p&gt;
+<p>Maybe the user wanted to specify what email or phone number to contact them. This information isn't information that belongs to the user. The only reason we have 'UserId' is to so when that user logs into the application, we know which orders belong to him, the information on those orders don't relate to the User other. This is not a relationship, it's a reference. A reference to the User.</p>
 
-&lt;h2&gt;Relationship&lt;/h2&gt;
+<h2>Relationship</h2>
 
-&lt;p&gt;The next one is the Relationship, and it has a real purpose beyond referential integrity. An OrderLine really can't exist without an Order. Without an order it has no meaning or purpose. The problem is because there are multiple Lines to a single Order, we need to persist them in their own table.&lt;/p&gt;
+<p>The next one is the Relationship, and it has a real purpose beyond referential integrity. An OrderLine really can't exist without an Order. Without an order it has no meaning or purpose. The problem is because there are multiple Lines to a single Order, we need to persist them in their own table.</p>
 
-&lt;p&gt;An OrderLine might have a &lt;em&gt;Reference&lt;/em&gt; to Product, but an OrderLine can exist without the Product. Since an OrderLine relates back to an Order, you don't have a real need to ever load an OrderLine by itself. You may edit/delete lines, but that will always be done via the Order.&lt;/p&gt;
+<p>An OrderLine might have a <em>Reference</em> to Product, but an OrderLine can exist without the Product. Since an OrderLine relates back to an Order, you don't have a real need to ever load an OrderLine by itself. You may edit/delete lines, but that will always be done via the Order.</p>
 
-&lt;p&gt;This ultimately creates a Root Aggregate, the Order becomes the Root while the Lines become the children, and an OrderLine is always loaded with an Order, but never on it's own.&lt;/p&gt;
+<p>This ultimately creates a Root Aggregate, the Order becomes the Root while the Lines become the children, and an OrderLine is always loaded with an Order, but never on it's own.</p>
 
-&lt;h2&gt;User/Product Data Duplication&lt;/h2&gt;
+<h2>User/Product Data Duplication</h2>
 
-&lt;p&gt;First thing you may think by having the First/Last name of the User on the Addresses, or the Addresses data copied into the Order's Billing/Delivery Address, is duplicating data. Same with taking a Products Price/Name/SKUCode and putting it on the OrderLine.&lt;/p&gt;
+<p>First thing you may think by having the First/Last name of the User on the Addresses, or the Addresses data copied into the Order's Billing/Delivery Address, is duplicating data. Same with taking a Products Price/Name/SKUCode and putting it on the OrderLine.</p>
 
-&lt;p&gt;This isn't data duplication.&lt;/p&gt;
+<p>This isn't data duplication.</p>
 
-&lt;p&gt;If a user changes his name, you have a Reference to the user still, but at the time he billed his order, he was John Doe, not John Snow. His address may have changed but we captured it at the point of ordering. This is information that belongs to the Order, not to the User. The fact we have the same name in both the User and Order is a mute point, because visually they are the same, but from a business perspective, they are not the same.&lt;/p&gt;
+<p>If a user changes his name, you have a Reference to the user still, but at the time he billed his order, he was John Doe, not John Snow. His address may have changed but we captured it at the point of ordering. This is information that belongs to the Order, not to the User. The fact we have the same name in both the User and Order is a mute point, because visually they are the same, but from a business perspective, they are not the same.</p>
 
-&lt;h2&gt;Benefit of Duplicating&lt;/h2&gt;
+<h2>Benefit of Duplicating</h2>
 
-&lt;p&gt;So we are copying data now. Is this a good thing? Well lets think about it in an Order History screen.&lt;/p&gt;
+<p>So we are copying data now. Is this a good thing? Well lets think about it in an Order History screen.</p>
 
-&lt;p&gt;If a user logged in, went to their account history and viewed their previous order:&lt;/p&gt;
+<p>If a user logged in, went to their account history and viewed their previous order:</p>
 
-&lt;h3&gt;Using a relational database, no copying data.&lt;/h3&gt;
+<h3>Using a relational database, no copying data.</h3>
 
-&lt;p&gt;In the scenario using a relational database, we would use the selected OrderId to load the Order, eager load the OrderLine. Fetch the User, Addresses, Product.&lt;/p&gt;
+<p>In the scenario using a relational database, we would use the selected OrderId to load the Order, eager load the OrderLine. Fetch the User, Addresses, Product.</p>
 
-&lt;p&gt;Fetching all this data could be done multiple different ways, but already we are asking for a lot of data. A lot of which we aren't using.&lt;/p&gt;
+<p>Fetching all this data could be done multiple different ways, but already we are asking for a lot of data. A lot of which we aren't using.</p>
 
-&lt;p&gt;Then we have to compose a lot of that data together, or maybe we joined it and created a new object for displaying it all.&lt;/p&gt;
+<p>Then we have to compose a lot of that data together, or maybe we joined it and created a new object for displaying it all.</p>
 
-&lt;h3&gt;Using a document database, copying the data.&lt;/h3&gt;
+<h3>Using a document database, copying the data.</h3>
 
-&lt;p&gt;In the scenario of using a document database, we would query for the Order using the OrderId. And begin displaying all the data.&lt;/p&gt;
+<p>In the scenario of using a document database, we would query for the Order using the OrderId. And begin displaying all the data.</p>
 
-&lt;p&gt;We already knew the Product name that was captured and used at the time of purchase, but we would have the ProductId to reference it back to the Product in the system.&lt;/p&gt;
+<p>We already knew the Product name that was captured and used at the time of purchase, but we would have the ProductId to reference it back to the Product in the system.</p>
 
-&lt;p&gt;We already know who it was shipped to, and who it was billed to.&lt;/p&gt;
+<p>We already know who it was shipped to, and who it was billed to.</p>
 
-&lt;p&gt;We don't need to find the User or the Product or the Addresses or anything like that. We have all the information for that Order.&lt;/p&gt;
+<p>We don't need to find the User or the Product or the Addresses or anything like that. We have all the information for that Order.</p>
 
-&lt;hr /&gt;
+<hr />
 
-&lt;p&gt;In my next post I'll talk about loading References. This one is already long.&lt;/p&gt;
+<p>In my next post I'll talk about loading References. This one is already long.</p>
 
-&lt;p&gt;Again I hope this makes sense, feel free to comment and ask questions :)&lt;/p&gt;
+<p>Again I hope this makes sense, feel free to comment and ask questions :)</p>
 
 
 	<div class="divider"></div>

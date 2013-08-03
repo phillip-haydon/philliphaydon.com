@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,17 +49,17 @@
       </div>
     </div>
         
-    &lt;p&gt;Over the weekend I came across a blog post about NHibernate, and an apparent work-around for a feature not supported by NHibernate.&lt;/p&gt;
+    <p>Over the weekend I came across a blog post about NHibernate, and an apparent work-around for a feature not supported by NHibernate.</p>
 
-&lt;p&gt;The original post can be found here: &lt;a href=&quot;http://www.arrangeactassert.com/nhibernate-linq-workaround-for-system-notsupportedexception/&quot;&gt;nHibernate LINQ workaround for System.NotSupportedException&lt;/a&gt;&lt;/p&gt;
+<p>The original post can be found here: <a href="http://www.arrangeactassert.com/nhibernate-linq-workaround-for-system-notsupportedexception/">nHibernate LINQ workaround for System.NotSupportedException</a></p>
 
-&lt;p&gt;Basically the author wanted to write something along the lines of:&lt;/p&gt;
+<p>Basically the author wanted to write something along the lines of:</p>
 
-&lt;pre&gt;&lt;code&gt;var fruitIds = new List&amp;lt;int&amp;gt; { 5, 8, 13 };
+<pre><code>var fruitIds = new List&lt;int&gt; { 5, 8, 13 };
 
 using (var session = factory.OpenSession())
 {
-    var result = from f in session.Query&amp;lt;NHFruit&amp;gt;()
+    var result = from f in session.Query&lt;NHFruit&gt;()
                  join i in fruitIds
                      on f.Id equals i
                  select f;
@@ -67,57 +67,57 @@ using (var session = factory.OpenSession())
     foreach (var fruit in result)
         Console.WriteLine(fruit.Name);
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Where the query joins to a list of Ids to filter the results out. This however, happens to throw an exception:&lt;/p&gt;
+<p>Where the query joins to a list of Ids to filter the results out. This however, happens to throw an exception:</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-workaround-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-workaround-1.png" alt="" /></p>
 
-&lt;p&gt;Normally this sort of query would be written like so:&lt;/p&gt;
+<p>Normally this sort of query would be written like so:</p>
 
-&lt;pre&gt;&lt;code&gt;var fruitIds = new List&amp;lt;int&amp;gt; { 5, 8, 13 };
+<pre><code>var fruitIds = new List&lt;int&gt; { 5, 8, 13 };
 
 using (var session = factory.OpenSession())
 {
-    var result = from f in session.Query&amp;lt;NHFruit&amp;gt;()
+    var result = from f in session.Query&lt;NHFruit&gt;()
                  where fruitIds.Contains(f.Id)
                  select f;
 
     foreach (var fruit in result)
         Console.WriteLine(fruit.Name);
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This generates an 'in' clause in the SQL.&lt;/p&gt;
+<p>This generates an 'in' clause in the SQL.</p>
 
-&lt;pre&gt;&lt;code&gt;select nhfruit0_.Id   as Id0_,
+<pre><code>select nhfruit0_.Id   as Id0_,
        nhfruit0_.Name as Name0_
 from   Fruit nhfruit0_
 where  nhfruit0_.Id in (5 /* @p0 */,8 /* @p1 */,13 /* @p2 */)
 Nice and clean, pretty standard SQL.
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Now I must admit when I first read his code I made the assumption that it would actually pull ALL results into memory, and do the join in memory.&lt;/p&gt;
+<p>Now I must admit when I first read his code I made the assumption that it would actually pull ALL results into memory, and do the join in memory.</p>
 
-&lt;p&gt;I commented on his blog with the following comment:&lt;/p&gt;
+<p>I commented on his blog with the following comment:</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;I don&quot;t see how this is a &quot;work-around&quot; your first attempt at the query is attempting to join something in memory, to something still in the database. Thats clearly not, and will never be a supported feature of NHibernate... The second query is passing a list of ID&quot;s into the database to use for comparison.&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>I don"t see how this is a "work-around" your first attempt at the query is attempting to join something in memory, to something still in the database. Thats clearly not, and will never be a supported feature of NHibernate... The second query is passing a list of ID"s into the database to use for comparison.</p>
+</blockquote>
 
-&lt;p&gt;At the time of writing the comment, I was a bit annoyed. The author replied:&lt;/p&gt;
+<p>At the time of writing the comment, I was a bit annoyed. The author replied:</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;Never be supported in NHibernate... well it works using Entity Framework and that's why I consider it to be a workaround.&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>Never be supported in NHibernate... well it works using Entity Framework and that's why I consider it to be a workaround.</p>
+</blockquote>
 
-&lt;p&gt;So lets give it a go.&lt;/p&gt;
+<p>So lets give it a go.</p>
 
-&lt;p&gt;Give the following query:&lt;/p&gt;
+<p>Give the following query:</p>
 
-&lt;pre&gt;&lt;code&gt;var fruitIds = new List&amp;lt;int&amp;gt; { 5, 8, 13 };
+<pre><code>var fruitIds = new List&lt;int&gt; { 5, 8, 13 };
 
 using (var ctx = new EFTestEntities())
 {
@@ -129,11 +129,11 @@ using (var ctx = new EFTestEntities())
     foreach (var fruit in result)
         Console.WriteLine(fruit.Name);
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;The exact same as the attempt in NHibernate, it generates the following SQL...&lt;/p&gt;
+<p>The exact same as the attempt in NHibernate, it generates the following SQL...</p>
 
-&lt;pre&gt;&lt;code&gt;SELECT [Extent1].[Id]   AS [Id],
+<pre><code>SELECT [Extent1].[Id]   AS [Id],
        [Extent1].[Name] AS [Name]
 FROM   [dbo].[Fruit] AS [Extent1]
        INNER JOIN (SELECT [UnionAll1].[C1] AS [C1]
@@ -147,28 +147,28 @@ FROM   [dbo].[Fruit] AS [Extent1]
                    SELECT 13 AS [C1]
                    FROM   (SELECT 1 AS X) AS [SingleRowTable3]) AS [UnionAll2]
          ON [Extent1].[Id] = [UnionAll2].[C1]
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;WTF.&lt;/p&gt;
+<p>WTF.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-workaround-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-workaround-2.png" alt="" /></p>
 
-&lt;p&gt;It creates a select statement, for each value that you want to select... I thought &quot;oh ok, i wonder what the execution plan looks like for that, compared to a normal in-clause from NHibernate.&lt;/p&gt;
+<p>It creates a select statement, for each value that you want to select... I thought "oh ok, i wonder what the execution plan looks like for that, compared to a normal in-clause from NHibernate.</p>
 
-&lt;p&gt;Using both the queries already shown above, showing the actual execution plans, I get the following:&lt;/p&gt;
+<p>Using both the queries already shown above, showing the actual execution plans, I get the following:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-workaround-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-workaround-3.png" alt="" /></p>
 
-&lt;p&gt;Wow... But it gets better, I have 20 records in my database, and I thought, what happens if my list of Ids contains 10 different ids:&lt;/p&gt;
+<p>Wow... But it gets better, I have 20 records in my database, and I thought, what happens if my list of Ids contains 10 different ids:</p>
 
-&lt;p&gt;Same queries, but with:&lt;/p&gt;
+<p>Same queries, but with:</p>
 
-&lt;pre&gt;&lt;code&gt;var fruitIds = new List&amp;lt;int&amp;gt; { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>var fruitIds = new List&lt;int&gt; { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
+</code></pre>
 
-&lt;p&gt;Entity Framework (I don't even want to paste this in here...):&lt;/p&gt;
+<p>Entity Framework (I don't even want to paste this in here...):</p>
 
-&lt;pre&gt;&lt;code&gt;SELECT [Extent1].[Id]   AS [Id],
+<pre><code>SELECT [Extent1].[Id]   AS [Id],
        [Extent1].[Name] AS [Name]
 FROM   [dbo].[Fruit] AS [Extent1]
        INNER JOIN (SELECT [UnionAll8].[C1] AS [C1]
@@ -217,27 +217,27 @@ FROM   [dbo].[Fruit] AS [Extent1]
                    SELECT 20 AS [C1]
                    FROM   (SELECT 1 AS X) AS [SingleRowTable10]) AS [UnionAll9]
          ON [Extent1].[Id] = [UnionAll9].[C1]
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;NHibernate:&lt;/p&gt;
+<p>NHibernate:</p>
 
-&lt;pre&gt;&lt;code&gt;select nhfruit0_.Id   as Id0_,
+<pre><code>select nhfruit0_.Id   as Id0_,
        nhfruit0_.Name as Name0_
 from   Fruit nhfruit0_
 where  nhfruit0_.Id in (2 /* @p0 */,4 /* @p1 */,6 /* @p2 */,8 /* @p3 */,
                         10 /* @p4 */,12 /* @p5 */,14 /* @p6 */,16 /* @p7 */,
                         18 /* @p8 */,20 /* @p9 */)
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Now if you run with the execution plans, (I pressed execute 10 times before taking this screenshot)&lt;/p&gt;
+<p>Now if you run with the execution plans, (I pressed execute 10 times before taking this screenshot)</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-workaround-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-workaround-4.png" alt="" /></p>
 
-&lt;p&gt;The more parameters you add, the slower it gets.&lt;/p&gt;
+<p>The more parameters you add, the slower it gets.</p>
 
-&lt;p&gt;You can't blame Entity Framework though. EF supports the same query as NHibernate!&lt;/p&gt;
+<p>You can't blame Entity Framework though. EF supports the same query as NHibernate!</p>
 
-&lt;pre&gt;&lt;code&gt;var fruitIds = new List&amp;lt;int&amp;gt; { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
+<pre><code>var fruitIds = new List&lt;int&gt; { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
 
 using (var ctx = new EFTestEntities())
 {
@@ -248,21 +248,21 @@ using (var ctx = new EFTestEntities())
     foreach (var fruit in result)
         Console.WriteLine(fruit.Name);
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Entity Framework generates the following query:&lt;/p&gt;
+<p>Entity Framework generates the following query:</p>
 
-&lt;pre&gt;&lt;code&gt;SELECT [Extent1].[Id]   AS [Id],
+<pre><code>SELECT [Extent1].[Id]   AS [Id],
        [Extent1].[Name] AS [Name]
 FROM   [dbo].[Fruit] AS [Extent1]
 WHERE  [Extent1].[Id] IN (2,4,6,8,
                           10,12,14,16,
                           18,20)
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So I personally think the original approach, to do a join on an in-memory list, is bad practice, regardless of weather it works or not. It's bad.&lt;/p&gt;
+<p>So I personally think the original approach, to do a join on an in-memory list, is bad practice, regardless of weather it works or not. It's bad.</p>
 
-&lt;p&gt;It's also bad to blindly write LINQ queries without ever looking at the SQL they produce. Sure it's great to not have to worry about writing SQL, but you should still always be aware of the SQL that is been run, sometimes slightly changing the LINQ can massively alter the SQL that is produced.&lt;/p&gt;
+<p>It's also bad to blindly write LINQ queries without ever looking at the SQL they produce. Sure it's great to not have to worry about writing SQL, but you should still always be aware of the SQL that is been run, sometimes slightly changing the LINQ can massively alter the SQL that is produced.</p>
 
 
 	<div class="divider"></div>

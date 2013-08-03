@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,51 +49,51 @@
       </div>
     </div>
         
-    &lt;p&gt;I've been investigating setting up a Worker Role to do something similar to a Windows Service and it seems that the Worker Role is best suited for this purpose. &lt;/p&gt;
+    <p>I've been investigating setting up a Worker Role to do something similar to a Windows Service and it seems that the Worker Role is best suited for this purpose. </p>
 
-&lt;p&gt;You might create a Worker Role to Poll a Message Queue, or process some data in a database, or scrape some data and persist it, etc. I'm going to throw some data in &lt;a href=&quot;http://www.ravenhq.com&quot;&gt;http://www.ravenhq.com&lt;/a&gt; every minute, for this blog post, nothing exciting, but demonstrates how to create a WorkerRole and get it up and running on Azure.&lt;/p&gt;
+<p>You might create a Worker Role to Poll a Message Queue, or process some data in a database, or scrape some data and persist it, etc. I'm going to throw some data in <a href="http://www.ravenhq.com">http://www.ravenhq.com</a> every minute, for this blog post, nothing exciting, but demonstrates how to create a WorkerRole and get it up and running on Azure.</p>
 
-&lt;p&gt;I suspect that you could use NancyFX Self-Hosting here and host a basic Nancy website, that would be cool :)&lt;/p&gt;
+<p>I suspect that you could use NancyFX Self-Hosting here and host a basic Nancy website, that would be cool :)</p>
 
-&lt;h2&gt;Building the Service (Worker / Role)&lt;/h2&gt;
+<h2>Building the Service (Worker / Role)</h2>
 
-&lt;p&gt;If you haven't already you will need to install the Azure SDK, so head on over to &lt;a href=&quot;http://www.windowsazure.com/en-us/develop/net/&quot;&gt;http://www.windowsazure.com/en-us/develop/net/&lt;/a&gt; and click &quot;Install SDK&quot; which will give you the option for 2012 or 2010. I picked 2012 because I don't know what 2010 is, I stopped living in the past.&lt;/p&gt;
+<p>If you haven't already you will need to install the Azure SDK, so head on over to <a href="http://www.windowsazure.com/en-us/develop/net/">http://www.windowsazure.com/en-us/develop/net/</a> and click "Install SDK" which will give you the option for 2012 or 2010. I picked 2012 because I don't know what 2010 is, I stopped living in the past.</p>
 
-&lt;p&gt;The installer actually uses Web Platform Installer, not sure if there's any other way to install it.&lt;/p&gt;
+<p>The installer actually uses Web Platform Installer, not sure if there's any other way to install it.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;Once installed you can create a brand new project in Visual Studio.&lt;/p&gt;
+<p>Once installed you can create a brand new project in Visual Studio.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-1.png" alt="" /></p>
 
-&lt;p&gt;After hitting OK you're presented with a new screen to pick your Cloud Service.&lt;/p&gt;
+<p>After hitting OK you're presented with a new screen to pick your Cloud Service.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-2.png" alt="" /></p>
 
-&lt;p&gt;I'm not sure what that 'Visual Basic' thing is, and I don't know F# so from the Visual C# list, pick Worker Role and throw that to the right hand side, then right click it and rename it (or click the little pen icon)&lt;/p&gt;
+<p>I'm not sure what that 'Visual Basic' thing is, and I don't know F# so from the Visual C# list, pick Worker Role and throw that to the right hand side, then right click it and rename it (or click the little pen icon)</p>
 
-&lt;p&gt;Once you press ok your project is created and ready:&lt;/p&gt;
+<p>Once you press ok your project is created and ready:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-3.png" alt="" /></p>
 
-&lt;p&gt;The &lt;code&gt;MyFirstWorker&lt;/code&gt; is the Azure configuration stuff, I'll get to that when we deploy. For now we will work in &lt;code&gt;MyFirstRole&lt;/code&gt;&lt;/p&gt;
+<p>The <code>MyFirstWorker</code> is the Azure configuration stuff, I'll get to that when we deploy. For now we will work in <code>MyFirstRole</code></p>
 
-&lt;p&gt;The project comes with a WorkerRole file which stubs out the code we need&lt;/p&gt;
+<p>The project comes with a WorkerRole file which stubs out the code we need</p>
 
-&lt;pre&gt;&lt;code&gt;namespace MyFirstRole
+<pre><code>namespace MyFirstRole
 {
     public class WorkerRole : RoleEntryPoint
     {
         public override void Run()
         {
             // This is a sample worker implementation. Replace with your logic.
-            Trace.WriteLine(&quot;MyFirstRole entry point called&quot;, &quot;Information&quot;);
+            Trace.WriteLine("MyFirstRole entry point called", "Information");
 
             while (true)
             {
                 Thread.Sleep(10000);
-                Trace.WriteLine(&quot;Working&quot;, &quot;Information&quot;);
+                Trace.WriteLine("Working", "Information");
             }
         }
 
@@ -109,40 +109,40 @@
         }
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;&lt;code&gt;OnStart&lt;/code&gt; returns bool, and from my understanding the worker role hasn't started until it has returned true. This allows you to run any initialization tasks, and while you're setting up it will tell the Worker or Load Balancer that it's busy, until you're done and have returned true.&lt;/p&gt;
+<p><code>OnStart</code> returns bool, and from my understanding the worker role hasn't started until it has returned true. This allows you to run any initialization tasks, and while you're setting up it will tell the Worker or Load Balancer that it's busy, until you're done and have returned true.</p>
 
-&lt;p&gt;So I'm going to configure the RavenDB Document Store at this point.&lt;/p&gt;
+<p>So I'm going to configure the RavenDB Document Store at this point.</p>
 
-&lt;p&gt;I'm using RavenHQ, so this sort of needs prior knowledge of RavenDB / HQ to setup, but if you swapped this code for any other task the rest of the post should still apply.&lt;/p&gt;
+<p>I'm using RavenHQ, so this sort of needs prior knowledge of RavenDB / HQ to setup, but if you swapped this code for any other task the rest of the post should still apply.</p>
 
-&lt;pre&gt;&lt;code&gt;public override bool OnStart()
+<pre><code>public override bool OnStart()
 {
     // Set the maximum number of concurrent connections 
     ServicePointManager.DefaultConnectionLimit = 12;
 
     _documentStore = (new DocumentStore
     {
-        ApiKey = &quot;*api key removed*&quot;,
-        Url = &quot;https://aeo.ravenhq.com/databases/philliphaydon-TestDatabase&quot;,
-        DefaultDatabase = &quot;philliphaydon-TestDatabase&quot;
+        ApiKey = "*api key removed*",
+        Url = "https://aeo.ravenhq.com/databases/philliphaydon-TestDatabase",
+        DefaultDatabase = "philliphaydon-TestDatabase"
     }).Initialize();
 
     return base.OnStart();
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;There is also an &lt;code&gt;OnStop&lt;/code&gt; method that you can override which gives you 30 seconds to clean up and persist any state etc. If you don't manage to clean up in 30 seconds, you're stuffed, it will terminate and you've lost anything you wanted to do... But 30 seconds is a LONG time...&lt;/p&gt;
+<p>There is also an <code>OnStop</code> method that you can override which gives you 30 seconds to clean up and persist any state etc. If you don't manage to clean up in 30 seconds, you're stuffed, it will terminate and you've lost anything you wanted to do... But 30 seconds is a LONG time...</p>
 
-&lt;p&gt;The second method is &lt;code&gt;Run&lt;/code&gt; is the task the role is going to run, it contains a while loop with the condition true to make it an infinite loop. This is really important because if you exit out of the loop, your role will terminate. Then it wouldn't really be a background service that is always running!&lt;/p&gt;
+<p>The second method is <code>Run</code> is the task the role is going to run, it contains a while loop with the condition true to make it an infinite loop. This is really important because if you exit out of the loop, your role will terminate. Then it wouldn't really be a background service that is always running!</p>
 
-&lt;p&gt;I'm not going to abstract anything out I'm going to write my code directly in the while loop for the purpose of this post :)&lt;/p&gt;
+<p>I'm not going to abstract anything out I'm going to write my code directly in the while loop for the purpose of this post :)</p>
 
-&lt;pre&gt;&lt;code&gt;public override void Run()
+<pre><code>public override void Run()
 {
     // This is a sample worker implementation. Replace with your logic.
-    Trace.WriteLine(&quot;MyFirstRole entry point called&quot;, &quot;Information&quot;);
+    Trace.WriteLine("MyFirstRole entry point called", "Information");
 
     var count = 0;
 
@@ -154,7 +154,7 @@
             {
                 session.Store(new Banana
                 {
-                    Colour = &quot;Yellow &quot; + count
+                    Colour = "Yellow " + count
                 });
 
                 session.SaveChanges();
@@ -171,86 +171,86 @@
 
         Thread.Sleep(60000);
 
-        Trace.WriteLine(&quot;Working&quot;, &quot;Information&quot;);
+        Trace.WriteLine("Working", "Information");
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;At this point if we hit F5 we can debug the role and make sure it's doing what we want to do. &lt;/p&gt;
+<p>At this point if we hit F5 we can debug the role and make sure it's doing what we want to do. </p>
 
-&lt;p&gt;A Windows Azure Emulator is started in your system tray, much like working with websites:&lt;/p&gt;
+<p>A Windows Azure Emulator is started in your system tray, much like working with websites:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-4.png" alt="" /></p>
 
-&lt;p&gt;So right click and select 'Show Compute Emulator UI'&lt;/p&gt;
+<p>So right click and select 'Show Compute Emulator UI'</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-5.png" alt="" /></p>
 
-&lt;p&gt;And you will be presented with a nice UI that shows your services running. &lt;/p&gt;
+<p>And you will be presented with a nice UI that shows your services running. </p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-6.png" alt="" /></p>
 
-&lt;p&gt;As you can see it's pumping out &quot;Working&quot; into the console and if I swap over to RavenHQ Management Studio:&lt;/p&gt;
+<p>As you can see it's pumping out "Working" into the console and if I swap over to RavenHQ Management Studio:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-7.png" alt="" /></p>
 
-&lt;p&gt;I have some banana's being persisted.&lt;/p&gt;
+<p>I have some banana's being persisted.</p>
 
-&lt;p&gt;GREAT. Now lets get this up and running on Azure!&lt;/p&gt;
+<p>GREAT. Now lets get this up and running on Azure!</p>
 
-&lt;h2&gt;Deployment Package&lt;/h2&gt;
+<h2>Deployment Package</h2>
 
-&lt;p&gt;First up, we need to create a package, right click the project 'MyFirstWorker' and select 'Package', this will give you the an option to package up a configuration, we will select Cloud since we are going to be putting it on Azure now.&lt;/p&gt;
+<p>First up, we need to create a package, right click the project 'MyFirstWorker' and select 'Package', this will give you the an option to package up a configuration, we will select Cloud since we are going to be putting it on Azure now.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-8.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-8.png" alt="" /></p>
 
-&lt;p&gt;This results in two files being created.&lt;/p&gt;
+<p>This results in two files being created.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-9.png" alt="" /></p>
 
-&lt;p&gt;The Package itself, and a cloud configuration file. These will be needed when we upload it to Azure next.&lt;/p&gt;
+<p>The Package itself, and a cloud configuration file. These will be needed when we upload it to Azure next.</p>
 
-&lt;h2&gt;Deployement on Azure&lt;/h2&gt;
+<h2>Deployement on Azure</h2>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I've created a new blog post on how to &lt;a href=&quot;/2013/1/using-publish-to-deploy-azure-cloud-service&quot;&gt;Publish from Visual Studio&lt;/a&gt; for those who don't want to deploy from Azure Portal.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> I've created a new blog post on how to <a href="/2013/1/using-publish-to-deploy-azure-cloud-service">Publish from Visual Studio</a> for those who don't want to deploy from Azure Portal.</span></p>
 
-&lt;p&gt;Now we need to create the Cloud Service and upload the package. Head on over to the Azure portal, and sign up if you haven't already. Click on Cloud Services:&lt;/p&gt;
+<p>Now we need to create the Cloud Service and upload the package. Head on over to the Azure portal, and sign up if you haven't already. Click on Cloud Services:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-10.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-10.png" alt="" /></p>
 
-&lt;p&gt;Then create a new cloud service, This will pop-up a small work-flow at the bottom of the page:&lt;/p&gt;
+<p>Then create a new cloud service, This will pop-up a small work-flow at the bottom of the page:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-11.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-11.png" alt="" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-12.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-12.png" alt="" /></p>
 
-&lt;p&gt;After you've pressed Create at the bottom, a status will popup.&lt;/p&gt;
+<p>After you've pressed Create at the bottom, a status will popup.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-13.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-13.png" alt="" /></p>
 
-&lt;p&gt;Now you can go back to the Cloud Services tab and your new service will be visible.&lt;/p&gt;
+<p>Now you can go back to the Cloud Services tab and your new service will be visible.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-14.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-14.png" alt="" /></p>
 
-&lt;p&gt;Click the first cell to navigate to the service, and select Upload a new production deployment (or staging, I'm doing production)&lt;/p&gt;
+<p>Click the first cell to navigate to the service, and select Upload a new production deployment (or staging, I'm doing production)</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-15.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-15.png" alt="" /></p>
 
-&lt;p&gt;Now you can upload the package.&lt;/p&gt;
+<p>Now you can upload the package.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-16.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-16.png" alt="" /></p>
 
-&lt;p&gt;I selected the option &lt;code&gt;Deploy even if one or more roles contain a single instance.&lt;/code&gt; since we don't need to worry about scaling. If it's a critical service you may want to deploy more than 1 instance to increase your availability.&lt;/p&gt;
+<p>I selected the option <code>Deploy even if one or more roles contain a single instance.</code> since we don't need to worry about scaling. If it's a critical service you may want to deploy more than 1 instance to increase your availability.</p>
 
-&lt;p&gt;Now your service is deployed.&lt;/p&gt;
+<p>Now your service is deployed.</p>
 
-&lt;p&gt;Before deploying I reset my RavenDB database to have no data, so I wrote the rest of this blog post and it's been able 7 minutes...&lt;/p&gt;
+<p>Before deploying I reset my RavenDB database to have no data, so I wrote the rest of this blog post and it's been able 7 minutes...</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/azure-worker-17.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/azure-worker-17.png" alt="" /></p>
 
-&lt;p&gt;And we have 7 documents :)&lt;/p&gt;
+<p>And we have 7 documents :)</p>
 
-&lt;p&gt;That's it, easy peasy setting up a Azure Cloud Service from scratch to production.&lt;/p&gt;
+<p>That's it, easy peasy setting up a Azure Cloud Service from scratch to production.</p>
 
 
 	<div class="divider"></div>

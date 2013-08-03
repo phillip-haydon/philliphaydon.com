@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,81 +49,81 @@
       </div>
     </div>
         
-    &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/06/setting-up-ubuntu-and-nginx-on-azure/&quot;&gt;Part 1 - Setting up the Virtual Machine and nginx&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/06/setting-up-a-new-website-and-domain-on-nginx&quot;&gt;Part 2 - Setting up new Website and Domain on nginx&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/06/setting-up-mono-on-nginx/&quot;&gt;Part 3 - Setting up Mono on nginx&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/07/setting-up-a-nancyfx-website/&quot;&gt;Part 4 - Setting up a NancyFX website&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Part 5 - Setting up a ServiceStack web service&lt;/li&gt;
-&lt;/ul&gt;
+    <ul>
+<li><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Part 1 - Setting up the Virtual Machine and nginx</a></li>
+<li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx">Part 2 - Setting up new Website and Domain on nginx</a></li>
+<li><a href="/2013/06/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li>
+<li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li>
+<li>Part 5 - Setting up a ServiceStack web service</li>
+</ul>
 
-&lt;p&gt;Time to setup a ServiceStack service!&lt;/p&gt;
+<p>Time to setup a ServiceStack service!</p>
 
-&lt;h2&gt;Prelude!&lt;/h2&gt;
+<h2>Prelude!</h2>
 
-&lt;p&gt;ServiceStack is great, specially when you need to support .NET 3.5 and don't have the pleasure of being able to use .NET 4.0/4.5, you're not limited to .NET 3.5, ServiceStack works great with .NET 4.0/4.5 as well!&lt;/p&gt;
+<p>ServiceStack is great, specially when you need to support .NET 3.5 and don't have the pleasure of being able to use .NET 4.0/4.5, you're not limited to .NET 3.5, ServiceStack works great with .NET 4.0/4.5 as well!</p>
 
-&lt;p&gt;God forbid we get subjected to having to use WCF...&lt;/p&gt;
+<p>God forbid we get subjected to having to use WCF...</p>
 
-&lt;p&gt;Setting this up should be super easy, we will use all the same settings as NancyFX, the only difference is we will be running ServiceStack instead. &lt;/p&gt;
+<p>Setting this up should be super easy, we will use all the same settings as NancyFX, the only difference is we will be running ServiceStack instead. </p>
 
-&lt;p&gt;The ServiceStack team take real care to ensure that it works on Mono, enough so that their website; &lt;a href=&quot;http://www.servicestack.net&quot;&gt;http://www.servicestack.net&lt;/a&gt;, runs on Linux!&lt;/p&gt;
+<p>The ServiceStack team take real care to ensure that it works on Mono, enough so that their website; <a href="http://www.servicestack.net">http://www.servicestack.net</a>, runs on Linux!</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;h2&gt;Creating the Sample Project&lt;/h2&gt;
+<h2>Creating the Sample Project</h2>
 
-&lt;p&gt;One of the great things about ServiceStack is it has a bunch of awesome examples. Head on over to &lt;a href=&quot;https://github.com/ServiceStack/ServiceStack.Examples&quot;&gt;https://github.com/ServiceStack/ServiceStack.Examples&lt;/a&gt; and download the samples. Either by downloading the repository, or cloning it. &lt;/p&gt;
+<p>One of the great things about ServiceStack is it has a bunch of awesome examples. Head on over to <a href="https://github.com/ServiceStack/ServiceStack.Examples">https://github.com/ServiceStack/ServiceStack.Examples</a> and download the samples. Either by downloading the repository, or cloning it. </p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-5-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-5-1.png" alt="" /></p>
 
-&lt;p&gt;After downloading the ServiceStack Examples, navigate to &lt;code&gt;src&lt;/code&gt; and open the &lt;code&gt;ServiceStack.Hello&lt;/code&gt; project. &lt;/p&gt;
+<p>After downloading the ServiceStack Examples, navigate to <code>src</code> and open the <code>ServiceStack.Hello</code> project. </p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-5-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-5-2.png" alt="" /></p>
 
-&lt;p&gt;Running this project we should end up with a small Service Stack sample website like so:&lt;/p&gt;
+<p>Running this project we should end up with a small Service Stack sample website like so:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-5-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-5-3.png" alt="" /></p>
 
-&lt;h2&gt;Quick local test&lt;/h2&gt;
+<h2>Quick local test</h2>
 
-&lt;p&gt;Navigating to the URL; &lt;code&gt;http://localhost:62577/servicestack/metadata&lt;/code&gt; we should get the nice meta data screen:&lt;/p&gt;
+<p>Navigating to the URL; <code>http://localhost:62577/servicestack/metadata</code> we should get the nice meta data screen:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-5-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-5-4.png" alt="" /></p>
 
-&lt;p&gt;And navigating to the URL: &lt;/p&gt;
+<p>And navigating to the URL: </p>
 
-&lt;p&gt;&lt;code&gt;http://localhost:62577/servicestack/hello/phillip&lt;/code&gt;&lt;/p&gt;
+<p><code>http://localhost:62577/servicestack/hello/phillip</code></p>
 
-&lt;p&gt;We end up with a response:&lt;/p&gt;
+<p>We end up with a response:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-5-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-5-5.png" alt="" /></p>
 
-&lt;p&gt;We do need to make one minor change. In the root project of the folder, rename the &lt;code&gt;default.htm&lt;/code&gt; file to &lt;code&gt;index.html&lt;/code&gt;. This is only so we don't need to modify nginx to look for the default file &lt;code&gt;default.htm&lt;/code&gt; :) #lazyme&lt;/p&gt;
+<p>We do need to make one minor change. In the root project of the folder, rename the <code>default.htm</code> file to <code>index.html</code>. This is only so we don't need to modify nginx to look for the default file <code>default.htm</code> :) #lazyme</p>
 
-&lt;h2&gt;Lets deploy it!&lt;/h2&gt;
+<h2>Lets deploy it!</h2>
 
-&lt;p&gt;So like the Nancy project, we can publish the project to a folder. The good thing about this sample is it doesn't need any database or anything like that. It's just a straight website with a Hello World service.&lt;/p&gt;
+<p>So like the Nancy project, we can publish the project to a folder. The good thing about this sample is it doesn't need any database or anything like that. It's just a straight website with a Hello World service.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-5-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-5-6.png" alt="" /></p>
 
-&lt;p&gt;Once deployed we should end up with the ServiceStack site again!&lt;/p&gt;
+<p>Once deployed we should end up with the ServiceStack site again!</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-5-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-5-7.png" alt="" /></p>
 
-&lt;p&gt;Navigating to the metadata page we end up with the same screen we had locally!&lt;/p&gt;
+<p>Navigating to the metadata page we end up with the same screen we had locally!</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-5-8.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-5-8.png" alt="" /></p>
 
-&lt;p&gt;And navigating to the test URL we end up with the fancy ServiceStack response! &lt;/p&gt;
+<p>And navigating to the test URL we end up with the fancy ServiceStack response! </p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-5-9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-5-9.png" alt="" /></p>
 
-&lt;p&gt;Hello, with love from nginx!&lt;/p&gt;
+<p>Hello, with love from nginx!</p>
 
-&lt;p&gt;That's it, using the best web frameworks, NancyFX and ServiceStack, is super duper happy path easy with Mono!&lt;/p&gt;
+<p>That's it, using the best web frameworks, NancyFX and ServiceStack, is super duper happy path easy with Mono!</p>
 
-&lt;p&gt;:)&lt;/p&gt;
+<p>:)</p>
 
 
 	<div class="divider"></div>

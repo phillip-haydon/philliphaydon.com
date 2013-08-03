@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,83 +49,83 @@
       </div>
     </div>
         
-    &lt;p&gt;By now you've probably heard of OWIN, its slowly becoming more and more popular, hell even ThoughtWorks mentioned them on their &lt;a href=&quot;http://www.thoughtworks.com/radar&quot;&gt;Radar&lt;/a&gt;&lt;/p&gt;
+    <p>By now you've probably heard of OWIN, its slowly becoming more and more popular, hell even ThoughtWorks mentioned them on their <a href="http://www.thoughtworks.com/radar">Radar</a></p>
 
-&lt;p&gt;If you want to know what OWIN is, head on over to Paul Glavich's blog post on &lt;a href=&quot;http://weblogs.asp.net/pglavich/&quot;&gt;Owin, Katana, and getting started&lt;/a&gt;&lt;/p&gt;
+<p>If you want to know what OWIN is, head on over to Paul Glavich's blog post on <a href="http://weblogs.asp.net/pglavich/">Owin, Katana, and getting started</a></p>
 
-&lt;p&gt;The question of running NancyFX with Owin has been popping up more often lately so I figured I would show you how to get setup. &lt;/p&gt;
+<p>The question of running NancyFX with Owin has been popping up more often lately so I figured I would show you how to get setup. </p>
 
-&lt;h2&gt;Codez - Project Setup&lt;/h2&gt;
+<h2>Codez - Project Setup</h2>
 
-&lt;p&gt;Lets start off by creating a brand new Empty Web Application:&lt;/p&gt;
+<p>Lets start off by creating a brand new Empty Web Application:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-owin-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-owin-1.png" alt="" /></p>
 
-&lt;p&gt;Once created you should get a semi long list of References...&lt;/p&gt;
+<p>Once created you should get a semi long list of References...</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-owin-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-owin-2.png" alt="" /></p>
 
-&lt;p&gt;First things first, we want to trim this back to almost NOTHING! That's right, we're gonna kill more references! In fact I'm going to remove EVERYTHING except the bare minimum, so that you can add references only as you need them.&lt;/p&gt;
+<p>First things first, we want to trim this back to almost NOTHING! That's right, we're gonna kill more references! In fact I'm going to remove EVERYTHING except the bare minimum, so that you can add references only as you need them.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-owin-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-owin-3.png" alt="" /></p>
 
-&lt;p&gt;:D looks beautiful doesn't it!&lt;/p&gt;
+<p>:D looks beautiful doesn't it!</p>
 
-&lt;p&gt;Next we're going to add the Nugets&lt;/p&gt;
+<p>Next we're going to add the Nugets</p>
 
-&lt;ul&gt;
-&lt;li&gt;Nancy&lt;/li&gt;
-&lt;li&gt;Nancy.Owin&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li>Nancy</li>
+<li>Nancy.Owin</li>
+</ul>
 
-&lt;p&gt;As well as the following... &lt;strong&gt;BUT&lt;/strong&gt;&lt;/p&gt;
+<p>As well as the following... <strong>BUT</strong></p>
 
-&lt;ul&gt;
-&lt;li&gt;Microsoft.Owin.Host.SystemWeb&lt;/li&gt;
-&lt;li&gt;Microsoft.Web.Infrastructure&lt;/li&gt;
-&lt;li&gt;Owin&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li>Microsoft.Owin.Host.SystemWeb</li>
+<li>Microsoft.Web.Infrastructure</li>
+<li>Owin</li>
+</ul>
 
-&lt;p&gt;At the time of writing this, these Nugets are not available on Nuget yet. You will need to get them from the Katana CI Builds from MyGet.&lt;/p&gt;
+<p>At the time of writing this, these Nugets are not available on Nuget yet. You will need to get them from the Katana CI Builds from MyGet.</p>
 
-&lt;p&gt;The URL for Katana CI build is &lt;strong&gt;&lt;em&gt;http://www.myget.org/F/katana/&lt;/em&gt;&lt;/strong&gt; &lt;/p&gt;
+<p>The URL for Katana CI build is <strong><em>http://www.myget.org/F/katana/</em></strong> </p>
 
-&lt;p&gt;If you don't know how to add this to Nuget, you can do this 1 of 2 ways. If you've never done it, just go &lt;code&gt;Tools &amp;gt; Options &amp;gt; Packager Manager &amp;gt; Package Sources&lt;/code&gt;&lt;/p&gt;
+<p>If you don't know how to add this to Nuget, you can do this 1 of 2 ways. If you've never done it, just go <code>Tools &gt; Options &gt; Packager Manager &gt; Package Sources</code></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-owin-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-owin-4.png" alt="" /></p>
 
-&lt;p&gt;Click the PLUS sign, enter the &lt;code&gt;name&lt;/code&gt; and &lt;code&gt;source&lt;/code&gt;, and press &lt;code&gt;ok&lt;/code&gt;&lt;/p&gt;
+<p>Click the PLUS sign, enter the <code>name</code> and <code>source</code>, and press <code>ok</code></p>
 
-&lt;p&gt;Now you can install the package &lt;code&gt;Microsoft.Owin.Host.SystemWeb&lt;/code&gt; by entering:&lt;/p&gt;
+<p>Now you can install the package <code>Microsoft.Owin.Host.SystemWeb</code> by entering:</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;Install-Package Microsoft.Owin.Host.SystemWeb &lt;strong&gt;-pre&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>Install-Package Microsoft.Owin.Host.SystemWeb <strong>-pre</strong></p>
+</blockquote>
 
-&lt;p&gt;Make sure you have &lt;code&gt;-pre&lt;/code&gt; on the end so that it pulls the pre-release packages. This will automatically install all 3 requires packages.&lt;/p&gt;
+<p>Make sure you have <code>-pre</code> on the end so that it pulls the pre-release packages. This will automatically install all 3 requires packages.</p>
 
-&lt;h2&gt;Codez - Startup&lt;/h2&gt;
+<h2>Codez - Startup</h2>
 
-&lt;p&gt;Next we need to create a Startup file, this is where we tell Owin to use the Nancy.Owin middleware, this is a assembly the Nancy Team has created which does all the hard lifting to wire up Nancy to the Owin interfaces. &lt;/p&gt;
+<p>Next we need to create a Startup file, this is where we tell Owin to use the Nancy.Owin middleware, this is a assembly the Nancy Team has created which does all the hard lifting to wire up Nancy to the Owin interfaces. </p>
 
-&lt;p&gt;I guess you could say this is like adding the Nancy Hanlder to the web.config file...&lt;/p&gt;
+<p>I guess you could say this is like adding the Nancy Hanlder to the web.config file...</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;handlers&amp;gt;
-    &amp;lt;add name=&quot;Nancy&quot; verb=&quot;*&quot; type=&quot;Nancy.Hosting.Aspnet.NancyHttpRequestHandler&quot; path=&quot;*&quot; /&amp;gt;
-&amp;lt;/handlers&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>&lt;handlers&gt;
+    &lt;add name="Nancy" verb="*" type="Nancy.Hosting.Aspnet.NancyHttpRequestHandler" path="*" /&gt;
+&lt;/handlers&gt;
+</code></pre>
 
-&lt;p&gt;Except now we don't need any of that! &lt;em&gt;(so don't go adding that to your web.config!)&lt;/em&gt;&lt;/p&gt;
+<p>Except now we don't need any of that! <em>(so don't go adding that to your web.config!)</em></p>
 
-&lt;p&gt;If you want to dive into what the middleware is doing you can take a look at &lt;a href=&quot;https://twitter.com/PrabirShrestha&quot;&gt;Prabir's&lt;/a&gt; repository here:&lt;/p&gt;
+<p>If you want to dive into what the middleware is doing you can take a look at <a href="https://twitter.com/PrabirShrestha">Prabir's</a> repository here:</p>
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/prabirshrestha/simple-owin&quot;&gt;https://github.com/prabirshrestha/simple-owin&lt;/a&gt;&lt;/p&gt;
+<p><a href="https://github.com/prabirshrestha/simple-owin">https://github.com/prabirshrestha/simple-owin</a></p>
 
-&lt;p&gt;So we need to create a new class called &lt;code&gt;Startup&lt;/code&gt; which contains a single method.&lt;/p&gt;
+<p>So we need to create a new class called <code>Startup</code> which contains a single method.</p>
 
-&lt;pre&gt;&lt;code&gt;namespace NancyOwinWeb
+<pre><code>namespace NancyOwinWeb
 {
     using Owin;
 
@@ -137,17 +137,17 @@
         }
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;I opt to put this in a folder called App_Start&lt;/p&gt;
+<p>I opt to put this in a folder called App_Start</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-owin-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-owin-5.png" alt="" /></p>
 
-&lt;p&gt;That's really all that's required to setup Nancy in an Owin project. In the same configuration file you would obviously wire up other middleware, maybe some logging, possibly authentication, maybe... &lt;em&gt;shudder&lt;/em&gt; you might even consider putting WebAPI in there. BUT please don't ruin your project :)&lt;/p&gt;
+<p>That's really all that's required to setup Nancy in an Owin project. In the same configuration file you would obviously wire up other middleware, maybe some logging, possibly authentication, maybe... <em>shudder</em> you might even consider putting WebAPI in there. BUT please don't ruin your project :)</p>
 
-&lt;p&gt;The namespace is pretty important, if you don't use the default namespace, the Microsoft.Owin host can't find the startup. If for example, we added the App_Start namespace to the class:&lt;/p&gt;
+<p>The namespace is pretty important, if you don't use the default namespace, the Microsoft.Owin host can't find the startup. If for example, we added the App_Start namespace to the class:</p>
 
-&lt;pre&gt;&lt;code&gt;namespace NancyOwinWeb.App_Start
+<pre><code>namespace NancyOwinWeb.App_Start
 {
     using Owin;
 
@@ -159,22 +159,22 @@
         }
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;We will get an exception thrown...&lt;/p&gt;
+<p>We will get an exception thrown...</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-owin-8.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-owin-8.png" alt="" /></p>
 
-&lt;p&gt;Luckily if you run into this scenario, you can either fix the namespace, or add a appSetting to your web.config like so:&lt;/p&gt;
+<p>Luckily if you run into this scenario, you can either fix the namespace, or add a appSetting to your web.config like so:</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;add key=&quot;owin:AppStartup&quot; value=&quot;NancyOwinWeb.App_Start.Startup, NancyOwinWeb&quot; /&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>&lt;add key="owin:AppStartup" value="NancyOwinWeb.App_Start.Startup, NancyOwinWeb" /&gt;
+</code></pre>
 
-&lt;h2&gt;Codez - Module&lt;/h2&gt;
+<h2>Codez - Module</h2>
 
-&lt;p&gt;Now we just need a module, so lets create a nice simple module&lt;/p&gt;
+<p>Now we just need a module, so lets create a nice simple module</p>
 
-&lt;pre&gt;&lt;code&gt;namespace NancyOwinWeb.Modules
+<pre><code>namespace NancyOwinWeb.Modules
 {
     using Nancy;
 
@@ -182,40 +182,40 @@
     {
         public HomeModule()
         {
-            Get[&quot;/&quot;] = _ =&amp;gt; &quot;Hello from Owin!&quot;;
+            Get["/"] = _ =&gt; "Hello from Owin!";
         }
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;If we ran the app now this would happen...&lt;/p&gt;
+<p>If we ran the app now this would happen...</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-owin-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-owin-6.png" alt="" /></p>
 
-&lt;p&gt;Nice! What about my Web.config file, that file that gets so messy that we all dread...&lt;/p&gt;
+<p>Nice! What about my Web.config file, that file that gets so messy that we all dread...</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&quot;1.0&quot;?&amp;gt;
+<pre><code>&lt;?xml version="1.0"?&gt;
 
-&amp;lt;!--
+&lt;!--
   For more information on how to configure your ASP.NET application, please visit
   http://go.microsoft.com/fwlink/?LinkId=169433
---&amp;gt;
+--&gt;
 
-&amp;lt;configuration&amp;gt;
-    &amp;lt;system.web&amp;gt;
-      &amp;lt;compilation debug=&quot;true&quot; targetFramework=&quot;4.5&quot; /&amp;gt;
-      &amp;lt;httpRuntime targetFramework=&quot;4.5&quot; /&amp;gt;
-    &amp;lt;/system.web&amp;gt;   
-&amp;lt;/configuration&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;configuration&gt;
+    &lt;system.web&gt;
+      &lt;compilation debug="true" targetFramework="4.5" /&gt;
+      &lt;httpRuntime targetFramework="4.5" /&gt;
+    &lt;/system.web&gt;   
+&lt;/configuration&gt;
+</code></pre>
 
-&lt;p&gt;That's it, believe it or not, I haven't changed a single line of this file at all!&lt;/p&gt;
+<p>That's it, believe it or not, I haven't changed a single line of this file at all!</p>
 
-&lt;p&gt;Best of all our references are next to nothing!&lt;/p&gt;
+<p>Best of all our references are next to nothing!</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-owin-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-owin-7.png" alt="" /></p>
 
-&lt;p&gt;So awesome...&lt;/p&gt;
+<p>So awesome...</p>
 
 
 	<div class="divider"></div>

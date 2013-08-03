@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,56 +49,56 @@
       </div>
     </div>
         
-    &lt;p&gt;Was asked me a couple of weeks ago if it was possible to have nested collections in a jQuery template. Well you can! The sample code kind of buries the ability since it tries to demonstrate too many things at once. But it's rather simple.&lt;/p&gt;
+    <p>Was asked me a couple of weeks ago if it was possible to have nested collections in a jQuery template. Well you can! The sample code kind of buries the ability since it tries to demonstrate too many things at once. But it's rather simple.</p>
 
-&lt;pre&gt;&lt;code&gt;{{&quot;{{each *array*&quot;}}}}
+<pre><code>{{"{{each *array*"}}}}
     *stuff*
-{{&quot;{{/each&quot;}}}}
-&lt;/code&gt;&lt;/pre&gt;
+{{"{{/each"}}}}
+</code></pre>
 
-&lt;p&gt;So assuming we have a simple json object like...&lt;/p&gt;
+<p>So assuming we have a simple json object like...</p>
 
-&lt;pre&gt;&lt;code&gt;var people = [
+<pre><code>var people = [
     {
-        firstName: &quot;James&quot;,
+        firstName: "James",
         favouriteColours: [ 
-            { colorName: &quot;green&quot; },
-            { colorName: &quot;red&quot; }
+            { colorName: "green" },
+            { colorName: "red" }
         ]
     },
     {
-        firstName: &quot;Jack&quot;,
+        firstName: "Jack",
         favouriteColours: [
-            { colorName: &quot;blue&quot; },
-            { colorName: &quot;red&quot; }
+            { colorName: "blue" },
+            { colorName: "red" }
         ]
     },
     {
-        firstName: &quot;Jim&quot;,
+        firstName: "Jim",
         favouriteColours: [
-            { colorName: &quot;blue&quot; },
-            { colorName: &quot;black&quot; },
-            { colorName: &quot;white&quot; }
+            { colorName: "blue" },
+            { colorName: "black" },
+            { colorName: "white" }
         ]
     }
 ];
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;We can iterate over the people and then their favourite colours by using &lt;code&gt;each&lt;/code&gt; in the template like so:&lt;/p&gt;
+<p>We can iterate over the people and then their favourite colours by using <code>each</code> in the template like so:</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;script id=&quot;sample&quot; type=&quot;text/x-jquery-tmpl&quot;&amp;gt;
-    Name: ${firstName} &amp;lt;br /&amp;gt;
+<pre><code>&lt;script id="sample" type="text/x-jquery-tmpl"&gt;
+    Name: ${firstName} &lt;br /&gt;
     Colours: 
-        {{&quot;{{each favouriteColours&quot;}}}}
+        {{"{{each favouriteColours"}}}}
             ${this.colorName}
-        {{&quot;{{/each&quot;}}}}
-    &amp;lt;hr /&amp;gt;
-&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+        {{"{{/each"}}}}
+    &lt;hr /&gt;
+&lt;/script&gt;
+</code></pre>
 
-&lt;p&gt;You're not limited to 1 level of collections, if you had many levels you can have an &lt;code&gt;each&lt;/code&gt; inside an &lt;code&gt;each&lt;/code&gt;... inside an &lt;code&gt;each&lt;/code&gt;. But that would be getting silly.&lt;/p&gt;
+<p>You're not limited to 1 level of collections, if you had many levels you can have an <code>each</code> inside an <code>each</code>... inside an <code>each</code>. But that would be getting silly.</p>
 
 
 	<div class="divider"></div>

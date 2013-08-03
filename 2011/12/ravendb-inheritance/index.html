@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,17 +49,17 @@
       </div>
     </div>
         
-    &lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Updated solution: &lt;a href=&quot;http://www.philliphaydon.com/2011/12/ravendb-inheritance-revisited/&quot;&gt;http://www.philliphaydon.com/2011/12/ravendb-inheritance-revisited/&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+    <p><span class="note"><strong>Note:</strong> Updated solution: <a href="http://www.philliphaydon.com/2011/12/ravendb-inheritance-revisited/">http://www.philliphaydon.com/2011/12/ravendb-inheritance-revisited/</a></span></p>
 
-&lt;p&gt;Continuing my learning of RavenDB, I wanted to see how it handled Inheritance.&lt;/p&gt;
+<p>Continuing my learning of RavenDB, I wanted to see how it handled Inheritance.</p>
 
-&lt;p&gt;I found: &lt;a href=&quot;http://ravendb.net/faq/polymorphic-indexes&quot;&gt;http://ravendb.net/faq/polymorphic-indexes&lt;/a&gt;&lt;/p&gt;
+<p>I found: <a href="http://ravendb.net/faq/polymorphic-indexes">http://ravendb.net/faq/polymorphic-indexes</a></p>
 
-&lt;p&gt;Which showed what to do allow you to select over all types of &lt;code&gt;Animal&lt;/code&gt; for the example shown. So I wanted to see what happens before and after using this method.&lt;/p&gt;
+<p>Which showed what to do allow you to select over all types of <code>Animal</code> for the example shown. So I wanted to see what happens before and after using this method.</p>
 
-&lt;p&gt;So like the example shown I've created an &lt;code&gt;Animal&lt;/code&gt;, with a &lt;code&gt;Dog&lt;/code&gt; and &lt;code&gt;Cat&lt;/code&gt;.&lt;/p&gt;
+<p>So like the example shown I've created an <code>Animal</code>, with a <code>Dog</code> and <code>Cat</code>.</p>
 
-&lt;pre&gt;&lt;code&gt;public abstract class Animal
+<pre><code>public abstract class Animal
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -68,89 +68,89 @@
 public class Dog : Animal { }
 
 public class Cat : Animal { }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Now if I insert a Dog and Cat:&lt;/p&gt;
+<p>Now if I insert a Dog and Cat:</p>
 
-&lt;pre&gt;&lt;code&gt;using (var session = documentStore.OpenSession())
+<pre><code>using (var session = documentStore.OpenSession())
 {
-    session.Store(new Dog() { Name = &quot;Test Dog&quot; });
-    session.Store(new Cat() { Name = &quot;Test Cat&quot; });
+    session.Store(new Dog() { Name = "Test Dog" });
+    session.Store(new Cat() { Name = "Test Cat" });
     session.SaveChanges();
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;What's stored in RavenDB is two separate documents, one for 'dogs' and one for 'cats'.&lt;/p&gt;
+<p>What's stored in RavenDB is two separate documents, one for 'dogs' and one for 'cats'.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-inheritance-revisited-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-inheritance-revisited-1.png" alt="" /></p>
 
-&lt;p&gt;If I include the Convention.&lt;/p&gt;
+<p>If I include the Convention.</p>
 
-&lt;pre&gt;&lt;code&gt;var documentConvention =
+<pre><code>var documentConvention =
     new DocumentConvention()
         {
             FindTypeTagName =
-                type =&amp;gt;
+                type =&gt;
                     {
                         if (typeof (Animal).IsAssignableFrom(type))
-                            return &quot;animals&quot;;
+                            return "animals";
                         return DocumentConvention.DefaultTypeTagName(type);
                     }
         };
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; You can do the conversion when the DocumentStore is initialized, I broke the two up so that it would fit easier into my blog. Otherwise it's too nested and yucky.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> You can do the conversion when the DocumentStore is initialized, I broke the two up so that it would fit easier into my blog. Otherwise it's too nested and yucky.</span></p>
 
-&lt;pre&gt;&lt;code&gt;var documentStore =
+<pre><code>var documentStore =
     (new DocumentStore()
             {
-                Url = &quot;http://localhost:8080&quot;,
+                Url = "http://localhost:8080",
                 Conventions = documentConvention
             }).Initialize();
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Now when I insert a Dog and Cat I get:&lt;/p&gt;
+<p>Now when I insert a Dog and Cat I get:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-inheritance-revisited-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-inheritance-revisited-2.png" alt="" /></p>
 
-&lt;p&gt;Awesome. If we look at the document however:&lt;/p&gt;
+<p>Awesome. If we look at the document however:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-inheritance-revisited-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-inheritance-revisited-3.png" alt="" /></p>
 
-&lt;p&gt;There is no information about it being a cat or dog, I thought it would add some sort of discriminator similar to how NHibernate works.&lt;/p&gt;
+<p>There is no information about it being a cat or dog, I thought it would add some sort of discriminator similar to how NHibernate works.</p>
 
-&lt;p&gt;However, if we look at the Metadata tab:&lt;/p&gt;
+<p>However, if we look at the Metadata tab:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-inheritance-revisited-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-inheritance-revisited-4.png" alt="" /></p>
 
-&lt;p&gt;We can see the CLR type is stored in the metadata so RavenDB knows what type to create when we query it.&lt;/p&gt;
+<p>We can see the CLR type is stored in the metadata so RavenDB knows what type to create when we query it.</p>
 
-&lt;p&gt;This means if we query for &lt;code&gt;Animal&lt;/code&gt; we get a list of Dogs and Cats.&lt;/p&gt;
+<p>This means if we query for <code>Animal</code> we get a list of Dogs and Cats.</p>
 
-&lt;pre&gt;&lt;code&gt;using (var session = documentStore.OpenSession())
+<pre><code>using (var session = documentStore.OpenSession())
 {
-    var result = session.Query&amp;lt;Animal&amp;gt;();
+    var result = session.Query&lt;Animal&gt;();
     foreach (var animal in result)
     {
         Console.WriteLine(animal.Name);
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-inheritance-revisited-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-inheritance-revisited-5.png" alt="" /></p>
 
-&lt;p&gt;However, if you wanted to query for just Dogs, like so:&lt;/p&gt;
+<p>However, if you wanted to query for just Dogs, like so:</p>
 
-&lt;pre&gt;&lt;code&gt;var result = session.Query&amp;lt;Dog&amp;gt;().ToList();
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>var result = session.Query&lt;Dog&gt;().ToList();
+</code></pre>
 
-&lt;p&gt;It doesn't seem to work :(&lt;/p&gt;
+<p>It doesn't seem to work :(</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-inheritance-revisited-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-inheritance-revisited-6.png" alt="" /></p>
 
-&lt;p&gt;I'm probably just doing something wrong, either way, the more I play with RavenDB. The more I love it.&lt;/p&gt;
+<p>I'm probably just doing something wrong, either way, the more I play with RavenDB. The more I love it.</p>
 
 
 	<div class="divider"></div>

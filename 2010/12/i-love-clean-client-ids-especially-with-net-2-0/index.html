@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,89 +49,89 @@
       </div>
     </div>
         
-    &lt;p&gt;ASP.Net 4.0 got a brand spanking new feature. Clean ClientID's! ABOUT BLOODY TIME... Only, I'm working on a legacy application which can't be migrated to 4.0 :(&lt;/p&gt;
+    <p>ASP.Net 4.0 got a brand spanking new feature. Clean ClientID's! ABOUT BLOODY TIME... Only, I'm working on a legacy application which can't be migrated to 4.0 :(</p>
 
-&lt;p&gt;So why do we need Nice Readable, predictable ClientID's? I can think of two main reasons, outside of that, I would assume you're doing it wrong.&lt;/p&gt;
+<p>So why do we need Nice Readable, predictable ClientID's? I can think of two main reasons, outside of that, I would assume you're doing it wrong.</p>
 
-&lt;ol&gt;
-&lt;li&gt;JavaScript, to find elements...&lt;/li&gt;
-&lt;li&gt;JavaScript in external files where you can't write spaghetti code.&lt;/li&gt;
-&lt;/ol&gt;
+<ol>
+<li>JavaScript, to find elements...</li>
+<li>JavaScript in external files where you can't write spaghetti code.</li>
+</ol>
 
-&lt;p&gt;What do I mean by spaghetti code? I mean this stuff:&lt;/p&gt;
+<p>What do I mean by spaghetti code? I mean this stuff:</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;%= txtUserName.ClientID %&amp;gt;
-&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
-  var element = $('#&amp;lt;%= txtUserName.ClientID %&amp;gt;');
-  var textbox = document.getElementById('&amp;lt;%= txtUserName.ClientID %&amp;gt;');
-&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>&lt;%= txtUserName.ClientID %&gt;
+&lt;script type="text/javascript"&gt;
+  var element = $('#&lt;%= txtUserName.ClientID %&gt;');
+  var textbox = document.getElementById('&lt;%= txtUserName.ClientID %&gt;');
+&lt;/script&gt;
+</code></pre>
 
-&lt;p&gt;I absolutely detest seeing this sort of thing. It makes me sick, and worst of all you can't pull this sort of code back to an external js file. In Web Forms, spaghetti coding is NOT your presentation, your server control is your presentation, the spaghetti code is your binding, and this should be in the codebehind.&lt;/p&gt;
+<p>I absolutely detest seeing this sort of thing. It makes me sick, and worst of all you can't pull this sort of code back to an external js file. In Web Forms, spaghetti coding is NOT your presentation, your server control is your presentation, the spaghetti code is your binding, and this should be in the codebehind.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;Right, so what is my solution? Well I basically find all the server controls that are of a particular type, and write the information as a Json array to the HTML doc.&lt;/p&gt;
+<p>Right, so what is my solution? Well I basically find all the server controls that are of a particular type, and write the information as a Json array to the HTML doc.</p>
 
-&lt;p&gt;I've put the project on codeplex and named it, &lt;a href=&quot;http://awesomeclientid.codeplex.com/&quot;&gt;Awesome.ClientID&lt;/a&gt;, because everything I do is awesome, atleast I like to think so :)&lt;/p&gt;
+<p>I've put the project on codeplex and named it, <a href="http://awesomeclientid.codeplex.com/">Awesome.ClientID</a>, because everything I do is awesome, atleast I like to think so :)</p>
 
-&lt;p&gt;There's a few issues and the code is a little messy since I rushed it, but it works.&lt;/p&gt;
+<p>There's a few issues and the code is a little messy since I rushed it, but it works.</p>
 
-&lt;p&gt;It serializes all the controls and you end up with a piece of JavaScript in the HTML Doc. Assume we had a form like:&lt;/p&gt;
+<p>It serializes all the controls and you end up with a piece of JavaScript in the HTML Doc. Assume we had a form like:</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;fieldset&amp;gt;
-  &amp;lt;ul&amp;gt;
-    &amp;lt;li&amp;gt;&amp;lt;label&amp;gt;Username: &amp;lt;/label&amp;gt; &amp;lt;asp:textbox id=&quot;txtUserName&quot; runat=&quot;server&quot; /&amp;gt;&amp;lt;/li&amp;gt;
-    &amp;lt;li&amp;gt;&amp;lt;label&amp;gt;Email: &amp;lt;/label&amp;gt; &amp;lt;asp:textbox id=&quot;txtEmail&quot; runat=&quot;server&quot; /&amp;gt;&amp;lt;/li&amp;gt;
-  &amp;lt;/ul&amp;gt;
-  &amp;lt;asp:button id=&quot;btnSubmit&quot; runat=&quot;server&quot; text=&quot;Submit&quot; /&amp;gt;
-&amp;lt;/fieldset&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>&lt;fieldset&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;label&gt;Username: &lt;/label&gt; &lt;asp:textbox id="txtUserName" runat="server" /&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;label&gt;Email: &lt;/label&gt; &lt;asp:textbox id="txtEmail" runat="server" /&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;asp:button id="btnSubmit" runat="server" text="Submit" /&gt;
+&lt;/fieldset&gt;
+</code></pre>
 
-&lt;p&gt;This would get put into the HTML Doc like so:&lt;/p&gt;
+<p>This would get put into the HTML Doc like so:</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
-//&amp;lt;![CDATA[
+<pre><code>&lt;script type="text/javascript"&gt;
+//&lt;![CDATA[
   var controls = {
-    &quot;txtUserName&quot;: &quot;ctl00_ContentPlaceHolder1_txtUserName&quot;,
-    &quot;txtEmail&quot;: &quot;ctl00_ContentPlaceHolder1_txtEmail&quot;,
-    &quot;btnSubmit&quot;: &quot;ctl00_ContentPlaceHolder1_btnSubmit&quot;
+    "txtUserName": "ctl00_ContentPlaceHolder1_txtUserName",
+    "txtEmail": "ctl00_ContentPlaceHolder1_txtEmail",
+    "btnSubmit": "ctl00_ContentPlaceHolder1_btnSubmit"
   };
-//]]&amp;gt;
-&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+//]]&gt;
+&lt;/script&gt;
+</code></pre>
 
-&lt;p&gt;Now when you write your JavaScript, instead of writing spaghetti code, you can write it like:&lt;/p&gt;
+<p>Now when you write your JavaScript, instead of writing spaghetti code, you can write it like:</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
-//&amp;lt;![CDATA[
+<pre><code>&lt;script type="text/javascript"&gt;
+//&lt;![CDATA[
   var element = document.getElementById(controls.btnSubmit);
-//]]&amp;gt;
-&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+//]]&gt;
+&lt;/script&gt;
+</code></pre>
 
-&lt;p&gt;Neat huh? That's not all tho, sometimes you need may need access to a property. For an example, at work we use a JavaScript charting library, and I need to pass in some widths so I can render the chart with the correct number of bars.&lt;/p&gt;
+<p>Neat huh? That's not all tho, sometimes you need may need access to a property. For an example, at work we use a JavaScript charting library, and I need to pass in some widths so I can render the chart with the correct number of bars.</p>
 
-&lt;p&gt;I have a property I set in my page with an attribute against it 'CanSerializeProperty', this will now get serialized just like the controls:&lt;/p&gt;
+<p>I have a property I set in my page with an attribute against it 'CanSerializeProperty', this will now get serialized just like the controls:</p>
 
-&lt;pre&gt;&lt;code&gt;[CanSerializeProperty]
+<pre><code>[CanSerializeProperty]
 protected int ScheduleWidth
 {
   get; set;
 }
 
-&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
-//&amp;lt;![CDATA[
-  var properties = { &quot;ScheduleWidth&quot;: &quot;50&quot; };
-//]]&amp;gt;
-&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;script type="text/javascript"&gt;
+//&lt;![CDATA[
+  var properties = { "ScheduleWidth": "50" };
+//]]&gt;
+&lt;/script&gt;
+</code></pre>
 
-&lt;p&gt;Originally intended for just .NET 2.0/3.5, the properties feature is pretty handy for .NET 4.0 also.&lt;/p&gt;
+<p>Originally intended for just .NET 2.0/3.5, the properties feature is pretty handy for .NET 4.0 also.</p>
 
-&lt;p&gt;I've got some additional features I'm going to add, at the moment it serializes for every page, but I'm going to add an attribute for pages to turn the feature off. And possibly make a web.config section so you can specify the controls you want to serialize. That way you can easily add controls from libraries such as Telerik without needing to recompile the project.&lt;/p&gt;
+<p>I've got some additional features I'm going to add, at the moment it serializes for every page, but I'm going to add an attribute for pages to turn the feature off. And possibly make a web.config section so you can specify the controls you want to serialize. That way you can easily add controls from libraries such as Telerik without needing to recompile the project.</p>
 
-&lt;p&gt;&lt;a href=&quot;http://awesomeclientid.codeplex.com/&quot;&gt;http://awesomeclientid.codeplex.com/&lt;/a&gt;&lt;/p&gt;
+<p><a href="http://awesomeclientid.codeplex.com/">http://awesomeclientid.codeplex.com/</a></p>
 
 
 	<div class="divider"></div>

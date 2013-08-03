@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,41 +49,41 @@
       </div>
     </div>
         
-    &lt;ul&gt;
-&lt;li&gt;Original Post: &lt;a href=&quot;/2012/11/nancy-and-content-negotiation&quot;&gt;NancyFX and Content Negotiation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/&quot;&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 1)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 2)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/&quot;&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 3)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+    <ul>
+<li>Original Post: <a href="/2012/11/nancy-and-content-negotiation">NancyFX and Content Negotiation</a></li>
+<li><a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</a></li>
+<li>NancyFX - Revisiting Content Negotiation &amp; APIs (Part 2)</li>
+<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 3)</a></li>
+</ul>
 
-&lt;p&gt;In part 1 I went over a really basic scenario, and one of the fiddly things we had was the view name for returning a collection.&lt;/p&gt;
+<p>In part 1 I went over a really basic scenario, and one of the fiddly things we had was the view name for returning a collection.</p>
 
-&lt;p&gt;Using &lt;code&gt;Negotiate&lt;/code&gt; gives as more flexibility on what we can return, allowing us to customize the response to respond differently to different media types or returning partial content in some scenarios.&lt;/p&gt;
+<p>Using <code>Negotiate</code> gives as more flexibility on what we can return, allowing us to customize the response to respond differently to different media types or returning partial content in some scenarios.</p>
 
-&lt;p&gt;Going back to my previous post I said we should be able to use the same API to build our website as we expose. But what about when we want to have additional information on the website that isn't pushed out to the client.&lt;/p&gt;
+<p>Going back to my previous post I said we should be able to use the same API to build our website as we expose. But what about when we want to have additional information on the website that isn't pushed out to the client.</p>
 
-&lt;p&gt;Lets say you have a product catalog, and you can view a particular product on your website. You also allow people to pull the content from your site to display on their website as like an affiliate system of some sort. But when you render your product you may have a special, but when you send the product to the consuming client you don't want to include the special for them since it's something specific to your website.&lt;/p&gt;
+<p>Lets say you have a product catalog, and you can view a particular product on your website. You also allow people to pull the content from your site to display on their website as like an affiliate system of some sort. But when you render your product you may have a special, but when you send the product to the consuming client you don't want to include the special for them since it's something specific to your website.</p>
 
-&lt;h2&gt;Show me the codez!&lt;/h2&gt;
+<h2>Show me the codez!</h2>
 
-&lt;p&gt;So lets update the &lt;code&gt;Product&lt;/code&gt; to include &lt;code&gt;SpecialPrice&lt;/code&gt;&lt;/p&gt;
+<p>So lets update the <code>Product</code> to include <code>SpecialPrice</code></p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;pre&gt;&lt;code&gt;public class Product
+<pre><code>public class Product
 {
     public int Id { get; set; }
     public string Name { get; set; }
     public decimal Price { get; set; }
     public decimal? SpecialPrice { get; set; }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;Note:&lt;/strong&gt; and also update the repository to return the Special Price on each &lt;code&gt;Product&lt;/code&gt;&lt;/em&gt;&lt;/p&gt;
+<p><strong><em>Note:</strong> and also update the repository to return the Special Price on each <code>Product</code></em></p>
 
-&lt;p&gt;We're also going to introduce a new model called &lt;code&gt;PartialProduct&lt;/code&gt;. There may be a better name for it, but its what I picked for the purpose of demonstrating. This is going to be the same as &lt;code&gt;Product&lt;/code&gt; but without the &lt;code&gt;SpecialPrice&lt;/code&gt; property.&lt;/p&gt;
+<p>We're also going to introduce a new model called <code>PartialProduct</code>. There may be a better name for it, but its what I picked for the purpose of demonstrating. This is going to be the same as <code>Product</code> but without the <code>SpecialPrice</code> property.</p>
 
-&lt;pre&gt;&lt;code&gt;public class PartialProduct
+<pre><code>public class PartialProduct
 {
     public PartialProduct()
     {
@@ -100,91 +100,91 @@
     public string Name { get; set; }
     public decimal Price { get; set; }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;The constructor is used to populate the model based on a &lt;code&gt;Product&lt;/code&gt;. You may want to use something like AutoMapper to do this for you, or write some extension methods, etc.&lt;/p&gt;
+<p>The constructor is used to populate the model based on a <code>Product</code>. You may want to use something like AutoMapper to do this for you, or write some extension methods, etc.</p>
 
-&lt;p&gt;Now with our route, we want to return the &lt;code&gt;PartialProduct&lt;/code&gt; when responding to &lt;code&gt;application/json&lt;/code&gt; or &lt;code&gt;application/xml&lt;/code&gt;&lt;/p&gt;
+<p>Now with our route, we want to return the <code>PartialProduct</code> when responding to <code>application/json</code> or <code>application/xml</code></p>
 
-&lt;pre&gt;&lt;code&gt;Get[&quot;/{id}&quot;] = _ =&amp;gt;
+<pre><code>Get["/{id}"] = _ =&gt;
 {
     var product = productRepository.Get((int)_.id);
 
-    return Negotiate.WithView(&quot;product&quot;)
+    return Negotiate.WithView("product")
                     .WithModel(product)
-                    .WithMediaRangeModel(MediaRange.FromString(&quot;application/json&quot;),
+                    .WithMediaRangeModel(MediaRange.FromString("application/json"),
                                          new PartialProduct(product))
-                    .WithMediaRangeModel(MediaRange.FromString(&quot;application/xml&quot;),
+                    .WithMediaRangeModel(MediaRange.FromString("application/xml"),
                                          new PartialProduct(product));
 };
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So we are saying that we want to negotiate the response with the view &lt;code&gt;product&lt;/code&gt; using the model &lt;code&gt;product&lt;/code&gt;, but if the MediaRange is &lt;code&gt;application/json&lt;/code&gt; we want to return a partial product, likewise if its &lt;code&gt;application/xml&lt;/code&gt; we want to also return a partial model. &lt;em&gt;(if it looks like a lot to type, don't worry we can tidy this up)&lt;/em&gt;&lt;/p&gt;
+<p>So we are saying that we want to negotiate the response with the view <code>product</code> using the model <code>product</code>, but if the MediaRange is <code>application/json</code> we want to return a partial product, likewise if its <code>application/xml</code> we want to also return a partial model. <em>(if it looks like a lot to type, don't worry we can tidy this up)</em></p>
 
-&lt;p&gt;Now when we setup our Postman looking for &lt;code&gt;text/html&lt;/code&gt; we get the &lt;code&gt;SpecialPrice&lt;/code&gt; returned on the product:&lt;/p&gt;
+<p>Now when we setup our Postman looking for <code>text/html</code> we get the <code>SpecialPrice</code> returned on the product:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-part2-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-part2-1.png" alt="" /></p>
 
-&lt;p&gt;However if we update it to &lt;code&gt;application/json&lt;/code&gt; we get:&lt;/p&gt;
+<p>However if we update it to <code>application/json</code> we get:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-part2-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-part2-2.png" alt="" /></p>
 
-&lt;p&gt;Anddddd &lt;code&gt;application/xml&lt;/code&gt; we get:&lt;/p&gt;
+<p>Anddddd <code>application/xml</code> we get:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-conneg-updated-part2-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-conneg-updated-part2-3.png" alt="" /></p>
 
-&lt;p&gt;But... We kinda had to write a lot of code for the media ranges. Extension methods are awesome though, so we can tidy them up by introducing our own extension methods:&lt;/p&gt;
+<p>But... We kinda had to write a lot of code for the media ranges. Extension methods are awesome though, so we can tidy them up by introducing our own extension methods:</p>
 
-&lt;pre&gt;&lt;code&gt;public static class NegotiateExtensions
+<pre><code>public static class NegotiateExtensions
 {
     public static Negotiator ForJson(this Negotiator negotiator, object model)
     {
-        return negotiator.WithMediaRangeModel(MediaRange.FromString(&quot;application/json&quot;), model);
+        return negotiator.WithMediaRangeModel(MediaRange.FromString("application/json"), model);
     }
 
     public static Negotiator ForXml(this Negotiator negotiator, object model)
     {
-        return negotiator.WithMediaRangeModel(MediaRange.FromString(&quot;application/xml&quot;), model);
+        return negotiator.WithMediaRangeModel(MediaRange.FromString("application/xml"), model);
     }
 }   
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This reduces things down to:&lt;/p&gt;
+<p>This reduces things down to:</p>
 
-&lt;pre&gt;&lt;code&gt;Get[&quot;/{id}&quot;] = _ =&amp;gt;
+<pre><code>Get["/{id}"] = _ =&gt;
 {
     var product = productRepository.Get((int)_.id);
 
-    return Negotiate.WithView(&quot;product&quot;)
+    return Negotiate.WithView("product")
                     .WithModel(product)
                     .ForJson(new PartialProduct(product))
                     .ForXml(new PartialProduct(product));
 };
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Still too much? We can introduce one more extension&lt;/p&gt;
+<p>Still too much? We can introduce one more extension</p>
 
-&lt;pre&gt;&lt;code&gt;public static Negotiator OrPartial(this Negotiator negotiator, object model)
+<pre><code>public static Negotiator OrPartial(this Negotiator negotiator, object model)
 {
     return negotiator.ForJson(model).ForXml(model);
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;And now all we have is&lt;/p&gt;
+<p>And now all we have is</p>
 
-&lt;pre&gt;&lt;code&gt;Get[&quot;/{id}&quot;] = _ =&amp;gt;
+<pre><code>Get["/{id}"] = _ =&gt;
 {
     var product = productRepository.Get((int)_.id);
 
-    return Negotiate.WithView(&quot;product&quot;)
+    return Negotiate.WithView("product")
                     .WithModel(product)
                     .OrPartial(new PartialProduct(product));
 };
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Obviously you can play around to figure out what suits you. But this gives us the flexibility to customize outputs for different media types. &lt;/p&gt;
+<p>Obviously you can play around to figure out what suits you. But this gives us the flexibility to customize outputs for different media types. </p>
 
-&lt;p&gt;In part 3 I'll discuss implementing your own Media Type :)&lt;/p&gt;
+<p>In part 3 I'll discuss implementing your own Media Type :)</p>
 
 
 	<div class="divider"></div>

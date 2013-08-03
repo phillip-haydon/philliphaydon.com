@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -48,37 +48,37 @@
       </div>
     </div>
         
-    &lt;p&gt;Finding which process belonged to which application pool was simple in IIS6, it was a simple case of running up a Command Prompt and typing in &lt;code&gt;iisapp.vbs&lt;/code&gt;.&lt;/p&gt;
+    <p>Finding which process belonged to which application pool was simple in IIS6, it was a simple case of running up a Command Prompt and typing in <code>iisapp.vbs</code>.</p>
 
-&lt;p&gt;Unfortunately the script wasn't bought across to IIS7. So when it came to profiling a site I was baffled as to why the DotTrace results were showing information for threads completely unrelated to the website I was looking at.&lt;/p&gt;
+<p>Unfortunately the script wasn't bought across to IIS7. So when it came to profiling a site I was baffled as to why the DotTrace results were showing information for threads completely unrelated to the website I was looking at.</p>
 
-&lt;p&gt;Turns out I was looking at the wrong Process Id...&lt;/p&gt;
+<p>Turns out I was looking at the wrong Process Id...</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/process-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/process-1.png" alt="" /></p>
 
-&lt;p&gt;So I needed to figure out which Process Id belonged to which site.&lt;/p&gt;
+<p>So I needed to figure out which Process Id belonged to which site.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;IIS7 ships with a little command line tool called &lt;code&gt;AppCmd&lt;/code&gt;. Which is handy, simply open up a Command Prompt and navigate to:&lt;/p&gt;
+<p>IIS7 ships with a little command line tool called <code>AppCmd</code>. Which is handy, simply open up a Command Prompt and navigate to:</p>
 
-&lt;pre&gt;&lt;code&gt;C:\Windows\System32\inetsrv&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>C:\Windows\System32\inetsrv&gt;
+</code></pre>
 
-&lt;p&gt;Then type in the command:&lt;/p&gt;
+<p>Then type in the command:</p>
 
-&lt;pre&gt;&lt;code&gt;appcmd list wp
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>appcmd list wp
+</code></pre>
 
-&lt;p&gt;This will list out all the sites and their Process Id:&lt;/p&gt;
+<p>This will list out all the sites and their Process Id:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/process-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/process-2.png" alt="" /></p>
 
-&lt;p&gt;Problem solved!&lt;/p&gt;
+<p>Problem solved!</p>
 
-&lt;p&gt;More information about the tool can be found here:&lt;/p&gt;
+<p>More information about the tool can be found here:</p>
 
-&lt;p&gt;&lt;a href=&quot;http://learn.iis.net/page.aspx/114/getting-started-with-appcmdexe/&quot;&gt;http://learn.iis.net/page.aspx/114/getting-started-with-appcmdexe/&lt;/a&gt;&lt;/p&gt;
+<p><a href="http://learn.iis.net/page.aspx/114/getting-started-with-appcmdexe/">http://learn.iis.net/page.aspx/114/getting-started-with-appcmdexe/</a></p>
 
 
 	<div class="divider"></div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,97 +49,97 @@
       </div>
     </div>
         
-    &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/06/setting-up-ubuntu-and-nginx-on-azure/&quot;&gt;Part 1 - Setting up the Virtual Machine and nginx&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/06/setting-up-a-new-website-and-domain-on-nginx&quot;&gt;Part 2 - Setting up new Website and Domain on nginx&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/06/setting-up-mono-on-nginx/&quot;&gt;Part 3 - Setting up Mono on nginx&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Part 4 - Setting up a NancyFX website&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;/2013/07/setting-up-a-servicestack-service/&quot;&gt;Part 5 - Setting up a ServiceStack web service&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+    <ul>
+<li><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Part 1 - Setting up the Virtual Machine and nginx</a></li>
+<li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx">Part 2 - Setting up new Website and Domain on nginx</a></li>
+<li><a href="/2013/06/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li>
+<li>Part 4 - Setting up a NancyFX website</li>
+<li><a href="/2013/07/setting-up-a-servicestack-service/">Part 5 - Setting up a ServiceStack web service</a></li>
+</ul>
 
-&lt;p&gt;Time to setup NancyFX on Mono.&lt;/p&gt;
+<p>Time to setup NancyFX on Mono.</p>
 
-&lt;h2&gt;Prelude!&lt;/h2&gt;
+<h2>Prelude!</h2>
 
-&lt;p&gt;This series is done using Mono 2.10 and .NET 4.0. This wont work with a 4.5 project since we need Mono 3.0 for that, but I plan to do another series on building Mono from source since there's no package available yet.&lt;/p&gt;
+<p>This series is done using Mono 2.10 and .NET 4.0. This wont work with a 4.5 project since we need Mono 3.0 for that, but I plan to do another series on building Mono from source since there's no package available yet.</p>
 
-&lt;p&gt;Also, this post assumes you've setup FTP to upload the files, I'm not going to go into detail, but you can install &lt;code&gt;vsftpd&lt;/code&gt; and Google the setup. If you're new to Linux and followed Parts 1-3 so far, it should be easy enough to setup and install. All you need to do is authenticate using sshftp or sftp, rather than normal ftp. &lt;/p&gt;
+<p>Also, this post assumes you've setup FTP to upload the files, I'm not going to go into detail, but you can install <code>vsftpd</code> and Google the setup. If you're new to Linux and followed Parts 1-3 so far, it should be easy enough to setup and install. All you need to do is authenticate using sshftp or sftp, rather than normal ftp. </p>
 
-&lt;h2&gt;Creating a Nancy test project&lt;/h2&gt;
+<h2>Creating a Nancy test project</h2>
 
-&lt;p&gt;The easiest way to create a test project is to grab the &lt;a href=&quot;http://visualstudiogallery.msdn.microsoft.com/f1e29f61-4dff-4b1e-a14b-6bd0d307611a&quot;&gt;Nancy Templates&lt;/a&gt; from the Visual Studio Gallery. &lt;/p&gt;
+<p>The easiest way to create a test project is to grab the <a href="http://visualstudiogallery.msdn.microsoft.com/f1e29f61-4dff-4b1e-a14b-6bd0d307611a">Nancy Templates</a> from the Visual Studio Gallery. </p>
 
-&lt;p&gt;Using this method, we can create a new project in Visual Studio and select Nancy Application.&lt;/p&gt;
+<p>Using this method, we can create a new project in Visual Studio and select Nancy Application.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-4-1.png" alt="" /></p>
 
-&lt;p&gt;Don't forget to make this a .NET 4.0 project, NOT a .NET 4.5 project. When running Mono 3.0 you can choose .NET 4.5.&lt;/p&gt;
+<p>Don't forget to make this a .NET 4.0 project, NOT a .NET 4.5 project. When running Mono 3.0 you can choose .NET 4.5.</p>
 
-&lt;p&gt;Once created press F5 and you should end up with a screen like so:&lt;/p&gt;
+<p>Once created press F5 and you should end up with a screen like so:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-4-2.png" alt="" /></p>
 
-&lt;p&gt;BUT, before we can publish, we need to update Nancy to the beta version (version 0.18.0) because 0.17.1 doesn't work on Mono 2.10. Hopefully if you're reading this shortly after its being published 0.18.0 will be out and you can.&lt;/p&gt;
+<p>BUT, before we can publish, we need to update Nancy to the beta version (version 0.18.0) because 0.17.1 doesn't work on Mono 2.10. Hopefully if you're reading this shortly after its being published 0.18.0 will be out and you can.</p>
 
-&lt;hr /&gt;
+<hr />
 
-&lt;p&gt;Updating the Nuget Packages. We need to add the Nancy CI builds to out options.&lt;/p&gt;
+<p>Updating the Nuget Packages. We need to add the Nancy CI builds to out options.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-4-4.png" alt="" /></p>
 
-&lt;p&gt;And we can remove the references from the project to &lt;code&gt;Nancy&lt;/code&gt; and &lt;code&gt;Nancy.Hosting.Aspnet&lt;/code&gt;&lt;/p&gt;
+<p>And we can remove the references from the project to <code>Nancy</code> and <code>Nancy.Hosting.Aspnet</code></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-4-5.png" alt="" /></p>
 
-&lt;p&gt;And now you can run the commands:&lt;/p&gt;
+<p>And now you can run the commands:</p>
 
-&lt;p&gt;&lt;code&gt;install-package Nancy&lt;/code&gt;&lt;/p&gt;
+<p><code>install-package Nancy</code></p>
 
-&lt;p&gt;&lt;code&gt;install-package Nancy.Hosting.Aspnet&lt;/code&gt;&lt;/p&gt;
+<p><code>install-package Nancy.Hosting.Aspnet</code></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-4-6.png" alt="" /></p>
 
-&lt;hr /&gt;
+<hr />
 
-&lt;p&gt;Now we can publish the website. I'm just going to publish to the file system since this is a learning exercise. &lt;/p&gt;
+<p>Now we can publish the website. I'm just going to publish to the file system since this is a learning exercise. </p>
 
-&lt;h2&gt;Deployment&lt;/h2&gt;
+<h2>Deployment</h2>
 
-&lt;p&gt;Now that we've created and updated our Nancy project, published it. Now we can deploy it! &lt;/p&gt;
+<p>Now that we've created and updated our Nancy project, published it. Now we can deploy it! </p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-4-7.png" alt="" /></p>
 
-&lt;p&gt;So we can remove the html files we manually created in the previous posts, and deploy our Nancy website to the FTP. &lt;/p&gt;
+<p>So we can remove the html files we manually created in the previous posts, and deploy our Nancy website to the FTP. </p>
 
-&lt;h2&gt;Does it work?&lt;/h2&gt;
+<h2>Does it work?</h2>
 
-&lt;p&gt;If we visit the site now, most likely we will end up with:&lt;/p&gt;
+<p>If we visit the site now, most likely we will end up with:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-8.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-4-8.png" alt="" /></p>
 
-&lt;p&gt;This is because we originally configured our fastcgi index to be &lt;code&gt;index.aspx&lt;/code&gt;&lt;/p&gt;
+<p>This is because we originally configured our fastcgi index to be <code>index.aspx</code></p>
 
-&lt;h2&gt;Configure the default page&lt;/h2&gt;
+<h2>Configure the default page</h2>
 
-&lt;p&gt;We can update our nginx configuration now, call &lt;code&gt;nano /etc/nginx/sites-available/default&lt;/code&gt;&lt;/p&gt;
+<p>We can update our nginx configuration now, call <code>nano /etc/nginx/sites-available/default</code></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-4-9.png" alt="" /></p>
 
-&lt;p&gt;Remove the &lt;code&gt;index.aspx&lt;/code&gt; part so the index is just &lt;code&gt;/&lt;/code&gt; and nothing else.&lt;/p&gt;
+<p>Remove the <code>index.aspx</code> part so the index is just <code>/</code> and nothing else.</p>
 
-&lt;p&gt;Now we can restart nginx to make sure the changes are picked up... &lt;code&gt;service nginx restart&lt;/code&gt;&lt;/p&gt;
+<p>Now we can restart nginx to make sure the changes are picked up... <code>service nginx restart</code></p>
 
-&lt;h2&gt;Now does it work?!?&lt;/h2&gt;
+<h2>Now does it work?!?</h2>
 
-&lt;p&gt;Now we can give it a restart anddddddddddd.....&lt;/p&gt;
+<p>Now we can give it a restart anddddddddddd.....</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/setup-mono-on-ubuntu-part-4-10.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/setup-mono-on-ubuntu-part-4-10.png" alt="" /></p>
 
-&lt;p&gt;BAM! Now we have Nancy... Running on Mono... on nginx... Ubuntu... on Azure...&lt;/p&gt;
+<p>BAM! Now we have Nancy... Running on Mono... on nginx... Ubuntu... on Azure...</p>
 
-&lt;p&gt;How awesome is that! &lt;/p&gt;
+<p>How awesome is that! </p>
 
 
 	<div class="divider"></div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,53 +49,53 @@
       </div>
     </div>
         
-    &lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; This is an update post for &lt;a href=&quot;/2012/12/windows-store-app-with-caliburn-micro-getting-started/&quot;&gt;Windows Store App with Caliburn.Micro - Getting Started&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+    <p><span class="note"><strong>Note:</strong> This is an update post for <a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">Windows Store App with Caliburn.Micro - Getting Started</a></span></p>
 
-&lt;p&gt;Back in December I blogged about &lt;a href=&quot;/2012/12/windows-store-app-with-caliburn-micro-getting-started/&quot;&gt;getting started&lt;/a&gt; with Caliburn.Micro, not long after I created the post a &lt;a href=&quot;http://devlicio.us/blogs/rob_eisenberg/archive/2013/01/20/caliburn-micro-v1-4-1-released.aspx&quot;&gt;new version&lt;/a&gt; (v1.4.1) was released.&lt;/p&gt;
+<p>Back in December I blogged about <a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">getting started</a> with Caliburn.Micro, not long after I created the post a <a href="http://devlicio.us/blogs/rob_eisenberg/archive/2013/01/20/caliburn-micro-v1-4-1-released.aspx">new version</a> (v1.4.1) was released.</p>
 
-&lt;p&gt;The changes in this release break my previous blog post so I'm updating here.&lt;/p&gt;
+<p>The changes in this release break my previous blog post so I'm updating here.</p>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; The original post still applies, the change is only to the setup of the App&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> The original post still applies, the change is only to the setup of the App</span></p>
 
-&lt;h2&gt;App Setup&lt;/h2&gt;
+<h2>App Setup</h2>
 
-&lt;p&gt;In the previous post when we configured the container, all we needed to do was Register the WinRT Services.&lt;/p&gt;
+<p>In the previous post when we configured the container, all we needed to do was Register the WinRT Services.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;pre&gt;&lt;code&gt;protected override void Configure()
+<pre><code>protected override void Configure()
 {
     container = new WinRTContainer();
     container.RegisterWinRTServices();
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;However, the default container no longer auto creates concrete types, which causes View Models to not auto create. To fix this we do one of two things.&lt;/p&gt;
+<p>However, the default container no longer auto creates concrete types, which causes View Models to not auto create. To fix this we do one of two things.</p>
 
-&lt;h2&gt;Manually Register Types&lt;/h2&gt;
+<h2>Manually Register Types</h2>
 
-&lt;p&gt;In the Configure method, we can manually register the View Model like so&lt;/p&gt;
+<p>In the Configure method, we can manually register the View Model like so</p>
 
-&lt;pre&gt;&lt;code&gt;protected override void Configure()
+<pre><code>protected override void Configure()
 {
     container = new WinRTContainer();
     container.RegisterWinRTServices();
-    container.PerRequest&amp;lt;MainViewModel&amp;gt;();
+    container.PerRequest&lt;MainViewModel&gt;();
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Running the app, the View Model should now be created when you navigate to the View. The downside to this approach is that you need to do this for every view model which can be tedious.&lt;/p&gt;
+<p>Running the app, the View Model should now be created when you navigate to the View. The downside to this approach is that you need to do this for every view model which can be tedious.</p>
 
-&lt;h2&gt;Automate the Registration&lt;/h2&gt;
+<h2>Automate the Registration</h2>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; This approach came from the samples.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> This approach came from the samples.</span></p>
 
-&lt;p&gt;Instead of manually registering, we can automate it by over-riding the &lt;code&gt;GetInstance&lt;/code&gt; method and manually registering the type if it doesn't exist.&lt;/p&gt;
+<p>Instead of manually registering, we can automate it by over-riding the <code>GetInstance</code> method and manually registering the type if it doesn't exist.</p>
 
-&lt;pre&gt;&lt;code&gt;private static bool IsConcrete(Type service)
+<pre><code>private static bool IsConcrete(Type service)
 {
     var serviceInfo = service.GetTypeInfo();
-    return !serviceInfo.IsAbstract &amp;amp;&amp;amp; !serviceInfo.IsInterface;
+    return !serviceInfo.IsAbstract &amp;&amp; !serviceInfo.IsInterface;
 }
 
 protected override object GetInstance(Type service, string key)
@@ -103,7 +103,7 @@ protected override object GetInstance(Type service, string key)
     var obj = container.GetInstance(service, key);
 
     // mimic previous behaviour of WinRT SimpleContainer
-    if (obj == null &amp;amp;&amp;amp; IsConcrete(service))
+    if (obj == null &amp;&amp; IsConcrete(service))
     {
         container.RegisterPerRequest(service, key, service);
         obj = container.GetInstance(service, key);
@@ -111,11 +111,11 @@ protected override object GetInstance(Type service, string key)
 
     return obj;
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;In this example we attempt to get the instance, if it doesn't exist, but it's a concrete type, then we register it and then Get/Return it. &lt;/p&gt;
+<p>In this example we attempt to get the instance, if it doesn't exist, but it's a concrete type, then we register it and then Get/Return it. </p>
 
-&lt;p&gt;And that's it :) &lt;/p&gt;
+<p>And that's it :) </p>
 
 
 	<div class="divider"></div>

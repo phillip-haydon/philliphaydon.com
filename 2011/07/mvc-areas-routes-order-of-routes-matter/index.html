@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,50 +49,50 @@
       </div>
     </div>
         
-    &lt;p&gt;The order in which routes are registered, really is pretty damn important, otherwise it can have really strange side-effects.&lt;/p&gt;
+    <p>The order in which routes are registered, really is pretty damn important, otherwise it can have really strange side-effects.</p>
 
-&lt;p&gt;I have a site, which has 3 areas, and no default... 'non-area'.&lt;/p&gt;
+<p>I have a site, which has 3 areas, and no default... 'non-area'.</p>
 
-&lt;ul&gt;
-&lt;li&gt;Admin&lt;/li&gt;
-&lt;li&gt;Members&lt;/li&gt;
-&lt;li&gt;Site&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li>Admin</li>
+<li>Members</li>
+<li>Site</li>
+</ul>
 
-&lt;p&gt;So rather than having the structure:&lt;/p&gt;
+<p>So rather than having the structure:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/mvc-routes-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/mvc-routes-1.png" alt="" /></p>
 
-&lt;p&gt;Where the root/default site is in the main directory, with two areas. I wanted this structure:&lt;/p&gt;
+<p>Where the root/default site is in the main directory, with two areas. I wanted this structure:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/mvc-routes-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/mvc-routes-2.png" alt="" /></p>
 
-&lt;p&gt;So no root/default, and just a 'Site' area which would be the default.&lt;/p&gt;
+<p>So no root/default, and just a 'Site' area which would be the default.</p>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt;The default route is removed from Global.asax... for now&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong>The default route is removed from Global.asax... for now</span></p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;This works perfectly fine if all the URL's are accessed like:&lt;/p&gt;
+<p>This works perfectly fine if all the URL's are accessed like:</p>
 
-&lt;pre&gt;&lt;code&gt;http://localhost:147/Site/Home/Index
+<pre><code>http://localhost:147/Site/Home/Index
 
 http://localhost:147/Admin/Home/Index
 
 http://localhost:147/Member/Home/Index
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;If we run this in a browser we get the following:&lt;/p&gt;
+<p>If we run this in a browser we get the following:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/mvc-routes-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/mvc-routes-3.png" alt="" /></p>
 
-&lt;p&gt;These routes are registered automatically when you add an Area, in a &lt;em&gt;AreaName&lt;/em&gt;AreaRegistration file.&lt;/p&gt;
+<p>These routes are registered automatically when you add an Area, in a <em>AreaName</em>AreaRegistration file.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/mvc-routes-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/mvc-routes-4.png" alt="" /></p>
 
-&lt;p&gt;The routes generated look like the following:&lt;/p&gt;
+<p>The routes generated look like the following:</p>
 
-&lt;pre&gt;&lt;code&gt;namespace RoutingIssue.Areas.Members
+<pre><code>namespace RoutingIssue.Areas.Members
 {
     public class MembersAreaRegistration : AreaRegistration
     {
@@ -100,104 +100,104 @@ http://localhost:147/Member/Home/Index
         {
             get
             {
-                return &quot;Members&quot;;
+                return "Members";
             }
         }
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                &quot;Members_default&quot;,
-                &quot;Members/{controller}/{action}/{id}&quot;,
-                new { action = &quot;Index&quot;, id = UrlParameter.Optional }
+                "Members_default",
+                "Members/{controller}/{action}/{id}",
+                new { action = "Index", id = UrlParameter.Optional }
             );
         }
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;But with different AreaName's of course. You get the idea.&lt;/p&gt;
+<p>But with different AreaName's of course. You get the idea.</p>
 
-&lt;p&gt;Now what we want to do is change the Site route, to work from the root directly like:&lt;/p&gt;
+<p>Now what we want to do is change the Site route, to work from the root directly like:</p>
 
-&lt;pre&gt;&lt;code&gt;http://localhost:147/
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>http://localhost:147/
+</code></pre>
 
-&lt;p&gt;This is where my assumptions began to go wrong... I updated the route like so:&lt;/p&gt;
+<p>This is where my assumptions began to go wrong... I updated the route like so:</p>
 
-&lt;pre&gt;&lt;code&gt;public override void RegisterArea(AreaRegistrationContext context)
+<pre><code>public override void RegisterArea(AreaRegistrationContext context)
 {
     context.MapRoute(
-        &quot;Site_default&quot;,
-        &quot;{controller}/{action}/{id}&quot;,
-        new { controller = &quot;Home&quot;, action = &quot;Index&quot;, id = UrlParameter.Optional }
+        "Site_default",
+        "{controller}/{action}/{id}",
+        new { controller = "Home", action = "Index", id = UrlParameter.Optional }
     );
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So I've removed 'Site' from the path, and added the default controller.&lt;/p&gt;
+<p>So I've removed 'Site' from the path, and added the default controller.</p>
 
-&lt;p&gt;This is where things started to get messy. At first, it worked, in my sample project. Then I added AutoFac, MiniProfiler, some Content, and a few other things. That's when it all went pear shaped.&lt;/p&gt;
+<p>This is where things started to get messy. At first, it worked, in my sample project. Then I added AutoFac, MiniProfiler, some Content, and a few other things. That's when it all went pear shaped.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/mvc-routes-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/mvc-routes-5.png" alt="" /></p>
 
-&lt;p&gt;It seems to have lost the information about the routes for Admin/Member.&lt;/p&gt;
+<p>It seems to have lost the information about the routes for Admin/Member.</p>
 
-&lt;p&gt;Creating a new project with it working, and with my current project. I wrote some 
-Trace.Write(&quot;AreaName&quot;) code into each AreaRegistration. The working project outputted:&lt;/p&gt;
+<p>Creating a new project with it working, and with my current project. I wrote some 
+Trace.Write("AreaName") code into each AreaRegistration. The working project outputted:</p>
 
-&lt;ul&gt;
-&lt;li&gt;Members &lt;/li&gt;
-&lt;li&gt;Admin &lt;/li&gt;
-&lt;li&gt;Site&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li>Members </li>
+<li>Admin </li>
+<li>Site</li>
+</ul>
 
-&lt;p&gt;However the second project, where it was failing, outputted:&lt;/p&gt;
+<p>However the second project, where it was failing, outputted:</p>
 
-&lt;ul&gt;
-&lt;li&gt;Site &lt;/li&gt;
-&lt;li&gt;Members &lt;/li&gt;
-&lt;li&gt;Admin&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li>Site </li>
+<li>Members </li>
+<li>Admin</li>
+</ul>
 
-&lt;p&gt;So what's happening is in my project, it registers the default route first without the Area:&lt;/p&gt;
+<p>So what's happening is in my project, it registers the default route first without the Area:</p>
 
-&lt;pre&gt;&lt;code&gt;context.MapRoute(
-    &quot;Site_default&quot;,
-    &quot;{controller}/{action}/{id}&quot;,
-    new { controller = &quot;Home&quot;, action = &quot;Index&quot;, id = UrlParameter.Optional }
+<pre><code>context.MapRoute(
+    "Site_default",
+    "{controller}/{action}/{id}",
+    new { controller = "Home", action = "Index", id = UrlParameter.Optional }
 );
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Took me hours to figure this out. That MVC cannot guarantee the order of which Area's are registered. The second two Area's didn't stand a chance.&lt;/p&gt;
+<p>Took me hours to figure this out. That MVC cannot guarantee the order of which Area's are registered. The second two Area's didn't stand a chance.</p>
 
-&lt;p&gt;The solution was to move the Site route to the global.asax file, and specify an Area on it. My Site registration looks like:&lt;/p&gt;
+<p>The solution was to move the Site route to the global.asax file, and specify an Area on it. My Site registration looks like:</p>
 
-&lt;pre&gt;&lt;code&gt;public override void RegisterArea(AreaRegistrationContext context)
+<pre><code>public override void RegisterArea(AreaRegistrationContext context)
 {
     //context.MapRoute(
-    //    &quot;Site_default&quot;,
-    //    &quot;{controller}/{action}/{id}&quot;,
-    //    new { controller = &quot;Home&quot;, action = &quot;Index&quot;, id = UrlParameter.Optional }
+    //    "Site_default",
+    //    "{controller}/{action}/{id}",
+    //    new { controller = "Home", action = "Index", id = UrlParameter.Optional }
     //);
-    Trace.WriteLine(&quot;Site&quot;);
+    Trace.WriteLine("Site");
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;While my global.asax file has:&lt;/p&gt;
+<p>While my global.asax file has:</p>
 
-&lt;pre&gt;&lt;code&gt;public static void RegisterRoutes(RouteCollection routes)
+<pre><code>public static void RegisterRoutes(RouteCollection routes)
 {
-    routes.IgnoreRoute(&quot;{resource}.axd/{*pathInfo}&quot;);
+    routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
     routes.MapRoute(
-        &quot;default&quot;,
-        &quot;{controller}/{action}/{id}&quot;,
-        new { controller = &quot;Home&quot;, action = &quot;Index&quot;, id = UrlParameter.Optional },
-        new string[] { &quot;RoutingIssue.Areas.Site.Controllers&quot; }
-    ).DataTokens.Add(&quot;Area&quot;, &quot;Site&quot;);
+        "default",
+        "{controller}/{action}/{id}",
+        new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+        new string[] { "RoutingIssue.Areas.Site.Controllers" }
+    ).DataTokens.Add("Area", "Site");
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This means the default route is registered after my Areas, and everything works perfectly again :)&lt;/p&gt;
+<p>This means the default route is registered after my Areas, and everything works perfectly again :)</p>
 
 
 	<div class="divider"></div>

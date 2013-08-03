@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,91 +49,91 @@
       </div>
     </div>
         
-    &lt;p&gt;So I've been learning Windows 8 development recently, specifically with C#/XAML, and Caliburn.Micro for the MVVM goodness. This is all brand new stuff for me, never done any WPF, Silverlight or Windows Phone dev. So I figured it's a good chance to blog what I'm learning.&lt;/p&gt;
+    <p>So I've been learning Windows 8 development recently, specifically with C#/XAML, and Caliburn.Micro for the MVVM goodness. This is all brand new stuff for me, never done any WPF, Silverlight or Windows Phone dev. So I figured it's a good chance to blog what I'm learning.</p>
 
-&lt;p&gt;In this post I want to show you how to get up and running.&lt;/p&gt;
+<p>In this post I want to show you how to get up and running.</p>
 
-&lt;p&gt;I started by reading the blog posts over at Mindscape.&lt;/p&gt;
+<p>I started by reading the blog posts over at Mindscape.</p>
 
-&lt;p&gt;&lt;a href=&quot;http://www.mindscapehq.com/blog/index.php/2012/01/12/caliburn-micro-part-1-getting-started/&quot;&gt;http://www.mindscapehq.com/blog/index.php/2012/01/12/caliburn-micro-part-1-getting-started/&lt;/a&gt;&lt;/p&gt;
+<p><a href="http://www.mindscapehq.com/blog/index.php/2012/01/12/caliburn-micro-part-1-getting-started/">http://www.mindscapehq.com/blog/index.php/2012/01/12/caliburn-micro-part-1-getting-started/</a></p>
 
-&lt;p&gt;(great series by &lt;a href=&quot;https://twitter.com/QuantumNgtmare&quot;&gt;@Jason&lt;/a&gt;, list of links at bottom of this post)&lt;/p&gt;
+<p>(great series by <a href="https://twitter.com/QuantumNgtmare">@Jason</a>, list of links at bottom of this post)</p>
 
-&lt;p&gt;The downside is they were very WPF centric, and a few things getting started have changed. There's no bootstrapper for example.&lt;/p&gt;
+<p>The downside is they were very WPF centric, and a few things getting started have changed. There's no bootstrapper for example.</p>
 
-&lt;p&gt;So, here's my blog series.&lt;/p&gt;
+<p>So, here's my blog series.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;h2&gt;Before getting started&lt;/h2&gt;
+<h2>Before getting started</h2>
 
-&lt;p&gt;The most important thing to note about building Windows Store App's is that you can't just reference any old assembly, it has to be either developed for Windows Store, or be created as a portable library. This is because WinRT (Windows Runtime) doesn't contain all the same namespaces as the .NET framework.&lt;/p&gt;
+<p>The most important thing to note about building Windows Store App's is that you can't just reference any old assembly, it has to be either developed for Windows Store, or be created as a portable library. This is because WinRT (Windows Runtime) doesn't contain all the same namespaces as the .NET framework.</p>
 
-&lt;h2&gt;Getting Started&lt;/h2&gt;
+<h2>Getting Started</h2>
 
-&lt;p&gt;Create a new Blank App (XAML)&lt;/p&gt;
+<p>Create a new Blank App (XAML)</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/windows-store-start-1.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/windows-store-start-1.png" /></p>
 
-&lt;p&gt;Next you're going to need to install Caliburn.Micro, I use Nuget for this, but you can download the package and reference it manually from codeplex.&lt;/p&gt;
+<p>Next you're going to need to install Caliburn.Micro, I use Nuget for this, but you can download the package and reference it manually from codeplex.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/windows-store-start-2.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/windows-store-start-2.png" /></p>
 
-&lt;p&gt;Your solution should look something like this:&lt;/p&gt;
+<p>Your solution should look something like this:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/windows-store-start-3.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/windows-store-start-3.png" /></p>
 
-&lt;p&gt;The first thing we can do is delete the MainPage.xaml, and add a couple of folder, Views and ViewModels. You can also add your own Styles file too. While you're at it, add a MainView.xaml and MainViewModel.cs to their respected folders.&lt;/p&gt;
+<p>The first thing we can do is delete the MainPage.xaml, and add a couple of folder, Views and ViewModels. You can also add your own Styles file too. While you're at it, add a MainView.xaml and MainViewModel.cs to their respected folders.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/windows-store-start-4.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/windows-store-start-4.png" /></p>
 
-&lt;p&gt;Let's start writing/fixing code!&lt;/p&gt;
+<p>Let's start writing/fixing code!</p>
 
-&lt;p&gt;&lt;strong&gt;App.xaml&lt;/strong&gt;&lt;/p&gt;
+<p><strong>App.xaml</strong></p>
 
-&lt;p&gt;This file is the entry point to your application. It's the very first file that is executed, it's best to leave the file name as is, but if you wish to change it. Then you need to open your Package.appxmanifest file and modify the entry point.&lt;/p&gt;
+<p>This file is the entry point to your application. It's the very first file that is executed, it's best to leave the file name as is, but if you wish to change it. Then you need to open your Package.appxmanifest file and modify the entry point.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/windows-store-start-5.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/windows-store-start-5.png" /></p>
 
-&lt;p&gt;For now, don't worry about changing this, I'll try cover this in future posts.&lt;/p&gt;
+<p>For now, don't worry about changing this, I'll try cover this in future posts.</p>
 
-&lt;p&gt;First thing we want to do is open up the XAML file, not the code file. We can strip back the comments and include our custom styles resource.&lt;/p&gt;
+<p>First thing we want to do is open up the XAML file, not the code file. We can strip back the comments and include our custom styles resource.</p>
 
-&lt;p&gt;Next we want to add in a namespace attribute:&lt;/p&gt;
+<p>Next we want to add in a namespace attribute:</p>
 
-&lt;pre&gt;&lt;code&gt;xmlns:caliburn=&quot;using:Caliburn.Micro&quot;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>xmlns:caliburn="using:Caliburn.Micro"
+</code></pre>
 
-&lt;p&gt;This is like adding custom controls to a web.config file or declaring the custom controls in your page, then accessing them via the prefix you define.&lt;/p&gt;
+<p>This is like adding custom controls to a web.config file or declaring the custom controls in your page, then accessing them via the prefix you define.</p>
 
-&lt;p&gt;This allows us to modify the root Element and make it a Caliburn Application.&lt;/p&gt;
+<p>This allows us to modify the root Element and make it a Caliburn Application.</p>
 
-&lt;p&gt;What you should end up with is the following:&lt;/p&gt;
+<p>What you should end up with is the following:</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;caliburn:CaliburnApplication
-    x:Class=&quot;SampleProject.App&quot;
-    xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
-    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
-    xmlns:local=&quot;using:SampleProject&quot;
-    xmlns:caliburn=&quot;using:Caliburn.Micro&quot;&amp;gt;
-    &amp;lt;Application.Resources&amp;gt;
-        &amp;lt;ResourceDictionary&amp;gt;
-            &amp;lt;ResourceDictionary.MergedDictionaries&amp;gt;
-                &amp;lt;ResourceDictionary Source=&quot;Common/StandardStyles.xaml&quot;/&amp;gt;
-                &amp;lt;ResourceDictionary Source=&quot;Common/CustomStyles.xaml&quot;/&amp;gt;
-            &amp;lt;/ResourceDictionary.MergedDictionaries&amp;gt;
-        &amp;lt;/ResourceDictionary&amp;gt;
-    &amp;lt;/Application.Resources&amp;gt;
-&amp;lt;/caliburn:CaliburnApplication&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>&lt;caliburn:CaliburnApplication
+    x:Class="SampleProject.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SampleProject"
+    xmlns:caliburn="using:Caliburn.Micro"&gt;
+    &lt;Application.Resources&gt;
+        &lt;ResourceDictionary&gt;
+            &lt;ResourceDictionary.MergedDictionaries&gt;
+                &lt;ResourceDictionary Source="Common/StandardStyles.xaml"/&gt;
+                &lt;ResourceDictionary Source="Common/CustomStyles.xaml"/&gt;
+            &lt;/ResourceDictionary.MergedDictionaries&gt;
+        &lt;/ResourceDictionary&gt;
+    &lt;/Application.Resources&gt;
+&lt;/caliburn:CaliburnApplication&gt;
+</code></pre>
 
-&lt;p&gt;The next thing you want to do is open up the code file for the App.xaml file. By default this has a LOT of stuff in it, that we don't need at all.&lt;/p&gt;
+<p>The next thing you want to do is open up the code file for the App.xaml file. By default this has a LOT of stuff in it, that we don't need at all.</p>
 
-&lt;p&gt;Below is the recommendation sample from Caliburn.Micro documentation, it does quite a bit including having a basic IoC container for WinRT, and handles View or ViewModel first approach.&lt;/p&gt;
+<p>Below is the recommendation sample from Caliburn.Micro documentation, it does quite a bit including having a basic IoC container for WinRT, and handles View or ViewModel first approach.</p>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Caliburn.Micro 1.4.1 has a breaking change, please read the &lt;a href=&quot;/2013/02/windows-store-app-with-caliburn-micro-getting-started-updated/&quot;&gt;updated post&lt;/a&gt; for info on updating the code below to be compatiable with v1.4.1&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> Caliburn.Micro 1.4.1 has a breaking change, please read the <a href="/2013/02/windows-store-app-with-caliburn-micro-getting-started-updated/">updated post</a> for info on updating the code below to be compatiable with v1.4.1</span></p>
 
-&lt;pre&gt;&lt;code&gt;using System;
+<pre><code>using System;
 using System.Collections.Generic;
 using Caliburn.Micro;
 using SampleProject.Views;
@@ -161,7 +161,7 @@ namespace SampleProject
             return container.GetInstance(service, key);
         }
 
-        protected override IEnumerable&amp;lt;object&amp;gt; GetAllInstances(Type service)
+        protected override IEnumerable&lt;object&gt; GetAllInstances(Type service)
         {
             return container.GetAllInstances(service);
         }
@@ -178,74 +178,74 @@ namespace SampleProject
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            DisplayRootView&amp;lt;MainView&amp;gt;();
+            DisplayRootView&lt;MainView&gt;();
         }
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;The very last method 'OnLaunched' has the class to our Main View, this tells the application that the first thing we will see will be the MainView.&lt;/p&gt;
+<p>The very last method 'OnLaunched' has the class to our Main View, this tells the application that the first thing we will see will be the MainView.</p>
 
-&lt;p&gt;Next lets look at the ViewModel.&lt;/p&gt;
+<p>Next lets look at the ViewModel.</p>
 
-&lt;h3&gt;MainViewModel.cs&lt;/h3&gt;
+<h3>MainViewModel.cs</h3>
 
-&lt;p&gt;In this file, strip everything back and inherit 'Screen'&lt;/p&gt;
+<p>In this file, strip everything back and inherit 'Screen'</p>
 
-&lt;p&gt;Although this file will be loaded, it's not going to do anything just yet. At least not for this sample.&lt;/p&gt;
+<p>Although this file will be loaded, it's not going to do anything just yet. At least not for this sample.</p>
 
-&lt;h3&gt;MainView.xaml&lt;/h3&gt;
+<h3>MainView.xaml</h3>
 
-&lt;p&gt;Now lets look at the view, open up the xaml file. This file should have been created with as a Blank page, once open, add a TextBlock with the text Hello World.&lt;/p&gt;
+<p>Now lets look at the view, open up the xaml file. This file should have been created with as a Blank page, once open, add a TextBlock with the text Hello World.</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;Page x:Class=&quot;SampleProject.Views.MainView&quot;
-      xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
-      xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
-      xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
-      xmlns:local=&quot;using:SampleProject.Views&quot;
-      xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
-      mc:Ignorable=&quot;d&quot;&amp;gt;
-    &amp;lt;Grid Background=&quot;{StaticResource ApplicationPageBackgroundThemeBrush}&quot;&amp;gt;
-        &amp;lt;TextBlock Text=&quot;Hello World&quot; /&amp;gt;
-    &amp;lt;/Grid&amp;gt;
-&amp;lt;/Page&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>&lt;Page x:Class="SampleProject.Views.MainView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:SampleProject.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"&gt;
+    &lt;Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}"&gt;
+        &lt;TextBlock Text="Hello World" /&gt;
+    &lt;/Grid&gt;
+&lt;/Page&gt;
+</code></pre>
 
-&lt;p&gt;We don't need to modify the code file for this.&lt;/p&gt;
+<p>We don't need to modify the code file for this.</p>
 
-&lt;p&gt;Now we should be able to run app. There is 3 possible ways to run:&lt;/p&gt;
+<p>Now we should be able to run app. There is 3 possible ways to run:</p>
 
-&lt;ol&gt;
-&lt;li&gt;&lt;h4&gt;Local Machine&lt;/h4&gt;
+<ol>
+<li><h4>Local Machine</h4>
 
-&lt;p&gt;Using a Local Machine means the application will be loaded into your Start Screen and automatically be run.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;h4&gt;Simulator&lt;/h4&gt;
+<p>Using a Local Machine means the application will be loaded into your Start Screen and automatically be run.</p></li>
+<li><h4>Simulator</h4>
 
-&lt;p&gt;The simulator will open up a simulation app which resembles a tablet, this gives a bunch of options to simulate different gestures such as using touch and pinch etc.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;h4&gt;Remote Machine&lt;/h4&gt;
+<p>The simulator will open up a simulation app which resembles a tablet, this gives a bunch of options to simulate different gestures such as using touch and pinch etc.</p></li>
+<li><h4>Remote Machine</h4>
 
-&lt;p&gt;The remote machine option requires the Remote SDK to be installed and running on a remote machine. This is handy for testing on an actual device. I'll cover this next week when I explain how to setup remote debugging.&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
+<p>The remote machine option requires the Remote SDK to be installed and running on a remote machine. This is handy for testing on an actual device. I'll cover this next week when I explain how to setup remote debugging.</p></li>
+</ol>
 
-&lt;p&gt;I suggest selecting Simulator and pressing F5. Assuming you've followed along you should get this:&lt;/p&gt;
+<p>I suggest selecting Simulator and pressing F5. Assuming you've followed along you should get this:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/windows-store-start-6.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/windows-store-start-6.png" /></p>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I increased the font size for the purpose of taking a screen grab :)&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> I increased the font size for the purpose of taking a screen grab :)</span></p>
 
-&lt;p&gt;And that's it, so far all we've done is configure Caliburn and tell it to load a view, we aren't really utilizing it yet but we will in the future!&lt;/p&gt;
+<p>And that's it, so far all we've done is configure Caliburn and tell it to load a view, we aren't really utilizing it yet but we will in the future!</p>
 
-&lt;hr /&gt;
+<hr />
 
-&lt;p&gt;As mentioned here's Jason's post over at Mindscape:&lt;/p&gt;
+<p>As mentioned here's Jason's post over at Mindscape:</p>
 
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.mindscapehq.com/blog/index.php/2012/01/12/caliburn-micro-part-1-getting-started/&quot;&gt;Caliburn Micro Part 1: Getting Started&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.mindscapehq.com/blog/index.php/2012/01/16/caliburn-micro-part-2-data-binding-and-events/&quot;&gt;Caliburn Micro Part 2: Data Binding and Events&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.mindscapehq.com/blog/index.php/2012/01/24/caliburn-micro-part-3-more-about-events-and-parameters/&quot;&gt;Caliburn Micro Part 3: More About Events and Parameters&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.mindscapehq.com/blog/index.php/2012/02/01/caliburn-micro-part-4-the-event-aggregator/&quot;&gt;Caliburn Micro Part 4: The Event Aggregator&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.mindscapehq.com/blog/index.php/2012/03/13/caliburn-micro-part-5-the-window-manager/&quot;&gt;Caliburn Micro Part 5: The Window Manager&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li><a href="http://www.mindscapehq.com/blog/index.php/2012/01/12/caliburn-micro-part-1-getting-started/">Caliburn Micro Part 1: Getting Started</a></li>
+<li><a href="http://www.mindscapehq.com/blog/index.php/2012/01/16/caliburn-micro-part-2-data-binding-and-events/">Caliburn Micro Part 2: Data Binding and Events</a></li>
+<li><a href="http://www.mindscapehq.com/blog/index.php/2012/01/24/caliburn-micro-part-3-more-about-events-and-parameters/">Caliburn Micro Part 3: More About Events and Parameters</a></li>
+<li><a href="http://www.mindscapehq.com/blog/index.php/2012/02/01/caliburn-micro-part-4-the-event-aggregator/">Caliburn Micro Part 4: The Event Aggregator</a></li>
+<li><a href="http://www.mindscapehq.com/blog/index.php/2012/03/13/caliburn-micro-part-5-the-window-manager/">Caliburn Micro Part 5: The Window Manager</a></li>
+</ul>
 
 
 	<div class="divider"></div>

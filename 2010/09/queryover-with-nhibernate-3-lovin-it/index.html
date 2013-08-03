@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,45 +49,45 @@
       </div>
     </div>
         
-    &lt;p&gt;Working on an old website I built back in 2004, back then I coded all the data access by hand, wrote stored products and populated the data into objects, lazy loaded relationships etc. 2005 roles around and I migrated it to .Net 2.0, but with all the old data access stuff intact.&lt;/p&gt;
+    <p>Working on an old website I built back in 2004, back then I coded all the data access by hand, wrote stored products and populated the data into objects, lazy loaded relationships etc. 2005 roles around and I migrated it to .Net 2.0, but with all the old data access stuff intact.</p>
 
-&lt;p&gt;Move forward 6 years and I have to make some changes, so I figured I would update the data access to use NH3.0 so I could play around with it.&lt;/p&gt;
+<p>Move forward 6 years and I have to make some changes, so I figured I would update the data access to use NH3.0 so I could play around with it.</p>
 
-&lt;p&gt;One of the thing's I just wrote was a sub query using exists. If I wrote the SQL it would probably look something along the lines of:&lt;/p&gt;
+<p>One of the thing's I just wrote was a sub query using exists. If I wrote the SQL it would probably look something along the lines of:</p>
 
-&lt;pre&gt;&lt;code&gt;SELECT * FROM ProductType
+<pre><code>SELECT * FROM ProductType
 WHERE EXISTS (SELECT 1 FROM Product WHERE Active = 1 AND ProductTypeID = ProductType.ProductTypeID)
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;With some more criteria, since the data comes from MYOB it's sometimes out of date, I check for status, active, quantity,price,etc.&lt;/p&gt;
+<p>With some more criteria, since the data comes from MYOB it's sometimes out of date, I check for status, active, quantity,price,etc.</p>
 
-&lt;p&gt;Originally this stuff was in a stored procedure, and I needed to write this using QueryOver.&lt;/p&gt;
+<p>Originally this stuff was in a stored procedure, and I needed to write this using QueryOver.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;I broken the query into two pieces, the query against the Product with criteria, and the query against the ProductType, using the Product query as  a Subquery for the ProductType criteria.&lt;/p&gt;
+<p>I broken the query into two pieces, the query against the Product with criteria, and the query against the ProductType, using the Product query as  a Subquery for the ProductType criteria.</p>
 
-&lt;pre&gt;&lt;code&gt;var products = QueryOver.Of&amp;lt;Product&amp;gt;()
-    .Where(x =&amp;gt; x.RetailPrice &amp;gt; 0)
-    .And(x =&amp;gt; x.Quantity &amp;gt; 0)
-    .And(x =&amp;gt; x.Active)
-    .And(x =&amp;gt; x.LastUpdate &amp;gt; DateTime.Now.AddDays(-3))
-    .WhereRestrictionOn(x =&amp;gt; x.StatusId).IsIn(new int[] {1, 2, 9})
-    .Select(x =&amp;gt; x.ProductType.Id);
+<pre><code>var products = QueryOver.Of&lt;Product&gt;()
+    .Where(x =&gt; x.RetailPrice &gt; 0)
+    .And(x =&gt; x.Quantity &gt; 0)
+    .And(x =&gt; x.Active)
+    .And(x =&gt; x.LastUpdate &gt; DateTime.Now.AddDays(-3))
+    .WhereRestrictionOn(x =&gt; x.StatusId).IsIn(new int[] {1, 2, 9})
+    .Select(x =&gt; x.ProductType.Id);
 
-var result = Session.QueryOver&amp;lt;ProductType&amp;gt;()
-    .Where(x =&amp;gt; x.Active)
-    .WithSubquery.WhereProperty(x =&amp;gt; x.Id).In(products)
+var result = Session.QueryOver&lt;ProductType&gt;()
+    .Where(x =&gt; x.Active)
+    .WithSubquery.WhereProperty(x =&gt; x.Id).In(products)
     .List();
 
 return result;
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Running profiler aga... SQL Profiler (not NHProf, tho that would be handy if i could afford it) produces the following:&lt;/p&gt;
+<p>Running profiler aga... SQL Profiler (not NHProf, tho that would be handy if i could afford it) produces the following:</p>
 
-&lt;p&gt;&lt;em&gt;image missing - old post&lt;/em&gt; &lt;/p&gt;
+<p><em>image missing - old post</em> </p>
 
-&lt;pre&gt;&lt;code&gt;SELECT this_.ProductTypeID as ProductT1_3_0_,
+<pre><code>SELECT this_.ProductTypeID as ProductT1_3_0_,
        this_.Name as Name3_0_,
        this_.Active as Active3_0_
 FROM [ProductType] this_
@@ -95,16 +95,16 @@ WHERE this_.Active = @p0
     and this_.ProductTypeID in (
         SELECT this_0_.ProductTypeId as y0_
         FROM [Product] this_0_
-        WHERE this_0_.RetailPrice &amp;gt; @p1
-            and this_0_.Quantity &amp;gt; @p2
+        WHERE this_0_.RetailPrice &gt; @p1
+            and this_0_.Quantity &gt; @p2
             and this_0_.Active = @p3
-            and this_0_.LastUpdate &amp;gt; @p4
+            and this_0_.LastUpdate &gt; @p4
             and this_0_.StatusId in (@p5, @p6, @p7))
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;I removed the parameters since you don't need those :) but it achieves the same thing my old stored proc query did. And it's much easier to maintain too! No more hunting around in stored procs to update queries when columns are dropped or added.&lt;/p&gt;
+<p>I removed the parameters since you don't need those :) but it achieves the same thing my old stored proc query did. And it's much easier to maintain too! No more hunting around in stored procs to update queries when columns are dropped or added.</p>
 
-&lt;p&gt;So far I'm loving the QueryOver syntax.&lt;/p&gt;
+<p>So far I'm loving the QueryOver syntax.</p>
 
 
 	<div class="divider"></div>

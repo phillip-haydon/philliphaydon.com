@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,67 +49,67 @@
       </div>
     </div>
         
-    &lt;p&gt;Today on twitter, &lt;a href=&quot;http://blog.orangelightning.co.uk/&quot;&gt;Phil Jones&lt;/a&gt; (&lt;a href=&quot;http://twitter.com/philjones88&quot;&gt;@philjones88&lt;/a&gt;) asked how you would do RenderAction (ASP.NET MVC extension)&lt;/p&gt;
+    <p>Today on twitter, <a href="http://blog.orangelightning.co.uk/">Phil Jones</a> (<a href="http://twitter.com/philjones88">@philjones88</a>) asked how you would do RenderAction (ASP.NET MVC extension)</p>
 
-&lt;p&gt;I personally don't like RenderAction in MVC, that's not to say it's bad, I just think it hides away important implementation of a page render. I think RenderAction is a bad abstraction. But this is my personal opinion. So don't hate me for it :)&lt;/p&gt;
+<p>I personally don't like RenderAction in MVC, that's not to say it's bad, I just think it hides away important implementation of a page render. I think RenderAction is a bad abstraction. But this is my personal opinion. So don't hate me for it :)</p>
 
-&lt;p&gt;Rather than using RenderAction I prefer to use Partial views.&lt;/p&gt;
+<p>Rather than using RenderAction I prefer to use Partial views.</p>
 
-&lt;p&gt;Lets look at a youtube site for an example:&lt;/p&gt;
+<p>Lets look at a youtube site for an example:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/partial-renders-nancy-1.png&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/partial-renders-nancy-1.png" /></p>
 
-&lt;p&gt;On the left hand side is main content, while on the right hand side is related videos. In ASP.NET MVC we might use something like:&lt;/p&gt;
+<p>On the left hand side is main content, while on the right hand side is related videos. In ASP.NET MVC we might use something like:</p>
 
-&lt;pre&gt;&lt;code&gt;@Html.RenderAction(&quot;Related&quot;, &quot;Videos&quot;);
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>@Html.RenderAction("Related", "Videos");
+</code></pre>
 
-&lt;p&gt;Or something similar, I forget the syntax :)&lt;/p&gt;
+<p>Or something similar, I forget the syntax :)</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;This would use the Query String to get the Video Id and pull all related videos and display them.&lt;/p&gt;
+<p>This would use the Query String to get the Video Id and pull all related videos and display them.</p>
 
-&lt;p&gt;In Nancy if I was building the same page, I would push down a dynamic model:&lt;/p&gt;
+<p>In Nancy if I was building the same page, I would push down a dynamic model:</p>
 
-&lt;pre&gt;&lt;code&gt;@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase&amp;lt;dynamic&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase&lt;dynamic&gt;
+</code></pre>
 
-&lt;p&gt;Then in the Module, query for the video + the recommended data:&lt;/p&gt;
+<p>Then in the Module, query for the video + the recommended data:</p>
 
-&lt;pre&gt;&lt;code&gt;public class VideosModule : RavenModule
+<pre><code>public class VideosModule : RavenModule
 {
     public VideosModule(IDocumentStore documentStore) : base(documentStore)
     {
-        Get[&quot;/videos/{id}&quot;] = _ =&amp;gt;
+        Get["/videos/{id}"] = _ =&gt;
         {
-            Model.Videos = DocumentSession.Load&amp;lt;Video&amp;gt;(_.id);
-            Model.Recommended = DocumentSession.Query&amp;lt;Video, Videos_Recommended&amp;gt;().Where(x =&amp;gt; x.VideoId == _.id);
-            return View[&quot;display-video&quot;, Model];
+            Model.Videos = DocumentSession.Load&lt;Video&gt;(_.id);
+            Model.Recommended = DocumentSession.Query&lt;Video, Videos_Recommended&gt;().Where(x =&gt; x.VideoId == _.id);
+            return View["display-video", Model];
         };
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Model is implemented as an ExpandoObject on the RavenModule:&lt;/p&gt;
+<p>Model is implemented as an ExpandoObject on the RavenModule:</p>
 
-&lt;pre&gt;&lt;code&gt;public abstract class RavenModule : NancyModule
+<pre><code>public abstract class RavenModule : NancyModule
 {
     protected dynamic Model = new ExpandoObject();
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Now on my display-video view, I add:&lt;/p&gt;
+<p>Now on my display-video view, I add:</p>
 
-&lt;pre&gt;&lt;code&gt;@Html.Partial(&quot;recommended&quot;, Model.Recommended)
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>@Html.Partial("recommended", Model.Recommended)
+</code></pre>
 
-&lt;p&gt;This 'recommended' view is the same as the 'display-video' view, in that it uses dynamic also.&lt;/p&gt;
+<p>This 'recommended' view is the same as the 'display-video' view, in that it uses dynamic also.</p>
 
-&lt;p&gt;That's all there is to it.&lt;/p&gt;
+<p>That's all there is to it.</p>
 
-&lt;p&gt;In regards to information displayed on the Master Page (or master layout, what ever you want to call it) Because the 'Model' is defined on the base module, you can implement properties for menu, footer, member details, etc. And still use Partials to render those also.&lt;/p&gt;
+<p>In regards to information displayed on the Master Page (or master layout, what ever you want to call it) Because the 'Model' is defined on the base module, you can implement properties for menu, footer, member details, etc. And still use Partials to render those also.</p>
 
-&lt;p&gt;I'll add a Git Repo for this project in the near future.&lt;/p&gt;
+<p>I'll add a Git Repo for this project in the near future.</p>
 
 
 	<div class="divider"></div>

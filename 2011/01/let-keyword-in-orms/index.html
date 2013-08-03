@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -48,19 +48,19 @@
       </div>
     </div>
         
-    &lt;p&gt;A while ago &lt;a href=&quot;http://www.mindscapehq.com/&quot;&gt;MindScape&lt;/a&gt; posted a new feature called &lt;a href=&quot;http://www.mindscapehq.com/blog/index.php/2010/09/14/ninja-domain-properties-in-lightspeed/&quot;&gt;Ninja Properties&lt;/a&gt; for their ORM, LightSpeed. Their post happened to be a scenario I used to solve with LINQ 2 SQL using the 'let' keyword to create a composite type to query against.&lt;/p&gt;
+    <p>A while ago <a href="http://www.mindscapehq.com/">MindScape</a> posted a new feature called <a href="http://www.mindscapehq.com/blog/index.php/2010/09/14/ninja-domain-properties-in-lightspeed/">Ninja Properties</a> for their ORM, LightSpeed. Their post happened to be a scenario I used to solve with LINQ 2 SQL using the 'let' keyword to create a composite type to query against.</p>
 
-&lt;p&gt;This would allow you to do something along the lines of:&lt;/p&gt;
+<p>This would allow you to do something along the lines of:</p>
 
-&lt;pre&gt;&lt;code&gt;var poo = from s in ctx.Members
-          let fullname = s.FirstName + &quot; &quot; + s.LastName
-          where fullname == &quot;Robert Williams&quot;
+<pre><code>var poo = from s in ctx.Members
+          let fullname = s.FirstName + " " + s.LastName
+          where fullname == "Robert Williams"
           select s;
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This nifty query would generate SQL like so:&lt;/p&gt;
+<p>This nifty query would generate SQL like so:</p>
 
-&lt;pre&gt;&lt;code&gt;SELECT [t1].[Id], [t1].[FirstName], [t1].[LastName]
+<pre><code>SELECT [t1].[Id], [t1].[FirstName], [t1].[LastName]
 FROM (
     SELECT [t0].[Id], [t0].[FirstName], 
            [t0].[LastName], 
@@ -68,24 +68,24 @@ FROM (
     FROM [Member] AS [t0]
     ) AS [t1]
 WHERE [t1].[value] = 'Robert Williams'
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;After commenting in their blog post about it they implemented it and put it into the nightly build. So after some months I finally got around to testing it, for a couple of reasons. Back when NHibernate 3.0 was in Alpha, this technique didn't work! So I thought I would test it out and see if it does, as well as checkout the SQL that's generated.&lt;/p&gt;
+<p>After commenting in their blog post about it they implemented it and put it into the nightly build. So after some months I finally got around to testing it, for a couple of reasons. Back when NHibernate 3.0 was in Alpha, this technique didn't work! So I thought I would test it out and see if it does, as well as checkout the SQL that's generated.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;I'm using the following ORM's&lt;/p&gt;
+<p>I'm using the following ORM's</p>
 
-&lt;ul&gt;
-&lt;li&gt;LightSpeed 3.11 Nightly Build (3.1 it doesn't work)&lt;/li&gt;
-&lt;li&gt;NHibernate 3.0&lt;/li&gt;
-&lt;li&gt;Linq 2 Sql&lt;/li&gt;
-&lt;li&gt;Entity Framework 4&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li>LightSpeed 3.11 Nightly Build (3.1 it doesn't work)</li>
+<li>NHibernate 3.0</li>
+<li>Linq 2 Sql</li>
+<li>Entity Framework 4</li>
+</ul>
 
-&lt;p&gt;The data model is simple, but I have two scenarios I want to test. I created a Member and Task. The Member has a One-to-Many with Tasks.The test data:&lt;/p&gt;
+<p>The data model is simple, but I have two scenarios I want to test. I created a Member and Task. The Member has a One-to-Many with Tasks.The test data:</p>
 
-&lt;pre&gt;&lt;code&gt;insert into member (firstname, lastname) values ('Robert', 'Williams')
+<pre><code>insert into member (firstname, lastname) values ('Robert', 'Williams')
 insert into member (firstname, lastname) values ('Michael', 'Jones')
 insert into member (firstname, lastname) values ('William', 'Brown')
 insert into member (firstname, lastname) values ('David', 'Davis')
@@ -99,34 +99,34 @@ insert into task (MemberId, Name) values(2, 'Task 1')
 insert into task (MemberId, Name) values(2, 'Task 2')
 insert into task (MemberId, Name) values(2, 'Task 3')
 insert into task (MemberId, Name) values(3, 'Task 4')
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;&lt;strong&gt;Scenario 1:&lt;/strong&gt; Find all Members where fullname contains 'w', case insensitive (lowercase the fullname)&lt;/p&gt;
+<p><strong>Scenario 1:</strong> Find all Members where fullname contains 'w', case insensitive (lowercase the fullname)</p>
 
-&lt;p&gt;&lt;strong&gt;Scenario 2:&lt;/strong&gt; Find all Members who have more than 2 tasks.&lt;/p&gt;
+<p><strong>Scenario 2:</strong> Find all Members who have more than 2 tasks.</p>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; These tests are not to say one ORM is better than another, I did this purely out of curiosity and am sharing my results.&lt;/span&gt; &lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> These tests are not to say one ORM is better than another, I did this purely out of curiosity and am sharing my results.</span> </p>
 
-&lt;h2&gt;Scenario 1&lt;/h2&gt;
+<h2>Scenario 1</h2>
 
-&lt;p&gt;I ran the same query against each ORM (to see the full script click here), the query is:&lt;/p&gt;
+<p>I ran the same query against each ORM (to see the full script click here), the query is:</p>
 
-&lt;pre&gt;&lt;code&gt;var poo = from s in ctx.Members
-            let fullname = s.FirstName + &quot; &quot; + s.LastName
-            where fullname.ToLower().Contains(&quot;w&quot;)
+<pre><code>var poo = from s in ctx.Members
+            let fullname = s.FirstName + " " + s.LastName
+            where fullname.ToLower().Contains("w")
             select s;
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;All queries are identical with the exception of the 'in' part, varying between ORMs.&lt;/p&gt;
+<p>All queries are identical with the exception of the 'in' part, varying between ORMs.</p>
 
-&lt;p&gt;LightSpeed : &lt;code&gt;from s in uow.Members&lt;/code&gt;&lt;br /&gt;
-NHibernate 3.0 : &lt;code&gt;from s in session.Query&amp;lt;NHibernate.Member&amp;gt;()&lt;/code&gt;&lt;br /&gt;
-Linq 2 Sql : &lt;code&gt;from s in ctx.Members&lt;/code&gt;&lt;br /&gt;
-Entity Framework 4: &lt;code&gt;from s in mmc.Members&lt;/code&gt;&lt;/p&gt;
+<p>LightSpeed : <code>from s in uow.Members</code><br />
+NHibernate 3.0 : <code>from s in session.Query&lt;NHibernate.Member&gt;()</code><br />
+Linq 2 Sql : <code>from s in ctx.Members</code><br />
+Entity Framework 4: <code>from s in mmc.Members</code></p>
 
-&lt;p&gt;The output was as follows:&lt;/p&gt;
+<p>The output was as follows:</p>
 
-&lt;pre&gt;&lt;code&gt;----
+<pre><code>----
 LINQ 2 SQL
 Robert
 William
@@ -146,13 +146,13 @@ EntityFramework 4
 Robert
 William
 Charles
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;All ORM's worked perfectly. How about the SQL Generated from these?&lt;/p&gt;
+<p>All ORM's worked perfectly. How about the SQL Generated from these?</p>
 
-&lt;h3&gt;Linq 2 SQL:&lt;/h3&gt;
+<h3>Linq 2 SQL:</h3>
 
-&lt;pre&gt;&lt;code&gt;SELECT [t1].[Id], [t1].[FirstName], [t1].[LastName]
+<pre><code>SELECT [t1].[Id], [t1].[FirstName], [t1].[LastName]
 FROM (
     SELECT [t0].[Id], [t0].[FirstName], 
            [t0].[LastName], 
@@ -160,11 +160,11 @@ FROM (
     FROM [Member] AS [t0]
     ) AS [t1]
 WHERE LOWER([t1].[value]) LIKE '%w%'
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;h3&gt;LightSpeed:&lt;/h3&gt;
+<h3>LightSpeed:</h3>
 
-&lt;pre&gt;&lt;code&gt;SELECT
+<pre><code>SELECT
   Member.Id AS [Member.Id],
   Member.FirstName AS [Member.FirstName],
   Member.LastName AS [Member.LastName]
@@ -172,47 +172,47 @@ FROM
   Member
 WHERE
   LOWER(((Member.FirstName + ' ') + Member.LastName)) LIKE '%w%'
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;h3&gt;NHibernate:&lt;/h3&gt;
+<h3>NHibernate:</h3>
 
-&lt;pre&gt;&lt;code&gt;select member0_.Id as Id0_, 
+<pre><code>select member0_.Id as Id0_, 
        member0_.FirstName as FirstName0_, 
        member0_.LastName as LastName0_ 
 from [Member] member0_ 
 where lower(member0_.FirstName+' '+member0_.LastName) like ('%'+'w'+'%')
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;h3&gt;Entity Framework 4.0:&lt;/h3&gt;
+<h3>Entity Framework 4.0:</h3>
 
-&lt;pre&gt;&lt;code&gt;SELECT 
+<pre><code>SELECT 
     [Extent1].[Id] AS [Id], 
     [Extent1].[FirstName] AS [FirstName], 
     [Extent1].[LastName] AS [LastName]
 FROM [dbo].[Member] AS [Extent1]
 WHERE LOWER([Extent1].[FirstName] + N' ' + [Extent1].[LastName]) 
       LIKE N'%w%'
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Note: The first 3 queries are RPC's and show in SQL Profiler with parameters, I've stripped the parameters out to show the readable query.&lt;/p&gt;
+<p>Note: The first 3 queries are RPC's and show in SQL Profiler with parameters, I've stripped the parameters out to show the readable query.</p>
 
-&lt;p&gt;Great, so all 3 work fine. Tho I don't like the SQL generated by Linq 2 Sql. Hard to believe Stack Overflow runs off it.&lt;/p&gt;
+<p>Great, so all 3 work fine. Tho I don't like the SQL generated by Linq 2 Sql. Hard to believe Stack Overflow runs off it.</p>
 
-&lt;h2&gt;Scenario 2&lt;/h2&gt;
+<h2>Scenario 2</h2>
 
-&lt;p&gt;The second scenario is again, the exact same query, you could write this multiple ways, however I found it cleaner to use 'let' back when I was using Linq 2 Sql. (to see the full script click here), the query is:&lt;/p&gt;
+<p>The second scenario is again, the exact same query, you could write this multiple ways, however I found it cleaner to use 'let' back when I was using Linq 2 Sql. (to see the full script click here), the query is:</p>
 
-&lt;pre&gt;&lt;code&gt;var poo = from s in ctx.Members
+<pre><code>var poo = from s in ctx.Members
             let tasks = s.Tasks.COUNT() as Computed
-            where tasks &amp;gt; 2
+            where tasks &gt; 2
             select s;
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Again, the only difference is the 'in' part of the query.&lt;/p&gt;
+<p>Again, the only difference is the 'in' part of the query.</p>
 
-&lt;p&gt;The output was as follows:&lt;/p&gt;
+<p>The output was as follows:</p>
 
-&lt;pre&gt;&lt;code&gt;----
+<pre><code>----
 LINQ 2 SQL
 Robert
 Michael
@@ -227,15 +227,15 @@ Michael
 EntityFramework 4
 Robert
 Michael
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;All achieved the same results, except for LightSpeed. However I didn't think NHibernate would support this?!? Seems they have done quite a bit of work implementing LINQ since Alpha.&lt;/p&gt;
+<p>All achieved the same results, except for LightSpeed. However I didn't think NHibernate would support this?!? Seems they have done quite a bit of work implementing LINQ since Alpha.</p>
 
-&lt;p&gt;How about the SQL generated?&lt;/p&gt;
+<p>How about the SQL generated?</p>
 
-&lt;h3&gt;Linq 2 Sql:&lt;/h3&gt;
+<h3>Linq 2 Sql:</h3>
 
-&lt;pre&gt;&lt;code&gt;SELECT [t2].[Id], [t2].[FirstName], [t2].[LastName]
+<pre><code>SELECT [t2].[Id], [t2].[FirstName], [t2].[LastName]
 FROM (
     SELECT [t0].[Id], [t0].[FirstName], [t0].[LastName], (
         SELECT COUNT(*)
@@ -244,23 +244,23 @@ FROM (
         ) AS [value]
     FROM [Member] AS [t0]
     ) AS [t2]
-WHERE [t2].[value] &amp;gt; 2
-&lt;/code&gt;&lt;/pre&gt;
+WHERE [t2].[value] &gt; 2
+</code></pre>
 
-&lt;h3&gt;NHibernate:&lt;/h3&gt;
+<h3>NHibernate:</h3>
 
-&lt;pre&gt;&lt;code&gt;select member0_.Id as Id0_, 
+<pre><code>select member0_.Id as Id0_, 
        member0_.FirstName as FirstName0_, 
        member0_.LastName as LastName0_ 
 from [Member] member0_ 
 where (select cast(count(*) as INT) 
         from [Task] tasks1_ 
-        where member0_.Id=tasks1_.MemberId) &amp;gt; 2
-&lt;/code&gt;&lt;/pre&gt;
+        where member0_.Id=tasks1_.MemberId) &gt; 2
+</code></pre>
 
-&lt;h3&gt;Entity Framework:&lt;/h3&gt;
+<h3>Entity Framework:</h3>
 
-&lt;pre&gt;&lt;code&gt;SELECT 
+<pre><code>SELECT 
 [Project1].[Id] AS [Id], 
 [Project1].[FirstName] AS [FirstName], 
 [Project1].[LastName] AS [LastName]
@@ -274,12 +274,12 @@ FROM ( SELECT
         WHERE [Extent1].[Id] = [Extent2].[MemberId]) AS [C1]
     FROM [dbo].[Member] AS [Extent1]
 )  AS [Project1]
-WHERE [Project1].[C1] &amp;gt; 2
-&lt;/code&gt;&lt;/pre&gt;
+WHERE [Project1].[C1] &gt; 2
+</code></pre>
 
-&lt;p&gt;I get the feeling that NHibernate generates more efficient queries than L2S/EF. Might be worth doing some performance testing against them oneday. :)&lt;/p&gt;
+<p>I get the feeling that NHibernate generates more efficient queries than L2S/EF. Might be worth doing some performance testing against them oneday. :)</p>
 
-&lt;p&gt;Anyway as you can see, 'let' keyword allows you to create some nice queries that are easy to ready instead of trying to complicate things in your 'where' clause, when writing LINQ.&lt;/p&gt;
+<p>Anyway as you can see, 'let' keyword allows you to create some nice queries that are easy to ready instead of trying to complicate things in your 'where' clause, when writing LINQ.</p>
 
 
 	<div class="divider"></div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,42 +49,42 @@
       </div>
     </div>
         
-    &lt;p&gt;So I've been in hospital all week with Mycoplasma Infection (or AIDs, doctor says otherwise tho), and figured it would be a good time to mess around with Mono. &lt;/p&gt;
+    <p>So I've been in hospital all week with Mycoplasma Infection (or AIDs, doctor says otherwise tho), and figured it would be a good time to mess around with Mono. </p>
 
-&lt;p&gt;So I began by testing WorldDomination.Web.Authentication&lt;/p&gt;
+<p>So I began by testing WorldDomination.Web.Authentication</p>
 
-&lt;p&gt;While it works GREAT! (Future post maybe) I did run into one issue early on, that is restoring packages. &lt;/p&gt;
+<p>While it works GREAT! (Future post maybe) I did run into one issue early on, that is restoring packages. </p>
 
-&lt;p&gt;I found a &lt;a href=&quot;http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/&quot;&gt;great post&lt;/a&gt; by &lt;a href=&quot;https://twitter.com/orientman&quot;&gt;&amp;#64;orientman&lt;/a&gt; about using NuGet on OSX.&lt;/p&gt;
+<p>I found a <a href="http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/">great post</a> by <a href="https://twitter.com/orientman">&#64;orientman</a> about using NuGet on OSX.</p>
 
-&lt;p&gt;&lt;a href=&quot;http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/&quot;&gt;http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/&lt;/a&gt;&lt;/p&gt;
+<p><a href="http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/">http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/</a></p>
 
-&lt;p&gt;But I didn't like having to type the following out each time, since I needed to install a few different project packages.&lt;/p&gt;
+<p>But I didn't like having to type the following out each time, since I needed to install a few different project packages.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;pre&gt;&lt;code&gt;mono --runtime=v4.0.30319 NuGet.exe install ./Code/WorldDomination.Web.Authentication/packages.config -OutputDirectory ./packages
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>mono --runtime=v4.0.30319 NuGet.exe install ./Code/WorldDomination.Web.Authentication/packages.config -OutputDirectory ./packages
+</code></pre>
 
-&lt;p&gt;All the time, it seemed tedious. So what I did was, moved the NuGet.exe to &lt;code&gt;~/Tools/&lt;/code&gt;&lt;/p&gt;
+<p>All the time, it seemed tedious. So what I did was, moved the NuGet.exe to <code>~/Tools/</code></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/mono-osx-alias-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/mono-osx-alias-1.png" alt="" /></p>
 
-&lt;p&gt;Next in &lt;a href=&quot;http://www.iterm2.com/&quot;&gt;iTerm 2&lt;/a&gt; (I prefer it over Terminal) I set an alias for the common stuff!&lt;/p&gt;
+<p>Next in <a href="http://www.iterm2.com/">iTerm 2</a> (I prefer it over Terminal) I set an alias for the common stuff!</p>
 
-&lt;pre&gt;&lt;code&gt;alias nuget='mono --runtime=v4.0.30319 /Users/phillip/Tools/NuGet.exe'
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>alias nuget='mono --runtime=v4.0.30319 /Users/phillip/Tools/NuGet.exe'
+</code></pre>
 
-&lt;p&gt;Now rather than having to type out all that stuff each time, I can just type out &lt;code&gt;nuget&lt;/code&gt;&lt;/p&gt;
+<p>Now rather than having to type out all that stuff each time, I can just type out <code>nuget</code></p>
 
-&lt;pre&gt;&lt;code&gt;nuget install ./Code/WorldDomination.Web.Authentication/packages.config -OutputDirectory ./packages
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>nuget install ./Code/WorldDomination.Web.Authentication/packages.config -OutputDirectory ./packages
+</code></pre>
 
-&lt;p&gt;&lt;img src=&quot;/images/mono-osx-alias-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/mono-osx-alias-2.png" alt="" /></p>
 
-&lt;p&gt;It also means I can forget about the NuGet.exe file or where I've put it :D&lt;/p&gt;
+<p>It also means I can forget about the NuGet.exe file or where I've put it :D</p>
 
-&lt;p&gt;If you want to check what aliases you have you can run &lt;code&gt;alias -p&lt;/code&gt;, and if you want to remove the alias you can call &lt;code&gt;unalias *name*&lt;/code&gt;, e.g &lt;code&gt;unalias nuget&lt;/code&gt;&lt;/p&gt;
+<p>If you want to check what aliases you have you can run <code>alias -p</code>, and if you want to remove the alias you can call <code>unalias *name*</code>, e.g <code>unalias nuget</code></p>
 
 
 	<div class="divider"></div>

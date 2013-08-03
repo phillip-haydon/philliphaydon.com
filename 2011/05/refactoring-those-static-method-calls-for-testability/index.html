@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,30 +49,30 @@
       </div>
     </div>
         
-    &lt;p&gt;One thing I love about working on a legacy application is the weird things I get to problem solve.&lt;/p&gt;
+    <p>One thing I love about working on a legacy application is the weird things I get to problem solve.</p>
 
-&lt;p&gt;A lot of the old system has an awful lot of static method calls, which doesn't leave much to be desired for when it comes to unit testing. I was working on a piece of the system today which is written in .NET 2.0, and is tightly coupled to everything in existence.&lt;/p&gt;
+<p>A lot of the old system has an awful lot of static method calls, which doesn't leave much to be desired for when it comes to unit testing. I was working on a piece of the system today which is written in .NET 2.0, and is tightly coupled to everything in existence.</p>
 
-&lt;p&gt;I didn't want to go introduce interfaces and wrapper classes in order to abstract out all the dependencies, but I wanted to unit test the work without having to touch the database, which is what these static method calls were doing.&lt;/p&gt;
+<p>I didn't want to go introduce interfaces and wrapper classes in order to abstract out all the dependencies, but I wanted to unit test the work without having to touch the database, which is what these static method calls were doing.</p>
 
-&lt;p&gt;The code I dealt with was something along the lines of...&lt;/p&gt;
+<p>The code I dealt with was something along the lines of...</p>
 
-&lt;pre&gt;&lt;code&gt;public class ProductService
+<pre><code>public class ProductService
 {
     public static void Save(Product product)
     {
-        throw new Exception(&quot;This would normally touch a db...&quot;);
+        throw new Exception("This would normally touch a db...");
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;&lt;em&gt;(Example is completely made up for this blog post and isn't actual code from work)&lt;/em&gt;&lt;/p&gt;
+<p><em>(Example is completely made up for this blog post and isn't actual code from work)</em></p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;The class that calls this is along the lines of...&lt;/p&gt;
+<p>The class that calls this is along the lines of...</p>
 
-&lt;pre&gt;&lt;code&gt;public class SomeService
+<pre><code>public class SomeService
 {
     public void DoSomething(User user, Product product)
     {
@@ -84,11 +84,11 @@
         //Do some more stuff...
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So there's a direct call to the static method 'Save', now unit testing this class, like...&lt;/p&gt;
+<p>So there's a direct call to the static method 'Save', now unit testing this class, like...</p>
 
-&lt;pre&gt;&lt;code&gt;[TestMethod]
+<pre><code>[TestMethod]
 public void Test()
 {
     //Arrange
@@ -105,13 +105,13 @@ public void Test()
     //Assert
     Assert.AreEqual(4.5d, product.Price);
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Running the test I would like to expect a result of '4.5' for the price, but what I get is the exception thrown from the ProductService.&lt;/p&gt;
+<p>Running the test I would like to expect a result of '4.5' for the price, but what I get is the exception thrown from the ProductService.</p>
 
-&lt;p&gt;The solution, that didn't involve interfaces, a wrapper around the service, etc.&lt;/p&gt;
+<p>The solution, that didn't involve interfaces, a wrapper around the service, etc.</p>
 
-&lt;pre&gt;&lt;code&gt;public class SomeService
+<pre><code>public class SomeService
 {
     internal delegate void ProductServiceDelegate (Product product);
     private ProductServiceDelegate _productServiceDelegate;
@@ -138,13 +138,13 @@ public void Test()
         //Do some more stuff...
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So what I've done is introduce a delegate for the ProductService's 'Save' method, and made it internal with 'InternalsVisibleTo' on the AssemblyInfo file so that unit testing project can see it.&lt;/p&gt;
+<p>So what I've done is introduce a delegate for the ProductService's 'Save' method, and made it internal with 'InternalsVisibleTo' on the AssemblyInfo file so that unit testing project can see it.</p>
 
-&lt;p&gt;Now I can update the unit test with:&lt;/p&gt;
+<p>Now I can update the unit test with:</p>
 
-&lt;pre&gt;&lt;code&gt;[TestMethod]
+<pre><code>[TestMethod]
 public void TestMethod1()
 {
     SomeService serviceUnderTest = new SomeService();
@@ -167,9 +167,9 @@ public void TestMethod1()
     Assert.AreEqual(4.5d, product.Price);
     Assert.AreEqual(1, product.Id);
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So on the class under test I add a test method to the property which just sets the Id of the product to '1', to simulate that the product was saved, and now I don't have to worry about the dependency on the ProductService class anymore.&lt;/p&gt;
+<p>So on the class under test I add a test method to the property which just sets the Id of the product to '1', to simulate that the product was saved, and now I don't have to worry about the dependency on the ProductService class anymore.</p>
 
 
 	<div class="divider"></div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,78 +49,78 @@
       </div>
     </div>
         
-    &lt;p&gt;With the up and coming release of 0.17 of NancyFX, the routing has been completely rewritten, and now it's super easy to implement your own routing. So I'm going to show you how.&lt;/p&gt;
+    <p>With the up and coming release of 0.17 of NancyFX, the routing has been completely rewritten, and now it's super easy to implement your own routing. So I'm going to show you how.</p>
 
-&lt;h2&gt;How it works&lt;/h2&gt;
+<h2>How it works</h2>
 
-&lt;p&gt;The routing works by defining a route:&lt;/p&gt;
+<p>The routing works by defining a route:</p>
 
-&lt;p&gt;&lt;code&gt;Get[&quot;/products/{id}&quot;]&lt;/code&gt;&lt;/p&gt;
+<p><code>Get["/products/{id}"]</code></p>
 
-&lt;p&gt;The route is then broken up into segments:&lt;/p&gt;
+<p>The route is then broken up into segments:</p>
 
-&lt;ol&gt;
-&lt;li&gt;&lt;code&gt;products&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;{id}&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
+<ol>
+<li><code>products</code></li>
+<li><code>{id}</code></li>
+</ol>
 
-&lt;p&gt;Each segment is checked against a Node Condition in the &lt;code&gt;TrieNodeFactory&lt;/code&gt; like so&lt;/p&gt;
+<p>Each segment is checked against a Node Condition in the <code>TrieNodeFactory</code> like so</p>
 
-&lt;pre&gt;&lt;code&gt;if (segment.StartsWith(&quot;(&quot;) &amp;amp;&amp;amp; segment.EndsWith(&quot;)&quot;))
+<pre><code>if (segment.StartsWith("(") &amp;&amp; segment.EndsWith(")"))
 {
     return new RegExNode(parent, segment, this);
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;When a request comes in, the segment is compared to the node for a match and returns true/false + the captured parameter. &lt;/p&gt;
+<p>When a request comes in, the segment is compared to the node for a match and returns true/false + the captured parameter. </p>
 
-&lt;p&gt;These are a bunch of conditions for checking different nodes, currently Nancy supports out of the box the following nodes.&lt;/p&gt;
+<p>These are a bunch of conditions for checking different nodes, currently Nancy supports out of the box the following nodes.</p>
 
-&lt;h2&gt;Existing Nodes&lt;/h2&gt;
+<h2>Existing Nodes</h2>
 
-&lt;p&gt;This is brief description of the existing nodes that currently exist in 0.17. &lt;/p&gt;
+<p>This is brief description of the existing nodes that currently exist in 0.17. </p>
 
-&lt;h3&gt;CaptureNode&lt;/h3&gt;
+<h3>CaptureNode</h3>
 
-&lt;p&gt;This node captures &lt;code&gt;{foo}&lt;/code&gt;, or basically any value defined in the segment.&lt;/p&gt;
+<p>This node captures <code>{foo}</code>, or basically any value defined in the segment.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;h3&gt;CaptureNodeWithDefaultValue&lt;/h3&gt;
+<h3>CaptureNodeWithDefaultValue</h3>
 
-&lt;p&gt;Similar to &lt;code&gt;CaptureNode&lt;/code&gt;, &lt;code&gt;{foo?defaultValue}&lt;/code&gt;, allows you to capture any value, with a default value should the value not exist.&lt;/p&gt;
+<p>Similar to <code>CaptureNode</code>, <code>{foo?defaultValue}</code>, allows you to capture any value, with a default value should the value not exist.</p>
 
-&lt;h3&gt;GreedyCaptureNode&lt;/h3&gt;
+<h3>GreedyCaptureNode</h3>
 
-&lt;p&gt;This is like the be-all-end-all node &lt;code&gt;{greedy*}&lt;/code&gt;. It will capture anything in the current segment and onward. Although other segments are still checked. I would think it's rare to ever need this node.&lt;/p&gt;
+<p>This is like the be-all-end-all node <code>{greedy*}</code>. It will capture anything in the current segment and onward. Although other segments are still checked. I would think it's rare to ever need this node.</p>
 
-&lt;h3&gt;LiteralNode&lt;/h3&gt;
+<h3>LiteralNode</h3>
 
-&lt;p&gt;If nothing else is captured in any other node, then likely hood it's a literal value, this will just capture the segment as is, non-capturing, its just a match or non-match. &lt;/p&gt;
+<p>If nothing else is captured in any other node, then likely hood it's a literal value, this will just capture the segment as is, non-capturing, its just a match or non-match. </p>
 
-&lt;h3&gt;OptionalCaptureNode&lt;/h3&gt;
+<h3>OptionalCaptureNode</h3>
 
-&lt;p&gt;This is like the &lt;code&gt;CaptureNode&lt;/code&gt; and &lt;code&gt;CaptureNodeWithDefaultValue&lt;/code&gt;, but it just makes the segment as optional. It can or cannot exist, if it exists it's captured.&lt;/p&gt;
+<p>This is like the <code>CaptureNode</code> and <code>CaptureNodeWithDefaultValue</code>, but it just makes the segment as optional. It can or cannot exist, if it exists it's captured.</p>
 
-&lt;h3&gt;RegExNode&lt;/h3&gt;
+<h3>RegExNode</h3>
 
-&lt;p&gt;Wooo Regular Expression support! &lt;code&gt;(?&amp;lt;foo&amp;gt;\d{2,4})&lt;/code&gt; is a named capture that will find an numeric value between 2-4 digits long, in the segment.&lt;/p&gt;
+<p>Wooo Regular Expression support! <code>(?&lt;foo&gt;\d{2,4})</code> is a named capture that will find an numeric value between 2-4 digits long, in the segment.</p>
 
-&lt;h3&gt;GreedyRegExCaptureNode&lt;/h3&gt;
+<h3>GreedyRegExCaptureNode</h3>
 
-&lt;p&gt;The &lt;code&gt;GreedyRegExCaptureNode&lt;/code&gt; is a little more complicated, it's a mix between the &lt;code&gt;RegExNode&lt;/code&gt; and &lt;code&gt;GreedyCaptureNode&lt;/code&gt;, and supports any number of segments in a regular expression match. i.e &lt;code&gt;^(?:(?&amp;lt;id&amp;gt;videos/\d{1,10})(?:/{0,1}(?&amp;lt;slug&amp;gt;.*)))$&lt;/code&gt; will match &lt;code&gt;videos/123&lt;/code&gt; or &lt;code&gt;videos/123/some-slug-url&lt;/code&gt;.&lt;/p&gt;
+<p>The <code>GreedyRegExCaptureNode</code> is a little more complicated, it's a mix between the <code>RegExNode</code> and <code>GreedyCaptureNode</code>, and supports any number of segments in a regular expression match. i.e <code>^(?:(?&lt;id&gt;videos/\d{1,10})(?:/{0,1}(?&lt;slug&gt;.*)))$</code> will match <code>videos/123</code> or <code>videos/123/some-slug-url</code>.</p>
 
-&lt;h3&gt;RootNode&lt;/h3&gt;
+<h3>RootNode</h3>
 
-&lt;p&gt;This node simply dictates that this is the very start of the route segments, the very root. Effectively its &lt;code&gt;/&lt;/code&gt;&lt;/p&gt;
+<p>This node simply dictates that this is the very start of the route segments, the very root. Effectively its <code>/</code></p>
 
-&lt;h2&gt;Implementing your own Node&lt;/h2&gt;
+<h2>Implementing your own Node</h2>
 
-&lt;p&gt;So we're going to create a route constraint. Our node will look like &lt;code&gt;[foo:even]&lt;/code&gt;, we're saying that the segment will be captured, only if the value is an even number, anything else and it wont match. &lt;/p&gt;
+<p>So we're going to create a route constraint. Our node will look like <code>[foo:even]</code>, we're saying that the segment will be captured, only if the value is an even number, anything else and it wont match. </p>
 
-&lt;p&gt;So we create a class and inherit &lt;code&gt;TrieNode&lt;/code&gt;&lt;/p&gt;
+<p>So we create a class and inherit <code>TrieNode</code></p>
 
-&lt;pre&gt;&lt;code&gt;public class CapturedOddEvenNode : TrieNode
+<pre><code>public class CapturedOddEvenNode : TrieNode
 {
     public CapturedOddEvenNode(TrieNode parent, string segment, ITrieNodeFactory nodeFactory) 
         : base(parent, segment, nodeFactory)
@@ -137,11 +137,11 @@
         get { throw new NotImplementedException(); }
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;The first thing we want to do is prepare the segment, so in the ctor we are going to trim the &lt;code&gt;[]&lt;/code&gt; values off the start/end of the segment and, then split the remaining value by &lt;code&gt;:&lt;/code&gt; as the name on the left, and the condition on the right.&lt;/p&gt;
+<p>The first thing we want to do is prepare the segment, so in the ctor we are going to trim the <code>[]</code> values off the start/end of the segment and, then split the remaining value by <code>:</code> as the name on the left, and the condition on the right.</p>
 
-&lt;pre&gt;&lt;code&gt;private string segmentName;
+<pre><code>private string segmentName;
 private bool shouldBeEven;
 
 public CapturedOddEvenNode(TrieNode parent, string segment, ITrieNodeFactory nodeFactory)
@@ -156,22 +156,22 @@ private void ExtractParameterName()
     var segmentSplit = innerSegment.Split(':');
 
     this.segmentName = segmentSplit[0];
-    this.shouldBeEven = segmentSplit[1] == &quot;even&quot;;
+    this.shouldBeEven = segmentSplit[1] == "even";
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Next we need to implement the match. Here we want to check the value and condition:&lt;/p&gt;
+<p>Next we need to implement the match. Here we want to check the value and condition:</p>
 
-&lt;ol&gt;
-&lt;li&gt;The value is not a number = no match&lt;/li&gt;
-&lt;li&gt;The value is an odd number and the condition is it should be odd = match&lt;/li&gt;
-&lt;li&gt;The value is an even number and the condition is it should be even = match&lt;/li&gt;
-&lt;li&gt;Else the condition is not met so its a no match&lt;/li&gt;
-&lt;/ol&gt;
+<ol>
+<li>The value is not a number = no match</li>
+<li>The value is an odd number and the condition is it should be odd = match</li>
+<li>The value is an even number and the condition is it should be even = match</li>
+<li>Else the condition is not met so its a no match</li>
+</ol>
 
-&lt;!----&gt;
+<!---->
 
-&lt;pre&gt;&lt;code&gt;public override SegmentMatch Match(string segment)
+<pre><code>public override SegmentMatch Match(string segment)
 {
     int numericValue;
 
@@ -180,8 +180,8 @@ private void ExtractParameterName()
         return SegmentMatch.NoMatch;
     }
 
-    if ((numericValue%2 == 0 &amp;amp;&amp;amp; shouldBeEven) ||
-        (numericValue%2 != 0 &amp;amp;&amp;amp; !shouldBeEven))
+    if ((numericValue%2 == 0 &amp;&amp; shouldBeEven) ||
+        (numericValue%2 != 0 &amp;&amp; !shouldBeEven))
     {
         var match = new SegmentMatch(true);
         match.CapturedParameters.Add(segmentName, numericValue);
@@ -191,21 +191,21 @@ private void ExtractParameterName()
 
     return SegmentMatch.NoMatch;
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Lastly we need to implement the Score. The score is used in the scenario when two routes have two matches, the summed total of the score for all segments becomes the weight deciding which route wins. Highest score of the two or more matches wins. &lt;/p&gt;
+<p>Lastly we need to implement the Score. The score is used in the scenario when two routes have two matches, the summed total of the score for all segments becomes the weight deciding which route wins. Highest score of the two or more matches wins. </p>
 
-&lt;p&gt;We will set it to 100.&lt;/p&gt;
+<p>We will set it to 100.</p>
 
-&lt;pre&gt;&lt;code&gt;public override int Score
+<pre><code>public override int Score
 {
     get { return 100; }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Our final Node looks like so:&lt;/p&gt;
+<p>Our final Node looks like so:</p>
 
-&lt;pre&gt;&lt;code&gt;public class CapturedOddEvenNode : TrieNode
+<pre><code>public class CapturedOddEvenNode : TrieNode
 {
     private string segmentName;
     private bool shouldBeEven;
@@ -222,7 +222,7 @@ private void ExtractParameterName()
         var segmentSplit = innerSegment.Split(':');
 
         this.segmentName = segmentSplit[0];
-        this.shouldBeEven = segmentSplit[1] == &quot;even&quot;;
+        this.shouldBeEven = segmentSplit[1] == "even";
     }
 
     public override SegmentMatch Match(string segment)
@@ -234,8 +234,8 @@ private void ExtractParameterName()
             return SegmentMatch.NoMatch;
         }
 
-        if ((numericValue%2 == 0 &amp;amp;&amp;amp; shouldBeEven) ||
-            (numericValue%2 != 0 &amp;amp;&amp;amp; !shouldBeEven))
+        if ((numericValue%2 == 0 &amp;&amp; shouldBeEven) ||
+            (numericValue%2 != 0 &amp;&amp; !shouldBeEven))
         {
             var match = new SegmentMatch(true);
             match.CapturedParameters.Add(segmentName, numericValue);
@@ -251,15 +251,15 @@ private void ExtractParameterName()
         get { return 100; }
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;h2&gt;Implementing your own factory&lt;/h2&gt;
+<h2>Implementing your own factory</h2>
 
-&lt;p&gt;You're required to implement your own factory to call the new Node, this is super easy because we can just inherit the existing one.&lt;/p&gt;
+<p>You're required to implement your own factory to call the new Node, this is super easy because we can just inherit the existing one.</p>
 
-&lt;p&gt;Create a new Factory called &lt;code&gt;CustomTrieNodeFactory&lt;/code&gt; and implement &lt;code&gt;TrieNodeFactory&lt;/code&gt;&lt;/p&gt;
+<p>Create a new Factory called <code>CustomTrieNodeFactory</code> and implement <code>TrieNodeFactory</code></p>
 
-&lt;pre&gt;&lt;code&gt;public class CustomTrieNodeFactory : TrieNodeFactory
+<pre><code>public class CustomTrieNodeFactory : TrieNodeFactory
 {
     public override TrieNode GetNodeForSegment(TrieNode parent, string segment)
     {
@@ -268,7 +268,7 @@ private void ExtractParameterName()
             return new RootNode(this);
         }
 
-        if (segment.StartsWith(&quot;[&quot;) &amp;amp;&amp;amp; segment.EndsWith(&quot;]&quot;) &amp;amp;&amp;amp; segment.Contains(&quot;:&quot;))
+        if (segment.StartsWith("[") &amp;&amp; segment.EndsWith("]") &amp;&amp; segment.Contains(":"))
         {
             return new CapturedOddEvenNode(parent, segment, this);
         }
@@ -276,59 +276,59 @@ private void ExtractParameterName()
         return base.GetNodeForSegment(parent, segment);
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;You can see that the first condition is that I check that the parent is null, that's because the first segment is always the root node, all segments after that are out implementation. The condition is checked in the base call, but we want to check before we run out code.&lt;/p&gt;
+<p>You can see that the first condition is that I check that the parent is null, that's because the first segment is always the root node, all segments after that are out implementation. The condition is checked in the base call, but we want to check before we run out code.</p>
 
-&lt;pre&gt;&lt;code&gt;if (parent == null)
+<pre><code>if (parent == null)
 {
    return new RootNode(this);
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So by checking its null, we return a RootNode, then the call comes in the second time, it will have a parent node, and then check to see if the segment starts/ends with our criteria.&lt;/p&gt;
+<p>So by checking its null, we return a RootNode, then the call comes in the second time, it will have a parent node, and then check to see if the segment starts/ends with our criteria.</p>
 
-&lt;h2&gt;Wiring up the new factory&lt;/h2&gt;
+<h2>Wiring up the new factory</h2>
 
-&lt;p&gt;Lastly we need to wire up the factory in the bootstrapper, we can do this by overriding the &lt;code&gt;NancyInternalConfiguration&lt;/code&gt; property and overriding the &lt;code&gt;TrieNodeFactory&lt;/code&gt; property with our custom type like so:&lt;/p&gt;
+<p>Lastly we need to wire up the factory in the bootstrapper, we can do this by overriding the <code>NancyInternalConfiguration</code> property and overriding the <code>TrieNodeFactory</code> property with our custom type like so:</p>
 
-&lt;pre&gt;&lt;code&gt;protected override NancyInternalConfiguration InternalConfiguration
+<pre><code>protected override NancyInternalConfiguration InternalConfiguration
 {
     get
     {
-        return NancyInternalConfiguration.WithOverrides(config =&amp;gt; 
+        return NancyInternalConfiguration.WithOverrides(config =&gt; 
         {
             config.TrieNodeFactory = typeof (CustomTrieNodeFactory);
         });
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Bam, that's it! &lt;/p&gt;
+<p>Bam, that's it! </p>
 
-&lt;h2&gt;Does it work?&lt;/h2&gt;
+<h2>Does it work?</h2>
 
-&lt;p&gt;So if we create a new Module called &lt;code&gt;TestModule&lt;/code&gt; and implement two routes:&lt;/p&gt;
+<p>So if we create a new Module called <code>TestModule</code> and implement two routes:</p>
 
-&lt;pre&gt;&lt;code&gt;Get[&quot;/test/[oddNumbersRawr:odd]&quot;] = _ =&amp;gt;
+<pre><code>Get["/test/[oddNumbersRawr:odd]"] = _ =&gt;
 {
-    return &quot;I love odd numbers! Like: &quot; + _.oddNumbersRawr;
+    return "I love odd numbers! Like: " + _.oddNumbersRawr;
 };
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Running up the project and entering a with an odd number&lt;/p&gt;
+<p>Running up the project and entering a with an odd number</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-new-routing-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-new-routing-1.png" alt="" /></p>
 
-&lt;p&gt;Pretty sweet!&lt;/p&gt;
+<p>Pretty sweet!</p>
 
-&lt;p&gt;But if we enter the URL with an even number&lt;/p&gt;
+<p>But if we enter the URL with an even number</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/nancyfx-new-routing-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nancyfx-new-routing-2.png" alt="" /></p>
 
-&lt;p&gt;BAM page not found, because it didn't match the condition!&lt;/p&gt;
+<p>BAM page not found, because it didn't match the condition!</p>
 
-&lt;p&gt;That's really all there is to it. You can create any type of custom routing you like. &lt;/p&gt;
+<p>That's really all there is to it. You can create any type of custom routing you like. </p>
 
 
 	<div class="divider"></div>

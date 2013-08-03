@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,29 +49,29 @@
       </div>
     </div>
         
-    &lt;p&gt;There seems to be a growing trend now with these Micro ORM's, at least that is what I see with &lt;a href=&quot;https://github.com/ServiceStack/ServiceStack.OrmLite&quot;&gt;ServiceStack.OrmLite&lt;/a&gt;, which is the ability to persist properties of an object as a JSON, rather than in separate tables.&lt;/p&gt;
+    <p>There seems to be a growing trend now with these Micro ORM's, at least that is what I see with <a href="https://github.com/ServiceStack/ServiceStack.OrmLite">ServiceStack.OrmLite</a>, which is the ability to persist properties of an object as a JSON, rather than in separate tables.</p>
 
-&lt;p&gt;Usually with a Relational approach you would create a &lt;code&gt;Customer&lt;/code&gt; table, &lt;code&gt;Address&lt;/code&gt; table, and most likely shove the Phone Numbers under separate columns of the customer for &lt;code&gt;HomePhone&lt;/code&gt; and &lt;code&gt;Mobile&lt;/code&gt;.&lt;/p&gt;
+<p>Usually with a Relational approach you would create a <code>Customer</code> table, <code>Address</code> table, and most likely shove the Phone Numbers under separate columns of the customer for <code>HomePhone</code> and <code>Mobile</code>.</p>
 
-&lt;p&gt;This means we are limited to two types of phone numbers, and require joining or querying for the addresses.&lt;/p&gt;
+<p>This means we are limited to two types of phone numbers, and require joining or querying for the addresses.</p>
 
-&lt;p&gt;Do we really need separate columns for phone numbers? Do we really need to persist the addresses in another table?&lt;/p&gt;
+<p>Do we really need separate columns for phone numbers? Do we really need to persist the addresses in another table?</p>
 
-&lt;p&gt;One problem I see with putting addresses into it's own table, is the temptation to relate them to an Order (assuming this is some sort of eCommerce system) when really there is no relationship between a customer's address, and the address on an order.&lt;/p&gt;
+<p>One problem I see with putting addresses into it's own table, is the temptation to relate them to an Order (assuming this is some sort of eCommerce system) when really there is no relationship between a customer's address, and the address on an order.</p>
 
-&lt;p&gt;Really, the order should have it's own address, otherwise you can never delete or update an address on a customer, and you can't delete the customer. However I digress and this is a topic for another day.&lt;/p&gt;
+<p>Really, the order should have it's own address, otherwise you can never delete or update an address on a customer, and you can't delete the customer. However I digress and this is a topic for another day.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;h2&gt;Example by OrmLite&lt;/h2&gt;
+<h2>Example by OrmLite</h2>
 
-&lt;p&gt;This post is about how to do it with NHibernate, but I'm going to start by showing the example in OrmLite, then use the same example for NHibernate.&lt;/p&gt;
+<p>This post is about how to do it with NHibernate, but I'm going to start by showing the example in OrmLite, then use the same example for NHibernate.</p>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; OrmLite by default persists as JSV-format (JSON+CSV) rather than JSON. I'm currently unaware of any way to change it to be JSON.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> OrmLite by default persists as JSV-format (JSON+CSV) rather than JSON. I'm currently unaware of any way to change it to be JSON.</span></p>
 
-&lt;p&gt;The customer is the root aggregate, and has his own Addresses and Phone Numbers, and is modelled like so:&lt;/p&gt;
+<p>The customer is the root aggregate, and has his own Addresses and Phone Numbers, and is modelled like so:</p>
 
-&lt;pre&gt;&lt;code&gt;public enum PhoneType
+<pre><code>public enum PhoneType
 {
     Home,
     Work,
@@ -99,8 +99,8 @@ public class Customer
 {
     public Customer()
     {
-        this.PhoneNumbers = new Dictionary&amp;lt;PhoneType, string&amp;gt;();
-        this.Addresses = new Dictionary&amp;lt;AddressType, Address&amp;gt;();
+        this.PhoneNumbers = new Dictionary&lt;PhoneType, string&gt;();
+        this.Addresses = new Dictionary&lt;AddressType, Address&gt;();
     }
 
     [AutoIncrement] // Creates Auto primary key
@@ -112,77 +112,77 @@ public class Customer
     [Index(Unique = true)] // Creates Unique Index
     public virtual string Email { get; set; }
 
-    public virtual Dictionary&amp;lt;PhoneType, string&amp;gt; PhoneNumbers { get; set; }  //Blobbed
-    public virtual Dictionary&amp;lt;AddressType, Address&amp;gt; Addresses { get; set; }  //Blobbed
+    public virtual Dictionary&lt;PhoneType, string&gt; PhoneNumbers { get; set; }  //Blobbed
+    public virtual Dictionary&lt;AddressType, Address&gt; Addresses { get; set; }  //Blobbed
     public virtual DateTime CreatedAt { get; set; }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; The attributes are for OrmLite and are not used by NHibernate, and the properties have been made virtual for NHibernate.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> The attributes are for OrmLite and are not used by NHibernate, and the properties have been made virtual for NHibernate.</span></p>
 
-&lt;p&gt;So using OrmLite if we insert some data like so:&lt;/p&gt;
+<p>So using OrmLite if we insert some data like so:</p>
 
-&lt;pre&gt;&lt;code&gt;var customer = new Customer
+<pre><code>var customer = new Customer
 {
-    FirstName = &quot;Phillip&quot;,
-    LastName = &quot;Haydon&quot;,
-    Email = &quot;test@test.com&quot;
+    FirstName = "Phillip",
+    LastName = "Haydon",
+    Email = "test@test.com"
 };
 customer.Addresses.Add(AddressType.Home, new Address
 {
-    Line1 = &quot;Unit 31&quot;,
-    Line2 = &quot;102 Banana Street&quot;,
-    City = &quot;Sydney&quot;,
-    Country = &quot;Australia&quot;,
-    State = &quot;NSW&quot;,
-    ZipCode = &quot;2009&quot;
+    Line1 = "Unit 31",
+    Line2 = "102 Banana Street",
+    City = "Sydney",
+    Country = "Australia",
+    State = "NSW",
+    ZipCode = "2009"
 });
 
-customer.PhoneNumbers.Add(PhoneType.Mobile, &quot;+61 411 122 34&quot;);
-customer.PhoneNumbers.Add(PhoneType.Home, &quot;+61 256 3234&quot;);
+customer.PhoneNumbers.Add(PhoneType.Mobile, "+61 411 122 34");
+customer.PhoneNumbers.Add(PhoneType.Home, "+61 256 3234");
 
 cmd.Insert(customer);
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;We can query for that data and we get the following results:&lt;/p&gt;
+<p>We can query for that data and we get the following results:</p>
 
-&lt;p&gt;&lt;a href=&quot;/images/nhibernate-blobbing-1.png&quot;&gt;&lt;img src=&quot;/images/nhibernate-blobbing-1.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+<p><a href="/images/nhibernate-blobbing-1.png"><img src="/images/nhibernate-blobbing-1.png" alt="" /></a></p>
 
-&lt;p&gt;&lt;em&gt;(Click on the image to see it fully)&lt;/em&gt;&lt;/p&gt;
+<p><em>(Click on the image to see it fully)</em></p>
 
-&lt;p&gt;As you can see PhoneNumbers are stored like so:&lt;/p&gt;
+<p>As you can see PhoneNumbers are stored like so:</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;{Mobile:+61 411 122 34,Home:+61 256 3234}&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>{Mobile:+61 411 122 34,Home:+61 256 3234}</p>
+</blockquote>
 
-&lt;p&gt;And Addresses are stored like:&lt;/p&gt;
+<p>And Addresses are stored like:</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;{Home:{Line1:Unit 31,Line2:102 Banana Street,ZipCode:2009,State:NSW,City:Sydney,Country:Australia}}&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>{Home:{Line1:Unit 31,Line2:102 Banana Street,ZipCode:2009,State:NSW,City:Sydney,Country:Australia}}</p>
+</blockquote>
 
-&lt;p&gt;Now if we query for that data back out:&lt;/p&gt;
+<p>Now if we query for that data back out:</p>
 
-&lt;pre&gt;&lt;code&gt;var customer = cmd.QuerySingle&amp;lt;Customer&amp;gt;(1);
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>var customer = cmd.QuerySingle&lt;Customer&gt;(1);
+</code></pre>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-blobbing-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-blobbing-2.png" alt="" /></p>
 
-&lt;p&gt;You can see we get all the information back out again, no problem! This stuff is built into OrmLite which is awesome, but how do we do it in NHibernate?&lt;/p&gt;
+<p>You can see we get all the information back out again, no problem! This stuff is built into OrmLite which is awesome, but how do we do it in NHibernate?</p>
 
-&lt;h2&gt;Custom NHibernate UserType&lt;/h2&gt;
+<h2>Custom NHibernate UserType</h2>
 
-&lt;p&gt;So now we want to do this in NHibernate. This is a &lt;code&gt;UserType&lt;/code&gt; I wrote a long time ago, well... I re-wrote it recently but wrote the initial idea a long time ago, and I've personally never seen anything similar in NHibernate.&lt;/p&gt;
+<p>So now we want to do this in NHibernate. This is a <code>UserType</code> I wrote a long time ago, well... I re-wrote it recently but wrote the initial idea a long time ago, and I've personally never seen anything similar in NHibernate.</p>
 
-&lt;p&gt;I've put this on Gist - &lt;a href=&quot;https://gist.github.com/1936188&quot;&gt;https://gist.github.com/1936188&lt;/a&gt;&lt;/p&gt;
+<p>I've put this on Gist - <a href="https://gist.github.com/1936188">https://gist.github.com/1936188</a></p>
 
-&lt;pre&gt;&lt;code&gt;[Serializable]
-public class Blobbed&amp;lt;T&amp;gt; : IUserType where T : class
+<pre><code>[Serializable]
+public class Blobbed&lt;T&gt; : IUserType where T : class
 {
     public new bool Equals(object x, object y)
     {
-        if (x == null &amp;amp;&amp;amp; y == null)
+        if (x == null &amp;&amp; y == null)
             return true;
         if (x == null || y == null)
             return false;
@@ -204,13 +204,13 @@ public class Blobbed&amp;lt;T&amp;gt; : IUserType where T : class
     public object NullSafeGet(IDataReader rs, string[] names, object owner)
     {
         if (names.Length != 1)
-            throw new InvalidOperationException(&quot;Only expecting one column...&quot;);
+            throw new InvalidOperationException("Only expecting one column...");
 
         var val = rs[names[0]] as string;
 
-        if (val != null &amp;amp;&amp;amp; !string.IsNullOrWhiteSpace(val))
+        if (val != null &amp;&amp; !string.IsNullOrWhiteSpace(val))
         {
-            return JsonConvert.DeserializeObject&amp;lt;T&amp;gt;(val);
+            return JsonConvert.DeserializeObject&lt;T&gt;(val);
         }
 
         return null;
@@ -241,7 +241,7 @@ public class Blobbed&amp;lt;T&amp;gt; : IUserType where T : class
 
         var serialized = JsonConvert.SerializeObject(value);
 
-        return JsonConvert.DeserializeObject&amp;lt;T&amp;gt;(serialized);
+        return JsonConvert.DeserializeObject&lt;T&gt;(serialized);
     }
 
     public object Replace(object original, object target, object owner)
@@ -256,7 +256,7 @@ public class Blobbed&amp;lt;T&amp;gt; : IUserType where T : class
         if (string.IsNullOrWhiteSpace(str))
             return null;
 
-        return JsonConvert.DeserializeObject&amp;lt;T&amp;gt;(str);
+        return JsonConvert.DeserializeObject&lt;T&gt;(str);
     }
 
     public object Disassemble(object value)
@@ -285,125 +285,125 @@ public class Blobbed&amp;lt;T&amp;gt; : IUserType where T : class
         get { return true; }
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;It's a generic class so that I can return the type of object back, and uses json.net to handle the serialization/deserialization of the object to JSON.&lt;/p&gt;
+<p>It's a generic class so that I can return the type of object back, and uses json.net to handle the serialization/deserialization of the object to JSON.</p>
 
-&lt;p&gt;Now when mapping the properties we can specify the &lt;code&gt;CustomType&lt;/code&gt; like so:&lt;/p&gt;
+<p>Now when mapping the properties we can specify the <code>CustomType</code> like so:</p>
 
-&lt;pre&gt;&lt;code&gt;Map(x =&amp;gt; x.Addresses, &quot;Addresses&quot;).CustomType&amp;lt;Blobbed&amp;lt;Dictionary&amp;lt;AddressType, Address&amp;gt;&amp;gt;&amp;gt;();
-Map(x =&amp;gt; x.PhoneNumbers, &quot;PhoneNumbers&quot;).CustomType&amp;lt;Blobbed&amp;lt;Dictionary&amp;lt;PhoneType, string&amp;gt;&amp;gt;&amp;gt;();
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>Map(x =&gt; x.Addresses, "Addresses").CustomType&lt;Blobbed&lt;Dictionary&lt;AddressType, Address&gt;&gt;&gt;();
+Map(x =&gt; x.PhoneNumbers, "PhoneNumbers").CustomType&lt;Blobbed&lt;Dictionary&lt;PhoneType, string&gt;&gt;&gt;();
+</code></pre>
 
-&lt;p&gt;The example I'm using has two dictionaries of values. But if you were mapping a single type such as a single &lt;code&gt;Address&lt;/code&gt;, you would just specify the type as above, without the &lt;code&gt;Dictionary&lt;/code&gt;, &lt;code&gt;.CustomType&amp;lt;Blobbed&amp;lt;Address&amp;gt;&amp;gt;()&lt;/code&gt;&lt;/p&gt;
+<p>The example I'm using has two dictionaries of values. But if you were mapping a single type such as a single <code>Address</code>, you would just specify the type as above, without the <code>Dictionary</code>, <code>.CustomType&lt;Blobbed&lt;Address&gt;&gt;()</code></p>
 
-&lt;p&gt;The full mapping for the Customer is:&lt;/p&gt;
+<p>The full mapping for the Customer is:</p>
 
-&lt;pre&gt;&lt;code&gt;public class CustomerMap : ClassMap&amp;lt;Customer&amp;gt;
+<pre><code>public class CustomerMap : ClassMap&lt;Customer&gt;
 {
     public CustomerMap()
     {
-        Table(&quot;Customer&quot;);
-        Id(x =&amp;gt; x.Id, &quot;Id&quot;).GeneratedBy.Identity();
+        Table("Customer");
+        Id(x =&gt; x.Id, "Id").GeneratedBy.Identity();
 
-        Map(x =&amp;gt; x.FirstName, &quot;FirstName&quot;);
-        Map(x =&amp;gt; x.LastName, &quot;LastName&quot;);
-        Map(x =&amp;gt; x.Email, &quot;Email&quot;);
-        Map(x =&amp;gt; x.CreatedAt, &quot;CreatedAt&quot;);
+        Map(x =&gt; x.FirstName, "FirstName");
+        Map(x =&gt; x.LastName, "LastName");
+        Map(x =&gt; x.Email, "Email");
+        Map(x =&gt; x.CreatedAt, "CreatedAt");
 
-        Map(x =&amp;gt; x.Addresses, &quot;Addresses&quot;).CustomType&amp;lt;Blobbed&amp;lt;Dictionary&amp;lt;AddressType, Address&amp;gt;&amp;gt;&amp;gt;();
-        Map(x =&amp;gt; x.PhoneNumbers, &quot;PhoneNumbers&quot;).CustomType&amp;lt;Blobbed&amp;lt;Dictionary&amp;lt;PhoneType, string&amp;gt;&amp;gt;&amp;gt;();
+        Map(x =&gt; x.Addresses, "Addresses").CustomType&lt;Blobbed&lt;Dictionary&lt;AddressType, Address&gt;&gt;&gt;();
+        Map(x =&gt; x.PhoneNumbers, "PhoneNumbers").CustomType&lt;Blobbed&lt;Dictionary&lt;PhoneType, string&gt;&gt;&gt;();
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Now we can insert some data:&lt;/p&gt;
+<p>Now we can insert some data:</p>
 
-&lt;pre&gt;&lt;code&gt;using (var tx = session.BeginTransaction())
+<pre><code>using (var tx = session.BeginTransaction())
 {
     var customer = new Customer
     {
-        FirstName = &quot;Prentice&quot;,
-        LastName = &quot;Porter&quot;,
-        Email = &quot;banana3@test.com&quot;
+        FirstName = "Prentice",
+        LastName = "Porter",
+        Email = "banana3@test.com"
     };
 
     customer.Addresses.Add(AddressType.Home, new Address
     {
-        Line1 = &quot;13/187 Jones St&quot;,
-        City = &quot;Auckland&quot;,
-        Country = &quot;New Zealand&quot;,
-        ZipCode = &quot;0629&quot;
+        Line1 = "13/187 Jones St",
+        City = "Auckland",
+        Country = "New Zealand",
+        ZipCode = "0629"
     });
 
-    customer.PhoneNumbers.Add(PhoneType.Mobile, &quot;+64 27 551 443&quot;);
-    customer.PhoneNumbers.Add(PhoneType.Home, &quot;+64 9445 1982&quot;);
+    customer.PhoneNumbers.Add(PhoneType.Mobile, "+64 27 551 443");
+    customer.PhoneNumbers.Add(PhoneType.Home, "+64 9445 1982");
 
     session.SaveOrUpdate(customer);
 
     tx.Commit();
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Again, the data is inserted:&lt;/p&gt;
+<p>Again, the data is inserted:</p>
 
-&lt;p&gt;&lt;a href=&quot;/images/nhibernate-blobbing-3.png&quot;&gt;&lt;img src=&quot;/images/nhibernate-blobbing-3.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+<p><a href="/images/nhibernate-blobbing-3.png"><img src="/images/nhibernate-blobbing-3.png" alt="" /></a></p>
 
-&lt;p&gt;&lt;em&gt;(Click on the image to see it fully)&lt;/em&gt;&lt;/p&gt;
+<p><em>(Click on the image to see it fully)</em></p>
 
-&lt;p&gt;Only this data is serialized as JSON rather than JSV-format.&lt;/p&gt;
+<p>Only this data is serialized as JSON rather than JSV-format.</p>
 
-&lt;p&gt;PhoneNumbers:&lt;/p&gt;
+<p>PhoneNumbers:</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;{&quot;Mobile&quot;:&quot;+64 27 551 443&quot;,&quot;Home&quot;:&quot;+64 9445 1982&quot;}&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>{"Mobile":"+64 27 551 443","Home":"+64 9445 1982"}</p>
+</blockquote>
 
-&lt;p&gt;And Addresses:&lt;/p&gt;
+<p>And Addresses:</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;{&quot;Home&quot;:{&quot;Line1&quot;:&quot;13/187 Jones St&quot;,&quot;Line2&quot;:null,&quot;ZipCode&quot;:&quot;0629&quot;,&quot;State&quot;:null,&quot;City&quot;:&quot;Auckland&quot;,&quot;Country&quot;:&quot;New Zealand&quot;}}&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>{"Home":{"Line1":"13/187 Jones St","Line2":null,"ZipCode":"0629","State":null,"City":"Auckland","Country":"New Zealand"}}</p>
+</blockquote>
 
-&lt;p&gt;If we query for the data:&lt;/p&gt;
+<p>If we query for the data:</p>
 
-&lt;pre&gt;&lt;code&gt;var customer = session.Get&amp;lt;Customer&amp;gt;(2);
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>var customer = session.Get&lt;Customer&gt;(2);
+</code></pre>
 
-&lt;p&gt;&lt;img src=&quot;/images/nhibernate-blobbing-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/nhibernate-blobbing-4.png" alt="" /></p>
 
-&lt;p&gt;Just like OrmLite we get the object back just the same.&lt;/p&gt;
+<p>Just like OrmLite we get the object back just the same.</p>
 
-&lt;h2&gt;Things to note&lt;/h2&gt;
+<h2>Things to note</h2>
 
-&lt;p&gt;The custom user type in it's current state does not handle inherited objects. If you want to support it, then you can modify it to serialize and deserialize using the type information.&lt;/p&gt;
+<p>The custom user type in it's current state does not handle inherited objects. If you want to support it, then you can modify it to serialize and deserialize using the type information.</p>
 
-&lt;p&gt;This can be done like so:&lt;/p&gt;
+<p>This can be done like so:</p>
 
-&lt;pre&gt;&lt;code&gt;JsonConvert.SerializeObject(x, 
+<pre><code>JsonConvert.SerializeObject(x, 
     Formatting.None, 
     new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;And&lt;/p&gt;
+<p>And</p>
 
-&lt;pre&gt;&lt;code&gt;JsonConvert.DeserializeObject&amp;lt;T&amp;gt;(val, 
+<pre><code>JsonConvert.DeserializeObject&lt;T&gt;(val, 
     new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;What this will do is include the type information on the serialized object:&lt;/p&gt;
+<p>What this will do is include the type information on the serialized object:</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;{&quot;$type&quot;:&quot;System.Collections.Generic.Dictionary2[[NHibernateJsonTest.AddressType, NHibernateJsonTest],[NHibernateJsonTest.Address, NHibernateJsonTest]], mscorlib&quot;,&quot;Home&quot;:{&quot;$type&quot;:&quot;NHibernateJsonTest.Address, NHibernateJsonTest&quot;,&quot;Line1&quot;:&quot;13/187 Jones St&quot;,&quot;Line2&quot;:null,&quot;ZipCode&quot;:&quot;0629&quot;,&quot;State&quot;:null,&quot;City&quot;:&quot;Auckland&quot;,&quot;Country&quot;:&quot;New Zealand&quot;}}&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>{"$type":"System.Collections.Generic.Dictionary2[[NHibernateJsonTest.AddressType, NHibernateJsonTest],[NHibernateJsonTest.Address, NHibernateJsonTest]], mscorlib","Home":{"$type":"NHibernateJsonTest.Address, NHibernateJsonTest","Line1":"13/187 Jones St","Line2":null,"ZipCode":"0629","State":null,"City":"Auckland","Country":"New Zealand"}}</p>
+</blockquote>
 
-&lt;h2&gt;Why would you want to do this&lt;/h2&gt;
+<h2>Why would you want to do this</h2>
 
-&lt;p&gt;To avoid unnecessary tables and mappings. The example above is a perfect example where we can remove the need for a table on data that is never searched against and is never related to anything else.&lt;/p&gt;
+<p>To avoid unnecessary tables and mappings. The example above is a perfect example where we can remove the need for a table on data that is never searched against and is never related to anything else.</p>
 
-&lt;p&gt;There's no need for joins or adding additional columns. We just map the object or collection to a single column and we are done, and our code knows no different.&lt;/p&gt;
+<p>There's no need for joins or adding additional columns. We just map the object or collection to a single column and we are done, and our code knows no different.</p>
 
-&lt;p&gt;Also, schema changes in blobs don't need DDL updates. If your model changes, you add new properties, or remove old properties, the blob will get updated next time you update your data. No more scripting off schema changes.&lt;/p&gt;
+<p>Also, schema changes in blobs don't need DDL updates. If your model changes, you add new properties, or remove old properties, the blob will get updated next time you update your data. No more scripting off schema changes.</p>
 
 
 	<div class="divider"></div>

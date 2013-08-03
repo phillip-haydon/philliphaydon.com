@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,15 +49,15 @@
       </div>
     </div>
         
-    &lt;p&gt;One of the guys in &lt;a href=&quot;http://jabbr.net/#/rooms/RavenDB&quot;&gt;JabbR RavenDB&lt;/a&gt; chat room had a pretty interesting problem that took a while to solve. The problem was that he wasn't trying to return anything to do with the original document, but get a flattened view of some information inside the document.&lt;/p&gt;
+    <p>One of the guys in <a href="http://jabbr.net/#/rooms/RavenDB">JabbR RavenDB</a> chat room had a pretty interesting problem that took a while to solve. The problem was that he wasn't trying to return anything to do with the original document, but get a flattened view of some information inside the document.</p>
 
-&lt;p&gt;The scenario was a &lt;strong&gt;Game Server&lt;/strong&gt; which a collection of &lt;strong&gt;Connected Users&lt;/strong&gt;.&lt;/p&gt;
+<p>The scenario was a <strong>Game Server</strong> which a collection of <strong>Connected Users</strong>.</p>
 
-&lt;pre&gt;&lt;code&gt;public class GameServer
+<pre><code>public class GameServer
 {
     public string Id { get; set; }
     public string ServerName { get; set; }
-    public IEnumerable&amp;lt;User&amp;gt; ConnectedUser { get; set; }
+    public IEnumerable&lt;User&gt; ConnectedUser { get; set; }
     public class User
     {
         public string UserId { get; set; }
@@ -65,61 +65,61 @@
         public DateTimeOffset DateConnected { get; set; }
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Given say 3 servers with a bunch of users on each server, and searching for a user who's name begins with 'b' the expected result was along the lines of:&lt;/p&gt;
+<p>Given say 3 servers with a bunch of users on each server, and searching for a user who's name begins with 'b' the expected result was along the lines of:</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th valign=&quot;top&quot; width=&quot;100&quot;&gt;&lt;strong&gt;UserId&lt;/strong&gt;&lt;/th&gt;
-      &lt;th valign=&quot;top&quot; width=&quot;100&quot;&gt;&lt;strong&gt;Name&lt;/strong&gt;&lt;/th&gt;
-      &lt;th valign=&quot;top&quot; width=&quot;144&quot;&gt;&lt;strong&gt;DateConnected&lt;/strong&gt;&lt;/th&gt;
-      &lt;th valign=&quot;top&quot; width=&quot;254&quot;&gt;&lt;strong&gt;ServerName&lt;/strong&gt;&lt;/th&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;100&quot;&gt;users/3&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;100&quot;&gt;Bob&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;144&quot;&gt;15/03/2012 12:44&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;254&quot;&gt;iPGN CS #01 Iceworld&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;100&quot;&gt;users/2&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;100&quot;&gt;Bill&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;144&quot;&gt;15/03/2012 1:23&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;254&quot;&gt;3FL CS #4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;100&quot;&gt;users/8&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;100&quot;&gt;Benny&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;144&quot;&gt;15/03/2012 1:18&lt;/td&gt;
-      &lt;td valign=&quot;top&quot; width=&quot;254&quot;&gt;3FL CS #4&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+<table>
+  <tbody>
+    <tr>
+      <th valign="top" width="100"><strong>UserId</strong></th>
+      <th valign="top" width="100"><strong>Name</strong></th>
+      <th valign="top" width="144"><strong>DateConnected</strong></th>
+      <th valign="top" width="254"><strong>ServerName</strong></th>
+    </tr>
+    <tr>
+      <td valign="top" width="100">users/3</td>
+      <td valign="top" width="100">Bob</td>
+      <td valign="top" width="144">15/03/2012 12:44</td>
+      <td valign="top" width="254">iPGN CS #01 Iceworld</td>
+    </tr>
+    <tr>
+      <td valign="top" width="100">users/2</td>
+      <td valign="top" width="100">Bill</td>
+      <td valign="top" width="144">15/03/2012 1:23</td>
+      <td valign="top" width="254">3FL CS #4</td>
+    </tr>
+    <tr>
+      <td valign="top" width="100">users/8</td>
+      <td valign="top" width="100">Benny</td>
+      <td valign="top" width="144">15/03/2012 1:18</td>
+      <td valign="top" width="254">3FL CS #4</td>
+    </tr>
+  </tbody>
+</table>
 
-&lt;p&gt;So basically for each user you get the server he's connected to.&lt;/p&gt;
+<p>So basically for each user you get the server he's connected to.</p>
 
-&lt;p&gt;We tried everything under the sun, Reduce, Transform, etc. But couldn't figure out how to get the results. Infact using a Transform we could get the # of results returned, except they were all NULL. :(&lt;/p&gt;
+<p>We tried everything under the sun, Reduce, Transform, etc. But couldn't figure out how to get the results. Infact using a Transform we could get the # of results returned, except they were all NULL. :(</p>
 
-&lt;p&gt;Turns out it's rather easy using just a Map and &lt;code&gt;AsProjection&amp;lt;T&amp;gt;&lt;/code&gt;&lt;/p&gt;
+<p>Turns out it's rather easy using just a Map and <code>AsProjection&lt;T&gt;</code></p>
 
-&lt;h2&gt;Setup Data&lt;/h2&gt;
+<h2>Setup Data</h2>
 
-&lt;p&gt;Test data can be viewed here: &lt;a href=&quot;http://pastie.org/3516113&quot;&gt;http://pastie.org/3516113&lt;/a&gt;&lt;/p&gt;
+<p>Test data can be viewed here: <a href="http://pastie.org/3516113">http://pastie.org/3516113</a></p>
 
-&lt;h2&gt;Index&lt;/h2&gt;
+<h2>Index</h2>
 
-&lt;p&gt;The index is really easy, it's basically a Select Many map, but we also need to store the results from the Map.&lt;/p&gt;
+<p>The index is really easy, it's basically a Select Many map, but we also need to store the results from the Map.</p>
 
-&lt;pre&gt;&lt;code&gt;public class GameServers_ConnectedUsers :
-    AbstractIndexCreationTask&amp;lt;GameServer, GameServers_ConnectedUsers.IndexResult&amp;gt;
+<pre><code>public class GameServers_ConnectedUsers :
+    AbstractIndexCreationTask&lt;GameServer, GameServers_ConnectedUsers.IndexResult&gt;
 {
     public GameServers_ConnectedUsers()
     {
-        Map = servers =&amp;gt; from s in servers
+        Map = servers =&gt; from s in servers
                             from y in s.ConnectedUsers
                             select new
                             {
@@ -128,10 +128,10 @@
                                 DateConnected = y.DateConnected,
                                 UserId = y.UserId
                             };
-        Store(x =&amp;gt; x.ServerName, FieldStorage.Yes);
-        Store(x =&amp;gt; x.UserName, FieldStorage.Yes);
-        Store(x =&amp;gt; x.DateConnected, FieldStorage.Yes);
-        Store(x =&amp;gt; x.UserId, FieldStorage.Yes);
+        Store(x =&gt; x.ServerName, FieldStorage.Yes);
+        Store(x =&gt; x.UserName, FieldStorage.Yes);
+        Store(x =&gt; x.DateConnected, FieldStorage.Yes);
+        Store(x =&gt; x.UserId, FieldStorage.Yes);
     }
 
     public class IndexResult
@@ -142,62 +142,62 @@
         public string UserId { get; set; }
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;The reason for storing the results from the Map is because if we don't, we don't actually get any results back. (will show you soon)&lt;/p&gt;
+<p>The reason for storing the results from the Map is because if we don't, we don't actually get any results back. (will show you soon)</p>
 
-&lt;h2&gt;Querying&lt;/h2&gt;
+<h2>Querying</h2>
 
-&lt;p&gt;So querying is the same as always, only we need to provide the 'AsProjection&lt;T&gt;' to the query, like so:&lt;/p&gt;
+<p>So querying is the same as always, only we need to provide the 'AsProjection<T>' to the query, like so:</p>
 
-&lt;pre&gt;&lt;code&gt;var results = 
-    session.Query&amp;lt;GameServers_ConnectedUsers.IndexResult, GameServers_ConnectedUsers&amp;gt;()
-           .Where(x =&amp;gt; x.UserName.StartsWith(&quot;b&quot;))
-           .AsProjection&amp;lt;GameServers_ConnectedUsers.IndexResult&amp;gt;()
+<pre><code>var results = 
+    session.Query&lt;GameServers_ConnectedUsers.IndexResult, GameServers_ConnectedUsers&gt;()
+           .Where(x =&gt; x.UserName.StartsWith("b"))
+           .AsProjection&lt;GameServers_ConnectedUsers.IndexResult&gt;()
            .ToList();
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;The Projection just needs to be an object that matches the result, otherwise it will attempt to return the original documents.&lt;/p&gt;
+<p>The Projection just needs to be an object that matches the result, otherwise it will attempt to return the original documents.</p>
 
-&lt;p&gt;If we run the query without the &lt;code&gt;AsProjection&amp;lt;T&amp;gt;&lt;/code&gt; we end up with an exception because the result (the original document) doesn't match the object we were querying against &lt;code&gt;IndexResult&lt;/code&gt;&lt;/p&gt;
+<p>If we run the query without the <code>AsProjection&lt;T&gt;</code> we end up with an exception because the result (the original document) doesn't match the object we were querying against <code>IndexResult</code></p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-flattern-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-flattern-1.png" alt="" /></p>
 
-&lt;p&gt;If we set the &lt;code&gt;AsProjection&lt;/code&gt; to &lt;code&gt;dynamic&lt;/code&gt;, or &lt;code&gt;GameServer&lt;/code&gt;, we get the original documents. BUT the funny thing is if you use &lt;code&gt;GameServer&lt;/code&gt; you end up with as many results as the projection has. In this case 3.&lt;/p&gt;
+<p>If we set the <code>AsProjection</code> to <code>dynamic</code>, or <code>GameServer</code>, we get the original documents. BUT the funny thing is if you use <code>GameServer</code> you end up with as many results as the projection has. In this case 3.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-flattern-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-flattern-2.png" alt="" /></p>
 
-&lt;p&gt;If we expand them out, we see we actually get a duplicate.&lt;/p&gt;
+<p>If we expand them out, we see we actually get a duplicate.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-flattern-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-flattern-3.png" alt="" /></p>
 
-&lt;p&gt;But if we use &lt;code&gt;dynamic&lt;/code&gt; we get unique documents:&lt;/p&gt;
+<p>But if we use <code>dynamic</code> we get unique documents:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-flattern-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-flattern-4.png" alt="" /></p>
 
-&lt;p&gt;Using the &lt;code&gt;IndexResult&lt;/code&gt; (or an object that matches the projection) we get the projected results that we wanted at the start of this post:&lt;/p&gt;
+<p>Using the <code>IndexResult</code> (or an object that matches the projection) we get the projected results that we wanted at the start of this post:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-flattern-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-flattern-5.png" alt="" /></p>
 
-&lt;p&gt;Three results, and all the correct data:&lt;/p&gt;
+<p>Three results, and all the correct data:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-flattern-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-flattern-6.png" alt="" /></p>
 
-&lt;h2&gt;Storing the results&lt;/h2&gt;
+<h2>Storing the results</h2>
 
-&lt;p&gt;I showed in the index that I was storing the results I wanted in the projection. This is because if we don't, we end up with this:&lt;/p&gt;
+<p>I showed in the index that I was storing the results I wanted in the projection. This is because if we don't, we end up with this:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/ravendb-flattern-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/ravendb-flattern-7.png" alt="" /></p>
 
-&lt;p&gt;Not only do we end up with the incorrect number of results, they are missing data that isn't found in the original document.&lt;/p&gt;
+<p>Not only do we end up with the incorrect number of results, they are missing data that isn't found in the original document.</p>
 
-&lt;p&gt;You can see &lt;code&gt;GameServer&lt;/code&gt; is there, that's because it's found on the document. We need to &lt;code&gt;store&lt;/code&gt; the data so that RavenDB can return it, that means we use more disk space, but without it, RavenDB would have to query and assume the data that you wanted to return. By storing it RavenDB just returns what matches the query, and doesn't do any extra work.&lt;/p&gt;
+<p>You can see <code>GameServer</code> is there, that's because it's found on the document. We need to <code>store</code> the data so that RavenDB can return it, that means we use more disk space, but without it, RavenDB would have to query and assume the data that you wanted to return. By storing it RavenDB just returns what matches the query, and doesn't do any extra work.</p>
 
-&lt;p&gt;So if you want to return the projected results, then you need to Store them.&lt;/p&gt;
+<p>So if you want to return the projected results, then you need to Store them.</p>
 
-&lt;p&gt;I've put a gist here for anyone interested.&lt;/p&gt;
+<p>I've put a gist here for anyone interested.</p>
 
-&lt;p&gt;&lt;a href=&quot;https://gist.github.com/1972646&quot;&gt;https://gist.github.com/1972646&lt;/a&gt;&lt;/p&gt;
+<p><a href="https://gist.github.com/1972646">https://gist.github.com/1972646</a></p>
 
 
 	<div class="divider"></div>

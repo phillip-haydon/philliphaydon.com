@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -48,19 +48,19 @@
       </div>
     </div>
         
-    &lt;p&gt;I'm currently building a demo for work using &lt;a href=&quot;http://www.sencha.com/products/touch/&quot;&gt;Sencha Touch mobile JavaScript framework&lt;/a&gt;, and needed to change the state of some buttons dependent on which 'card' is shown.&lt;/p&gt;
+    <p>I'm currently building a demo for work using <a href="http://www.sencha.com/products/touch/">Sencha Touch mobile JavaScript framework</a>, and needed to change the state of some buttons dependent on which 'card' is shown.</p>
 
-&lt;p&gt;The Doc Api is a little hard to follow in my opinion, but I eventually worked it out.&lt;/p&gt;
+<p>The Doc Api is a little hard to follow in my opinion, but I eventually worked it out.</p>
 
-&lt;p&gt;In hindsight I guess I could have used a single button to do this, but I will demonstrate it with two.&lt;/p&gt;
+<p>In hindsight I guess I could have used a single button to do this, but I will demonstrate it with two.</p>
 
-&lt;p&gt;To demonstrate this I'm going to use a Panel, with the buttons to flick between the cards. Instead of using a TabPanel.&lt;/p&gt;
+<p>To demonstrate this I'm going to use a Panel, with the buttons to flick between the cards. Instead of using a TabPanel.</p>
 
-&lt;p&gt;So to start with I have a Panel, with a ToolBar docked to the bottom, a couple of buttons, and two cards.&lt;/p&gt;
+<p>So to start with I have a Panel, with a ToolBar docked to the bottom, a couple of buttons, and two cards.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/sencha-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/sencha-1.png" alt="" /></p>
 
-&lt;pre&gt;&lt;code&gt;var rootPanel;
+<pre><code>var rootPanel;
 Ext.setup({
     onReady: function () {
         rootPanel = new Ext.Panel({
@@ -86,13 +86,13 @@ Ext.setup({
         });
     }
 });
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;At the moment it's all nested, so the first thing I'll do is pull the toolbar items out, I'll also assign them to local variables and create them using the Ext.Button type. This gives us access to the methods and events for the buttons.&lt;/p&gt;
+<p>At the moment it's all nested, so the first thing I'll do is pull the toolbar items out, I'll also assign them to local variables and create them using the Ext.Button type. This gives us access to the methods and events for the buttons.</p>
 
-&lt;pre&gt;&lt;code&gt;var btnCardOne = new Ext.Button({
+<pre><code>var btnCardOne = new Ext.Button({
     html: 'Card 1 Button'
 });
 
@@ -101,19 +101,19 @@ var btnCardTwo = new Ext.Button({
     hidden: true,
     html: 'Card 2 Button'
 });
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;items: [btnCardOne, btnCardTwo]&lt;/p&gt;
+<p>items: [btnCardOne, btnCardTwo]</p>
 
-&lt;p&gt;You will notice I also set the second button's state to be hidden.&lt;/p&gt;
+<p>You will notice I also set the second button's state to be hidden.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/sencha-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/sencha-2.png" alt="" /></p>
 
-&lt;p&gt;So we still have the same screen, less one button.&lt;/p&gt;
+<p>So we still have the same screen, less one button.</p>
 
-&lt;p&gt;Next we want to add an event to the button, like so:&lt;/p&gt;
+<p>Next we want to add an event to the button, like so:</p>
 
-&lt;pre&gt;&lt;code&gt;var btnCardOne = new Ext.Button({
+<pre><code>var btnCardOne = new Ext.Button({
     html: 'Card 1 Button',
     handler: function () {
         rootPanel.setActiveItem(1, { type: 'slide' });
@@ -132,13 +132,13 @@ var btnCardTwo = new Ext.Button({
         btnCardTwo.setVisible(false);
     }
 });
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Because the buttons are just local variables we can access them in each event, so in the first button, we want to set the active item (card) to 1, turn off button one, and turn on button two.&lt;/p&gt;
+<p>Because the buttons are just local variables we can access them in each event, so in the first button, we want to set the active item (card) to 1, turn off button one, and turn on button two.</p>
 
-&lt;p&gt;Then in the second button, we do the opposite. Now clicking each button flicks between the two.&lt;/p&gt;
+<p>Then in the second button, we do the opposite. Now clicking each button flicks between the two.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/sencha-3.png&quot; alt=&quot;&quot; /&gt; &lt;img src=&quot;/images/sencha-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/sencha-3.png" alt="" /> <img src="/images/sencha-4.png" alt="" /></p>
 
 
 	<div class="divider"></div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -48,76 +48,76 @@
       </div>
     </div>
         
-    &lt;p&gt;When we build website's, more often than not we have: Separation of Concerns. Even if at most it's just basic 3-tier Architecture&lt;/p&gt;
+    <p>When we build website's, more often than not we have: Separation of Concerns. Even if at most it's just basic 3-tier Architecture</p>
 
-&lt;p&gt;What annoys me though is a lot of time no one ever thinks about separation of concerns when it comes to the folder structure of their website, and where things go.&lt;/p&gt;
+<p>What annoys me though is a lot of time no one ever thinks about separation of concerns when it comes to the folder structure of their website, and where things go.</p>
 
-&lt;h2&gt;Folders&lt;/h2&gt;
+<h2>Folders</h2>
 
-&lt;p&gt;The one thing that annoys me above all else, is when 'layout images' (images for layout, design, styling etc) of the website, are shoved into the same folder that holds what I call &quot;Content Images&quot;.&lt;/p&gt;
+<p>The one thing that annoys me above all else, is when 'layout images' (images for layout, design, styling etc) of the website, are shoved into the same folder that holds what I call "Content Images".</p>
 
-&lt;p&gt;For example:&lt;/p&gt;
+<p>For example:</p>
 
-&lt;pre&gt;&lt;code&gt;root/ 
+<pre><code>root/ 
 root/css/ 
 root/images/
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;What I prefer to do is structure it so the css folder has it's own images folder, specifically for layout images.&lt;/p&gt;
+<p>What I prefer to do is structure it so the css folder has it's own images folder, specifically for layout images.</p>
 
-&lt;pre&gt;&lt;code&gt;root/ 
+<pre><code>root/ 
 root/css/ 
 root/css/images/ 
 root/images
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;To take it a step further, I often have images, icons, and fonts.&lt;/p&gt;
+<p>To take it a step further, I often have images, icons, and fonts.</p>
 
-&lt;pre&gt;&lt;code&gt;root/ 
+<pre><code>root/ 
 root/css/ 
 root/css/fonts/ 
 root/css/icons/ 
 root/css/images/ 
 root/images
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This way I don't have to worry about finding specific icons in a folder full of images, I don't have to worry about sifting through images to find ones related to the layout/design, they are all neatly tucked away in their own specific areas.&lt;/p&gt;
+<p>This way I don't have to worry about finding specific icons in a folder full of images, I don't have to worry about sifting through images to find ones related to the layout/design, they are all neatly tucked away in their own specific areas.</p>
 
-&lt;p&gt;When it comes to folder structure however, NuGet gets in the way.&lt;/p&gt;
+<p>When it comes to folder structure however, NuGet gets in the way.</p>
 
-&lt;p&gt;It would be nice if it allowed you to specify where file types should go. At the moment 'css' files seem to go into 'Content'. JavaScript files go into 'Scripts'. But what I would rather have is all lower-case names, and 'css' rather than 'content'. Until then, I just download those sort of dependencies manually and create my own folder structure.&lt;/p&gt;
+<p>It would be nice if it allowed you to specify where file types should go. At the moment 'css' files seem to go into 'Content'. JavaScript files go into 'Scripts'. But what I would rather have is all lower-case names, and 'css' rather than 'content'. Until then, I just download those sort of dependencies manually and create my own folder structure.</p>
 
-&lt;h2&gt;CSS&lt;/h2&gt;
+<h2>CSS</h2>
 
-&lt;p&gt;The next thing that I find annoying is the God Style Sheet. It's the StyleSheet that people name:&lt;/p&gt;
+<p>The next thing that I find annoying is the God Style Sheet. It's the StyleSheet that people name:</p>
 
-&lt;pre&gt;&lt;code&gt;Styles.css
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>Styles.css
+</code></pre>
 
-&lt;p&gt;It's the only one that exists in the project, it's over 100k in size, no comments, no christmas trees. Just lines and lines of fail.&lt;/p&gt;
+<p>It's the only one that exists in the project, it's over 100k in size, no comments, no christmas trees. Just lines and lines of fail.</p>
 
-&lt;p&gt;The approach I used to take (before finding .LESS) was creating multiple StyleSheets that were small and easy to maintain, sometimes I would end up with up to 12, possibly more depending on the size of the website.&lt;/p&gt;
+<p>The approach I used to take (before finding .LESS) was creating multiple StyleSheets that were small and easy to maintain, sometimes I would end up with up to 12, possibly more depending on the size of the website.</p>
 
-&lt;p&gt;Each StyleSheet would be responsible for a specific task, so I would have something like the following:&lt;/p&gt;
+<p>Each StyleSheet would be responsible for a specific task, so I would have something like the following:</p>
 
-&lt;pre&gt;&lt;code&gt;/css/reset.css (this is just one of those many reset StyleSheets found on the net) 
+<pre><code>/css/reset.css (this is just one of those many reset StyleSheets found on the net) 
 /css/layout.css 
 /css/main.css 
 /css/header.css 
 /css/footer.css 
 /css/main-navigation.css 
 /css/...
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;When sections of the website were broken down like this, it did require flicking between StyleSheets now-n-then, but they became much smaller and easier to maintain. I also became far-less at risk of Unwanted Side Effects.&lt;/p&gt;
+<p>When sections of the website were broken down like this, it did require flicking between StyleSheets now-n-then, but they became much smaller and easier to maintain. I also became far-less at risk of Unwanted Side Effects.</p>
 
-&lt;p&gt;Now with .LESS and LESS, it's easy to have only a few StyleSheets, since now you can tab within a specific region and continue to write styles that only apply to that region.&lt;/p&gt;
+<p>Now with .LESS and LESS, it's easy to have only a few StyleSheets, since now you can tab within a specific region and continue to write styles that only apply to that region.</p>
 
-&lt;p&gt;For example, given a Footer element. You could come up with something like:&lt;/p&gt;
+<p>For example, given a Footer element. You could come up with something like:</p>
 
-&lt;pre&gt;&lt;code&gt;footer {
+<pre><code>footer {
     border-top: 2px #182a33 solid;
     padding-top: 30px;
     nav {
@@ -126,12 +126,12 @@ root/images
             font-size: @footer-link-size;
             color: @footer-link-color;
             text-decoration: none;
-            &amp;amp;:hover {
+            &amp;:hover {
                 color: @footer-link-color-hover;
                 text-decoration: underline;
             }    
         }
-        li &amp;gt; span {
+        li &gt; span {
             color: @footer-text-color;
             font-family: @footer-text-font;
             font-size: @footer-text-size;
@@ -144,7 +144,7 @@ root/images
             margin-bottom: 35px;
             padding-top: 17px;
         }
-        &amp;gt; ul &amp;gt; li {
+        &gt; ul &gt; li {
             width: 165px;
             float: left;
             display: block;
@@ -152,11 +152,11 @@ root/images
         }
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This would in turn generate the following CSS for you.&lt;/p&gt;
+<p>This would in turn generate the following CSS for you.</p>
 
-&lt;pre&gt;&lt;code&gt;footer {
+<pre><code>footer {
   border-top: 2px #182a33 solid;
   padding-top: 30px;
 }
@@ -170,7 +170,7 @@ footer nav a:hover {
   color: #00adee;
   text-decoration: underline;
 }
-footer nav li &amp;gt; span {
+footer nav li &gt; span {
   color: #a8a8a8;
   font-family: arial;
   font-size: 12px;
@@ -183,19 +183,19 @@ footer nav h4 {
   margin-bottom: 35px;
   padding-top: 17px;
 }
-footer nav &amp;gt; ul &amp;gt; li {
+footer nav &gt; ul &gt; li {
   width: 165px;
   float: left;
   display: block;
   line-height: 18px;
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;I find it much easier to manage writing 'LESS' then traditional CSS.&lt;/p&gt;
+<p>I find it much easier to manage writing 'LESS' then traditional CSS.</p>
 
-&lt;h2&gt;Conclusion&lt;/h2&gt;
+<h2>Conclusion</h2>
 
-&lt;p&gt;I didn't want to go into too much detail, my main point is I think people should put a little more thought into how they structure their folders, files, naming, etc when creating websites. We focus so much time on trying to main our applications and code maintainable, but somehow neglect the website itself, and after a while we just end up fighting with it.&lt;/p&gt;
+<p>I didn't want to go into too much detail, my main point is I think people should put a little more thought into how they structure their folders, files, naming, etc when creating websites. We focus so much time on trying to main our applications and code maintainable, but somehow neglect the website itself, and after a while we just end up fighting with it.</p>
 
 
 	<div class="divider"></div>

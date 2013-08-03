@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -39,15 +39,15 @@
         <a href="/2013/02/windows-store-app-with-caliburn-micro-binding-converters/">Windows Store App with Caliburn.Micro - Binding Converters</a> 
         <span>posted on 26 Feb 2013</span>
       </h1> 
-      &lt;p&gt;In my last post about &lt;a href=&quot;http://www.philliphaydon.com/2013/01/windows-store-app-with-caliburn-micro-basic-binding&quot;&gt;Basic Binding&lt;/a&gt; we added the ability to Hide/Show a control using Viability property of the control to make it &lt;code&gt;Visible&lt;/code&gt; or &lt;code&gt;Collapsed&lt;/code&gt;&lt;/p&gt;
+      <p>In my last post about <a href="http://www.philliphaydon.com/2013/01/windows-store-app-with-caliburn-micro-basic-binding">Basic Binding</a> we added the ability to Hide/Show a control using Viability property of the control to make it <code>Visible</code> or <code>Collapsed</code></p>
 
-&lt;p&gt;However the View Model shouldn't have any real knowledge of how the view works, meaning it shouldn't actually dictate the visibility using the controls properties.&lt;/p&gt;
+<p>However the View Model shouldn't have any real knowledge of how the view works, meaning it shouldn't actually dictate the visibility using the controls properties.</p>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I left this out of the original post because I wanted to keep it 'Basic' without confusing binding with converters and such, making the topic more complicated&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> I left this out of the original post because I wanted to keep it 'Basic' without confusing binding with converters and such, making the topic more complicated</span></p>
 
-&lt;p&gt;If in the future you changed from say &lt;code&gt;TextBlock&lt;/code&gt; to a 3rd party control called &lt;code&gt;BananaTextBlock&lt;/code&gt; and that 3rd party decided that they were not going to use the built in Viability enum, and instead decided to create their own naming convention, and enum etc. You would be forced to change your ViewModel, which isn't good.&lt;/p&gt;
+<p>If in the future you changed from say <code>TextBlock</code> to a 3rd party control called <code>BananaTextBlock</code> and that 3rd party decided that they were not going to use the built in Viability enum, and instead decided to create their own naming convention, and enum etc. You would be forced to change your ViewModel, which isn't good.</p>
 
-&lt;p&gt;That's where Value Converters come in handy. &lt;/p&gt;
+<p>That's where Value Converters come in handy. </p>
 
 
       <p><a href="/2013/02/windows-store-app-with-caliburn-micro-binding-converters/">Read more...</a></p>
@@ -57,17 +57,17 @@
         <a href="/2013/02/windows-store-app-with-caliburn-micro-getting-started-updated/">Windows Store App with Caliburn.Micro - Getting Started (Updated)</a> 
         <span>posted on 20 Feb 2013</span>
       </h1> 
-      &lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; This is an update post for &lt;a href=&quot;/2012/12/windows-store-app-with-caliburn-micro-getting-started/&quot;&gt;Windows Store App with Caliburn.Micro - Getting Started&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+      <p><span class="note"><strong>Note:</strong> This is an update post for <a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">Windows Store App with Caliburn.Micro - Getting Started</a></span></p>
 
-&lt;p&gt;Back in December I blogged about &lt;a href=&quot;/2012/12/windows-store-app-with-caliburn-micro-getting-started/&quot;&gt;getting started&lt;/a&gt; with Caliburn.Micro, not long after I created the post a &lt;a href=&quot;http://devlicio.us/blogs/rob_eisenberg/archive/2013/01/20/caliburn-micro-v1-4-1-released.aspx&quot;&gt;new version&lt;/a&gt; (v1.4.1) was released.&lt;/p&gt;
+<p>Back in December I blogged about <a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">getting started</a> with Caliburn.Micro, not long after I created the post a <a href="http://devlicio.us/blogs/rob_eisenberg/archive/2013/01/20/caliburn-micro-v1-4-1-released.aspx">new version</a> (v1.4.1) was released.</p>
 
-&lt;p&gt;The changes in this release break my previous blog post so I'm updating here.&lt;/p&gt;
+<p>The changes in this release break my previous blog post so I'm updating here.</p>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; The original post still applies, the change is only to the setup of the App&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> The original post still applies, the change is only to the setup of the App</span></p>
 
-&lt;h2&gt;App Setup&lt;/h2&gt;
+<h2>App Setup</h2>
 
-&lt;p&gt;In the previous post when we configured the container, all we needed to do was Register the WinRT Services.&lt;/p&gt;
+<p>In the previous post when we configured the container, all we needed to do was Register the WinRT Services.</p>
 
 
       <p><a href="/2013/02/windows-store-app-with-caliburn-micro-getting-started-updated/">Read more...</a></p>
@@ -77,22 +77,22 @@
         <a href="/2013/02/windows-store-app-adding-advertising/">Windows Store App - Adding Advertising</a> 
         <span>posted on 14 Feb 2013</span>
       </h1> 
-      &lt;p&gt;I searched for hours trying to figure this out and I think the information is a little scarce or not obvious.&lt;/p&gt;
+      <p>I searched for hours trying to figure this out and I think the information is a little scarce or not obvious.</p>
 
-&lt;p&gt;Basically I wanted to add some advertising to my app, I'm trying to cover multiple different area's in order to learn what's involved, and I thought I had it all down, only to work out that the advert's that were displaying were test adverts and not the real thing.&lt;/p&gt;
+<p>Basically I wanted to add some advertising to my app, I'm trying to cover multiple different area's in order to learn what's involved, and I thought I had it all down, only to work out that the advert's that were displaying were test adverts and not the real thing.</p>
 
-&lt;p&gt;Now don't get me wrong, when you actually do find the correct URL (by searching Advertising rather than Ad) the MSDN link does have all the information, I didn't find this out until my friend actually sent it to me...&lt;/p&gt;
+<p>Now don't get me wrong, when you actually do find the correct URL (by searching Advertising rather than Ad) the MSDN link does have all the information, I didn't find this out until my friend actually sent it to me...</p>
 
-&lt;p&gt;&lt;a href=&quot;http://msdn.microsoft.com/en-us/library/advertising-windows-sdk(v=msads.10).aspx&quot;&gt;http://msdn.microsoft.com/en-us/library/advertising-windows-sdk(v=msads.10).aspx&lt;/a&gt;&lt;/p&gt;
+<p><a href="http://msdn.microsoft.com/en-us/library/advertising-windows-sdk(v=msads.10).aspx">http://msdn.microsoft.com/en-us/library/advertising-windows-sdk(v=msads.10).aspx</a></p>
 
-&lt;p&gt;There's two main things you need to do (besides installing the correct SDK, I had the Beta first time around)&lt;/p&gt;
+<p>There's two main things you need to do (besides installing the correct SDK, I had the Beta first time around)</p>
 
-&lt;ol&gt;
-&lt;li&gt;Implement the advert into your app&lt;/li&gt;
-&lt;li&gt;Setup an advertising account&lt;/li&gt;
-&lt;/ol&gt;
+<ol>
+<li>Implement the advert into your app</li>
+<li>Setup an advertising account</li>
+</ol>
 
-&lt;p&gt;The first part is easy... (well the 2nd part is too... but I didn't realise that at first)&lt;/p&gt;
+<p>The first part is easy... (well the 2nd part is too... but I didn't realise that at first)</p>
 
 
       <p><a href="/2013/02/windows-store-app-adding-advertising/">Read more...</a></p>
@@ -102,39 +102,39 @@
         <a href="/2013/02/x-http-method-override-with-nancyfx/">X-Http-Method-Override with NancyFX</a> 
         <span>posted on 11 Feb 2013</span>
       </h1> 
-      &lt;p&gt;Forms in HTML only allow you to use the method's POST and GET, I'm not sure if this would be classified as a limitation or not, but it does introduce a slight problem when you want to create a nice API taking advantage of verbs such as PUT and DELETE, when you can only POST and GET. &lt;/p&gt;
+      <p>Forms in HTML only allow you to use the method's POST and GET, I'm not sure if this would be classified as a limitation or not, but it does introduce a slight problem when you want to create a nice API taking advantage of verbs such as PUT and DELETE, when you can only POST and GET. </p>
 
-&lt;p&gt;This means if you want to delete something you have to use a different URL, like:&lt;/p&gt;
+<p>This means if you want to delete something you have to use a different URL, like:</p>
 
-&lt;p&gt;&lt;code&gt;/products/123/delete&lt;/code&gt;&lt;/p&gt;
+<p><code>/products/123/delete</code></p>
 
-&lt;p&gt;Then define a route like&lt;/p&gt;
+<p>Then define a route like</p>
 
-&lt;pre&gt;&lt;code&gt;Post[&quot;/products/{id}/delete&quot;] = _ =&amp;gt;
+<pre><code>Post["/products/{id}/delete"] = _ =&gt;
 {
     ... Do Something...
 };
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This isn't exactly ideal, what we would prefer to have is a more semantic route.&lt;/p&gt;
+<p>This isn't exactly ideal, what we would prefer to have is a more semantic route.</p>
 
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;GET&lt;/code&gt; -&gt; gets an object&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DELETE&lt;/code&gt; -&gt; deletes an object&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;PUT&lt;/code&gt; -&gt; modifies an object&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;PATCH&lt;/code&gt; -&gt; modifies part of an object&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;POST&lt;/code&gt; -&gt; creates an object&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li><code>GET</code> -> gets an object</li>
+<li><code>DELETE</code> -> deletes an object</li>
+<li><code>PUT</code> -> modifies an object</li>
+<li><code>PATCH</code> -> modifies part of an object</li>
+<li><code>POST</code> -> creates an object</li>
+</ul>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I'm no expert on this stuff so the VERBs above may not be correct wording.&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> I'm no expert on this stuff so the VERBs above may not be correct wording.</span></p>
 
-&lt;p&gt;This would allow us to define the same route like so&lt;/p&gt;
+<p>This would allow us to define the same route like so</p>
 
-&lt;pre&gt;&lt;code&gt;Delete[&quot;/products/{id}&quot;] = _ =&amp;gt;
+<pre><code>Delete["/products/{id}"] = _ =&gt;
 {
     ... Do Something...
 };
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
 
       <p><a href="/2013/02/x-http-method-override-with-nancyfx/">Read more...</a></p>
@@ -144,35 +144,35 @@
         <a href="/2013/02/oauth-with-asp-net-mvc-and-world-domination-authentication/">OAuth with ASP.NET MVC and WorldDomination.Web.Authentication</a> 
         <span>posted on 05 Feb 2013</span>
       </h1> 
-      &lt;p&gt;This post is a follow on from my previous post &lt;a href=&quot;/2013/01/oauth-with-nancyfx-and-world-domination-authentication/&quot;&gt;OAuth with NancyFX and WorldDomination.Web.Authentication&lt;/a&gt; except this demonstrates how you can use WorldDomination.Web.Authentication with ASP.NET MVC, writing only minimal code in the process.&lt;/p&gt;
+      <p>This post is a follow on from my previous post <a href="/2013/01/oauth-with-nancyfx-and-world-domination-authentication/">OAuth with NancyFX and WorldDomination.Web.Authentication</a> except this demonstrates how you can use WorldDomination.Web.Authentication with ASP.NET MVC, writing only minimal code in the process.</p>
 
-&lt;p&gt;To save you jumping to the other post, I'll quote myself:&lt;/p&gt;
+<p>To save you jumping to the other post, I'll quote myself:</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;One of the biggest pains of building websites, in my opinion, is implementing OAuth providers, it's often fiddly, doesn't work, and frameworks that are created to try make things easier, don't seem to make it easier. &lt;/p&gt;
+<blockquote>
+  <p>One of the biggest pains of building websites, in my opinion, is implementing OAuth providers, it's often fiddly, doesn't work, and frameworks that are created to try make things easier, don't seem to make it easier. </p>
   
-  &lt;p&gt;So &lt;a href=&quot;https://github.com/PureKrome&quot;&gt;PureKrome&lt;/a&gt; and myself decided to create &lt;a href=&quot;http://www.nuget.org/packages/WorldDomination.Web.Authentication/&quot;&gt;WorldDomination: Web Authentication&lt;/a&gt;&lt;/p&gt;
+  <p>So <a href="https://github.com/PureKrome">PureKrome</a> and myself decided to create <a href="http://www.nuget.org/packages/WorldDomination.Web.Authentication/">WorldDomination: Web Authentication</a></p>
   
-  &lt;p&gt;The idea behind this framework is to keep it super simple to implement OAuth into your website, without the bloat. The core framework ONLY deals with Google, Twitter, and Facebook authentication. It doesn't try to create a fancy UI for you, it doesn't require you to write lots and lots of code. You simply give it some info, it redirects, it comes back and gives you the authentication info.&lt;/p&gt;
-&lt;/blockquote&gt;
+  <p>The idea behind this framework is to keep it super simple to implement OAuth into your website, without the bloat. The core framework ONLY deals with Google, Twitter, and Facebook authentication. It doesn't try to create a fancy UI for you, it doesn't require you to write lots and lots of code. You simply give it some info, it redirects, it comes back and gives you the authentication info.</p>
+</blockquote>
 
-&lt;p&gt;So without further adieu...&lt;/p&gt;
+<p>So without further adieu...</p>
 
-&lt;h3&gt;Installing&lt;/h3&gt;
+<h3>Installing</h3>
 
-&lt;p&gt;Installing the library for MVC requires installing the MVC specific library.&lt;/p&gt;
+<p>Installing the library for MVC requires installing the MVC specific library.</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;PM&gt; Install-Package WorldDomination.Web.Authentication.Mvc&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>PM> Install-Package WorldDomination.Web.Authentication.Mvc</p>
+</blockquote>
 
-&lt;p&gt;This will install:&lt;/p&gt;
+<p>This will install:</p>
 
-&lt;ul&gt;
-&lt;li&gt;WorldDomination.Web.Authentication.Mvc&lt;/li&gt;
-&lt;li&gt;WorldDomination.Web.Authentication&lt;/li&gt;
-&lt;li&gt;RestSharp&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li>WorldDomination.Web.Authentication.Mvc</li>
+<li>WorldDomination.Web.Authentication</li>
+<li>RestSharp</li>
+</ul>
 
 
       <p><a href="/2013/02/oauth-with-asp-net-mvc-and-world-domination-authentication/">Read more...</a></p>
@@ -182,29 +182,29 @@
         <a href="/2013/01/oauth-with-nancyfx-and-world-domination-authentication/">OAuth with NancyFX and WorldDomination.Web.Authentication</a> 
         <span>posted on 31 Jan 2013</span>
       </h1> 
-      &lt;p&gt;One of the biggest pains of building websites, in my opinion, is implementing OAuth providers, it's often fiddly, doesn't work, and frameworks that are created to try make things easier, don't seem to make it easier. &lt;/p&gt;
+      <p>One of the biggest pains of building websites, in my opinion, is implementing OAuth providers, it's often fiddly, doesn't work, and frameworks that are created to try make things easier, don't seem to make it easier. </p>
 
-&lt;p&gt;So &lt;a href=&quot;https://github.com/PureKrome&quot;&gt;PureKrome&lt;/a&gt; and myself decided to create &lt;a href=&quot;http://www.nuget.org/packages/WorldDomination.Web.Authentication/&quot;&gt;WorldDomination: Web Authentication&lt;/a&gt;&lt;/p&gt;
+<p>So <a href="https://github.com/PureKrome">PureKrome</a> and myself decided to create <a href="http://www.nuget.org/packages/WorldDomination.Web.Authentication/">WorldDomination: Web Authentication</a></p>
 
-&lt;p&gt;The idea behind this framework is to keep it super simple to implement OAuth into your website, without the bloat. The core framework ONLY deals with Google, Twitter, and Facebook authentication. It doesn't try to create a fancy UI for you, it doesn't require you to write lots and lots of code. You simply give it some info, it redirects, it comes back and gives you the authentication info.&lt;/p&gt;
+<p>The idea behind this framework is to keep it super simple to implement OAuth into your website, without the bloat. The core framework ONLY deals with Google, Twitter, and Facebook authentication. It doesn't try to create a fancy UI for you, it doesn't require you to write lots and lots of code. You simply give it some info, it redirects, it comes back and gives you the authentication info.</p>
 
-&lt;p&gt;Just recently the guys contributing to JabbR decided to use the library, and with feedback we added some really awesome support for NancyFX which I will show.&lt;/p&gt;
+<p>Just recently the guys contributing to JabbR decided to use the library, and with feedback we added some really awesome support for NancyFX which I will show.</p>
 
-&lt;h3&gt;Installing&lt;/h3&gt;
+<h3>Installing</h3>
 
-&lt;p&gt;Installing the libary for Nancy requires installing the Nancy specific library.&lt;/p&gt;
+<p>Installing the libary for Nancy requires installing the Nancy specific library.</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;PM&gt; Install-Package Nancy.Authentication.WorldDomination&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>PM> Install-Package Nancy.Authentication.WorldDomination</p>
+</blockquote>
 
-&lt;p&gt;This will install:&lt;/p&gt;
+<p>This will install:</p>
 
-&lt;ul&gt;
-&lt;li&gt;Nancy.Authentication.WorldDomination&lt;/li&gt;
-&lt;li&gt;WorldDomination.Web.Authentication&lt;/li&gt;
-&lt;li&gt;RestSharp&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li>Nancy.Authentication.WorldDomination</li>
+<li>WorldDomination.Web.Authentication</li>
+<li>RestSharp</li>
+</ul>
 
 
       <p><a href="/2013/01/oauth-with-nancyfx-and-world-domination-authentication/">Read more...</a></p>
@@ -214,27 +214,27 @@
         <a href="/2013/01/introducing-raygun-and-nancy-raygun/">Introducing Raygun.io and Nancy.Raygun</a> 
         <span>posted on 29 Jan 2013</span>
       </h1> 
-      &lt;p&gt;So not long ago I &lt;a href=&quot;/2012/10/keep-an-eye-on-raygun-to-zap-all-your-errors-away/&quot;&gt;posted&lt;/a&gt; about an up and coming service from &lt;a href=&quot;http://www.mindscapehq.com&quot;&gt;http://www.mindscapehq.com&lt;/a&gt; called &lt;a href=&quot;http://www.raygun.io&quot;&gt;Raygun&lt;/a&gt;, well last week they went into beta, and I was invited, so since early last week I've been giving their system the run around and provided a little bit of feedback. &lt;/p&gt;
+      <p>So not long ago I <a href="/2012/10/keep-an-eye-on-raygun-to-zap-all-your-errors-away/">posted</a> about an up and coming service from <a href="http://www.mindscapehq.com">http://www.mindscapehq.com</a> called <a href="http://www.raygun.io">Raygun</a>, well last week they went into beta, and I was invited, so since early last week I've been giving their system the run around and provided a little bit of feedback. </p>
 
-&lt;p&gt;I say a little bit, because besides being a super early beta tester, and a super early product that will grow over time, the beta is quite polished. There was only a few minor issues which they corrected within a day or less. &lt;/p&gt;
+<p>I say a little bit, because besides being a super early beta tester, and a super early product that will grow over time, the beta is quite polished. There was only a few minor issues which they corrected within a day or less. </p>
 
-&lt;p&gt;&lt;img src=&quot;/images/raygun-beta-robby-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/raygun-beta-robby-1.png" alt="" /></p>
 
-&lt;p&gt;Raygun is super easy to setup and implement into your application, in-fact it's really nothing more than creating an app, install the nuget package, and set the key, and away you go. &lt;/p&gt;
+<p>Raygun is super easy to setup and implement into your application, in-fact it's really nothing more than creating an app, install the nuget package, and set the key, and away you go. </p>
 
-&lt;p&gt;There's a simple guide over &lt;a href=&quot;http://www.pieterg.com/2013/1/raygunio-has-launched&quot;&gt;http://www.pieterg.com/2013/1/raygunio-has-launched&lt;/a&gt;, so I won't bore you with the same content.&lt;/p&gt;
+<p>There's a simple guide over <a href="http://www.pieterg.com/2013/1/raygunio-has-launched">http://www.pieterg.com/2013/1/raygunio-has-launched</a>, so I won't bore you with the same content.</p>
 
-&lt;h2&gt;Nancy.Raygun&lt;/h2&gt;
+<h2>Nancy.Raygun</h2>
 
-&lt;p&gt;Currently the &lt;a href=&quot;https://www.nuget.org/packages/Mindscape.Raygun4Net/&quot;&gt;offical Nuget package&lt;/a&gt; has a dependency on System.Web which isn't very nice for Nancy, so I've created &lt;a href=&quot;https://www.nuget.org/packages/Nancy.Raygun/&quot;&gt;Nancy.Raygun&lt;/a&gt;&lt;/p&gt;
+<p>Currently the <a href="https://www.nuget.org/packages/Mindscape.Raygun4Net/">offical Nuget package</a> has a dependency on System.Web which isn't very nice for Nancy, so I've created <a href="https://www.nuget.org/packages/Nancy.Raygun/">Nancy.Raygun</a></p>
 
-&lt;p&gt;It has no dependency on &lt;code&gt;System.Web&lt;/code&gt;, and uses the &lt;code&gt;NancyContext&lt;/code&gt; rather than &lt;code&gt;HttpContext.Current&lt;/code&gt;, it also implements &lt;code&gt;IApplicationStartup&lt;/code&gt; so that it automatically wires itself up for handling errors for you.&lt;/p&gt;
+<p>It has no dependency on <code>System.Web</code>, and uses the <code>NancyContext</code> rather than <code>HttpContext.Current</code>, it also implements <code>IApplicationStartup</code> so that it automatically wires itself up for handling errors for you.</p>
 
-&lt;p&gt;Nancy.Raygun is on &lt;a href=&quot;https://github.com/phillip-haydon/Nancy.Raygun&quot;&gt;Github&lt;/a&gt;, installing the nuget package will add the web.config for you so all you need to do is add the key and away you go.&lt;/p&gt;
+<p>Nancy.Raygun is on <a href="https://github.com/phillip-haydon/Nancy.Raygun">Github</a>, installing the nuget package will add the web.config for you so all you need to do is add the key and away you go.</p>
 
-&lt;h2&gt;Why Raygun?&lt;/h2&gt;
+<h2>Why Raygun?</h2>
 
-&lt;p&gt;I've had a few people ask me why I would use Raygun over ELMAH, or AppFail. &lt;/p&gt;
+<p>I've had a few people ask me why I would use Raygun over ELMAH, or AppFail. </p>
 
 
       <p><a href="/2013/01/introducing-raygun-and-nancy-raygun/">Read more...</a></p>
@@ -244,23 +244,23 @@
         <a href="/2013/01/introducing-sandra-simplevalidator-validation-reinvented-again/">Introducing Sandra.SimpleValidation - Validation reinvented... again</a> 
         <span>posted on 25 Jan 2013</span>
       </h1> 
-      &lt;p&gt;Yup, I decided to reinvent the wheel, don't hate on me :)&lt;/p&gt;
+      <p>Yup, I decided to reinvent the wheel, don't hate on me :)</p>
 
-&lt;p&gt;So I grew a little fustrated, theres quite a few serverside validation libraries around, but I feel they do too much, are hard to test, yada yada yada...&lt;/p&gt;
+<p>So I grew a little fustrated, theres quite a few serverside validation libraries around, but I feel they do too much, are hard to test, yada yada yada...</p>
 
-&lt;p&gt;So I came up with Sandra.SimpleValidation&lt;/p&gt;
+<p>So I came up with Sandra.SimpleValidation</p>
 
-&lt;p&gt;The idea is that it's dead simple, it requires 0 up front configuration, it doesn't allow you to inject stuff into the validators, validators are newed up once and only once, there's no client-side validation.&lt;/p&gt;
+<p>The idea is that it's dead simple, it requires 0 up front configuration, it doesn't allow you to inject stuff into the validators, validators are newed up once and only once, there's no client-side validation.</p>
 
-&lt;p&gt;I don't believe validation should allow you to do things like inject a repository and query the database, those begin to become Business Rules and should be handled seperately. All it does is validate a model you give it. &lt;/p&gt;
+<p>I don't believe validation should allow you to do things like inject a repository and query the database, those begin to become Business Rules and should be handled seperately. All it does is validate a model you give it. </p>
 
-&lt;p&gt;So what do you need to do?&lt;/p&gt;
+<p>So what do you need to do?</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;PM&gt; Install-Package Sandra.SimpleValidator&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>PM> Install-Package Sandra.SimpleValidator</p>
+</blockquote>
 
-&lt;p&gt;First up, install the package. It requires 4.0 or above, it could probably work on 3.5 but who uses that anymore?&lt;/p&gt;
+<p>First up, install the package. It requires 4.0 or above, it could probably work on 3.5 but who uses that anymore?</p>
 
 
       <p><a href="/2013/01/introducing-sandra-simplevalidator-validation-reinvented-again/">Read more...</a></p>
@@ -270,17 +270,17 @@
         <a href="/2013/01/windows-store-app-with-caliburn-micro-basic-binding/">Windows Store App with Caliburn.Micro - Basic Databinding</a> 
         <span>posted on 17 Jan 2013</span>
       </h1> 
-      &lt;p&gt;Continuing on with the SampleProject for a Windows Store App, we will look at binding, this is where we will finally make use of the ViewModel. &lt;/p&gt;
+      <p>Continuing on with the SampleProject for a Windows Store App, we will look at binding, this is where we will finally make use of the ViewModel. </p>
 
-&lt;p&gt;In the previous example we output the text 'Hello World' to the screen, but rather than put it on the screen directly we can load it when we load the view.&lt;/p&gt;
+<p>In the previous example we output the text 'Hello World' to the screen, but rather than put it on the screen directly we can load it when we load the view.</p>
 
-&lt;p&gt;First we need to create a ViewModel, Caliburn works on a naming convention so if your view is named &lt;code&gt;MainView&lt;/code&gt;, your view model needs to be naned &lt;code&gt;MainViewModel&lt;/code&gt;.&lt;/p&gt;
+<p>First we need to create a ViewModel, Caliburn works on a naming convention so if your view is named <code>MainView</code>, your view model needs to be naned <code>MainViewModel</code>.</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/windows-store-binding-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/windows-store-binding-1.png" alt="" /></p>
 
-&lt;p&gt;In our class we want to inherit from &lt;code&gt;Screen&lt;/code&gt;, this is a Caliburn class that is used to represent a single screen, your application may have many screens but for now we are only dealing with a single screen. &lt;/p&gt;
+<p>In our class we want to inherit from <code>Screen</code>, this is a Caliburn class that is used to represent a single screen, your application may have many screens but for now we are only dealing with a single screen. </p>
 
-&lt;pre&gt;&lt;code&gt;using Caliburn.Micro;
+<pre><code>using Caliburn.Micro;
 
 namespace SampleProject.ViewModels
 {
@@ -288,7 +288,7 @@ namespace SampleProject.ViewModels
     {
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
 
       <p><a href="/2013/01/windows-store-app-with-caliburn-micro-basic-binding/">Read more...</a></p>
@@ -298,19 +298,19 @@ namespace SampleProject.ViewModels
         <a href="/2013/01/it-communities-like-hacker-news-are-full-of-assholes/">IT-Communities like Hacker News are full of assholes</a> 
         <span>posted on 14 Jan 2013</span>
       </h1> 
-      &lt;p&gt;I only found out about hacker news maybe... 6 months ago? This place is like 4chan for the IT-Community, and it's not the only place. The entire internet is full of assholes.&lt;/p&gt;
+      <p>I only found out about hacker news maybe... 6 months ago? This place is like 4chan for the IT-Community, and it's not the only place. The entire internet is full of assholes.</p>
 
-&lt;p&gt;Filip Ekberg wrote an opinionated &lt;a href=&quot;http://blog.filipekberg.se/2013/01/11/c-is-the-past-the-present-and-the-future/&quot;&gt;blog post&lt;/a&gt; a few days ago, about how he thinks C# is the past, present and future. After &lt;a href=&quot;http://news.ycombinator.com/item?id=5042055&quot;&gt;self promotion&lt;/a&gt; on Hacker News, I'm sure a lot of people do, such as &lt;a href=&quot;http://news.ycombinator.com/submitted?id=philliphaydon&quot;&gt;myself&lt;/a&gt;. He got an out pour of comments. &lt;/p&gt;
+<p>Filip Ekberg wrote an opinionated <a href="http://blog.filipekberg.se/2013/01/11/c-is-the-past-the-present-and-the-future/">blog post</a> a few days ago, about how he thinks C# is the past, present and future. After <a href="http://news.ycombinator.com/item?id=5042055">self promotion</a> on Hacker News, I'm sure a lot of people do, such as <a href="http://news.ycombinator.com/submitted?id=philliphaydon">myself</a>. He got an out pour of comments. </p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;&quot;I am a Software Engineer working with various techniques such as C#, WPF, WCF, ASP.NET MVC, ASP.NET and much more&quot;&lt;br&gt;
-  &quot;I spend most of my days working with the latest technologies from Microsoft.&quot;&lt;br&gt;
-  &quot;In the darkest alley-ways we still have the people not wanting to touch C# with a pitch-fork because it's behind Microsoft&quot;&lt;br&gt;
-  In my opinion he lacks enough neutrality to make that statements(how he know MS tech is so great if he is totally ignorant of other options?).&lt;br&gt;
-  Instead of telling people to learn only Microsoft tech he could take his own advise and learn non Microsoft tech too. The world is much bigger than a single company.&lt;br&gt;
-  In my work as a software engineer I had to use what was good for my company, not what was good for Microsoft, Apple, or any religion(GNU or whatever).&lt;br&gt;
-  I had to use Java, C#, objective C, python, (and lisp and c and c++). We will never be in the hands of a single company ever.&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>"I am a Software Engineer working with various techniques such as C#, WPF, WCF, ASP.NET MVC, ASP.NET and much more"<br>
+  "I spend most of my days working with the latest technologies from Microsoft."<br>
+  "In the darkest alley-ways we still have the people not wanting to touch C# with a pitch-fork because it's behind Microsoft"<br>
+  In my opinion he lacks enough neutrality to make that statements(how he know MS tech is so great if he is totally ignorant of other options?).<br>
+  Instead of telling people to learn only Microsoft tech he could take his own advise and learn non Microsoft tech too. The world is much bigger than a single company.<br>
+  In my work as a software engineer I had to use what was good for my company, not what was good for Microsoft, Apple, or any religion(GNU or whatever).<br>
+  I had to use Java, C#, objective C, python, (and lisp and c and c++). We will never be in the hands of a single company ever.</p>
+</blockquote>
 
 
       <p><a href="/2013/01/it-communities-like-hacker-news-are-full-of-assholes/">Read more...</a></p>

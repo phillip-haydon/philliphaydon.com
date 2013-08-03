@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,21 +49,21 @@
       </div>
     </div>
         
-    &lt;p&gt;Had an interesting scenario to solve today, while I was away a bunch of unit tests got turned off since they broke during some refactoring, I spent the day fixing theses unit tests.&lt;/p&gt;
+    <p>Had an interesting scenario to solve today, while I was away a bunch of unit tests got turned off since they broke during some refactoring, I spent the day fixing theses unit tests.</p>
 
-&lt;p&gt;The method under test had a dependency on another class, it performed two actions on this class.&lt;/p&gt;
+<p>The method under test had a dependency on another class, it performed two actions on this class.</p>
 
-&lt;ol&gt;
-&lt;li&gt;to get a list of data&lt;/li&gt;
-&lt;li&gt;to return a DateRange (this is done in a foreach loop)&lt;/li&gt;
-&lt;/ol&gt;
+<ol>
+<li>to get a list of data</li>
+<li>to return a DateRange (this is done in a foreach loop)</li>
+</ol>
 
-&lt;p&gt;DateRange is just a class with a start/end property of DateTime. The method is sort of like this (obviously with proper names I just wrote some random code to illustrate the scenario)&lt;/p&gt;
+<p>DateRange is just a class with a start/end property of DateTime. The method is sort of like this (obviously with proper names I just wrote some random code to illustrate the scenario)</p>
 
-&lt;pre&gt;&lt;code&gt;public IEnumerable&amp;lt;Stuff&amp;gt; GetStuff(DateTime dateList)
+<pre><code>public IEnumerable&lt;Stuff&gt; GetStuff(DateTime dateList)
 {
-    var result = new List&amp;lt;Stuff&amp;gt;();
-    var someService = IoC.Resolve&amp;lt;ISomeService&amp;gt;();
+    var result = new List&lt;Stuff&gt;();
+    var someService = IoC.Resolve&lt;ISomeService&gt;();
     var data = someService.GetData();
 
     foreach (var date in dateList)
@@ -75,47 +75,47 @@
 
     return result;
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;So the same service is called twice, the issue is when iterating over the dateList, it needs to be filtered based on a DateRange during the day. So say, 8am till 10pm. Removing the stuff outside of that time period during that day.&lt;/p&gt;
+<p>So the same service is called twice, the issue is when iterating over the dateList, it needs to be filtered based on a DateRange during the day. So say, 8am till 10pm. Removing the stuff outside of that time period during that day.</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;The method GetDates would take some rules and based on the date, create the the DateRange for the filter.&lt;/p&gt;
+<p>The method GetDates would take some rules and based on the date, create the the DateRange for the filter.</p>
 
-&lt;p&gt;To test this method we needed to get some data, and filter it,and check the list had the correct data after being filtered.&lt;/p&gt;
+<p>To test this method we needed to get some data, and filter it,and check the list had the correct data after being filtered.</p>
 
-&lt;p&gt;We mocked ISomeService,using Moq:&lt;/p&gt;
+<p>We mocked ISomeService,using Moq:</p>
 
-&lt;pre&gt;&lt;code&gt;var mockService = new Mock&amp;lt;ISomeService&amp;gt;();
-mockService.Setup(x =&amp;gt; x.GetData()).Returns(FakeData());
-IoC.Register&amp;lt;ISomeService&amp;gt;(mockService.Object);
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>var mockService = new Mock&lt;ISomeService&gt;();
+mockService.Setup(x =&gt; x.GetData()).Returns(FakeData());
+IoC.Register&lt;ISomeService&gt;(mockService.Object);
+</code></pre>
 
-&lt;p&gt;The issue is now in the foreach, I couldn't just mock a return because it would be the same value and I wouldn't be testing the actual foreach. I ended up writing something along the lines of:&lt;/p&gt;
+<p>The issue is now in the foreach, I couldn't just mock a return because it would be the same value and I wouldn't be testing the actual foreach. I ended up writing something along the lines of:</p>
 
-&lt;pre&gt;&lt;code&gt;mockService.Setup(x =&amp;gt; x.GetDates(It.IsAny&amp;lt;OpenCloseRule&amp;gt;(), It.IsAny&amp;lt;DateTime&amp;gt;()))
+<pre><code>mockService.Setup(x =&gt; x.GetDates(It.IsAny&lt;OpenCloseRule&gt;(), It.IsAny&lt;DateTime&gt;()))
            .Returns(
-               (OpenCloseRule openRules, DateTime, startDate) =&amp;gt;
+               (OpenCloseRule openRules, DateTime, startDate) =&gt;
                //Some logic
                return new DateRange(start, end);
            );
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This worked great, except, if the implementation of GetDates changes, would result in false positives or false negatives, or something.&lt;/p&gt;
+<p>This worked great, except, if the implementation of GetDates changes, would result in false positives or false negatives, or something.</p>
 
-&lt;p&gt;So I ended up changing it to:&lt;/p&gt;
+<p>So I ended up changing it to:</p>
 
-&lt;pre&gt;&lt;code&gt;mockService.Setup(x =&amp;gt; x.GetDates(It.IsAny&amp;lt;OpenCloseRule&amp;gt;(), It.IsAny&amp;lt;DateTime&amp;gt;()))
+<pre><code>mockService.Setup(x =&gt; x.GetDates(It.IsAny&lt;OpenCloseRule&gt;(), It.IsAny&lt;DateTime&gt;()))
            .Returns(
-               (OpenCloseRule openRules, DateTime, startDate) =&amp;gt;
+               (OpenCloseRule openRules, DateTime, startDate) =&gt;
                return (new SomeService()).GetDates(openRules, startDate);
            );
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;That way if the implantation changes, the test will break or, work. Personally I don't like this cos I'm testing two things instead of one. But at least I can test the original method works correctly.&lt;/p&gt;
+<p>That way if the implantation changes, the test will break or, work. Personally I don't like this cos I'm testing two things instead of one. But at least I can test the original method works correctly.</p>
 
-&lt;p&gt;So what I actually learnt was that the returns method on the mock can actually use the parameters that were passed in. That's pretty awesome. Bed time, it's late.&lt;/p&gt;
+<p>So what I actually learnt was that the returns method on the mock can actually use the parameters that were passed in. That's pretty awesome. Bed time, it's late.</p>
 
 
 	<div class="divider"></div>

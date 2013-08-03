@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,19 +49,19 @@
       </div>
     </div>
         
-    &lt;p&gt;So a long time ago &lt;a href=&quot;http://jameskovacs.com/&quot;&gt;James Kovacs&lt;/a&gt; posted a article about &lt;a href=&quot;http://nhforge.org/blogs/nhibernate/archive/2011/02/16/get-load-polymorphism-in-nhibernate-3.aspx&quot;&gt;get/load polymorphism&lt;/a&gt; with NHibernate, which was cool and all but I always wanted to know how to map it all in Fluent NHibernate. I worked it out at the time but I guess it's taken me 7 months to write it down.&lt;/p&gt;
+    <p>So a long time ago <a href="http://jameskovacs.com/">James Kovacs</a> posted a article about <a href="http://nhforge.org/blogs/nhibernate/archive/2011/02/16/get-load-polymorphism-in-nhibernate-3.aspx">get/load polymorphism</a> with NHibernate, which was cool and all but I always wanted to know how to map it all in Fluent NHibernate. I worked it out at the time but I guess it's taken me 7 months to write it down.</p>
 
-&lt;p&gt;First up is using a single table, mapping them to multiple classes, this is done using a discriminator. Fluent NHibernate calls this 'table-per-class-hierarchy strategy', which doesn't make sense to me. But meh.&lt;/p&gt;
+<p>First up is using a single table, mapping them to multiple classes, this is done using a discriminator. Fluent NHibernate calls this 'table-per-class-hierarchy strategy', which doesn't make sense to me. But meh.</p>
 
-&lt;p&gt;So I'm going to begin with the following classes to demonstrate this:&lt;/p&gt;
+<p>So I'm going to begin with the following classes to demonstrate this:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/fnh-descrim-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/fnh-descrim-1.png" alt="" /></p>
 
-&lt;p&gt;So if I was to select all WallPost's it would give me instances of LinkShare, and Text wall posts.&lt;/p&gt;
+<p>So if I was to select all WallPost's it would give me instances of LinkShare, and Text wall posts.</p>
 
-&lt;p&gt;These classes are really basic at the moment.&lt;/p&gt;
+<p>These classes are really basic at the moment.</p>
 
-&lt;pre&gt;&lt;code&gt;public class WallPost
+<pre><code>public class WallPost
 {
     public virtual Guid Id { get; set; }
     public virtual DateTime DatePosted { get; set; }
@@ -76,33 +76,33 @@ public class TextWallPost : WallPost
 public class LinkShareWallPost : WallPost
 {
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;p&gt;First we map the Wall Post:&lt;/p&gt;
+<p>First we map the Wall Post:</p>
 
-&lt;pre&gt;&lt;code&gt;public class WallPostMap : ClassMap&amp;lt;WallPost&amp;gt;
+<pre><code>public class WallPostMap : ClassMap&lt;WallPost&gt;
 {
     public WallPostMap()
     {
-        Table(&quot;WallPost&quot;);
-        Id(x =&amp;gt; x.Id).GeneratedBy.GuidComb();
+        Table("WallPost");
+        Id(x =&gt; x.Id).GeneratedBy.GuidComb();
 
-        DiscriminateSubClassesOnColumn(&quot;PostType&quot;);
+        DiscriminateSubClassesOnColumn("PostType");
 
-        Map(x =&amp;gt; x.DatePosted);
-        Map(x =&amp;gt; x.Title);
-        Map(x =&amp;gt; x.Content);
+        Map(x =&gt; x.DatePosted);
+        Map(x =&gt; x.Title);
+        Map(x =&gt; x.Content);
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;As you see, there is a 'DescriminateSubClassesOnColumn' method which specifies a column. This is what NHibernate uses to figure out which type of Sub Class to create.&lt;/p&gt;
+<p>As you see, there is a 'DescriminateSubClassesOnColumn' method which specifies a column. This is what NHibernate uses to figure out which type of Sub Class to create.</p>
 
-&lt;p&gt;Next we need to map the Sub Classes.&lt;/p&gt;
+<p>Next we need to map the Sub Classes.</p>
 
-&lt;pre&gt;&lt;code&gt;public class TextWallPostMap : SubclassMap&amp;lt;TextWallPost&amp;gt;
+<pre><code>public class TextWallPostMap : SubclassMap&lt;TextWallPost&gt;
 {
     public TextWallPostMap()
     {
@@ -110,89 +110,89 @@ public class LinkShareWallPost : WallPost
     }
 }
 
-public class LinkShareWallPostMap : SubclassMap&amp;lt;LinkShareWallPost&amp;gt;
+public class LinkShareWallPostMap : SubclassMap&lt;LinkShareWallPost&gt;
 {
     public LinkShareWallPostMap()
     {
         DiscriminatorValue(2);
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Here I have specified the Discriminator Value for each sub class. If I save a TextWallPost, it will save the value '1' to the column 'PostType'. Then when it pulls it from the database, it uses this value to decide the SubClass to create.&lt;/p&gt;
+<p>Here I have specified the Discriminator Value for each sub class. If I save a TextWallPost, it will save the value '1' to the column 'PostType'. Then when it pulls it from the database, it uses this value to decide the SubClass to create.</p>
 
-&lt;p&gt;The generated table looks like:&lt;/p&gt;
+<p>The generated table looks like:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/fnh-descrim-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/fnh-descrim-2.png" alt="" /></p>
 
-&lt;p&gt;Now if I insert a couple of posts:&lt;/p&gt;
+<p>Now if I insert a couple of posts:</p>
 
-&lt;pre&gt;&lt;code&gt;using (var tx = session.BeginTransaction())
+<pre><code>using (var tx = session.BeginTransaction())
 {
     var wallPost = new TextWallPost
     {
         DatePosted = DateTime.Now,
-        Title = &quot;My First Wall Post&quot;,
-        Content = &quot;Is Awesome!&quot;
+        Title = "My First Wall Post",
+        Content = "Is Awesome!"
     };
     var linkPost = new LinkShareWallPost()
     {
         DatePosted = DateTime.Now,
-        Title = &quot;My First Link Share&quot;,
-        Content = &quot;Is Awesome!&quot;
+        Title = "My First Link Share",
+        Content = "Is Awesome!"
     };
     session.Save(wallPost);
     session.Save(linkPost);
 
     tx.Commit();
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;I've done nothing more than create instances of the classes I want, and commit them to the database, the SQL that is generated looks like:&lt;/p&gt;
+<p>I've done nothing more than create instances of the classes I want, and commit them to the database, the SQL that is generated looks like:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/fnh-descrim-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/fnh-descrim-3.png" alt="" /></p>
 
-&lt;p&gt;So when it generates the SQL it puts the discriminator value in for us.&lt;/p&gt;
+<p>So when it generates the SQL it puts the discriminator value in for us.</p>
 
-&lt;p&gt;If I select all 'WallPost' from the database:&lt;/p&gt;
+<p>If I select all 'WallPost' from the database:</p>
 
-&lt;pre&gt;&lt;code&gt;var result = session.QueryOver&amp;lt;WallPost&amp;gt;().List();
-
-foreach (var wallPost in result)
-{
-    Console.WriteLine(wallPost.Title);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;It just does a normal select:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/fnh-descrim-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Nice right? What's cool is if we look at the list of results we get, we get instances of WallPost, and instances of LinkShareWallPost back:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/fnh-descrim-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now suppose we wanted to select JUST Link Shares.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var result = session.QueryOver&amp;lt;LinkShareWallPost&amp;gt;().List();
+<pre><code>var result = session.QueryOver&lt;WallPost&gt;().List();
 
 foreach (var wallPost in result)
 {
     Console.WriteLine(wallPost.Title);
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;NHibernate will actually write the query to select only WallPosts that specify the Discriminator type defined in our Sub Class mapping.&lt;/p&gt;
+<p>It just does a normal select:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/fnh-descrim-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/fnh-descrim-4.png" alt="" /></p>
 
-&lt;p&gt;So if we look at the results in VS:&lt;/p&gt;
+<p>Nice right? What's cool is if we look at the list of results we get, we get instances of WallPost, and instances of LinkShareWallPost back:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/fnh-descrim-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/fnh-descrim-5.png" alt="" /></p>
 
-&lt;p&gt;Very nice stuff indeed.&lt;/p&gt;
+<p>Now suppose we wanted to select JUST Link Shares.</p>
 
-&lt;p&gt;There's future posts on this stuff to come :)&lt;/p&gt;
+<pre><code>var result = session.QueryOver&lt;LinkShareWallPost&gt;().List();
+
+foreach (var wallPost in result)
+{
+    Console.WriteLine(wallPost.Title);
+}
+</code></pre>
+
+<p>NHibernate will actually write the query to select only WallPosts that specify the Discriminator type defined in our Sub Class mapping.</p>
+
+<p><img src="/images/fnh-descrim-6.png" alt="" /></p>
+
+<p>So if we look at the results in VS:</p>
+
+<p><img src="/images/fnh-descrim-7.png" alt="" /></p>
+
+<p>Very nice stuff indeed.</p>
+
+<p>There's future posts on this stuff to come :)</p>
 
 
 	<div class="divider"></div>

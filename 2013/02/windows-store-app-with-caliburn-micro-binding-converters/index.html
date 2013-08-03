@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -49,32 +49,32 @@
       </div>
     </div>
         
-    &lt;p&gt;In my last post about &lt;a href=&quot;http://www.philliphaydon.com/2013/01/windows-store-app-with-caliburn-micro-basic-binding&quot;&gt;Basic Binding&lt;/a&gt; we added the ability to Hide/Show a control using Viability property of the control to make it &lt;code&gt;Visible&lt;/code&gt; or &lt;code&gt;Collapsed&lt;/code&gt;&lt;/p&gt;
+    <p>In my last post about <a href="http://www.philliphaydon.com/2013/01/windows-store-app-with-caliburn-micro-basic-binding">Basic Binding</a> we added the ability to Hide/Show a control using Viability property of the control to make it <code>Visible</code> or <code>Collapsed</code></p>
 
-&lt;p&gt;However the View Model shouldn't have any real knowledge of how the view works, meaning it shouldn't actually dictate the visibility using the controls properties.&lt;/p&gt;
+<p>However the View Model shouldn't have any real knowledge of how the view works, meaning it shouldn't actually dictate the visibility using the controls properties.</p>
 
-&lt;p&gt;&lt;span class=&quot;note&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; I left this out of the original post because I wanted to keep it 'Basic' without confusing binding with converters and such, making the topic more complicated&lt;/span&gt;&lt;/p&gt;
+<p><span class="note"><strong>Note:</strong> I left this out of the original post because I wanted to keep it 'Basic' without confusing binding with converters and such, making the topic more complicated</span></p>
 
-&lt;p&gt;If in the future you changed from say &lt;code&gt;TextBlock&lt;/code&gt; to a 3rd party control called &lt;code&gt;BananaTextBlock&lt;/code&gt; and that 3rd party decided that they were not going to use the built in Viability enum, and instead decided to create their own naming convention, and enum etc. You would be forced to change your ViewModel, which isn't good.&lt;/p&gt;
+<p>If in the future you changed from say <code>TextBlock</code> to a 3rd party control called <code>BananaTextBlock</code> and that 3rd party decided that they were not going to use the built in Viability enum, and instead decided to create their own naming convention, and enum etc. You would be forced to change your ViewModel, which isn't good.</p>
 
-&lt;p&gt;That's where Value Converters come in handy. &lt;/p&gt;
+<p>That's where Value Converters come in handy. </p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;h2&gt;Creating your own Converter&lt;/h2&gt;
+<h2>Creating your own Converter</h2>
 
-&lt;p&gt;Value Converters are easy to implement, simply create a new class and inherit the &lt;code&gt;IValueConverter&lt;/code&gt; interface. There are two methods you need to implement, the &lt;code&gt;Convert&lt;/code&gt;, this is where you convert your object to the target type. &lt;/p&gt;
+<p>Value Converters are easy to implement, simply create a new class and inherit the <code>IValueConverter</code> interface. There are two methods you need to implement, the <code>Convert</code>, this is where you convert your object to the target type. </p>
 
-&lt;p&gt;i.e if your View Model uses a &lt;code&gt;Boolean&lt;/code&gt;, you would accept the &lt;code&gt;Boolean&lt;/code&gt; type and convert it to a &lt;code&gt;Visibility&lt;/code&gt; type. &lt;/p&gt;
+<p>i.e if your View Model uses a <code>Boolean</code>, you would accept the <code>Boolean</code> type and convert it to a <code>Visibility</code> type. </p>
 
-&lt;p&gt;The second method is ConvertBack, where it takes the control type and converts it back to the ViewModel type. &lt;/p&gt;
+<p>The second method is ConvertBack, where it takes the control type and converts it back to the ViewModel type. </p>
 
-&lt;pre&gt;&lt;code&gt;public sealed class BooleanToVisibilityConverter : IValueConverter
+<pre><code>public sealed class BooleanToVisibilityConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language)
     {
         if (!(value is bool))
-            throw new ArgumentException(&quot;value is not type of boolean&quot;);        
+            throw new ArgumentException("value is not type of boolean");        
 
         return (bool)value ? Visibility.Visible : Visibility.Collapsed;
     }
@@ -82,44 +82,44 @@
     public object ConvertBack(object value, Type targetType, object parameter, string language)
     {
         if (!(value is Visibility))
-            throw new ArgumentException(&quot;value is not type of Visibility&quot;);
+            throw new ArgumentException("value is not type of Visibility");
 
         return (Visibility)value == Visibility.Visible;
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;h2&gt;Registering your Value Converter&lt;/h2&gt;
+<h2>Registering your Value Converter</h2>
 
-&lt;p&gt;You can do this in a couple of different places, it's similar to registering any other Resource.&lt;/p&gt;
+<p>You can do this in a couple of different places, it's similar to registering any other Resource.</p>
 
-&lt;ul&gt;
-&lt;li&gt;Page.Resources&lt;/li&gt;
-&lt;li&gt;Application.Resources&lt;/li&gt;
-&lt;li&gt;separate Resource file. &lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li>Page.Resources</li>
+<li>Application.Resources</li>
+<li>separate Resource file. </li>
+</ul>
 
-&lt;p&gt;I'm only going to show it at Page.Resources&lt;/p&gt;
+<p>I'm only going to show it at Page.Resources</p>
 
-&lt;p&gt;In the root Page node of your view, add the namespace to your converts&lt;/p&gt;
+<p>In the root Page node of your view, add the namespace to your converts</p>
 
-&lt;pre&gt;&lt;code&gt;xmlns:sp=&quot;using:SampleProject.Converters&quot;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>xmlns:sp="using:SampleProject.Converters"
+</code></pre>
 
-&lt;p&gt;In your View, add a element called &lt;code&gt;Page.Resources&lt;/code&gt; and then using the alias for the namespace just added &lt;code&gt;sp&lt;/code&gt; reference the converter we just created.&lt;/p&gt;
+<p>In your View, add a element called <code>Page.Resources</code> and then using the alias for the namespace just added <code>sp</code> reference the converter we just created.</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;Page.Resources&amp;gt;
-    &amp;lt;sp:BooleanToVisibilityConverter x:Key=&quot;TrueConveter&quot; /&amp;gt;
-&amp;lt;/Page.Resources&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>&lt;Page.Resources&gt;
+    &lt;sp:BooleanToVisibilityConverter x:Key="TrueConveter" /&gt;
+&lt;/Page.Resources&gt;
+</code></pre>
 
-&lt;p&gt;The &lt;code&gt;Key&lt;/code&gt; is the name we will use when referencing the converter.&lt;/p&gt;
+<p>The <code>Key</code> is the name we will use when referencing the converter.</p>
 
-&lt;h2&gt;Updating the ViewModel from Visibility to Boolean&lt;/h2&gt;
+<h2>Updating the ViewModel from Visibility to Boolean</h2>
 
-&lt;p&gt;The original post used the Visibility enum, but we need to update this to be a boolean&lt;/p&gt;
+<p>The original post used the Visibility enum, but we need to update this to be a boolean</p>
 
-&lt;pre&gt;&lt;code&gt;public bool TextBlockVisibility
+<pre><code>public bool TextBlockVisibility
 {
     get { return _textBlockVisibility; }
     set
@@ -132,36 +132,36 @@
         NotifyOfPropertyChange();
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;The button we used to change the value is also updated&lt;/p&gt;
+<p>The button we used to change the value is also updated</p>
 
-&lt;pre&gt;&lt;code&gt;private void UpdateText()
+<pre><code>private void UpdateText()
 {
     TextBlockVisibility = !TextBlockVisibility;
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;This will just invert the existing value each time it's clicked, like before.&lt;/p&gt;
+<p>This will just invert the existing value each time it's clicked, like before.</p>
 
-&lt;h2&gt;Using the converter&lt;/h2&gt;
+<h2>Using the converter</h2>
 
-&lt;p&gt;Now we need to update the &lt;code&gt;TextBlock&lt;/code&gt; from the original post&lt;/p&gt;
+<p>Now we need to update the <code>TextBlock</code> from the original post</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;TextBlock FontSize=&quot;28&quot; 
-           Text=&quot;{Binding Message}&quot; 
-           Visibility=&quot;{Binding TextBlockVisibility}&quot; /&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>&lt;TextBlock FontSize="28" 
+           Text="{Binding Message}" 
+           Visibility="{Binding TextBlockVisibility}" /&gt;
+</code></pre>
 
-&lt;p&gt;To use the converter, in the binding we simply want to add a comma at the end and specify a Converter&lt;/p&gt;
+<p>To use the converter, in the binding we simply want to add a comma at the end and specify a Converter</p>
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;TextBlock FontSize=&quot;28&quot;
-           Text=&quot;{Binding Message}&quot;
-           Visibility=&quot;{Binding TextBlockVisibility,
-                        Converter={StaticResource TrueConveter}}&quot; /&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>&lt;TextBlock FontSize="28"
+           Text="{Binding Message}"
+           Visibility="{Binding TextBlockVisibility,
+                        Converter={StaticResource TrueConveter}}" /&gt;
+</code></pre>
 
-&lt;p&gt;Now when we run the app, and click the button, it should hide/show, and our ViewModel now no longer needs to know how to change the visibility of the control. &lt;/p&gt;
+<p>Now when we run the app, and click the button, it should hide/show, and our ViewModel now no longer needs to know how to change the visibility of the control. </p>
 
 
 	<div class="divider"></div>

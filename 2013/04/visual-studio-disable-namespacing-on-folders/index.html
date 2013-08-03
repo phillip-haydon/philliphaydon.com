@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-03T16:21:53.1781387+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-03T16:25:23.9844056+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -48,63 +48,63 @@
       </div>
     </div>
         
-    &lt;p&gt;I just discovered this little trick I found in Visual Studio to turn off namespacing on a folder. Not sure how after 8 years I only just found this.&lt;/p&gt;
+    <p>I just discovered this little trick I found in Visual Studio to turn off namespacing on a folder. Not sure how after 8 years I only just found this.</p>
 
-&lt;h2&gt;The Problem&lt;/h2&gt;
+<h2>The Problem</h2>
 
-&lt;p&gt;Lets assume we're working with Entity Framework... (shiver)... We create a Data Model, add all our Entities and away we go. &lt;/p&gt;
+<p>Lets assume we're working with Entity Framework... (shiver)... We create a Data Model, add all our Entities and away we go. </p>
 
-&lt;p&gt;Then we want to extend one of the Entities, maybe to add some methods and such, so we need to create some partial classes. So far we have:&lt;/p&gt;
+<p>Then we want to extend one of the Entities, maybe to add some methods and such, so we need to create some partial classes. So far we have:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/visual-studio-namespacing-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/visual-studio-namespacing-1.png" alt="" /></p>
 
-&lt;p&gt;We create a new &lt;code&gt;Member.cs&lt;/code&gt; class in the &lt;code&gt;Partials&lt;/code&gt; folder;&lt;/p&gt;
+<p>We create a new <code>Member.cs</code> class in the <code>Partials</code> folder;</p>
 
-&lt;!--excerpt--&gt;
+<!--excerpt-->
 
-&lt;pre&gt;&lt;code&gt;namespace SampleNamespacing.Models.Partials
+<pre><code>namespace SampleNamespacing.Models.Partials
 {
     public partial class Member
     {
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;Then we delete the &lt;code&gt;Partials&lt;/code&gt; to put it in the same namespace as the Entities defined in the Data Model&lt;/p&gt;
+<p>Then we delete the <code>Partials</code> to put it in the same namespace as the Entities defined in the Data Model</p>
 
-&lt;pre&gt;&lt;code&gt;namespace SampleNamespacing.Models
+<pre><code>namespace SampleNamespacing.Models
 {
     public partial class Member
     {
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;But now we have a ReSharper warning&lt;/p&gt;
+<p>But now we have a ReSharper warning</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/visual-studio-namespacing-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/visual-studio-namespacing-2.png" alt="" /></p>
 
-&lt;p&gt;Now we don't have a nice green file :(&lt;/p&gt;
+<p>Now we don't have a nice green file :(</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/visual-studio-namespacing-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/visual-studio-namespacing-3.png" alt="" /></p>
 
-&lt;h2&gt;The Solution!&lt;/h2&gt;
+<h2>The Solution!</h2>
 
-&lt;p&gt;This is so simple &gt;&amp;lt; &lt;/p&gt;
+<p>This is so simple >&lt; </p>
 
-&lt;p&gt;Right click the folder and go to Properties:&lt;/p&gt;
+<p>Right click the folder and go to Properties:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/visual-studio-namespacing-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/visual-studio-namespacing-4.png" alt="" /></p>
 
-&lt;p&gt;BAM! Right there, &lt;code&gt;Namespace Provider&lt;/code&gt;! Set that thing to &lt;code&gt;False&lt;/code&gt; and we get:&lt;/p&gt;
+<p>BAM! Right there, <code>Namespace Provider</code>! Set that thing to <code>False</code> and we get:</p>
 
-&lt;p&gt;&lt;img src=&quot;/images/visual-studio-namespacing-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+<p><img src="/images/visual-studio-namespacing-5.png" alt="" /></p>
 
-&lt;p&gt;No more warnings! &lt;/p&gt;
+<p>No more warnings! </p>
 
-&lt;h2&gt;Wheres this feature come from?&lt;/h2&gt;
+<h2>Wheres this feature come from?</h2>
 
-&lt;p&gt;Turns out this is a ReSharper setting! This setting is stored in the &lt;code&gt;*project*.csproj.DotSettings&lt;/code&gt; file. So if you're using team settings then this setting would be picked up by everyone on the team. &lt;/p&gt;
+<p>Turns out this is a ReSharper setting! This setting is stored in the <code>*project*.csproj.DotSettings</code> file. So if you're using team settings then this setting would be picked up by everyone on the team. </p>
 
 
 	<div class="divider"></div>
