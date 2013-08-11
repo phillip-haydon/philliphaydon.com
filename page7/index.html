@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-11T22:54:36.6569150+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-11T23:09:20.2412192+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -39,6 +39,7 @@
         <a href="/2011/12/ravendb-map-reduce/">RavenDB - Map Reduce</a> 
         <span>posted on 22 Dec 2011</span>
       </h1> 
+      
       <p>So, learning Map Reduce in RavenDB I decided that to take what I learnt from the index created in my previous post. I think I picked something rather difficult to begin with, but I've succeeded </p>
 
 <p>Given a document Article which has a collection of Tags.</p>
@@ -68,6 +69,7 @@ public class Tag
         <a href="/2011/12/ravendb-inheritance-revisited/">RavenDB Inheritance-Revisited</a> 
         <span>posted on 14 Dec 2011</span>
       </h1> 
+      
       <p>So after my initial post on <a href="/2011/12/ravendb-inheritance/">RavenDB Inheritance</a>, and the issue I had with polymorphic queries, and seeking help from the guys in <a href="http://jabbr.net/">JabbR</a> and the (RavenDB Google Group)[http://groups.google.com/group/ravendb/browse_thread/thread/c71df8f1cd92e04c], <a href="http://ayende.com/blog/">Ayende</a> ended up doing a screen cast with me where he solved all my problems.</p>
 
 <p>One of the things he asked me was what I was trying to achieve by having a polymorphic query, which was a very good question, something I hadn't really thought about.</p>
@@ -107,6 +109,7 @@ public class Video : Content
         <a href="/2011/12/ravendb-inheritance/">RavenDB Inheritance</a> 
         <span>posted on 10 Dec 2011</span>
       </h1> 
+      
       <p><span class="note"><strong>Note:</strong> Updated solution: <a href="http://www.philliphaydon.com/2011/12/ravendb-inheritance-revisited/">http://www.philliphaydon.com/2011/12/ravendb-inheritance-revisited/</a></span></p>
 
 <p>Continuing my learning of RavenDB, I wanted to see how it handled Inheritance.</p>
@@ -146,6 +149,7 @@ public class Cat : Animal { }
         <a href="/2011/12/post-a-collection-of-viewmodels-to-a-mvc-action-with-jquery/">Post a collection of ViewModel's to a MVC Action with jQuery</a> 
         <span>posted on 07 Dec 2011</span>
       </h1> 
+      
       <p>Maybe I searched for the wrong thing, but I couldn't find what I was looking for :( My Bing and Google fu failed me.</p>
 
 <p>Basically I wanted to post a collection of ViewModels to an MCV action. Turns out it's rather simple.</p>
@@ -174,6 +178,7 @@ public class Cat : Animal { }
         <a href="/2011/11/optional-parameters-with-attributerouting/">Optional Parameters with AttributeRouting</a> 
         <span>posted on 27 Nov 2011</span>
       </h1> 
+      
       <p>I found a little trick with using Optional Parameters with <a href="https://github.com/mccalltd/AttributeRouting/wiki/2.-Usage">AttributeRouting</a>, by using standard optional parameters in the action.</p>
 
 <p>The documentation says you can add an attributes to specify the defaults, or add <code>=value</code> to the parameter name, and I guess that's a more correct way to generate routes, but you can achieve the same affect by making the parameter optional. Like so:</p>
@@ -203,6 +208,7 @@ public ActionResult Videos(int page = 1)
         <a href="/2011/11/split-windows-web-workbench-win/">Split Windows + Web Workbench = Win</a> 
         <span>posted on 27 Nov 2011</span>
       </h1> 
+      
       <p>One of the cool features of the <a href="http://www.mindscapehq.com/products/web-workbench/">Web Workbench</a> from Mindscape is the ability to generate the output files. Prior to using the Web Workbench I was using <a href="http://www.dotlesscss.org/">.LESS{}</a> which uses an HTTP Handler to generate the output files for LESS.</p>
 
 <p>The problem with this is sometimes I would write some CSS and not realise I missed something only to find my site doesn't display anything, then I have to figure out what I did wrong.</p>
@@ -229,6 +235,7 @@ public ActionResult Videos(int page = 1)
         <a href="/2011/11/unit-of-work-with-wcf-and-autofac/">Unit of Work with WCF and Autofac</a> 
         <span>posted on 06 Nov 2011</span>
       </h1> 
+      
       <p>I've just spent the last few days trying to find a way to have a Unit of Work with WCF, but it seems no one has a nice clean easy solution.</p>
 
 <p>The first, and the only decent solution I found was here:</p>
@@ -262,6 +269,7 @@ public ActionResult Videos(int page = 1)
         <a href="/2011/11/windows-phone-windows-live-and-msn/">Windows Phone, Windows Live and MSN</a> 
         <span>posted on 02 Nov 2011</span>
       </h1> 
+      
       <p>Windows Phone 7.5 has been getting some awesome reviews, and rightly so. The thing is amazing. I really think Microsoft has begun leading the way for the mobile platform.</p>
 
 <p>But I'm highly pissed off with the Windows Phone team. Why? <strong>Because to use MSN, your msn contacts must be associated with the first live account you register to the phone.</strong></p>
@@ -280,6 +288,7 @@ public ActionResult Videos(int page = 1)
         <a href="/2011/10/ravendb-changing-the-lo-on-the-hilo-generator/">RavenDB - Changing the Lo on the HiLo Generator</a> 
         <span>posted on 24 Oct 2011</span>
       </h1> 
+      
       <p>Well I'm currently learning RavenDB, it's awesome! But I noticed when I put data in, all the Id's generated every time I ran up my application to test were:</p>
 
 <p>1, 2, 3, 4, 5...</p>
@@ -320,6 +329,7 @@ using (var session = documentStore.OpenSession())
         <a href="/2011/10/nhibernate-designer-2/">NHibernate Designer 2</a> 
         <span>posted on 20 Oct 2011</span>
       </h1> 
+      
       <p>The guys at MindScape have released their next version of NHibernate Designer, which now supports Fluent NHibernate and a whole heap of new features.</p>
 
 <p>They also dropped the price down to just $99!</p>

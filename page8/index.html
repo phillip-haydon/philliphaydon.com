@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-11T22:54:36.6569150+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-11T23:09:20.2412192+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -39,6 +39,7 @@
         <a href="/2011/10/website-folder-structure-css-files-does-anyone-care-i-do/">Website Folder Structure? CSS Files? Does anyone care? I do...</a> 
         <span>posted on 17 Oct 2011</span>
       </h1> 
+      
       <p>When we build website's, more often than not we have: Separation of Concerns. Even if at most it's just basic 3-tier Architecture</p>
 
 <p>What annoys me though is a lot of time no one ever thinks about separation of concerns when it comes to the folder structure of their website, and where things go.</p>
@@ -70,6 +71,7 @@ root/images
         <a href="/2011/09/the-benefits-of-letting-the-orm-generate-the-identity-part-1/">The benefits of letting the ORM generate the Identity (part 1)</a> 
         <span>posted on 22 Sep 2011</span>
       </h1> 
+      
       <p>One thing I've learnt is that letting the database generate the identity for you is a bad thing. It always annoyed me that Oracle never gave a feature like <a href="http://dev.mysql.com/doc/refman/5.0/en/example-auto-increment.html">AUTO_INCREMENT</a> in MySQL or <a href="http://msdn.microsoft.com/en-us/library/aa933196(SQL.80).aspx">IDENTITY</a> in SQL Server. I never understood, when inserting data how do I give it an Id?</p>
 
 <p>Well one of the benefits of ORMs such as NHibernate is we can generate the identity our-self, or rather, the ORM can generate it so we don't rely on the database. This also plays a major part in our code base when we insert a graph or batch of data and how the identity is added to our object.</p>
@@ -98,6 +100,7 @@ root/images
         <a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators-part-2/">Fluent NHibernate - Table Inheritance - Discriminators (Part 2)</a> 
         <span>posted on 22 Aug 2011</span>
       </h1> 
+      
       <p>This is part two, to my post about <a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators/">Table Inheritance using Discriminators</a>, in this post I just want to demonstrate the outcome when the sub-classes have their own properties, or possibly a property that maps to the same column.</p>
 
 <p>First thing however is Mark Perry pointed out in the comments that specifying a value for the baseClassDiscriminator will force it to store the value in the database as an INT rather than a a VARCHAR.</p>
@@ -129,6 +132,7 @@ root/images
         <a href="/2011/08/nhibernate-work-around-is-not-really-a-work-around/">NHibernate Work-Around is not really a Work-Around...</a> 
         <span>posted on 15 Aug 2011</span>
       </h1> 
+      
       <p>Over the weekend I came across a blog post about NHibernate, and an apparent work-around for a feature not supported by NHibernate.</p>
 
 <p>The original post can be found here: <a href="http://www.arrangeactassert.com/nhibernate-linq-workaround-for-system-notsupportedexception/">nHibernate LINQ workaround for System.NotSupportedException</a></p>
@@ -159,6 +163,7 @@ using (var session = factory.OpenSession())
         <a href="/2011/08/mvc-routing-with-attributes-makes-routing-awesome/">MVC Routing with Attributes makes routing awesome</a> 
         <span>posted on 09 Aug 2011</span>
       </h1> 
+      
       <p>I evaluated HEAPS of code/libraries and threw in the towel and decided that getting lower-case routes, while still having Area's, was a complete and utter waste of time and effort because they were all crappy, and broke stuff, or didn't work.</p>
 
 <p>That was until my mate Brad grabbed <a href="https://github.com/mccalltd/AttributeRouting">AttributeRouting</a> from <a href="http://nuget.org/List/Packages/AttributeRouting">Nuget</a>. Oh well you know what, this is the best thing sliced bread.</p>
@@ -189,6 +194,7 @@ using (var session = factory.OpenSession())
         <a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators/">Fluent NHibernate - Table Inheritance - Discriminators</a> 
         <span>posted on 08 Aug 2011</span>
       </h1> 
+      
       <p>So a long time ago <a href="http://jameskovacs.com/">James Kovacs</a> posted a article about <a href="http://nhforge.org/blogs/nhibernate/archive/2011/02/16/get-load-polymorphism-in-nhibernate-3.aspx">get/load polymorphism</a> with NHibernate, which was cool and all but I always wanted to know how to map it all in Fluent NHibernate. I worked it out at the time but I guess it's taken me 7 months to write it down.</p>
 
 <p>First up is using a single table, mapping them to multiple classes, this is done using a discriminator. Fluent NHibernate calls this 'table-per-class-hierarchy strategy', which doesn't make sense to me. But meh.</p>
@@ -226,6 +232,7 @@ public class LinkShareWallPost : WallPost
         <a href="/2011/07/mvc-areas-routes-order-of-routes-matter/">MVC +Areas + Routes... Order of Routes Matter!</a> 
         <span>posted on 27 Jul 2011</span>
       </h1> 
+      
       <p>The order in which routes are registered, really is pretty damn important, otherwise it can have really strange side-effects.</p>
 
 <p>I have a site, which has 3 areas, and no default... 'non-area'.</p>
@@ -256,6 +263,7 @@ public class LinkShareWallPost : WallPost
         <a href="/2011/07/nservicebus-video-on-dnrtv/">NServiceBus Video on dnrTV</a> 
         <span>posted on 19 Jul 2011</span>
       </h1> 
+      
       <p>Good introduction video on dnrTV with Udi Dahan for getting started with NServiceBus.</p>
 
 <p>It's pretty recent too, June 23rd, 2011.</p>
@@ -275,6 +283,7 @@ public class LinkShareWallPost : WallPost
         <a href="/2011/07/getting-started-nservicebus-with-multiple-startup-projects/">Getting Started - NServiceBus with Multiple Startup Projects</a> 
         <span>posted on 11 Jul 2011</span>
       </h1> 
+      
       <p>I never actually realized this, but one of the things that baffled me was how Udi Dahan, when giving his training, or when playing with the NServiceBus demo's... How multiple projected were started.</p>
 
 <p>It actually made implementing NServiceBus somewhat difficult for me to begin with, because I never knew Visual Studio had a feature to specify multiple projects as startup projects.</p>
@@ -293,6 +302,7 @@ public class LinkShareWallPost : WallPost
         <a href="/2011/06/hide-show-buttons-with-sencha-touch/">Hide &amp; Show Buttons with Sencha Touch</a> 
         <span>posted on 12 Jun 2011</span>
       </h1> 
+      
       <p>I'm currently building a demo for work using <a href="http://www.sencha.com/products/touch/">Sencha Touch mobile JavaScript framework</a>, and needed to change the state of some buttons dependent on which 'card' is shown.</p>
 
 <p>The Doc Api is a little hard to follow in my opinion, but I eventually worked it out.</p>

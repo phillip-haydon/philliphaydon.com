@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-08-11T22:54:36.6569150+08:00" />
+    <meta http-equiv="last-modified" content="2013-08-11T23:09:20.2412192+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -39,6 +39,7 @@
         <a href="/2011/01/not-lazyload-eager-loading-with-nhibernate-3-0/">Not.LazyLoad - Eager Loading with NHibernate 3.0</a> 
         <span>posted on 30 Jan 2011</span>
       </h1> 
+      
       <p>A friend asked me about fetching relationships with NHibernate when something couldn't be lazy-loaded.</p>
 
 <p>The reason it couldn't be lazy-loaded was because he uses Session-Per-Call, my preference is Session-Per-Request. (this is web based, I've never actually used NHibernate in a non-web scenario, yet)</p>
@@ -59,6 +60,7 @@
         <a href="/2011/01/let-keyword-in-orms/">Let Keyword in ORMs</a> 
         <span>posted on 29 Jan 2011</span>
       </h1> 
+      
       <p>A while ago <a href="http://www.mindscapehq.com/">MindScape</a> posted a new feature called <a href="http://www.mindscapehq.com/blog/index.php/2010/09/14/ninja-domain-properties-in-lightspeed/">Ninja Properties</a> for their ORM, LightSpeed. Their post happened to be a scenario I used to solve with LINQ 2 SQL using the 'let' keyword to create a composite type to query against.</p>
 
 <p>This would allow you to do something along the lines of:</p>
@@ -91,6 +93,7 @@ WHERE [t1].[value] = 'Robert Williams'
         <a href="/2011/01/mindscape-nhibernate-designer-discount/">Mindscape NHibernate Designer Discount</a> 
         <span>posted on 21 Jan 2011</span>
       </h1> 
+      
       <p>Mindscape have a 60% discount on their NHibernate Designer.</p>
 
 <p><a href="http://www.mindscapehq.com/blog/index.php/2011/01/20/60-off-nhibernate-designer-act-fast/">http://www.mindscapehq.com/blog/index.php/2011/01/20/60-off-nhibernate-designer-act-fast/</a></p>
@@ -111,6 +114,7 @@ WHERE [t1].[value] = 'Robert Williams'
         <a href="/2011/01/lightspeed-and-eager-loaded-properties/">LightSpeed and Eager Loaded properties</a> 
         <span>posted on 20 Jan 2011</span>
       </h1> 
+      
       <p>Today <a href="http://www.mindscapehq.com/">Mindscape</a>, the makers of the ORM <a href="http://www.mindscapehq.com/products/lightspeed">LightSpeed</a> and other awesome <a href="http://www.mindscapehq.com/products/">products</a> posted a blog on <a href="http://www.mindscapehq.com/blog/index.php/2011/01/19/controlling-lightspeed-entity-loading-with-named-aggregates/">Lazy-Loading/Eager-Loading properties</a> with LightSpeed.</p>
 
 <p>Why can't NHibernate do this! And when I say why can't NHibernate do this, I mean, why can't NHibernate do this with Query/QueryOver.</p>
@@ -139,6 +143,7 @@ WHERE [t1].[value] = 'Robert Williams'
         <a href="/2011/01/revisiting-exists-in-nhibernate-3-0-and-queryover/">Revisiting 'Exists' in NHibernate 3.0 and QueryOver</a> 
         <span>posted on 19 Jan 2011</span>
       </h1> 
+      
       <p>A while ago I wrote about <a href="http://www.philliphaydon.com/2010/09/queryover-with-nhibernate-3-lovin-it/">my experience with NHibernate 3.0 and Query over</a> by having a go at converting an application to NH3.0, and faced the challenge of writing a query which contained an 'exists' where clause. At the time my solution resulted in an 'in' clause since I couldn't work out how to do an exists.</p>
 
 <p>Today at work I faced the same challenge, except this time I solved it  WOO Yay for solving things.</p>
@@ -159,6 +164,7 @@ WHERE [t1].[value] = 'Robert Williams'
         <a href="/2011/01/system-data-sqlite-isolationlevel-exception/">System.Data.SQLite isolationLevel Exception</a> 
         <span>posted on 02 Jan 2011</span>
       </h1> 
+      
       <p>I introduced SQLite to our Unit Testing at work to aid with testing the stuff written with NHibernate, most of our repositories are rather simple but some of them require some specific criteria that it would be nice to test our queries work.</p>
 
 <p>The problem is some of the queries have a transaction with the <code>IsolationLevel</code> as <code>ReadUncommitted</code>.</p>
@@ -183,6 +189,7 @@ WHERE [t1].[value] = 'Robert Williams'
         <a href="/2010/12/blog-update-to-wordpress-w-sqlsrv/">Blog Update to WordPress w/ SqlSrv</a> 
         <span>posted on 28 Dec 2010</span>
       </h1> 
+      
       <p>Over the past few days I've moved my blog from BlogEngine.Net to WordPress, since BlogEngine is fail.</p>
 
 <p>I didn't go with a hosted solution since it costs money just to use my own domain name, infact it costs more to use my own domain name than it cost me to register the damn thing. So I investigated blogs and came across:</p>
@@ -202,6 +209,7 @@ WHERE [t1].[value] = 'Robert Williams'
         <a href="/2010/12/i-love-clean-client-ids-especially-with-net-2-0/">I love clean client IDs - especially with .Net 2.0!</a> 
         <span>posted on 26 Dec 2010</span>
       </h1> 
+      
       <p>ASP.Net 4.0 got a brand spanking new feature. Clean ClientID's! ABOUT BLOODY TIME... Only, I'm working on a legacy application which can't be migrated to 4.0 :(</p>
 
 <p>So why do we need Nice Readable, predictable ClientID's? I can think of two main reasons, outside of that, I would assume you're doing it wrong.</p>
@@ -230,6 +238,7 @@ WHERE [t1].[value] = 'Robert Williams'
         <a href="/2010/12/moq-using-params-in-the-returns/">Moq-Using Params in the Returns</a> 
         <span>posted on 06 Dec 2010</span>
       </h1> 
+      
       <p>Had an interesting scenario to solve today, while I was away a bunch of unit tests got turned off since they broke during some refactoring, I spent the day fixing theses unit tests.</p>
 
 <p>The method under test had a dependency on another class, it performed two actions on this class.</p>
@@ -268,6 +277,7 @@ WHERE [t1].[value] = 'Robert Williams'
         <a href="/2010/12/yay-for-nhibernate-3-0/">Yay for NHibernate 3.0</a> 
         <span>posted on 05 Dec 2010</span>
       </h1> 
+      
       <p>So happy. NHibernate 3.0 just got released.</p>
 
 <p><a href="http://nhforge.org/blogs/nhibernate/archive/2010/12/05/nhibernate-3-0-released.aspx">http://nhforge.org/blogs/nhibernate/archive/2010/12/05/nhibernate-3-0-released.aspx</a></p>
