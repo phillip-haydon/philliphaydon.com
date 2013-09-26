@@ -1,0 +1,73 @@
+    public class CategoryMap : ClassMap<Category>
+    {
+        public CategoryMap()
+        {
+            Id(x => x.Id).GeneratedBy.Identity();
+            Map(x => x.Name);
+        }
+    }
+
+    public class CommentMap : ClassMap<Comment>
+    {
+        public CommentMap()
+        {
+            Id(x => x.Id).GeneratedBy.Identity();
+            Map(x => x.Content);
+
+            References(x => x.Commenter)
+                .Column("UserId");
+
+            References(x => x.Post)
+                .Column("PostId");
+        }
+    }
+
+    public class PostMap : ClassMap<Post>
+    {
+        public PostMap()
+        {
+            Id(x => x.Id).GeneratedBy.Identity();
+            Map(x => x.Title);
+            Map(x => x.Content);
+            Map(x => x.PublishedAt);
+
+            References(x => x.Author)
+                .Column("UserId");
+
+            HasManyToMany(x => x.Tags)
+                .Table("PostTags")
+                .ParentKeyColumn("PostId")
+                .ChildKeyColumn("TagId");
+
+            HasManyToMany(x => x.Categories)
+                .Table("PostCategories")
+                .ParentKeyColumn("PostId")
+                .ChildKeyColumn("CategoryId");
+
+            HasMany(x => x.Comments)
+                .KeyColumn("PostId")
+                .Inverse();
+        }
+    }
+
+    public class TagMap : ClassMap<Tag>
+    {
+        public TagMap()
+        {
+            Id(x => x.Id).GeneratedBy.Identity();
+            Map(x => x.Name);
+        }
+    }
+
+    public class UserMap : ClassMap<User>
+    {
+        public UserMap()
+        {
+            Id(x => x.Id).GeneratedBy.Identity();
+            Map(x => x.Email);
+            Map(x => x.DisplayName);
+            Map(x => x.FirstName);
+            Map(x => x.Surname);
+            Map(x => x.Password);
+        }
+    }
