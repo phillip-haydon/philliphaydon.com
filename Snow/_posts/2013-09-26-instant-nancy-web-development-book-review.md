@@ -19,6 +19,8 @@ Usually I don't go near Packt Publishing books after having a bad experience buy
 
 Considering this is the first book Christian has written, it reads very well. I've read books from authors who have done 3 or 4 books and I struggle to read them because their style of writing. So that alone impressed me about this book.
 
+<!--excerpt-->
+
 Not that the book is perfect, I took the opportunity to tweet him this image:
 
 ![][4]
@@ -84,5 +86,5 @@ I'm going to gift 3 Kindle Copies of the book, if you would like a copy, comment
  [0]: https://twitter.com/chr_horsdal
  [1]: http://www.packtpub.com/nancy-web-development/book
  [2]: http://www.amazon.com/gp/product/B00FF8OKP8
- [3]: /images/nancy-book-review-1.png
+ [3]: /images/nancy-book-review-1a.png
  [4]: /images/nancy-book-review-2.png
