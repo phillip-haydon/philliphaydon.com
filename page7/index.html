@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-09-26T21:29:43.4896221+08:00" />
+    <meta http-equiv="last-modified" content="2013-09-26T23:39:16.2798422+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -34,6 +34,33 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/01/ravendb-searching-across-multiple-properties/">RavenDB - Searching across multiple properties</a> 
+        <span>posted on 18 Jan 2012</span>
+      </h1> 
+      
+      <p>Ayende recently posted about <a href="http://ayende.com/blog/152833/orders-search-in-ravendb">Orders Search</a> in RavenDB which got me a little bit excited, since I was pondering how I would do searching in RavenDB without having Full Text Searching from SQL Server.</p>
+
+<p>So digging into it I wanted to try it out for myself how to use it. Given the model:</p>
+
+<pre><code>public class Post
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public IEnumerable&lt;string&gt; Tags { get; set; }
+    public DateTime DatePosted { get; set; }
+}
+</code></pre>
+
+<p>I've setup 10 posts (<a href="http://pastie.org/3200462">click here for the insert pastie</a>) just with some really basic data.</p>
+
+<p>So I'm going to detail here all the data that I've setup.</p>
+
+
+      <p><a href="/2012/01/ravendb-searching-across-multiple-properties/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/12/ravendb-map-reduce/">RavenDB - Map Reduce</a> 
@@ -324,24 +351,6 @@ using (var session = documentStore.OpenSession())
 
       <p><a href="/2011/10/ravendb-changing-the-lo-on-the-hilo-generator/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/10/nhibernate-designer-2/">NHibernate Designer 2</a> 
-        <span>posted on 20 Oct 2011</span>
-      </h1> 
-      
-      <p>The guys at MindScape have released their next version of NHibernate Designer, which now supports Fluent NHibernate and a whole heap of new features.</p>
-
-<p>They also dropped the price down to just $99!</p>
-
-<p>I recommend checking it out</p>
-
-<p><a href="http://www.mindscapehq.com/blog/index.php/2011/10/19/nhibernate-designer-2-is-here/">http://www.mindscapehq.com/blog/index.php/2011/10/19/nhibernate-designer-2-is-here/</a></p>
-
-<p><a href="http://www.mindscapehq.com/products/nhdesigner">http://www.mindscapehq.com/products/nhdesigner</a></p>
-
-      <p><a href="/2011/10/nhibernate-designer-2/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -412,6 +421,7 @@ using (var session = documentStore.OpenSession())
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2013September">September, 2013</a></li>
                           <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
                           <li><a href="/archive#2013June">June, 2013</a></li>

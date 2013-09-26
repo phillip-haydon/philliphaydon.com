@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-09-26T21:29:43.4896221+08:00" />
+    <meta http-equiv="last-modified" content="2013-09-26T23:39:16.2798422+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -34,6 +34,94 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/09/instant-nancy-web-development-book-review/">Instant Nancy Web Development - Book Review</a> 
+        <span>posted on 26 Sep 2013</span>
+      </h1> 
+      
+      <p>Just today, <a href="https://twitter.com/chr_horsdal">Christian Horsdal</a> released his first book, his first topic to write a book about, only the most awesome Web Framework to exist in .NET! :)</p>
+
+<p><img src="/images/nancy-book-review-1.jpg" alt="" /></p>
+
+<p><em>non affiliate links</em></p>
+
+<ul>
+<li><a href="http://www.amazon.com/gp/product/B00FF8OKP8">Amazon</a></li>
+<li><a href="http://www.packtpub.com/nancy-web-development/book">Packt Publishing</a></li>
+</ul>
+
+<p>This book is rather short, clocking in at only 74 pages. Not to worry though, it covers quite a bit! </p>
+
+<p>Usually I don't go near Packt Publishing books after having a bad experience buying a few books, all of which were terrible. But seeing as this was a Nancy book I couldn't pass up the chance to check it out. </p>
+
+<p>Considering this is the first book Christian has written, it reads very well. I've read books from authors who have done 3 or 4 books and I struggle to read them because their style of writing. So that alone impressed me about this book.</p>
+
+<p>Not that the book is perfect, I took the opportunity to tweet him this image:</p>
+
+<p><img src="/images/nancy-book-review-2.png" alt="" /></p>
+
+<p>I shouldn't laugh though... my spelling is absolutely terrible!</p>
+
+<p>Right from Chapter One he gets into things, showing you just how little it takes to go from nothing, to a good old Hello World app, following onto Chapter Two he begins making a Todo Web App that's done doing TDD.</p>
+
+<p>This alone was really valuable to me, because he showed some little tips and tricks that I had never seen other people do before, showing how you can <code>Post</code> and then <code>Get</code> consecutively and assert the response. </p>
+
+<p>Mocking is demoed using FakeItEasy which I sometimes find a little hard to read, that's mostly due to having used Moq. But its great to see examples using another framework that I'm not entirely familiar with.</p>
+
+<p>The topics covered in this book are pretty vast. In-fact, here's the table of contents:</p>
+
+<ul>
+<li>Building and running your first Nancy application</li>
+<li>Nancy testing</li>
+<li>Routes and model binding</li>
+<li>Taking a dependency - introducing the bootstrapper</li>
+<li>Content negotiation and more model binding</li>
+<li>Adding views</li>
+<li>Adding static content</li>
+<li>Hosting Nancy on the Cloud</li>
+<li>Handling cross-cutting concerns - Before, After, and Error hooks</li>
+<li>Authenticating users</li>
+<li>Separating applications and hosting</li>
+<li>Using async handlers</li>
+</ul>
+
+<h2>Complaints...</h2>
+
+<p>There isn't many, the only things I wish would change is the View chapter to come before Content Negotiation, this is mainly because I think people coming from MVC or Web Forms will want to view something in their browser quickly, while returning JSON/XML may not be immediately obvious to them, then explaining that Views are just another content type that is negotiated. </p>
+
+<p>Secondly is the use of Razor, little part of me wishes it showed the build in View Engine - Simple Simple View Engine. Rather than diving directly into Razor. But this is personal opinion, its entirely possible users reading may care more about Razor. :) Granted it does mention at the end of that chapter what SSVE is and that you can implement your own or download others :)</p>
+
+<p>The hosting Nancy in the Cloud chapter doesn't make a lot of sense, its the only chapter that feels kinda out of place, it should focus less on the testing/deployment and more on getting the app up and running on a cloud provider.</p>
+
+<p>Hopefully no one takes my opinions/complaints the wrong way because I don't believe any of the things I've listed are reasons to not get the book!</p>
+
+<h2>Errors</h2>
+
+<p>These aren't so much as errors, just things that need to be updated.</p>
+
+<p>1) The chapter on Authenticating Users uses WorldDomination, which was renamed to SimpleAuthentication, all the rest still applies though.</p>
+
+<p>2) Async chapter uses the Beta packages and mentions that at the time of writing, it wasn't in release. This has now been released in 0.20.0 of Nancy.</p>
+
+<p>All things considering, those are pretty damn minor! </p>
+
+<h2>Final Words</h2>
+
+<p>This book is downright great, if you're new to Nancy, want to learn it, or have been using it for a while but don't feel 'expert', this is a great book and I highly recommend it!</p>
+
+<p>The book is short that I read it in a few hours, granted I have prior knowledge of Nancy so I didn't create the app while reading, but I did pick up a few little things I didn't know about, especially around Testing with Nancy.</p>
+
+<p>I enjoyed reading the book, so I hope you do too!</p>
+
+<h2>Want a copy? Comment below!</h2>
+
+<p>I'm going to gift 3 Kindle Copies of the book, if you would like a copy, comment or tweet the book with the hash-tag #nancyfx and I'll pick 3 people on the 4th of October. </p>
+
+<p><em>(If you comment below, please use your real email address so I can contact you should you win, its only visible to me)</em></p>
+
+      <p><a href="/2013/09/instant-nancy-web-development-book-review/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/08/love-the-new-resharper-8-best-update-to-date/">Love the new ReSharper 8, best update to date!</a> 
@@ -252,23 +340,6 @@ else if (...)
 
       <p><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/05/setup-my-first-azure-virtual-machine/">Setup my first Azure Virtual Machine!</a> 
-        <span>posted on 16 May 2013</span>
-      </h1> 
-      
-      <p>Every time I touch Azure I'm constantly amazed at how much simpler it is compared to when I tried it back when it had the crappy Silverlight management site.</p>
-
-<p>Infact every time I touch the thing I over-complicate something only to realize it was dead simple to begin with.</p>
-
-<p>I'm currently in the process of slowly building a VM to run a few small websites I'm building in my own time. Based on what I need Azure will cost me $60 less each month for roughly the same specs (with about 256mb less ram)</p>
-
-<p>The first time creating a VM took me a couple of hours to setup and working, nuking it and starting again took about as long as it took to provision the VM (few minutes)</p>
-
-
-      <p><a href="/2013/05/setup-my-first-azure-virtual-machine/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -337,6 +408,7 @@ else if (...)
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2013September">September, 2013</a></li>
                           <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
                           <li><a href="/archive#2013June">June, 2013</a></li>
