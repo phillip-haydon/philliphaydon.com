@@ -50,7 +50,7 @@ The topics covered in this book are pretty vast. In-fact, here's the table of co
 
 There isn't many, the only things I wish would change is the View chapter to come before Content Negotiation, this is mainly because I think people coming from MVC or Web Forms will want to view something in their browser quickly, while returning JSON/XML may not be immediately obvious to them, then explaining that Views are just another content type that is negotiated. 
 
-Secondly is the use of Razor, little part of me wishes it showed the build in View Engine - Simple Simple View Engine. Rather than diving directly into Razor. But this is personal opinion, its entirely possible users reading may care more about Razor. :) Granted it does mention at the end of that chapter what SSVE is and that you can implement your own or download others :)
+Secondly is the use of Razor, little part of me wishes it showed the built in View Engine - Super Simple View Engine. Rather than diving directly into Razor. But this is personal opinion, its entirely possible users reading may care more about Razor. :) Granted it does mention at the end of that chapter what SSVE is and that you can implement your own or download others :)
 
 The hosting Nancy in the Cloud chapter doesn't make a lot of sense, its the only chapter that feels kinda out of place, it should focus less on the testing/deployment and more on getting the app up and running on a cloud provider.
 
