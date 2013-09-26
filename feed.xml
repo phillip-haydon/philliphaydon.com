@@ -1,0 +1,1257 @@
+﻿<?xml version="1.0" encoding="utf-8"?><rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/08/love-the-new-resharper-8-best-update-to-date/</guid><link>http://www.philliphaydon.com/2013/08/love-the-new-resharper-8-best-update-to-date/</link><title>Love the new ReSharper 8, best update to date!</title><description>&lt;p&gt;It was only little over a week ago that ReSharper 8 came out. It's not something that I really follow, but because of that I keep finding all these new features in R# 8 that are absolutely AWESOME!&lt;/p&gt;
+
+&lt;p&gt;The R# team, if you see this. Congrats on such an awesome effort really pushing the boundaries of what R# can do with V8.  &lt;/p&gt;
+
+&lt;h2&gt;ToString on Dates!&lt;/h2&gt;
+
+&lt;p&gt;This is simply amazing, often I would throw up Google and search "stevex string format" and pull up a pretty detailed blog post on string formatting. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/resharper8-1.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This single feature along, in my opinion, is worth the $ to upgrade to R# 8!!!! &lt;/p&gt;
+
+</description><pubDate>Fri, 02 Aug 2013 16:00:00 Z</pubDate><a10:updated>2013-08-02T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;It was only little over a week ago that ReSharper 8 came out. It's not something that I really follow, but because of that I keep finding all these new features in R# 8 that are absolutely AWESOME!&lt;/p&gt;
+
+&lt;p&gt;The R# team, if you see this. Congrats on such an awesome effort really pushing the boundaries of what R# can do with V8.  &lt;/p&gt;
+
+&lt;h2&gt;ToString on Dates!&lt;/h2&gt;
+
+&lt;p&gt;This is simply amazing, often I would throw up Google and search "stevex string format" and pull up a pretty detailed blog post on string formatting. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/resharper8-1.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This single feature along, in my opinion, is worth the $ to upgrade to R# 8!!!! &lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;It's not just dates though... It works with any .NET type that supports built-in &lt;code&gt;ToString(...)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/resharper8-2.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;That's epic!&lt;/p&gt;
+
+&lt;h2&gt;Keyboard Shortcuts&lt;/h2&gt;
+
+&lt;p&gt;This tricked me at first, but it seems all the keyboard shortcuts have been reduced down, before I would use the IntelliJ keys &lt;kbd&gt;CTRL&lt;/kbd&gt; + &lt;kbd&gt;N&lt;/kbd&gt; which would bring up the Type Search. Now it brings up Search Anything, and with a second press of &lt;kbd&gt;N&lt;/kbd&gt; it will bring up the Type Search. (Keys are &lt;kbd&gt;CTRL&lt;/kbd&gt; + &lt;kbd&gt;T&lt;/kbd&gt; if you're using Visual Studio keys)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/resharper8-3.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/resharper8-4.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is super handy, it feels like less keystrokes to learn, and a lot of the time I was finding myself searching Types, then trying Symbols, then trying Files. Now I can search all at once!&lt;/p&gt;
+
+&lt;h2&gt;Plugin Manager&lt;/h2&gt;
+
+&lt;p&gt;This is another amazingly awesome feature. With the success of Nuget, the R# team have created their own Plugin Manager using the Nuget platform since it's &lt;a href="http://nuget.codeplex.com"&gt;open source&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/resharper8-5.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;The Extensions Manager opens up Jet Brains own Nuget type Dialog:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/resharper8-6.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And bam it's that easy to install xUnit now. That plugin that used to be a pain in the ass to install, upgrade, etc. Now it's as simple as pressing &lt;code&gt;install&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;What else&lt;/h2&gt;
+
+&lt;p&gt;These were the things I found myself among other little things, but &lt;a href="https://twitter.com/hhariri"&gt;@Hadi&lt;/a&gt; pointed me out to the Webinar Recording on What's New in ReSharper 8&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://blogs.jetbrains.com/dotnet/2013/07/webinar-recording-whats-new-in-resharper-80/"&gt;http://blogs.jetbrains.com/dotnet/2013/07/webinar-recording-whats-new-in-resharper-80/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Take a look, its the most impressive update so far.&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/07/setting-up-a-servicestack-service/</guid><link>http://www.philliphaydon.com/2013/07/setting-up-a-servicestack-service/</link><title>Setting up a ServiceStack Service</title><description>&lt;p&gt;Time to setup a ServiceStack service!&lt;/p&gt;
+
+&lt;h2&gt;Prelude!&lt;/h2&gt;
+
+&lt;p&gt;ServiceStack is great, specially when you need to support .NET 3.5 and don't have the pleasure of being able to use .NET 4.0/4.5, you're not limited to .NET 3.5, ServiceStack works great with .NET 4.0/4.5 as well!&lt;/p&gt;
+
+&lt;p&gt;God forbid we get subjected to having to use WCF...&lt;/p&gt;
+
+&lt;p&gt;Setting this up should be super easy, we will use all the same settings as NancyFX, the only difference is we will be running ServiceStack instead. &lt;/p&gt;
+
+&lt;p&gt;The ServiceStack team take real care to ensure that it works on Mono, enough so that their website; &lt;a href="http://www.servicestack.net"&gt;http://www.servicestack.net&lt;/a&gt;, runs on Linux!&lt;/p&gt;
+
+</description><pubDate>Sun, 14 Jul 2013 16:00:00 Z</pubDate><a10:updated>2013-07-14T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Time to setup a ServiceStack service!&lt;/p&gt;
+
+&lt;h2&gt;Prelude!&lt;/h2&gt;
+
+&lt;p&gt;ServiceStack is great, specially when you need to support .NET 3.5 and don't have the pleasure of being able to use .NET 4.0/4.5, you're not limited to .NET 3.5, ServiceStack works great with .NET 4.0/4.5 as well!&lt;/p&gt;
+
+&lt;p&gt;God forbid we get subjected to having to use WCF...&lt;/p&gt;
+
+&lt;p&gt;Setting this up should be super easy, we will use all the same settings as NancyFX, the only difference is we will be running ServiceStack instead. &lt;/p&gt;
+
+&lt;p&gt;The ServiceStack team take real care to ensure that it works on Mono, enough so that their website; &lt;a href="http://www.servicestack.net"&gt;http://www.servicestack.net&lt;/a&gt;, runs on Linux!&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;h2&gt;Creating the Sample Project&lt;/h2&gt;
+
+&lt;p&gt;One of the great things about ServiceStack is it has a bunch of awesome examples. Head on over to &lt;a href="https://github.com/ServiceStack/ServiceStack.Examples"&gt;https://github.com/ServiceStack/ServiceStack.Examples&lt;/a&gt; and download the samples. Either by downloading the repository, or cloning it. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-1.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;After downloading the ServiceStack Examples, navigate to &lt;code&gt;src&lt;/code&gt; and open the &lt;code&gt;ServiceStack.Hello&lt;/code&gt; project. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-2.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Running this project we should end up with a small Service Stack sample website like so:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-3.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Quick local test&lt;/h2&gt;
+
+&lt;p&gt;Navigating to the URL; &lt;code&gt;http://localhost:62577/servicestack/metadata&lt;/code&gt; we should get the nice meta data screen:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-4.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And navigating to the URL: &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;http://localhost:62577/servicestack/hello/phillip&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;We end up with a response:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-5.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;We do need to make one minor change. In the root project of the folder, rename the &lt;code&gt;default.htm&lt;/code&gt; file to &lt;code&gt;index.html&lt;/code&gt;. This is only so we don't need to modify nginx to look for the default file &lt;code&gt;default.htm&lt;/code&gt; :) #lazyme&lt;/p&gt;
+
+&lt;h2&gt;Lets deploy it!&lt;/h2&gt;
+
+&lt;p&gt;So like the Nancy project, we can publish the project to a folder. The good thing about this sample is it doesn't need any database or anything like that. It's just a straight website with a Hello World service.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-6.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once deployed we should end up with the ServiceStack site again!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-7.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Navigating to the metadata page we end up with the same screen we had locally!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-8.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And navigating to the test URL we end up with the fancy ServiceStack response! &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-9.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Hello, with love from nginx!&lt;/p&gt;
+
+&lt;p&gt;That's it, using the best web frameworks, NancyFX and ServiceStack, is super duper happy path easy with Mono!&lt;/p&gt;
+
+&lt;p&gt;:)&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/07/setting-up-a-nancyfx-website/</guid><link>http://www.philliphaydon.com/2013/07/setting-up-a-nancyfx-website/</link><title>Setting up a NancyFX website</title><description>&lt;p&gt;Time to setup NancyFX on Mono.&lt;/p&gt;
+
+&lt;h2&gt;Prelude!&lt;/h2&gt;
+
+&lt;p&gt;This series is done using Mono 2.10 and .NET 4.0. This wont work with a 4.5 project since we need Mono 3.0 for that, but I plan to do another series on building Mono from source since there's no package available yet.&lt;/p&gt;
+
+&lt;p&gt;Also, this post assumes you've setup FTP to upload the files, I'm not going to go into detail, but you can install &lt;code&gt;vsftpd&lt;/code&gt; and Google the setup. If you're new to Linux and followed Parts 1-3 so far, it should be easy enough to setup and install. All you need to do is authenticate using sshftp or sftp, rather than normal ftp. &lt;/p&gt;
+
+&lt;h2&gt;Creating a Nancy test project&lt;/h2&gt;
+
+&lt;p&gt;The easiest way to create a test project is to grab the &lt;a href="http://visualstudiogallery.msdn.microsoft.com/f1e29f61-4dff-4b1e-a14b-6bd0d307611a"&gt;Nancy Templates&lt;/a&gt; from the Visual Studio Gallery. &lt;/p&gt;
+
+&lt;p&gt;Using this method, we can create a new project in Visual Studio and select Nancy Application.&lt;/p&gt;
+
+</description><pubDate>Wed, 03 Jul 2013 16:00:00 Z</pubDate><a10:updated>2013-07-03T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Time to setup NancyFX on Mono.&lt;/p&gt;
+
+&lt;h2&gt;Prelude!&lt;/h2&gt;
+
+&lt;p&gt;This series is done using Mono 2.10 and .NET 4.0. This wont work with a 4.5 project since we need Mono 3.0 for that, but I plan to do another series on building Mono from source since there's no package available yet.&lt;/p&gt;
+
+&lt;p&gt;Also, this post assumes you've setup FTP to upload the files, I'm not going to go into detail, but you can install &lt;code&gt;vsftpd&lt;/code&gt; and Google the setup. If you're new to Linux and followed Parts 1-3 so far, it should be easy enough to setup and install. All you need to do is authenticate using sshftp or sftp, rather than normal ftp. &lt;/p&gt;
+
+&lt;h2&gt;Creating a Nancy test project&lt;/h2&gt;
+
+&lt;p&gt;The easiest way to create a test project is to grab the &lt;a href="http://visualstudiogallery.msdn.microsoft.com/f1e29f61-4dff-4b1e-a14b-6bd0d307611a"&gt;Nancy Templates&lt;/a&gt; from the Visual Studio Gallery. &lt;/p&gt;
+
+&lt;p&gt;Using this method, we can create a new project in Visual Studio and select Nancy Application.&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-1.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Don't forget to make this a .NET 4.0 project, NOT a .NET 4.5 project. When running Mono 3.0 you can choose .NET 4.5.&lt;/p&gt;
+
+&lt;p&gt;Once created press F5 and you should end up with a screen like so:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-2.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;BUT, before we can publish, we need to update Nancy to the beta version (version 0.18.0) because 0.17.1 doesn't work on Mono 2.10. Hopefully if you're reading this shortly after its being published 0.18.0 will be out and you can.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Updating the Nuget Packages. We need to add the Nancy CI builds to out options.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-4.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And we can remove the references from the project to &lt;code&gt;Nancy&lt;/code&gt; and &lt;code&gt;Nancy.Hosting.Aspnet&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-5.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And now you can run the commands:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;install-package Nancy&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;install-package Nancy.Hosting.Aspnet&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-6.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Now we can publish the website. I'm just going to publish to the file system since this is a learning exercise. &lt;/p&gt;
+
+&lt;h2&gt;Deployment&lt;/h2&gt;
+
+&lt;p&gt;Now that we've created and updated our Nancy project, published it. Now we can deploy it! &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-7.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;So we can remove the html files we manually created in the previous posts, and deploy our Nancy website to the FTP. &lt;/p&gt;
+
+&lt;h2&gt;Does it work?&lt;/h2&gt;
+
+&lt;p&gt;If we visit the site now, most likely we will end up with:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-8.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is because we originally configured our fastcgi index to be &lt;code&gt;index.aspx&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;Configure the default page&lt;/h2&gt;
+
+&lt;p&gt;We can update our nginx configuration now, call &lt;code&gt;nano /etc/nginx/sites-available/default&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-9.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Remove the &lt;code&gt;index.aspx&lt;/code&gt; part so the index is just &lt;code&gt;/&lt;/code&gt; and nothing else.&lt;/p&gt;
+
+&lt;p&gt;Now we can restart nginx to make sure the changes are picked up... &lt;code&gt;service nginx restart&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;Now does it work?!?&lt;/h2&gt;
+
+&lt;p&gt;Now we can give it a restart anddddddddddd.....&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-10.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;BAM! Now we have Nancy... Running on Mono... on nginx... Ubuntu... on Azure...&lt;/p&gt;
+
+&lt;p&gt;How awesome is that! &lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/06/setting-up-mono-on-nginx/</guid><link>http://www.philliphaydon.com/2013/06/setting-up-mono-on-nginx/</link><title>Setting up Mono on nginx</title><description>&lt;p&gt;Now we get to the fun stuff, getting up Mono. I'll be demoing with Mono 2.10 but after this series I may include a 6th part on how build Mono 3.0 from source and run it. &lt;/p&gt;
+
+&lt;h2&gt;Setting up our test page&lt;/h2&gt;
+
+&lt;p&gt;I figured we should start with setting up our test page. Something super simple, we will create a new page that outputs a bit of server side text. &lt;/p&gt;
+
+&lt;p&gt;We wont deploy a bin folder or anything like that, it will be almost like deploying Classic ASP. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;%@ Page Language="C#" AutoEventWireup="true" %&amp;gt;
+
+&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html xmlns="http://www.w3.org/1999/xhtml"&amp;gt;
+&amp;lt;head runat="server"&amp;gt;
+    &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+    &amp;lt;div&amp;gt;
+    &amp;lt;% var test = "Hello World! Got an aspx page running on nginx!!!"; %&amp;gt;
+
+    &amp;lt;%= test %&amp;gt;
+    &amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So we are just creating a variable named &lt;code&gt;test&lt;/code&gt; with some test data, then outputting it to the page. &lt;/p&gt;
+
+</description><pubDate>Thu, 27 Jun 2013 16:00:00 Z</pubDate><a10:updated>2013-06-27T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Now we get to the fun stuff, getting up Mono. I'll be demoing with Mono 2.10 but after this series I may include a 6th part on how build Mono 3.0 from source and run it. &lt;/p&gt;
+
+&lt;h2&gt;Setting up our test page&lt;/h2&gt;
+
+&lt;p&gt;I figured we should start with setting up our test page. Something super simple, we will create a new page that outputs a bit of server side text. &lt;/p&gt;
+
+&lt;p&gt;We wont deploy a bin folder or anything like that, it will be almost like deploying Classic ASP. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;%@ Page Language="C#" AutoEventWireup="true" %&amp;gt;
+
+&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html xmlns="http://www.w3.org/1999/xhtml"&amp;gt;
+&amp;lt;head runat="server"&amp;gt;
+    &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+    &amp;lt;div&amp;gt;
+    &amp;lt;% var test = "Hello World! Got an aspx page running on nginx!!!"; %&amp;gt;
+
+    &amp;lt;%= test %&amp;gt;
+    &amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So we are just creating a variable named &lt;code&gt;test&lt;/code&gt; with some test data, then outputting it to the page. &lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;We need to navigate to our site directory by calling &lt;code&gt;cd /var/www/phillip.pw&lt;/code&gt; followed by creating a new file in nano by calling &lt;code&gt;nano test.aspx&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This will open up a new nano window. Now you can type in the test code, or paste it in. Now we need to save it by calling &lt;kbd&gt;CTRL&lt;/kbd&gt; + &lt;kbd&gt;X&lt;/kbd&gt; followed by &lt;kbd&gt;Y&lt;/kbd&gt; and &lt;kbd&gt;Enter&lt;/kbd&gt;. Same thing we have been doing in the other parts. &lt;/p&gt;
+
+&lt;h2&gt;Installing Mono&lt;/h2&gt;
+
+&lt;p&gt;Now that our test page is ready, we can install Mono by calling &lt;code&gt;apt-get install mono-complete&lt;/code&gt;, your window should now look like&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-3-1.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Hit &lt;kbd&gt;Y&lt;/kbd&gt; and &lt;kbd&gt;Enter&lt;/kbd&gt;, and let it install... this could take a while.&lt;/p&gt;
+
+&lt;p&gt;Next we want to install the fastcgi-mono-server4 package. So call &lt;code&gt;apt-get install mono-fastcgi-server4&lt;/code&gt; and install. This package is super small so will install quickly.&lt;/p&gt;
+
+&lt;p&gt;To quickly test that Mono is installed call &lt;code&gt;mono -V&lt;/code&gt; you should get something like so&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-3-2.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Configuring our website!&lt;/h2&gt;
+
+&lt;p&gt;We need to head on over to the nginx server configuration. So call &lt;code&gt;cd /etc/nginx/sites-available&lt;/code&gt; followed by &lt;code&gt;nano default&lt;/code&gt; so we can edit our site to use the fastcgi stuff.&lt;/p&gt;
+
+&lt;p&gt;We need to add the fastcgi stuff, its important to note the include path. If you remember from Part 1 I mentioned the &lt;code&gt;fastcgi_params&lt;/code&gt; file, well we need to point to that file. We will modify that next.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;server {
+    # the port the site is listening on
+    listen 80;
+
+    # the hostname
+    server_name *.phillip.pw;
+
+    # the path to where we host the site
+    root /var/www/phillip.pw;
+
+    # the default page
+    index index.html;
+
+    location / {
+        fastcgi_index /index.html;
+        fastcgi_pass 127.0.0.1:9000;
+        include /etc/nginx/fastcgi_params;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;span class="note"&gt;Note how the fastcgi stuff is put into a location followed by a forward slash to indicate that its location is the root. If you put it in the root of server (with no location scope) you will end up with nginx throwing an error like&lt;/span&gt; &lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;root@mono-sample-ph:/var/log/mono# nginx
+  nginx: [emerg] "fastcgi_pass" directive is not allowed here in /etc/nginx/sites-enabled/default:34&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Save the file and exit. &lt;/p&gt;
+
+&lt;p&gt;Now drop down 1 level by calling &lt;code&gt;cd ..&lt;/code&gt; and then calling &lt;code&gt;ls&lt;/code&gt; to view the directory listing.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-3-3.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;We need to modify the fastcgi_params file, we open it up in nano... &lt;code&gt;nano fastcgi_params&lt;/code&gt; and we need to add the two following lines of code to the bottom of the file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;fastcgi_param   PATH_INFO               "";
+fastcgi_param   SCRIPT_FILENAME         $document_root$fastcgi_script_name;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So you should end up with something like&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-3-4.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Save and exit that file. &lt;/p&gt;
+
+&lt;h2&gt;Setting up the Mono Site&lt;/h2&gt;
+
+&lt;p&gt;So we need to configure a site in Mono as well. This part was a little confusing for me initially. Basically we need to create all of this manually.&lt;/p&gt;
+
+&lt;p&gt;Head back to &lt;code&gt;cd /etc&lt;/code&gt; and call &lt;code&gt;ls&lt;/code&gt;, in here you should see an file called &lt;code&gt;init.d&lt;/code&gt;. Some tutorials on the internet show this file in &lt;code&gt;/etc/rc.d/init.d&lt;/code&gt; but this is actually because some versions of Linux put it in 1 place, while other versions put it in the other. And I think those who put it in &lt;code&gt;rc.d&lt;/code&gt; do a syslink to the root &lt;code&gt;init.d&lt;/code&gt; version. &lt;/p&gt;
+
+&lt;p&gt;In any-case on Ubuntu, &lt;code&gt;rc.d&lt;/code&gt; does not exist. So we want to navigate into &lt;code&gt;init.d&lt;/code&gt; so call &lt;code&gt;cd init.d&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Create a new directory in here called &lt;code&gt;mono-fastcgi&lt;/code&gt; by calling &lt;code&gt;mkdir mono-fastcgi&lt;/code&gt; and then navigate to it.&lt;/p&gt;
+
+&lt;p&gt;Here we want to create a Web App file, this is a configuration file for our site.&lt;/p&gt;
+
+&lt;p&gt;Create a new file with nano... &lt;code&gt;nano phillip.pw.webapp&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Write the following text into the file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;apps&amp;gt;
+&amp;lt;web-application&amp;gt;
+        &amp;lt;name&amp;gt;phillip.pw&amp;lt;/name&amp;gt;
+        &amp;lt;vhost&amp;gt;*&amp;lt;/vhost&amp;gt;
+        &amp;lt;vport&amp;gt;80&amp;lt;/vport&amp;gt;
+        &amp;lt;vpath&amp;gt;/&amp;lt;/vpath&amp;gt;
+        &amp;lt;path&amp;gt;/var/www/phillip.pw&amp;lt;/path&amp;gt;
+&amp;lt;/web-application&amp;gt;
+&amp;lt;/apps&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All these names and paths should be familiar if you've been following from Parts 1/2&lt;/p&gt;
+
+&lt;h2&gt;Setting up the log files&lt;/h2&gt;
+
+&lt;p&gt;Now we need to navigate to &lt;code&gt;cd /var/log&lt;/code&gt; and create a new directory called mono &lt;code&gt;mkdir mono&lt;/code&gt;, navigate into the directory, &lt;code&gt;cd mono&lt;/code&gt;, and create a new file called &lt;code&gt;fastcgi.log&lt;/code&gt;. To create a new file just call &lt;code&gt;&amp;gt; fastcgi.log&lt;/code&gt; which will create a new empty file.&lt;/p&gt;
+
+&lt;h2&gt;Registering fastcgi-mono-server&lt;/h2&gt;
+
+&lt;p&gt;Lastly we need to configure the server. We can start the FastCGI background process by calling&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;fastcgi-mono-server4 --appconfigdir /etc/init.d/mono-fastcgi /socket=tcp:127.0.0.1:9000 /logfile=/var/log/mono/fastcgi.log &amp;amp;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;(if it's hard to scroll, here's the same line broken down into pieces)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;fastcgi-mono-server4 
+    --appconfigdir /etc/init.d/mono-fastcgi 
+    /socket=tcp:127.0.0.1:9000 
+    /logfile=/var/log/mono/fastcgi.log &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notice the paths match those we just created.&lt;/p&gt;
+
+&lt;p&gt;You should have a terminal that looks like:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-3-5.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now give nginx a restart by calling &lt;code&gt;service nginx restart&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;The big test&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-3-6.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;BAM Just like that we now have an ASPX page running on Mono, on nginx, on Ubuntu, on Azure! &lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/06/setting-up-a-new-website-and-domain-on-nginx/</guid><link>http://www.philliphaydon.com/2013/06/setting-up-a-new-website-and-domain-on-nginx/</link><title>Setting up new Website and Domain on nginx</title><description>&lt;p&gt;The purpose of series is to be able to create an end-to-end setup of a Linux Server on Azure and deploy a brand new production NancyFX website or ServiceStack service, and not get confused in-between. Like I was when I sussed all this out. :)&lt;/p&gt;
+
+&lt;h2&gt;Prelude&lt;/h2&gt;
+
+&lt;p&gt;When using IIS I think it's safe to say a large majority of us would use the GUI to configure or create new Web Sites. Even though it's actually possible to create a new website and configure it entirely through Powershell.&lt;/p&gt;
+
+&lt;p&gt;But, as scary as it sounds it's not too hard to configure a new Website in nginx. I actually think its easier than doing it with Apache, despite the fact that they are relatively similar. &lt;/p&gt;
+
+</description><pubDate>Wed, 26 Jun 2013 16:00:00 Z</pubDate><a10:updated>2013-06-26T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;The purpose of series is to be able to create an end-to-end setup of a Linux Server on Azure and deploy a brand new production NancyFX website or ServiceStack service, and not get confused in-between. Like I was when I sussed all this out. :)&lt;/p&gt;
+
+&lt;h2&gt;Prelude&lt;/h2&gt;
+
+&lt;p&gt;When using IIS I think it's safe to say a large majority of us would use the GUI to configure or create new Web Sites. Even though it's actually possible to create a new website and configure it entirely through Powershell.&lt;/p&gt;
+
+&lt;p&gt;But, as scary as it sounds it's not too hard to configure a new Website in nginx. I actually think its easier than doing it with Apache, despite the fact that they are relatively similar. &lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;h2&gt;Where are sites configured?!?&lt;/h2&gt;
+
+&lt;p&gt;The nginx configuration files are in &lt;code&gt;/etc&lt;/code&gt;. The etc directory is for all system related configuration files. &lt;/p&gt;
+
+&lt;p&gt;To learn about Linux Filesystem Hierarchy, you can read about them here:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/"&gt;http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Navigate to the nginx directory by running the command &lt;code&gt;cd /etc/nginx&lt;/code&gt; once you reach the nginx directory run the command &lt;code&gt;ls&lt;/code&gt; to see what's in the directory.&lt;/p&gt;
+
+&lt;p&gt;The directory listing should look something like.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-1.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;The main things we will be touching in here are &lt;code&gt;sites-available&lt;/code&gt; and &lt;code&gt;fastcgi_params&lt;/code&gt;, though the &lt;code&gt;fastcgi_params&lt;/code&gt; will be in part 3 when we setup Mono. &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;fastcgi_params&lt;/code&gt; is a configuration file, while the &lt;code&gt;sites-available&lt;/code&gt; is a folder. Navigate to the folder by calling &lt;code&gt;cd sites-available&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;In here if you call &lt;code&gt;ls&lt;/code&gt; you will see there's only 1 file called default. This is the default configuration file, we could add more for nginx but to keep things simple we will simply append our website to this file.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-2.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now open the file in nano by calling &lt;code&gt;nano default&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-3.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can see there's a &lt;code&gt;server&lt;/code&gt; defined which sort of looks like json. I don't actually know what this formatting is called but it's simply a configuration name with either a value(s) or a scope (defined with braces)&lt;/p&gt;
+
+&lt;p&gt;The existing server is setup for localhost. We can add our own, so above the server we want to add the following.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;server {
+  # the port the site is listening on
+  listen 80;
+
+  # the hostname
+  server_name phillip.pw;
+
+  # the path to where we host the site
+  root /var/www/phillip.pw;
+
+  # the default page
+  index index.html;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You should end up with your terminal looking like&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-4.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we need to save the file. Do this by pressing &lt;kbd&gt;CTRL&lt;/kbd&gt; + &lt;kbd&gt;X&lt;/kbd&gt;&lt;/p&gt;
+
+&lt;p&gt;It should then confirm you want to make the changes.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-5.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Enter &lt;kbd&gt;Y&lt;/kbd&gt; to accept the changes, then press &lt;kbd&gt;Enter&lt;/kbd&gt; to confirm the filename. Don't change the filename!!!&lt;/p&gt;
+
+&lt;p&gt;Now you should be back at the terminal. &lt;/p&gt;
+
+&lt;p&gt;&lt;span class="note"&gt;&lt;strong&gt;Note:&lt;/strong&gt; If it says you don't have permission to change the file then you're not a root user or you didn't run nano as a root user by prefixing the command with &lt;code&gt;sudo&lt;/code&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2&gt;Creating the site directory&lt;/h2&gt;
+
+&lt;p&gt;For the configuration we put the root as &lt;code&gt;/var/www/phillip.pw&lt;/code&gt;, this path shouldn't exist yet (except for var) Based on my reading of the Linux Filesystem, this seemed like the best place to put it. If someone disagrees or knows where it should go please leave a comment.&lt;/p&gt;
+
+&lt;p&gt;Navigate to var by calling &lt;code&gt;cd /var&lt;/code&gt;, then calling &lt;code&gt;ls&lt;/code&gt;, you should see there is no &lt;code&gt;www&lt;/code&gt; folder. So lets create one by calling &lt;code&gt;mkdir www&lt;/code&gt;, navigate to the directory; &lt;code&gt;cd www&lt;/code&gt;. And make the next directory; &lt;code&gt;mkdir phillip.pw&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Your console should look something like this&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-6.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;h2&gt;The test file&lt;/h2&gt;
+
+&lt;p&gt;Now that we are inside our hosting directory we need to create a test file. Call &lt;code&gt;nano index.html&lt;/code&gt; which will open up a new nano with nothing in it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-7.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here we can throw some basic HTML in that looks like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+  &amp;lt;title&amp;gt;Our test page!&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+  &amp;lt;h1&amp;gt;Hello World from nginx! Our test page works!&amp;lt;/h1&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nothing fancy. You can also write this in notepad and then right click on the terminal which will automatically paste the content in.&lt;/p&gt;
+
+&lt;p&gt;Next hit &lt;kbd&gt;CTRL&lt;/kbd&gt; + &lt;kbd&gt;X&lt;/kbd&gt; to exit, then &lt;kbd&gt;Y&lt;/kbd&gt; followed by &lt;kbd&gt;Enter&lt;/kbd&gt; to accept the changes and save the file.&lt;/p&gt;
+
+&lt;p&gt;Bam we're done! (almost)&lt;/p&gt;
+
+&lt;h2&gt;Update your domain name!&lt;/h2&gt;
+
+&lt;p&gt;Lastly we need to update our domain host records. I'm using &lt;www.namecheap.com&gt; for my hosting. Create a new &lt;code&gt;A&lt;/code&gt; record for the domain we defined in our site configuration; &lt;code&gt;phillip.pw&lt;/code&gt; using the IP from the Azure portal.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-8.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Be sure to copy the PUBLIC Virtual IP, and not the Internal IP. Otherwise you may get angry when things don't work when they should. :)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-9.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Save the changes to your domain host records. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-10.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Running a quick ping test in Windows Command Prompt should resolve to the correct IP.&lt;/p&gt;
+
+&lt;h2&gt;The BIG Test&lt;/h2&gt;
+
+&lt;p&gt;So, does it all work?!?&lt;/p&gt;
+
+&lt;p&gt;Navigating to the website &lt;code&gt;http://phillip.pw&lt;/code&gt; yields:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-11.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Yay! &lt;/p&gt;
+
+&lt;h2&gt;What else?&lt;/h2&gt;
+
+&lt;p&gt;So we only configured the domain &lt;code&gt;phillip.pw&lt;/code&gt;, but what if we want both that and &lt;code&gt;www.phillip.pw&lt;/code&gt;. We can update the servername to &lt;code&gt;*.phillip.pw&lt;/code&gt; which will wild-card.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# the hostname
+server_name *.phillip.pw;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or if we want to be more specific we can do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# the hostname
+server_name www.phillip.pw phillip.pw;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Which will only work for the domain and the &lt;code&gt;www&lt;/code&gt; sub domain. &lt;/p&gt;
+
+&lt;p&gt;That's all there is to it. Next up... Mono! :D&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/06/setting-up-ubuntu-and-nginx-on-azure/</guid><link>http://www.philliphaydon.com/2013/06/setting-up-ubuntu-and-nginx-on-azure/</link><title>Setting up Ubuntu and nginx on Azure</title><description>&lt;p&gt;&lt;span class="note"&gt;&lt;strong&gt;Note:&lt;/strong&gt; I'm breaking this up into 5 parts because otherwise it gets far too long :(&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;So after spending a week with OSX, I thought I would see how well I go with setting up Mono on Ubuntu... on Azure. &lt;/p&gt;
+
+&lt;p&gt;Turns out it's actually rather simple!&lt;/p&gt;
+
+&lt;h2&gt;Setting up the Virtual Machine&lt;/h2&gt;
+
+&lt;p&gt;Setting up the virtual machine is pretty straight forward. From the Azure Portal, click the Virtual Machines tab, and select New. &lt;/p&gt;
+
+&lt;p&gt;I create mine from the gallery rather than the quick option.&lt;/p&gt;
+
+&lt;p&gt;Select &lt;code&gt;Ubuntu Server 13.04&lt;/code&gt; from the options, give your new server a name. For Authentication I recommend making a password rather than uploading an SSH key. Only because if you're new or trying this out just to play around, that stuff is probably too difficult for now :)&lt;/p&gt;
+
+</description><pubDate>Tue, 25 Jun 2013 16:00:00 Z</pubDate><a10:updated>2013-06-25T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;&lt;span class="note"&gt;&lt;strong&gt;Note:&lt;/strong&gt; I'm breaking this up into 5 parts because otherwise it gets far too long :(&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;So after spending a week with OSX, I thought I would see how well I go with setting up Mono on Ubuntu... on Azure. &lt;/p&gt;
+
+&lt;p&gt;Turns out it's actually rather simple!&lt;/p&gt;
+
+&lt;h2&gt;Setting up the Virtual Machine&lt;/h2&gt;
+
+&lt;p&gt;Setting up the virtual machine is pretty straight forward. From the Azure Portal, click the Virtual Machines tab, and select New. &lt;/p&gt;
+
+&lt;p&gt;I create mine from the gallery rather than the quick option.&lt;/p&gt;
+
+&lt;p&gt;Select &lt;code&gt;Ubuntu Server 13.04&lt;/code&gt; from the options, give your new server a name. For Authentication I recommend making a password rather than uploading an SSH key. Only because if you're new or trying this out just to play around, that stuff is probably too difficult for now :)&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-1.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Click next (the little arrow thing) and setup as a Stand-Alone Virtual Machine. Name it and select a region, Next, and bam you're done.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-2.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once the provisioning is complete, you need to click on the Virtual Machine, and select Endpoints. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-3.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Create a new endpoint for port 80.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-4.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is so the websites are publicly accessible.&lt;/p&gt;
+
+&lt;h2&gt;Logging into Ubuntu!&lt;/h2&gt;
+
+&lt;p&gt;Unlike Windows Server, there's no desktop for us to RDP into, we could add it, but we wont... There's no need to :)&lt;/p&gt;
+
+&lt;p&gt;First things first, we need to download PuTTY. So head on over to &lt;a href="http://www.putty.org"&gt;http://www.putty.org&lt;/a&gt; and &lt;a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html"&gt;download PuTTY&lt;/a&gt;. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-5.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;When you've downloaded it, run it up, and... switch back to the Azure Portal, to the Dashboard. On the &lt;code&gt;quick glance&lt;/code&gt; section on the right hand side. Find the &lt;code&gt;SSH DETAILS&lt;/code&gt; piece.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-6.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Enter the address into the PuTTY details:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-7.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And select &lt;code&gt;option&lt;/code&gt;. You should get a console type window now that looks like.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-8.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Login using the details you created when creating the Virtual Machine, and if successful you should get a wall of text.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;login as: phillip
+  phillip@mono-sample-ph.cloudapp.net's password:&lt;/p&gt;
+  
+  &lt;p&gt;The programs included with the Ubuntu system are free software;
+  the exact distribution terms for each program are described in the
+  individual files in /usr/share/doc/*/copyright.&lt;/p&gt;
+  
+  &lt;p&gt;Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+  applicable law.&lt;/p&gt;
+  
+  &lt;p&gt;Welcome to Ubuntu 13.04 (GNU/Linux 3.8.0-25-generic x86_64)&lt;/p&gt;
+  
+  &lt;ul&gt;
+  &lt;li&gt;&lt;p&gt;Documentation:  https://help.ubuntu.com/&lt;/p&gt;
+  
+  &lt;p&gt;System information as of Wed Jun 26 14:46:18 UTC 2013&lt;/p&gt;
+  
+  &lt;p&gt;System load:  0.02              Processes:           93
+  Usage of /:   3.1% of 28.79GB   Users logged in:     0
+  Memory usage: 8%                IP address for eth0: 10.78.154.86
+  Swap usage:   0%&lt;/p&gt;
+  
+  &lt;p&gt;Graph this data and manage this system at https://landscape.canonical.com/&lt;/p&gt;
+  
+  &lt;p&gt;Get cloud support with Ubuntu Advantage Cloud Guest:
+  http://www.ubuntu.com/business/services/cloud&lt;/p&gt;
+  
+  &lt;p&gt;Use Juju to deploy your cloud instances and workloads:
+  https://juju.ubuntu.com/#cloud-raring&lt;/p&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  
+  &lt;p&gt;0 packages can be updated.
+  0 updates are security updates.&lt;/p&gt;
+  
+  &lt;p&gt;phillip@mono-sample-ph:~$&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Next, type in the command &lt;code&gt;sudo -s&lt;/code&gt;, and enter your password again.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-9.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This will set the current user to a super user so we don't need to call &lt;code&gt;sudo&lt;/code&gt; with every command, which can get a little frustrating after a while.&lt;/p&gt;
+
+&lt;h2&gt;Setup nginx&lt;/h2&gt;
+
+&lt;p&gt;Before we setup nginx, run the command &lt;code&gt;apt-get update&lt;/code&gt;. This downloads all the package lists from the repositories and updates the information with the newest versions of the packages and their dependencies. &lt;/p&gt;
+
+&lt;p&gt;Now, run the command &lt;code&gt;apt-get install nginx&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-10.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Enter &lt;code&gt;y&lt;/code&gt; and hit &lt;kbd&gt;enter&lt;/kbd&gt;, and it will download the package and install.&lt;/p&gt;
+
+&lt;p&gt;Next, run the command &lt;code&gt;service nginx restart&lt;/code&gt;, this should say the service is restarting.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@mono-sample-ph:~# service nginx restart
+ * Restarting nginx nginx                                                [ OK ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, run the command &lt;code&gt;ls&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@mono-sample-ph:~# ls
+root@mono-sample-ph:~#
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you haven't change the directory then it should be currently empty. So now we can run the command &lt;code&gt;wget http://localhost&lt;/code&gt; which will issue a request to the &lt;code&gt;localhost&lt;/code&gt; domain and download the HTML file.&lt;/p&gt;
+
+&lt;p&gt;You should end up with your command-line looking like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@mono-sample-ph:~# wget http://localhost
+--2013-06-26 15:07:43--  http://localhost/
+Resolving localhost (localhost)... 127.0.0.1
+Connecting to localhost (localhost)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 612 [text/html]
+Saving to: âindex.htmlâ
+
+100%[======================================&amp;gt;] 612         --.-K/s   in 0s
+
+2013-06-26 15:07:43 (56.7 MB/s) - âindex.htmlâ saved [612/612]
+
+root@mono-sample-ph:~# ls
+index.html
+root@mono-sample-ph:~#
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see when running &lt;code&gt;ls&lt;/code&gt; again there's now a file called index.html. We can take a quick look at that by running &lt;code&gt;nano index.html&lt;/code&gt; &lt;/p&gt;
+
+&lt;p&gt;Nano is a text editor that is installed on Ubuntu by default. To exit out of Nano once you're done looking press &lt;kbd&gt;ctrl&lt;/kbd&gt; + &lt;kbd&gt;x&lt;/kbd&gt; which will close Nano and return you to the command-line.&lt;/p&gt;
+
+&lt;p&gt;For a good beginners guide take a look at &lt;a href="http://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/"&gt;The Beginner’s Guide to Nano, the Linux Command-Line Text Editor&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-11.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And we can see that nginx is setup and running!&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/06/making-nuget-a-little-easier-to-use-with-an-alias-on-mono-and-osx/</guid><link>http://www.philliphaydon.com/2013/06/making-nuget-a-little-easier-to-use-with-an-alias-on-mono-and-osx/</link><title>Making NuGet a little easier to use with an Alias</title><description>&lt;p&gt;So I've been in hospital all week with Mycoplasma Infection (or AIDs, doctor says otherwise tho), and figured it would be a good time to mess around with Mono. &lt;/p&gt;
+
+&lt;p&gt;So I began by testing WorldDomination.Web.Authentication&lt;/p&gt;
+
+&lt;p&gt;While it works GREAT! (Future post maybe) I did run into one issue early on, that is restoring packages. &lt;/p&gt;
+
+&lt;p&gt;I found a &lt;a href="http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/"&gt;great post&lt;/a&gt; by &lt;a href="https://twitter.com/orientman"&gt;&amp;#64;orientman&lt;/a&gt; about using NuGet on OSX.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/"&gt;http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;But I didn't like having to type the following out each time, since I needed to install a few different project packages.&lt;/p&gt;
+
+</description><pubDate>Thu, 20 Jun 2013 16:00:00 Z</pubDate><a10:updated>2013-06-20T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;So I've been in hospital all week with Mycoplasma Infection (or AIDs, doctor says otherwise tho), and figured it would be a good time to mess around with Mono. &lt;/p&gt;
+
+&lt;p&gt;So I began by testing WorldDomination.Web.Authentication&lt;/p&gt;
+
+&lt;p&gt;While it works GREAT! (Future post maybe) I did run into one issue early on, that is restoring packages. &lt;/p&gt;
+
+&lt;p&gt;I found a &lt;a href="http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/"&gt;great post&lt;/a&gt; by &lt;a href="https://twitter.com/orientman"&gt;&amp;#64;orientman&lt;/a&gt; about using NuGet on OSX.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/"&gt;http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;But I didn't like having to type the following out each time, since I needed to install a few different project packages.&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;pre&gt;&lt;code&gt;mono --runtime=v4.0.30319 NuGet.exe install ./Code/WorldDomination.Web.Authentication/packages.config -OutputDirectory ./packages
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All the time, it seemed tedious. So what I did was, moved the NuGet.exe to &lt;code&gt;~/Tools/&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/mono-osx-alias-1.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next in &lt;a href="http://www.iterm2.com/"&gt;iTerm 2&lt;/a&gt; (I prefer it over Terminal) I set an alias for the common stuff!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alias nuget='mono --runtime=v4.0.30319 /Users/phillip/Tools/NuGet.exe'
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now rather than having to type out all that stuff each time, I can just type out &lt;code&gt;nuget&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;nuget install ./Code/WorldDomination.Web.Authentication/packages.config -OutputDirectory ./packages
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src="/images/mono-osx-alias-2.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;It also means I can forget about the NuGet.exe file or where I've put it :D&lt;/p&gt;
+
+&lt;p&gt;If you want to check what aliases you have you can run &lt;code&gt;alias -p&lt;/code&gt;, and if you want to remove the alias you can call &lt;code&gt;unalias *name*&lt;/code&gt;, e.g &lt;code&gt;unalias nuget&lt;/code&gt;&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/05/nancyfx-hosting-with-owin/</guid><link>http://www.philliphaydon.com/2013/05/nancyfx-hosting-with-owin/</link><title>NancyFX - Hosting with OWIN</title><description>&lt;p&gt;By now you've probably heard of OWIN, its slowly becoming more and more popular, hell even ThoughtWorks mentioned them on their &lt;a href="http://www.thoughtworks.com/radar"&gt;Radar&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If you want to know what OWIN is, head on over to Paul Glavich's blog post on &lt;a href="http://weblogs.asp.net/pglavich/"&gt;Owin, Katana, and getting started&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The question of running NancyFX with Owin has been popping up more often lately so I figured I would show you how to get setup. &lt;/p&gt;
+
+&lt;h2&gt;Codez - Project Setup&lt;/h2&gt;
+
+&lt;p&gt;Lets start off by creating a brand new Empty Web Application:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/nancyfx-owin-1.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once created you should get a semi long list of References...&lt;/p&gt;
+
+</description><pubDate>Tue, 28 May 2013 16:00:00 Z</pubDate><a10:updated>2013-05-28T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;By now you've probably heard of OWIN, its slowly becoming more and more popular, hell even ThoughtWorks mentioned them on their &lt;a href="http://www.thoughtworks.com/radar"&gt;Radar&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If you want to know what OWIN is, head on over to Paul Glavich's blog post on &lt;a href="http://weblogs.asp.net/pglavich/"&gt;Owin, Katana, and getting started&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The question of running NancyFX with Owin has been popping up more often lately so I figured I would show you how to get setup. &lt;/p&gt;
+
+&lt;h2&gt;Codez - Project Setup&lt;/h2&gt;
+
+&lt;p&gt;Lets start off by creating a brand new Empty Web Application:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/nancyfx-owin-1.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once created you should get a semi long list of References...&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;&lt;img src="/images/nancyfx-owin-2.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;First things first, we want to trim this back to almost NOTHING! That's right, we're gonna kill more references! In fact I'm going to remove EVERYTHING except the bare minimum, so that you can add references only as you need them.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/nancyfx-owin-3.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;:D looks beautiful doesn't it!&lt;/p&gt;
+
+&lt;p&gt;Next we're going to add the Nugets&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Nancy&lt;/li&gt;
+&lt;li&gt;Nancy.Owin&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As well as the following... &lt;strong&gt;BUT&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Microsoft.Owin.Host.SystemWeb&lt;/li&gt;
+&lt;li&gt;Microsoft.Web.Infrastructure&lt;/li&gt;
+&lt;li&gt;Owin&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;At the time of writing this, these Nugets are not available on Nuget yet. You will need to get them from the Katana CI Builds from MyGet.&lt;/p&gt;
+
+&lt;p&gt;The URL for Katana CI build is &lt;strong&gt;&lt;em&gt;http://www.myget.org/F/katana/&lt;/em&gt;&lt;/strong&gt; &lt;/p&gt;
+
+&lt;p&gt;If you don't know how to add this to Nuget, you can do this 1 of 2 ways. If you've never done it, just go &lt;code&gt;Tools &amp;gt; Options &amp;gt; Packager Manager &amp;gt; Package Sources&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/nancyfx-owin-4.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Click the PLUS sign, enter the &lt;code&gt;name&lt;/code&gt; and &lt;code&gt;source&lt;/code&gt;, and press &lt;code&gt;ok&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Now you can install the package &lt;code&gt;Microsoft.Owin.Host.SystemWeb&lt;/code&gt; by entering:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Install-Package Microsoft.Owin.Host.SystemWeb &lt;strong&gt;-pre&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Make sure you have &lt;code&gt;-pre&lt;/code&gt; on the end so that it pulls the pre-release packages. This will automatically install all 3 requires packages.&lt;/p&gt;
+
+&lt;h2&gt;Codez - Startup&lt;/h2&gt;
+
+&lt;p&gt;Next we need to create a Startup file, this is where we tell Owin to use the Nancy.Owin middleware, this is a assembly the Nancy Team has created which does all the hard lifting to wire up Nancy to the Owin interfaces. &lt;/p&gt;
+
+&lt;p&gt;I guess you could say this is like adding the Nancy Hanlder to the web.config file...&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;handlers&amp;gt;
+    &amp;lt;add name="Nancy" verb="*" type="Nancy.Hosting.Aspnet.NancyHttpRequestHandler" path="*" /&amp;gt;
+&amp;lt;/handlers&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Except now we don't need any of that! &lt;em&gt;(so don't go adding that to your web.config!)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;If you want to dive into what the middleware is doing you can take a look at &lt;a href="https://twitter.com/PrabirShrestha"&gt;Prabir's&lt;/a&gt; repository here:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://github.com/prabirshrestha/simple-owin"&gt;https://github.com/prabirshrestha/simple-owin&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;So we need to create a new class called &lt;code&gt;Startup&lt;/code&gt; which contains a single method.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;namespace NancyOwinWeb
+{
+    using Owin;
+
+    public class Startup
+    {
+        public void Configuration(IAppBuilder app)
+        {
+            app.UseNancy();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I opt to put this in a folder called App_Start&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/nancyfx-owin-5.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;That's really all that's required to setup Nancy in an Owin project. In the same configuration file you would obviously wire up other middleware, maybe some logging, possibly authentication, maybe... &lt;em&gt;shudder&lt;/em&gt; you might even consider putting WebAPI in there. BUT please don't ruin your project :)&lt;/p&gt;
+
+&lt;p&gt;The namespace is pretty important, if you don't use the default namespace, the Microsoft.Owin host can't find the startup. If for example, we added the App_Start namespace to the class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;namespace NancyOwinWeb.App_Start
+{
+    using Owin;
+
+    public class Startup
+    {
+        public void Configuration(IAppBuilder app)
+        {
+            app.UseNancy();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We will get an exception thrown...&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/nancyfx-owin-8.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Luckily if you run into this scenario, you can either fix the namespace, or add a appSetting to your web.config like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;add key="owin:AppStartup" value="NancyOwinWeb.App_Start.Startup, NancyOwinWeb" /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Codez - Module&lt;/h2&gt;
+
+&lt;p&gt;Now we just need a module, so lets create a nice simple module&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;namespace NancyOwinWeb.Modules
+{
+    using Nancy;
+
+    public class HomeModule : NancyModule
+    {
+        public HomeModule()
+        {
+            Get["/"] = _ =&amp;gt; "Hello from Owin!";
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If we ran the app now this would happen...&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/nancyfx-owin-6.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nice! What about my Web.config file, that file that gets so messy that we all dread...&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version="1.0"?&amp;gt;
+
+&amp;lt;!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=169433
+--&amp;gt;
+
+&amp;lt;configuration&amp;gt;
+    &amp;lt;system.web&amp;gt;
+      &amp;lt;compilation debug="true" targetFramework="4.5" /&amp;gt;
+      &amp;lt;httpRuntime targetFramework="4.5" /&amp;gt;
+    &amp;lt;/system.web&amp;gt;   
+&amp;lt;/configuration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That's it, believe it or not, I haven't changed a single line of this file at all!&lt;/p&gt;
+
+&lt;p&gt;Best of all our references are next to nothing!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/nancyfx-owin-7.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;So awesome...&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/</guid><link>http://www.philliphaydon.com/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/</link><title>NancyFX - Revisiting Content Negotiation &amp; APIs (Part 3)</title><description>&lt;ul&gt;
+&lt;li&gt;Original Post: &lt;a href="/2012/11/nancy-and-content-negotiation"&gt;NancyFX and Content Negotiation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/"&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 1)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/"&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 2)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 3)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In this last part I want to show you creating your own media type, so far we have gone over a really basic example of returning a response and letting the accept header handle different results, and then we went over how explicitly using &lt;code&gt;Negotiate&lt;/code&gt; allows you to customize your response more.&lt;/p&gt;
+
+&lt;p&gt;Creating your own Media Type may be something you never have to do, but it can help you solve some strange scenarios, for instance you could have a user request an invoice, rather than clutter your code with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (requestedInvoice.Type == "pdf")
+{
+    // get a pdf invoice
+}
+else if (requestedInvoice.Type == "word")
+{
+
+}
+else if (...)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You get the picture, this is tedious problematic work, every time we want to supply a new invoice type we need to modify the existing request, what we want to do is just handle a new media type and process it if we know about it.&lt;/p&gt;
+
+</description><pubDate>Sun, 19 May 2013 16:00:00 Z</pubDate><a10:updated>2013-05-19T16:00:00Z</a10:updated><a10:content type="text">&lt;ul&gt;
+&lt;li&gt;Original Post: &lt;a href="/2012/11/nancy-and-content-negotiation"&gt;NancyFX and Content Negotiation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/"&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 1)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/"&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 2)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;NancyFX - Revisiting Content Negotiation &amp;amp; APIs (Part 3)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In this last part I want to show you creating your own media type, so far we have gone over a really basic example of returning a response and letting the accept header handle different results, and then we went over how explicitly using &lt;code&gt;Negotiate&lt;/code&gt; allows you to customize your response more.&lt;/p&gt;
+
+&lt;p&gt;Creating your own Media Type may be something you never have to do, but it can help you solve some strange scenarios, for instance you could have a user request an invoice, rather than clutter your code with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (requestedInvoice.Type == "pdf")
+{
+    // get a pdf invoice
+}
+else if (requestedInvoice.Type == "word")
+{
+
+}
+else if (...)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You get the picture, this is tedious problematic work, every time we want to supply a new invoice type we need to modify the existing request, what we want to do is just handle a new media type and process it if we know about it.&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;&lt;span class="note"&gt;&lt;strong&gt;Note:&lt;/strong&gt; To keep this simple I'm going to show a simple CSV Processor, you can look at NancyFX code on how a ViewProcessor works if you want to hook up a View to a Word/PDF processor.&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2&gt;Codez is what I need!&lt;/h2&gt;
+
+&lt;p&gt;There's 3 things we need to create&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;CsvProcessor&lt;/li&gt;
+&lt;li&gt;CsvSerializer&lt;/li&gt;
+&lt;li&gt;CsvResponse&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The &lt;code&gt;CsvProcessor&lt;/code&gt; takes the request, checks to see if it can handle the request, and if it can, it uses the &lt;code&gt;CsvSerializer&lt;/code&gt; to process the request and return a &lt;code&gt;CsvResponse&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;Csv Response&lt;/h2&gt;
+
+&lt;p&gt;This class is modeled off the Json Response, it takes a model and a serializer, sets all the correct headers for the response, serializes the response, and this is what is returned to the client.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class CsvResponse&amp;lt;TModel&amp;gt; : Response
+{
+    public CsvResponse(TModel model, ISerializer serializer)
+    {
+        if (serializer == null)
+        {
+            throw new InvalidOperationException("CSV Serializer not set");
+        }
+
+        this.Contents = GetJsonContents(model, serializer);
+        this.ContentType = "text/csv";
+        this.StatusCode = HttpStatusCode.OK;
+    }
+
+    private static Action&amp;lt;Stream&amp;gt; GetJsonContents(TModel model, ISerializer serializer)
+    {
+        return stream =&amp;gt; serializer.Serialize("text/csv", model, stream);
+    }
+}
+
+public class CsvResponse : CsvResponse&amp;lt;object&amp;gt;
+{
+    public CsvResponse(object model, ISerializer serializer)
+        : base(model, serializer)
+    {
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You don't REALLY need this class, I would say its a highly recommended optional. If you don't create this class it just means your processor needs to do all the work of setting up the response.&lt;/p&gt;
+
+&lt;h2&gt;Csv Serializer&lt;/h2&gt;
+
+&lt;p&gt;To handle serialization of the model to a CSV file I'm using &lt;code&gt;ServiceStack.Text&lt;/code&gt; which comes with its own serializer! &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class CsvSerializer : ISerializer
+{
+    public bool CanSerialize(string contentType)
+    {
+        return IsCsvType(contentType);
+    }
+
+    public IEnumerable&amp;lt;string&amp;gt; Extensions
+    {
+        get { yield return "csv"; }
+    }
+
+    public void Serialize&amp;lt;TModel&amp;gt;(string contentType, TModel model, Stream outputStream)
+    {
+        using (var writer = new StreamWriter(new UnclosableStreamWrapper(outputStream)))
+        {
+            ServiceStack.Text.CsvSerializer.SerializeToWriter(model, writer);
+        }
+    }
+
+    private static bool IsCsvType(string contentType)
+    {
+        if (string.IsNullOrEmpty(contentType))
+        {
+            return false;
+        }
+
+        var contentMimeType = contentType.Split(';')[0];
+
+        return contentMimeType.Equals("text/csv", StringComparison.InvariantCultureIgnoreCase) ||
+               contentMimeType.StartsWith("text/csv", StringComparison.InvariantCultureIgnoreCase);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The serializer needs to implement &lt;code&gt;ISerializer&lt;/code&gt;, NancyFX will automatically pick up and register this class for you, so all you need to do is create it.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;CanSerialize&lt;/code&gt; method is very important, in the &lt;code&gt;CsvProcessor&lt;/code&gt; we will invoke all serializers until we find one that can handle serializing the content for the requested processor.&lt;/p&gt;
+
+&lt;h2&gt;Csv Processor&lt;/h2&gt;
+
+&lt;p&gt;Lastly we have the processor.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class CsvProcessor : IResponseProcessor
+{
+    private readonly ISerializer serializer;
+
+    private static readonly IEnumerable&amp;lt;Tuple&amp;lt;string, MediaRange&amp;gt;&amp;gt; extensionMappings =
+        new[] { new Tuple&amp;lt;string, MediaRange&amp;gt;("csv", MediaRange.FromString("text/csv")) };
+
+    public CsvProcessor(IEnumerable&amp;lt;ISerializer&amp;gt; serializers)
+    {
+        this.serializer = serializers.FirstOrDefault(x =&amp;gt; x.CanSerialize("text/csv"));
+    }
+
+    public IEnumerable&amp;lt;Tuple&amp;lt;string, MediaRange&amp;gt;&amp;gt; ExtensionMappings
+    {
+        get { return extensionMappings; }
+    }
+
+    public ProcessorMatch CanProcess(MediaRange requestedMediaRange, dynamic model, NancyContext context)
+    {
+        if (requestedMediaRange.Matches("text/csv"))
+        {
+            return new ProcessorMatch
+            {
+                ModelResult = MatchResult.DontCare,
+                RequestedContentTypeResult = MatchResult.ExactMatch
+            };
+        }
+
+        return new ProcessorMatch
+        {
+            ModelResult = MatchResult.DontCare,
+            RequestedContentTypeResult = MatchResult.NoMatch
+        };
+    }
+
+    public Response Process(MediaRange requestedMediaRange, dynamic model, NancyContext context)
+    {
+        return new CsvResponse(model, this.serializer);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This class has 3 methods and a constructor.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;Constructor&lt;/code&gt; simply works out which serializer it requires.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ExtensionMapping&lt;/code&gt; specifies which extension can be used on a request to call the processor. i.e if you can't pass in accepts headers, you can end the url with &lt;code&gt;.csv&lt;/code&gt; and the processor will be invoked!&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;CanProcess&lt;/code&gt; checks to see if the request can be processed.&lt;/p&gt;
+
+&lt;p&gt;Lastly &lt;code&gt;Process&lt;/code&gt; simply processes the request.&lt;/p&gt;
+
+&lt;h2&gt;Lets see it in action!&lt;/h2&gt;
+
+&lt;p&gt;Using the EXACT same routes we defined on the previous posts, we can simply modify the header to ask for &lt;code&gt;text/csv&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/nancyfx-conneg-updated-part3-1.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And we get all our data serialized to CSV format! We didn't have to modify the bootstrapper or anything, Nancy just sees the implemented interfaces and says MINE! :D&lt;/p&gt;
+
+&lt;h2&gt;What about the Extension mentioned earlier!&lt;/h2&gt;
+
+&lt;p&gt;In the processor we had the following&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private static readonly IEnumerable&amp;lt;Tuple&amp;lt;string, MediaRange&amp;gt;&amp;gt; extensionMappings =
+    new[] { new Tuple&amp;lt;string, MediaRange&amp;gt;("csv", MediaRange.FromString("text/csv")) };
+
+public IEnumerable&amp;lt;Tuple&amp;lt;string, MediaRange&amp;gt;&amp;gt; ExtensionMappings
+{
+    get { return extensionMappings; }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Well when you access a url with &lt;code&gt;.json&lt;/code&gt; or &lt;code&gt;.csv&lt;/code&gt;, it will response with that as a file!&lt;/p&gt;
+
+&lt;p&gt;If we have the following page&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/nancyfx-conneg-updated-part3-2.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;We add the extension &lt;code&gt;.json&lt;/code&gt; to the end&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/nancyfx-conneg-updated-part3-3.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nancy Replies! (The JSON format shown done using &lt;a href="https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc?hl=en"&gt;JSONView chrome extension&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If we update to &lt;code&gt;.csv&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/nancyfx-conneg-updated-part3-4.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And if we open the file up&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/nancyfx-conneg-updated-part3-5.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;That's all there is to it!&lt;/p&gt;
+
+&lt;p&gt;Hope this helps anyone with Conneg or Conneg with NancyFX :)&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/05/setup-my-first-azure-virtual-machine/</guid><link>http://www.philliphaydon.com/2013/05/setup-my-first-azure-virtual-machine/</link><title>Setup my first Azure Virtual Machine!</title><description>&lt;p&gt;Every time I touch Azure I'm constantly amazed at how much simpler it is compared to when I tried it back when it had the crappy Silverlight management site.&lt;/p&gt;
+
+&lt;p&gt;Infact every time I touch the thing I over-complicate something only to realize it was dead simple to begin with.&lt;/p&gt;
+
+&lt;p&gt;I'm currently in the process of slowly building a VM to run a few small websites I'm building in my own time. Based on what I need Azure will cost me $60 less each month for roughly the same specs (with about 256mb less ram)&lt;/p&gt;
+
+&lt;p&gt;The first time creating a VM took me a couple of hours to setup and working, nuking it and starting again took about as long as it took to provision the VM (few minutes)&lt;/p&gt;
+
+</description><pubDate>Wed, 15 May 2013 16:00:00 Z</pubDate><a10:updated>2013-05-15T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Every time I touch Azure I'm constantly amazed at how much simpler it is compared to when I tried it back when it had the crappy Silverlight management site.&lt;/p&gt;
+
+&lt;p&gt;Infact every time I touch the thing I over-complicate something only to realize it was dead simple to begin with.&lt;/p&gt;
+
+&lt;p&gt;I'm currently in the process of slowly building a VM to run a few small websites I'm building in my own time. Based on what I need Azure will cost me $60 less each month for roughly the same specs (with about 256mb less ram)&lt;/p&gt;
+
+&lt;p&gt;The first time creating a VM took me a couple of hours to setup and working, nuking it and starting again took about as long as it took to provision the VM (few minutes)&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;h2&gt;Things I did wrong :(&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;When I setup the DNS I used the Internal IP Address instead of the Public Virtual IP address. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/azure-vm-1.png" alt="" /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;After sorting out the DNS so ping hit the right IP Address, I needed to add an Endpoint for port 80. Luckily when IIS installs on Windows Server 2012 it configures the Firewall for you. I don't recall it doing that for you on 2008. Needless to say, once the Endpoint was in place, websites became visible!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/azure-vm-2.png" alt="" /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;I didn't want to store my websites, and images/videos on the OS Drive so I needed to create a 2nd drive. Initially I went fluffing around in Storage, creating a new storage and setting blob read/write etc etc... Turns out I wasted about 20 minutes of my time to find out...&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/azure-vm-3.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;There's a button to add an empty disk to a selected virtual machine... Arg, well that turned out to be REALLY simple!&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;I kind of expected the disk to automatically show up in the VM, but then I remembered watching some video on Azure VMs which said you need to enable/format the disk manually. /facepalm&lt;/p&gt;
+
+&lt;p&gt;So once again jump into the VM, go to the disk management screen and enable/format, now I got storage ready to go!&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Weather I'm messing around with Serivces, Website, Virtual Machines. Azure has come a long way and its such a pleasure to work with! I was pretty negative towards Azure when it had the Silverlight management screen because it was slow and I couldn't figure out how to do anything. Now its a breeze!&lt;/p&gt;
+</a10:content></item></channel></rss>
