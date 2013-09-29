@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-09-27T00:17:38.7212802+08:00" />
+    <meta http-equiv="last-modified" content="2013-09-29T13:34:39.0546726+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -199,6 +199,17 @@ public class Category
 
     <div id="disqus_thread"></div>
 <script>
+    var reset_disqus = function(){
+        DISQUS.reset({
+            reload: true,
+            config: function () {
+                //this.page.identifier = '';
+                this.page.url = 'http://www.philliphaydon.com/2011/12/post-a-collection-of-viewmodels-to-a-mvc-action-with-jquery/';
+                //this.page.title = '';
+            }
+        });
+    };
+
     var disqus_shortname = 'philliphaydon';
     var disqus_url = 'http://www.philliphaydon.com/2011/12/post-a-collection-of-viewmodels-to-a-mvc-action-with-jquery/';
 
@@ -207,6 +218,8 @@ public class Category
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
+
+    window.onresize = function() { reset_disqus(); };
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
