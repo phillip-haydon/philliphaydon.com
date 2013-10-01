@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-10-01T23:11:52.0400878+08:00" />
+    <meta http-equiv="last-modified" content="2013-10-01T23:16:17.8919762+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -34,6 +34,34 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/03/career-starting-salary/">Career Starting Salary</a> 
+        <span>posted on 28 Mar 2011</span>
+      </h1> 
+      
+      <p>Every now-n-then I read threads on forums to do with pay &amp; salary in the IT industry, and it always frustrates me when I come across posts where people are whinging about junior / no experience jobs being offered for 'low pay'.</p>
+
+<p>The latest thread can be seen here: <a href="http://forums.whirlpool.net.au/forum-replies.cfm?t=1657193">http://forums.whirlpool.net.au/forum-replies.cfm?t=1657193</a></p>
+
+<p>In the thread the original poster was complaining about a job ad being advertised at 35-40k, for a grad position. It seems that a lot of people agree with him. Some of the comments are:</p>
+
+<blockquote>
+  <p>35k is shockingly low. You could walk out and get an office job with no training and no stress for that amount. As a grad you will have to be learning things in your spare time etc.</p>
+</blockquote>
+
+<!-- -->
+> In IT you need to be good to get good money. If that's not you then change your career, plenty of industries where you get good money even if you are just average or worse...
+
+<!-- -->
+> I still think it's dangerous practice to offer an absolutely disgraceful salary like $35k to gradutes
+
+<!-- -->
+> 35k is a a stupid sallary for a new Grad in this day and age. Heck, as a grad I would even consider 50k too low. Good luck trying to fill that role !!
+
+
+      <p><a href="/2011/03/career-starting-salary/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/02/wp7-nights-at-the-round-table-feb-28/">WP7 Nights at the Round Table - Feb 28</a> 
@@ -258,45 +286,6 @@ WHERE [t1].[value] = 'Robert Williams'
 
       <p><a href="/2010/12/i-love-clean-client-ids-especially-with-net-2-0/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2010/12/moq-using-params-in-the-returns/">Moq-Using Params in the Returns</a> 
-        <span>posted on 06 Dec 2010</span>
-      </h1> 
-      
-      <p>Had an interesting scenario to solve today, while I was away a bunch of unit tests got turned off since they broke during some refactoring, I spent the day fixing theses unit tests.</p>
-
-<p>The method under test had a dependency on another class, it performed two actions on this class.</p>
-
-<ol>
-<li>to get a list of data</li>
-<li>to return a DateRange (this is done in a foreach loop)</li>
-</ol>
-
-<p>DateRange is just a class with a start/end property of DateTime. The method is sort of like this (obviously with proper names I just wrote some random code to illustrate the scenario)</p>
-
-<pre><code>public IEnumerable&lt;Stuff&gt; GetStuff(DateTime dateList)
-{
-    var result = new List&lt;Stuff&gt;();
-    var someService = IoC.Resolve&lt;ISomeService&gt;();
-    var data = someService.GetData();
-
-    foreach (var date in dateList)
-    {
-        var tempDate = date;
-        DateRange range = someService.GetDates(OpenRules, tempDate);
-        //do stuff...
-    }
-
-    return result;
-}
-</code></pre>
-
-<p>So the same service is called twice, the issue is when iterating over the dateList, it needs to be filtered based on a DateRange during the day. So say, 8am till 10pm. Removing the stuff outside of that time period during that day.</p>
-
-
-      <p><a href="/2010/12/moq-using-params-in-the-returns/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -367,6 +356,7 @@ WHERE [t1].[value] = 'Robert Williams'
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2013October">October, 2013</a></li>
                           <li><a href="/archive#2013September">September, 2013</a></li>
                           <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>

@@ -34,11 +34,12 @@
                   
 
 <div id="post">
-    <h1>Failware... aka,MSN</h1>
+    <h1>Introducing Sandra.Snow</h1>
 
     <div class="post-note">
-      posted on 28 Oct 2010
-       | <a href="/category/rant">Rant</a>
+      posted on 01 Oct 2013
+       | <a href="/category/nancyfx">NancyFX</a>
+       | <a href="/category/snow">Snow</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,33 +52,190 @@
     
     
         
-    <p>Microsoft recently pushed out a Windows Update for their Windows Live Essentials, in this update came Windows Live Messenger.</p>
+    <p>I've only been blogging since 2009, and my blog had gone through multiple iterations. I began on BlogEngine.NET, moved onto Wordpress, then was introduced to Jekyll. </p>
 
-<p>Wow... what was the Windows Live team thinking when they wrote this? It's the biggest pile of crap ever.</p>
+<p>I loved Jekyll, but I personally found it fiddly, and people who I've spoken to have also found it fiddly, but are quiet happy after they had set it up.</p>
 
-<p>The progression of MSN was fine, sure it was becoming slight bloatware, has some annoying advertising, and some silly features. But it worked well and looked nice.</p>
+<p>I really liked the idea, so I thought I would recreate it in .NET :) Because reinventing the wheel is fun!</p>
 
-<p>My biggest pet hate?</p>
+<h2>Introducing Sandra.Snow</h2>
 
-<p>If I sent a link to an image, I'm sending a god damn LINK. If I wanted to send an image, I would send an image. But I'm not, I'm sending a LINK.</p>
+<p>With the help of <a href="https://twitter.com/jchannon">@jchannon</a>, I've managed release Snow. Using NancyFX we have created a small application that allows you to write Markdown Posts with Razor Layouts, which will be compiled static HTML files.</p>
+
+<p>Currently, besides my own, I'm aware of 3 other blogs running on Snow:</p>
+
+<ul>
+<li><a href="http://blog.jonathanchannon.com">blog.jonathanchannon.com</a></li>
+<li><a href="http://thecodejunkie.com/">thecodejunkie.com</a></li>
+<li><a href="http://blog.owenrumney.co.uk/">blog.owenrumney.co.uk</a></li>
+</ul>
+
+<p>So what is it? Basically:</p>
+
+<blockquote>
+  <p>Sandra.Snow is a Jekyll inspired static site generation tool that can be run locally, as a CAAS(Compiler as a Service) or setup with Azure to build your site when your repository changes. It is built on top of NancyFX.</p>
+</blockquote>
 
 <!--excerpt-->
 
-<p>The windows live team thought "you know what, we will help users by getting the actual image and sending it to the user for them so they don't need to click on the link!".</p>
+<h2>Getting Started</h2>
 
-<p>Great.</p>
+<p>The easiest way to getting started with Snow is to fork it!</p>
 
-<p>BUT ATLEAST LET ME TURN THE DAMN FEATURE OFF!</p>
+<p><a href="4">Sandra.Snow.SnowTemplate</a></p>
 
-<p>/rant</p>
+<p>You can fork the Snow Template repository, which is all setup and ready to go. Basically you fork it, run the <code>.bat</code> file, and it will build the website into the current directory, and away you go.</p>
 
-<p>It does have one really nice feature I like.</p>
+<p>Push the fork back up to <code>gh-pages</code> and you've got a site on GitHub pages :)</p>
 
-<p><img src="/images/msn-sucks-1.png" alt="" /></p>
+<h2>So what happening?!?</h2>
 
-<p>It automatically creates link's for searchable things on Bing. People and Places seem to be what's most commonly converted, I've seen some food's converted to links too.</p>
+<p>If you take a look at my blog repository: </p>
 
-<p>It's handy for when you don't have any idea what the hell your friend's are talking about.</p>
+<p><a href="https://github.com/phillip-haydon/philliphaydon.com">https://github.com/phillip-haydon/philliphaydon.com</a></p>
+
+<p>This was originally a Github Pages blog running on Jekyll, I've re-purposed it using the Sandra.Snow.SnowTemplate project.</p>
+
+<p>Basically in the root directory of the website are two 4 key things:</p>
+
+<ol>
+<li>./.nojekyll</li>
+<li>./CNAME</li>
+<li>./compile.snow.bat</li>
+<li>./Snow</li>
+</ol>
+
+<h3>.nojekyll</h3>
+
+<p>This is exactly what you think it is... it basically tells Github to not treat the site as a jekyll site. :) prevents me from receiving emails from Github.</p>
+
+<h3>CNAME</h3>
+
+<p>This file is super basic. It contains my blog URL. :)</p>
+
+<h3>compile.snow.bat</h3>
+
+<p>This file does two things. </p>
+
+<p>It executes <a href="http://optipng.sourceforge.net">OptiPNG</a> which is a little <code>.exe</code> file which recompresses images to a smaller size. All my screen grabs are done using <kbd>PrtScn</kbd> + Paint, so the <code>.png</code> files are often larger than they should be. </p>
+
+<p>It may not be much, but my entire site is about 12mb of images, with the optimization its only 8.8mb. Github hosts my blog, but I'm more worried about end users downloading the images ASAP, especially if they are viewing on a mobile device.</p>
+
+<p>The second thing it executes is <code>Snow.exe</code></p>
+
+<p><code>.\Snow\_compiler\Snow.exe config=.\Snow\ debug=true</code></p>
+
+<p>This line tells it to execute Snow, and the location of the config file. </p>
+
+<h3>Snow</h3>
+
+<p>This directory is my actual un-compiled website. </p>
+
+<p><a href="https://github.com/phillip-haydon/philliphaydon.com/tree/gh-pages/Snow">Github Snow Directory</a></p>
+
+<p>In here is the actual exe under <code>_compiler</code> and a snow.config file.</p>
+
+<p>The snow.config file looks like this:</p>
+
+<pre><code>{
+  "siteUrl": "http://www.philliphaydon.com",
+  "posts": "_posts",
+  "layouts": "_layouts",
+  "output": "../",
+  "urlFormat": "yyyy/MM/slug",
+  "directoryname": "",
+  "copyDirectories": [
+    "images/output =&gt; images",
+    "javascripts",
+    "stylesheets",
+    "stuffz"
+  ],
+  "processFiles": [{
+    "file": "index.cshtml",
+    "loop": "Posts"
+  },{
+    "file": "category.cshtml",
+    "loop": "Categories"
+  },{
+    "file": "categories.cshtml =&gt; category"
+  },{
+    "file": "archive.cshtml"
+  },{
+    "file": "about.cshtml"
+  },{
+    "file": "feed.xml",
+    "loop": "RSS"
+  }]
+}
+</code></pre>
+
+<p>It's nothing special, it's just a JSON file. :)</p>
+
+<p>I specify where my posts are, where my layouts are, and where I want to output my site.</p>
+
+<p>This basically just generates all the markdown posts which live in <code>/Snow/_posts</code>, then I have some additional files to process.</p>
+
+<p>Jekyll works by processing any file, but I personally don't like that. I opted for being specific and telling it what it should process. </p>
+
+<h2>Those markdown files!</h2>
+
+<p>The markdown files are similar to Jekyll, they use the same styled header like, well this blog post I'm writing right now looks like this:</p>
+
+<pre><code>---
+title: Introducing Sandra.Snow
+categories: NancyFX, Snow
+layout: post
+---
+</code></pre>
+
+<p>When I ported my blog to Snow. I updated NONE of my markdown files. :) </p>
+
+<p>That's really all there is to it. </p>
+
+<p>The rest is just Markdown files, some Razor views, and a .exe</p>
+
+<p>It generates to the folder below by specifying the output as <code>../</code>, but it preserves some folders. i.e it wont delete the .bat file, CNAME, .nojekyll, Snow, or .git/.svn</p>
+
+<h2>Stuff...</h2>
+
+<p>So that's it, I have some nifty little features too. I'm slowly detailing all this on the wiki. But the one I like most was inspired by a conversion with <a href="https://twitter.com/thecodejunkie">@TheCodeJunkie</a></p>
+
+<p>It's the ability to specify a Series of posts:</p>
+
+<p>My blog series on setting up Mono on Azure/Ubuntu, has a special header in the markdown file:</p>
+
+<pre><code>---
+layout: post
+category: Azure
+title: Setting up Mono on nginx
+series:
+    name: AzureMono
+    current: 3
+    part: Part 1 - Setting up the Virtual Machine and nginx
+    part: Part 2 - Setting up new Website and Domain on nginx
+    part: Part 3 - Setting up Mono on nginx
+    part: Part 4 - Setting up a NancyFX website
+    part: Part 5 - Setting up a ServiceStack web service
+---
+</code></pre>
+
+<p>Each post has a 'series' and 3 key properties:</p>
+
+<blockquote>
+  <p>Name - specifies the unique identifier for the series.</p>
+  
+  <p>Current - is the current index of the posts (its starting index is 1, not 0)</p>
+  
+  <p>Part - the parts is a collection of all parts that will be in the series.</p>
+</blockquote>
+
+<p>Future posts will show without links, while past posts will show with the link they relate to.</p>
+
+<p>If you changed a future post name, it will take the current post's part name and use that, while previous post parts will be ignored. When the HTML files are generated they will be updated with the new series. Meaning you never need to go back and update old posts, or if they are far apart you don't have to hunt them down :)</p>
+
+<hr />
+
+<p>Well I hope you like Snow. So far I've had positive feedback, but if you choose to use it, I would love to hear what you use it for and any feedback, good or bad! Or post an issue on the repository.</p>
 
 
     <div id="disqus_thread"></div>
@@ -87,14 +245,14 @@
             reload: true,
             config: function () {
                 //this.page.identifier = '';
-                this.page.url = 'http://www.philliphaydon.com/2010/10/failware-aka-msn/';
+                this.page.url = 'http://www.philliphaydon.com/2013/10/introducing-sandra-snow/';
                 //this.page.title = '';
             }
         });
     };
 
     var disqus_shortname = 'philliphaydon';
-    var disqus_url = 'http://www.philliphaydon.com/2010/10/failware-aka-msn/';
+    var disqus_url = 'http://www.philliphaydon.com/2013/10/introducing-sandra-snow/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

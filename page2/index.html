@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-10-01T23:11:52.0400878+08:00" />
+    <meta http-equiv="last-modified" content="2013-10-01T23:16:17.8919762+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
@@ -34,6 +34,39 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 3)</a> 
+        <span>posted on 20 May 2013</span>
+      </h1> 
+      
+      <ul>
+<li>Original Post: <a href="/2012/11/nancy-and-content-negotiation">NancyFX and Content Negotiation</a></li>
+<li><a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</a></li>
+<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 2)</a></li>
+<li>NancyFX - Revisiting Content Negotiation &amp; APIs (Part 3)</li>
+</ul>
+
+<p>In this last part I want to show you creating your own media type, so far we have gone over a really basic example of returning a response and letting the accept header handle different results, and then we went over how explicitly using <code>Negotiate</code> allows you to customize your response more.</p>
+
+<p>Creating your own Media Type may be something you never have to do, but it can help you solve some strange scenarios, for instance you could have a user request an invoice, rather than clutter your code with:</p>
+
+<pre><code>if (requestedInvoice.Type == "pdf")
+{
+    // get a pdf invoice
+}
+else if (requestedInvoice.Type == "word")
+{
+
+}
+else if (...)
+</code></pre>
+
+<p>You get the picture, this is tedious problematic work, every time we want to supply a new invoice type we need to modify the existing request, what we want to do is just handle a new media type and process it if we know about it.</p>
+
+
+      <p><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/05/setup-my-first-azure-virtual-machine/">Setup my first Azure Virtual Machine!</a> 
@@ -369,25 +402,6 @@
 
       <p><a href="/2013/04/my-must-have-short-list-programs-extensions-etc/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/04/what-i-would-like-to-see-from-microsoft-regarding-oss/">What I would like to see from Microsoft regarding OSS</a> 
-        <span>posted on 02 Apr 2013</span>
-      </h1> 
-      
-      <p>I had an awesome conversation on Monday with Glenn Block about Microsoft in regards to OSS, as a result Glenn asked me to write a post about what I would like to see Microsoft do.</p>
-
-<p>To be clear, everyone has their own opinions about what Microsoft is doing with Open Source Software, whats working, whats not, that isn't the point of this post. This is about what I would like to see, and why.</p>
-
-<h3>Promote itself with the community, not against it</h3>
-
-<p>One of the things I think Microsoft does is promote itself against the community, it has opened sourced MVC and WebAPI, but people outside the community don't know about the alternatives. </p>
-
-<p>I'm not suggesting that Microsoft actively promotes frameworks like FubuMVC, NancyFX, ServiceStack etc as their own, or in such a way that it overshadows their own stuff. What I would like to see is Microsoft promoting itself along side other frameworks. A lot of the guys who create these other frameworks are advisories for MVC/WebAPI, they help make Microsoft frameworks better, and there's all the people who contribute, and in my personal opinion Microsoft doesn't really give anything back to the community through its main channels.</p>
-
-
-      <p><a href="/2013/04/what-i-would-like-to-see-from-microsoft-regarding-oss/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -458,6 +472,7 @@
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2013October">October, 2013</a></li>
                           <li><a href="/archive#2013September">September, 2013</a></li>
                           <li><a href="/archive#2013August">August, 2013</a></li>
                           <li><a href="/archive#2013July">July, 2013</a></li>
