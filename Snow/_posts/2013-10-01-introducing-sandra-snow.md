@@ -30,7 +30,7 @@ So what is it? Basically:
 
 The easiest way to getting started with Snow is to fork it!
 
-[Sandra.Snow.SnowTemplate](4)
+[Sandra.Snow.SnowTemplate][4]
 
 You can fork the Snow Template repository, which is all setup and ready to go. Basically you fork it, run the `.bat` file, and it will build the website into the current directory, and away you go.
 
@@ -44,7 +44,7 @@ If you take a look at my blog repository:
 
 This was originally a Github Pages blog running on Jekyll, I've re-purposed it using the Sandra.Snow.SnowTemplate project.
 
-Basically in the root directory of the website are two 4 key things:
+Basically in the root directory of the website are 4 key things:
 
   1. ./.nojekyll
   2. ./CNAME
