@@ -1,4 +1,428 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/10/introducing-sandra-snow/</guid><link>http://www.philliphaydon.com/2013/10/introducing-sandra-snow/</link><title>Introducing Sandra.Snow</title><description>&lt;p&gt;I've only been blogging since 2009, and my blog had gone through multiple iterations. I began on BlogEngine.NET, moved onto Wordpress, then was introduced to Jekyll. &lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/10/semantic-ui-and-angularjs-basic-registration-form-with-validation/</guid><link>http://www.philliphaydon.com/2013/10/semantic-ui-and-angularjs-basic-registration-form-with-validation/</link><title>Semantic-UI &amp; AngularJS - Basic Registration Form with Validation</title><description>&lt;p&gt;Last week I saw a tweet about Semantic-UI, which I had not heard about, I guess it's relatively new. I decided to take a look and to be honest. I love what I see.&lt;/p&gt;
+
+&lt;p&gt;So to get rolling I decided to create a basic registration form for a personal project using it. &lt;/p&gt;
+
+&lt;h2&gt;What is Semantic UI&lt;/h2&gt;
+
+&lt;p&gt;Well, for starters, its a rather large library :| coming in total at a whopping 333kb for just the minified CSS an JavaScript.&lt;/p&gt;
+
+&lt;p&gt;That's not including the Fonts &lt;em&gt;(roughly 50kb, unless you like SVG which is 194kb, but who the hell uses that crap)&lt;/em&gt;, Images which are about 3-10kb, though you probably only use 1 or 2 per app depending on what you're doing. These are all loading gifs, all other images are... well done using Font-Awesome. Which happens to be rolled into the library.&lt;/p&gt;
+
+&lt;p&gt;But for what the library does, its pretty damn impressive. &lt;/p&gt;
+
+&lt;p&gt;The idea is that Semantic is a more fluent and structured way to writing a web application, rather than naming stuff poorly like Bootstrap does with things like &lt;code&gt;col-lg-4&lt;/code&gt;, Semantic opts for &lt;code&gt;column&lt;/code&gt;. This is both good and bad. The examples on their homepage are more semantic, but at the cost of either writing less or more code in order to describe the UI elements in the markup. &lt;/p&gt;
+
+&lt;p&gt;Reading the examples is awesome, in fact I wanted to right align a button, I started out with:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ui blue submit button&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;I thought "I want that floated right, it would look better...", and I ended up with&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ui blue submit button floated right&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You end up writing lots but instead of shifting around in CSS to figure out how to move it from left to right, I just described it. Sure enough, button sat on the right hand side!&lt;/p&gt;
+
+</description><pubDate>Fri, 04 Oct 2013 16:00:00 Z</pubDate><a10:updated>2013-10-04T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Last week I saw a tweet about Semantic-UI, which I had not heard about, I guess it's relatively new. I decided to take a look and to be honest. I love what I see.&lt;/p&gt;
+
+&lt;p&gt;So to get rolling I decided to create a basic registration form for a personal project using it. &lt;/p&gt;
+
+&lt;h2&gt;What is Semantic UI&lt;/h2&gt;
+
+&lt;p&gt;Well, for starters, its a rather large library :| coming in total at a whopping 333kb for just the minified CSS an JavaScript.&lt;/p&gt;
+
+&lt;p&gt;That's not including the Fonts &lt;em&gt;(roughly 50kb, unless you like SVG which is 194kb, but who the hell uses that crap)&lt;/em&gt;, Images which are about 3-10kb, though you probably only use 1 or 2 per app depending on what you're doing. These are all loading gifs, all other images are... well done using Font-Awesome. Which happens to be rolled into the library.&lt;/p&gt;
+
+&lt;p&gt;But for what the library does, its pretty damn impressive. &lt;/p&gt;
+
+&lt;p&gt;The idea is that Semantic is a more fluent and structured way to writing a web application, rather than naming stuff poorly like Bootstrap does with things like &lt;code&gt;col-lg-4&lt;/code&gt;, Semantic opts for &lt;code&gt;column&lt;/code&gt;. This is both good and bad. The examples on their homepage are more semantic, but at the cost of either writing less or more code in order to describe the UI elements in the markup. &lt;/p&gt;
+
+&lt;p&gt;Reading the examples is awesome, in fact I wanted to right align a button, I started out with:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ui blue submit button&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;I thought "I want that floated right, it would look better...", and I ended up with&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ui blue submit button floated right&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You end up writing lots but instead of shifting around in CSS to figure out how to move it from left to right, I just described it. Sure enough, button sat on the right hand side!&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;h2&gt;Things used in this demo&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://semantic-ui.com"&gt;Semantic UI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://angularjs.org"&gt;AngularJS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://nancyfx.org"&gt;NancyFX&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Nothing is complete without Nancy, but I'm not showing any Nancy stuff. I'm including it in-case I show the server side stuff. &lt;/p&gt;
+
+&lt;h2&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;Download the latest version of Semantic from the website and include the packages folder into your project.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/semantic-ui-1.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And include them into your page...&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!doctype html&amp;gt;
+&amp;lt;html lang="en"&amp;gt;
+&amp;lt;head&amp;gt;
+  &amp;lt;meta charset="utf-8"&amp;gt;
+  &amp;lt;title&amp;gt;DemoWebsite&amp;lt;/title&amp;gt;
+
+  &amp;lt;link href="/content/semantic/css/semantic.min.css" rel="stylesheet" type="text/css"/&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+
+  &amp;lt;script src="/content/jquery-1.10.2.min.js"&amp;gt;&amp;lt;/script&amp;gt;
+  &amp;lt;script src="/content/semantic/javascript/semantic.min.js"&amp;gt;&amp;lt;/script&amp;gt;
+  &amp;lt;script src="/content/angular.min.js"&amp;gt;&amp;lt;/script&amp;gt;
+
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If we run this, we should get a nice blank page :)&lt;/p&gt;
+
+&lt;h2&gt;Creating the form&lt;/h2&gt;
+
+&lt;p&gt;Lets start by writing some HTML for the form:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div class="container"&amp;gt; 
+  &amp;lt;h1&amp;gt;Register Now&amp;lt;/h1&amp;gt;
+
+  &amp;lt;div class="ui form segment"&amp;gt;   
+    &amp;lt;div class="two fields"&amp;gt;
+      &amp;lt;div class="field"&amp;gt;
+        &amp;lt;label for="GivenName"&amp;gt;Given Name&amp;lt;/label&amp;gt;
+        &amp;lt;input id="GivenName" placeholder="Given Name" type="text" /&amp;gt;
+      &amp;lt;/div&amp;gt;
+
+      &amp;lt;div class="field"&amp;gt;
+        &amp;lt;label for="Surname"&amp;gt;Surname&amp;lt;/label&amp;gt;
+        &amp;lt;input id="Surname" placeholder="Surname" type="text"&amp;gt;
+      &amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+    &amp;lt;div class="field"&amp;gt;
+      &amp;lt;label for="Email"&amp;gt;Email&amp;lt;/label&amp;gt;
+      &amp;lt;input id="Email" placeholder="Email" type="text"&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+    &amp;lt;div class="field"&amp;gt;
+      &amp;lt;label for="Username"&amp;gt;Username&amp;lt;/label&amp;gt;
+      &amp;lt;input id="Username" placeholder="Username" type="text"&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+    &amp;lt;div class="field"&amp;gt;
+      &amp;lt;label for="Password"&amp;gt;Password&amp;lt;/label&amp;gt;
+      &amp;lt;input id="Password" type="password"&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+    &amp;lt;div class="field"&amp;gt;
+      &amp;lt;label for="PasswordConfirm"&amp;gt;Password Confirm&amp;lt;/label&amp;gt;
+      &amp;lt;input id="PasswordConfirm" type="password"&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+    &amp;lt;button class="ui blue button"&amp;gt;Submit&amp;lt;/button&amp;gt;
+  &amp;lt;/div&amp;gt;    
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nothing special, this is using the Semantic markup. The outer &lt;code&gt;container&lt;/code&gt; div is just a element I added to center the page. Without adding anything to the styling to change the look and feel, we get a page that looks like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/semantic-ui-2.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Doesn't look too bad.&lt;/p&gt;
+
+&lt;h2&gt;Lets add some validation&lt;/h2&gt;
+
+&lt;p&gt;Based on the documentation you can add validation in HTML, but I prefer to do it in JavaScript, so that's how I'll do it now :)&lt;/p&gt;
+
+&lt;p&gt;First we need to find the form element, then call &lt;code&gt;.form(*validation*, *options*)&lt;/code&gt; on it to wire it up.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script&amp;gt;
+
+  (function ($) {
+    $('.ui.form').form({        
+      givenName: {
+        identifier: 'GivenName',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please enter your given name'
+        }]
+      },       
+      surname: {
+        identifier: 'Surname',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please enter your surname'
+        }]
+      },       
+      username: {
+        identifier: 'Username',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please enter a username'
+        }]
+      },       
+      email: {
+        identifier: 'Email',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please enter your email'
+        },{
+          type: 'email',
+          prompt: 'Please enter a valid email'
+        }]
+      },       
+      password: {
+        identifier: 'Password',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please enter a password'
+        },{
+          type: 'length[6]',
+          prompt: 'Password needs to be atleast 6 characters long'
+        }]
+      },       
+      passwordConfirm: {
+        identifier: 'PasswordConfirm',
+        rules: [{
+          type: 'match[Password]',
+          prompt: 'Password don\'t match'
+        }]
+      }
+    }, {
+      on: 'blur',
+      inline: 'true'
+    });
+  }(jQuery));
+
+&amp;lt;/script&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let's break this up, first we have an array of validation rules. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;email: {
+  identifier: 'Email',
+  rules: [{
+    type: 'empty',
+    prompt: 'Please enter your email'
+  },{
+    type: 'email',
+    prompt: 'Please enter a valid email'
+  }]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first part &lt;code&gt;email&lt;/code&gt; is the identifier in Semantic. &lt;/p&gt;
+
+&lt;p&gt;The next bit of the identifier, this can match against either &lt;code&gt;id&lt;/code&gt; &lt;code&gt;name&lt;/code&gt; or &lt;code&gt;data-validate&lt;/code&gt; attributes on the element. I picked the &lt;code&gt;id&lt;/code&gt; since I'm using &lt;code&gt;for&lt;/code&gt; on my labels.&lt;/p&gt;
+
+&lt;p&gt;Next bit of the rules, which is an array of objects defining the type of validation, and the message to prompt the user with. This is somewhat the same as using jQuery Validate (except it works...)&lt;/p&gt;
+
+&lt;p&gt;The second part is the settings:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  on: 'blur',
+  inline: 'true'
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This part says we want validation to occur on blur, and we want it to be inline. &lt;/p&gt;
+
+&lt;p&gt;This gives us the following effect.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/semantic-ui-3.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;If we wanted to put all errors in a list at the bottom by adding &lt;code&gt;&amp;lt;div class="ui error message"&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt; to the bottom (or top) of the form.&lt;/p&gt;
+
+&lt;p&gt;This would give us something like:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/semantic-ui-4.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Though the form will only display the messages at the bottom if you manually validate the form, or press submit. We haven't defined our button as a submit button, which I'll explain soon.&lt;/p&gt;
+
+&lt;h2&gt;Let's create a Controller and get this validated!&lt;/h2&gt;
+
+&lt;p&gt;So assuming you've setup your Angular App...&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;html lang="en" ng-app&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And set the controller...&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div class="ui form segment" ng-controller="RegisterController"&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can now create our &lt;code&gt;RegisterController&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function RegisterController($scope) {
+  $scope.register = function() {
+    alert("Register was clicked!");
+  };
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nice and simple. Wire up an Angular click event to the button...&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;button class="ui blue button" ng-click="register()"&amp;gt;Submit&amp;lt;/button&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notice how the button doesn't define &lt;code&gt;submit&lt;/code&gt; class. If you put the &lt;code&gt;submit&lt;/code&gt;, Semantic will try and handle submission. We don't want that.&lt;/p&gt;
+
+&lt;p&gt;Now if we click the button we should get a prompt:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/semantic-ui-5.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next we want to check the form is valid. In the controller we can add a basic function to invoke validate on the Semantic form.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function RegisterController($scope, $element) {
+  var registrationForm = $($element);
+
+  $scope.isInvalid = function() {
+    return !registrationForm.form('validate form');
+  };
+
+  $scope.register = function () {
+    if (this.isInvalid()) {
+      return;
+    }
+
+    alert("Register was clicked!");
+  };
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So we inject the &lt;code&gt;$element&lt;/code&gt; into the Controller, this gives us the current scope element the controller is attached to. Since we attached it to the form the scope for the form in Semantic and Angular is the same.&lt;/p&gt;
+
+&lt;p&gt;This is a Angular object though, so we need to then convert it to a jQuery.&lt;/p&gt;
+
+&lt;p&gt;Now we can implement the isInvalid method which will call &lt;code&gt;form&lt;/code&gt;, a jQuery plugin implemented by Semantic, and pass in the argument &lt;code&gt;validate form&lt;/code&gt; which tells it to... well validate the form.&lt;/p&gt;
+
+&lt;p&gt;The result is true or false, and the UI will now show an invalid state.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/semantic-ui-6.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we've got validation working! Woohoo!&lt;/p&gt;
+
+&lt;p&gt;Next we need some data, so lets create an empty property on our scope to work with, this will be our model called &lt;code&gt;user&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function RegisterController($scope, $element) {
+  var registrationForm = $($element);
+
+  $scope.user = {};
+
+  $scope.isInvalid = function() {
+    return !registrationForm.form('validate form');
+  };
+
+  $scope.register = function () {
+    if (this.isInvalid()) {
+      return;
+    }
+
+    console.log(this.user);
+  };
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next, lets update all the input fields to define the model we want to use:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;input id="GivenName" placeholder="Given Name" type="text" ng-model="user.givenname"&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ng-model="user.surname"&lt;/code&gt; / &lt;code&gt;ng-model="user.email"&lt;/code&gt; / &lt;code&gt;ng-model="user.username"&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You get the idea.&lt;/p&gt;
+
+&lt;p&gt;Back to our form, we fill it in, hit submit...&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/semantic-ui-7.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nothing has happened, the form is valid, but we logged the user to the console, did we get anything?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/semantic-ui-8.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;We sure did!&lt;/p&gt;
+
+&lt;h2&gt;Lets tidy up the form a little&lt;/h2&gt;
+
+&lt;p&gt;So we want to make the input fields show they are required, at the moment there's no visual indication.&lt;/p&gt;
+
+&lt;p&gt;Semantic allows us to put little icons in the corner, its super awesome and super simple.&lt;/p&gt;
+
+&lt;p&gt;We will update our &lt;code&gt;input elements&lt;/code&gt; like so.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div class="ui icon input"&amp;gt;
+  &amp;lt;input id="GivenName" placeholder="Given Name" type="text" ng-model="user.givenname"&amp;gt;
+  &amp;lt;i class="asterisk red icon"&amp;gt;&amp;lt;/i&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we get some nice little asterisk's on each input.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/semantic-ui-9.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;What about when we submit the form? We want to block the form UI until we are done. So we can add a loading to the form.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div class="ui inverted dimmer" ng-class="{true: 'active', false: 'disabled'}[loading]"&amp;gt;
+  &amp;lt;div class="ui text loader"&amp;gt;Registering you now :)&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;At the top of the form, we add a new div with the classes for a loader. &lt;/p&gt;
+
+&lt;p&gt;We include the &lt;code&gt;ng-class&lt;/code&gt; attribute so we can easily toggle the loading. Basically if the value &lt;code&gt;[loading]&lt;/code&gt; is true, it will set the &lt;code&gt;active&lt;/code&gt; class to the element, when false, it will set it to &lt;code&gt;disabled&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Now in our controller we can add.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;$scope.loading = false;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;And in our click event we can set it to true after before we submit everything, but after we verify its valid.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$scope.register = function () {
+  if (this.isInvalid()) {
+    return;
+  }
+
+  this.loading = true;
+
+  console.log(this.user);
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;Normally you would set it to false again, but I've left it as true to show the affect&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/semantic-ui-10.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And there we have it. &lt;/p&gt;
+
+&lt;p&gt;We built:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Basic registration form&lt;/li&gt;
+&lt;li&gt;Added basic validation&lt;/li&gt;
+&lt;li&gt;Added some fancy mandatory icons&lt;/li&gt;
+&lt;li&gt;Captured the click event with Angular&lt;/li&gt;
+&lt;li&gt;Validated using Semantic&lt;/li&gt;
+&lt;li&gt;Added a loading indicator blocking the form&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;This was the first thing I did putting the two together. I've messed around with Angular quite a bit, first time touching Semantic.&lt;/p&gt;
+
+&lt;p&gt;It took me about 7-10 minutes to write the demo, and 2 hours to break it apart and write the blog post piece by piece.&lt;/p&gt;
+
+&lt;p&gt;Hopefully people find it useful.&lt;/p&gt;
+
+&lt;p&gt;I've put the project on &lt;a href="https://github.com/phillip-haydon/Demo-SemanticUIAngular"&gt;Github&lt;/a&gt; if you're interested in taking a look. There isn't much :)&lt;/p&gt;
+
+&lt;p&gt;I love Semantic, and Angular... So so awesome :)&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/10/introducing-sandra-snow/</guid><link>http://www.philliphaydon.com/2013/10/introducing-sandra-snow/</link><title>Introducing Sandra.Snow</title><description>&lt;p&gt;I've only been blogging since 2009, and my blog had gone through multiple iterations. I began on BlogEngine.NET, moved onto Wordpress, then was introduced to Jekyll. &lt;/p&gt;
 
 &lt;p&gt;I loved Jekyll, but I personally found it fiddly, and people who I've spoken to have also found it fiddly, but are quiet happy after they had set it up.&lt;/p&gt;
 
@@ -1097,185 +1521,4 @@ root@mono-sample-ph:~#
 &lt;p&gt;It also means I can forget about the NuGet.exe file or where I've put it :D&lt;/p&gt;
 
 &lt;p&gt;If you want to check what aliases you have you can run &lt;code&gt;alias -p&lt;/code&gt;, and if you want to remove the alias you can call &lt;code&gt;unalias *name*&lt;/code&gt;, e.g &lt;code&gt;unalias nuget&lt;/code&gt;&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/05/nancyfx-hosting-with-owin/</guid><link>http://www.philliphaydon.com/2013/05/nancyfx-hosting-with-owin/</link><title>NancyFX - Hosting with OWIN</title><description>&lt;p&gt;By now you've probably heard of OWIN, its slowly becoming more and more popular, hell even ThoughtWorks mentioned them on their &lt;a href="http://www.thoughtworks.com/radar"&gt;Radar&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;If you want to know what OWIN is, head on over to Paul Glavich's blog post on &lt;a href="http://weblogs.asp.net/pglavich/"&gt;Owin, Katana, and getting started&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;The question of running NancyFX with Owin has been popping up more often lately so I figured I would show you how to get setup. &lt;/p&gt;
-
-&lt;h2&gt;Codez - Project Setup&lt;/h2&gt;
-
-&lt;p&gt;Lets start off by creating a brand new Empty Web Application:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/nancyfx-owin-1.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Once created you should get a semi long list of References...&lt;/p&gt;
-
-</description><pubDate>Tue, 28 May 2013 16:00:00 Z</pubDate><a10:updated>2013-05-28T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;By now you've probably heard of OWIN, its slowly becoming more and more popular, hell even ThoughtWorks mentioned them on their &lt;a href="http://www.thoughtworks.com/radar"&gt;Radar&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;If you want to know what OWIN is, head on over to Paul Glavich's blog post on &lt;a href="http://weblogs.asp.net/pglavich/"&gt;Owin, Katana, and getting started&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;The question of running NancyFX with Owin has been popping up more often lately so I figured I would show you how to get setup. &lt;/p&gt;
-
-&lt;h2&gt;Codez - Project Setup&lt;/h2&gt;
-
-&lt;p&gt;Lets start off by creating a brand new Empty Web Application:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/nancyfx-owin-1.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Once created you should get a semi long list of References...&lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;p&gt;&lt;img src="/images/nancyfx-owin-2.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;First things first, we want to trim this back to almost NOTHING! That's right, we're gonna kill more references! In fact I'm going to remove EVERYTHING except the bare minimum, so that you can add references only as you need them.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/nancyfx-owin-3.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;:D looks beautiful doesn't it!&lt;/p&gt;
-
-&lt;p&gt;Next we're going to add the Nugets&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Nancy&lt;/li&gt;
-&lt;li&gt;Nancy.Owin&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;As well as the following... &lt;strong&gt;BUT&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Microsoft.Owin.Host.SystemWeb&lt;/li&gt;
-&lt;li&gt;Microsoft.Web.Infrastructure&lt;/li&gt;
-&lt;li&gt;Owin&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;At the time of writing this, these Nugets are not available on Nuget yet. You will need to get them from the Katana CI Builds from MyGet.&lt;/p&gt;
-
-&lt;p&gt;The URL for Katana CI build is &lt;strong&gt;&lt;em&gt;http://www.myget.org/F/katana/&lt;/em&gt;&lt;/strong&gt; &lt;/p&gt;
-
-&lt;p&gt;If you don't know how to add this to Nuget, you can do this 1 of 2 ways. If you've never done it, just go &lt;code&gt;Tools &amp;gt; Options &amp;gt; Packager Manager &amp;gt; Package Sources&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/nancyfx-owin-4.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Click the PLUS sign, enter the &lt;code&gt;name&lt;/code&gt; and &lt;code&gt;source&lt;/code&gt;, and press &lt;code&gt;ok&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Now you can install the package &lt;code&gt;Microsoft.Owin.Host.SystemWeb&lt;/code&gt; by entering:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Install-Package Microsoft.Owin.Host.SystemWeb &lt;strong&gt;-pre&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Make sure you have &lt;code&gt;-pre&lt;/code&gt; on the end so that it pulls the pre-release packages. This will automatically install all 3 requires packages.&lt;/p&gt;
-
-&lt;h2&gt;Codez - Startup&lt;/h2&gt;
-
-&lt;p&gt;Next we need to create a Startup file, this is where we tell Owin to use the Nancy.Owin middleware, this is a assembly the Nancy Team has created which does all the hard lifting to wire up Nancy to the Owin interfaces. &lt;/p&gt;
-
-&lt;p&gt;I guess you could say this is like adding the Nancy Hanlder to the web.config file...&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;handlers&amp;gt;
-    &amp;lt;add name="Nancy" verb="*" type="Nancy.Hosting.Aspnet.NancyHttpRequestHandler" path="*" /&amp;gt;
-&amp;lt;/handlers&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Except now we don't need any of that! &lt;em&gt;(so don't go adding that to your web.config!)&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;If you want to dive into what the middleware is doing you can take a look at &lt;a href="https://twitter.com/PrabirShrestha"&gt;Prabir's&lt;/a&gt; repository here:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://github.com/prabirshrestha/simple-owin"&gt;https://github.com/prabirshrestha/simple-owin&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;So we need to create a new class called &lt;code&gt;Startup&lt;/code&gt; which contains a single method.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;namespace NancyOwinWeb
-{
-    using Owin;
-
-    public class Startup
-    {
-        public void Configuration(IAppBuilder app)
-        {
-            app.UseNancy();
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I opt to put this in a folder called App_Start&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/nancyfx-owin-5.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;That's really all that's required to setup Nancy in an Owin project. In the same configuration file you would obviously wire up other middleware, maybe some logging, possibly authentication, maybe... &lt;em&gt;shudder&lt;/em&gt; you might even consider putting WebAPI in there. BUT please don't ruin your project :)&lt;/p&gt;
-
-&lt;p&gt;The namespace is pretty important, if you don't use the default namespace, the Microsoft.Owin host can't find the startup. If for example, we added the App_Start namespace to the class:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;namespace NancyOwinWeb.App_Start
-{
-    using Owin;
-
-    public class Startup
-    {
-        public void Configuration(IAppBuilder app)
-        {
-            app.UseNancy();
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We will get an exception thrown...&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/nancyfx-owin-8.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Luckily if you run into this scenario, you can either fix the namespace, or add a appSetting to your web.config like so:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;add key="owin:AppStartup" value="NancyOwinWeb.App_Start.Startup, NancyOwinWeb" /&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;Codez - Module&lt;/h2&gt;
-
-&lt;p&gt;Now we just need a module, so lets create a nice simple module&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;namespace NancyOwinWeb.Modules
-{
-    using Nancy;
-
-    public class HomeModule : NancyModule
-    {
-        public HomeModule()
-        {
-            Get["/"] = _ =&amp;gt; "Hello from Owin!";
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If we ran the app now this would happen...&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/nancyfx-owin-6.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Nice! What about my Web.config file, that file that gets so messy that we all dread...&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version="1.0"?&amp;gt;
-
-&amp;lt;!--
-  For more information on how to configure your ASP.NET application, please visit
-  http://go.microsoft.com/fwlink/?LinkId=169433
---&amp;gt;
-
-&amp;lt;configuration&amp;gt;
-    &amp;lt;system.web&amp;gt;
-      &amp;lt;compilation debug="true" targetFramework="4.5" /&amp;gt;
-      &amp;lt;httpRuntime targetFramework="4.5" /&amp;gt;
-    &amp;lt;/system.web&amp;gt;   
-&amp;lt;/configuration&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;That's it, believe it or not, I haven't changed a single line of this file at all!&lt;/p&gt;
-
-&lt;p&gt;Best of all our references are next to nothing!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/nancyfx-owin-7.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;So awesome...&lt;/p&gt;
 </a10:content></item></channel></rss>

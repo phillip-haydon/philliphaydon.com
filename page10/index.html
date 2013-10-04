@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-10-03T08:45:50.9506571+08:00" />
+    <meta http-equiv="last-modified" content="2013-10-05T00:51:27.4476545+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page10/" />
@@ -35,6 +35,29 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/04/installing-mongodb-service-with-logs/">Installing MongoDB Service with logs</a> 
+        <span>posted on 12 Apr 2011</span>
+      </h1> 
+      
+      <p>Just tried to install MongoDB as a service on Windows 7, but came up with issues trying to specify where to store the logs...</p>
+
+<p><a href="http://www.mongodb.org/display/DOCS/Windows+Service">http://www.mongodb.org/display/DOCS/Windows+Service</a></p>
+
+<p>The example on the website shows a directory path, but when you look at the help in the command windows it says:</p>
+
+<p><img src="/images/mongodb-install-1.png" alt="" /></p>
+
+<blockquote>
+  <p>all output going to: c:mongodblogs 
+  logpath [c:mongodblogs] should be a file name not a directory</p>
+</blockquote>
+
+<p>I'm not sure why, maybe the documentation isn't up to date, but specifying a physical file, like 'log.txt' the service installs fine.</p>
+
+      <p><a href="/2011/04/installing-mongodb-service-with-logs/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/03/career-starting-salary/">Career Starting Salary</a> 
@@ -257,35 +280,6 @@ WHERE [t1].[value] = 'Robert Williams'
 <p>Anyway so far I'm happy with the move. </p>
 
       <p><a href="/2010/12/blog-update-to-wordpress-w-sqlsrv/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2010/12/i-love-clean-client-ids-especially-with-net-2-0/">I love clean client IDs - especially with .Net 2.0!</a> 
-        <span>posted on 26 Dec 2010</span>
-      </h1> 
-      
-      <p>ASP.Net 4.0 got a brand spanking new feature. Clean ClientID's! ABOUT BLOODY TIME... Only, I'm working on a legacy application which can't be migrated to 4.0 :(</p>
-
-<p>So why do we need Nice Readable, predictable ClientID's? I can think of two main reasons, outside of that, I would assume you're doing it wrong.</p>
-
-<ol>
-<li>JavaScript, to find elements...</li>
-<li>JavaScript in external files where you can't write spaghetti code.</li>
-</ol>
-
-<p>What do I mean by spaghetti code? I mean this stuff:</p>
-
-<pre><code>&lt;%= txtUserName.ClientID %&gt;
-&lt;script type="text/javascript"&gt;
-  var element = $('#&lt;%= txtUserName.ClientID %&gt;');
-  var textbox = document.getElementById('&lt;%= txtUserName.ClientID %&gt;');
-&lt;/script&gt;
-</code></pre>
-
-<p>I absolutely detest seeing this sort of thing. It makes me sick, and worst of all you can't pull this sort of code back to an external js file. In Web Forms, spaghetti coding is NOT your presentation, your server control is your presentation, the spaghetti code is your binding, and this should be in the codebehind.</p>
-
-
-      <p><a href="/2010/12/i-love-clean-client-ids-especially-with-net-2-0/">Read more...</a></p>
     </li>
   </ul> 
 
