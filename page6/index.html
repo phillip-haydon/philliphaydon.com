@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-10-05T00:57:15.8523888+08:00" />
+    <meta http-equiv="last-modified" content="2013-10-05T16:22:49.7645718+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page6/" />
@@ -35,54 +35,6 @@
                   
 
   <ul class="posts">
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">RavenDB... What am I persisting, what am I querying? (part 2)</a> 
-        <span>posted on 17 Jul 2012</span>
-      </h1> 
-      
-      <p><a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/">Part 1</a><br />
-<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">Part 2</a> I want to discuss Relationships &amp; References, and the difference between the two.<br />
-<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-3/">Part 3</a>  </p>
-
-<p>Taking from part 1's example, lets add a User to the mix:</p>
-
-<pre><code>public class Order
-{
-    public string Id { get; set; }
-    public string UserId { get; set; }
-    public string DateOrdered { get; set; }
-    public string DateUpdated { get; set; }
-    public string Status { get; set; }
-    // Other properties...
-    public IEnumerable&lt;OrderLine&gt; Lines { get; set; }
-}
-
-public class OrderLine
-{
-    public int Quantity { get; set; }
-    public decimal Price { get; set; }
-    public decimal Discount { get; set; }
-    public string SkuCode { get; set; }
-    // Other Properties
-}
-
-public class User
-{
-    public string Id { get; set; }
-    public string Username { get; set; }
-    public string Password { get; set; }
-    public string FirstName { get; set; }
-    public string Surname { get; set; }
-    // Other Properties
-}
-</code></pre>
-
-<p>As you can see I've added 'UserId' to the Order, not a 'User' just the Id part. This is because I don't want direct access to the User. <em>(It is possible to map a User in RavenDB, but I don't believe that is always a good idea. Save it for special occasions.)</em></p>
-
-
-      <p><a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">Read more...</a></p>
-    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/">RavenDB... What am I persisting, what am I querying? (part 1)</a> 
@@ -304,6 +256,35 @@ public class User
 
 
       <p><a href="/2012/03/ravendb-flattening-object-graphs-and-projections/">Read more...</a></p>
+    </li>
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/02/service-stack-i-heart-you-my-conversion-from-wcf-to-ss/">Service Stack... I heart you. My conversion from WCF to SS</a> 
+        <span>posted on 21 Feb 2012</span>
+      </h1> 
+      
+      <p>I've just spent the weekend ripping out that dreaded WCF abomination and replacing it with Service Stack.</p>
+
+<p><a href="http://servicestack.net/">http://servicestack.net/</a></p>
+
+<blockquote>
+  <p>A modern fresh alternative to WCF. Code-first, convention-based, codegen-free. Encourages best-practices high-performance, scalable REST &amp; RPC web services.</p>
+</blockquote>
+
+<p>Over the past couple of months I've been fighting with WCF to the point I wanted to slit my wrists.</p>
+
+<p>So I asked <a href="http://jabbr.net/">JabbR</a> and Twitter if I should use Web API. Well -no- one recommended Web API and everyone recommended Service Stack.</p>
+
+<h2>It's a different way of thinking</h2>
+
+<p>The first noticeable difference between WCF and SS (Service Stack) is that I'm no longer writing a single service class with a butt load of methods. Which is most likely a good thing because after a while they just become hard to manage.</p>
+
+<p>So instead of a Contract, Service, Response DTO, and Request DTO, with 9234823 methods defined in the Contract/Service. It's now <strong>1 Request DTO per Service.</strong></p>
+
+<p>What does that mean?</p>
+
+
+      <p><a href="/2012/02/service-stack-i-heart-you-my-conversion-from-wcf-to-ss/">Read more...</a></p>
     </li>
   </ul> 
 

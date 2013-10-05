@@ -142,7 +142,7 @@ Now we need to navigate to `cd /var/log` and create a new directory called mono 
 
 Lastly we need to configure the server. We can start the FastCGI background process by calling
 
-`fastcgi-mono-server4 --appconfigdir /etc/init.d/mono-fastcgi /socket=tcp:127.0.0.1:9000 /logfile=/var/log/mono/fastcgi.log &`
+	fastcgi-mono-server4 --appconfigdir /etc/init.d/mono-fastcgi /socket=tcp:127.0.0.1:9000 /logfile=/var/log/mono/fastcgi.log &
 
 (if it's hard to scroll, here's the same line broken down into pieces)
 

@@ -332,9 +332,15 @@
 
 &lt;p&gt;Next, lets update all the input fields to define the model we want to use:&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;&amp;lt;input id="GivenName" placeholder="Given Name" type="text" ng-model="user.givenname"&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;input id="GivenName" placeholder="Given Name" type="text" ng-model="user.givenname"&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;ng-model="user.surname"&lt;/code&gt; / &lt;code&gt;ng-model="user.email"&lt;/code&gt; / &lt;code&gt;ng-model="user.username"&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;...&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ng-model="user.surname"
+ng-model="user.email"
+ng-model="user.username"
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;You get the idea.&lt;/p&gt;
 
@@ -1130,7 +1136,8 @@ fastcgi_param   SCRIPT_FILENAME         $document_root$fastcgi_script_name;
 
 &lt;p&gt;Lastly we need to configure the server. We can start the FastCGI background process by calling&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;fastcgi-mono-server4 --appconfigdir /etc/init.d/mono-fastcgi /socket=tcp:127.0.0.1:9000 /logfile=/var/log/mono/fastcgi.log &amp;amp;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;fastcgi-mono-server4 --appconfigdir /etc/init.d/mono-fastcgi /socket=tcp:127.0.0.1:9000 /logfile=/var/log/mono/fastcgi.log &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;(if it's hard to scroll, here's the same line broken down into pieces)&lt;/p&gt;
 

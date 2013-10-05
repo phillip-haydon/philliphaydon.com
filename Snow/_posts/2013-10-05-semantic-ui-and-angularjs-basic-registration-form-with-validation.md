@@ -301,9 +301,13 @@ Next we need some data, so lets create an empty property on our scope to work wi
 
 Next, lets update all the input fields to define the model we want to use:
 
-`<input id="GivenName" placeholder="Given Name" type="text" ng-model="user.givenname">`
+	<input id="GivenName" placeholder="Given Name" type="text" ng-model="user.givenname">
 
-`ng-model="user.surname"` / `ng-model="user.email"` / `ng-model="user.username"`
+...
+
+	ng-model="user.surname"
+	ng-model="user.email"
+	ng-model="user.username"
 
 You get the idea.
 

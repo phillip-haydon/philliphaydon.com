@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-10-05T00:57:15.8523888+08:00" />
+    <meta http-equiv="last-modified" content="2013-10-05T16:22:49.7645718+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/" />
@@ -140,11 +140,11 @@
 &lt;body&gt;
 
     &lt;div&gt;
-        Id: [ERR!]
+        Id: @Model.Id
         &lt;br /&gt;
-        Name: [ERR!]
+        Name: @Model.Name
         &lt;br /&gt;
-        Price: $[ERR!]
+        Price: $@Model.Price
     &lt;/div&gt;
 
 &lt;/body&gt;
@@ -171,7 +171,16 @@
 &lt;/head&gt;
 &lt;body&gt;
 
-    [ERR!]
+    @Each
+    &lt;div&gt;
+        Id: @Current.Id
+        &lt;br /&gt;
+        Name: @Current.Name
+        &lt;br /&gt;
+        Price: $@Current.Price
+    &lt;/div&gt;
+    &lt;hr&gt;
+    @EndEach
 
 &lt;/body&gt;
 &lt;/html&gt;

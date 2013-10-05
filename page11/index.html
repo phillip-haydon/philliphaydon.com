@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-10-05T00:57:15.8523888+08:00" />
+    <meta http-equiv="last-modified" content="2013-10-05T16:22:49.7645718+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page11/" />
@@ -35,35 +35,6 @@
                   
 
   <ul class="posts">
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2010/12/i-love-clean-client-ids-especially-with-net-2-0/">I love clean client IDs - especially with .Net 2.0!</a> 
-        <span>posted on 26 Dec 2010</span>
-      </h1> 
-      
-      <p>ASP.Net 4.0 got a brand spanking new feature. Clean ClientID's! ABOUT BLOODY TIME... Only, I'm working on a legacy application which can't be migrated to 4.0 :(</p>
-
-<p>So why do we need Nice Readable, predictable ClientID's? I can think of two main reasons, outside of that, I would assume you're doing it wrong.</p>
-
-<ol>
-<li>JavaScript, to find elements...</li>
-<li>JavaScript in external files where you can't write spaghetti code.</li>
-</ol>
-
-<p>What do I mean by spaghetti code? I mean this stuff:</p>
-
-<pre><code>&lt;%= txtUserName.ClientID %&gt;
-&lt;script type="text/javascript"&gt;
-  var element = $('#&lt;%= txtUserName.ClientID %&gt;');
-  var textbox = document.getElementById('&lt;%= txtUserName.ClientID %&gt;');
-&lt;/script&gt;
-</code></pre>
-
-<p>I absolutely detest seeing this sort of thing. It makes me sick, and worst of all you can't pull this sort of code back to an external js file. In Web Forms, spaghetti coding is NOT your presentation, your server control is your presentation, the spaghetti code is your binding, and this should be in the codebehind.</p>
-
-
-      <p><a href="/2010/12/i-love-clean-client-ids-especially-with-net-2-0/">Read more...</a></p>
-    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2010/12/moq-using-params-in-the-returns/">Moq-Using Params in the Returns</a> 
@@ -252,6 +223,57 @@ WHERE EXISTS (SELECT 1 FROM Product WHERE Active = 1 AND ProductTypeID = Product
 
       <p><a href="/2010/09/queryover-with-nhibernate-3-lovin-it/">Read more...</a></p>
     </li>
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2009/07/jquery-serialize-a-fieldset/">jQuery Serialize a Fieldset</a> 
+        <span>posted on 11 Jul 2009</span>
+      </h1> 
+      
+      <p>I'm really not a fan of <a href="http://ajax.asp.net/">ASP.Net Ajax</a> and would prefer to use jQuery where ever I can. So for anything public facing I tend to use jQuery and HTTPHandlers.</p>
+
+<p>jQuery has this nifty little function called <a href="http://docs.jquery.com/Ajax/serialize">serialize</a> for serializing form data for Ajax. So if we have the following HTML.</p>
+
+<pre><code>&lt;body&gt;
+  &lt;form id="aspNetForm" runat="server"&gt;
+    &lt;div&gt;
+      &lt;fieldset class="fsLoginForm"&gt;
+        &lt;legend&gt;Login Fieldset&lt;/legend&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Email: &lt;input type="text" name="txtEmail" /&gt;&lt;/li&gt;            
+          &lt;li&gt;Password:   &lt;input type="text" name="txtPassword" /&gt;&lt;/li&gt;        
+        &lt;/ul&gt;                
+      &lt;/fieldset&gt;
+
+      &lt;fieldset class="fsName"&gt;        
+        &lt;legend&gt;Name Fieldset&lt;/legend&gt;        
+        &lt;ul&gt;            
+          &lt;li&gt;My Name: &lt;input type="text" name="email" /&gt;&lt;/li&gt;        
+        &lt;/ul&gt;    
+      &lt;/fieldset&gt;
+
+      &lt;fieldset class="fsColour"&gt;        
+        &lt;legend&gt;Colour Fieldset&lt;/legend&gt;        
+        &lt;ul&gt;            
+          &lt;li&gt;Colour: &lt;input type="text" name="colour" /&gt;&lt;/li&gt;        
+        &lt;/ul&gt;    
+      &lt;/fieldset&gt;
+
+      &lt;input type="button" value="Submit Form" onclick="SubmitForm();" /&gt;
+    &lt;/div&gt;    
+  &lt;/form&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p>And a basic alert method that shows us the result of the form serialized:</p>
+
+<pre><code>function SubmitForm() {    
+  alert($('form').serialize());
+}
+</code></pre>
+
+
+      <p><a href="/2009/07/jquery-serialize-a-fieldset/">Read more...</a></p>
+    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -263,9 +285,6 @@ WHERE EXISTS (SELECT 1 FROM Product WHERE Active = 1 AND ProductTypeID = Product
         </p>
 
 
-    <p class="previous">
-      <a href="/page12">Next Page</a>
-    </p>
 
   </div>
 
