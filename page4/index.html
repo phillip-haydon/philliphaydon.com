@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-10-05T16:22:49.7645718+08:00" />
+    <meta http-equiv="last-modified" content="2013-10-24T01:20:34.2475417+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page4/" />
@@ -35,6 +35,33 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/01/introducing-sandra-simplevalidator-validation-reinvented-again/">Introducing Sandra.SimpleValidation - Validation reinvented... again</a> 
+        <span>posted on 25 Jan 2013</span>
+      </h1> 
+      
+      <p>Yup, I decided to reinvent the wheel, don't hate on me :)</p>
+
+<p>So I grew a little fustrated, theres quite a few serverside validation libraries around, but I feel they do too much, are hard to test, yada yada yada...</p>
+
+<p>So I came up with Sandra.SimpleValidation</p>
+
+<p>The idea is that it's dead simple, it requires 0 up front configuration, it doesn't allow you to inject stuff into the validators, validators are newed up once and only once, there's no client-side validation.</p>
+
+<p>I don't believe validation should allow you to do things like inject a repository and query the database, those begin to become Business Rules and should be handled seperately. All it does is validate a model you give it. </p>
+
+<p>So what do you need to do?</p>
+
+<blockquote>
+  <p>PM> Install-Package Sandra.SimpleValidator</p>
+</blockquote>
+
+<p>First up, install the package. It requires 4.0 or above, it could probably work on 3.5 but who uses that anymore?</p>
+
+
+      <p><a href="/2013/01/introducing-sandra-simplevalidator-validation-reinvented-again/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/01/windows-store-app-with-caliburn-micro-basic-binding/">Windows Store App with Caliburn.Micro - Basic Databinding</a> 
@@ -253,29 +280,6 @@ namespace SampleProject.ViewModels
 
 
       <p><a href="/2012/12/windows-store-app-and-remote-debugging-on-a-surface-rt/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">Windows Store App with Caliburn.Micro - Getting Started</a> 
-        <span>posted on 14 Dec 2012</span>
-      </h1> 
-      
-      <p>So I've been learning Windows 8 development recently, specifically with C#/XAML, and Caliburn.Micro for the MVVM goodness. This is all brand new stuff for me, never done any WPF, Silverlight or Windows Phone dev. So I figured it's a good chance to blog what I'm learning.</p>
-
-<p>In this post I want to show you how to get up and running.</p>
-
-<p>I started by reading the blog posts over at Mindscape.</p>
-
-<p><a href="http://www.mindscapehq.com/blog/index.php/2012/01/12/caliburn-micro-part-1-getting-started/">http://www.mindscapehq.com/blog/index.php/2012/01/12/caliburn-micro-part-1-getting-started/</a></p>
-
-<p>(great series by <a href="https://twitter.com/QuantumNgtmare">@Jason</a>, list of links at bottom of this post)</p>
-
-<p>The downside is they were very WPF centric, and a few things getting started have changed. There's no bootstrapper for example.</p>
-
-<p>So, here's my blog series.</p>
-
-
-      <p><a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">Read more...</a></p>
     </li>
   </ul> 
 

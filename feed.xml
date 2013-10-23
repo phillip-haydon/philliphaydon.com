@@ -1,4 +1,120 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/10/semantic-ui-and-angularjs-basic-registration-form-with-validation/</guid><link>http://www.philliphaydon.com/2013/10/semantic-ui-and-angularjs-basic-registration-form-with-validation/</link><title>Semantic-UI &amp; AngularJS - Basic Registration Form with Validation</title><description>&lt;p&gt;Last week I saw a tweet about Semantic-UI, which I had not heard about, I guess it's relatively new. I decided to take a look and to be honest. I love what I see.&lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/10/running-javascript-unit-tests-in-visual-studio-with-jasmine-and-resharper/</guid><link>http://www.philliphaydon.com/2013/10/running-javascript-unit-tests-in-visual-studio-with-jasmine-and-resharper/</link><title>Running JavaScript Unit Tests in Visual Studio with Jasmine &amp; ReSharper</title><description>&lt;p&gt;There's so much information on the internet in terms of JavaScript Unit Testing and how to run tests etc, but when it comes to running tests in Visual Studio, without a browser, there's very little information. I had to piece information together to figure it out.&lt;/p&gt;
+
+&lt;p&gt;So I'm going to do a small series on this.&lt;/p&gt;
+
+&lt;p&gt;Things you will need!&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://pivotal.github.io/jasmine/"&gt;Jasmine&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://phantomjs.org/"&gt;PhantomJS&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;Setup PhantomJS&lt;/h2&gt;
+
+&lt;p&gt;To run JavaScript tests without a browser, we need PhantomJS, and we need to wire it up into Resharper.&lt;/p&gt;
+
+</description><pubDate>Wed, 23 Oct 2013 16:00:00 Z</pubDate><a10:updated>2013-10-23T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;There's so much information on the internet in terms of JavaScript Unit Testing and how to run tests etc, but when it comes to running tests in Visual Studio, without a browser, there's very little information. I had to piece information together to figure it out.&lt;/p&gt;
+
+&lt;p&gt;So I'm going to do a small series on this.&lt;/p&gt;
+
+&lt;p&gt;Things you will need!&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://pivotal.github.io/jasmine/"&gt;Jasmine&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://phantomjs.org/"&gt;PhantomJS&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;Setup PhantomJS&lt;/h2&gt;
+
+&lt;p&gt;To run JavaScript tests without a browser, we need PhantomJS, and we need to wire it up into Resharper.&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;Download PhantomJS and unzip it somewhere, I put it in my development folder. Next open up ReSharper Options:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/jasmine-01-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Navigate to the Unit Testing &gt; JavaScript Tests and set the PhantomJS path to the &lt;code&gt;.exe&lt;/code&gt; where you unzipped it to:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/jasmine-01-02.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Save all that and PhantomJS will be all setup and ready to run out tests!&lt;/p&gt;
+
+&lt;h2&gt;Folder Setup&lt;/h2&gt;
+
+&lt;p&gt;In Visual Studio create a new &lt;code&gt;Empty Project&lt;/code&gt;, or something similar, add some folders, naming isn't important but I've stuck with &lt;code&gt;dependencies&lt;/code&gt; for things like Jasmine, &lt;code&gt;sources&lt;/code&gt; for the files we will be testing, and &lt;code&gt;specs&lt;/code&gt; for the Jasmine specs.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/jasmine-01-03.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Copy the &lt;code&gt;jasmine.js&lt;/code&gt; file into the dependencies folder, and create two empty files for &lt;code&gt;Calculator.js&lt;/code&gt; and &lt;code&gt;CalculatorSpec.js&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;We will create a super simple calculator that's only capable of multiplying two numbers. There's lots of Jasmine examples so I'm not going to bore you with those details. &lt;/p&gt;
+
+&lt;h2&gt;Our first basic test&lt;/h2&gt;
+
+&lt;p&gt;Lets start by adding a basic test in our &lt;code&gt;CalculatorSpec.js&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;///&amp;lt;reference path="~/dependencies/jasmine.js"/&amp;gt;
+///&amp;lt;reference path="~/sources/Calculator.js"/&amp;gt;
+
+describe("Calculator", function () {
+    var calculator = new Calculator();
+
+    it("should multiple two positive numbers", function () {
+        var result = calculator.multiple(2, 5);
+
+        expect(result).toBe(10);
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let's break this down, at the top I have some 'reference path' comments, then I have the actual test. The reference paths is what got me initially when trying to get this working.&lt;/p&gt;
+
+&lt;p&gt;Its a Visual Studio thing which gives intellisense, but it also allows ReSharper to find the files when running the unit tests. Without it the tests fail. &lt;/p&gt;
+
+&lt;p&gt;So if we run this test now...&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/jasmine-01-04.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;We have no implementation, so lets implement!&lt;/p&gt;
+
+&lt;p&gt;Lets create a new function for the &lt;code&gt;Calculator&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var Calculator = function() {
+
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src="/images/jasmine-01-05.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now its undefined on the function call &lt;code&gt;multiple&lt;/code&gt;, so lets add it in, but lets return a hard coded value of -100&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var Calculator = function() {
+    this.multiple = function() {
+        return -100;
+    };
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src="/images/jasmine-01-06.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Almost there, now lets multiple two values together!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var Calculator = function() {
+    this.multiple = function(valueOne, valueTwo) {
+        return valueOne * valueTwo;
+    };
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;BAM it passes!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/jasmine-01-07.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Our first test without a browser.&lt;/p&gt;
+
+&lt;p&gt;Next up I'll show you how you can also test with a browser, and how to reference files in a separate project.&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/10/semantic-ui-and-angularjs-basic-registration-form-with-validation/</guid><link>http://www.philliphaydon.com/2013/10/semantic-ui-and-angularjs-basic-registration-form-with-validation/</link><title>Semantic-UI &amp; AngularJS - Basic Registration Form with Validation</title><description>&lt;p&gt;Last week I saw a tweet about Semantic-UI, which I had not heard about, I guess it's relatively new. I decided to take a look and to be honest. I love what I see.&lt;/p&gt;
 
 &lt;p&gt;So to get rolling I decided to create a basic registration form for a personal project using it. &lt;/p&gt;
 
@@ -1480,52 +1596,4 @@ root@mono-sample-ph:~#
 &lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-11.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;And we can see that nginx is setup and running!&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/06/making-nuget-a-little-easier-to-use-with-an-alias-on-mono-and-osx/</guid><link>http://www.philliphaydon.com/2013/06/making-nuget-a-little-easier-to-use-with-an-alias-on-mono-and-osx/</link><title>Making NuGet a little easier to use with an Alias</title><description>&lt;p&gt;So I've been in hospital all week with Mycoplasma Infection (or AIDs, doctor says otherwise tho), and figured it would be a good time to mess around with Mono. &lt;/p&gt;
-
-&lt;p&gt;So I began by testing WorldDomination.Web.Authentication&lt;/p&gt;
-
-&lt;p&gt;While it works GREAT! (Future post maybe) I did run into one issue early on, that is restoring packages. &lt;/p&gt;
-
-&lt;p&gt;I found a &lt;a href="http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/"&gt;great post&lt;/a&gt; by &lt;a href="https://twitter.com/orientman"&gt;&amp;#64;orientman&lt;/a&gt; about using NuGet on OSX.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/"&gt;http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;But I didn't like having to type the following out each time, since I needed to install a few different project packages.&lt;/p&gt;
-
-</description><pubDate>Thu, 20 Jun 2013 16:00:00 Z</pubDate><a10:updated>2013-06-20T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;So I've been in hospital all week with Mycoplasma Infection (or AIDs, doctor says otherwise tho), and figured it would be a good time to mess around with Mono. &lt;/p&gt;
-
-&lt;p&gt;So I began by testing WorldDomination.Web.Authentication&lt;/p&gt;
-
-&lt;p&gt;While it works GREAT! (Future post maybe) I did run into one issue early on, that is restoring packages. &lt;/p&gt;
-
-&lt;p&gt;I found a &lt;a href="http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/"&gt;great post&lt;/a&gt; by &lt;a href="https://twitter.com/orientman"&gt;&amp;#64;orientman&lt;/a&gt; about using NuGet on OSX.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/"&gt;http://orientman.wordpress.com/2012/12/29/for-the-record-how-to-run-nuget-exe-on-os-x-mountain-lion/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;But I didn't like having to type the following out each time, since I needed to install a few different project packages.&lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;pre&gt;&lt;code&gt;mono --runtime=v4.0.30319 NuGet.exe install ./Code/WorldDomination.Web.Authentication/packages.config -OutputDirectory ./packages
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;All the time, it seemed tedious. So what I did was, moved the NuGet.exe to &lt;code&gt;~/Tools/&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/mono-osx-alias-1.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Next in &lt;a href="http://www.iterm2.com/"&gt;iTerm 2&lt;/a&gt; (I prefer it over Terminal) I set an alias for the common stuff!&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;alias nuget='mono --runtime=v4.0.30319 /Users/phillip/Tools/NuGet.exe'
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now rather than having to type out all that stuff each time, I can just type out &lt;code&gt;nuget&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;nuget install ./Code/WorldDomination.Web.Authentication/packages.config -OutputDirectory ./packages
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src="/images/mono-osx-alias-2.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;It also means I can forget about the NuGet.exe file or where I've put it :D&lt;/p&gt;
-
-&lt;p&gt;If you want to check what aliases you have you can run &lt;code&gt;alias -p&lt;/code&gt;, and if you want to remove the alias you can call &lt;code&gt;unalias *name*&lt;/code&gt;, e.g &lt;code&gt;unalias nuget&lt;/code&gt;&lt;/p&gt;
 </a10:content></item></channel></rss>
