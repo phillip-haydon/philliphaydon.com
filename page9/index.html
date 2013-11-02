@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-10-24T01:20:34.2475417+08:00" />
+    <meta http-equiv="last-modified" content="2013-11-03T01:32:47.4324906+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page9/" />
@@ -35,6 +35,37 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/07/mvc-areas-routes-order-of-routes-matter/">MVC +Areas + Routes... Order of Routes Matter!</a> 
+        <span>posted on 27 Jul 2011</span>
+      </h1> 
+      
+      <p>The order in which routes are registered, really is pretty damn important, otherwise it can have really strange side-effects.</p>
+
+<p>I have a site, which has 3 areas, and no default... 'non-area'.</p>
+
+<ul>
+<li>Admin</li>
+<li>Members</li>
+<li>Site</li>
+</ul>
+
+<p>So rather than having the structure:</p>
+
+<p><img src="/images/mvc-routes-1.png" alt="" /></p>
+
+<p>Where the root/default site is in the main directory, with two areas. I wanted this structure:</p>
+
+<p><img src="/images/mvc-routes-2.png" alt="" /></p>
+
+<p>So no root/default, and just a 'Site' area which would be the default.</p>
+
+<p><span class="note"><strong>Note:</strong>The default route is removed from Global.asax... for now</span></p>
+
+
+      <p><a href="/2011/07/mvc-areas-routes-order-of-routes-matter/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/07/nservicebus-video-on-dnrtv/">NServiceBus Video on dnrTV</a> 
@@ -299,23 +330,6 @@ FROM   [TestProduct] this_
 
       <p><a href="/2011/04/jquery-templating-nested-arrays/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/04/nhibernate-querying-relationships-are-depth/">NHibernate - Querying relationships at depth!</a> 
-        <span>posted on 13 Apr 2011</span>
-      </h1> 
-      
-      <p>The title may be a bit leading, this isn't about querying one-to-many-to-many, that is simply not possible. Well it may be possible, but it's not practical by any means.</p>
-
-<p>It's not practical because when querying for one-to-many you end up with a cartesian product. With a one-to-many it's easy to transform the data knowing the root is a single result while the relationship is a collection of all the results.</p>
-
-<p>If you have a many-to-many it works too since it's the distinct root and the relating collection of all results for a single root item.</p>
-
-<p>But to select a one-to-many-to-many it's far too complicated to work out what the hell is going on.  Well in my opinion it's far too complicated.</p>
-
-
-      <p><a href="/2011/04/nhibernate-querying-relationships-are-depth/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -386,6 +400,7 @@ FROM   [TestProduct] this_
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2013November">November, 2013</a></li>
                           <li><a href="/archive#2013October">October, 2013</a></li>
                           <li><a href="/archive#2013September">September, 2013</a></li>
                           <li><a href="/archive#2013August">August, 2013</a></li>

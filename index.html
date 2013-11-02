@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-10-24T01:20:34.2475417+08:00" />
+    <meta http-equiv="last-modified" content="2013-11-03T01:32:47.4324906+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/" />
@@ -35,6 +35,120 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/11/making-nancy-modules-easier-to-manage/">Making Nancy Modules easier to manage</a> 
+        <span>posted on 03 Nov 2013</span>
+      </h1> 
+      
+      <p>One problem I think a lot of developers have, is creating Controllers and Modules that are small and maintainable. Sometimes when you add some querying, bit of validation, pass it off to a repository or service, etc. It begins to become a little bit too big. </p>
+
+<p>Lets assume our we have an <code>AccountModule</code> it Gets a Login route to load the UI, and Posts to a Login route to authenticate the user, and do something.</p>
+
+<p>It also Gets a Register route to load the UI, and Posts to a Register route to register the new user. </p>
+
+<p>Without an actual implementation, something like this:</p>
+
+<pre><code>public class AccountModule : NancyModule
+{
+    public AccountModule() : base("/account")
+    {
+        Get["/login"] = _ =&gt; "login";
+        Post["/login"] = _ =&gt; "login";
+
+        Get["/register"] = _ =&gt; "register";
+        Post["/register"] = _ =&gt; "register";
+    }
+}
+</code></pre>
+
+<p>To begin with, we only have 4 things to implement, its rather small, somewhat easy to manage, but what happens when we want to update an account?</p>
+
+<pre><code>Get["details"] = _ =&gt; "details...";
+Post["details"] = _ =&gt; "details...";
+</code></pre>
+
+<p>Then we want to have a profile...</p>
+
+<pre><code>Get["profile"] = _ =&gt; "profile...";
+</code></pre>
+
+<p>It just keeps adding up...</p>
+
+<p>At this point it begins to get cluttered. Not only that, I believe this also breaks the Single Responsibility Principal.</p>
+
+<h2>My solution!</h2>
+
+<p><em>This isn't anything new, I personally haven't seen anyone blog about this stuff but I have absolutely no doubt people most likely create controllers like this in MVC</em></p>
+
+<p>So that's why I've decided Modules should be broken up into Functionality rather than Functional Areas.</p>
+
+<p>All these things hang off <code>Account</code>, so lets create an <code>Account</code> folder in our <code>Modules</code> folder. </p>
+
+<p>Inside this folder we can create 4 new modules.</p>
+
+<p><img src="/images/small-nancy-module-01.png" alt="" /></p>
+
+<p>So we have 4 modules rather than 1:</p>
+
+<ol>
+<li><code>DetailsModule</code></li>
+<li><code>LoginModule</code></li>
+<li><code>ProfileModule</code></li>
+<li><code>RegisterModule</code></li>
+</ol>
+
+<p>As you can expect, these are all really small now:</p>
+
+<pre><code>public class DetailsModule : NancyModule
+{
+    public DetailsModule()
+        : base("/account/details")
+    {
+        Get["/"] = _ =&gt; "details";
+    }
+}
+
+public class LoginModule : NancyModule
+{
+    public LoginModule()
+        : base("/account/login")
+    {
+        Get["/"] = _ =&gt; "login";
+        Post["/"] = _ =&gt; "login";
+    }
+}
+
+public class ProfileModule : NancyModule
+{
+    public ProfileModule()
+        : base("/account/profile")
+    {
+        Get["/"] = _ =&gt; "profile...";
+    }
+}
+
+public class RegisterModule : NancyModule
+{
+    public RegisterModule()
+        : base("/account/register")
+    {
+        Get["/"] = _ =&gt; "register";
+        Post["/"] = _ =&gt; "register";
+    }
+}
+</code></pre>
+
+<p>From our folder perspective we can easily find all Modules under the <code>/account</code> route, and easily find the one related to <code>Login</code>, or <code>Register</code>, etc.</p>
+
+<p>This also makes unit testing easier since we only need to worry about dependencies related to a specific piece of functionality. </p>
+
+<p><code>Login</code> might use a RavenDB session and Password Hashing Service, while <code>Profile</code> may use RavenDB and a 3rd party Image hosting service for Profile pictures. </p>
+
+<p>Disagree or have a better way? Would love to hear! Share in the comments :)</p>
+
+      <p><a href="/2013/11/making-nancy-modules-easier-to-manage/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/10/running-javascript-unit-tests-in-visual-studio-with-jasmine-and-resharper/">Running JavaScript Unit Tests in Visual Studio with Jasmine &amp; ReSharper</a> 
@@ -269,29 +383,6 @@
 
       <p><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Setting up Ubuntu and nginx on Azure</a> 
-        <span>posted on 26 Jun 2013</span>
-      </h1> 
-      <ul class="snow-series"><li>Part 1 - Setting up the Virtual Machine and nginx</li><li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx/">Part 2 - Setting up new Website and Domain on nginx</a></li><li><a href="/2013/06/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li><li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li><li><a href="/2013/07/setting-up-a-servicestack-service/">Part 5 - Setting up a ServiceStack web service</a></li></ul>
-      <p><span class="note"><strong>Note:</strong> I'm breaking this up into 5 parts because otherwise it gets far too long :(</span></p>
-
-<p>So after spending a week with OSX, I thought I would see how well I go with setting up Mono on Ubuntu... on Azure. </p>
-
-<p>Turns out it's actually rather simple!</p>
-
-<h2>Setting up the Virtual Machine</h2>
-
-<p>Setting up the virtual machine is pretty straight forward. From the Azure Portal, click the Virtual Machines tab, and select New. </p>
-
-<p>I create mine from the gallery rather than the quick option.</p>
-
-<p>Select <code>Ubuntu Server 13.04</code> from the options, give your new server a name. For Authentication I recommend making a password rather than uploading an SSH key. Only because if you're new or trying this out just to play around, that stuff is probably too difficult for now :)</p>
-
-
-      <p><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -360,6 +451,7 @@
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2013November">November, 2013</a></li>
                           <li><a href="/archive#2013October">October, 2013</a></li>
                           <li><a href="/archive#2013September">September, 2013</a></li>
                           <li><a href="/archive#2013August">August, 2013</a></li>
