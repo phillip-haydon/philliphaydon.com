@@ -27,6 +27,8 @@ Without an actual implementation, something like this:
 
 To begin with, we only have 4 things to implement, its rather small, somewhat easy to manage, but what happens when we want to update an account?
 
+<!--excerpt-->
+
 	Get["details"] = _ => "details...";
 	Post["details"] = _ => "details...";
 

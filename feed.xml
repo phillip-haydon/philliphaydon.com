@@ -21,88 +21,6 @@
 
 &lt;p&gt;To begin with, we only have 4 things to implement, its rather small, somewhat easy to manage, but what happens when we want to update an account?&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;Get["details"] = _ =&amp;gt; "details...";
-Post["details"] = _ =&amp;gt; "details...";
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then we want to have a profile...&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Get["profile"] = _ =&amp;gt; "profile...";
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;It just keeps adding up...&lt;/p&gt;
-
-&lt;p&gt;At this point it begins to get cluttered. Not only that, I believe this also breaks the Single Responsibility Principal.&lt;/p&gt;
-
-&lt;h2&gt;My solution!&lt;/h2&gt;
-
-&lt;p&gt;&lt;em&gt;This isn't anything new, I personally haven't seen anyone blog about this stuff but I have absolutely no doubt people most likely create controllers like this in MVC&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;So that's why I've decided Modules should be broken up into Functionality rather than Functional Areas.&lt;/p&gt;
-
-&lt;p&gt;All these things hang off &lt;code&gt;Account&lt;/code&gt;, so lets create an &lt;code&gt;Account&lt;/code&gt; folder in our &lt;code&gt;Modules&lt;/code&gt; folder. &lt;/p&gt;
-
-&lt;p&gt;Inside this folder we can create 4 new modules.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/small-nancy-module-01.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;So we have 4 modules rather than 1:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;code&gt;DetailsModule&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;LoginModule&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ProfileModule&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;RegisterModule&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;As you can expect, these are all really small now:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public class DetailsModule : NancyModule
-{
-    public DetailsModule()
-        : base("/account/details")
-    {
-        Get["/"] = _ =&amp;gt; "details";
-    }
-}
-
-public class LoginModule : NancyModule
-{
-    public LoginModule()
-        : base("/account/login")
-    {
-        Get["/"] = _ =&amp;gt; "login";
-        Post["/"] = _ =&amp;gt; "login";
-    }
-}
-
-public class ProfileModule : NancyModule
-{
-    public ProfileModule()
-        : base("/account/profile")
-    {
-        Get["/"] = _ =&amp;gt; "profile...";
-    }
-}
-
-public class RegisterModule : NancyModule
-{
-    public RegisterModule()
-        : base("/account/register")
-    {
-        Get["/"] = _ =&amp;gt; "register";
-        Post["/"] = _ =&amp;gt; "register";
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;From our folder perspective we can easily find all Modules under the &lt;code&gt;/account&lt;/code&gt; route, and easily find the one related to &lt;code&gt;Login&lt;/code&gt;, or &lt;code&gt;Register&lt;/code&gt;, etc.&lt;/p&gt;
-
-&lt;p&gt;This also makes unit testing easier since we only need to worry about dependencies related to a specific piece of functionality. &lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;Login&lt;/code&gt; might use a RavenDB session and Password Hashing Service, while &lt;code&gt;Profile&lt;/code&gt; may use RavenDB and a 3rd party Image hosting service for Profile pictures. &lt;/p&gt;
-
-&lt;p&gt;Disagree or have a better way? Would love to hear! Share in the comments :)&lt;/p&gt;
 </description><pubDate>Sat, 02 Nov 2013 16:00:00 Z</pubDate><a10:updated>2013-11-02T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;One problem I think a lot of developers have, is creating Controllers and Modules that are small and maintainable. Sometimes when you add some querying, bit of validation, pass it off to a repository or service, etc. It begins to become a little bit too big. &lt;/p&gt;
 
 &lt;p&gt;Lets assume our we have an &lt;code&gt;AccountModule&lt;/code&gt; it Gets a Login route to load the UI, and Posts to a Login route to authenticate the user, and do something.&lt;/p&gt;
@@ -125,6 +43,8 @@ public class RegisterModule : NancyModule
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;To begin with, we only have 4 things to implement, its rather small, somewhat easy to manage, but what happens when we want to update an account?&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
 
 &lt;pre&gt;&lt;code&gt;Get["details"] = _ =&amp;gt; "details...";
 Post["details"] = _ =&amp;gt; "details...";

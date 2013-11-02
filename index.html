@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-11-03T01:32:47.4324906+08:00" />
+    <meta http-equiv="last-modified" content="2013-11-03T01:52:40.6346994+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/" />
@@ -64,88 +64,6 @@
 
 <p>To begin with, we only have 4 things to implement, its rather small, somewhat easy to manage, but what happens when we want to update an account?</p>
 
-<pre><code>Get["details"] = _ =&gt; "details...";
-Post["details"] = _ =&gt; "details...";
-</code></pre>
-
-<p>Then we want to have a profile...</p>
-
-<pre><code>Get["profile"] = _ =&gt; "profile...";
-</code></pre>
-
-<p>It just keeps adding up...</p>
-
-<p>At this point it begins to get cluttered. Not only that, I believe this also breaks the Single Responsibility Principal.</p>
-
-<h2>My solution!</h2>
-
-<p><em>This isn't anything new, I personally haven't seen anyone blog about this stuff but I have absolutely no doubt people most likely create controllers like this in MVC</em></p>
-
-<p>So that's why I've decided Modules should be broken up into Functionality rather than Functional Areas.</p>
-
-<p>All these things hang off <code>Account</code>, so lets create an <code>Account</code> folder in our <code>Modules</code> folder. </p>
-
-<p>Inside this folder we can create 4 new modules.</p>
-
-<p><img src="/images/small-nancy-module-01.png" alt="" /></p>
-
-<p>So we have 4 modules rather than 1:</p>
-
-<ol>
-<li><code>DetailsModule</code></li>
-<li><code>LoginModule</code></li>
-<li><code>ProfileModule</code></li>
-<li><code>RegisterModule</code></li>
-</ol>
-
-<p>As you can expect, these are all really small now:</p>
-
-<pre><code>public class DetailsModule : NancyModule
-{
-    public DetailsModule()
-        : base("/account/details")
-    {
-        Get["/"] = _ =&gt; "details";
-    }
-}
-
-public class LoginModule : NancyModule
-{
-    public LoginModule()
-        : base("/account/login")
-    {
-        Get["/"] = _ =&gt; "login";
-        Post["/"] = _ =&gt; "login";
-    }
-}
-
-public class ProfileModule : NancyModule
-{
-    public ProfileModule()
-        : base("/account/profile")
-    {
-        Get["/"] = _ =&gt; "profile...";
-    }
-}
-
-public class RegisterModule : NancyModule
-{
-    public RegisterModule()
-        : base("/account/register")
-    {
-        Get["/"] = _ =&gt; "register";
-        Post["/"] = _ =&gt; "register";
-    }
-}
-</code></pre>
-
-<p>From our folder perspective we can easily find all Modules under the <code>/account</code> route, and easily find the one related to <code>Login</code>, or <code>Register</code>, etc.</p>
-
-<p>This also makes unit testing easier since we only need to worry about dependencies related to a specific piece of functionality. </p>
-
-<p><code>Login</code> might use a RavenDB session and Password Hashing Service, while <code>Profile</code> may use RavenDB and a 3rd party Image hosting service for Profile pictures. </p>
-
-<p>Disagree or have a better way? Would love to hear! Share in the comments :)</p>
 
       <p><a href="/2013/11/making-nancy-modules-easier-to-manage/">Read more...</a></p>
     </li>
