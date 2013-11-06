@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-11-05T22:30:08.2053822+08:00" />
+    <meta http-equiv="last-modified" content="2013-11-07T00:15:46.7224036+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page9/" />
@@ -35,6 +35,44 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators/">Fluent NHibernate - Table Inheritance - Discriminators</a> 
+        <span>posted on 08 Aug 2011</span>
+      </h1> 
+      
+      <p>So a long time ago <a href="http://jameskovacs.com/">James Kovacs</a> posted a article about <a href="http://nhforge.org/blogs/nhibernate/archive/2011/02/16/get-load-polymorphism-in-nhibernate-3.aspx">get/load polymorphism</a> with NHibernate, which was cool and all but I always wanted to know how to map it all in Fluent NHibernate. I worked it out at the time but I guess it's taken me 7 months to write it down.</p>
+
+<p>First up is using a single table, mapping them to multiple classes, this is done using a discriminator. Fluent NHibernate calls this 'table-per-class-hierarchy strategy', which doesn't make sense to me. But meh.</p>
+
+<p>So I'm going to begin with the following classes to demonstrate this:</p>
+
+<p><img src="/images/fnh-descrim-1.png" alt="" /></p>
+
+<p>So if I was to select all WallPost's it would give me instances of LinkShare, and Text wall posts.</p>
+
+<p>These classes are really basic at the moment.</p>
+
+<pre><code>public class WallPost
+{
+    public virtual Guid Id { get; set; }
+    public virtual DateTime DatePosted { get; set; }
+    public virtual string Title { get; set; }
+    public virtual string Content { get; set; }
+}
+
+public class TextWallPost : WallPost
+{
+}
+
+public class LinkShareWallPost : WallPost
+{
+}
+</code></pre>
+
+
+      <p><a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/07/mvc-areas-routes-order-of-routes-matter/">MVC +Areas + Routes... Order of Routes Matter!</a> 
@@ -283,52 +321,6 @@ FROM   [TestProduct] this_
 
 
       <p><a href="/2011/04/finding-the-correct-process-id-for-a-website-for-dottrace/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/04/jquery-templating-nested-arrays/">jQuery Templating - Nested Collections</a> 
-        <span>posted on 23 Apr 2011</span>
-      </h1> 
-      
-      <p>Was asked me a couple of weeks ago if it was possible to have nested collections in a jQuery template. Well you can! The sample code kind of buries the ability since it tries to demonstrate too many things at once. But it's rather simple.</p>
-
-<pre><code>{{"{{each *array*"}}}}
-    *stuff*
-{{"{{/each"}}}}
-</code></pre>
-
-<p>So assuming we have a simple json object like...</p>
-
-<pre><code>var people = [
-    {
-        firstName: "James",
-        favouriteColours: [ 
-            { colorName: "green" },
-            { colorName: "red" }
-        ]
-    },
-    {
-        firstName: "Jack",
-        favouriteColours: [
-            { colorName: "blue" },
-            { colorName: "red" }
-        ]
-    },
-    {
-        firstName: "Jim",
-        favouriteColours: [
-            { colorName: "blue" },
-            { colorName: "black" },
-            { colorName: "white" }
-        ]
-    }
-];
-</code></pre>
-
-<p>We can iterate over the people and then their favourite colours by using <code>each</code> in the template like so:</p>
-
-
-      <p><a href="/2011/04/jquery-templating-nested-arrays/">Read more...</a></p>
     </li>
   </ul> 
 

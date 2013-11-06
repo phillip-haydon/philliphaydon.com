@@ -1,4 +1,147 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/11/making-nancy-modules-easier-to-manage/</guid><link>http://www.philliphaydon.com/2013/11/making-nancy-modules-easier-to-manage/</link><title>Making Nancy Modules easier to manage</title><description>&lt;p&gt;One problem I think a lot of developers have, is creating Controllers and Modules that are small and maintainable. Sometimes when you add some querying, bit of validation, pass it off to a repository or service, etc. It begins to become a little bit too big. &lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/11/snow-gets-drafts/</guid><link>http://www.philliphaydon.com/2013/11/snow-gets-drafts/</link><title>Snow gets Drafts!</title><description>&lt;p&gt;A special thanks goes out to &lt;a href="https://twitter.com/johanilsson"&gt;@johanilsson&lt;/a&gt; for this new feature!&lt;/p&gt;
+
+&lt;p&gt;Snow now ships with Drafts and Privates, this is a really cool feature since it allows you to create drafts, and a page to list all drafts (optional). &lt;/p&gt;
+
+&lt;h2&gt;What are the options&lt;/h2&gt;
+
+&lt;p&gt;There are three options for a &lt;code&gt;published&lt;/code&gt; state:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;draft&lt;/li&gt;
+&lt;li&gt;private&lt;/li&gt;
+&lt;li&gt;true&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Draft is basically a finished or rough cut blog post that you will publish soon, it will be compiled to &lt;code&gt;/drafts&lt;/code&gt; URL and be publicly accessible (either via a known page or the direct URL)&lt;/p&gt;
+
+&lt;p&gt;Private is a post that will not be compiled at all, this will stay as markdown, good for when you want to begin writing something but not have it show up online yet.&lt;/p&gt;
+
+</description><pubDate>Wed, 06 Nov 2013 16:00:00 Z</pubDate><a10:updated>2013-11-06T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;A special thanks goes out to &lt;a href="https://twitter.com/johanilsson"&gt;@johanilsson&lt;/a&gt; for this new feature!&lt;/p&gt;
+
+&lt;p&gt;Snow now ships with Drafts and Privates, this is a really cool feature since it allows you to create drafts, and a page to list all drafts (optional). &lt;/p&gt;
+
+&lt;h2&gt;What are the options&lt;/h2&gt;
+
+&lt;p&gt;There are three options for a &lt;code&gt;published&lt;/code&gt; state:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;draft&lt;/li&gt;
+&lt;li&gt;private&lt;/li&gt;
+&lt;li&gt;true&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Draft is basically a finished or rough cut blog post that you will publish soon, it will be compiled to &lt;code&gt;/drafts&lt;/code&gt; URL and be publicly accessible (either via a known page or the direct URL)&lt;/p&gt;
+
+&lt;p&gt;Private is a post that will not be compiled at all, this will stay as markdown, good for when you want to begin writing something but not have it show up online yet.&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;True, this is optional, but its basically the same as not supplying the &lt;code&gt;published&lt;/code&gt; state at all. It will compile your post and make it publicly available. &lt;/p&gt;
+
+&lt;h2&gt;How do I do it?!?&lt;/h2&gt;
+
+&lt;p&gt;In the header of your markdown file, simply add a new property called &lt;code&gt;published&lt;/code&gt; and away you go!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;---
+title: Snow gets Drafts! 
+layout: post
+categories: Snow 
+published: draft
+---
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Where does it go?&lt;/h2&gt;
+
+&lt;p&gt;Your file should be located where all your other posts go. Using this post as an example:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/snow-gets-drafts-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;As well as the same header as above, with &lt;code&gt;published&lt;/code&gt; set to draft, I can now compile the site. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/snow-gets-drafts-02.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;We get this new drafts folder. The folder structure is the same as a normal post, so the file name and chosen slug will dictate the URL.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/snow-gets-drafts-03.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Given this information, the URL would be:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http://www.philliphaydon.com/drafts/2013/11/snow-gets-drafts/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Neat huh?&lt;/p&gt;
+
+&lt;h2&gt;What about that viewing page you told me about?!?&lt;/h2&gt;
+
+&lt;p&gt;To create a viewing page of all drafts, we can create a brand new template in the root of our Snow folder called &lt;code&gt;drafts.cshtml&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The contents is super simple:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase&amp;lt;Snow.ViewModels.ContentViewModel&amp;gt;
+@using System.Collections.Generic
+@{
+  Layout = "default.cshtml";
+}
+
+&amp;lt;header&amp;gt;
+    &amp;lt;div class="head-inner"&amp;gt;
+        &amp;lt;h1&amp;gt;Drafts&amp;lt;/h1&amp;gt;
+    &amp;lt;/div&amp;gt;
+&amp;lt;/header&amp;gt;
+
+&amp;lt;ul class="category-list fancy-container darkishblue"&amp;gt;
+@foreach(var draft in Model.Drafts){
+  &amp;lt;li&amp;gt;&amp;lt;a href="@draft.Url" title="@draft.Title"&amp;gt;@draft.Title&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+}
+&amp;lt;/ul&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is how I have mine marked up, similar to how my archive pages work. &lt;/p&gt;
+
+&lt;p&gt;Next, add it to the config file.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;This is a snippet of my config&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;},{
+    "file": "archive.cshtml"
+},{
+    "file": "drafts.cshtml",
+    "loop": "Drafts"
+},{
+    "file": "about.cshtml"
+},{
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And that's it, now we can compile our Snow site.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/snow-gets-drafts-04.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Bam we have a new index file, and it has listed out the current drafts.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;header&amp;gt;
+    &amp;lt;div class="head-inner"&amp;gt;
+        &amp;lt;h1&amp;gt;Drafts&amp;lt;/h1&amp;gt;
+    &amp;lt;/div&amp;gt;
+&amp;lt;/header&amp;gt;
+
+&amp;lt;ul class="category-list fancy-container darkishblue"&amp;gt;
+  &amp;lt;li&amp;gt;&amp;lt;a href="/drafts//2013/11/snow-gets-drafts/" title="Snow gets Drafts!"&amp;gt;Snow gets Drafts!&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+&amp;lt;/ul&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That's all there is to it.&lt;/p&gt;
+
+&lt;h2&gt;Things to note.&lt;/h2&gt;
+
+&lt;p&gt;Snow has some Razor helpers for things like Analytics. If you're using the helper:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Html.RenderGoogleAnalytics("UA-######-##")
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then Snow will not render any analytically code for the Draft index or compiled Draft Posts. This means Google wont pick it up unless you link to it somewhere. &lt;em&gt;(considering adding a helper to set no-cache and such in the header)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Anyway that's it, the new Drafts feature in Snow. Thanks again to &lt;a href="https://twitter.com/johanilsson"&gt;@johanilsson&lt;/a&gt; for implementing this for us!&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/11/making-nancy-modules-easier-to-manage/</guid><link>http://www.philliphaydon.com/2013/11/making-nancy-modules-easier-to-manage/</link><title>Making Nancy Modules easier to manage</title><description>&lt;p&gt;One problem I think a lot of developers have, is creating Controllers and Modules that are small and maintainable. Sometimes when you add some querying, bit of validation, pass it off to a repository or service, etc. It begins to become a little bit too big. &lt;/p&gt;
 
 &lt;p&gt;Lets assume our we have an &lt;code&gt;AccountModule&lt;/code&gt; it Gets a Login route to load the UI, and Posts to a Login route to authenticate the user, and do something.&lt;/p&gt;
 
@@ -1406,160 +1549,4 @@ fastcgi_param   SCRIPT_FILENAME         $document_root$fastcgi_script_name;
 &lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-3-6.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;BAM Just like that we now have an ASPX page running on Mono, on nginx, on Ubuntu, on Azure! &lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/06/setting-up-a-new-website-and-domain-on-nginx/</guid><link>http://www.philliphaydon.com/2013/06/setting-up-a-new-website-and-domain-on-nginx/</link><title>Setting up new Website and Domain on nginx</title><description>&lt;p&gt;The purpose of series is to be able to create an end-to-end setup of a Linux Server on Azure and deploy a brand new production NancyFX website or ServiceStack service, and not get confused in-between. Like I was when I sussed all this out. :)&lt;/p&gt;
-
-&lt;h2&gt;Prelude&lt;/h2&gt;
-
-&lt;p&gt;When using IIS I think it's safe to say a large majority of us would use the GUI to configure or create new Web Sites. Even though it's actually possible to create a new website and configure it entirely through Powershell.&lt;/p&gt;
-
-&lt;p&gt;But, as scary as it sounds it's not too hard to configure a new Website in nginx. I actually think its easier than doing it with Apache, despite the fact that they are relatively similar. &lt;/p&gt;
-
-</description><pubDate>Wed, 26 Jun 2013 16:00:00 Z</pubDate><a10:updated>2013-06-26T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;The purpose of series is to be able to create an end-to-end setup of a Linux Server on Azure and deploy a brand new production NancyFX website or ServiceStack service, and not get confused in-between. Like I was when I sussed all this out. :)&lt;/p&gt;
-
-&lt;h2&gt;Prelude&lt;/h2&gt;
-
-&lt;p&gt;When using IIS I think it's safe to say a large majority of us would use the GUI to configure or create new Web Sites. Even though it's actually possible to create a new website and configure it entirely through Powershell.&lt;/p&gt;
-
-&lt;p&gt;But, as scary as it sounds it's not too hard to configure a new Website in nginx. I actually think its easier than doing it with Apache, despite the fact that they are relatively similar. &lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;h2&gt;Where are sites configured?!?&lt;/h2&gt;
-
-&lt;p&gt;The nginx configuration files are in &lt;code&gt;/etc&lt;/code&gt;. The etc directory is for all system related configuration files. &lt;/p&gt;
-
-&lt;p&gt;To learn about Linux Filesystem Hierarchy, you can read about them here:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/"&gt;http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Navigate to the nginx directory by running the command &lt;code&gt;cd /etc/nginx&lt;/code&gt; once you reach the nginx directory run the command &lt;code&gt;ls&lt;/code&gt; to see what's in the directory.&lt;/p&gt;
-
-&lt;p&gt;The directory listing should look something like.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-1.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;The main things we will be touching in here are &lt;code&gt;sites-available&lt;/code&gt; and &lt;code&gt;fastcgi_params&lt;/code&gt;, though the &lt;code&gt;fastcgi_params&lt;/code&gt; will be in part 3 when we setup Mono. &lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;fastcgi_params&lt;/code&gt; is a configuration file, while the &lt;code&gt;sites-available&lt;/code&gt; is a folder. Navigate to the folder by calling &lt;code&gt;cd sites-available&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;In here if you call &lt;code&gt;ls&lt;/code&gt; you will see there's only 1 file called default. This is the default configuration file, we could add more for nginx but to keep things simple we will simply append our website to this file.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-2.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now open the file in nano by calling &lt;code&gt;nano default&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-3.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;You can see there's a &lt;code&gt;server&lt;/code&gt; defined which sort of looks like json. I don't actually know what this formatting is called but it's simply a configuration name with either a value(s) or a scope (defined with braces)&lt;/p&gt;
-
-&lt;p&gt;The existing server is setup for localhost. We can add our own, so above the server we want to add the following.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;server {
-  # the port the site is listening on
-  listen 80;
-
-  # the hostname
-  server_name phillip.pw;
-
-  # the path to where we host the site
-  root /var/www/phillip.pw;
-
-  # the default page
-  index index.html;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You should end up with your terminal looking like&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-4.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now we need to save the file. Do this by pressing &lt;kbd&gt;CTRL&lt;/kbd&gt; + &lt;kbd&gt;X&lt;/kbd&gt;&lt;/p&gt;
-
-&lt;p&gt;It should then confirm you want to make the changes.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-5.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Enter &lt;kbd&gt;Y&lt;/kbd&gt; to accept the changes, then press &lt;kbd&gt;Enter&lt;/kbd&gt; to confirm the filename. Don't change the filename!!!&lt;/p&gt;
-
-&lt;p&gt;Now you should be back at the terminal. &lt;/p&gt;
-
-&lt;p&gt;&lt;span class="note"&gt;&lt;strong&gt;Note:&lt;/strong&gt; If it says you don't have permission to change the file then you're not a root user or you didn't run nano as a root user by prefixing the command with &lt;code&gt;sudo&lt;/code&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2&gt;Creating the site directory&lt;/h2&gt;
-
-&lt;p&gt;For the configuration we put the root as &lt;code&gt;/var/www/phillip.pw&lt;/code&gt;, this path shouldn't exist yet (except for var) Based on my reading of the Linux Filesystem, this seemed like the best place to put it. If someone disagrees or knows where it should go please leave a comment.&lt;/p&gt;
-
-&lt;p&gt;Navigate to var by calling &lt;code&gt;cd /var&lt;/code&gt;, then calling &lt;code&gt;ls&lt;/code&gt;, you should see there is no &lt;code&gt;www&lt;/code&gt; folder. So lets create one by calling &lt;code&gt;mkdir www&lt;/code&gt;, navigate to the directory; &lt;code&gt;cd www&lt;/code&gt;. And make the next directory; &lt;code&gt;mkdir phillip.pw&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Your console should look something like this&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-6.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;h2&gt;The test file&lt;/h2&gt;
-
-&lt;p&gt;Now that we are inside our hosting directory we need to create a test file. Call &lt;code&gt;nano index.html&lt;/code&gt; which will open up a new nano with nothing in it.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-7.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Here we can throw some basic HTML in that looks like:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;html&amp;gt;
-&amp;lt;head&amp;gt;
-  &amp;lt;title&amp;gt;Our test page!&amp;lt;/title&amp;gt;
-&amp;lt;/head&amp;gt;
-&amp;lt;body&amp;gt;
-  &amp;lt;h1&amp;gt;Hello World from nginx! Our test page works!&amp;lt;/h1&amp;gt;
-&amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Nothing fancy. You can also write this in notepad and then right click on the terminal which will automatically paste the content in.&lt;/p&gt;
-
-&lt;p&gt;Next hit &lt;kbd&gt;CTRL&lt;/kbd&gt; + &lt;kbd&gt;X&lt;/kbd&gt; to exit, then &lt;kbd&gt;Y&lt;/kbd&gt; followed by &lt;kbd&gt;Enter&lt;/kbd&gt; to accept the changes and save the file.&lt;/p&gt;
-
-&lt;p&gt;Bam we're done! (almost)&lt;/p&gt;
-
-&lt;h2&gt;Update your domain name!&lt;/h2&gt;
-
-&lt;p&gt;Lastly we need to update our domain host records. I'm using &lt;www.namecheap.com&gt; for my hosting. Create a new &lt;code&gt;A&lt;/code&gt; record for the domain we defined in our site configuration; &lt;code&gt;phillip.pw&lt;/code&gt; using the IP from the Azure portal.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-8.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Be sure to copy the PUBLIC Virtual IP, and not the Internal IP. Otherwise you may get angry when things don't work when they should. :)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-9.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Save the changes to your domain host records. &lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-10.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Running a quick ping test in Windows Command Prompt should resolve to the correct IP.&lt;/p&gt;
-
-&lt;h2&gt;The BIG Test&lt;/h2&gt;
-
-&lt;p&gt;So, does it all work?!?&lt;/p&gt;
-
-&lt;p&gt;Navigating to the website &lt;code&gt;http://phillip.pw&lt;/code&gt; yields:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-2-11.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Yay! &lt;/p&gt;
-
-&lt;h2&gt;What else?&lt;/h2&gt;
-
-&lt;p&gt;So we only configured the domain &lt;code&gt;phillip.pw&lt;/code&gt;, but what if we want both that and &lt;code&gt;www.phillip.pw&lt;/code&gt;. We can update the servername to &lt;code&gt;*.phillip.pw&lt;/code&gt; which will wild-card.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# the hostname
-server_name *.phillip.pw;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Or if we want to be more specific we can do:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# the hostname
-server_name www.phillip.pw phillip.pw;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Which will only work for the domain and the &lt;code&gt;www&lt;/code&gt; sub domain. &lt;/p&gt;
-
-&lt;p&gt;That's all there is to it. Next up... Mono! :D&lt;/p&gt;
 </a10:content></item></channel></rss>
