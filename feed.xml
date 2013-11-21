@@ -54,15 +54,15 @@ published: draft
 
 &lt;p&gt;Your file should be located where all your other posts go. Using this post as an example:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/snow-gets-drafts-01.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/snow-gets-drafts-01.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;As well as the same header as above, with &lt;code&gt;published&lt;/code&gt; set to draft, I can now compile the site. &lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/snow-gets-drafts-02.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/snow-gets-drafts-02.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;We get this new drafts folder. The folder structure is the same as a normal post, so the file name and chosen slug will dictate the URL.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/snow-gets-drafts-03.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/snow-gets-drafts-03.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Given this information, the URL would be:&lt;/p&gt;
 
@@ -114,7 +114,7 @@ published: draft
 
 &lt;p&gt;And that's it, now we can compile our Snow site.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/snow-gets-drafts-04.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/snow-gets-drafts-04.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Bam we have a new index file, and it has listed out the current drafts.&lt;/p&gt;
 
@@ -212,7 +212,7 @@ Post["details"] = _ =&amp;gt; "details...";
 
 &lt;p&gt;Inside this folder we can create 4 new modules.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/small-nancy-module-01.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/small-nancy-module-01.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;So we have 4 modules rather than 1:&lt;/p&gt;
 
@@ -305,11 +305,11 @@ public class RegisterModule : NancyModule
 
 &lt;p&gt;Download PhantomJS and unzip it somewhere, I put it in my development folder. Next open up ReSharper Options:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/jasmine-01-01.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/jasmine-01-01.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Navigate to the Unit Testing &gt; JavaScript Tests and set the PhantomJS path to the &lt;code&gt;.exe&lt;/code&gt; where you unzipped it to:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/jasmine-01-02.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/jasmine-01-02.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Save all that and PhantomJS will be all setup and ready to run out tests!&lt;/p&gt;
 
@@ -317,7 +317,7 @@ public class RegisterModule : NancyModule
 
 &lt;p&gt;In Visual Studio create a new &lt;code&gt;Empty Project&lt;/code&gt;, or something similar, add some folders, naming isn't important but I've stuck with &lt;code&gt;dependencies&lt;/code&gt; for things like Jasmine, &lt;code&gt;sources&lt;/code&gt; for the files we will be testing, and &lt;code&gt;specs&lt;/code&gt; for the Jasmine specs.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/jasmine-01-03.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/jasmine-01-03.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Copy the &lt;code&gt;jasmine.js&lt;/code&gt; file into the dependencies folder, and create two empty files for &lt;code&gt;Calculator.js&lt;/code&gt; and &lt;code&gt;CalculatorSpec.js&lt;/code&gt;&lt;/p&gt;
 
@@ -347,7 +347,7 @@ describe("Calculator", function () {
 
 &lt;p&gt;So if we run this test now...&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/jasmine-01-04.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/jasmine-01-04.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;We have no implementation, so lets implement!&lt;/p&gt;
 
@@ -358,7 +358,7 @@ describe("Calculator", function () {
 };
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src="/images/jasmine-01-05.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/jasmine-01-05.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now its undefined on the function call &lt;code&gt;multiple&lt;/code&gt;, so lets add it in, but lets return a hard coded value of -100&lt;/p&gt;
 
@@ -369,7 +369,7 @@ describe("Calculator", function () {
 };
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src="/images/jasmine-01-06.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/jasmine-01-06.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Almost there, now lets multiple two values together!&lt;/p&gt;
 
@@ -382,7 +382,7 @@ describe("Calculator", function () {
 
 &lt;p&gt;BAM it passes!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/jasmine-01-07.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/jasmine-01-07.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Our first test without a browser.&lt;/p&gt;
 
@@ -451,7 +451,7 @@ describe("Calculator", function () {
 
 &lt;p&gt;Download the latest version of Semantic from the website and include the packages folder into your project.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/semantic-ui-1.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/semantic-ui-1.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;And include them into your page...&lt;/p&gt;
 
@@ -522,7 +522,7 @@ describe("Calculator", function () {
 
 &lt;p&gt;Nothing special, this is using the Semantic markup. The outer &lt;code&gt;container&lt;/code&gt; div is just a element I added to center the page. Without adding anything to the styling to change the look and feel, we get a page that looks like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/semantic-ui-2.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/semantic-ui-2.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Doesn't look too bad.&lt;/p&gt;
 
@@ -625,13 +625,13 @@ describe("Calculator", function () {
 
 &lt;p&gt;This gives us the following effect.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/semantic-ui-3.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/semantic-ui-3.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;If we wanted to put all errors in a list at the bottom by adding &lt;code&gt;&amp;lt;div class="ui error message"&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt; to the bottom (or top) of the form.&lt;/p&gt;
 
 &lt;p&gt;This would give us something like:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/semantic-ui-4.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/semantic-ui-4.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Though the form will only display the messages at the bottom if you manually validate the form, or press submit. We haven't defined our button as a submit button, which I'll explain soon.&lt;/p&gt;
 
@@ -665,7 +665,7 @@ describe("Calculator", function () {
 
 &lt;p&gt;Now if we click the button we should get a prompt:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/semantic-ui-5.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/semantic-ui-5.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Next we want to check the form is valid. In the controller we can add a basic function to invoke validate on the Semantic form.&lt;/p&gt;
 
@@ -694,7 +694,7 @@ describe("Calculator", function () {
 
 &lt;p&gt;The result is true or false, and the UI will now show an invalid state.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/semantic-ui-6.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/semantic-ui-6.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now we've got validation working! Woohoo!&lt;/p&gt;
 
@@ -735,11 +735,11 @@ ng-model="user.username"
 
 &lt;p&gt;Back to our form, we fill it in, hit submit...&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/semantic-ui-7.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/semantic-ui-7.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Nothing has happened, the form is valid, but we logged the user to the console, did we get anything?&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/semantic-ui-8.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/semantic-ui-8.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;We sure did!&lt;/p&gt;
 
@@ -759,7 +759,7 @@ ng-model="user.username"
 
 &lt;p&gt;Now we get some nice little asterisk's on each input.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/semantic-ui-9.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/semantic-ui-9.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;What about when we submit the form? We want to block the form UI until we are done. So we can add a loading to the form.&lt;/p&gt;
 
@@ -791,7 +791,7 @@ ng-model="user.username"
 
 &lt;p&gt;&lt;em&gt;Normally you would set it to false again, but I've left it as true to show the affect&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/semantic-ui-10.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/semantic-ui-10.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;And there we have it. &lt;/p&gt;
 
@@ -1044,7 +1044,7 @@ series:
 
 </description><pubDate>Wed, 25 Sep 2013 16:00:00 Z</pubDate><a10:updated>2013-09-25T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Just today, &lt;a href="https://twitter.com/chr_horsdal"&gt;Christian Horsdal&lt;/a&gt; released his first book, his first topic to write a book about, only the most awesome Web Framework to exist in .NET! :)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/nancy-book-review-1a.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/nancy-book-review-1a.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;non affiliate links&lt;/em&gt;&lt;/p&gt;
 
@@ -1063,7 +1063,7 @@ series:
 
 &lt;p&gt;Not that the book is perfect, I took the opportunity to tweet him this image:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/nancy-book-review-2.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/nancy-book-review-2.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;I shouldn't laugh though... my spelling is absolutely terrible!&lt;/p&gt;
 
@@ -1143,7 +1143,7 @@ series:
 
 &lt;p&gt;This is simply amazing, often I would throw up Google and search "stevex string format" and pull up a pretty detailed blog post on string formatting. &lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/resharper8-1.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/resharper8-1.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;This single feature along, in my opinion, is worth the $ to upgrade to R# 8!!!! &lt;/p&gt;
 
@@ -1151,7 +1151,7 @@ series:
 
 &lt;p&gt;It's not just dates though... It works with any .NET type that supports built-in &lt;code&gt;ToString(...)&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/resharper8-2.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/resharper8-2.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;That's epic!&lt;/p&gt;
 
@@ -1159,11 +1159,11 @@ series:
 
 &lt;p&gt;This tricked me at first, but it seems all the keyboard shortcuts have been reduced down, before I would use the IntelliJ keys &lt;kbd&gt;CTRL&lt;/kbd&gt; + &lt;kbd&gt;N&lt;/kbd&gt; which would bring up the Type Search. Now it brings up Search Anything, and with a second press of &lt;kbd&gt;N&lt;/kbd&gt; it will bring up the Type Search. (Keys are &lt;kbd&gt;CTRL&lt;/kbd&gt; + &lt;kbd&gt;T&lt;/kbd&gt; if you're using Visual Studio keys)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/resharper8-3.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/resharper8-3.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;And&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/resharper8-4.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/resharper8-4.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;This is super handy, it feels like less keystrokes to learn, and a lot of the time I was finding myself searching Types, then trying Symbols, then trying Files. Now I can search all at once!&lt;/p&gt;
 
@@ -1171,11 +1171,11 @@ series:
 
 &lt;p&gt;This is another amazingly awesome feature. With the success of Nuget, the R# team have created their own Plugin Manager using the Nuget platform since it's &lt;a href="http://nuget.codeplex.com"&gt;open source&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/resharper8-5.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/resharper8-5.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;The Extensions Manager opens up Jet Brains own Nuget type Dialog:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/resharper8-6.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/resharper8-6.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;And bam it's that easy to install xUnit now. That plugin that used to be a pain in the ass to install, upgrade, etc. Now it's as simple as pressing &lt;code&gt;install&lt;/code&gt;&lt;/p&gt;
 
@@ -1216,21 +1216,21 @@ series:
 
 &lt;p&gt;One of the great things about ServiceStack is it has a bunch of awesome examples. Head on over to &lt;a href="https://github.com/ServiceStack/ServiceStack.Examples"&gt;https://github.com/ServiceStack/ServiceStack.Examples&lt;/a&gt; and download the samples. Either by downloading the repository, or cloning it. &lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-1.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-1.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;After downloading the ServiceStack Examples, navigate to &lt;code&gt;src&lt;/code&gt; and open the &lt;code&gt;ServiceStack.Hello&lt;/code&gt; project. &lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-2.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-2.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Running this project we should end up with a small Service Stack sample website like so:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-3.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-3.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;h2&gt;Quick local test&lt;/h2&gt;
 
 &lt;p&gt;Navigating to the URL; &lt;code&gt;http://localhost:62577/servicestack/metadata&lt;/code&gt; we should get the nice meta data screen:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-4.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-4.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;And navigating to the URL: &lt;/p&gt;
 
@@ -1238,7 +1238,7 @@ series:
 
 &lt;p&gt;We end up with a response:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-5.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-5.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;We do need to make one minor change. In the root project of the folder, rename the &lt;code&gt;default.htm&lt;/code&gt; file to &lt;code&gt;index.html&lt;/code&gt;. This is only so we don't need to modify nginx to look for the default file &lt;code&gt;default.htm&lt;/code&gt; :) #lazyme&lt;/p&gt;
 
@@ -1246,19 +1246,19 @@ series:
 
 &lt;p&gt;So like the Nancy project, we can publish the project to a folder. The good thing about this sample is it doesn't need any database or anything like that. It's just a straight website with a Hello World service.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-6.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-6.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Once deployed we should end up with the ServiceStack site again!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-7.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-7.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Navigating to the metadata page we end up with the same screen we had locally!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-8.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-8.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;And navigating to the test URL we end up with the fancy ServiceStack response! &lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-5-9.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-9.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Hello, with love from nginx!&lt;/p&gt;
 
@@ -1295,13 +1295,13 @@ series:
 
 &lt;!--excerpt--&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-1.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-1.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Don't forget to make this a .NET 4.0 project, NOT a .NET 4.5 project. When running Mono 3.0 you can choose .NET 4.5.&lt;/p&gt;
 
 &lt;p&gt;Once created press F5 and you should end up with a screen like so:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-2.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-2.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;BUT, before we can publish, we need to update Nancy to the beta version (version 0.18.0) because 0.17.1 doesn't work on Mono 2.10. Hopefully if you're reading this shortly after its being published 0.18.0 will be out and you can.&lt;/p&gt;
 
@@ -1309,11 +1309,11 @@ series:
 
 &lt;p&gt;Updating the Nuget Packages. We need to add the Nancy CI builds to out options.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-4.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-4.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;And we can remove the references from the project to &lt;code&gt;Nancy&lt;/code&gt; and &lt;code&gt;Nancy.Hosting.Aspnet&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-5.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-5.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;And now you can run the commands:&lt;/p&gt;
 
@@ -1321,7 +1321,7 @@ series:
 
 &lt;p&gt;&lt;code&gt;install-package Nancy.Hosting.Aspnet&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-6.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-6.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -1331,7 +1331,7 @@ series:
 
 &lt;p&gt;Now that we've created and updated our Nancy project, published it. Now we can deploy it! &lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-7.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-7.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;So we can remove the html files we manually created in the previous posts, and deploy our Nancy website to the FTP. &lt;/p&gt;
 
@@ -1339,7 +1339,7 @@ series:
 
 &lt;p&gt;If we visit the site now, most likely we will end up with:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-8.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-8.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;This is because we originally configured our fastcgi index to be &lt;code&gt;index.aspx&lt;/code&gt;&lt;/p&gt;
 
@@ -1347,7 +1347,7 @@ series:
 
 &lt;p&gt;We can update our nginx configuration now, call &lt;code&gt;nano /etc/nginx/sites-available/default&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-9.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-9.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Remove the &lt;code&gt;index.aspx&lt;/code&gt; part so the index is just &lt;code&gt;/&lt;/code&gt; and nothing else.&lt;/p&gt;
 
@@ -1357,7 +1357,7 @@ series:
 
 &lt;p&gt;Now we can give it a restart anddddddddddd.....&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-4-10.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-10.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;BAM! Now we have Nancy... Running on Mono... on nginx... Ubuntu... on Azure...&lt;/p&gt;
 
@@ -1426,7 +1426,7 @@ series:
 
 &lt;p&gt;Now that our test page is ready, we can install Mono by calling &lt;code&gt;apt-get install mono-complete&lt;/code&gt;, your window should now look like&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-3-1.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-3-1.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Hit &lt;kbd&gt;Y&lt;/kbd&gt; and &lt;kbd&gt;Enter&lt;/kbd&gt;, and let it install... this could take a while.&lt;/p&gt;
 
@@ -1434,7 +1434,7 @@ series:
 
 &lt;p&gt;To quickly test that Mono is installed call &lt;code&gt;mono -V&lt;/code&gt; you should get something like so&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-3-2.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-3-2.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;h2&gt;Configuring our website!&lt;/h2&gt;
 
@@ -1474,7 +1474,7 @@ series:
 
 &lt;p&gt;Now drop down 1 level by calling &lt;code&gt;cd ..&lt;/code&gt; and then calling &lt;code&gt;ls&lt;/code&gt; to view the directory listing.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-3-3.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-3-3.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;We need to modify the fastcgi_params file, we open it up in nano... &lt;code&gt;nano fastcgi_params&lt;/code&gt; and we need to add the two following lines of code to the bottom of the file:&lt;/p&gt;
 
@@ -1484,7 +1484,7 @@ fastcgi_param   SCRIPT_FILENAME         $document_root$fastcgi_script_name;
 
 &lt;p&gt;So you should end up with something like&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-3-4.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-3-4.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Save and exit that file. &lt;/p&gt;
 
@@ -1540,13 +1540,13 @@ fastcgi_param   SCRIPT_FILENAME         $document_root$fastcgi_script_name;
 
 &lt;p&gt;You should have a terminal that looks like:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-3-5.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-3-5.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now give nginx a restart by calling &lt;code&gt;service nginx restart&lt;/code&gt;&lt;/p&gt;
 
 &lt;h2&gt;The big test&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src="/images/setup-mono-on-ubuntu-part-3-6.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-3-6.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;BAM Just like that we now have an ASPX page running on Mono, on nginx, on Ubuntu, on Azure! &lt;/p&gt;
 </a10:content></item></channel></rss>
