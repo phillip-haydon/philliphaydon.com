@@ -16,63 +16,6 @@
 
 &lt;p&gt;So the solution file is excluded, we can right click the file(s) and include them...&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/git-support-03.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now this gets included with the pend... Included Changes. &lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/git-support-04.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;If we want to exclude stuff, we can right click in the Included Changes:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/git-support-05.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;This is very handy, I was working on a project earlier where I couldn't be bothered typing the login credentials in every time. So I hard coded them in the View and excluded the file so it wouldn't get picked up in the Included Changes. Was nice being able to quickly Right Click &gt; Exclude&lt;/p&gt;
-
-&lt;p&gt;Now we can add a comment and commit:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/git-support-06.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;The commit is created locally:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/git-support-07.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now we need to push it, if we click on &lt;code&gt;Unsynced Commits&lt;/code&gt; we currently get a screen asking us to push to a Remote Repository.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/git-support-08.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;If we enter a URL and try to push:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/git-support-11.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;My remote repository doesn't exist yet :( so creating it on GitHub:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/git-support-12.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now... where to push from?!? HAH, this is where I got confused. If you try to push before your repository exists, it sort of breaks the workflow. So to fix it, click on the Arrow next to &lt;code&gt;master&lt;/code&gt; branch. And select &lt;code&gt;Manage Branches&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/git-support-13.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;You can then see &lt;code&gt;Unpublished Branches&lt;/code&gt;, right click on your master branch and select &lt;code&gt;Publish&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Visiting GitHub we can see all our pushed changes!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/git-support-14.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Awesome! Back in Visual Studio, if we navigate back to our &lt;code&gt;Changes&lt;/code&gt;, we can click on the &lt;code&gt;Action&lt;/code&gt; button next to &lt;code&gt;Commit&lt;/code&gt; and select &lt;code&gt;View History&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/git-support-09.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;this feature seems to lag a little when loading up a large history&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;We can see all the history on our commits, for the current selected branch.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/git-support-10.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;I think this support for Git in Visual Studio is really awesome! I suggest you take a look, I still use console primarily, but this is really handy, and I find myself committing more often, which is always a good thing!&lt;/p&gt;
-
-&lt;p&gt;It's also nice to be able to see changed files in Visual Studio!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/git-support-15.png" alt="" /&gt;&lt;/p&gt;
 </description><pubDate>Wed, 11 Dec 2013 16:00:00 Z</pubDate><a10:updated>2013-12-11T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Lately I've found myself using the new Git support in Visual Studio 2013 more and more, it turns out once you get used to it, its quite handy! Initially my thoughts were its rubbish, mostly because I found it cumbersome, or maybe just that things weren't working the way I thought they were. I do fine some things strange, but it's still completely usable!&lt;/p&gt;
 
 &lt;p&gt;How does it all work?&lt;/p&gt;
@@ -90,6 +33,8 @@
 &lt;p&gt;&lt;em&gt;I'm not entirely sure why it does this but when I create new projects, the solution file is never included by default?!?&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;So the solution file is excluded, we can right click the file(s) and include them...&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
 
 &lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-03.png" alt="" /&gt;&lt;/p&gt;
 

@@ -22,6 +22,8 @@ Now that the project is created, we can open the Team Explorer, it should look s
 
 So the solution file is excluded, we can right click the file(s) and include them...
 
+<!--excerpt-->
+
 ![][2]
 
 Now this gets included with the pend... Included Changes. 
