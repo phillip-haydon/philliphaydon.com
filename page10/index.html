@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-11-21T22:08:08.7776887+08:00" />
+    <meta http-equiv="last-modified" content="2013-12-12T00:17:24.7051415+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page10/" />
@@ -35,6 +35,25 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/04/finding-the-correct-process-id-for-a-website-for-dottrace/">Finding the correct Process Id for a website for DotTrace</a> 
+        <span>posted on 28 Apr 2011</span>
+      </h1> 
+      
+      <p>Finding which process belonged to which application pool was simple in IIS6, it was a simple case of running up a Command Prompt and typing in <code>iisapp.vbs</code>.</p>
+
+<p>Unfortunately the script wasn't bought across to IIS7. So when it came to profiling a site I was baffled as to why the DotTrace results were showing information for threads completely unrelated to the website I was looking at.</p>
+
+<p>Turns out I was looking at the wrong Process Id...</p>
+
+<p><img src="/images/process-1.png" alt="" /></p>
+
+<p>So I needed to figure out which Process Id belonged to which site.</p>
+
+
+      <p><a href="/2011/04/finding-the-correct-process-id-for-a-website-for-dottrace/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/04/jquery-templating-nested-arrays/">jQuery Templating - Nested Collections</a> 
@@ -278,27 +297,6 @@ WHERE [t1].[value] = 'Robert Williams'
 
       <p><a href="/2011/01/lightspeed-and-eager-loaded-properties/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/01/revisiting-exists-in-nhibernate-3-0-and-queryover/">Revisiting 'Exists' in NHibernate 3.0 and QueryOver</a> 
-        <span>posted on 19 Jan 2011</span>
-      </h1> 
-      
-      <p>A while ago I wrote about <a href="http://www.philliphaydon.com/2010/09/queryover-with-nhibernate-3-lovin-it/">my experience with NHibernate 3.0 and Query over</a> by having a go at converting an application to NH3.0, and faced the challenge of writing a query which contained an 'exists' where clause. At the time my solution resulted in an 'in' clause since I couldn't work out how to do an exists.</p>
-
-<p>Today at work I faced the same challenge, except this time I solved it  WOO Yay for solving things.</p>
-
-<h2>The Problem</h2>
-
-<p>We have a many-to-many relationship between Jobs and Roles. Which looks something along the lines of:</p>
-
-<p><img src="/images/nhibernate-queryover-1.png" alt="" /></p>
-
-<p>I cut a bunch of stuff out but you get the idea.</p>
-
-
-      <p><a href="/2011/01/revisiting-exists-in-nhibernate-3-0-and-queryover/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -369,6 +367,7 @@ WHERE [t1].[value] = 'Robert Williams'
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2013December">December, 2013</a></li>
                           <li><a href="/archive#2013November">November, 2013</a></li>
                           <li><a href="/archive#2013October">October, 2013</a></li>
                           <li><a href="/archive#2013September">September, 2013</a></li>

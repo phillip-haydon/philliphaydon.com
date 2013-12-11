@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-11-21T22:08:08.7776887+08:00" />
+    <meta http-equiv="last-modified" content="2013-12-12T00:17:24.7051415+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page9/" />
@@ -35,6 +35,37 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/08/mvc-routing-with-attributes-makes-routing-awesome/">MVC Routing with Attributes makes routing awesome</a> 
+        <span>posted on 09 Aug 2011</span>
+      </h1> 
+      
+      <p>I evaluated HEAPS of code/libraries and threw in the towel and decided that getting lower-case routes, while still having Area's, was a complete and utter waste of time and effort because they were all crappy, and broke stuff, or didn't work.</p>
+
+<p>That was until my mate Brad grabbed <a href="https://github.com/mccalltd/AttributeRouting">AttributeRouting</a> from <a href="http://nuget.org/List/Packages/AttributeRouting">Nuget</a>. Oh well you know what, this is the best thing sliced bread.</p>
+
+<p>First and foremost, it solved the number 1 issue I had with routing, lowercase Urls. This is how simple is it to make Routes lowercase.</p>
+
+<pre><code>routes.MapAttributeRoutes(config =&gt;
+{
+    config.UseLowercaseRoutes = true;
+});
+</code></pre>
+
+<p>Wow... Yet you bing for lowercase routes, and you end up with strange solutions... Here's a couple.</p>
+
+<p><a href="http://stackoverflow.com/questions/878578/how-can-i-have-lowercase-routes-in-asp-net-mvc">http://stackoverflow.com/questions/878578/how-can-i-have-lowercase-routes-in-asp-net-mvc</a></p>
+
+<p>This question links to:</p>
+
+<p><a href="http://coderjournal.com/2008/03/force-mvc-route-url-lowercase/">http://coderjournal.com/2008/03/force-mvc-route-url-lowercase/</a></p>
+
+<p>This breaks Area's, why? Because to handle an Area it appends <code>?Area=areaname</code> to the Url. FAIL. Probably worked great for MVC 1,but considering I've seen it linked in MVC 3 questions,I consider it fail.</p>
+
+
+      <p><a href="/2011/08/mvc-routing-with-attributes-makes-routing-awesome/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators/">Fluent NHibernate - Table Inheritance - Discriminators</a> 
@@ -303,25 +334,6 @@ FROM   [TestProduct] this_
 
       <p><a href="/2011/05/nservicebus-templates/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/04/finding-the-correct-process-id-for-a-website-for-dottrace/">Finding the correct Process Id for a website for DotTrace</a> 
-        <span>posted on 28 Apr 2011</span>
-      </h1> 
-      
-      <p>Finding which process belonged to which application pool was simple in IIS6, it was a simple case of running up a Command Prompt and typing in <code>iisapp.vbs</code>.</p>
-
-<p>Unfortunately the script wasn't bought across to IIS7. So when it came to profiling a site I was baffled as to why the DotTrace results were showing information for threads completely unrelated to the website I was looking at.</p>
-
-<p>Turns out I was looking at the wrong Process Id...</p>
-
-<p><img src="/images/process-1.png" alt="" /></p>
-
-<p>So I needed to figure out which Process Id belonged to which site.</p>
-
-
-      <p><a href="/2011/04/finding-the-correct-process-id-for-a-website-for-dottrace/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -392,6 +404,7 @@ FROM   [TestProduct] this_
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2013December">December, 2013</a></li>
                           <li><a href="/archive#2013November">November, 2013</a></li>
                           <li><a href="/archive#2013October">October, 2013</a></li>
                           <li><a href="/archive#2013September">September, 2013</a></li>

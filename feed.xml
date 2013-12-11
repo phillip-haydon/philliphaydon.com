@@ -1,4 +1,154 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/11/snow-gets-drafts/</guid><link>http://www.philliphaydon.com/2013/11/snow-gets-drafts/</link><title>Snow gets Drafts!</title><description>&lt;p&gt;A special thanks goes out to &lt;a href="https://twitter.com/johanilsson"&gt;@johanilsson&lt;/a&gt; for this new feature!&lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/12/git-support-in-visual-studio-2013-is-actually-quite-cool/</guid><link>http://www.philliphaydon.com/2013/12/git-support-in-visual-studio-2013-is-actually-quite-cool/</link><title>Git support in Visual Studio 2013... is actually quite cool!</title><description>&lt;p&gt;Lately I've found myself using the new Git support in Visual Studio 2013 more and more, it turns out once you get used to it, its quite handy! Initially my thoughts were its rubbish, mostly because I found it cumbersome, or maybe just that things weren't working the way I thought they were. I do fine some things strange, but it's still completely usable!&lt;/p&gt;
+
+&lt;p&gt;How does it all work?&lt;/p&gt;
+
+&lt;p&gt;Let's start by creating a new project:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/git-support-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;I ticked the &lt;code&gt;Create new Git repository&lt;/code&gt; option in the bottom right hand corner, this just initializes the folder for you. &lt;/p&gt;
+
+&lt;p&gt;Now that the project is created, we can open the Team Explorer, it should look something like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/git-support-02.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;I'm not entirely sure why it does this but when I create new projects, the solution file is never included by default?!?&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;So the solution file is excluded, we can right click the file(s) and include them...&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/git-support-03.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now this gets included with the pend... Included Changes. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/git-support-04.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;If we want to exclude stuff, we can right click in the Included Changes:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/git-support-05.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is very handy, I was working on a project earlier where I couldn't be bothered typing the login credentials in every time. So I hard coded them in the View and excluded the file so it wouldn't get picked up in the Included Changes. Was nice being able to quickly Right Click &gt; Exclude&lt;/p&gt;
+
+&lt;p&gt;Now we can add a comment and commit:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/git-support-06.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;The commit is created locally:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/git-support-07.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we need to push it, if we click on &lt;code&gt;Unsynced Commits&lt;/code&gt; we currently get a screen asking us to push to a Remote Repository.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/git-support-08.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;If we enter a URL and try to push:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/git-support-11.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;My remote repository doesn't exist yet :( so creating it on GitHub:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/git-support-12.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now... where to push from?!? HAH, this is where I got confused. If you try to push before your repository exists, it sort of breaks the workflow. So to fix it, click on the Arrow next to &lt;code&gt;master&lt;/code&gt; branch. And select &lt;code&gt;Manage Branches&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/git-support-13.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can then see &lt;code&gt;Unpublished Branches&lt;/code&gt;, right click on your master branch and select &lt;code&gt;Publish&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Visiting GitHub we can see all our pushed changes!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/git-support-14.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Awesome! Back in Visual Studio, if we navigate back to our &lt;code&gt;Changes&lt;/code&gt;, we can click on the &lt;code&gt;Action&lt;/code&gt; button next to &lt;code&gt;Commit&lt;/code&gt; and select &lt;code&gt;View History&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/git-support-09.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;this feature seems to lag a little when loading up a large history&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;We can see all the history on our commits, for the current selected branch.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/git-support-10.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;I think this support for Git in Visual Studio is really awesome! I suggest you take a look, I still use console primarily, but this is really handy, and I find myself committing more often, which is always a good thing!&lt;/p&gt;
+
+&lt;p&gt;It's also nice to be able to see changed files in Visual Studio!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/git-support-15.png" alt="" /&gt;&lt;/p&gt;
+</description><pubDate>Wed, 11 Dec 2013 16:00:00 Z</pubDate><a10:updated>2013-12-11T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Lately I've found myself using the new Git support in Visual Studio 2013 more and more, it turns out once you get used to it, its quite handy! Initially my thoughts were its rubbish, mostly because I found it cumbersome, or maybe just that things weren't working the way I thought they were. I do fine some things strange, but it's still completely usable!&lt;/p&gt;
+
+&lt;p&gt;How does it all work?&lt;/p&gt;
+
+&lt;p&gt;Let's start by creating a new project:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;I ticked the &lt;code&gt;Create new Git repository&lt;/code&gt; option in the bottom right hand corner, this just initializes the folder for you. &lt;/p&gt;
+
+&lt;p&gt;Now that the project is created, we can open the Team Explorer, it should look something like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-02.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;I'm not entirely sure why it does this but when I create new projects, the solution file is never included by default?!?&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;So the solution file is excluded, we can right click the file(s) and include them...&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-03.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now this gets included with the pend... Included Changes. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-04.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;If we want to exclude stuff, we can right click in the Included Changes:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-05.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is very handy, I was working on a project earlier where I couldn't be bothered typing the login credentials in every time. So I hard coded them in the View and excluded the file so it wouldn't get picked up in the Included Changes. Was nice being able to quickly Right Click &gt; Exclude&lt;/p&gt;
+
+&lt;p&gt;Now we can add a comment and commit:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-06.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;The commit is created locally:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-07.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we need to push it, if we click on &lt;code&gt;Unsynced Commits&lt;/code&gt; we currently get a screen asking us to push to a Remote Repository.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-08.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;If we enter a URL and try to push:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-11.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;My remote repository doesn't exist yet :( so creating it on GitHub:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-12.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now... where to push from?!? HAH, this is where I got confused. If you try to push before your repository exists, it sort of breaks the workflow. So to fix it, click on the Arrow next to &lt;code&gt;master&lt;/code&gt; branch. And select &lt;code&gt;Manage Branches&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-13.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can then see &lt;code&gt;Unpublished Branches&lt;/code&gt;, right click on your master branch and select &lt;code&gt;Publish&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Visiting GitHub we can see all our pushed changes!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-14.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Awesome! Back in Visual Studio, if we navigate back to our &lt;code&gt;Changes&lt;/code&gt;, we can click on the &lt;code&gt;Action&lt;/code&gt; button next to &lt;code&gt;Commit&lt;/code&gt; and select &lt;code&gt;View History&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-09.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;this feature seems to lag a little when loading up a large history&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;We can see all the history on our commits, for the current selected branch.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-10.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;I think this support for Git in Visual Studio is really awesome! I suggest you take a look, I still use console primarily, but this is really handy, and I find myself committing more often, which is always a good thing!&lt;/p&gt;
+
+&lt;p&gt;It's also nice to be able to see changed files in Visual Studio!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-15.png" alt="" /&gt;&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/11/snow-gets-drafts/</guid><link>http://www.philliphaydon.com/2013/11/snow-gets-drafts/</link><title>Snow gets Drafts!</title><description>&lt;p&gt;A special thanks goes out to &lt;a href="https://twitter.com/johanilsson"&gt;@johanilsson&lt;/a&gt; for this new feature!&lt;/p&gt;
 
 &lt;p&gt;Snow now ships with Drafts and Privates, this is a really cool feature since it allows you to create drafts, and a page to list all drafts (optional). &lt;/p&gt;
 
@@ -1362,191 +1512,4 @@ series:
 &lt;p&gt;BAM! Now we have Nancy... Running on Mono... on nginx... Ubuntu... on Azure...&lt;/p&gt;
 
 &lt;p&gt;How awesome is that! &lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/06/setting-up-mono-on-nginx/</guid><link>http://www.philliphaydon.com/2013/06/setting-up-mono-on-nginx/</link><title>Setting up Mono on nginx</title><description>&lt;p&gt;Now we get to the fun stuff, getting up Mono. I'll be demoing with Mono 2.10 but after this series I may include a 6th part on how build Mono 3.0 from source and run it. &lt;/p&gt;
-
-&lt;h2&gt;Setting up our test page&lt;/h2&gt;
-
-&lt;p&gt;I figured we should start with setting up our test page. Something super simple, we will create a new page that outputs a bit of server side text. &lt;/p&gt;
-
-&lt;p&gt;We wont deploy a bin folder or anything like that, it will be almost like deploying Classic ASP. &lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;%@ Page Language="C#" AutoEventWireup="true" %&amp;gt;
-
-&amp;lt;!DOCTYPE html&amp;gt;
-&amp;lt;html xmlns="http://www.w3.org/1999/xhtml"&amp;gt;
-&amp;lt;head runat="server"&amp;gt;
-    &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
-&amp;lt;/head&amp;gt;
-&amp;lt;body&amp;gt;
-    &amp;lt;div&amp;gt;
-    &amp;lt;% var test = "Hello World! Got an aspx page running on nginx!!!"; %&amp;gt;
-
-    &amp;lt;%= test %&amp;gt;
-    &amp;lt;/div&amp;gt;
-&amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So we are just creating a variable named &lt;code&gt;test&lt;/code&gt; with some test data, then outputting it to the page. &lt;/p&gt;
-
-</description><pubDate>Thu, 27 Jun 2013 16:00:00 Z</pubDate><a10:updated>2013-06-27T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Now we get to the fun stuff, getting up Mono. I'll be demoing with Mono 2.10 but after this series I may include a 6th part on how build Mono 3.0 from source and run it. &lt;/p&gt;
-
-&lt;h2&gt;Setting up our test page&lt;/h2&gt;
-
-&lt;p&gt;I figured we should start with setting up our test page. Something super simple, we will create a new page that outputs a bit of server side text. &lt;/p&gt;
-
-&lt;p&gt;We wont deploy a bin folder or anything like that, it will be almost like deploying Classic ASP. &lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;%@ Page Language="C#" AutoEventWireup="true" %&amp;gt;
-
-&amp;lt;!DOCTYPE html&amp;gt;
-&amp;lt;html xmlns="http://www.w3.org/1999/xhtml"&amp;gt;
-&amp;lt;head runat="server"&amp;gt;
-    &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
-&amp;lt;/head&amp;gt;
-&amp;lt;body&amp;gt;
-    &amp;lt;div&amp;gt;
-    &amp;lt;% var test = "Hello World! Got an aspx page running on nginx!!!"; %&amp;gt;
-
-    &amp;lt;%= test %&amp;gt;
-    &amp;lt;/div&amp;gt;
-&amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So we are just creating a variable named &lt;code&gt;test&lt;/code&gt; with some test data, then outputting it to the page. &lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;p&gt;We need to navigate to our site directory by calling &lt;code&gt;cd /var/www/phillip.pw&lt;/code&gt; followed by creating a new file in nano by calling &lt;code&gt;nano test.aspx&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;This will open up a new nano window. Now you can type in the test code, or paste it in. Now we need to save it by calling &lt;kbd&gt;CTRL&lt;/kbd&gt; + &lt;kbd&gt;X&lt;/kbd&gt; followed by &lt;kbd&gt;Y&lt;/kbd&gt; and &lt;kbd&gt;Enter&lt;/kbd&gt;. Same thing we have been doing in the other parts. &lt;/p&gt;
-
-&lt;h2&gt;Installing Mono&lt;/h2&gt;
-
-&lt;p&gt;Now that our test page is ready, we can install Mono by calling &lt;code&gt;apt-get install mono-complete&lt;/code&gt;, your window should now look like&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-3-1.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Hit &lt;kbd&gt;Y&lt;/kbd&gt; and &lt;kbd&gt;Enter&lt;/kbd&gt;, and let it install... this could take a while.&lt;/p&gt;
-
-&lt;p&gt;Next we want to install the fastcgi-mono-server4 package. So call &lt;code&gt;apt-get install mono-fastcgi-server4&lt;/code&gt; and install. This package is super small so will install quickly.&lt;/p&gt;
-
-&lt;p&gt;To quickly test that Mono is installed call &lt;code&gt;mono -V&lt;/code&gt; you should get something like so&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-3-2.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;h2&gt;Configuring our website!&lt;/h2&gt;
-
-&lt;p&gt;We need to head on over to the nginx server configuration. So call &lt;code&gt;cd /etc/nginx/sites-available&lt;/code&gt; followed by &lt;code&gt;nano default&lt;/code&gt; so we can edit our site to use the fastcgi stuff.&lt;/p&gt;
-
-&lt;p&gt;We need to add the fastcgi stuff, its important to note the include path. If you remember from Part 1 I mentioned the &lt;code&gt;fastcgi_params&lt;/code&gt; file, well we need to point to that file. We will modify that next.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;server {
-    # the port the site is listening on
-    listen 80;
-
-    # the hostname
-    server_name *.phillip.pw;
-
-    # the path to where we host the site
-    root /var/www/phillip.pw;
-
-    # the default page
-    index index.html;
-
-    location / {
-        fastcgi_index /index.html;
-        fastcgi_pass 127.0.0.1:9000;
-        include /etc/nginx/fastcgi_params;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;span class="note"&gt;Note how the fastcgi stuff is put into a location followed by a forward slash to indicate that its location is the root. If you put it in the root of server (with no location scope) you will end up with nginx throwing an error like&lt;/span&gt; &lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;root@mono-sample-ph:/var/log/mono# nginx
-  nginx: [emerg] "fastcgi_pass" directive is not allowed here in /etc/nginx/sites-enabled/default:34&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Save the file and exit. &lt;/p&gt;
-
-&lt;p&gt;Now drop down 1 level by calling &lt;code&gt;cd ..&lt;/code&gt; and then calling &lt;code&gt;ls&lt;/code&gt; to view the directory listing.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-3-3.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;We need to modify the fastcgi_params file, we open it up in nano... &lt;code&gt;nano fastcgi_params&lt;/code&gt; and we need to add the two following lines of code to the bottom of the file:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;fastcgi_param   PATH_INFO               "";
-fastcgi_param   SCRIPT_FILENAME         $document_root$fastcgi_script_name;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So you should end up with something like&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-3-4.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Save and exit that file. &lt;/p&gt;
-
-&lt;h2&gt;Setting up the Mono Site&lt;/h2&gt;
-
-&lt;p&gt;So we need to configure a site in Mono as well. This part was a little confusing for me initially. Basically we need to create all of this manually.&lt;/p&gt;
-
-&lt;p&gt;Head back to &lt;code&gt;cd /etc&lt;/code&gt; and call &lt;code&gt;ls&lt;/code&gt;, in here you should see an file called &lt;code&gt;init.d&lt;/code&gt;. Some tutorials on the internet show this file in &lt;code&gt;/etc/rc.d/init.d&lt;/code&gt; but this is actually because some versions of Linux put it in 1 place, while other versions put it in the other. And I think those who put it in &lt;code&gt;rc.d&lt;/code&gt; do a syslink to the root &lt;code&gt;init.d&lt;/code&gt; version. &lt;/p&gt;
-
-&lt;p&gt;In any-case on Ubuntu, &lt;code&gt;rc.d&lt;/code&gt; does not exist. So we want to navigate into &lt;code&gt;init.d&lt;/code&gt; so call &lt;code&gt;cd init.d&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Create a new directory in here called &lt;code&gt;mono-fastcgi&lt;/code&gt; by calling &lt;code&gt;mkdir mono-fastcgi&lt;/code&gt; and then navigate to it.&lt;/p&gt;
-
-&lt;p&gt;Here we want to create a Web App file, this is a configuration file for our site.&lt;/p&gt;
-
-&lt;p&gt;Create a new file with nano... &lt;code&gt;nano phillip.pw.webapp&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Write the following text into the file:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;apps&amp;gt;
-&amp;lt;web-application&amp;gt;
-        &amp;lt;name&amp;gt;phillip.pw&amp;lt;/name&amp;gt;
-        &amp;lt;vhost&amp;gt;*&amp;lt;/vhost&amp;gt;
-        &amp;lt;vport&amp;gt;80&amp;lt;/vport&amp;gt;
-        &amp;lt;vpath&amp;gt;/&amp;lt;/vpath&amp;gt;
-        &amp;lt;path&amp;gt;/var/www/phillip.pw&amp;lt;/path&amp;gt;
-&amp;lt;/web-application&amp;gt;
-&amp;lt;/apps&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;All these names and paths should be familiar if you've been following from Parts 1/2&lt;/p&gt;
-
-&lt;h2&gt;Setting up the log files&lt;/h2&gt;
-
-&lt;p&gt;Now we need to navigate to &lt;code&gt;cd /var/log&lt;/code&gt; and create a new directory called mono &lt;code&gt;mkdir mono&lt;/code&gt;, navigate into the directory, &lt;code&gt;cd mono&lt;/code&gt;, and create a new file called &lt;code&gt;fastcgi.log&lt;/code&gt;. To create a new file just call &lt;code&gt;&amp;gt; fastcgi.log&lt;/code&gt; which will create a new empty file.&lt;/p&gt;
-
-&lt;h2&gt;Registering fastcgi-mono-server&lt;/h2&gt;
-
-&lt;p&gt;Lastly we need to configure the server. We can start the FastCGI background process by calling&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;fastcgi-mono-server4 --appconfigdir /etc/init.d/mono-fastcgi /socket=tcp:127.0.0.1:9000 /logfile=/var/log/mono/fastcgi.log &amp;amp;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;(if it's hard to scroll, here's the same line broken down into pieces)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;fastcgi-mono-server4 
-    --appconfigdir /etc/init.d/mono-fastcgi 
-    /socket=tcp:127.0.0.1:9000 
-    /logfile=/var/log/mono/fastcgi.log &amp;amp;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Notice the paths match those we just created.&lt;/p&gt;
-
-&lt;p&gt;You should have a terminal that looks like:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-3-5.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now give nginx a restart by calling &lt;code&gt;service nginx restart&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2&gt;The big test&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-3-6.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;BAM Just like that we now have an ASPX page running on Mono, on nginx, on Ubuntu, on Azure! &lt;/p&gt;
 </a10:content></item></channel></rss>

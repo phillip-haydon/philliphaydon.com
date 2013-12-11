@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-11-21T22:08:08.7776887+08:00" />
+    <meta http-equiv="last-modified" content="2013-12-12T00:17:24.7051415+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page4/" />
@@ -35,6 +35,45 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/02/oauth-with-asp-net-mvc-and-world-domination-authentication/">OAuth with ASP.NET MVC and WorldDomination.Web.Authentication</a> 
+        <span>posted on 05 Feb 2013</span>
+      </h1> 
+      
+      <p>This post is a follow on from my previous post <a href="/2013/01/oauth-with-nancyfx-and-world-domination-authentication/">OAuth with NancyFX and WorldDomination.Web.Authentication</a> except this demonstrates how you can use WorldDomination.Web.Authentication with ASP.NET MVC, writing only minimal code in the process.</p>
+
+<p>To save you jumping to the other post, I'll quote myself:</p>
+
+<blockquote>
+  <p>One of the biggest pains of building websites, in my opinion, is implementing OAuth providers, it's often fiddly, doesn't work, and frameworks that are created to try make things easier, don't seem to make it easier. </p>
+  
+  <p>So <a href="https://github.com/PureKrome">PureKrome</a> and myself decided to create <a href="http://www.nuget.org/packages/WorldDomination.Web.Authentication/">WorldDomination: Web Authentication</a></p>
+  
+  <p>The idea behind this framework is to keep it super simple to implement OAuth into your website, without the bloat. The core framework ONLY deals with Google, Twitter, and Facebook authentication. It doesn't try to create a fancy UI for you, it doesn't require you to write lots and lots of code. You simply give it some info, it redirects, it comes back and gives you the authentication info.</p>
+</blockquote>
+
+<p>So without further adieu...</p>
+
+<h3>Installing</h3>
+
+<p>Installing the library for MVC requires installing the MVC specific library.</p>
+
+<blockquote>
+  <p>PM> Install-Package WorldDomination.Web.Authentication.Mvc</p>
+</blockquote>
+
+<p>This will install:</p>
+
+<ul>
+<li>WorldDomination.Web.Authentication.Mvc</li>
+<li>WorldDomination.Web.Authentication</li>
+<li>RestSharp</li>
+</ul>
+
+
+      <p><a href="/2013/02/oauth-with-asp-net-mvc-and-world-domination-authentication/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/01/oauth-with-nancyfx-and-world-domination-authentication/">OAuth with NancyFX and WorldDomination.Web.Authentication</a> 
@@ -276,31 +315,6 @@ namespace SampleProject.ViewModels
 
       <p><a href="/2013/01/microsoft-surface-so-awesome-with-issues/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2012/12/configuring-multiple-forms-authentication-sections-with-nancyfx/">Configuring multiple Forms Authentication sections with NancyFX</a> 
-        <span>posted on 20 Dec 2012</span>
-      </h1> 
-      
-      <p>So Phil Jones posted on twitter recently his desire to have multiple Forms Auth's for different area's in a website.</p>
-
-<p>The most common scenario is having an Administration and Member with completely separated logins.</p>
-
-<p><img src="/images/image35.png" /></p>
-
-<p>This is actually really easy in NancyFX. Expanding on my previous post:</p>
-
-<p><a href="/2012/12/forms-authentication-with-nancyfx/">http://www.philliphaydon.com/2012/12/forms-authentication-with-nancyfx/</a></p>
-
-<p>I'm going to include a new area and a couple of new modules:</p>
-
-<p><img src="/images/image36.png" /></p>
-
-<p>I've added a folder called 'Admin' this is to act as an Area as described in my post about Nancy &amp; Areas.</p>
-
-
-      <p><a href="/2012/12/configuring-multiple-forms-authentication-sections-with-nancyfx/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -371,6 +385,7 @@ namespace SampleProject.ViewModels
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2013December">December, 2013</a></li>
                           <li><a href="/archive#2013November">November, 2013</a></li>
                           <li><a href="/archive#2013October">October, 2013</a></li>
                           <li><a href="/archive#2013September">September, 2013</a></li>
