@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-12-12T00:21:31.4722016+08:00" />
+    <meta http-equiv="last-modified" content="2013-12-18T00:56:09.0826550+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page9/" />
@@ -35,6 +35,37 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/08/nhibernate-work-around-is-not-really-a-work-around/">NHibernate Work-Around is not really a Work-Around...</a> 
+        <span>posted on 15 Aug 2011</span>
+      </h1> 
+      
+      <p>Over the weekend I came across a blog post about NHibernate, and an apparent work-around for a feature not supported by NHibernate.</p>
+
+<p>The original post can be found here: <a href="http://www.arrangeactassert.com/nhibernate-linq-workaround-for-system-notsupportedexception/">nHibernate LINQ workaround for System.NotSupportedException</a></p>
+
+<p>Basically the author wanted to write something along the lines of:</p>
+
+<pre><code>var fruitIds = new List&lt;int&gt; { 5, 8, 13 };
+
+using (var session = factory.OpenSession())
+{
+    var result = from f in session.Query&lt;NHFruit&gt;()
+                 join i in fruitIds
+                     on f.Id equals i
+                 select f;
+
+    foreach (var fruit in result)
+        Console.WriteLine(fruit.Name);
+}
+</code></pre>
+
+<p>Where the query joins to a list of Ids to filter the results out. This however, happens to throw an exception:</p>
+
+
+      <p><a href="/2011/08/nhibernate-work-around-is-not-really-a-work-around/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/08/mvc-routing-with-attributes-makes-routing-awesome/">MVC Routing with Attributes makes routing awesome</a> 
@@ -301,38 +332,6 @@ FROM   [TestProduct] this_
 </code></pre>
 
       <p><a href="/2011/05/nhibernate-querying-for-max-value/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/05/nservicebus-templates/">NServiceBus Templates</a> 
-        <span>posted on 12 May 2011</span>
-      </h1> 
-      
-      <p>For anyone whose interested, the Visual Studio Gallery has some templates for NServiceBus.</p>
-
-<p><a href="http://visualstudiogallery.msdn.microsoft.com/9546d382-7ffa-4fb8-8c0f-b7825d5fd085">http://visualstudiogallery.msdn.microsoft.com/9546d382-7ffa-4fb8-8c0f-b7825d5fd085</a></p>
-
-<hr />
-
-<p>NServiceBus Templates includes project and item templates for those building solutions upon NServiceBus.</p>
-
-<p><strong>Project Templates</strong>    </p>
-
-<ul>
-<li>Client Endpoint - defines a project that performs as a client</li>
-<li>Server Endpoint - defines a project that performs as a server</li>
-<li>Publisher Endpoint - defines a project that performs as a publisher</li>
-</ul>
-
-<p><strong>Item Templates</strong>  </p>
-
-<ul>
-<li>Message Handler - default implementation of the IHandleMessages<T> interface</li>
-<li>EndpointConfig - default implementation of developer endpoint configuration</li>
-</ul>
-
-
-      <p><a href="/2011/05/nservicebus-templates/">Read more...</a></p>
     </li>
   </ul> 
 

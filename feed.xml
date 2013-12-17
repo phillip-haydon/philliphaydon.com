@@ -1,4 +1,172 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/12/git-support-in-visual-studio-2013-is-actually-quite-cool/</guid><link>http://www.philliphaydon.com/2013/12/git-support-in-visual-studio-2013-is-actually-quite-cool/</link><title>Git support in Visual Studio 2013... is actually quite cool!</title><description>&lt;p&gt;Lately I've found myself using the new Git support in Visual Studio 2013 more and more, it turns out once you get used to it, its quite handy! Initially my thoughts were its rubbish, mostly because I found it cumbersome, or maybe just that things weren't working the way I thought they were. I do fine some things strange, but it's still completely usable!&lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/12/unit-testing-workflow-foundation-bookmarks-easily/</guid><link>http://www.philliphaydon.com/2013/12/unit-testing-workflow-foundation-bookmarks-easily/</link><title>Unit testing Workflow Foundation Bookmarks... easily...</title><description>&lt;p&gt;I'm not a fan of Workflow Foundation, but you got to do what you got to do. Usually when using WF, unit testing an activity is rather easy. Invoke with some data, assert the out value, possibly watch some methods on some dependencies...&lt;/p&gt;
+
+&lt;p&gt;But when it comes to testing Bookmarks, if the bookmark is created, and resuming it, it's not easy...&lt;/p&gt;
+
+&lt;p&gt;Well that is unless you're using &lt;a href="http://wf.codeplex.com"&gt;Microsoft.Activities.UnitTesting&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;So creating some new projects, a workflow project and a class library for testing...&lt;/p&gt;
+
+</description><pubDate>Tue, 17 Dec 2013 16:00:00 Z</pubDate><a10:updated>2013-12-17T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;I'm not a fan of Workflow Foundation, but you got to do what you got to do. Usually when using WF, unit testing an activity is rather easy. Invoke with some data, assert the out value, possibly watch some methods on some dependencies...&lt;/p&gt;
+
+&lt;p&gt;But when it comes to testing Bookmarks, if the bookmark is created, and resuming it, it's not easy...&lt;/p&gt;
+
+&lt;p&gt;Well that is unless you're using &lt;a href="http://wf.codeplex.com"&gt;Microsoft.Activities.UnitTesting&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;So creating some new projects, a workflow project and a class library for testing...&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/workflow-02.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next we want to add the MS Libraries:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/workflow-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This will add:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Microsoft.Activities.UnitTesting&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;and&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Microsoft.Activities.Extensions&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;I've also added &lt;code&gt;xUnit&lt;/code&gt; for testing :)&lt;/p&gt;
+
+&lt;p&gt;Now we can create a basic workflow activity:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;using System.Activities;
+
+public class SampleActivity : NativeActivity&amp;lt;bool&amp;gt;
+{
+    public InArgument&amp;lt;int&amp;gt; ValueOne { get; set; }
+    public InArgument&amp;lt;int&amp;gt; ValueTwo { get; set; }
+
+    protected override bool CanInduceIdle
+    {
+        get { return true; }
+    }
+
+    protected override void Execute(NativeActivityContext context)
+    {
+        var valueOne = context.GetValue(ValueOne);
+        var valueTwo = context.GetValue(ValueTwo);
+
+        if (valueTwo % 2 == 0)
+        {
+            //We do something and return true...
+            context.SetValue(Result, true);
+
+            return;
+        }
+
+        // Else condition was not met so we sleep and come back later
+        context.CreateBookmark("Bookmark_" + valueOne, ResumeBookmarkCallback);
+    }
+
+    private void ResumeBookmarkCallback(NativeActivityContext context, Bookmark bookmark, object value)
+    {
+        // When we wake up, return false and let it try again
+        context.SetValue(Result, false);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Note: Post isn't about workflow, it's about unit testing. This is just a random example. :)&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;So completely random, given &lt;code&gt;valueTwo&lt;/code&gt; mod &lt;code&gt;2&lt;/code&gt; equals &lt;code&gt;0&lt;/code&gt; then we should set the return value as &lt;code&gt;true&lt;/code&gt;, else we create a bookmark... and when the bookmark is woken, it returns false.&lt;/p&gt;
+
+&lt;p&gt;The first thing we want to test is the super duper happy path, given &lt;code&gt;valueTwo&lt;/code&gt; is &lt;code&gt;10&lt;/code&gt; then we should get &lt;code&gt;0&lt;/code&gt; remaining and we can assert that the result is &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Fact]
+public void Given_10_For_Value_Two_Should_Have_A_Return_Argument_Of_True()
+{
+    // Arrange
+    var wfTester = WorkflowApplicationTest.Create(new SampleActivity
+    {
+        ValueOne = 123,
+        ValueTwo = 10
+    });
+
+    // Act
+    wfTester.TestActivity();
+
+    // Assert
+    wfTester.AssertOutArgument.IsTrue("Result");
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here we create an instance of the &lt;code&gt;WorkflowApplicationTest&lt;/code&gt; class, passing in an activity with data. &lt;/p&gt;
+
+&lt;p&gt;Next we call &lt;code&gt;TestActivity&lt;/code&gt; and then we &lt;code&gt;Assert&lt;/code&gt; the value. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/workflow-03.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Sure enough, it passes :)&lt;/p&gt;
+
+&lt;p&gt;Now, given the value 9, we should get a bookmark named &lt;code&gt;Bookmark_123&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Fact]
+public void Given_9_For_Value_Two_Should_Have_Bookmark_Using_Value_One()
+{
+    // Arrange
+    var wfTester = WorkflowApplicationTest.Create(new SampleActivity
+    {
+        ValueOne = 123,
+        ValueTwo = 9
+    });
+
+    // Act
+    wfTester.TestActivity();
+    wfTester.TestWorkflowApplication.GetBookmarks();
+
+    // Assert
+    Assert.Equal("Bookmark_123", wfTester.Bookmarks.First());
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Like the first test, we start out the same, except after we call &lt;code&gt;TestActivity&lt;/code&gt; we actually call &lt;code&gt;GetBookmarks&lt;/code&gt; off the &lt;code&gt;TestWorkflowApplication&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This is rather important, I couldn't find this in any of the documentation, but without this, the &lt;code&gt;Bookmarks&lt;/code&gt; property is always empty...&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/workflow-04.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;So by having the &lt;code&gt;GetBookmarks&lt;/code&gt; call, ensures the &lt;code&gt;Bookmarks&lt;/code&gt; property is populated.&lt;/p&gt;
+
+&lt;p&gt;Now, lastly we want to resume the bookmark and assert that the result is returned. We are expecting &lt;code&gt;false&lt;/code&gt; so we create a new test, similar to the last, but we resume...&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Fact]
+public void When_Resuming_A_Workflow_Should_Get_The_Return_Value_False()
+{
+    // Arrange
+    var wfTester = WorkflowApplicationTest.Create(new SampleActivity
+    {
+        ValueOne = 123,
+        ValueTwo = 9
+    });
+
+    // Act
+    wfTester.TestActivity();
+    wfTester.TestWorkflowApplication.ResumeBookmark("Bookmark_123", 0);
+
+    // Assert
+    wfTester.AssertOutArgument.IsFalse("Result");
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So again, it's similar to the second test, except rather than call &lt;code&gt;GetBookmarks&lt;/code&gt; we called &lt;code&gt;ResumeBookmark&lt;/code&gt;, passing in the bookmark name, and a value. Although in our case we don't need it, so I passed in 0.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;null is not allowed :(&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Then we assert that the value is false!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/workflow-05.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And that's it! A passing unit test! Easy peasy :)&lt;/p&gt;
+
+&lt;p&gt;I've put this test into a github repository that can be found here:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://github.com/phillip-haydon/WorkflowBookmarkUnitTest.git"&gt;https://github.com/phillip-haydon/WorkflowBookmarkUnitTest.git&lt;/a&gt;&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/12/git-support-in-visual-studio-2013-is-actually-quite-cool/</guid><link>http://www.philliphaydon.com/2013/12/git-support-in-visual-studio-2013-is-actually-quite-cool/</link><title>Git support in Visual Studio 2013... is actually quite cool!</title><description>&lt;p&gt;Lately I've found myself using the new Git support in Visual Studio 2013 more and more, it turns out once you get used to it, its quite handy! Initially my thoughts were its rubbish, mostly because I found it cumbersome, or maybe just that things weren't working the way I thought they were. I do fine some things strange, but it's still completely usable!&lt;/p&gt;
 
 &lt;p&gt;How does it all work?&lt;/p&gt;
 
@@ -1360,101 +1528,4 @@ series:
 &lt;p&gt;That's it, using the best web frameworks, NancyFX and ServiceStack, is super duper happy path easy with Mono!&lt;/p&gt;
 
 &lt;p&gt;:)&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/07/setting-up-a-nancyfx-website/</guid><link>http://www.philliphaydon.com/2013/07/setting-up-a-nancyfx-website/</link><title>Setting up a NancyFX website</title><description>&lt;p&gt;Time to setup NancyFX on Mono.&lt;/p&gt;
-
-&lt;h2&gt;Prelude!&lt;/h2&gt;
-
-&lt;p&gt;This series is done using Mono 2.10 and .NET 4.0. This wont work with a 4.5 project since we need Mono 3.0 for that, but I plan to do another series on building Mono from source since there's no package available yet.&lt;/p&gt;
-
-&lt;p&gt;Also, this post assumes you've setup FTP to upload the files, I'm not going to go into detail, but you can install &lt;code&gt;vsftpd&lt;/code&gt; and Google the setup. If you're new to Linux and followed Parts 1-3 so far, it should be easy enough to setup and install. All you need to do is authenticate using sshftp or sftp, rather than normal ftp. &lt;/p&gt;
-
-&lt;h2&gt;Creating a Nancy test project&lt;/h2&gt;
-
-&lt;p&gt;The easiest way to create a test project is to grab the &lt;a href="http://visualstudiogallery.msdn.microsoft.com/f1e29f61-4dff-4b1e-a14b-6bd0d307611a"&gt;Nancy Templates&lt;/a&gt; from the Visual Studio Gallery. &lt;/p&gt;
-
-&lt;p&gt;Using this method, we can create a new project in Visual Studio and select Nancy Application.&lt;/p&gt;
-
-</description><pubDate>Wed, 03 Jul 2013 16:00:00 Z</pubDate><a10:updated>2013-07-03T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Time to setup NancyFX on Mono.&lt;/p&gt;
-
-&lt;h2&gt;Prelude!&lt;/h2&gt;
-
-&lt;p&gt;This series is done using Mono 2.10 and .NET 4.0. This wont work with a 4.5 project since we need Mono 3.0 for that, but I plan to do another series on building Mono from source since there's no package available yet.&lt;/p&gt;
-
-&lt;p&gt;Also, this post assumes you've setup FTP to upload the files, I'm not going to go into detail, but you can install &lt;code&gt;vsftpd&lt;/code&gt; and Google the setup. If you're new to Linux and followed Parts 1-3 so far, it should be easy enough to setup and install. All you need to do is authenticate using sshftp or sftp, rather than normal ftp. &lt;/p&gt;
-
-&lt;h2&gt;Creating a Nancy test project&lt;/h2&gt;
-
-&lt;p&gt;The easiest way to create a test project is to grab the &lt;a href="http://visualstudiogallery.msdn.microsoft.com/f1e29f61-4dff-4b1e-a14b-6bd0d307611a"&gt;Nancy Templates&lt;/a&gt; from the Visual Studio Gallery. &lt;/p&gt;
-
-&lt;p&gt;Using this method, we can create a new project in Visual Studio and select Nancy Application.&lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-1.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Don't forget to make this a .NET 4.0 project, NOT a .NET 4.5 project. When running Mono 3.0 you can choose .NET 4.5.&lt;/p&gt;
-
-&lt;p&gt;Once created press F5 and you should end up with a screen like so:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-2.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;BUT, before we can publish, we need to update Nancy to the beta version (version 0.18.0) because 0.17.1 doesn't work on Mono 2.10. Hopefully if you're reading this shortly after its being published 0.18.0 will be out and you can.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Updating the Nuget Packages. We need to add the Nancy CI builds to out options.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-4.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;And we can remove the references from the project to &lt;code&gt;Nancy&lt;/code&gt; and &lt;code&gt;Nancy.Hosting.Aspnet&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-5.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;And now you can run the commands:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;install-package Nancy&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;install-package Nancy.Hosting.Aspnet&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-6.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Now we can publish the website. I'm just going to publish to the file system since this is a learning exercise. &lt;/p&gt;
-
-&lt;h2&gt;Deployment&lt;/h2&gt;
-
-&lt;p&gt;Now that we've created and updated our Nancy project, published it. Now we can deploy it! &lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-7.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;So we can remove the html files we manually created in the previous posts, and deploy our Nancy website to the FTP. &lt;/p&gt;
-
-&lt;h2&gt;Does it work?&lt;/h2&gt;
-
-&lt;p&gt;If we visit the site now, most likely we will end up with:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-8.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;This is because we originally configured our fastcgi index to be &lt;code&gt;index.aspx&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2&gt;Configure the default page&lt;/h2&gt;
-
-&lt;p&gt;We can update our nginx configuration now, call &lt;code&gt;nano /etc/nginx/sites-available/default&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-9.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Remove the &lt;code&gt;index.aspx&lt;/code&gt; part so the index is just &lt;code&gt;/&lt;/code&gt; and nothing else.&lt;/p&gt;
-
-&lt;p&gt;Now we can restart nginx to make sure the changes are picked up... &lt;code&gt;service nginx restart&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2&gt;Now does it work?!?&lt;/h2&gt;
-
-&lt;p&gt;Now we can give it a restart anddddddddddd.....&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-4-10.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;BAM! Now we have Nancy... Running on Mono... on nginx... Ubuntu... on Azure...&lt;/p&gt;
-
-&lt;p&gt;How awesome is that! &lt;/p&gt;
 </a10:content></item></channel></rss>

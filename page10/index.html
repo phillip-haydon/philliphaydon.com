@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-12-12T00:21:31.4722016+08:00" />
+    <meta http-equiv="last-modified" content="2013-12-18T00:56:09.0826550+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page10/" />
@@ -35,6 +35,38 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/05/nservicebus-templates/">NServiceBus Templates</a> 
+        <span>posted on 12 May 2011</span>
+      </h1> 
+      
+      <p>For anyone whose interested, the Visual Studio Gallery has some templates for NServiceBus.</p>
+
+<p><a href="http://visualstudiogallery.msdn.microsoft.com/9546d382-7ffa-4fb8-8c0f-b7825d5fd085">http://visualstudiogallery.msdn.microsoft.com/9546d382-7ffa-4fb8-8c0f-b7825d5fd085</a></p>
+
+<hr />
+
+<p>NServiceBus Templates includes project and item templates for those building solutions upon NServiceBus.</p>
+
+<p><strong>Project Templates</strong>    </p>
+
+<ul>
+<li>Client Endpoint - defines a project that performs as a client</li>
+<li>Server Endpoint - defines a project that performs as a server</li>
+<li>Publisher Endpoint - defines a project that performs as a publisher</li>
+</ul>
+
+<p><strong>Item Templates</strong>  </p>
+
+<ul>
+<li>Message Handler - default implementation of the IHandleMessages<T> interface</li>
+<li>EndpointConfig - default implementation of developer endpoint configuration</li>
+</ul>
+
+
+      <p><a href="/2011/05/nservicebus-templates/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/04/finding-the-correct-process-id-for-a-website-for-dottrace/">Finding the correct Process Id for a website for DotTrace</a> 
@@ -267,35 +299,6 @@ WHERE [t1].[value] = 'Robert Williams'
 <p>Great tool for anyone who hates writing XML or loves GUI's.</p>
 
       <p><a href="/2011/01/mindscape-nhibernate-designer-discount/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/01/lightspeed-and-eager-loaded-properties/">LightSpeed and Eager Loaded properties</a> 
-        <span>posted on 20 Jan 2011</span>
-      </h1> 
-      
-      <p>Today <a href="http://www.mindscapehq.com/">Mindscape</a>, the makers of the ORM <a href="http://www.mindscapehq.com/products/lightspeed">LightSpeed</a> and other awesome <a href="http://www.mindscapehq.com/products/">products</a> posted a blog on <a href="http://www.mindscapehq.com/blog/index.php/2011/01/19/controlling-lightspeed-entity-loading-with-named-aggregates/">Lazy-Loading/Eager-Loading properties</a> with LightSpeed.</p>
-
-<p>Why can't NHibernate do this! And when I say why can't NHibernate do this, I mean, why can't NHibernate do this with Query/QueryOver.</p>
-
-<p>Ayende detailed this time last year, the ability to <a href="http://ayende.com/Blog/archive/2010/01/27/nhibernate-new-feature-lazy-properties.aspx">lazy-load properties</a>, but currently Query/QueryOver only support One-To-Many and One-To-One relationships.</p>
-
-<p>NHibernate will support the ability to Lazy-Load a property but you can't specify it to be eager loaded.</p>
-
-<p>So you do</p>
-
-<pre><code>Map(x =&gt; x.FullDescription).CustomSqlType("NTEXT") 
-                           .LazyLoad();
-</code></pre>
-
-<p>Running a query would result in:</p>
-
-<p><img src="/images/lightspeed-1.png" alt="" /></p>
-
-<p>Great... But you currently cannot do:</p>
-
-
-      <p><a href="/2011/01/lightspeed-and-eager-loaded-properties/">Read more...</a></p>
     </li>
   </ul> 
 
