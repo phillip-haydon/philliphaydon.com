@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-12-18T00:56:09.0826550+08:00" />
+    <meta http-equiv="last-modified" content="2013-12-25T22:30:38.8945530+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page10/" />
@@ -35,6 +35,38 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/05/nhibernate-querying-for-max-value/">NHibernate Querying for Max value</a> 
+        <span>posted on 17 May 2011</span>
+      </h1> 
+      
+      <p>Browsing the net today for something to do with Fluent NHibernate I came across a blog post.</p>
+
+<p><a href="http://frankmao.com/2011/01/14/nhibernate-subquery/">http://frankmao.com/2011/01/14/nhibernate-subquery/</a></p>
+
+<p>The blog post is to do with Subquery, but I got a little bit confused since the post itself doesn't have anything to do with Subqueries.</p>
+
+<p>About the actual post tho, NHibernate.Linq does actually support Min/Max operators.</p>
+
+<p>Infact I just wrote a quick test to see the SQL it generated, the following code:</p>
+
+<pre><code>var result = session.Linq&lt;TestProduct&gt;().Max(x =&gt; x.Value);
+</code></pre>
+
+<p>Generates the following SQL.</p>
+
+<pre><code>SELECT max(this_.Value) as y0_
+FROM   [TestProduct] this_
+</code></pre>
+
+<p>NHibernate.Linq has basically been deprecated however since NH3.0 has it's own built in Linq provider, rewriting that query in NH3.0 would look like:</p>
+
+<pre><code>var result = session.Query&lt;BaseClass&gt;().Max(x =&gt; x.Id);
+</code></pre>
+
+      <p><a href="/2011/05/nhibernate-querying-for-max-value/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/05/nservicebus-templates/">NServiceBus Templates</a> 
@@ -278,27 +310,6 @@ WHERE [t1].[value] = 'Robert Williams'
 
 
       <p><a href="/2011/01/let-keyword-in-orms/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/01/mindscape-nhibernate-designer-discount/">Mindscape NHibernate Designer Discount</a> 
-        <span>posted on 21 Jan 2011</span>
-      </h1> 
-      
-      <p>Mindscape have a 60% discount on their NHibernate Designer.</p>
-
-<p><a href="http://www.mindscapehq.com/blog/index.php/2011/01/20/60-off-nhibernate-designer-act-fast/">http://www.mindscapehq.com/blog/index.php/2011/01/20/60-off-nhibernate-designer-act-fast/</a></p>
-
-<blockquote>
-  <p>How to obtain this special
-  When making your purchase please enter the following discount code:
-  NHSPECIAL
-  You should immediately see the price drop to $99, saving you $150 USD!</p>
-</blockquote>
-
-<p>Great tool for anyone who hates writing XML or loves GUI's.</p>
-
-      <p><a href="/2011/01/mindscape-nhibernate-designer-discount/">Read more...</a></p>
     </li>
   </ul> 
 

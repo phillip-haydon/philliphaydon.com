@@ -6,7 +6,7 @@
     <meta http-equiv="last-modified" content="2013-12-25T22:30:38.8945530+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
-    <link rel="canonical" href="http://www.philliphaydon.com/2010/09/getting-back-into-it/" />
+    <link rel="canonical" href="http://www.philliphaydon.com/2013/12/snows-new-server-feature-running-up-a-test-website-for-you/" />
 </head>
 <body class="home blog">
     <div id="page" class="hfeed site">
@@ -35,10 +35,11 @@
                   
 
 <div id="post">
-    <h1>Getting back into it :(</h1>
+    <h1>Snow's new server feature! Runs up a testing website for you.</h1>
 
     <div class="post-note">
-      posted on 28 Sep 2010
+      posted on 25 Dec 2013
+       | <a href="/category/snow">Snow</a>
       
       <div class="addthis_toolbox addthis_default_style" style="float:right;">
         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -51,11 +52,85 @@
     
     
         
-    <p>Earlier this year I changed hosting provider, had a new VSlice with Windows Server 2008 R2, SQL and all the wizz bang stuff. But within 3 weeks of setting everything up, everything went down, and I lost everything. Apparently the VM corrupted and couldn't be recovered. Not only that I made the mistake of thinking "hey, you know what, nothing bad will happen for a while, I'll setup backups next month". Only something bad did happen.</p>
+    <p>Just now I released Snow v1.4.0 :) with this we have two new features.</p>
 
-<p>I've since moved host again, and am now hosted with MammothVPS with proper backups. So hopefully it doesn't die again.</p>
+<ol>
+<li>New <code>server=true</code> argument on Snow to run up an Owin testing website.</li>
+<li>Merged assemblies</li>
+</ol>
 
-<p>It's pretty depressing to lose everything, I lost a couple of projects I had spent a couple of years building that had only been live a month or so. So depressing it put me off wanting to blog anything. So hopefully I can get back into it again.</p>
+<h2>New server argument</h2>
+
+<p>When running Snow, you can now pass in an additional argument <code>server=true</code> which will start up a self-hosted website which will allow you to test your updates before pushing them.</p>
+
+<p>Given my blog for example, my config looks like so:</p>
+
+<pre><code>.\Snow\_compiler\Snow.exe config=.\Snow\ debug=true server=true
+</code></pre>
+
+<p>Now when I run this:</p>
+
+<!--excerpt-->
+
+<p><img src="/images/snow-testing-website-01.png" alt="" /></p>
+
+<p>Awesome right?</p>
+
+<p>Special thanks to <a href="https://twitter.com/randompunter">Damian Hickey</a> &amp; <a href="https://twitter.com/davidfowl">David Fowler</a> for this feature.</p>
+
+<p>Damian told me about <a href="https://www.nuget.org/packages/microsoft.owin.staticfiles">Microsoft.Owin.StaticFiles</a>, this is an awesome package, basically you can point it to a directory and it will serve up static files. That means for me to setup Snow all I had to write was basically: </p>
+
+<pre><code>public void Configuration(IAppBuilder app)
+{
+    var fileSystem = new FileServerOptions
+    {
+        EnableDirectoryBrowsing = true,
+        FileSystem = new PhysicalFileSystem(Path.GetFullPath(Settings.Output))
+    };
+
+    app.UseFileServer(fileSystem);
+}
+</code></pre>
+
+<p>This created one little problem though :( when running this up it required the command window to be run as Administrator, which isn't very nice.</p>
+
+<p>Luckily David came to the rescue and let me know about <a href="https://github.com/Bobris/Nowin">Nowin</a>, it's a...</p>
+
+<blockquote>
+  <p>Fast and scalable Owin Web Server in pure .Net 4.5 (it does not use HttpListener)</p>
+</blockquote>
+
+<p>Plugging it in was super easy, I simply added some <code>WebApp</code> options specifying the <code>ServerFactory</code>:</p>
+
+<pre><code>var options = new StartOptions
+{
+    ServerFactory = "Nowin",
+    Port = 5498
+};
+
+using (WebApp.Start&lt;Startup&gt;(options))
+{
+    ...
+}
+</code></pre>
+
+<p>BAM, done, no more asking for admin privileges. :)</p>
+
+<h2>New merged assemblies</h2>
+
+<p>With a little help from <a href="https://twitter.com/SimonCropp">Simon Cropp</a>, I added <a href="https://www.nuget.org/packages/Costura.Fody">Costura.Fody</a>. This awesome little project merges all your assemblies, with NO effort from you at all!</p>
+
+<p>Simply install the package... and build your project!</p>
+
+<p>That's how easy it was... Well almost, there's a little problem with Razor, it requires an assembly to be loaded in the AppDomain and if it's not there it throws a wobbly, I don't quite understand but I decided to ignore that single assembly.</p>
+
+<p>The end result is, Snow now only have 1 files. A <code>.exe</code> and a <code>.dll</code></p>
+
+<p><img src="/images/snow-testing-website-02.png" alt="" /></p>
+
+<p>Much cleaner than before :)</p>
+
+<p>Snow repository and Snow.Template have been updated with the new awesomeness. </p>
 
 
     <div id="disqus_thread"></div>
@@ -65,14 +140,14 @@
             reload: true,
             config: function () {
                 //this.page.identifier = '';
-                this.page.url = 'http://www.philliphaydon.com/2010/09/getting-back-into-it/';
+                this.page.url = 'http://www.philliphaydon.com/2013/12/snows-new-server-feature-running-up-a-test-website-for-you/';
                 //this.page.title = '';
             }
         });
     };
 
     var disqus_shortname = 'philliphaydon';
-    var disqus_url = 'http://www.philliphaydon.com/2010/09/getting-back-into-it/';
+    var disqus_url = 'http://www.philliphaydon.com/2013/12/snows-new-server-feature-running-up-a-test-website-for-you/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

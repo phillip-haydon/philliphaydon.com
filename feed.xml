@@ -1,4 +1,101 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/12/unit-testing-workflow-foundation-bookmarks-easily/</guid><link>http://www.philliphaydon.com/2013/12/unit-testing-workflow-foundation-bookmarks-easily/</link><title>Unit testing Workflow Foundation Bookmarks... easily...</title><description>&lt;p&gt;I'm not a fan of Workflow Foundation, but you got to do what you got to do. Usually when using WF, unit testing an activity is rather easy. Invoke with some data, assert the out value, possibly watch some methods on some dependencies...&lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/12/snows-new-server-feature-running-up-a-test-website-for-you/</guid><link>http://www.philliphaydon.com/2013/12/snows-new-server-feature-running-up-a-test-website-for-you/</link><title>Snow's new server feature! Runs up a testing website for you.</title><description>&lt;p&gt;Just now I released Snow v1.4.0 :) with this we have two new features.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;New &lt;code&gt;server=true&lt;/code&gt; argument on Snow to run up an Owin testing website.&lt;/li&gt;
+&lt;li&gt;Merged assemblies&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;New server argument&lt;/h2&gt;
+
+&lt;p&gt;When running Snow, you can now pass in an additional argument &lt;code&gt;server=true&lt;/code&gt; which will start up a self-hosted website which will allow you to test your updates before pushing them.&lt;/p&gt;
+
+&lt;p&gt;Given my blog for example, my config looks like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;.\Snow\_compiler\Snow.exe config=.\Snow\ debug=true server=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now when I run this:&lt;/p&gt;
+
+</description><pubDate>Tue, 24 Dec 2013 16:00:00 Z</pubDate><a10:updated>2013-12-24T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Just now I released Snow v1.4.0 :) with this we have two new features.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;New &lt;code&gt;server=true&lt;/code&gt; argument on Snow to run up an Owin testing website.&lt;/li&gt;
+&lt;li&gt;Merged assemblies&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;New server argument&lt;/h2&gt;
+
+&lt;p&gt;When running Snow, you can now pass in an additional argument &lt;code&gt;server=true&lt;/code&gt; which will start up a self-hosted website which will allow you to test your updates before pushing them.&lt;/p&gt;
+
+&lt;p&gt;Given my blog for example, my config looks like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;.\Snow\_compiler\Snow.exe config=.\Snow\ debug=true server=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now when I run this:&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/snow-testing-website-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Awesome right?&lt;/p&gt;
+
+&lt;p&gt;Special thanks to &lt;a href="https://twitter.com/randompunter"&gt;Damian Hickey&lt;/a&gt; &amp;amp; &lt;a href="https://twitter.com/davidfowl"&gt;David Fowler&lt;/a&gt; for this feature.&lt;/p&gt;
+
+&lt;p&gt;Damian told me about &lt;a href="https://www.nuget.org/packages/microsoft.owin.staticfiles"&gt;Microsoft.Owin.StaticFiles&lt;/a&gt;, this is an awesome package, basically you can point it to a directory and it will serve up static files. That means for me to setup Snow all I had to write was basically: &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public void Configuration(IAppBuilder app)
+{
+    var fileSystem = new FileServerOptions
+    {
+        EnableDirectoryBrowsing = true,
+        FileSystem = new PhysicalFileSystem(Path.GetFullPath(Settings.Output))
+    };
+
+    app.UseFileServer(fileSystem);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This created one little problem though :( when running this up it required the command window to be run as Administrator, which isn't very nice.&lt;/p&gt;
+
+&lt;p&gt;Luckily David came to the rescue and let me know about &lt;a href="https://github.com/Bobris/Nowin"&gt;Nowin&lt;/a&gt;, it's a...&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Fast and scalable Owin Web Server in pure .Net 4.5 (it does not use HttpListener)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Plugging it in was super easy, I simply added some &lt;code&gt;WebApp&lt;/code&gt; options specifying the &lt;code&gt;ServerFactory&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var options = new StartOptions
+{
+    ServerFactory = "Nowin",
+    Port = 5498
+};
+
+using (WebApp.Start&amp;lt;Startup&amp;gt;(options))
+{
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;BAM, done, no more asking for admin privileges. :)&lt;/p&gt;
+
+&lt;h2&gt;New merged assemblies&lt;/h2&gt;
+
+&lt;p&gt;With a little help from &lt;a href="https://twitter.com/SimonCropp"&gt;Simon Cropp&lt;/a&gt;, I added &lt;a href="https://www.nuget.org/packages/Costura.Fody"&gt;Costura.Fody&lt;/a&gt;. This awesome little project merges all your assemblies, with NO effort from you at all!&lt;/p&gt;
+
+&lt;p&gt;Simply install the package... and build your project!&lt;/p&gt;
+
+&lt;p&gt;That's how easy it was... Well almost, there's a little problem with Razor, it requires an assembly to be loaded in the AppDomain and if it's not there it throws a wobbly, I don't quite understand but I decided to ignore that single assembly.&lt;/p&gt;
+
+&lt;p&gt;The end result is, Snow now only have 1 files. A &lt;code&gt;.exe&lt;/code&gt; and a &lt;code&gt;.dll&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/snow-testing-website-02.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Much cleaner than before :)&lt;/p&gt;
+
+&lt;p&gt;Snow repository and Snow.Template have been updated with the new awesomeness. &lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/12/unit-testing-workflow-foundation-bookmarks-easily/</guid><link>http://www.philliphaydon.com/2013/12/unit-testing-workflow-foundation-bookmarks-easily/</link><title>Unit testing Workflow Foundation Bookmarks... easily...</title><description>&lt;p&gt;I'm not a fan of Workflow Foundation, but you got to do what you got to do. Usually when using WF, unit testing an activity is rather easy. Invoke with some data, assert the out value, possibly watch some methods on some dependencies...&lt;/p&gt;
 
 &lt;p&gt;But when it comes to testing Bookmarks, if the bookmark is created, and resuming it, it's not easy...&lt;/p&gt;
 
@@ -1449,83 +1546,4 @@ series:
 &lt;p&gt;&lt;a href="http://blogs.jetbrains.com/dotnet/2013/07/webinar-recording-whats-new-in-resharper-80/"&gt;http://blogs.jetbrains.com/dotnet/2013/07/webinar-recording-whats-new-in-resharper-80/&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Take a look, its the most impressive update so far.&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/07/setting-up-a-servicestack-service/</guid><link>http://www.philliphaydon.com/2013/07/setting-up-a-servicestack-service/</link><title>Setting up a ServiceStack Service</title><description>&lt;p&gt;Time to setup a ServiceStack service!&lt;/p&gt;
-
-&lt;h2&gt;Prelude!&lt;/h2&gt;
-
-&lt;p&gt;ServiceStack is great, specially when you need to support .NET 3.5 and don't have the pleasure of being able to use .NET 4.0/4.5, you're not limited to .NET 3.5, ServiceStack works great with .NET 4.0/4.5 as well!&lt;/p&gt;
-
-&lt;p&gt;God forbid we get subjected to having to use WCF...&lt;/p&gt;
-
-&lt;p&gt;Setting this up should be super easy, we will use all the same settings as NancyFX, the only difference is we will be running ServiceStack instead. &lt;/p&gt;
-
-&lt;p&gt;The ServiceStack team take real care to ensure that it works on Mono, enough so that their website; &lt;a href="http://www.servicestack.net"&gt;http://www.servicestack.net&lt;/a&gt;, runs on Linux!&lt;/p&gt;
-
-</description><pubDate>Sun, 14 Jul 2013 16:00:00 Z</pubDate><a10:updated>2013-07-14T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Time to setup a ServiceStack service!&lt;/p&gt;
-
-&lt;h2&gt;Prelude!&lt;/h2&gt;
-
-&lt;p&gt;ServiceStack is great, specially when you need to support .NET 3.5 and don't have the pleasure of being able to use .NET 4.0/4.5, you're not limited to .NET 3.5, ServiceStack works great with .NET 4.0/4.5 as well!&lt;/p&gt;
-
-&lt;p&gt;God forbid we get subjected to having to use WCF...&lt;/p&gt;
-
-&lt;p&gt;Setting this up should be super easy, we will use all the same settings as NancyFX, the only difference is we will be running ServiceStack instead. &lt;/p&gt;
-
-&lt;p&gt;The ServiceStack team take real care to ensure that it works on Mono, enough so that their website; &lt;a href="http://www.servicestack.net"&gt;http://www.servicestack.net&lt;/a&gt;, runs on Linux!&lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;h2&gt;Creating the Sample Project&lt;/h2&gt;
-
-&lt;p&gt;One of the great things about ServiceStack is it has a bunch of awesome examples. Head on over to &lt;a href="https://github.com/ServiceStack/ServiceStack.Examples"&gt;https://github.com/ServiceStack/ServiceStack.Examples&lt;/a&gt; and download the samples. Either by downloading the repository, or cloning it. &lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-1.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;After downloading the ServiceStack Examples, navigate to &lt;code&gt;src&lt;/code&gt; and open the &lt;code&gt;ServiceStack.Hello&lt;/code&gt; project. &lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-2.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Running this project we should end up with a small Service Stack sample website like so:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-3.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;h2&gt;Quick local test&lt;/h2&gt;
-
-&lt;p&gt;Navigating to the URL; &lt;code&gt;http://localhost:62577/servicestack/metadata&lt;/code&gt; we should get the nice meta data screen:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-4.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;And navigating to the URL: &lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;http://localhost:62577/servicestack/hello/phillip&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;We end up with a response:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-5.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;We do need to make one minor change. In the root project of the folder, rename the &lt;code&gt;default.htm&lt;/code&gt; file to &lt;code&gt;index.html&lt;/code&gt;. This is only so we don't need to modify nginx to look for the default file &lt;code&gt;default.htm&lt;/code&gt; :) #lazyme&lt;/p&gt;
-
-&lt;h2&gt;Lets deploy it!&lt;/h2&gt;
-
-&lt;p&gt;So like the Nancy project, we can publish the project to a folder. The good thing about this sample is it doesn't need any database or anything like that. It's just a straight website with a Hello World service.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-6.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Once deployed we should end up with the ServiceStack site again!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-7.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Navigating to the metadata page we end up with the same screen we had locally!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-8.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;And navigating to the test URL we end up with the fancy ServiceStack response! &lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/setup-mono-on-ubuntu-part-5-9.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Hello, with love from nginx!&lt;/p&gt;
-
-&lt;p&gt;That's it, using the best web frameworks, NancyFX and ServiceStack, is super duper happy path easy with Mono!&lt;/p&gt;
-
-&lt;p&gt;:)&lt;/p&gt;
 </a10:content></item></channel></rss>
