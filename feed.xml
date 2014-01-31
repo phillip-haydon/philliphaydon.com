@@ -1,4 +1,131 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/12/snows-new-server-feature-running-up-a-test-website-for-you/</guid><link>http://www.philliphaydon.com/2013/12/snows-new-server-feature-running-up-a-test-website-for-you/</link><title>Snow's new server feature! Runs up a testing website for you.</title><description>&lt;p&gt;Just now I released Snow v1.4.0 :) with this we have two new features.&lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/01/if-youre-going-to-use-repositories-dont-have-generic-or-base-repositories/</guid><link>http://www.philliphaydon.com/2014/01/if-youre-going-to-use-repositories-dont-have-generic-or-base-repositories/</link><title>If you're going to use repositories, don't have generic or base repositories...</title><description>&lt;p&gt;Repositories are one of those patterns we hate to love or love to hate, but seems to be getting more hate lately than love. &lt;/p&gt;
+
+&lt;p&gt;Personally I don't have any real problem with repositories themselves, I just have a problem with the way it is used. &lt;/p&gt;
+
+&lt;p&gt;If you run the following search in Google:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;BaseRepository OR GenericRepository OR IRepository site:stackoverflow.com&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;You will get about 10k results on Stack Overflow for questions that contain something related to a generic repository or base repository. You end up with code snippets such as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public interface IRepository&amp;lt;TEntity&amp;gt; : IDisposable where TEntity : class
+{
+    IUnitOfWork Session { get; }
+    IList&amp;lt;TEntity&amp;gt; GetAll();
+    IList&amp;lt;TEntity&amp;gt; GetAll(Expression&amp;lt;Func&amp;lt;TEntity, bool&amp;gt;&amp;gt; predicate);
+    bool Add(TEntity entity);
+    bool Delete(TEntity entity);
+    bool Update(TEntity entity);
+    bool IsValid(TEntity entity);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+</description><pubDate>Thu, 30 Jan 2014 16:00:00 Z</pubDate><a10:updated>2014-01-30T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Repositories are one of those patterns we hate to love or love to hate, but seems to be getting more hate lately than love. &lt;/p&gt;
+
+&lt;p&gt;Personally I don't have any real problem with repositories themselves, I just have a problem with the way it is used. &lt;/p&gt;
+
+&lt;p&gt;If you run the following search in Google:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;BaseRepository OR GenericRepository OR IRepository site:stackoverflow.com&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;You will get about 10k results on Stack Overflow for questions that contain something related to a generic repository or base repository. You end up with code snippets such as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public interface IRepository&amp;lt;TEntity&amp;gt; : IDisposable where TEntity : class
+{
+    IUnitOfWork Session { get; }
+    IList&amp;lt;TEntity&amp;gt; GetAll();
+    IList&amp;lt;TEntity&amp;gt; GetAll(Expression&amp;lt;Func&amp;lt;TEntity, bool&amp;gt;&amp;gt; predicate);
+    bool Add(TEntity entity);
+    bool Delete(TEntity entity);
+    bool Update(TEntity entity);
+    bool IsValid(TEntity entity);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;Or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class GenericRepository&amp;lt;TEntity&amp;gt; : IRepository&amp;lt;TEntity&amp;gt; where TEntity : class
+{
+    public virtual IEnumerable&amp;lt;TEntity&amp;gt; FindAll(Expression&amp;lt;Func&amp;lt;TEntity, bool&amp;gt;&amp;gt; where = null)
+    {
+        // implementation ...
+    }
+
+    public virtual TEntity FindOne(Expression&amp;lt;Func&amp;lt;TEntity, bool&amp;gt;&amp;gt; where = null)
+    {
+        // implementation
+    }
+
+    public void Update(TEntity entity)
+    {
+        // update your entity ...
+    }
+
+    // etc...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These are just bad bad bad...&lt;/p&gt;
+
+&lt;h2&gt;Generic Repositories make assumptions about your domain&lt;/h2&gt;
+
+&lt;p&gt;Generic Repositories is that they make assumptions about your domain. It makes assumptions such as:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;All entities should contain Get/List/Update/Add/Delete... etc&lt;/li&gt;
+&lt;li&gt;All entities come from the same location (i.e a database)&lt;/li&gt;
+&lt;li&gt;All entities have a single primary key of some sort...&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The problem with this, is that these are all false assumptions, generic repositories seem to never take into account that entities can have composite keys or no key identifier at all. Or they require some, but not all implementations defined in the base class or interface. &lt;/p&gt;
+
+&lt;p&gt;Often people assume only a single kind of persistence, when you could load some data from a flat file, database, a web service, etc.&lt;/p&gt;
+
+&lt;p&gt;These isn't a problem is you do away with the base implementation or interface and just have explicit interfaces such as &lt;code&gt;IProductRepository&lt;/code&gt; or &lt;code&gt;IUserRepository&lt;/code&gt;, but people get so court up on the whole idea of having lots of interfaces, and instead try to opt for the generic &lt;code&gt;IRepository&amp;lt;T&amp;gt;&lt;/code&gt; until they need to implement other stuff.&lt;/p&gt;
+
+&lt;h2&gt;Generic Repositories don't prevent code duplication&lt;/h2&gt;
+
+&lt;p&gt;Generic repositories don't prevent duplication because there's no duplication to begin with! What you end up doing is abstracting an abstraction, for the sake if feeling like you're writing less code or getting implementation for free, when you're actually adding unnecessary code that may never be used!&lt;/p&gt;
+
+&lt;p&gt;If for example you have a &lt;code&gt;User&lt;/code&gt; / &lt;code&gt;UserRepository&lt;/code&gt;, you may find that your generic repository asks you to implement &lt;code&gt;Delete&lt;/code&gt;...&lt;/p&gt;
+
+&lt;p&gt;But when if you are never required to delete a user, and instead you Deactivate a user, or disable a users login, but keep the user because hes actually attached to data in the system...&lt;/p&gt;
+
+&lt;p&gt;You end up implementing methods, or overriding existing methods to have no implementation or throw a NotImplementedException. This is just bad design. &lt;/p&gt;
+
+&lt;p&gt;You could argue "Oh but when I implement &lt;code&gt;GetById&lt;/code&gt; I have to duplicate it..."&lt;/p&gt;
+
+&lt;p&gt;Except you're not duplicating it, just because two things do similar or the same things, doesn't mean its duplicated.&lt;/p&gt;
+
+&lt;p&gt;Lets say you have a &lt;code&gt;UserRepository&lt;/code&gt; and &lt;code&gt;OrderRepository&lt;/code&gt;, both have a method defined in a base repository called &lt;code&gt;GetById&lt;/code&gt;, if you changed &lt;code&gt;GetById&lt;/code&gt; for a User, you're changing the way the Order one works. You're potentially breaking your application. These two look the same, but they are different. It's not duplication!&lt;/p&gt;
+
+&lt;h2&gt;Repositories for everything&lt;/h2&gt;
+
+&lt;p&gt;The next issue is people end up creating repositories for everything, not their aggregate roots. For example, say we have an &lt;code&gt;Order&lt;/code&gt; / &lt;code&gt;OrderLine&lt;/code&gt; scenario...&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Order
+{
+  public int Id { get; set; }
+  ...
+
+  public IList&amp;lt;OrderLine&amp;gt; Lines { get; set; }
+}
+
+public class OrderLine
+{
+  public int Id { get; set; }
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Often enough people will create an &lt;code&gt;OrderRepository&lt;/code&gt; and &lt;code&gt;OrderLineRepository&lt;/code&gt;, or use their Generic repositories like &lt;code&gt;BaseRepository&amp;lt;Order&amp;gt;&lt;/code&gt; and &lt;code&gt;BaseRepository&amp;lt;OrderLine&amp;gt;&lt;/code&gt;, the problem is, everything to do with an &lt;code&gt;OrderLine&lt;/code&gt; is actually the responsibility of the &lt;code&gt;Order&lt;/code&gt; and not anything else. &lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/12/snows-new-server-feature-running-up-a-test-website-for-you/</guid><link>http://www.philliphaydon.com/2013/12/snows-new-server-feature-running-up-a-test-website-for-you/</link><title>Snow's new server feature! Runs up a testing website for you.</title><description>&lt;p&gt;Just now I released Snow v1.4.0 :) with this we have two new features.&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;New &lt;code&gt;server=true&lt;/code&gt; argument on Snow to run up an Owin testing website.&lt;/li&gt;
@@ -1483,67 +1610,4 @@ series:
 &lt;p&gt;I'm going to gift 3 Kindle Copies of the book, if you would like a copy, comment or tweet the book with the hash-tag #nancyfx and I'll pick 3 people on the 4th of October. &lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;(If you comment below, please use your real email address so I can contact you should you win, its only visible to me)&lt;/em&gt;&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/08/love-the-new-resharper-8-best-update-to-date/</guid><link>http://www.philliphaydon.com/2013/08/love-the-new-resharper-8-best-update-to-date/</link><title>Love the new ReSharper 8, best update to date!</title><description>&lt;p&gt;It was only little over a week ago that ReSharper 8 came out. It's not something that I really follow, but because of that I keep finding all these new features in R# 8 that are absolutely AWESOME!&lt;/p&gt;
-
-&lt;p&gt;The R# team, if you see this. Congrats on such an awesome effort really pushing the boundaries of what R# can do with V8.  &lt;/p&gt;
-
-&lt;h2&gt;ToString on Dates!&lt;/h2&gt;
-
-&lt;p&gt;This is simply amazing, often I would throw up Google and search "stevex string format" and pull up a pretty detailed blog post on string formatting. &lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/resharper8-1.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;This single feature along, in my opinion, is worth the $ to upgrade to R# 8!!!! &lt;/p&gt;
-
-</description><pubDate>Fri, 02 Aug 2013 16:00:00 Z</pubDate><a10:updated>2013-08-02T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;It was only little over a week ago that ReSharper 8 came out. It's not something that I really follow, but because of that I keep finding all these new features in R# 8 that are absolutely AWESOME!&lt;/p&gt;
-
-&lt;p&gt;The R# team, if you see this. Congrats on such an awesome effort really pushing the boundaries of what R# can do with V8.  &lt;/p&gt;
-
-&lt;h2&gt;ToString on Dates!&lt;/h2&gt;
-
-&lt;p&gt;This is simply amazing, often I would throw up Google and search "stevex string format" and pull up a pretty detailed blog post on string formatting. &lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/resharper8-1.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;This single feature along, in my opinion, is worth the $ to upgrade to R# 8!!!! &lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;p&gt;It's not just dates though... It works with any .NET type that supports built-in &lt;code&gt;ToString(...)&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/resharper8-2.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;That's epic!&lt;/p&gt;
-
-&lt;h2&gt;Keyboard Shortcuts&lt;/h2&gt;
-
-&lt;p&gt;This tricked me at first, but it seems all the keyboard shortcuts have been reduced down, before I would use the IntelliJ keys &lt;kbd&gt;CTRL&lt;/kbd&gt; + &lt;kbd&gt;N&lt;/kbd&gt; which would bring up the Type Search. Now it brings up Search Anything, and with a second press of &lt;kbd&gt;N&lt;/kbd&gt; it will bring up the Type Search. (Keys are &lt;kbd&gt;CTRL&lt;/kbd&gt; + &lt;kbd&gt;T&lt;/kbd&gt; if you're using Visual Studio keys)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/resharper8-3.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;And&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/resharper8-4.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;This is super handy, it feels like less keystrokes to learn, and a lot of the time I was finding myself searching Types, then trying Symbols, then trying Files. Now I can search all at once!&lt;/p&gt;
-
-&lt;h2&gt;Plugin Manager&lt;/h2&gt;
-
-&lt;p&gt;This is another amazingly awesome feature. With the success of Nuget, the R# team have created their own Plugin Manager using the Nuget platform since it's &lt;a href="http://nuget.codeplex.com"&gt;open source&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/resharper8-5.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;The Extensions Manager opens up Jet Brains own Nuget type Dialog:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/resharper8-6.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;And bam it's that easy to install xUnit now. That plugin that used to be a pain in the ass to install, upgrade, etc. Now it's as simple as pressing &lt;code&gt;install&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2&gt;What else&lt;/h2&gt;
-
-&lt;p&gt;These were the things I found myself among other little things, but &lt;a href="https://twitter.com/hhariri"&gt;@Hadi&lt;/a&gt; pointed me out to the Webinar Recording on What's New in ReSharper 8&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="http://blogs.jetbrains.com/dotnet/2013/07/webinar-recording-whats-new-in-resharper-80/"&gt;http://blogs.jetbrains.com/dotnet/2013/07/webinar-recording-whats-new-in-resharper-80/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Take a look, its the most impressive update so far.&lt;/p&gt;
 </a10:content></item></channel></rss>

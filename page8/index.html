@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-12-25T23:02:15.4939784+08:00" />
+    <meta http-equiv="last-modified" content="2014-01-31T16:14:58.7712296+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page8/" />
@@ -35,6 +35,46 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/12/ravendb-inheritance-revisited/">RavenDB Inheritance-Revisited</a> 
+        <span>posted on 14 Dec 2011</span>
+      </h1> 
+      
+      <p>So after my initial post on <a href="/2011/12/ravendb-inheritance/">RavenDB Inheritance</a>, and the issue I had with polymorphic queries, and seeking help from the guys in <a href="http://jabbr.net/">JabbR</a> and the (RavenDB Google Group)[http://groups.google.com/group/ravendb/browse_thread/thread/c71df8f1cd92e04c], <a href="http://ayende.com/blog/">Ayende</a> ended up doing a screen cast with me where he solved all my problems.</p>
+
+<p>One of the things he asked me was what I was trying to achieve by having a polymorphic query, which was a very good question, something I hadn't really thought about.</p>
+
+<p>The problem I was trying to solve was actually displaying search results.</p>
+
+<h2>The Problem</h2>
+
+<p>So I'm working on a personal project, and I need to display a few things which are similar, but different. There's 3 different types but I'll use two to keep it simple. I've also cut out most of the properties.</p>
+
+<p>So I have an abstract class Content, with two derived classes, Article and Video.</p>
+
+<pre><code>public abstract class Content
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public DateTime DatePublished { get; set; }
+}
+
+public class Article : Content
+{
+    public string HtmlContent { get; set; }
+}
+
+public class Video : Content
+{
+    public string Description { get; set; }
+    public string VideoUrl { get; set; }
+}
+</code></pre>
+
+
+      <p><a href="/2011/12/ravendb-inheritance-revisited/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/12/ravendb-inheritance/">RavenDB Inheritance</a> 
@@ -305,35 +345,6 @@ root/images
 
       <p><a href="/2011/10/website-folder-structure-css-files-does-anyone-care-i-do/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/09/the-benefits-of-letting-the-orm-generate-the-identity-part-1/">The benefits of letting the ORM generate the Identity (part 1)</a> 
-        <span>posted on 22 Sep 2011</span>
-      </h1> 
-      
-      <p>One thing I've learnt is that letting the database generate the identity for you is a bad thing. It always annoyed me that Oracle never gave a feature like <a href="http://dev.mysql.com/doc/refman/5.0/en/example-auto-increment.html">AUTO_INCREMENT</a> in MySQL or <a href="http://msdn.microsoft.com/en-us/library/aa933196(SQL.80).aspx">IDENTITY</a> in SQL Server. I never understood, when inserting data how do I give it an Id?</p>
-
-<p>Well one of the benefits of ORMs such as NHibernate is we can generate the identity our-self, or rather, the ORM can generate it so we don't rely on the database. This also plays a major part in our code base when we insert a graph or batch of data and how the identity is added to our object.</p>
-
-<p>Ayende <a href="http://ayende.com/blog/3915/nhibernate-avoid-identity-generator-when-possible">recommend avoiding identity</a>.</p>
-
-<p>The thing with using SQL Server"s identity is that we need to select the identity back out after we do an insert. Not only that, when using <a href="http://msdn.microsoft.com/en-us/library/ms190348.aspx">NEWID()</a>/<a href="http://msdn.microsoft.com/en-us/library/ms189786.aspx">NEWSEQUENTIALID()</a> there is no way to select the value back other than using all the fields in a select in order to get the GUID relates to the record with all those values matching.</p>
-
-<p>For example:</p>
-
-<p>Given this rather simple table using IDENTITY.</p>
-
-<pre><code>CREATE TABLE People
-(
-    Id int NOT NULL IDENTITY (1, 1) PRIMARY KEY,
-    FirstName nvarchar(100) NOT NULL,
-    Surname nvarchar(100) NOT NULL
-)
-</code></pre>
-
-
-      <p><a href="/2011/09/the-benefits-of-letting-the-orm-generate-the-identity-part-1/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -404,6 +415,7 @@ root/images
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2014January">January, 2014</a></li>
                           <li><a href="/archive#2013December">December, 2013</a></li>
                           <li><a href="/archive#2013November">November, 2013</a></li>
                           <li><a href="/archive#2013October">October, 2013</a></li>

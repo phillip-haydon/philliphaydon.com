@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-12-25T23:02:15.4939784+08:00" />
+    <meta http-equiv="last-modified" content="2014-01-31T16:14:58.7712296+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page10/" />
@@ -35,6 +35,34 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/05/refactoring-those-static-method-calls-for-testability/">Refactoring those static method calls for testability!</a> 
+        <span>posted on 27 May 2011</span>
+      </h1> 
+      
+      <p>One thing I love about working on a legacy application is the weird things I get to problem solve.</p>
+
+<p>A lot of the old system has an awful lot of static method calls, which doesn't leave much to be desired for when it comes to unit testing. I was working on a piece of the system today which is written in .NET 2.0, and is tightly coupled to everything in existence.</p>
+
+<p>I didn't want to go introduce interfaces and wrapper classes in order to abstract out all the dependencies, but I wanted to unit test the work without having to touch the database, which is what these static method calls were doing.</p>
+
+<p>The code I dealt with was something along the lines of...</p>
+
+<pre><code>public class ProductService
+{
+    public static void Save(Product product)
+    {
+        throw new Exception("This would normally touch a db...");
+    }
+}
+</code></pre>
+
+<p><em>(Example is completely made up for this blog post and isn't actual code from work)</em></p>
+
+
+      <p><a href="/2011/05/refactoring-those-static-method-calls-for-testability/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/05/nhibernate-querying-for-max-value/">NHibernate Querying for Max value</a> 
@@ -278,39 +306,6 @@ Corner of King and Kent St, Sydney CBD.</p>
 
       <p><a href="/2011/01/not-lazyload-eager-loading-with-nhibernate-3-0/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/01/let-keyword-in-orms/">Let Keyword in ORMs</a> 
-        <span>posted on 29 Jan 2011</span>
-      </h1> 
-      
-      <p>A while ago <a href="http://www.mindscapehq.com/">MindScape</a> posted a new feature called <a href="http://www.mindscapehq.com/blog/index.php/2010/09/14/ninja-domain-properties-in-lightspeed/">Ninja Properties</a> for their ORM, LightSpeed. Their post happened to be a scenario I used to solve with LINQ 2 SQL using the 'let' keyword to create a composite type to query against.</p>
-
-<p>This would allow you to do something along the lines of:</p>
-
-<pre><code>var poo = from s in ctx.Members
-          let fullname = s.FirstName + " " + s.LastName
-          where fullname == "Robert Williams"
-          select s;
-</code></pre>
-
-<p>This nifty query would generate SQL like so:</p>
-
-<pre><code>SELECT [t1].[Id], [t1].[FirstName], [t1].[LastName]
-FROM (
-    SELECT [t0].[Id], [t0].[FirstName], 
-           [t0].[LastName], 
-           ([t0].[FirstName] + ' ') + [t0].[LastName] AS [value]
-    FROM [Member] AS [t0]
-    ) AS [t1]
-WHERE [t1].[value] = 'Robert Williams'
-</code></pre>
-
-<p>After commenting in their blog post about it they implemented it and put it into the nightly build. So after some months I finally got around to testing it, for a couple of reasons. Back when NHibernate 3.0 was in Alpha, this technique didn't work! So I thought I would test it out and see if it does, as well as checkout the SQL that's generated.</p>
-
-
-      <p><a href="/2011/01/let-keyword-in-orms/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -381,6 +376,7 @@ WHERE [t1].[value] = 'Robert Williams'
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2014January">January, 2014</a></li>
                           <li><a href="/archive#2013December">December, 2013</a></li>
                           <li><a href="/archive#2013November">November, 2013</a></li>
                           <li><a href="/archive#2013October">October, 2013</a></li>

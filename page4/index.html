@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-12-25T23:02:15.4939784+08:00" />
+    <meta http-equiv="last-modified" content="2014-01-31T16:14:58.7712296+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page4/" />
@@ -35,6 +35,27 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/02/windows-store-app-with-caliburn-micro-getting-started-updated/">Windows Store App with Caliburn.Micro - Getting Started (Updated)</a> 
+        <span>posted on 20 Feb 2013</span>
+      </h1> 
+      
+      <p><span class="note"><strong>Note:</strong> This is an update post for <a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">Windows Store App with Caliburn.Micro - Getting Started</a></span></p>
+
+<p>Back in December I blogged about <a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">getting started</a> with Caliburn.Micro, not long after I created the post a <a href="http://devlicio.us/blogs/rob_eisenberg/archive/2013/01/20/caliburn-micro-v1-4-1-released.aspx">new version</a> (v1.4.1) was released.</p>
+
+<p>The changes in this release break my previous blog post so I'm updating here.</p>
+
+<p><span class="note"><strong>Note:</strong> The original post still applies, the change is only to the setup of the App</span></p>
+
+<h2>App Setup</h2>
+
+<p>In the previous post when we configured the container, all we needed to do was Register the WinRT Services.</p>
+
+
+      <p><a href="/2013/02/windows-store-app-with-caliburn-micro-getting-started-updated/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/02/windows-store-app-adding-advertising/">Windows Store App - Adding Advertising</a> 
@@ -311,27 +332,6 @@ namespace SampleProject.ViewModels
 
       <p><a href="/2013/01/using-publish-to-deploy-azure-cloud-service/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/01/creating-an-azure-cloud-service/">Azure - Creating an Azure Cloud Service</a> 
-        <span>posted on 08 Jan 2013</span>
-      </h1> 
-      
-      <p>I've been investigating setting up a Worker Role to do something similar to a Windows Service and it seems that the Worker Role is best suited for this purpose. </p>
-
-<p>You might create a Worker Role to Poll a Message Queue, or process some data in a database, or scrape some data and persist it, etc. I'm going to throw some data in <a href="http://www.ravenhq.com">http://www.ravenhq.com</a> every minute, for this blog post, nothing exciting, but demonstrates how to create a WorkerRole and get it up and running on Azure.</p>
-
-<p>I suspect that you could use NancyFX Self-Hosting here and host a basic Nancy website, that would be cool :)</p>
-
-<h2>Building the Service (Worker / Role)</h2>
-
-<p>If you haven't already you will need to install the Azure SDK, so head on over to <a href="http://www.windowsazure.com/en-us/develop/net/">http://www.windowsazure.com/en-us/develop/net/</a> and click "Install SDK" which will give you the option for 2012 or 2010. I picked 2012 because I don't know what 2010 is, I stopped living in the past.</p>
-
-<p>The installer actually uses Web Platform Installer, not sure if there's any other way to install it.</p>
-
-
-      <p><a href="/2013/01/creating-an-azure-cloud-service/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -402,6 +402,7 @@ namespace SampleProject.ViewModels
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2014January">January, 2014</a></li>
                           <li><a href="/archive#2013December">December, 2013</a></li>
                           <li><a href="/archive#2013November">November, 2013</a></li>
                           <li><a href="/archive#2013October">October, 2013</a></li>

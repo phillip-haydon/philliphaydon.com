@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-12-25T23:02:15.4939784+08:00" />
+    <meta http-equiv="last-modified" content="2014-01-31T16:14:58.7712296+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page3/" />
@@ -35,6 +35,34 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 2)</a> 
+        <span>posted on 09 May 2013</span>
+      </h1> 
+      
+      <ul>
+<li>Original Post: <a href="/2012/11/nancy-and-content-negotiation">NancyFX and Content Negotiation</a></li>
+<li><a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</a></li>
+<li>NancyFX - Revisiting Content Negotiation &amp; APIs (Part 2)</li>
+<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 3)</a></li>
+</ul>
+
+<p>In part 1 I went over a really basic scenario, and one of the fiddly things we had was the view name for returning a collection.</p>
+
+<p>Using <code>Negotiate</code> gives as more flexibility on what we can return, allowing us to customize the response to respond differently to different media types or returning partial content in some scenarios.</p>
+
+<p>Going back to my previous post I said we should be able to use the same API to build our website as we expose. But what about when we want to have additional information on the website that isn't pushed out to the client.</p>
+
+<p>Lets say you have a product catalog, and you can view a particular product on your website. You also allow people to pull the content from your site to display on their website as like an affiliate system of some sort. But when you render your product you may have a special, but when you send the product to the consuming client you don't want to include the special for them since it's something specific to your website.</p>
+
+<h2>Show me the codez!</h2>
+
+<p>So lets update the <code>Product</code> to include <code>SpecialPrice</code></p>
+
+
+      <p><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/05/rss-atom-feed-spam-sorry/">RSS/Atom spam :( Sorry...</a> 
@@ -259,27 +287,6 @@
 
       <p><a href="/2013/02/windows-store-app-with-caliburn-micro-binding-converters/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/02/windows-store-app-with-caliburn-micro-getting-started-updated/">Windows Store App with Caliburn.Micro - Getting Started (Updated)</a> 
-        <span>posted on 20 Feb 2013</span>
-      </h1> 
-      
-      <p><span class="note"><strong>Note:</strong> This is an update post for <a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">Windows Store App with Caliburn.Micro - Getting Started</a></span></p>
-
-<p>Back in December I blogged about <a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">getting started</a> with Caliburn.Micro, not long after I created the post a <a href="http://devlicio.us/blogs/rob_eisenberg/archive/2013/01/20/caliburn-micro-v1-4-1-released.aspx">new version</a> (v1.4.1) was released.</p>
-
-<p>The changes in this release break my previous blog post so I'm updating here.</p>
-
-<p><span class="note"><strong>Note:</strong> The original post still applies, the change is only to the setup of the App</span></p>
-
-<h2>App Setup</h2>
-
-<p>In the previous post when we configured the container, all we needed to do was Register the WinRT Services.</p>
-
-
-      <p><a href="/2013/02/windows-store-app-with-caliburn-micro-getting-started-updated/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -350,6 +357,7 @@
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2014January">January, 2014</a></li>
                           <li><a href="/archive#2013December">December, 2013</a></li>
                           <li><a href="/archive#2013November">November, 2013</a></li>
                           <li><a href="/archive#2013October">October, 2013</a></li>

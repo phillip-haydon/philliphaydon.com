@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-12-25T23:02:15.4939784+08:00" />
+    <meta http-equiv="last-modified" content="2014-01-31T16:14:58.7712296+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page5/" />
@@ -35,6 +35,27 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/01/creating-an-azure-cloud-service/">Azure - Creating an Azure Cloud Service</a> 
+        <span>posted on 08 Jan 2013</span>
+      </h1> 
+      
+      <p>I've been investigating setting up a Worker Role to do something similar to a Windows Service and it seems that the Worker Role is best suited for this purpose. </p>
+
+<p>You might create a Worker Role to Poll a Message Queue, or process some data in a database, or scrape some data and persist it, etc. I'm going to throw some data in <a href="http://www.ravenhq.com">http://www.ravenhq.com</a> every minute, for this blog post, nothing exciting, but demonstrates how to create a WorkerRole and get it up and running on Azure.</p>
+
+<p>I suspect that you could use NancyFX Self-Hosting here and host a basic Nancy website, that would be cool :)</p>
+
+<h2>Building the Service (Worker / Role)</h2>
+
+<p>If you haven't already you will need to install the Azure SDK, so head on over to <a href="http://www.windowsazure.com/en-us/develop/net/">http://www.windowsazure.com/en-us/develop/net/</a> and click "Install SDK" which will give you the option for 2012 or 2010. I picked 2012 because I don't know what 2010 is, I stopped living in the past.</p>
+
+<p>The installer actually uses Web Platform Installer, not sure if there's any other way to install it.</p>
+
+
+      <p><a href="/2013/01/creating-an-azure-cloud-service/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/01/windows-store-app-tiled-background/">Windows Store App - Tiled Background using Mindscape Metro Elements</a> 
@@ -256,26 +277,6 @@
 
       <p><a href="/2012/11/sinatra-book-review/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2012/10/keep-an-eye-on-raygun-to-zap-all-your-errors-away/">Keep an eye on Raygun to zap all your errors away.</a> 
-        <span>posted on 24 Oct 2012</span>
-      </h1> 
-      
-      <p>Mindscape, creator of the awesome <a href="http://www.mindscapehq.com/products/web-workbench">Web Workbench</a> tool for visual studio as well as other awesome products, made an <a href="https://twitter.com/MindscapeHQ/status/260851721230761985">announcement</a> today on twitter of a new up coming product they are working on.</p>
-
-<p><a href="http://raygun.io/?ref=1QWEy">Raygun</a></p>
-
-<p>Little is currently known about this since trying to find out more from Mindscape is like squeezing blood from a stone, but what I do know is it's a online error tracking and reporting service, that will allow you to track errors that occur on both the serverside <em>and</em> the clientside.</p>
-
-<p>This looks awesome and quite possible be a great <a href="http://raygun.io/?ref=1QWEy">Elmah Replacement</a> for my projects, since it will have the ability to track clientside issues that usually go unnoticed.</p>
-
-<p>Not only that but the community will be able to contribute their own plugins and extensions to the service!</p>
-
-<p>Apparently Alpha invites will start going out in the next 2 weeks, so head on over to <a href="http://raygun.io/?ref=1QWEy">http://raygun.io/?ref=1QWEy</a> and signup!</p>
-
-      <p><a href="/2012/10/keep-an-eye-on-raygun-to-zap-all-your-errors-away/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -346,6 +347,7 @@
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2014January">January, 2014</a></li>
                           <li><a href="/archive#2013December">December, 2013</a></li>
                           <li><a href="/archive#2013November">November, 2013</a></li>
                           <li><a href="/archive#2013October">October, 2013</a></li>

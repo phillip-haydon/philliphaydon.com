@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2013-12-25T23:02:15.4939784+08:00" />
+    <meta http-equiv="last-modified" content="2014-01-31T16:14:58.7712296+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/" />
@@ -35,6 +35,39 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2014/01/if-youre-going-to-use-repositories-dont-have-generic-or-base-repositories/">If you're going to use repositories, don't have generic or base repositories...</a> 
+        <span>posted on 31 Jan 2014</span>
+      </h1> 
+      
+      <p>Repositories are one of those patterns we hate to love or love to hate, but seems to be getting more hate lately than love. </p>
+
+<p>Personally I don't have any real problem with repositories themselves, I just have a problem with the way it is used. </p>
+
+<p>If you run the following search in Google:</p>
+
+<blockquote>
+  <p>BaseRepository OR GenericRepository OR IRepository site:stackoverflow.com</p>
+</blockquote>
+
+<p>You will get about 10k results on Stack Overflow for questions that contain something related to a generic repository or base repository. You end up with code snippets such as:</p>
+
+<pre><code>public interface IRepository&lt;TEntity&gt; : IDisposable where TEntity : class
+{
+    IUnitOfWork Session { get; }
+    IList&lt;TEntity&gt; GetAll();
+    IList&lt;TEntity&gt; GetAll(Expression&lt;Func&lt;TEntity, bool&gt;&gt; predicate);
+    bool Add(TEntity entity);
+    bool Delete(TEntity entity);
+    bool Update(TEntity entity);
+    bool IsValid(TEntity entity);
+}
+</code></pre>
+
+
+      <p><a href="/2014/01/if-youre-going-to-use-repositories-dont-have-generic-or-base-repositories/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/12/snows-new-server-feature-running-up-a-test-website-for-you/">Snow's new server feature! Runs up a testing website for you.</a> 
@@ -281,27 +314,6 @@
 
       <p><a href="/2013/09/instant-nancy-web-development-book-review/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/08/love-the-new-resharper-8-best-update-to-date/">Love the new ReSharper 8, best update to date!</a> 
-        <span>posted on 03 Aug 2013</span>
-      </h1> 
-      
-      <p>It was only little over a week ago that ReSharper 8 came out. It's not something that I really follow, but because of that I keep finding all these new features in R# 8 that are absolutely AWESOME!</p>
-
-<p>The R# team, if you see this. Congrats on such an awesome effort really pushing the boundaries of what R# can do with V8.  </p>
-
-<h2>ToString on Dates!</h2>
-
-<p>This is simply amazing, often I would throw up Google and search "stevex string format" and pull up a pretty detailed blog post on string formatting. </p>
-
-<p><img src="/images/resharper8-1.png" alt="" /></p>
-
-<p>This single feature along, in my opinion, is worth the $ to upgrade to R# 8!!!! </p>
-
-
-      <p><a href="/2013/08/love-the-new-resharper-8-best-update-to-date/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -370,6 +382,7 @@
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2014January">January, 2014</a></li>
                           <li><a href="/archive#2013December">December, 2013</a></li>
                           <li><a href="/archive#2013November">November, 2013</a></li>
                           <li><a href="/archive#2013October">October, 2013</a></li>
