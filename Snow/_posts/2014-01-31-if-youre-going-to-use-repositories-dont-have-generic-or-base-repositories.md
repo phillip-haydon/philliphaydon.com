@@ -63,7 +63,7 @@ The problem with this, is that these are all false assumptions, generic reposito
 
 Often people assume only a single kind of persistence, when you could load some data from a flat file, database, a web service, etc.
 
-These isn't a problem is you do away with the base implementation or interface and just have explicit interfaces such as `IProductRepository` or `IUserRepository`, but people get so court up on the whole idea of having lots of interfaces, and instead try to opt for the generic `IRepository<T>` until they need to implement other stuff.
+This isn't a problem if you do away with the base implementation or interface and just have explicit interfaces such as `IProductRepository` or `IUserRepository`, but people get so caught up on the whole idea of having lots of interfaces, and instead try to opt for the generic `IRepository<T>` until they need to implement other stuff.
 
 ## Generic Repositories don't prevent code duplication ##
 
@@ -73,7 +73,7 @@ If for example you have a `User` / `UserRepository`, you may find that your gene
 
 But when if you are never required to delete a user, and instead you Deactivate a user, or disable a users login, but keep the user because hes actually attached to data in the system...
 
-You end up implementing methods, or overriding existing methods to have no implementation or throw a NotImplementedException. This is just bad design. 
+You end up implementing methods, or overriding existing methods to have no implementation or throw a `NotImplementedException`. This is just bad design. 
 
 You could argue "Oh but when I implement `GetById` I have to duplicate it..."
 

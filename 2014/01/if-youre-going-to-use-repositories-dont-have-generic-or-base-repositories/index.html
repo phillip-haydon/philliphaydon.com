@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-01-31T16:14:58.7712296+08:00" />
+    <meta http-equiv="last-modified" content="2014-01-31T16:34:14.4316326+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/2014/01/if-youre-going-to-use-repositories-dont-have-generic-or-base-repositories/" />
@@ -118,7 +118,7 @@
 
 <p>Often people assume only a single kind of persistence, when you could load some data from a flat file, database, a web service, etc.</p>
 
-<p>These isn't a problem is you do away with the base implementation or interface and just have explicit interfaces such as <code>IProductRepository</code> or <code>IUserRepository</code>, but people get so court up on the whole idea of having lots of interfaces, and instead try to opt for the generic <code>IRepository&lt;T&gt;</code> until they need to implement other stuff.</p>
+<p>This isn't a problem if you do away with the base implementation or interface and just have explicit interfaces such as <code>IProductRepository</code> or <code>IUserRepository</code>, but people get so caught up on the whole idea of having lots of interfaces, and instead try to opt for the generic <code>IRepository&lt;T&gt;</code> until they need to implement other stuff.</p>
 
 <h2>Generic Repositories don't prevent code duplication</h2>
 
@@ -128,7 +128,7 @@
 
 <p>But when if you are never required to delete a user, and instead you Deactivate a user, or disable a users login, but keep the user because hes actually attached to data in the system...</p>
 
-<p>You end up implementing methods, or overriding existing methods to have no implementation or throw a NotImplementedException. This is just bad design. </p>
+<p>You end up implementing methods, or overriding existing methods to have no implementation or throw a <code>NotImplementedException</code>. This is just bad design. </p>
 
 <p>You could argue "Oh but when I implement <code>GetById</code> I have to duplicate it..."</p>
 

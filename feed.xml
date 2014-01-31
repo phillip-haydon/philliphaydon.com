@@ -87,7 +87,7 @@
 
 &lt;p&gt;Often people assume only a single kind of persistence, when you could load some data from a flat file, database, a web service, etc.&lt;/p&gt;
 
-&lt;p&gt;These isn't a problem is you do away with the base implementation or interface and just have explicit interfaces such as &lt;code&gt;IProductRepository&lt;/code&gt; or &lt;code&gt;IUserRepository&lt;/code&gt;, but people get so court up on the whole idea of having lots of interfaces, and instead try to opt for the generic &lt;code&gt;IRepository&amp;lt;T&amp;gt;&lt;/code&gt; until they need to implement other stuff.&lt;/p&gt;
+&lt;p&gt;This isn't a problem if you do away with the base implementation or interface and just have explicit interfaces such as &lt;code&gt;IProductRepository&lt;/code&gt; or &lt;code&gt;IUserRepository&lt;/code&gt;, but people get so caught up on the whole idea of having lots of interfaces, and instead try to opt for the generic &lt;code&gt;IRepository&amp;lt;T&amp;gt;&lt;/code&gt; until they need to implement other stuff.&lt;/p&gt;
 
 &lt;h2&gt;Generic Repositories don't prevent code duplication&lt;/h2&gt;
 
@@ -97,7 +97,7 @@
 
 &lt;p&gt;But when if you are never required to delete a user, and instead you Deactivate a user, or disable a users login, but keep the user because hes actually attached to data in the system...&lt;/p&gt;
 
-&lt;p&gt;You end up implementing methods, or overriding existing methods to have no implementation or throw a NotImplementedException. This is just bad design. &lt;/p&gt;
+&lt;p&gt;You end up implementing methods, or overriding existing methods to have no implementation or throw a &lt;code&gt;NotImplementedException&lt;/code&gt;. This is just bad design. &lt;/p&gt;
 
 &lt;p&gt;You could argue "Oh but when I implement &lt;code&gt;GetById&lt;/code&gt; I have to duplicate it..."&lt;/p&gt;
 
