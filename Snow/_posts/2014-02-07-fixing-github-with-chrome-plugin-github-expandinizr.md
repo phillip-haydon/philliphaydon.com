@@ -40,7 +40,7 @@ Download it now... NOW!
 
 [0]: /images/fixing-github-01.png
 [1]: https://twitter.com/thecodejunkie
-[2]: /images/fixing-github-01.png
+[2]: /images/fixing-github-02.png
 [3]: https://chrome.google.com/webstore/detail/githubexpandinizr/cbehdjjcilgnejbpnjhobkiiggkedfib/
 [4]: /images/fixing-github-03.png
 [5]: /images/fixing-github-04.png
