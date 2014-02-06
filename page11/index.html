@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-01-31T16:34:14.4316326+08:00" />
+    <meta http-equiv="last-modified" content="2014-02-07T00:58:10.8647348+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page11/" />
@@ -35,6 +35,27 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/01/not-lazyload-eager-loading-with-nhibernate-3-0/">Not.LazyLoad - Eager Loading with NHibernate 3.0</a> 
+        <span>posted on 30 Jan 2011</span>
+      </h1> 
+      
+      <p>A friend asked me about fetching relationships with NHibernate when something couldn't be lazy-loaded.</p>
+
+<p>The reason it couldn't be lazy-loaded was because he uses Session-Per-Call, my preference is Session-Per-Request. (this is web based, I've never actually used NHibernate in a non-web scenario, yet)</p>
+
+<p>The solution he's currently using is to turn off lazy-loading at the mapping. This is all kinds of bad.</p>
+
+<p>I think it's best to demonstrate why turning off lazy-loading at the mapping is bad. I've come up with a, well what I consider pretty standard Blog.</p>
+
+<p><img src="/images/nhibernate-lazy-load-1.png" alt="" /></p>
+
+<p>Nothing special but needed something that has a few relationship"s. (I think you can click that image to make it bigger)</p>
+
+
+      <p><a href="/2011/01/not-lazyload-eager-loading-with-nhibernate-3-0/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/01/let-keyword-in-orms/">Let Keyword in ORMs</a> 
@@ -266,21 +287,6 @@ WHERE [t1].[value] = 'Robert Williams'
 
       <p><a href="/2010/12/yay-for-nhibernate-3-0/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2010/12/sydney-alt-net-with-udi-dahan-and-nservicebus-commercial-support/">Sydney Alt.Net with Udi Dahan and NServiceBus Commercial Support</a> 
-        <span>posted on 01 Dec 2010</span>
-      </h1> 
-      
-      <p><span class="note"><strong>Note:</strong> Update 31-12-2012 - This is a really old post and the licensing described in here no longer applies. Please visit <a href="http://nservicebus.com/">http://nservicebus.com/</a></span></p>
-
-<p>Last night I attended the <a href="http://sydney.ozalt.net/">Sydney Alt.Net</a> user group since <a href="http://www.udidahan.com/">Udi Dahan</a> was attending. There was no specific topic, it was an open questions/answers session with Udi. If you're interested you can watch it <a href="http://sydney.ozalt.net/2010/11/november-meeting-recorded-for-your.html">here</a>.</p>
-
-<p>The thing that interested me most was to do with <a href="http://www.nservicebus.com/">NServiceBus</a> commercial support (<em>1 hour 23 minutes in the video if you want to skip ahead</em>). Initially I thought that it was going from Open Source to requiring a license, a license I wouldn't be able to afford for my hobby projects, however someone asked about the licensing.</p>
-
-
-      <p><a href="/2010/12/sydney-alt-net-with-udi-dahan-and-nservicebus-commercial-support/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -351,6 +357,7 @@ WHERE [t1].[value] = 'Robert Williams'
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2014February">February, 2014</a></li>
                           <li><a href="/archive#2014January">January, 2014</a></li>
                           <li><a href="/archive#2013December">December, 2013</a></li>
                           <li><a href="/archive#2013November">November, 2013</a></li>

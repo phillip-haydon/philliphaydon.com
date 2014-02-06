@@ -1,4 +1,66 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/01/if-youre-going-to-use-repositories-dont-have-generic-or-base-repositories/</guid><link>http://www.philliphaydon.com/2014/01/if-youre-going-to-use-repositories-dont-have-generic-or-base-repositories/</link><title>If you're going to use repositories, don't have generic or base repositories...</title><description>&lt;p&gt;Repositories are one of those patterns we hate to love or love to hate, but seems to be getting more hate lately than love. &lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/02/fixing-github-with-chrome-plugin-github-expandinizr/</guid><link>http://www.philliphaydon.com/2014/02/fixing-github-with-chrome-plugin-github-expandinizr/</link><title>Fixing Github with Chrome Plugin - GitHub.Expandinizr</title><description>&lt;p&gt;So if you've ever visited Github, and thought &lt;em&gt;'Oh, I'll browser a repository and find a file'&lt;/em&gt;, no doubt you've probably ended up in a suituation like so:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/fixing-github-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;OH Joy, this is so readable... I honestly have no idea who at Github approved this...&lt;/p&gt;
+
+&lt;p&gt;Luckily &lt;a href="https://twitter.com/thecodejunkie"&gt;@TheCodeJunkie&lt;/a&gt; had a brilliant idea... &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/fixing-github-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This awesome Chrome plugin, turns the above, into:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/fixing-github-03.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/fixing-github-04.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Into......&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/fixing-github-05.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This more responsive design is so awesome! (Apparently thanks to some random guy named &lt;a href="https://twitter.com/khellang"&gt;Kristian Hellang&lt;/a&gt;...) &lt;small&gt;don't follow him, don't need his ego boosted anymore.&lt;/small&gt; ;)&lt;/p&gt;
+
+&lt;p&gt;Such a better use of space, and makes working with Github a billion times more pleasurable!&lt;/p&gt;
+
+&lt;p&gt;Download it now... NOW!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;NOWWWW!!!!!!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://chrome.google.com/webstore/detail/githubexpandinizr/cbehdjjcilgnejbpnjhobkiiggkedfib/"&gt;https://chrome.google.com/webstore/detail/githubexpandinizr/cbehdjjcilgnejbpnjhobkiiggkedfib/&lt;/a&gt;&lt;/p&gt;
+</description><pubDate>Thu, 06 Feb 2014 16:00:00 Z</pubDate><a10:updated>2014-02-06T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;So if you've ever visited Github, and thought &lt;em&gt;'Oh, I'll browser a repository and find a file'&lt;/em&gt;, no doubt you've probably ended up in a suituation like so:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-github-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;OH Joy, this is so readable... I honestly have no idea who at Github approved this...&lt;/p&gt;
+
+&lt;p&gt;Luckily &lt;a href="https://twitter.com/thecodejunkie"&gt;@TheCodeJunkie&lt;/a&gt; had a brilliant idea... &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-github-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This awesome Chrome plugin, turns the above, into:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-github-03.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-github-04.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Into......&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-github-05.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This more responsive design is so awesome! (Apparently thanks to some random guy named &lt;a href="https://twitter.com/khellang"&gt;Kristian Hellang&lt;/a&gt;...) &lt;small&gt;don't follow him, don't need his ego boosted anymore.&lt;/small&gt; ;)&lt;/p&gt;
+
+&lt;p&gt;Such a better use of space, and makes working with Github a billion times more pleasurable!&lt;/p&gt;
+
+&lt;p&gt;Download it now... NOW!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;NOWWWW!!!!!!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://chrome.google.com/webstore/detail/githubexpandinizr/cbehdjjcilgnejbpnjhobkiiggkedfib/"&gt;https://chrome.google.com/webstore/detail/githubexpandinizr/cbehdjjcilgnejbpnjhobkiiggkedfib/&lt;/a&gt;&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/01/if-youre-going-to-use-repositories-dont-have-generic-or-base-repositories/</guid><link>http://www.philliphaydon.com/2014/01/if-youre-going-to-use-repositories-dont-have-generic-or-base-repositories/</link><title>If you're going to use repositories, don't have generic or base repositories...</title><description>&lt;p&gt;Repositories are one of those patterns we hate to love or love to hate, but seems to be getting more hate lately than love. &lt;/p&gt;
 
 &lt;p&gt;Personally I don't have any real problem with repositories themselves, I just have a problem with the way it is used. &lt;/p&gt;
 
@@ -1512,102 +1574,4 @@ series:
 &lt;hr /&gt;
 
 &lt;p&gt;Well I hope you like Snow. So far I've had positive feedback, but if you choose to use it, I would love to hear what you use it for and any feedback, good or bad! Or post an issue on the repository.&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/09/instant-nancy-web-development-book-review/</guid><link>http://www.philliphaydon.com/2013/09/instant-nancy-web-development-book-review/</link><title>Instant Nancy Web Development - Book Review</title><description>&lt;p&gt;Just today, &lt;a href="https://twitter.com/chr_horsdal"&gt;Christian Horsdal&lt;/a&gt; released his first book, his first topic to write a book about, only the most awesome Web Framework to exist in .NET! :)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="/images/nancy-book-review-1a.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;non affiliate links&lt;/em&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://www.amazon.com/gp/product/B00FF8OKP8"&gt;Amazon&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.packtpub.com/nancy-web-development/book"&gt;Packt Publishing&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This book is rather short, clocking in at only 74 pages. Not to worry though, it covers quite a bit! &lt;/p&gt;
-
-&lt;p&gt;Usually I don't go near Packt Publishing books after having a bad experience buying a few books, all of which were terrible. But seeing as this was a Nancy book I couldn't pass up the chance to check it out. &lt;/p&gt;
-
-&lt;p&gt;Considering this is the first book Christian has written, it reads very well. I've read books from authors who have done 3 or 4 books and I struggle to read them because their style of writing. So that alone impressed me about this book.&lt;/p&gt;
-
-</description><pubDate>Wed, 25 Sep 2013 16:00:00 Z</pubDate><a10:updated>2013-09-25T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Just today, &lt;a href="https://twitter.com/chr_horsdal"&gt;Christian Horsdal&lt;/a&gt; released his first book, his first topic to write a book about, only the most awesome Web Framework to exist in .NET! :)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/nancy-book-review-1a.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;non affiliate links&lt;/em&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://www.amazon.com/gp/product/B00FF8OKP8"&gt;Amazon&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.packtpub.com/nancy-web-development/book"&gt;Packt Publishing&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This book is rather short, clocking in at only 74 pages. Not to worry though, it covers quite a bit! &lt;/p&gt;
-
-&lt;p&gt;Usually I don't go near Packt Publishing books after having a bad experience buying a few books, all of which were terrible. But seeing as this was a Nancy book I couldn't pass up the chance to check it out. &lt;/p&gt;
-
-&lt;p&gt;Considering this is the first book Christian has written, it reads very well. I've read books from authors who have done 3 or 4 books and I struggle to read them because their style of writing. So that alone impressed me about this book.&lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;p&gt;Not that the book is perfect, I took the opportunity to tweet him this image:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/nancy-book-review-2.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;I shouldn't laugh though... my spelling is absolutely terrible!&lt;/p&gt;
-
-&lt;p&gt;Right from Chapter One he gets into things, showing you just how little it takes to go from nothing, to a good old Hello World app, following onto Chapter Two he begins making a Todo Web App that's done doing TDD.&lt;/p&gt;
-
-&lt;p&gt;This alone was really valuable to me, because he showed some little tips and tricks that I had never seen other people do before, showing how you can &lt;code&gt;Post&lt;/code&gt; and then &lt;code&gt;Get&lt;/code&gt; consecutively and assert the response. &lt;/p&gt;
-
-&lt;p&gt;Mocking is demoed using FakeItEasy which I sometimes find a little hard to read, that's mostly due to having used Moq. But its great to see examples using another framework that I'm not entirely familiar with.&lt;/p&gt;
-
-&lt;p&gt;The topics covered in this book are pretty vast. In-fact, here's the table of contents:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Building and running your first Nancy application&lt;/li&gt;
-&lt;li&gt;Nancy testing&lt;/li&gt;
-&lt;li&gt;Routes and model binding&lt;/li&gt;
-&lt;li&gt;Taking a dependency - introducing the bootstrapper&lt;/li&gt;
-&lt;li&gt;Content negotiation and more model binding&lt;/li&gt;
-&lt;li&gt;Adding views&lt;/li&gt;
-&lt;li&gt;Adding static content&lt;/li&gt;
-&lt;li&gt;Hosting Nancy on the Cloud&lt;/li&gt;
-&lt;li&gt;Handling cross-cutting concerns - Before, After, and Error hooks&lt;/li&gt;
-&lt;li&gt;Authenticating users&lt;/li&gt;
-&lt;li&gt;Separating applications and hosting&lt;/li&gt;
-&lt;li&gt;Using async handlers&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;Complaints...&lt;/h2&gt;
-
-&lt;p&gt;There isn't many, the only things I wish would change is the View chapter to come before Content Negotiation, this is mainly because I think people coming from MVC or Web Forms will want to view something in their browser quickly, while returning JSON/XML may not be immediately obvious to them, then explaining that Views are just another content type that is negotiated. &lt;/p&gt;
-
-&lt;p&gt;Secondly is the use of Razor, little part of me wishes it showed the built in View Engine - Super Simple View Engine. Rather than diving directly into Razor. But this is personal opinion, its entirely possible users reading may care more about Razor. :) Granted it does mention at the end of that chapter what SSVE is and that you can implement your own or download others :)&lt;/p&gt;
-
-&lt;p&gt;The hosting Nancy in the Cloud chapter doesn't make a lot of sense, its the only chapter that feels kinda out of place, it should focus less on the testing/deployment and more on getting the app up and running on a cloud provider.&lt;/p&gt;
-
-&lt;p&gt;Hopefully no one takes my opinions/complaints the wrong way because I don't believe any of the things I've listed are reasons to not get the book!&lt;/p&gt;
-
-&lt;h2&gt;Errors&lt;/h2&gt;
-
-&lt;p&gt;These aren't so much as errors, just things that need to be updated.&lt;/p&gt;
-
-&lt;p&gt;1) The chapter on Authenticating Users uses WorldDomination, which was renamed to SimpleAuthentication, all the rest still applies though.&lt;/p&gt;
-
-&lt;p&gt;2) Async chapter uses the Beta packages and mentions that at the time of writing, it wasn't in release. This has now been released in 0.20.0 of Nancy.&lt;/p&gt;
-
-&lt;p&gt;All things considering, those are pretty damn minor! &lt;/p&gt;
-
-&lt;h2&gt;Final Words&lt;/h2&gt;
-
-&lt;p&gt;This book is downright great, if you're new to Nancy, want to learn it, or have been using it for a while but don't feel 'expert', this is a great book and I highly recommend it!&lt;/p&gt;
-
-&lt;p&gt;The book is short that I read it in a few hours, granted I have prior knowledge of Nancy so I didn't create the app while reading, but I did pick up a few little things I didn't know about, especially around Testing with Nancy.&lt;/p&gt;
-
-&lt;p&gt;I enjoyed reading the book, so I hope you do too!&lt;/p&gt;
-
-&lt;h2&gt;Want a copy? Comment below!&lt;/h2&gt;
-
-&lt;p&gt;I'm going to gift 3 Kindle Copies of the book, if you would like a copy, comment or tweet the book with the hash-tag #nancyfx and I'll pick 3 people on the 4th of October. &lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;(If you comment below, please use your real email address so I can contact you should you win, its only visible to me)&lt;/em&gt;&lt;/p&gt;
 </a10:content></item></channel></rss>

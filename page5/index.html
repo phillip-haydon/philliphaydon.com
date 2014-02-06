@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-01-31T16:34:14.4316326+08:00" />
+    <meta http-equiv="last-modified" content="2014-02-07T00:58:10.8647348+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page5/" />
@@ -35,6 +35,31 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/01/using-publish-to-deploy-azure-cloud-service/">Using publish to deploy Azure Cloud Service</a> 
+        <span>posted on 10 Jan 2013</span>
+      </h1> 
+      
+      <p>In my previous <a href="/2013/01/creating-an-azure-cloud-service">post</a> I created an Azure Cloud Service from scratch and deployed it, however I manually logged into Azure Portal and uploaded the packages.</p>
+
+<p><a href="http://twitter.com/cloudnick">@cloudnick</a> commented saying that I could that you can use publish directly from Visual Studio. So!</p>
+
+<h2>Publishing from Visual Studio directly to Azure</h2>
+
+<p>Using the exact same setup as yesterday, rightclick the MyWorker project and select Publish.</p>
+
+<p><img src="/images/azure-service-update-1.png" alt="" /></p>
+
+<p>Select <code>Sign in to download crentials</code></p>
+
+<p><img src="/images/azure-service-update-2.png" alt="" /></p>
+
+<p>This will take you to a webpage where you can sign into your Windows Live account that has your Azure Subscriptions, with some instructions. The file will download automatically.</p>
+
+
+      <p><a href="/2013/01/using-publish-to-deploy-azure-cloud-service/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/01/creating-an-azure-cloud-service/">Azure - Creating an Azure Cloud Service</a> 
@@ -258,25 +283,6 @@
 
       <p><a href="/2012/11/nancy-and-content-negotiation/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2012/11/sinatra-book-review/">Sinatra Book Review</a> 
-        <span>posted on 03 Nov 2012</span>
-      </h1> 
-      
-      <p>For a while I've been wanting to pick-up Ruby, but not rails, every man and his dog is doing rails and everything I read I feel like it tries to do too much, much in the same way I feel ASP.NET MVC get's in the way too much by trying to do too much for me. I think I've written 'too much' too much. :)</p>
-
-<p>So I'm learning Ruby + Sinatra.</p>
-
-<p>Currently I'm reading <a href="http://www.amazon.com/Programming-Ruby-1-9-Pragmatic-Programmers/dp/1934356085/">Programming Ruby 1.9</a> but I just went on holiday, and figured a smaller book was a better idea to take with me.</p>
-
-<p>Enter <a href="http://www.amazon.com/Sinatra-Up-Running-Alan-Harris/dp/1449304230">Sinatra Up and Running</a></p>
-
-<p>This book, written by <a href="https://twitter.com/anachronistic">Alan Harris</a> &amp; <a href="https://twitter.com/konstantinhaase">Konstantin Haase</a>, is brilliant. Clocking in at 103 pages (less than the 122 Amazon states), this book is everything you need to get your feet off the ground with Sinatra and get building applications.</p>
-
-
-      <p><a href="/2012/11/sinatra-book-review/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -347,6 +353,7 @@
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2014February">February, 2014</a></li>
                           <li><a href="/archive#2014January">January, 2014</a></li>
                           <li><a href="/archive#2013December">December, 2013</a></li>
                           <li><a href="/archive#2013November">November, 2013</a></li>

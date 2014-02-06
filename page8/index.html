@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-01-31T16:34:14.4316326+08:00" />
+    <meta http-equiv="last-modified" content="2014-02-07T00:58:10.8647348+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page8/" />
@@ -35,6 +35,36 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/12/ravendb-map-reduce/">RavenDB - Map Reduce</a> 
+        <span>posted on 22 Dec 2011</span>
+      </h1> 
+      
+      <p>So, learning Map Reduce in RavenDB I decided that to take what I learnt from the index created in my previous post. I think I picked something rather difficult to begin with, but I've succeeded </p>
+
+<p>Given a document Article which has a collection of Tags.</p>
+
+<p>I want to get a Count of each Tag across all Articles.</p>
+
+<pre><code>public class Content
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public IEnumerable&lt;Tag&gt; Tags { get; set; }
+}
+
+public class Tag
+{
+    public string Name { get; set; }
+}
+</code></pre>
+
+<p><span class="note"><strong>Note:</strong> Tag is it's own class because I added additional properties to it.</span></p>
+
+
+      <p><a href="/2011/12/ravendb-map-reduce/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/12/ravendb-inheritance-revisited/">RavenDB Inheritance-Revisited</a> 
@@ -313,38 +343,6 @@ using (var session = documentStore.OpenSession())
 
       <p><a href="/2011/10/nhibernate-designer-2/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/10/website-folder-structure-css-files-does-anyone-care-i-do/">Website Folder Structure? CSS Files? Does anyone care? I do...</a> 
-        <span>posted on 17 Oct 2011</span>
-      </h1> 
-      
-      <p>When we build website's, more often than not we have: Separation of Concerns. Even if at most it's just basic 3-tier Architecture</p>
-
-<p>What annoys me though is a lot of time no one ever thinks about separation of concerns when it comes to the folder structure of their website, and where things go.</p>
-
-<h2>Folders</h2>
-
-<p>The one thing that annoys me above all else, is when 'layout images' (images for layout, design, styling etc) of the website, are shoved into the same folder that holds what I call "Content Images".</p>
-
-<p>For example:</p>
-
-<pre><code>root/ 
-root/css/ 
-root/images/
-</code></pre>
-
-<p>What I prefer to do is structure it so the css folder has it's own images folder, specifically for layout images.</p>
-
-<pre><code>root/ 
-root/css/ 
-root/css/images/ 
-root/images
-</code></pre>
-
-
-      <p><a href="/2011/10/website-folder-structure-css-files-does-anyone-care-i-do/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -415,6 +413,7 @@ root/images
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#2014February">February, 2014</a></li>
                           <li><a href="/archive#2014January">January, 2014</a></li>
                           <li><a href="/archive#2013December">December, 2013</a></li>
                           <li><a href="/archive#2013November">November, 2013</a></li>
