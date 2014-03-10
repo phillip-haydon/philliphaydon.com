@@ -1,10 +1,10 @@
 <rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/02/fixing-github-with-chrome-plugin-github-expandinizr/</guid><link>http://www.philliphaydon.com/2014/02/fixing-github-with-chrome-plugin-github-expandinizr/</link><title>Fixing Github with Chrome Plugin - GitHub.Expandinizr</title><description>&lt;p&gt;So if you've ever visited Github, and thought &lt;em&gt;'Oh, I'll browser a repository and find a file'&lt;/em&gt;, no doubt you've probably ended up in a suituation like so:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/fixing-github-01.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-github-01.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;OH Joy, this is so readable... I honestly have no idea who at Github approved this...&lt;/p&gt;
 
-</description><pubDate>Thu, 06 Feb 2014 16:00:00 Z</pubDate><a10:updated>2014-02-06T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;So if you've ever visited Github, and thought &lt;em&gt;'Oh, I'll browser a repository and find a file'&lt;/em&gt;, no doubt you've probably ended up in a suituation like so:&lt;/p&gt;
+</description><pubDate>Thu, 06 Feb 2014 16:00:00 Z</pubDate><a10:updated>2014-02-06T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;So if you've ever visited Github, and thought &lt;em&gt;'Oh, I'll browser a repository and find a file'&lt;/em&gt;, no doubt you've probably ended up in a suituation like so:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-github-01.png" alt="" /&gt;&lt;/p&gt;
 
@@ -61,7 +61,7 @@
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-</description><pubDate>Thu, 30 Jan 2014 16:00:00 Z</pubDate><a10:updated>2014-01-30T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Repositories are one of those patterns we hate to love or love to hate, but seems to be getting more hate lately than love. &lt;/p&gt;
+</description><pubDate>Thu, 30 Jan 2014 16:00:00 Z</pubDate><a10:updated>2014-01-30T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;Repositories are one of those patterns we hate to love or love to hate, but seems to be getting more hate lately than love. &lt;/p&gt;
 
 &lt;p&gt;Personally I don't have any real problem with repositories themselves, I just have a problem with the way it is used. &lt;/p&gt;
 
@@ -182,7 +182,7 @@ public class OrderLine
 
 &lt;p&gt;Now when I run this:&lt;/p&gt;
 
-</description><pubDate>Tue, 24 Dec 2013 16:00:00 Z</pubDate><a10:updated>2013-12-24T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Just now I released Snow v1.4.0 :) with this we have two new features.&lt;/p&gt;
+</description><pubDate>Tue, 24 Dec 2013 16:00:00 Z</pubDate><a10:updated>2013-12-24T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;Just now I released Snow v1.4.0 :) with this we have two new features.&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;New &lt;code&gt;server=true&lt;/code&gt; argument on Snow to run up an Owin testing website.&lt;/li&gt;
@@ -269,7 +269,7 @@ using (WebApp.Start&amp;lt;Startup&amp;gt;(options))
 
 &lt;p&gt;So creating some new projects, a workflow project and a class library for testing...&lt;/p&gt;
 
-</description><pubDate>Tue, 17 Dec 2013 16:00:00 Z</pubDate><a10:updated>2013-12-17T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;I'm not a fan of Workflow Foundation, but you got to do what you got to do. Usually when using WF, unit testing an activity is rather easy. Invoke with some data, assert the out value, possibly watch some methods on some dependencies...&lt;/p&gt;
+</description><pubDate>Tue, 17 Dec 2013 16:00:00 Z</pubDate><a10:updated>2013-12-17T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;I'm not a fan of Workflow Foundation, but you got to do what you got to do. Usually when using WF, unit testing an activity is rather easy. Invoke with some data, assert the out value, possibly watch some methods on some dependencies...&lt;/p&gt;
 
 &lt;p&gt;But when it comes to testing Bookmarks, if the bookmark is created, and resuming it, it's not easy...&lt;/p&gt;
 
@@ -435,19 +435,19 @@ public void When_Resuming_A_Workflow_Should_Get_The_Return_Value_False()
 
 &lt;p&gt;Let's start by creating a new project:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/git-support-01.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-01.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;I ticked the &lt;code&gt;Create new Git repository&lt;/code&gt; option in the bottom right hand corner, this just initializes the folder for you. &lt;/p&gt;
 
 &lt;p&gt;Now that the project is created, we can open the Team Explorer, it should look something like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="/images/git-support-02.png" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-02.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;I'm not entirely sure why it does this but when I create new projects, the solution file is never included by default?!?&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;So the solution file is excluded, we can right click the file(s) and include them...&lt;/p&gt;
 
-</description><pubDate>Wed, 11 Dec 2013 16:00:00 Z</pubDate><a10:updated>2013-12-11T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Lately I've found myself using the new Git support in Visual Studio 2013 more and more, it turns out once you get used to it, its quite handy! Initially my thoughts were its rubbish, mostly because I found it cumbersome, or maybe just that things weren't working the way I thought they were. I do fine some things strange, but it's still completely usable!&lt;/p&gt;
+</description><pubDate>Wed, 11 Dec 2013 16:00:00 Z</pubDate><a10:updated>2013-12-11T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;Lately I've found myself using the new Git support in Visual Studio 2013 more and more, it turns out once you get used to it, its quite handy! Initially my thoughts were its rubbish, mostly because I found it cumbersome, or maybe just that things weren't working the way I thought they were. I do fine some things strange, but it's still completely usable!&lt;/p&gt;
 
 &lt;p&gt;How does it all work?&lt;/p&gt;
 
@@ -542,7 +542,7 @@ public void When_Resuming_A_Workflow_Should_Get_The_Return_Value_False()
 
 &lt;p&gt;Private is a post that will not be compiled at all, this will stay as markdown, good for when you want to begin writing something but not have it show up online yet.&lt;/p&gt;
 
-</description><pubDate>Wed, 06 Nov 2013 16:00:00 Z</pubDate><a10:updated>2013-11-06T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;A special thanks goes out to &lt;a href="https://twitter.com/johanilsson"&gt;@johanilsson&lt;/a&gt; for this new feature!&lt;/p&gt;
+</description><pubDate>Wed, 06 Nov 2013 16:00:00 Z</pubDate><a10:updated>2013-11-06T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;A special thanks goes out to &lt;a href="https://twitter.com/johanilsson"&gt;@johanilsson&lt;/a&gt; for this new feature!&lt;/p&gt;
 
 &lt;p&gt;Snow now ships with Drafts and Privates, this is a really cool feature since it allows you to create drafts, and a page to list all drafts (optional). &lt;/p&gt;
 
@@ -690,7 +690,7 @@ published: draft
 
 &lt;p&gt;To begin with, we only have 4 things to implement, its rather small, somewhat easy to manage, but what happens when we want to update an account?&lt;/p&gt;
 
-</description><pubDate>Sat, 02 Nov 2013 16:00:00 Z</pubDate><a10:updated>2013-11-02T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;One problem I think a lot of developers have, is creating Controllers and Modules that are small and maintainable. Sometimes when you add some querying, bit of validation, pass it off to a repository or service, etc. It begins to become a little bit too big. &lt;/p&gt;
+</description><pubDate>Sat, 02 Nov 2013 16:00:00 Z</pubDate><a10:updated>2013-11-02T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;One problem I think a lot of developers have, is creating Controllers and Modules that are small and maintainable. Sometimes when you add some querying, bit of validation, pass it off to a repository or service, etc. It begins to become a little bit too big. &lt;/p&gt;
 
 &lt;p&gt;Lets assume our we have an &lt;code&gt;AccountModule&lt;/code&gt; it Gets a Login route to load the UI, and Posts to a Login route to authenticate the user, and do something.&lt;/p&gt;
 
@@ -812,7 +812,7 @@ public class RegisterModule : NancyModule
 
 &lt;p&gt;To run JavaScript tests without a browser, we need PhantomJS, and we need to wire it up into Resharper.&lt;/p&gt;
 
-</description><pubDate>Wed, 23 Oct 2013 16:00:00 Z</pubDate><a10:updated>2013-10-23T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;There's so much information on the internet in terms of JavaScript Unit Testing and how to run tests etc, but when it comes to running tests in Visual Studio, without a browser, there's very little information. I had to piece information together to figure it out.&lt;/p&gt;
+</description><pubDate>Wed, 23 Oct 2013 16:00:00 Z</pubDate><a10:updated>2013-10-23T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;There's so much information on the internet in terms of JavaScript Unit Testing and how to run tests etc, but when it comes to running tests in Visual Studio, without a browser, there's very little information. I had to piece information together to figure it out.&lt;/p&gt;
 
 &lt;p&gt;So I'm going to do a small series on this.&lt;/p&gt;
 
@@ -937,7 +937,7 @@ describe("Calculator", function () {
 
 &lt;p&gt;You end up writing lots but instead of shifting around in CSS to figure out how to move it from left to right, I just described it. Sure enough, button sat on the right hand side!&lt;/p&gt;
 
-</description><pubDate>Fri, 04 Oct 2013 16:00:00 Z</pubDate><a10:updated>2013-10-04T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;Last week I saw a tweet about Semantic-UI, which I had not heard about, I guess it's relatively new. I decided to take a look and to be honest. I love what I see.&lt;/p&gt;
+</description><pubDate>Fri, 04 Oct 2013 16:00:00 Z</pubDate><a10:updated>2013-10-04T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;Last week I saw a tweet about Semantic-UI, which I had not heard about, I guess it's relatively new. I decided to take a look and to be honest. I love what I see.&lt;/p&gt;
 
 &lt;p&gt;So to get rolling I decided to create a basic registration form for a personal project using it. &lt;/p&gt;
 
@@ -1367,7 +1367,7 @@ ng-model="user.username"
   &lt;p&gt;Sandra.Snow is a Jekyll inspired static site generation tool that can be run locally, as a CAAS(Compiler as a Service) or setup with Azure to build your site when your repository changes. It is built on top of NancyFX.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-</description><pubDate>Mon, 30 Sep 2013 16:00:00 Z</pubDate><a10:updated>2013-09-30T16:00:00Z</a10:updated><a10:content type="text">&lt;p&gt;I've only been blogging since 2009, and my blog had gone through multiple iterations. I began on BlogEngine.NET, moved onto Wordpress, then was introduced to Jekyll. &lt;/p&gt;
+</description><pubDate>Mon, 30 Sep 2013 16:00:00 Z</pubDate><a10:updated>2013-09-30T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;I've only been blogging since 2009, and my blog had gone through multiple iterations. I began on BlogEngine.NET, moved onto Wordpress, then was introduced to Jekyll. &lt;/p&gt;
 
 &lt;p&gt;I loved Jekyll, but I personally found it fiddly, and people who I've spoken to have also found it fiddly, but are quiet happy after they had set it up.&lt;/p&gt;
 
