@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-03-10T21:45:16.8782695+08:00" />
+    <meta http-equiv="last-modified" content="2014-04-24T00:31:47.5236643+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
-    <link rel="canonical" href="http://www.philliphaydon.com/page10/" />
+    <link rel="canonical" href="http://www.philliphaydon.com//page10/" />
 </head>
 <body class="home blog">
     <div id="page" class="hfeed site">
@@ -35,6 +35,55 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/06/hide-show-buttons-with-sencha-touch/">Hide &amp; Show Buttons with Sencha Touch</a> 
+        <span>posted on 12 Jun 2011</span>
+      </h1> 
+      
+      <p>I'm currently building a demo for work using <a href="http://www.sencha.com/products/touch/">Sencha Touch mobile JavaScript framework</a>, and needed to change the state of some buttons dependent on which 'card' is shown.</p>
+
+<p>The Doc Api is a little hard to follow in my opinion, but I eventually worked it out.</p>
+
+<p>In hindsight I guess I could have used a single button to do this, but I will demonstrate it with two.</p>
+
+<p>To demonstrate this I'm going to use a Panel, with the buttons to flick between the cards. Instead of using a TabPanel.</p>
+
+<p>So to start with I have a Panel, with a ToolBar docked to the bottom, a couple of buttons, and two cards.</p>
+
+<p><img src="/images/sencha-1.png" alt="" /></p>
+
+<pre><code>var rootPanel;
+Ext.setup({
+    onReady: function () {
+        rootPanel = new Ext.Panel({
+            fullscreen: true,
+            layout: 'card',
+            style: 'background-color:lightblue;',
+            dockedItems: [
+                {
+                    dock: 'bottom',
+                    xtype: 'toolbar',
+                    items: [
+                        {
+                            html: 'Card 1 Button'
+                        },
+                        {
+                            docked: 'right',
+                            html: 'Card 2 Button'
+                        }
+                    ]
+                }
+            ],
+            items: [{ html: 'card 1' }, { html: 'card 2' }]
+        });
+    }
+});
+</code></pre>
+
+
+      <p><a href="/2011/06/hide-show-buttons-with-sencha-touch/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/06/joining-the-windows-phone-7-club/">Joining the Windows Phone 7 Club</a> 
@@ -279,31 +328,6 @@ FROM   [TestProduct] this_
 
       <p><a href="/2011/03/career-starting-salary/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/02/wp7-nights-at-the-round-table-feb-28/">WP7 Nights at the Round Table - Feb 28</a> 
-        <span>posted on 19 Feb 2011</span>
-      </h1> 
-      
-      <p><a href="http://www.nickharris.net/2011/02/wp7-nights-at-the-round-table-feb-28/">http://www.nickharris.net/2011/02/wp7-nights-at-the-round-table-feb-28/</a></p>
-
-<p><em>*Event: *</em><br />
-WP7 Nights at the Round Table - Feb 28th Sydney</p>
-
-<p><em>*Purpose: *</em><br />
-Let's get together for some drinks to trade WP7 Dev stories, demos or seek free advice from other devs to help get your app off the ground and into Marketplace. This event will be informal, around bar tables, so bring along your device or laptop if you wish to show people what you have been up to.</p>
-
-<p><em>*Let us know your coming: *</em><br />
-If your on LinkedIn please indicate your attendance here - <a href="http://events.linkedin.com/WP7-Nights-Round-Table-Feb-28th/pub/571016">http://events.linkedin.com/WP7-Nights-Round-Table-Feb-28th/pub/571016</a> or in the comments section below.</p>
-
-<p><em>*Date, Time, Location: *</em><br />
-6-8pm<br />
-Tues 28th Feb 2010<br />
-City Hotel,<br />
-Corner of King and Kent St, Sydney CBD.</p>
-
-      <p><a href="/2011/02/wp7-nights-at-the-round-table-feb-28/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -374,6 +398,7 @@ Corner of King and Kent St, Sydney CBD.</p>
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20144">April, 2014</a></li>
                           <li><a href="/archive#20142">February, 2014</a></li>
                           <li><a href="/archive#20141">January, 2014</a></li>
                           <li><a href="/archive#201312">December, 2013</a></li>

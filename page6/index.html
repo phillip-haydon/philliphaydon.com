@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-03-10T21:45:16.8782695+08:00" />
+    <meta http-equiv="last-modified" content="2014-04-24T00:31:47.5236643+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
-    <link rel="canonical" href="http://www.philliphaydon.com/page6/" />
+    <link rel="canonical" href="http://www.philliphaydon.com//page6/" />
 </head>
 <body class="home blog">
     <div id="page" class="hfeed site">
@@ -35,6 +35,38 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/11/nancy-and-content-negotiation/">NancyFX and Content Negotiation</a> 
+        <span>posted on 08 Nov 2012</span>
+      </h1> 
+      
+      <p>This has to be one of the most awesome features of Nancy, Content Negotiation. Recently added in 0.12, it gives you the ability to implement a single route that responds with different versions of the same document, without having to mess up your code with duplicate methods or conditional statements.</p>
+
+<p>When doing this in ASP.NET MVC I would have to check the content type and decide how I want to respond to the request.</p>
+
+<p>This ended up making duplicate methods, one which would be used by a normal GET request, while the 2nd would be for an AJAX request. Or if it was similar, use conditional logic in the single method to decide how the action should respond...</p>
+
+<p>Nancy on the other hand supports Content Negotiation out of the box.</p>
+
+<pre><code>Get["/negotiated"] = parameters =&gt; {
+    return Negotiate
+        .WithModel(new RatPack {FirstName = "Nancy "})
+        .WithMediaRangeModel("text/html", new RatPack {FirstName = "Nancy fancy pants"})
+        .WithView("negotiatedview")
+        .WithHeader("X-Custom", "SomeValue");
+};
+</code></pre>
+
+<p><span class="note"><strong>Note:</strong> Sample taken from Nancy GitHub Repo</span></p>
+
+<h2>What is content negotiation?</h2>
+
+<p>In short, it's the ability to serve different versions of a document to the same URI.</p>
+
+
+      <p><a href="/2012/11/nancy-and-content-negotiation/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2012/11/sinatra-book-review/">Sinatra Book Review</a> 
@@ -309,33 +341,6 @@ public class User
 
       <p><a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2012/06/multiple-iisexpress-sites-profiled-with-dottrace/">Multiple IISExpress Sites profiled with DotTrace</a> 
-        <span>posted on 18 Jun 2012</span>
-      </h1> 
-      
-      <p>Yesterday (14th of June) I had a need to run more than one website while running <a href="http://www.jetbrains.com/">JetBrain's</a> <a href="http://www.jetbrains.com/profiler/">DotTrace</a>, to give a bit of background, Website A needs to redirect to Website B in order to simulate a single sign on.</p>
-
-<p>Website B can't be accessed without using the SSO, so in order to profile Website B I need to run Website A.</p>
-
-<p>The problem is when using DotTrace, I have to select the website I wish to profile:</p>
-
-<p><img src="/images/multiple-iis-1.png" alt="" /></p>
-
-<p>The problem with that, is that when you run the profiler it only starts up one of the websites. I need it to start both.</p>
-
-<p>This would be easy to profile if the Standard Version came with Attach To Process feature. But unfortunately that only comes with Professional.</p>
-
-<p>That way, when I debug using Visual Studio I could pick the process to profile:</p>
-
-<p><img src="/images/multiple-iis-2.png" alt="" /></p>
-
-<p><em>(Information can be found by right clicking the system try and selecting 'show all applications')</em></p>
-
-
-      <p><a href="/2012/06/multiple-iisexpress-sites-profiled-with-dottrace/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -406,6 +411,7 @@ public class User
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20144">April, 2014</a></li>
                           <li><a href="/archive#20142">February, 2014</a></li>
                           <li><a href="/archive#20141">January, 2014</a></li>
                           <li><a href="/archive#201312">December, 2013</a></li>

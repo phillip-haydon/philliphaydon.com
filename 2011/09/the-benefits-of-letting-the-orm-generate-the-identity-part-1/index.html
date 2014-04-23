@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-03-10T21:45:16.8782695+08:00" />
+    <meta http-equiv="last-modified" content="2014-04-24T00:31:47.5236643+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/2011/09/the-benefits-of-letting-the-orm-generate-the-identity-part-1/" />
@@ -38,20 +38,22 @@
     <h1>The benefits of letting the ORM generate the Identity (part 1)</h1>
 
     <div class="post-note">
-      posted on 22 Sep 2011
-       | <a href="/category/nhibernate">NHibernate</a>
-      
-      <div class="addthis_toolbox addthis_default_style" style="float:right;">
-        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-        <a class="addthis_button_tweet"></a>
-        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-        <a class="addthis_button_linkedin_counter"></a>
-        <a class="addthis_counter addthis_pill_style"></a>
-      </div>
+        posted on 22 Sep 2011
+            | <a href="/category/nhibernate">NHibernate</a>
+
+        <div class="addthis_toolbox addthis_default_style" style="float:right;">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+            <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+            <a class="addthis_button_linkedin_counter"></a>
+            <a class="addthis_counter addthis_pill_style"></a>
+        </div>
     </div>
+
+
+
     
-    
-        
+
     <p>One thing I've learnt is that letting the database generate the identity for you is a bad thing. It always annoyed me that Oracle never gave a feature like <a href="http://dev.mysql.com/doc/refman/5.0/en/example-auto-increment.html">AUTO_INCREMENT</a> in MySQL or <a href="http://msdn.microsoft.com/en-us/library/aa933196(SQL.80).aspx">IDENTITY</a> in SQL Server. I never understood, when inserting data how do I give it an Id?</p>
 
 <p>Well one of the benefits of ORMs such as NHibernate is we can generate the identity our-self, or rather, the ORM can generate it so we don't rely on the database. This also plays a major part in our code base when we insert a graph or batch of data and how the identity is added to our object.</p>
@@ -435,7 +437,7 @@ commit transaction
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    
+
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
 
 </div>
@@ -491,6 +493,7 @@ commit transaction
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20144">April, 2014</a></li>
                           <li><a href="/archive#20142">February, 2014</a></li>
                           <li><a href="/archive#20141">January, 2014</a></li>
                           <li><a href="/archive#201312">December, 2013</a></li>

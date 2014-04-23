@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-03-10T21:45:16.8782695+08:00" />
+    <meta http-equiv="last-modified" content="2014-04-24T00:31:47.5236643+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
-    <link rel="canonical" href="http://www.philliphaydon.com/page3/" />
+    <link rel="canonical" href="http://www.philliphaydon.com//page3/" />
 </head>
 <body class="home blog">
     <div id="page" class="hfeed site">
@@ -35,6 +35,39 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 3)</a> 
+        <span>posted on 20 May 2013</span>
+      </h1> 
+      
+      <ul>
+<li>Original Post: <a href="/2012/11/nancy-and-content-negotiation">NancyFX and Content Negotiation</a></li>
+<li><a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</a></li>
+<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 2)</a></li>
+<li>NancyFX - Revisiting Content Negotiation &amp; APIs (Part 3)</li>
+</ul>
+
+<p>In this last part I want to show you creating your own media type, so far we have gone over a really basic example of returning a response and letting the accept header handle different results, and then we went over how explicitly using <code>Negotiate</code> allows you to customize your response more.</p>
+
+<p>Creating your own Media Type may be something you never have to do, but it can help you solve some strange scenarios, for instance you could have a user request an invoice, rather than clutter your code with:</p>
+
+<pre><code>if (requestedInvoice.Type == "pdf")
+{
+    // get a pdf invoice
+}
+else if (requestedInvoice.Type == "word")
+{
+
+}
+else if (...)
+</code></pre>
+
+<p>You get the picture, this is tedious problematic work, every time we want to supply a new invoice type we need to modify the existing request, what we want to do is just handle a new media type and process it if we know about it.</p>
+
+
+      <p><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/05/setup-my-first-azure-virtual-machine/">Setup my first Azure Virtual Machine!</a> 
@@ -262,29 +295,6 @@
 
       <p><a href="/2013/04/what-i-would-like-to-see-from-microsoft-regarding-oss/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/03/everyone-should-get-the-opportunity-to-learn-to-program-but-school-is-a-waste-of-time/">Everyone should get the opportunity to learn to program, but school is a waste of time</a> 
-        <span>posted on 04 Mar 2013</span>
-      </h1> 
-      
-      <p>I just got done reading a <a href="http://blog.filipekberg.se/2013/03/04/everyone-should-learn-programming/">blog post</a> by <a href="https://twitter.com/fekberg">@fekberg</a> titled "Everyone Should Learn Programming"</p>
-
-<p>This idea that everyone should learn to program seems to be a growing trend. But I disagree. </p>
-
-<p>I don't think <code>everyone</code> should learn to program, I think everyone should get the opportunity to learn to program. Schooling in general is a waste of time because it caters to this idea that life evolves around English, Math, Art, Science and General Knowledge. But real life doesn't, and these things don't help children figure out what they are good at or enjoy.</p>
-
-<p>There's an awesome TED video by Sir Ken Robinson titled "Do Schools Kill Creativity"</p>
-
-<p><a href="http://www.youtube.com/watch?v=iG9CE55wbtY">http://www.youtube.com/watch?v=iG9CE55wbtY</a></p>
-
-<p><object width="480" height="360"><param name="movie" value="https://www.youtube.com/v/iG9CE55wbtY?hl=en_US&amp;version=3&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="https://www.youtube.com/v/iG9CE55wbtY?hl=en_US&amp;version=3&amp;rel=0" type="application/x-shockwave-flash" width="480" height="360" allowscriptaccess="always" allowfullscreen="true"></embed></object></p>
-
-<p><strong>It's worth watching, awesome talk and very funny</strong></p>
-
-
-      <p><a href="/2013/03/everyone-should-get-the-opportunity-to-learn-to-program-but-school-is-a-waste-of-time/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -355,6 +365,7 @@
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20144">April, 2014</a></li>
                           <li><a href="/archive#20142">February, 2014</a></li>
                           <li><a href="/archive#20141">January, 2014</a></li>
                           <li><a href="/archive#201312">December, 2013</a></li>

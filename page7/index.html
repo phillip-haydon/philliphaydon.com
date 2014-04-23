@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-03-10T21:45:16.8782695+08:00" />
+    <meta http-equiv="last-modified" content="2014-04-24T00:31:47.5236643+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
-    <link rel="canonical" href="http://www.philliphaydon.com/page7/" />
+    <link rel="canonical" href="http://www.philliphaydon.com//page7/" />
 </head>
 <body class="home blog">
     <div id="page" class="hfeed site">
@@ -35,6 +35,33 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/06/multiple-iisexpress-sites-profiled-with-dottrace/">Multiple IISExpress Sites profiled with DotTrace</a> 
+        <span>posted on 18 Jun 2012</span>
+      </h1> 
+      
+      <p>Yesterday (14th of June) I had a need to run more than one website while running <a href="http://www.jetbrains.com/">JetBrain's</a> <a href="http://www.jetbrains.com/profiler/">DotTrace</a>, to give a bit of background, Website A needs to redirect to Website B in order to simulate a single sign on.</p>
+
+<p>Website B can't be accessed without using the SSO, so in order to profile Website B I need to run Website A.</p>
+
+<p>The problem is when using DotTrace, I have to select the website I wish to profile:</p>
+
+<p><img src="/images/multiple-iis-1.png" alt="" /></p>
+
+<p>The problem with that, is that when you run the profiler it only starts up one of the websites. I need it to start both.</p>
+
+<p>This would be easy to profile if the Standard Version came with Attach To Process feature. But unfortunately that only comes with Professional.</p>
+
+<p>That way, when I debug using Visual Studio I could pick the process to profile:</p>
+
+<p><img src="/images/multiple-iis-2.png" alt="" /></p>
+
+<p><em>(Information can be found by right clicking the system try and selecting 'show all applications')</em></p>
+
+
+      <p><a href="/2012/06/multiple-iisexpress-sites-profiled-with-dottrace/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2012/06/asp-net-mvc-4-has-real-empty-project/">ASP.NET MVC 4 has, REAL EMPTY PROJECT!</a> 
@@ -281,33 +308,6 @@
 
       <p><a href="/2012/02/mvc-4-project-templates-are-stupid/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2012/01/ravendb-searching-across-multiple-properties/">RavenDB - Searching across multiple properties</a> 
-        <span>posted on 18 Jan 2012</span>
-      </h1> 
-      
-      <p>Ayende recently posted about <a href="http://ayende.com/blog/152833/orders-search-in-ravendb">Orders Search</a> in RavenDB which got me a little bit excited, since I was pondering how I would do searching in RavenDB without having Full Text Searching from SQL Server.</p>
-
-<p>So digging into it I wanted to try it out for myself how to use it. Given the model:</p>
-
-<pre><code>public class Post
-{
-    public int Id { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public IEnumerable&lt;string&gt; Tags { get; set; }
-    public DateTime DatePosted { get; set; }
-}
-</code></pre>
-
-<p>I've setup 10 posts (<a href="http://pastie.org/3200462">click here for the insert pastie</a>) just with some really basic data.</p>
-
-<p>So I'm going to detail here all the data that I've setup.</p>
-
-
-      <p><a href="/2012/01/ravendb-searching-across-multiple-properties/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -378,6 +378,7 @@
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20144">April, 2014</a></li>
                           <li><a href="/archive#20142">February, 2014</a></li>
                           <li><a href="/archive#20141">January, 2014</a></li>
                           <li><a href="/archive#201312">December, 2013</a></li>

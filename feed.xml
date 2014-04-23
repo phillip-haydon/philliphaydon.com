@@ -1,4 +1,236 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/02/fixing-github-with-chrome-plugin-github-expandinizr/</guid><link>http://www.philliphaydon.com/2014/02/fixing-github-with-chrome-plugin-github-expandinizr/</link><title>Fixing Github with Chrome Plugin - GitHub.Expandinizr</title><description>&lt;p&gt;So if you've ever visited Github, and thought &lt;em&gt;'Oh, I'll browser a repository and find a file'&lt;/em&gt;, no doubt you've probably ended up in a suituation like so:&lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/</guid><link>http://www.philliphaydon.com/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/</link><title>If you’re not logging, you’re doing it all wrong. (part 1)</title><description>&lt;h2&gt;Part 1: If you’re not logging, you’re doing it all wrong.&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src="http://upboat.me/eltm/so-you're-telling-me/you-have-no-idea-what-is-going-on?.jpg" alt="Really? Seriously?" /&gt;&lt;/p&gt;
+
+&lt;h3&gt;Synopsis: Simple way to start logging your .NET application.&lt;/h3&gt;
+
+&lt;p&gt;Maintaining some production software is most overlooked until a problem arises ... which by then it could be more costly to support and fix if some simple, basic procedures were not considered from day zero. In my opionion, adding the ability to get acess to the internal runnings of your system is crutial to &lt;em&gt;seeing what is going on under the hood&lt;/em&gt; and helping you get some facts to help problem solve a production issue.&lt;/p&gt;
+
+&lt;p&gt;Logging is one of these mechanisms and should be considered and planned before you even start any coding.&lt;/p&gt;
+
+</description><pubDate>Tue, 22 Apr 2014 16:00:00 Z</pubDate><a10:updated>2014-04-22T16:00:00Z</a10:updated><a10:content type="html">&lt;h2&gt;Part 1: If you’re not logging, you’re doing it all wrong.&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src="http://upboat.me/eltm/so-you're-telling-me/you-have-no-idea-what-is-going-on?.jpg" alt="Really? Seriously?" /&gt;&lt;/p&gt;
+
+&lt;h3&gt;Synopsis: Simple way to start logging your .NET application.&lt;/h3&gt;
+
+&lt;p&gt;Maintaining some production software is most overlooked until a problem arises ... which by then it could be more costly to support and fix if some simple, basic procedures were not considered from day zero. In my opionion, adding the ability to get acess to the internal runnings of your system is crutial to &lt;em&gt;seeing what is going on under the hood&lt;/em&gt; and helping you get some facts to help problem solve a production issue.&lt;/p&gt;
+
+&lt;p&gt;Logging is one of these mechanisms and should be considered and planned before you even start any coding.&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;What this is not about:    &lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Not an opinion piece about why you should be logging your code. Google for that, then come back when you’re convinced that you need it. &lt;/li&gt;
+&lt;li&gt;This is not a lesson in Dependency Injection. Don’t know that? Google it then come back.&lt;/li&gt;
+&lt;li&gt;Nor is this a lesson in &lt;a href="http://nlog-project.org/"&gt;NLog&lt;/a&gt;, &lt;a href="http://autofac.org/"&gt;AutoFac&lt;/a&gt; or &lt;a href="http://nancyfx.org/"&gt;NancyFX&lt;/a&gt; / &lt;a href="http://www.asp.net/mvc"&gt;ASP.NET MVC&lt;/a&gt; (sample tools we use in this example)&lt;/li&gt;
+&lt;li&gt;Nor will I explain how to setup an account and ‘hosts’ with LogEntries (what the hell is LogEntries? I’ll explain that later).&lt;/li&gt;
+&lt;li&gt;Nor will I explain what/how are web.config transformations.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3&gt;If you’re not logging, then you’re doing it all wrong.&lt;/h3&gt;
+
+&lt;p&gt;You build websites or mobile/desktop applications. Awesome. Therefore, you need to know what is happening &lt;em&gt;during&lt;/em&gt; runtime of your live/production application, otherwise you’re flying blind. &lt;/p&gt;
+
+&lt;p&gt;The trick to logging a .NET application is to make sure that you leverage a logging interface all over your code. Based upon your solution’s configuration (ie. &lt;code&gt;DEBUG&lt;/code&gt; or &lt;code&gt;RELEASE&lt;/code&gt; or &lt;code&gt;ANY_OTHER_CUSTOM_CONFIG&lt;/code&gt;) we leverage &lt;code&gt;web.config&lt;/code&gt; &lt;em&gt;transformations&lt;/em&gt; to use the appropriate logging &lt;em&gt;targets&lt;/em&gt;, based on the configuration.&lt;/p&gt;
+
+&lt;p&gt;Note: &lt;code&gt;Target&lt;/code&gt; = a fancy word for where we dump our logging information to. This could be the console or a file or another gui-application (more on this, later) or some internet website (also more on this magic, later).&lt;/p&gt;
+
+&lt;h3&gt;Tools - we need tools!&lt;/h3&gt;
+
+&lt;p&gt;Then general idea is this&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Code your message(s): "Hi, i’m here."  or "OMG, BOOM" or "Just created a new user. UserId: '1'.".&lt;/li&gt;
+&lt;li&gt;NLog sends the message somewhere: your GUI app, or email, or a logging website.&lt;/li&gt;
+&lt;li&gt;View the messages: use Sentinal (localhost) or LogEntries (production).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;And where do we visualize this data again?&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://sentinel.codeplex.com/"&gt;Sentinal&lt;/a&gt;: A free windows app that displays log information, as it streams in &lt;em&gt;live&lt;/em&gt;. (yes, ~~streams~~ in …)&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://logentries.com/"&gt;LogEntires&lt;/a&gt;: A website that &lt;em&gt;stores&lt;/em&gt; your log entry information, which you can view it at any time. Also has a live stream.&lt;br /&gt;
+&lt;strong&gt;Free account limits data retention to a week .. which for most people (especially when you’re testing/debuging) is &lt;em&gt;totally&lt;/em&gt; sufficient.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Okay so when to use what?&lt;br /&gt;
+- Sentinal: use this for localhost debugging.
+- LogEntires: use this for live/production system.
+Pro Tip: Yes, you can use Sentinal for live/production if you really want to. But this involves setting up NAT rules in your firewall, opening ports on your local firewall, etc. Basically - a PITA vs using LogEntries which is for free.&lt;/p&gt;
+
+&lt;h3&gt;Show me some code, already! Sheesss…&lt;/h3&gt;
+
+&lt;p&gt;Fine. Let’s do this: LEEEEROOYYYYY JENKINNNNNSSSSSSS……&lt;/p&gt;
+
+&lt;p&gt;Step 1. Download &amp;amp; install &lt;a href="http://sentinel.codeplex.com/"&gt;Sentinal&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Step 2. Create/Setup a new solution.&lt;br /&gt;
+    eg. &lt;code&gt;File -&amp;gt; New -&amp;gt; Web Application.&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Step 3. Lets add some logging information.&lt;/p&gt;
+
+&lt;p&gt;First, we need an existing logging interface package.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/NcM2Lie.png" alt="Nuget command line" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next we’ll use DI/IOC to inject the logging instance, so lets wire that up first.&lt;/p&gt;
+
+&lt;p&gt;NancyFX:&lt;br /&gt;
+(This is using TinyIOC for IoC (which is built into NancyFX))&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;protected override void ConfigureApplicationContainer(TinyIoCContainer container)
+{
+    base.ConfigureApplicationContainer(container);
+
+    // NOTE: Use a specific constructor, which is why we have to use the delayed registration.
+    var loggingService = new NLogLoggingService();
+    container.Register&amp;lt;ILoggingService&amp;gt;((c, p) =&amp;gt; loggingService);
+
+    // Register any other singleton services.
+    // …
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ASP.Net MVC&lt;br /&gt;
+(This is using &lt;a href="http://autofac.org/"&gt;AutoFac&lt;/a&gt; for IoC)    &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public static class DependencyResolutionConfig
+{
+    public static void RegisterContainers()
+    {
+        var builder = new ContainerBuilder();
+
+        // Register our services.
+        builder.Register(c =&amp;gt; new NLogLoggingService())
+            .As&amp;lt;ILoggingService&amp;gt;();
+
+        // Register our controllers (so they will use constructor injection)
+        builder.RegisterControllers(typeof(MvcApplication).Assembly);
+
+        var container = builder.Build();
+
+        DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we’ll use constructor injection for our logging interface.&lt;br /&gt;
+&lt;strong&gt;Side Note&lt;/strong&gt;: I do not consider injecting an &lt;code&gt;ILoggingService&lt;/code&gt; into classes as an &lt;a href="http://jeffreypalermo.com/blog/constructor-over-injection-anti-pattern/"&gt;Anti-Pattern&lt;/a&gt; because IMO I usually log things in &lt;em&gt;all&lt;/em&gt; methods (I'll touch on this, below) so therefore, logging is a fundamental part of each class that contains business logic. As such, my class has a logging dependecy throughout. Not on 1 or some methods, only.&lt;/p&gt;
+
+&lt;p&gt;NancyFX&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;using System;
+using Nancy;
+using Shouldly;
+using SimpleLogging.Core;
+
+namespace SimpleLogging.Samples.NancyFX.Modules
+{
+    public class HomeModule : NancyModule
+    {
+        private readonly ILoggingService _loggingService;
+
+        public HomeModule(ILoggingService loggingService)
+        {
+            loggingService.ShouldNotBe(null);
+            _loggingService = loggingService;
+
+            Get["/"] = _ =&amp;gt; GetHome();
+        }
+
+        private dynamic GetHome()
+        {
+            _loggingService.Trace("GetHome");
+
+            _loggingService.Debug("Current DateTime: '{0}'", DateTime.UtcNow);
+
+            return View["home"];
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ASP.NET MVC&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;using System;
+using System.Web.Mvc;
+using Shouldly;
+using SimpleLogging.Core;
+
+namespace SimpleLogging.Samples.MVC.Controllers
+{
+    public class HomeController : Controller
+    {
+        private readonly ILoggingService _loggingService;
+
+        public HomeController(ILoggingService loggingService)
+        {
+            loggingService.ShouldNotBe(null);
+            _loggingService = loggingService;
+        }
+
+        //
+        // GET: /Home/
+
+        public ActionResult Index()
+        {
+            _loggingService.Trace("Index");
+
+            _loggingService.Debug("Current DateTime: '{0}'", DateTime.UtcNow);
+
+            return View();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Step 4. Add an NLog file.&lt;/p&gt;
+
+&lt;p&gt;Add this new file to the root website / application folder.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;nlog.config    
+
+&amp;lt;?xml version="1.0" encoding="utf-8" ?&amp;gt;
+&amp;lt;nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      autoReload="true"
+      throwExceptions="true"&amp;gt;
+
+    &amp;lt;!-- NLog example: https://github.com/nlog/nlog/wiki/Examples --&amp;gt;
+    &amp;lt;targets async="true"&amp;gt;
+        &amp;lt;target xsi:type="NLogViewer"
+                name="sentinal" 
+                address="udp://127.0.0.1:9999" /&amp;gt;
+    &amp;lt;/targets&amp;gt;
+
+    &amp;lt;rules&amp;gt;
+        &amp;lt;logger name="*" minlevel="Trace" writeTo="sentinal"/&amp;gt;
+    &amp;lt;/rules&amp;gt;
+
+&amp;lt;/nlog&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Step 5. Run Sentinal&lt;/p&gt;
+
+&lt;p&gt;Step 6. Run the website.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/fRfJVQc.png" alt="Zoh Mai Gawd" /&gt;&lt;/p&gt;
+
+&lt;h3&gt;Recap.&lt;/h3&gt;
+
+&lt;p&gt;So now we’ve started sprinkling logging messages throughout our code. This gives us some Serious.KickAss&amp;trade; insights into what is going on under the hood with our code. We view this logging data locally with our Sentinel app. &lt;/p&gt;
+
+&lt;p&gt;It's not hard to add logging to your website / application. &lt;/p&gt;
+
+&lt;p&gt;Please start to get into the habbit of &lt;code&gt;TRACE&lt;/code&gt;ing and &lt;code&gt;DEBUG&lt;/code&gt;ing your code so you can see what's going on under the hood - when you really need to.&lt;/p&gt;
+
+&lt;h3&gt;NEXT: Part 2 - Levelling up your Logging&lt;/h3&gt;
+
+&lt;p&gt;In the next part, I take all this simple logging magic to the next level : doing this for your live / production website / application!&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/02/fixing-github-with-chrome-plugin-github-expandinizr/</guid><link>http://www.philliphaydon.com/2014/02/fixing-github-with-chrome-plugin-github-expandinizr/</link><title>Fixing Github with Chrome Plugin - GitHub.Expandinizr</title><description>&lt;p&gt;So if you've ever visited Github, and thought &lt;em&gt;'Oh, I'll browser a repository and find a file'&lt;/em&gt;, no doubt you've probably ended up in a suituation like so:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-github-01.png" alt="" /&gt;&lt;/p&gt;
 
@@ -1343,212 +1575,4 @@ ng-model="user.username"
 &lt;p&gt;I've put the project on &lt;a href="https://github.com/phillip-haydon/Demo-SemanticUIAngular"&gt;Github&lt;/a&gt; if you're interested in taking a look. There isn't much :)&lt;/p&gt;
 
 &lt;p&gt;I love Semantic, and Angular... So so awesome :)&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/10/introducing-sandra-snow/</guid><link>http://www.philliphaydon.com/2013/10/introducing-sandra-snow/</link><title>Introducing Sandra.Snow</title><description>&lt;p&gt;I've only been blogging since 2009, and my blog had gone through multiple iterations. I began on BlogEngine.NET, moved onto Wordpress, then was introduced to Jekyll. &lt;/p&gt;
-
-&lt;p&gt;I loved Jekyll, but I personally found it fiddly, and people who I've spoken to have also found it fiddly, but are quiet happy after they had set it up.&lt;/p&gt;
-
-&lt;p&gt;I really liked the idea, so I thought I would recreate it in .NET :) Because reinventing the wheel is fun!&lt;/p&gt;
-
-&lt;h2&gt;Introducing Sandra.Snow&lt;/h2&gt;
-
-&lt;p&gt;With the help of &lt;a href="https://twitter.com/jchannon"&gt;@jchannon&lt;/a&gt;, I've managed release Snow. Using NancyFX we have created a small application that allows you to write Markdown Posts with Razor Layouts, which will be compiled static HTML files.&lt;/p&gt;
-
-&lt;p&gt;Currently, besides my own, I'm aware of 3 other blogs running on Snow:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://blog.jonathanchannon.com"&gt;blog.jonathanchannon.com&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://thecodejunkie.com/"&gt;thecodejunkie.com&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://blog.owenrumney.co.uk/"&gt;blog.owenrumney.co.uk&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;So what is it? Basically:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Sandra.Snow is a Jekyll inspired static site generation tool that can be run locally, as a CAAS(Compiler as a Service) or setup with Azure to build your site when your repository changes. It is built on top of NancyFX.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-</description><pubDate>Mon, 30 Sep 2013 16:00:00 Z</pubDate><a10:updated>2013-09-30T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;I've only been blogging since 2009, and my blog had gone through multiple iterations. I began on BlogEngine.NET, moved onto Wordpress, then was introduced to Jekyll. &lt;/p&gt;
-
-&lt;p&gt;I loved Jekyll, but I personally found it fiddly, and people who I've spoken to have also found it fiddly, but are quiet happy after they had set it up.&lt;/p&gt;
-
-&lt;p&gt;I really liked the idea, so I thought I would recreate it in .NET :) Because reinventing the wheel is fun!&lt;/p&gt;
-
-&lt;h2&gt;Introducing Sandra.Snow&lt;/h2&gt;
-
-&lt;p&gt;With the help of &lt;a href="https://twitter.com/jchannon"&gt;@jchannon&lt;/a&gt;, I've managed release Snow. Using NancyFX we have created a small application that allows you to write Markdown Posts with Razor Layouts, which will be compiled static HTML files.&lt;/p&gt;
-
-&lt;p&gt;Currently, besides my own, I'm aware of 3 other blogs running on Snow:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://blog.jonathanchannon.com"&gt;blog.jonathanchannon.com&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://thecodejunkie.com/"&gt;thecodejunkie.com&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://blog.owenrumney.co.uk/"&gt;blog.owenrumney.co.uk&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;So what is it? Basically:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Sandra.Snow is a Jekyll inspired static site generation tool that can be run locally, as a CAAS(Compiler as a Service) or setup with Azure to build your site when your repository changes. It is built on top of NancyFX.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;h2&gt;Getting Started&lt;/h2&gt;
-
-&lt;p&gt;The easiest way to getting started with Snow is to fork it!&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://github.com/Sandra/Sandra.Snow.SnowTemplate"&gt;Sandra.Snow.SnowTemplate&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;You can fork the Snow Template repository, which is all setup and ready to go. Basically you fork it, run the &lt;code&gt;.bat&lt;/code&gt; file, and it will build the website into the current directory, and away you go.&lt;/p&gt;
-
-&lt;p&gt;Push the fork back up to &lt;code&gt;gh-pages&lt;/code&gt; and you've got a site on GitHub pages :)&lt;/p&gt;
-
-&lt;h2&gt;So what happening?!?&lt;/h2&gt;
-
-&lt;p&gt;If you take a look at my blog repository: &lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://github.com/phillip-haydon/philliphaydon.com"&gt;https://github.com/phillip-haydon/philliphaydon.com&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;This was originally a Github Pages blog running on Jekyll, I've re-purposed it using the Sandra.Snow.SnowTemplate project.&lt;/p&gt;
-
-&lt;p&gt;Basically in the root directory of the website are 4 key things:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;./.nojekyll&lt;/li&gt;
-&lt;li&gt;./CNAME&lt;/li&gt;
-&lt;li&gt;./compile.snow.bat&lt;/li&gt;
-&lt;li&gt;./Snow&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3&gt;.nojekyll&lt;/h3&gt;
-
-&lt;p&gt;This is exactly what you think it is... it basically tells Github to not treat the site as a jekyll site. :) prevents me from receiving emails from Github.&lt;/p&gt;
-
-&lt;h3&gt;CNAME&lt;/h3&gt;
-
-&lt;p&gt;This file is super basic. It contains my blog URL. :)&lt;/p&gt;
-
-&lt;h3&gt;compile.snow.bat&lt;/h3&gt;
-
-&lt;p&gt;This file does two things. &lt;/p&gt;
-
-&lt;p&gt;It executes &lt;a href="http://optipng.sourceforge.net"&gt;OptiPNG&lt;/a&gt; which is a little &lt;code&gt;.exe&lt;/code&gt; file which recompresses images to a smaller size. All my screen grabs are done using &lt;kbd&gt;PrtScn&lt;/kbd&gt; + Paint, so the &lt;code&gt;.png&lt;/code&gt; files are often larger than they should be. &lt;/p&gt;
-
-&lt;p&gt;It may not be much, but my entire site is about 12mb of images, with the optimization its only 8.8mb. Github hosts my blog, but I'm more worried about end users downloading the images ASAP, especially if they are viewing on a mobile device.&lt;/p&gt;
-
-&lt;p&gt;The second thing it executes is &lt;code&gt;Snow.exe&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;.\Snow\_compiler\Snow.exe config=.\Snow\ debug=true&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;This line tells it to execute Snow, and the location of the config file. &lt;/p&gt;
-
-&lt;h3&gt;Snow&lt;/h3&gt;
-
-&lt;p&gt;This directory is my actual un-compiled website. &lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://github.com/phillip-haydon/philliphaydon.com/tree/gh-pages/Snow"&gt;Github Snow Directory&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;In here is the actual exe under &lt;code&gt;_compiler&lt;/code&gt; and a snow.config file.&lt;/p&gt;
-
-&lt;p&gt;The snow.config file looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{
-  "siteUrl": "http://www.philliphaydon.com",
-  "posts": "_posts",
-  "layouts": "_layouts",
-  "output": "../",
-  "urlFormat": "yyyy/MM/slug",
-  "directoryname": "",
-  "copyDirectories": [
-    "images/output =&amp;gt; images",
-    "javascripts",
-    "stylesheets",
-    "stuffz"
-  ],
-  "processFiles": [{
-    "file": "index.cshtml",
-    "loop": "Posts"
-  },{
-    "file": "category.cshtml",
-    "loop": "Categories"
-  },{
-    "file": "categories.cshtml =&amp;gt; category"
-  },{
-    "file": "archive.cshtml"
-  },{
-    "file": "about.cshtml"
-  },{
-    "file": "feed.xml",
-    "loop": "RSS"
-  }]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;It's nothing special, it's just a JSON file. :)&lt;/p&gt;
-
-&lt;p&gt;I specify where my posts are, where my layouts are, and where I want to output my site.&lt;/p&gt;
-
-&lt;p&gt;This basically just generates all the markdown posts which live in &lt;code&gt;/Snow/_posts&lt;/code&gt;, then I have some additional files to process.&lt;/p&gt;
-
-&lt;p&gt;Jekyll works by processing any file, but I personally don't like that. I opted for being specific and telling it what it should process. &lt;/p&gt;
-
-&lt;h2&gt;Those markdown files!&lt;/h2&gt;
-
-&lt;p&gt;The markdown files are similar to Jekyll, they use the same styled header like, well this blog post I'm writing right now looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;---
-title: Introducing Sandra.Snow
-categories: NancyFX, Snow
-layout: post
----
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;When I ported my blog to Snow. I updated NONE of my markdown files. :) &lt;/p&gt;
-
-&lt;p&gt;That's really all there is to it. &lt;/p&gt;
-
-&lt;p&gt;The rest is just Markdown files, some Razor views, and a .exe&lt;/p&gt;
-
-&lt;p&gt;It generates to the folder below by specifying the output as &lt;code&gt;../&lt;/code&gt;, but it preserves some folders. i.e it wont delete the .bat file, CNAME, .nojekyll, Snow, or .git/.svn&lt;/p&gt;
-
-&lt;h2&gt;Stuff...&lt;/h2&gt;
-
-&lt;p&gt;So that's it, I have some nifty little features too. I'm slowly detailing all this on the wiki. But the one I like most was inspired by a conversion with &lt;a href="https://twitter.com/thecodejunkie"&gt;@TheCodeJunkie&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;It's the ability to specify a Series of posts:&lt;/p&gt;
-
-&lt;p&gt;My blog series on setting up Mono on Azure/Ubuntu, has a special header in the markdown file:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;---
-layout: post
-category: Azure
-title: Setting up Mono on nginx
-series:
-    name: AzureMono
-    current: 3
-    part: Part 1 - Setting up the Virtual Machine and nginx
-    part: Part 2 - Setting up new Website and Domain on nginx
-    part: Part 3 - Setting up Mono on nginx
-    part: Part 4 - Setting up a NancyFX website
-    part: Part 5 - Setting up a ServiceStack web service
----
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Each post has a 'series' and 3 key properties:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Name - specifies the unique identifier for the series.&lt;/p&gt;
-  
-  &lt;p&gt;Current - is the current index of the posts (its starting index is 1, not 0)&lt;/p&gt;
-  
-  &lt;p&gt;Part - the parts is a collection of all parts that will be in the series.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Future posts will show without links, while past posts will show with the link they relate to.&lt;/p&gt;
-
-&lt;p&gt;If you changed a future post name, it will take the current post's part name and use that, while previous post parts will be ignored. When the HTML files are generated they will be updated with the new series. Meaning you never need to go back and update old posts, or if they are far apart you don't have to hunt them down :)&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Well I hope you like Snow. So far I've had positive feedback, but if you choose to use it, I would love to hear what you use it for and any feedback, good or bad! Or post an issue on the repository.&lt;/p&gt;
 </a10:content></item></channel></rss>
