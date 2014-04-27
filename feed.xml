@@ -38,14 +38,14 @@ Instead of sending all the logging information to your localhost Sentinal app we
 
 &lt;p&gt;The general idea is this&lt;/p&gt;
 
-&lt;p&gt;Step 1. Create an account in &lt;a href="https://logentries.com/"&gt;LogEntires&lt;/a&gt;. Create a new &lt;em&gt;host&lt;/em&gt;. Get the 'token' text key. (It's a guid).&lt;/p&gt;
+&lt;p&gt;Step 1. Create an account with &lt;a href="https://logentries.com/"&gt;LogEntries&lt;/a&gt;. Create a new &lt;em&gt;host&lt;/em&gt;. Get the 'token' text key. (It's a guid).&lt;/p&gt;
 
 &lt;p&gt;Step 2. Install the log entries nuget package: &lt;code&gt;install-package SimpleLogging.LogEntries.&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/leveling-up-logging-01.png" alt="weeeeee" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Step 3. &lt;code&gt;Add-&amp;gt;new-&amp;gt;nlog.release.config&lt;/code&gt;&lt;br /&gt;
-&lt;em&gt;Note 1:&lt;/em&gt; Notice how we now have a new &lt;code&gt;extensions&lt;/code&gt; element? Need-Dat.&lt;br /&gt;
+&lt;em&gt;Note 1:&lt;/em&gt; Notice how we now have a new &lt;code&gt;extensions&lt;/code&gt; element? Need-dat.&lt;br /&gt;
 &lt;em&gt;Note 2:&lt;/em&gt; Notice how we are now using a &lt;code&gt;logentries&lt;/code&gt; target type? Also need-dat.    &lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;lt;?xml version="1.0" encoding="utf-8" ?&amp;gt;
@@ -86,12 +86,13 @@ Instead of sending all the logging information to your localhost Sentinal app we
 
 &lt;p&gt;Step 5. Run the website.&lt;/p&gt;
 
-&lt;p&gt;Step 6. Now jump over to LogEntries and start a LIVE TAIL of the host .. and viola .. data should be streaming in.&lt;/p&gt;
+&lt;p&gt;Step 6. Now jump over to LogEntries and start a LIVE TAIL of the host... and viola... data should be streaming in.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/leveling-up-logging-02.png" alt="OMG IT WORKS!!!!111!!111" /&gt;&lt;/p&gt;
 
-&lt;p&gt;Recap.
-We've got logging messages sprinkled through our code already. When we're happy, we push our latest code up to our website (ie. &lt;code&gt;RELEASE&lt;/code&gt; build so the web config transformations do their magic) and now the logging messages are logged to LogEntries instead. So at any time, we can log into LogEntries and see what's happening to our site.&lt;/p&gt;
+&lt;p&gt;Recap.&lt;/p&gt;
+
+&lt;p&gt;We've got logging messages sprinkled through our code already. When we're happy, we push our latest code up to our website (ie. &lt;code&gt;RELEASE&lt;/code&gt; build so the web config transformations do their magic) and now the logging messages are logged to LogEntries instead. So at any time, we can log into LogEntries and see what's happening to our site.&lt;/p&gt;
 
 &lt;h2&gt;Bonus Level&lt;/h2&gt;
 

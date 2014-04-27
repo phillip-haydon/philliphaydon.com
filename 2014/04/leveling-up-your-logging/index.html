@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-04-28T01:52:47.8214847+08:00" />
+    <meta http-equiv="last-modified" content="2014-04-28T01:58:45.8441421+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/2014/04/leveling-up-your-logging/" />
@@ -77,14 +77,14 @@ Instead of sending all the logging information to your localhost Sentinal app we
 
 <p>The general idea is this</p>
 
-<p>Step 1. Create an account in <a href="https://logentries.com/">LogEntires</a>. Create a new <em>host</em>. Get the 'token' text key. (It's a guid).</p>
+<p>Step 1. Create an account with <a href="https://logentries.com/">LogEntries</a>. Create a new <em>host</em>. Get the 'token' text key. (It's a guid).</p>
 
 <p>Step 2. Install the log entries nuget package: <code>install-package SimpleLogging.LogEntries.</code></p>
 
 <p><img src="/images/leveling-up-logging-01.png" alt="weeeeee" /></p>
 
 <p>Step 3. <code>Add-&gt;new-&gt;nlog.release.config</code><br />
-<em>Note 1:</em> Notice how we now have a new <code>extensions</code> element? Need-Dat.<br />
+<em>Note 1:</em> Notice how we now have a new <code>extensions</code> element? Need-dat.<br />
 <em>Note 2:</em> Notice how we are now using a <code>logentries</code> target type? Also need-dat.    </p>
 
 <pre><code>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
@@ -125,12 +125,13 @@ Instead of sending all the logging information to your localhost Sentinal app we
 
 <p>Step 5. Run the website.</p>
 
-<p>Step 6. Now jump over to LogEntries and start a LIVE TAIL of the host .. and viola .. data should be streaming in.</p>
+<p>Step 6. Now jump over to LogEntries and start a LIVE TAIL of the host... and viola... data should be streaming in.</p>
 
 <p><img src="/images/leveling-up-logging-02.png" alt="OMG IT WORKS!!!!111!!111" /></p>
 
-<p>Recap.
-We've got logging messages sprinkled through our code already. When we're happy, we push our latest code up to our website (ie. <code>RELEASE</code> build so the web config transformations do their magic) and now the logging messages are logged to LogEntries instead. So at any time, we can log into LogEntries and see what's happening to our site.</p>
+<p>Recap.</p>
+
+<p>We've got logging messages sprinkled through our code already. When we're happy, we push our latest code up to our website (ie. <code>RELEASE</code> build so the web config transformations do their magic) and now the logging messages are logged to LogEntries instead. So at any time, we can log into LogEntries and see what's happening to our site.</p>
 
 <h2>Bonus Level</h2>
 

@@ -31,14 +31,14 @@ These Logging SAAS products are perfect for this situation. They just keep stori
 
 The general idea is this
 
-Step 1. Create an account in [LogEntires](https://logentries.com/). Create a new *host*. Get the 'token' text key. (It's a guid).
+Step 1. Create an account with [LogEntries](https://logentries.com/). Create a new *host*. Get the 'token' text key. (It's a guid).
 
 Step 2. Install the log entries nuget package: `install-package SimpleLogging.LogEntries.`
 
 ![weeeeee][1]
 
 Step 3. `Add->new->nlog.release.config`    
-*Note 1:* Notice how we now have a new `extensions` element? Need-Dat.    
+*Note 1:* Notice how we now have a new `extensions` element? Need-dat.    
 *Note 2:* Notice how we are now using a `logentries` target type? Also need-dat.    
 	
 	<?xml version="1.0" encoding="utf-8" ?>
@@ -78,11 +78,12 @@ to this...
 
 Step 5. Run the website.
 
-Step 6. Now jump over to LogEntries and start a LIVE TAIL of the host .. and viola .. data should be streaming in.
+Step 6. Now jump over to LogEntries and start a LIVE TAIL of the host... and viola... data should be streaming in.
 
 ![OMG IT WORKS!!!!111!!111][2]
 
 Recap.
+
 We've got logging messages sprinkled through our code already. When we're happy, we push our latest code up to our website (ie. `RELEASE` build so the web config transformations do their magic) and now the logging messages are logged to LogEntries instead. So at any time, we can log into LogEntries and see what's happening to our site.
 
 ## Bonus Level
