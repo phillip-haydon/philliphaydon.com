@@ -1,4 +1,104 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/04/fixing-osx-for-a-windows-user/</guid><link>http://www.philliphaydon.com/2014/04/fixing-osx-for-a-windows-user/</link><title>Fixing OSX as a Windows User...</title><description>&lt;p&gt;I'm slowly in the process of moving away from my huge desktop computer and moving to my good old 15" Mac Book Pro w/ Retina, as my main computer. Running windows in parallels. But moving to OSX is really hard, things that I take for granted in Windows are just hard in OSX, even after 2 years of having this laptop, and having used OSX for a few years when I lived in New Zealand....&lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/04/leveling-up-your-logging/</guid><link>http://www.philliphaydon.com/2014/04/leveling-up-your-logging/</link><title>Leveling up your logging. (part 2)</title><description>&lt;h2&gt;Part 2: Levelling up your Logging.&lt;/h2&gt;
+
+&lt;p&gt;Make sure you've read Part 1: &lt;a href="http://www.philliphaydon.com/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/"&gt;If you're not logging, you're doing it all wrong&lt;/a&gt; before you continue.&lt;/p&gt;
+
+&lt;h3&gt;Production logging : This.Changes.Everything &amp;trade;&lt;/h3&gt;
+
+&lt;p&gt;Localhost development is easy. Live/production logging is where This.Changes.Everything. &amp;trade;&lt;br /&gt;
+Instead of sending all the logging information to your localhost Sentinal app we now send it to LogEntries.&lt;/p&gt;
+
+&lt;p&gt;Why LogEntries (or any other Logging Service as a Service)?&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;You can access this information any time.&lt;/li&gt;
+&lt;li&gt;You local computer cannot be online 24/7&lt;/li&gt;
+&lt;li&gt;When you need to triage a problem, the problem as already occured. Therefore, the problem is already &lt;em&gt;historical&lt;/em&gt;. As such, you can't suddenly turn 'on' logging. You need to go back into time and look at what has already happened.&lt;/li&gt;
+&lt;/ol&gt;
+
+</description><pubDate>Sun, 27 Apr 2014 16:00:00 Z</pubDate><a10:updated>2014-04-27T16:00:00Z</a10:updated><a10:content type="html">&lt;h2&gt;Part 2: Levelling up your Logging.&lt;/h2&gt;
+
+&lt;p&gt;Make sure you've read Part 1: &lt;a href="http://www.philliphaydon.com/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/"&gt;If you're not logging, you're doing it all wrong&lt;/a&gt; before you continue.&lt;/p&gt;
+
+&lt;h3&gt;Production logging : This.Changes.Everything &amp;trade;&lt;/h3&gt;
+
+&lt;p&gt;Localhost development is easy. Live/production logging is where This.Changes.Everything. &amp;trade;&lt;br /&gt;
+Instead of sending all the logging information to your localhost Sentinal app we now send it to LogEntries.&lt;/p&gt;
+
+&lt;p&gt;Why LogEntries (or any other Logging Service as a Service)?&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;You can access this information any time.&lt;/li&gt;
+&lt;li&gt;You local computer cannot be online 24/7&lt;/li&gt;
+&lt;li&gt;When you need to triage a problem, the problem as already occured. Therefore, the problem is already &lt;em&gt;historical&lt;/em&gt;. As such, you can't suddenly turn 'on' logging. You need to go back into time and look at what has already happened.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;These Logging SAAS products are perfect for this situation. They just keep storing logging data as it streams in. You can just ignore all the data ... until it's time to check on things :)&lt;/p&gt;
+
+&lt;p&gt;The general idea is this&lt;/p&gt;
+
+&lt;p&gt;Step 1. Create an account in &lt;a href="https://logentries.com/"&gt;LogEntires&lt;/a&gt;. Create a new &lt;em&gt;host&lt;/em&gt;. Get the 'token' text key. (It's a guid).&lt;/p&gt;
+
+&lt;p&gt;Step 2. Install the log entries nuget package: &lt;code&gt;install-package SimpleLogging.LogEntries.&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/leveling-up-logging-01.png" alt="weeeeee" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Step 3. &lt;code&gt;Add-&amp;gt;new-&amp;gt;nlog.release.config&lt;/code&gt;&lt;br /&gt;
+&lt;em&gt;Note 1:&lt;/em&gt; Notice how we now have a new &lt;code&gt;extensions&lt;/code&gt; element? Need-Dat.&lt;br /&gt;
+&lt;em&gt;Note 2:&lt;/em&gt; Notice how we are now using a &lt;code&gt;logentries&lt;/code&gt; target type? Also need-dat.    &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version="1.0" encoding="utf-8" ?&amp;gt;
+&amp;lt;nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      autoReload="true"
+      throwExceptions="true"&amp;gt;
+
+    &amp;lt;extensions&amp;gt;
+        &amp;lt;add assembly="LogentriesNLog"/&amp;gt;
+    &amp;lt;/extensions&amp;gt;
+
+    &amp;lt;!-- NLog example: https://github.com/nlog/nlog/wiki/Examples --&amp;gt;
+    &amp;lt;targets&amp;gt;
+        &amp;lt;target name="logentries" type="Logentries"
+                debug="false"
+                httpPut="false"
+                ssl="false"
+                layout="${date:format=ddd MMM dd} ${time:format=HH:mm:ss} ${date:format=zzz yyyy} ${logger} : ${LEVEL}, ${message}" /&amp;gt;
+    &amp;lt;/targets&amp;gt;
+
+    &amp;lt;rules&amp;gt;
+        &amp;lt;logger name="*" minlevel="Trace" appendTo="logentries"/&amp;gt;
+    &amp;lt;/rules&amp;gt;
+
+&amp;lt;/nlog&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Step 4. Modify &lt;code&gt;web.release.config&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Change this...&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;nlog configSource="NLog.config" /&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;to this...&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;nlog configSource="NLog.release.config" /&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Step 5. Run the website.&lt;/p&gt;
+
+&lt;p&gt;Step 6. Now jump over to LogEntries and start a LIVE TAIL of the host .. and viola .. data should be streaming in.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/leveling-up-logging-02.png" alt="OMG IT WORKS!!!!111!!111" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Recap.
+We've got logging messages sprinkled through our code already. When we're happy, we push our latest code up to our website (ie. &lt;code&gt;RELEASE&lt;/code&gt; build so the web config transformations do their magic) and now the logging messages are logged to LogEntries instead. So at any time, we can log into LogEntries and see what's happening to our site.&lt;/p&gt;
+
+&lt;h2&gt;Bonus Level&lt;/h2&gt;
+
+&lt;p&gt;There's still more we can do. If you don't want to install Sentinal (or you're in some super fail restrictive environment where you are not allowed to install anything) you can always send any localhost debugging messages to LogEntries. Just create a second LogEntires-host called Debug or whatever and use that host for localhost development.&lt;/p&gt;
+
+&lt;p&gt;Alternatively, you can also use Sentinal for production/live because you don't want to have any logging information stored on a 3rd party service. Just make sure you setup your Firewall to Port Forward any nLog data to the computer where Sentinal is running. This is what i &lt;em&gt;used&lt;/em&gt; to do until I found out about LogEntries.&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/04/fixing-osx-for-a-windows-user/</guid><link>http://www.philliphaydon.com/2014/04/fixing-osx-for-a-windows-user/</link><title>Fixing OSX as a Windows User...</title><description>&lt;p&gt;I'm slowly in the process of moving away from my huge desktop computer and moving to my good old 15" Mac Book Pro w/ Retina, as my main computer. Running windows in parallels. But moving to OSX is really hard, things that I take for granted in Windows are just hard in OSX, even after 2 years of having this laptop, and having used OSX for a few years when I lived in New Zealand....&lt;/p&gt;
 
 &lt;p&gt;Sooo I'm making this blog post, mostly as a reference for the future, on what I've done to make life a little easier. &lt;/p&gt;
 
@@ -92,9 +192,9 @@ $ nano DefaultKeyBinding.dict
 &lt;li&gt;Right click context menu to add new file...&lt;/li&gt;
 &lt;li&gt;Cut/Paste folders easily (apparently there's some command but I never remember it)&lt;/li&gt;
 &lt;/ol&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/</guid><link>http://www.philliphaydon.com/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/</link><title>If you’re not logging, you’re doing it all wrong. (part 1)</title><description>&lt;h2&gt;Part 1: If you’re not logging, you’re doing it all wrong.&lt;/h2&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/</guid><link>http://www.philliphaydon.com/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/</link><title>If you're not logging, you're doing it all wrong. (part 1)</title><description>&lt;h2&gt;Part 1: If you're not logging, you're doing it all wrong.&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src="http://upboat.me/eltm/so-you're-telling-me/you-have-no-idea-what-is-going-on?.jpg" alt="Really? Seriously?" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/simple-logging-01.png" alt="Really? Seriously?" /&gt;&lt;/p&gt;
 
 &lt;h3&gt;Synopsis: Simple way to start logging your .NET application.&lt;/h3&gt;
 
@@ -102,9 +202,9 @@ $ nano DefaultKeyBinding.dict
 
 &lt;p&gt;Logging is one of these mechanisms and should be considered and planned before you even start any coding.&lt;/p&gt;
 
-</description><pubDate>Tue, 22 Apr 2014 16:00:00 Z</pubDate><a10:updated>2014-04-22T16:00:00Z</a10:updated><a10:content type="html">&lt;h2&gt;Part 1: If you’re not logging, you’re doing it all wrong.&lt;/h2&gt;
+</description><pubDate>Tue, 22 Apr 2014 16:00:00 Z</pubDate><a10:updated>2014-04-22T16:00:00Z</a10:updated><a10:content type="html">&lt;h2&gt;Part 1: If you're not logging, you're doing it all wrong.&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src="http://upboat.me/eltm/so-you're-telling-me/you-have-no-idea-what-is-going-on?.jpg" alt="Really? Seriously?" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/simple-logging-01.png" alt="Really? Seriously?" /&gt;&lt;/p&gt;
 
 &lt;h3&gt;Synopsis: Simple way to start logging your .NET application.&lt;/h3&gt;
 
@@ -117,18 +217,18 @@ $ nano DefaultKeyBinding.dict
 &lt;p&gt;What this is not about:    &lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Not an opinion piece about why you should be logging your code. Google for that, then come back when you’re convinced that you need it. &lt;/li&gt;
-&lt;li&gt;This is not a lesson in Dependency Injection. Don’t know that? Google it then come back.&lt;/li&gt;
+&lt;li&gt;Not an opinion piece about why you should be logging your code. Google for that, then come back when you're convinced that you need it. &lt;/li&gt;
+&lt;li&gt;This is not a lesson in Dependency Injection. Don't know that? Google it then come back.&lt;/li&gt;
 &lt;li&gt;Nor is this a lesson in &lt;a href="http://nlog-project.org/"&gt;NLog&lt;/a&gt;, &lt;a href="http://autofac.org/"&gt;AutoFac&lt;/a&gt; or &lt;a href="http://nancyfx.org/"&gt;NancyFX&lt;/a&gt; / &lt;a href="http://www.asp.net/mvc"&gt;ASP.NET MVC&lt;/a&gt; (sample tools we use in this example)&lt;/li&gt;
-&lt;li&gt;Nor will I explain how to setup an account and ‘hosts’ with LogEntries (what the hell is LogEntries? I’ll explain that later).&lt;/li&gt;
+&lt;li&gt;Nor will I explain how to setup an account and 'hosts' with LogEntries (what the hell is LogEntries? I'll explain that later).&lt;/li&gt;
 &lt;li&gt;Nor will I explain what/how are web.config transformations.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3&gt;If you’re not logging, then you’re doing it all wrong.&lt;/h3&gt;
+&lt;h3&gt;If you're not logging, then you're doing it all wrong.&lt;/h3&gt;
 
-&lt;p&gt;You build websites or mobile/desktop applications. Awesome. Therefore, you need to know what is happening &lt;em&gt;during&lt;/em&gt; runtime of your live/production application, otherwise you’re flying blind. &lt;/p&gt;
+&lt;p&gt;You build websites or mobile/desktop applications. Awesome. Therefore, you need to know what is happening &lt;em&gt;during&lt;/em&gt; runtime of your live/production application, otherwise you're flying blind. &lt;/p&gt;
 
-&lt;p&gt;The trick to logging a .NET application is to make sure that you leverage a logging interface all over your code. Based upon your solution’s configuration (ie. &lt;code&gt;DEBUG&lt;/code&gt; or &lt;code&gt;RELEASE&lt;/code&gt; or &lt;code&gt;ANY_OTHER_CUSTOM_CONFIG&lt;/code&gt;) we leverage &lt;code&gt;web.config&lt;/code&gt; &lt;em&gt;transformations&lt;/em&gt; to use the appropriate logging &lt;em&gt;targets&lt;/em&gt;, based on the configuration.&lt;/p&gt;
+&lt;p&gt;The trick to logging a .NET application is to make sure that you leverage a logging interface all over your code. Based upon your solution's configuration (ie. &lt;code&gt;DEBUG&lt;/code&gt; or &lt;code&gt;RELEASE&lt;/code&gt; or &lt;code&gt;ANY_OTHER_CUSTOM_CONFIG&lt;/code&gt;) we leverage &lt;code&gt;web.config&lt;/code&gt; &lt;em&gt;transformations&lt;/em&gt; to use the appropriate logging &lt;em&gt;targets&lt;/em&gt;, based on the configuration.&lt;/p&gt;
 
 &lt;p&gt;Note: &lt;code&gt;Target&lt;/code&gt; = a fancy word for where we dump our logging information to. This could be the console or a file or another gui-application (more on this, later) or some internet website (also more on this magic, later).&lt;/p&gt;
 
@@ -137,7 +237,7 @@ $ nano DefaultKeyBinding.dict
 &lt;p&gt;Then general idea is this&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Code your message(s): "Hi, i’m here."  or "OMG, BOOM" or "Just created a new user. UserId: '1'.".&lt;/li&gt;
+&lt;li&gt;Code your message(s): "Hi, I'm here."  or "OMG, BOOM" or "Just created a new user. UserId: '1'.".&lt;/li&gt;
 &lt;li&gt;NLog sends the message somewhere: your GUI app, or email, or a logging website.&lt;/li&gt;
 &lt;li&gt;View the messages: use Sentinal (localhost) or LogEntries (production).&lt;/li&gt;
 &lt;/ol&gt;
@@ -147,17 +247,21 @@ $ nano DefaultKeyBinding.dict
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://sentinel.codeplex.com/"&gt;Sentinal&lt;/a&gt;: A free windows app that displays log information, as it streams in &lt;em&gt;live&lt;/em&gt;. (yes, ~~streams~~ in …)&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://logentries.com/"&gt;LogEntires&lt;/a&gt;: A website that &lt;em&gt;stores&lt;/em&gt; your log entry information, which you can view it at any time. Also has a live stream.&lt;br /&gt;
-&lt;strong&gt;Free account limits data retention to a week .. which for most people (especially when you’re testing/debuging) is &lt;em&gt;totally&lt;/em&gt; sufficient.&lt;/strong&gt;&lt;/li&gt;
+&lt;strong&gt;Free account limits data retention to a week .. which for most people (especially when you're testing/debuging) is &lt;em&gt;totally&lt;/em&gt; sufficient.&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Okay so when to use what?&lt;br /&gt;
-- Sentinal: use this for localhost debugging.
-- LogEntires: use this for live/production system.
-Pro Tip: Yes, you can use Sentinal for live/production if you really want to. But this involves setting up NAT rules in your firewall, opening ports on your local firewall, etc. Basically - a PITA vs using LogEntries which is for free.&lt;/p&gt;
+&lt;p&gt;Okay so when to use what?    &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Sentinal: use this for localhost debugging.&lt;/li&gt;
+&lt;li&gt;LogEntires: use this for live/production system.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Pro Tip: Yes, you can use Sentinal for live/production if you really want to. But this involves setting up NAT rules in your firewall, opening ports on your local firewall, etc. Basically - a PITA vs using LogEntries which is for free.&lt;/p&gt;
 
 &lt;h3&gt;Show me some code, already! Sheesss…&lt;/h3&gt;
 
-&lt;p&gt;Fine. Let’s do this: LEEEEROOYYYYY JENKINNNNNSSSSSSS……&lt;/p&gt;
+&lt;p&gt;Fine. Let's do this: LEEEEROOYYYYY JENKINNNNNSSSSSSS……&lt;/p&gt;
 
 &lt;p&gt;Step 1. Download &amp;amp; install &lt;a href="http://sentinel.codeplex.com/"&gt;Sentinal&lt;/a&gt;.&lt;/p&gt;
 
@@ -168,9 +272,9 @@ Pro Tip: Yes, you can use Sentinal for live/production if you really want to. Bu
 
 &lt;p&gt;First, we need an existing logging interface package.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="http://i.imgur.com/NcM2Lie.png" alt="Nuget command line" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/simple-logging-02.png" alt="Nuget command line" /&gt;&lt;/p&gt;
 
-&lt;p&gt;Next we’ll use DI/IOC to inject the logging instance, so lets wire that up first.&lt;/p&gt;
+&lt;p&gt;Next we'll use DI/IOC to inject the logging instance, so lets wire that up first.&lt;/p&gt;
 
 &lt;p&gt;NancyFX:&lt;br /&gt;
 (This is using TinyIOC for IoC (which is built into NancyFX))&lt;/p&gt;
@@ -211,7 +315,7 @@ Pro Tip: Yes, you can use Sentinal for live/production if you really want to. Bu
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Now we’ll use constructor injection for our logging interface.&lt;br /&gt;
+&lt;p&gt;Now we'll use constructor injection for our logging interface.&lt;br /&gt;
 &lt;strong&gt;Side Note&lt;/strong&gt;: I do not consider injecting an &lt;code&gt;ILoggingService&lt;/code&gt; into classes as an &lt;a href="http://jeffreypalermo.com/blog/constructor-over-injection-anti-pattern/"&gt;Anti-Pattern&lt;/a&gt; because IMO I usually log things in &lt;em&gt;all&lt;/em&gt; methods (I'll touch on this, below) so therefore, logging is a fundamental part of each class that contains business logic. As such, my class has a logging dependecy throughout. Not on 1 or some methods, only.&lt;/p&gt;
 
 &lt;p&gt;NancyFX&lt;/p&gt;
@@ -311,11 +415,11 @@ namespace SimpleLogging.Samples.MVC.Controllers
 
 &lt;p&gt;Step 6. Run the website.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src="http://i.imgur.com/fRfJVQc.png" alt="Zoh Mai Gawd" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/simple-logging-03.png" alt="Zoh Mai Gawd" /&gt;&lt;/p&gt;
 
 &lt;h3&gt;Recap.&lt;/h3&gt;
 
-&lt;p&gt;So now we’ve started sprinkling logging messages throughout our code. This gives us some Serious.KickAss&amp;trade; insights into what is going on under the hood with our code. We view this logging data locally with our Sentinel app. &lt;/p&gt;
+&lt;p&gt;So now we've started sprinkling logging messages throughout our code. This gives us some Serious.KickAss&amp;trade; insights into what is going on under the hood with our code. We view this logging data locally with our Sentinel app. &lt;/p&gt;
 
 &lt;p&gt;It's not hard to add logging to your website / application. &lt;/p&gt;
 
@@ -1123,120 +1227,4 @@ public class RegisterModule : NancyModule
 &lt;p&gt;&lt;code&gt;Login&lt;/code&gt; might use a RavenDB session and Password Hashing Service, while &lt;code&gt;Profile&lt;/code&gt; may use RavenDB and a 3rd party Image hosting service for Profile pictures. &lt;/p&gt;
 
 &lt;p&gt;Disagree or have a better way? Would love to hear! Share in the comments :)&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/10/running-javascript-unit-tests-in-visual-studio-with-jasmine-and-resharper/</guid><link>http://www.philliphaydon.com/2013/10/running-javascript-unit-tests-in-visual-studio-with-jasmine-and-resharper/</link><title>Running JavaScript Unit Tests in Visual Studio with Jasmine &amp; ReSharper</title><description>&lt;p&gt;There's so much information on the internet in terms of JavaScript Unit Testing and how to run tests etc, but when it comes to running tests in Visual Studio, without a browser, there's very little information. I had to piece information together to figure it out.&lt;/p&gt;
-
-&lt;p&gt;So I'm going to do a small series on this.&lt;/p&gt;
-
-&lt;p&gt;Things you will need!&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;a href="http://pivotal.github.io/jasmine/"&gt;Jasmine&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://phantomjs.org/"&gt;PhantomJS&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2&gt;Setup PhantomJS&lt;/h2&gt;
-
-&lt;p&gt;To run JavaScript tests without a browser, we need PhantomJS, and we need to wire it up into Resharper.&lt;/p&gt;
-
-</description><pubDate>Wed, 23 Oct 2013 16:00:00 Z</pubDate><a10:updated>2013-10-23T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;There's so much information on the internet in terms of JavaScript Unit Testing and how to run tests etc, but when it comes to running tests in Visual Studio, without a browser, there's very little information. I had to piece information together to figure it out.&lt;/p&gt;
-
-&lt;p&gt;So I'm going to do a small series on this.&lt;/p&gt;
-
-&lt;p&gt;Things you will need!&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;a href="http://pivotal.github.io/jasmine/"&gt;Jasmine&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://phantomjs.org/"&gt;PhantomJS&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2&gt;Setup PhantomJS&lt;/h2&gt;
-
-&lt;p&gt;To run JavaScript tests without a browser, we need PhantomJS, and we need to wire it up into Resharper.&lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;p&gt;Download PhantomJS and unzip it somewhere, I put it in my development folder. Next open up ReSharper Options:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/jasmine-01-01.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Navigate to the Unit Testing &gt; JavaScript Tests and set the PhantomJS path to the &lt;code&gt;.exe&lt;/code&gt; where you unzipped it to:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/jasmine-01-02.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Save all that and PhantomJS will be all setup and ready to run out tests!&lt;/p&gt;
-
-&lt;h2&gt;Folder Setup&lt;/h2&gt;
-
-&lt;p&gt;In Visual Studio create a new &lt;code&gt;Empty Project&lt;/code&gt;, or something similar, add some folders, naming isn't important but I've stuck with &lt;code&gt;dependencies&lt;/code&gt; for things like Jasmine, &lt;code&gt;sources&lt;/code&gt; for the files we will be testing, and &lt;code&gt;specs&lt;/code&gt; for the Jasmine specs.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/jasmine-01-03.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Copy the &lt;code&gt;jasmine.js&lt;/code&gt; file into the dependencies folder, and create two empty files for &lt;code&gt;Calculator.js&lt;/code&gt; and &lt;code&gt;CalculatorSpec.js&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;We will create a super simple calculator that's only capable of multiplying two numbers. There's lots of Jasmine examples so I'm not going to bore you with those details. &lt;/p&gt;
-
-&lt;h2&gt;Our first basic test&lt;/h2&gt;
-
-&lt;p&gt;Lets start by adding a basic test in our &lt;code&gt;CalculatorSpec.js&lt;/code&gt; file:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;///&amp;lt;reference path="~/dependencies/jasmine.js"/&amp;gt;
-///&amp;lt;reference path="~/sources/Calculator.js"/&amp;gt;
-
-describe("Calculator", function () {
-    var calculator = new Calculator();
-
-    it("should multiple two positive numbers", function () {
-        var result = calculator.multiple(2, 5);
-
-        expect(result).toBe(10);
-    });
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Let's break this down, at the top I have some 'reference path' comments, then I have the actual test. The reference paths is what got me initially when trying to get this working.&lt;/p&gt;
-
-&lt;p&gt;Its a Visual Studio thing which gives intellisense, but it also allows ReSharper to find the files when running the unit tests. Without it the tests fail. &lt;/p&gt;
-
-&lt;p&gt;So if we run this test now...&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/jasmine-01-04.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;We have no implementation, so lets implement!&lt;/p&gt;
-
-&lt;p&gt;Lets create a new function for the &lt;code&gt;Calculator&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var Calculator = function() {
-
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/jasmine-01-05.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now its undefined on the function call &lt;code&gt;multiple&lt;/code&gt;, so lets add it in, but lets return a hard coded value of -100&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var Calculator = function() {
-    this.multiple = function() {
-        return -100;
-    };
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/jasmine-01-06.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Almost there, now lets multiple two values together!&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var Calculator = function() {
-    this.multiple = function(valueOne, valueTwo) {
-        return valueOne * valueTwo;
-    };
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;BAM it passes!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/jasmine-01-07.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Our first test without a browser.&lt;/p&gt;
-
-&lt;p&gt;Next up I'll show you how you can also test with a browser, and how to reference files in a separate project.&lt;/p&gt;
 </a10:content></item></channel></rss>

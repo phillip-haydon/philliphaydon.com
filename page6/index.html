@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-04-26T17:40:52.6476870+08:00" />
+    <meta http-equiv="last-modified" content="2014-04-28T01:52:47.8214847+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page6/" />
@@ -35,6 +35,29 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">Windows Store App with Caliburn.Micro - Getting Started</a> 
+        <span>posted on 14 Dec 2012</span>
+      </h1> 
+      
+      <p>So I've been learning Windows 8 development recently, specifically with C#/XAML, and Caliburn.Micro for the MVVM goodness. This is all brand new stuff for me, never done any WPF, Silverlight or Windows Phone dev. So I figured it's a good chance to blog what I'm learning.</p>
+
+<p>In this post I want to show you how to get up and running.</p>
+
+<p>I started by reading the blog posts over at Mindscape.</p>
+
+<p><a href="http://www.mindscapehq.com/blog/index.php/2012/01/12/caliburn-micro-part-1-getting-started/">http://www.mindscapehq.com/blog/index.php/2012/01/12/caliburn-micro-part-1-getting-started/</a></p>
+
+<p>(great series by <a href="https://twitter.com/QuantumNgtmare">@Jason</a>, list of links at bottom of this post)</p>
+
+<p>The downside is they were very WPF centric, and a few things getting started have changed. There's no bootstrapper for example.</p>
+
+<p>So, here's my blog series.</p>
+
+
+      <p><a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2012/11/using-partial-renders-with-nancy-rather-than-render-actions-like-mvc/">Using Partial Renders with Nancy rather than Render Actions like MVC</a> 
@@ -295,54 +318,6 @@ var customer = Session.Load&lt;Customer&gt;(order.CustomerId);
 
 
       <p><a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-3/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">RavenDB... What am I persisting, what am I querying? (part 2)</a> 
-        <span>posted on 17 Jul 2012</span>
-      </h1> 
-      
-      <p><a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/">Part 1</a><br />
-<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">Part 2</a> I want to discuss Relationships &amp; References, and the difference between the two.<br />
-<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-3/">Part 3</a>  </p>
-
-<p>Taking from part 1's example, lets add a User to the mix:</p>
-
-<pre><code>public class Order
-{
-    public string Id { get; set; }
-    public string UserId { get; set; }
-    public string DateOrdered { get; set; }
-    public string DateUpdated { get; set; }
-    public string Status { get; set; }
-    // Other properties...
-    public IEnumerable&lt;OrderLine&gt; Lines { get; set; }
-}
-
-public class OrderLine
-{
-    public int Quantity { get; set; }
-    public decimal Price { get; set; }
-    public decimal Discount { get; set; }
-    public string SkuCode { get; set; }
-    // Other Properties
-}
-
-public class User
-{
-    public string Id { get; set; }
-    public string Username { get; set; }
-    public string Password { get; set; }
-    public string FirstName { get; set; }
-    public string Surname { get; set; }
-    // Other Properties
-}
-</code></pre>
-
-<p>As you can see I've added 'UserId' to the Order, not a 'User' just the Id part. This is because I don't want direct access to the User. <em>(It is possible to map a User in RavenDB, but I don't believe that is always a good idea. Save it for special occasions.)</em></p>
-
-
-      <p><a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">Read more...</a></p>
     </li>
   </ul> 
 

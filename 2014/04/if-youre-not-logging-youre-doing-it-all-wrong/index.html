@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-04-26T17:40:52.6476870+08:00" />
+    <meta http-equiv="last-modified" content="2014-04-28T01:52:47.8214847+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/" />
@@ -35,7 +35,7 @@
                   
 
 <div id="post">
-    <h1>If you’re not logging, you’re doing it all wrong. (part 1)</h1>
+    <h1>If you're not logging, you're doing it all wrong. (part 1)</h1>
 
     <div class="post-note">
         posted on 23 Apr 2014
@@ -53,11 +53,11 @@
 
 <p>Guest Author: <strong><a href="https://twitter.com/purekrome">Pure Krome</a></strong></p>
 
-    <ul class="snow-series"><li>If you’re not logging, you’re doing it all wrong.</li><li>Levelling up your Logging</li></ul>
+    <ul class="snow-series"><li>If you're not logging, you're doing it all wrong</li><li><a href="/2014/04/leveling-up-your-logging/">Levelling up your Logging</a></li></ul>
 
-    <h2>Part 1: If you’re not logging, you’re doing it all wrong.</h2>
+    <h2>Part 1: If you're not logging, you're doing it all wrong.</h2>
 
-<p><img src="http://upboat.me/eltm/so-you're-telling-me/you-have-no-idea-what-is-going-on?.jpg" alt="Really? Seriously?" /></p>
+<p><img src="/images/simple-logging-01.png" alt="Really? Seriously?" /></p>
 
 <h3>Synopsis: Simple way to start logging your .NET application.</h3>
 
@@ -70,18 +70,18 @@
 <p>What this is not about:    </p>
 
 <ol>
-<li>Not an opinion piece about why you should be logging your code. Google for that, then come back when you’re convinced that you need it. </li>
-<li>This is not a lesson in Dependency Injection. Don’t know that? Google it then come back.</li>
+<li>Not an opinion piece about why you should be logging your code. Google for that, then come back when you're convinced that you need it. </li>
+<li>This is not a lesson in Dependency Injection. Don't know that? Google it then come back.</li>
 <li>Nor is this a lesson in <a href="http://nlog-project.org/">NLog</a>, <a href="http://autofac.org/">AutoFac</a> or <a href="http://nancyfx.org/">NancyFX</a> / <a href="http://www.asp.net/mvc">ASP.NET MVC</a> (sample tools we use in this example)</li>
-<li>Nor will I explain how to setup an account and ‘hosts’ with LogEntries (what the hell is LogEntries? I’ll explain that later).</li>
+<li>Nor will I explain how to setup an account and 'hosts' with LogEntries (what the hell is LogEntries? I'll explain that later).</li>
 <li>Nor will I explain what/how are web.config transformations.</li>
 </ol>
 
-<h3>If you’re not logging, then you’re doing it all wrong.</h3>
+<h3>If you're not logging, then you're doing it all wrong.</h3>
 
-<p>You build websites or mobile/desktop applications. Awesome. Therefore, you need to know what is happening <em>during</em> runtime of your live/production application, otherwise you’re flying blind. </p>
+<p>You build websites or mobile/desktop applications. Awesome. Therefore, you need to know what is happening <em>during</em> runtime of your live/production application, otherwise you're flying blind. </p>
 
-<p>The trick to logging a .NET application is to make sure that you leverage a logging interface all over your code. Based upon your solution’s configuration (ie. <code>DEBUG</code> or <code>RELEASE</code> or <code>ANY_OTHER_CUSTOM_CONFIG</code>) we leverage <code>web.config</code> <em>transformations</em> to use the appropriate logging <em>targets</em>, based on the configuration.</p>
+<p>The trick to logging a .NET application is to make sure that you leverage a logging interface all over your code. Based upon your solution's configuration (ie. <code>DEBUG</code> or <code>RELEASE</code> or <code>ANY_OTHER_CUSTOM_CONFIG</code>) we leverage <code>web.config</code> <em>transformations</em> to use the appropriate logging <em>targets</em>, based on the configuration.</p>
 
 <p>Note: <code>Target</code> = a fancy word for where we dump our logging information to. This could be the console or a file or another gui-application (more on this, later) or some internet website (also more on this magic, later).</p>
 
@@ -90,7 +90,7 @@
 <p>Then general idea is this</p>
 
 <ol>
-<li>Code your message(s): "Hi, i’m here."  or "OMG, BOOM" or "Just created a new user. UserId: '1'.".</li>
+<li>Code your message(s): "Hi, I'm here."  or "OMG, BOOM" or "Just created a new user. UserId: '1'.".</li>
 <li>NLog sends the message somewhere: your GUI app, or email, or a logging website.</li>
 <li>View the messages: use Sentinal (localhost) or LogEntries (production).</li>
 </ol>
@@ -100,17 +100,21 @@
 <ul>
 <li><a href="http://sentinel.codeplex.com/">Sentinal</a>: A free windows app that displays log information, as it streams in <em>live</em>. (yes, ~~streams~~ in …)</li>
 <li><a href="https://logentries.com/">LogEntires</a>: A website that <em>stores</em> your log entry information, which you can view it at any time. Also has a live stream.<br />
-<strong>Free account limits data retention to a week .. which for most people (especially when you’re testing/debuging) is <em>totally</em> sufficient.</strong></li>
+<strong>Free account limits data retention to a week .. which for most people (especially when you're testing/debuging) is <em>totally</em> sufficient.</strong></li>
 </ul>
 
-<p>Okay so when to use what?<br />
-- Sentinal: use this for localhost debugging.
-- LogEntires: use this for live/production system.
-Pro Tip: Yes, you can use Sentinal for live/production if you really want to. But this involves setting up NAT rules in your firewall, opening ports on your local firewall, etc. Basically - a PITA vs using LogEntries which is for free.</p>
+<p>Okay so when to use what?    </p>
+
+<ul>
+<li>Sentinal: use this for localhost debugging.</li>
+<li>LogEntires: use this for live/production system.</li>
+</ul>
+
+<p>Pro Tip: Yes, you can use Sentinal for live/production if you really want to. But this involves setting up NAT rules in your firewall, opening ports on your local firewall, etc. Basically - a PITA vs using LogEntries which is for free.</p>
 
 <h3>Show me some code, already! Sheesss…</h3>
 
-<p>Fine. Let’s do this: LEEEEROOYYYYY JENKINNNNNSSSSSSS……</p>
+<p>Fine. Let's do this: LEEEEROOYYYYY JENKINNNNNSSSSSSS……</p>
 
 <p>Step 1. Download &amp; install <a href="http://sentinel.codeplex.com/">Sentinal</a>.</p>
 
@@ -121,9 +125,9 @@ Pro Tip: Yes, you can use Sentinal for live/production if you really want to. Bu
 
 <p>First, we need an existing logging interface package.</p>
 
-<p><img src="http://i.imgur.com/NcM2Lie.png" alt="Nuget command line" /></p>
+<p><img src="/images/simple-logging-02.png" alt="Nuget command line" /></p>
 
-<p>Next we’ll use DI/IOC to inject the logging instance, so lets wire that up first.</p>
+<p>Next we'll use DI/IOC to inject the logging instance, so lets wire that up first.</p>
 
 <p>NancyFX:<br />
 (This is using TinyIOC for IoC (which is built into NancyFX))</p>
@@ -164,7 +168,7 @@ Pro Tip: Yes, you can use Sentinal for live/production if you really want to. Bu
 }
 </code></pre>
 
-<p>Now we’ll use constructor injection for our logging interface.<br />
+<p>Now we'll use constructor injection for our logging interface.<br />
 <strong>Side Note</strong>: I do not consider injecting an <code>ILoggingService</code> into classes as an <a href="http://jeffreypalermo.com/blog/constructor-over-injection-anti-pattern/">Anti-Pattern</a> because IMO I usually log things in <em>all</em> methods (I'll touch on this, below) so therefore, logging is a fundamental part of each class that contains business logic. As such, my class has a logging dependecy throughout. Not on 1 or some methods, only.</p>
 
 <p>NancyFX</p>
@@ -264,11 +268,11 @@ namespace SimpleLogging.Samples.MVC.Controllers
 
 <p>Step 6. Run the website.</p>
 
-<p><img src="http://i.imgur.com/fRfJVQc.png" alt="Zoh Mai Gawd" /></p>
+<p><img src="/images/simple-logging-03.png" alt="Zoh Mai Gawd" /></p>
 
 <h3>Recap.</h3>
 
-<p>So now we’ve started sprinkling logging messages throughout our code. This gives us some Serious.KickAss&trade; insights into what is going on under the hood with our code. We view this logging data locally with our Sentinel app. </p>
+<p>So now we've started sprinkling logging messages throughout our code. This gives us some Serious.KickAss&trade; insights into what is going on under the hood with our code. We view this logging data locally with our Sentinel app. </p>
 
 <p>It's not hard to add logging to your website / application. </p>
 
