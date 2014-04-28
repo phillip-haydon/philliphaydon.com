@@ -107,7 +107,7 @@ We can see a URL prefixed with `blob` and a url. So this allows the browser to s
 
 ## Images!
 
-So the great this about this is it works for images too!!! So if we change the HTML now to have an `<img...` tag instead of `<video...` tag:
+So the great thing about this is it works for images too!!! So if we change the HTML now to have an `<img...` tag instead of `<video...` tag:
 
 	<div>
 		<input type="file" id="image-input">
