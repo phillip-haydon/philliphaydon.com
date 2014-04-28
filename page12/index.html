@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-04-28T01:58:45.8441421+08:00" />
+    <meta http-equiv="last-modified" content="2014-04-28T21:38:25.0034727+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page12/" />
@@ -35,6 +35,26 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2010/12/blog-update-to-wordpress-w-sqlsrv/">Blog Update to WordPress w/ SqlSrv</a> 
+        <span>posted on 28 Dec 2010</span>
+      </h1> 
+      
+      <p>Over the past few days I've moved my blog from BlogEngine.Net to WordPress, since BlogEngine is fail.</p>
+
+<p>I didn't go with a hosted solution since it costs money just to use my own domain name, infact it costs more to use my own domain name than it cost me to register the damn thing. So I investigated blogs and came across:</p>
+
+<p><a href="http://wordpress.visitmix.com/development/installing-wordpress-on-sql-server">http://wordpress.visitmix.com/development/installing-wordpress-on-sql-server</a></p>
+
+<p>Seems someone or somepeople have ported wordpress to work on SQL Server, so people who are on Windows with SQL Server and don't want to use FailSQL MySQL can take advantage of wordpress.</p>
+
+<p>As much as I hate PHP after moving to .Net, the one thing the PHP community did right was all the different CMS and Blog solutions out there, something the .Net community lacks. As far as I'm concerned there is not one good .Net blogging solution available.</p>
+
+<p>Anyway so far I'm happy with the move. </p>
+
+      <p><a href="/2010/12/blog-update-to-wordpress-w-sqlsrv/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2010/12/i-love-clean-client-ids-especially-with-net-2-0/">I love clean client IDs - especially with .Net 2.0!</a> 
@@ -228,29 +248,6 @@
 <p>It's pretty depressing to lose everything, I lost a couple of projects I had spent a couple of years building that had only been live a month or so. So depressing it put me off wanting to blog anything. So hopefully I can get back into it again.</p>
 
       <p><a href="/2010/09/getting-back-into-it/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2010/09/queryover-with-nhibernate-3-lovin-it/">QueryOver with NHibernate 3... Lovin it!</a> 
-        <span>posted on 28 Sep 2010</span>
-      </h1> 
-      
-      <p>Working on an old website I built back in 2004, back then I coded all the data access by hand, wrote stored products and populated the data into objects, lazy loaded relationships etc. 2005 roles around and I migrated it to .Net 2.0, but with all the old data access stuff intact.</p>
-
-<p>Move forward 6 years and I have to make some changes, so I figured I would update the data access to use NH3.0 so I could play around with it.</p>
-
-<p>One of the thing's I just wrote was a sub query using exists. If I wrote the SQL it would probably look something along the lines of:</p>
-
-<pre><code>SELECT * FROM ProductType
-WHERE EXISTS (SELECT 1 FROM Product WHERE Active = 1 AND ProductTypeID = ProductType.ProductTypeID)
-</code></pre>
-
-<p>With some more criteria, since the data comes from MYOB it's sometimes out of date, I check for status, active, quantity,price,etc.</p>
-
-<p>Originally this stuff was in a stored procedure, and I needed to write this using QueryOver.</p>
-
-
-      <p><a href="/2010/09/queryover-with-nhibernate-3-lovin-it/">Read more...</a></p>
     </li>
   </ul> 
 

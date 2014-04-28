@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-04-28T01:58:45.8441421+08:00" />
+    <meta http-equiv="last-modified" content="2014-04-28T21:38:25.0034727+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page11/" />
@@ -35,6 +35,23 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/04/nhibernate-querying-relationships-are-depth/">NHibernate - Querying relationships at depth!</a> 
+        <span>posted on 13 Apr 2011</span>
+      </h1> 
+      
+      <p>The title may be a bit leading, this isn't about querying one-to-many-to-many, that is simply not possible. Well it may be possible, but it's not practical by any means.</p>
+
+<p>It's not practical because when querying for one-to-many you end up with a cartesian product. With a one-to-many it's easy to transform the data knowing the root is a single result while the relationship is a collection of all the results.</p>
+
+<p>If you have a many-to-many it works too since it's the distinct root and the relating collection of all results for a single root item.</p>
+
+<p>But to select a one-to-many-to-many it's far too complicated to work out what the hell is going on.  Well in my opinion it's far too complicated.</p>
+
+
+      <p><a href="/2011/04/nhibernate-querying-relationships-are-depth/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/04/installing-mongodb-service-with-logs/">Installing MongoDB Service with logs</a> 
@@ -260,26 +277,6 @@ WHERE [t1].[value] = 'Robert Williams'
 
 
       <p><a href="/2011/01/system-data-sqlite-isolationlevel-exception/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2010/12/blog-update-to-wordpress-w-sqlsrv/">Blog Update to WordPress w/ SqlSrv</a> 
-        <span>posted on 28 Dec 2010</span>
-      </h1> 
-      
-      <p>Over the past few days I've moved my blog from BlogEngine.Net to WordPress, since BlogEngine is fail.</p>
-
-<p>I didn't go with a hosted solution since it costs money just to use my own domain name, infact it costs more to use my own domain name than it cost me to register the damn thing. So I investigated blogs and came across:</p>
-
-<p><a href="http://wordpress.visitmix.com/development/installing-wordpress-on-sql-server">http://wordpress.visitmix.com/development/installing-wordpress-on-sql-server</a></p>
-
-<p>Seems someone or somepeople have ported wordpress to work on SQL Server, so people who are on Windows with SQL Server and don't want to use FailSQL MySQL can take advantage of wordpress.</p>
-
-<p>As much as I hate PHP after moving to .Net, the one thing the PHP community did right was all the different CMS and Blog solutions out there, something the .Net community lacks. As far as I'm concerned there is not one good .Net blogging solution available.</p>
-
-<p>Anyway so far I'm happy with the move. </p>
-
-      <p><a href="/2010/12/blog-update-to-wordpress-w-sqlsrv/">Read more...</a></p>
     </li>
   </ul> 
 

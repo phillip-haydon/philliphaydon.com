@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-04-28T01:58:45.8441421+08:00" />
+    <meta http-equiv="last-modified" content="2014-04-28T21:38:25.0034727+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page2/" />
@@ -35,6 +35,38 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/11/making-nancy-modules-easier-to-manage/">Making Nancy Modules easier to manage</a> 
+        <span>posted on 03 Nov 2013</span>
+      </h1> 
+      
+      <p>One problem I think a lot of developers have, is creating Controllers and Modules that are small and maintainable. Sometimes when you add some querying, bit of validation, pass it off to a repository or service, etc. It begins to become a little bit too big. </p>
+
+<p>Lets assume our we have an <code>AccountModule</code> it Gets a Login route to load the UI, and Posts to a Login route to authenticate the user, and do something.</p>
+
+<p>It also Gets a Register route to load the UI, and Posts to a Register route to register the new user. </p>
+
+<p>Without an actual implementation, something like this:</p>
+
+<pre><code>public class AccountModule : NancyModule
+{
+    public AccountModule() : base("/account")
+    {
+        Get["/login"] = _ =&gt; "login";
+        Post["/login"] = _ =&gt; "login";
+
+        Get["/register"] = _ =&gt; "register";
+        Post["/register"] = _ =&gt; "register";
+    }
+}
+</code></pre>
+
+<p>To begin with, we only have 4 things to implement, its rather small, somewhat easy to manage, but what happens when we want to update an account?</p>
+
+
+      <p><a href="/2013/11/making-nancy-modules-easier-to-manage/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/10/running-javascript-unit-tests-in-visual-studio-with-jasmine-and-resharper/">Running JavaScript Unit Tests in Visual Studio with Jasmine &amp; ReSharper</a> 
@@ -268,29 +300,6 @@
 
 
       <p><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Setting up Ubuntu and nginx on Azure</a> 
-        <span>posted on 26 Jun 2013</span>
-      </h1> 
-      <ul class="snow-series"><li>Part 1 - Setting up the Virtual Machine and nginx</li><li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx/">Part 2 - Setting up new Website and Domain on nginx</a></li><li><a href="/2013/06/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li><li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li><li><a href="/2013/07/setting-up-a-servicestack-service/">Part 5 - Setting up a ServiceStack web service</a></li></ul>
-      <p><span class="note"><strong>Note:</strong> I'm breaking this up into 5 parts because otherwise it gets far too long :(</span></p>
-
-<p>So after spending a week with OSX, I thought I would see how well I go with setting up Mono on Ubuntu... on Azure. </p>
-
-<p>Turns out it's actually rather simple!</p>
-
-<h2>Setting up the Virtual Machine</h2>
-
-<p>Setting up the virtual machine is pretty straight forward. From the Azure Portal, click the Virtual Machines tab, and select New. </p>
-
-<p>I create mine from the gallery rather than the quick option.</p>
-
-<p>Select <code>Ubuntu Server 13.04</code> from the options, give your new server a name. For Authentication I recommend making a password rather than uploading an SSH key. Only because if you're new or trying this out just to play around, that stuff is probably too difficult for now :)</p>
-
-
-      <p><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Read more...</a></p>
     </li>
   </ul> 
 

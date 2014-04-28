@@ -1,4 +1,179 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/04/leveling-up-your-logging/</guid><link>http://www.philliphaydon.com/2014/04/leveling-up-your-logging/</link><title>Leveling up your logging. (part 2)</title><description>&lt;h2&gt;Part 2: Levelling up your Logging.&lt;/h2&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/04/loading-an-image-or-video-from-a-file-input-control/</guid><link>http://www.philliphaydon.com/2014/04/loading-an-image-or-video-from-a-file-input-control/</link><title>Loading an Image or Video from a File Input control.</title><description>&lt;p&gt;So you've got an input control, and you want to display the video/image before the user uploads, maybe so they can verify it first...&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href="http://dev.w3.org/2006/webapi/FileAPI/"&gt;File API&lt;/a&gt; allows you to get more information from a &lt;code&gt;&amp;lt;input type="file"...&lt;/code&gt; control than we could get before. &lt;/p&gt;
+
+&lt;p&gt;So lets start with Video:&lt;/p&gt;
+
+&lt;h2&gt;Video&lt;/h2&gt;
+
+&lt;p&gt;Ok so we have a basic HTML page with an &lt;code&gt;&amp;lt;input type="file"...&lt;/code&gt;, &lt;code&gt;&amp;lt;video...&lt;/code&gt;, and &lt;code&gt;&amp;lt;input type="button'...&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html data-ng-app="itcompiler"&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;meta charset="utf-8" /&amp;gt;
+    &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;      
+    &amp;lt;div&amp;gt;
+        &amp;lt;input type="file" id="video-input"&amp;gt;
+        &amp;lt;input type="button" value="Load Selected Video" id="load-video" /&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+    &amp;lt;div&amp;gt;
+        &amp;lt;video id="video-container" controls&amp;gt;&amp;lt;/video&amp;gt;
+    &amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So if we load up a file, our UI should look something like this:&lt;/p&gt;
+
+</description><pubDate>Mon, 28 Apr 2014 16:00:00 Z</pubDate><a10:updated>2014-04-28T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;So you've got an input control, and you want to display the video/image before the user uploads, maybe so they can verify it first...&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href="http://dev.w3.org/2006/webapi/FileAPI/"&gt;File API&lt;/a&gt; allows you to get more information from a &lt;code&gt;&amp;lt;input type="file"...&lt;/code&gt; control than we could get before. &lt;/p&gt;
+
+&lt;p&gt;So lets start with Video:&lt;/p&gt;
+
+&lt;h2&gt;Video&lt;/h2&gt;
+
+&lt;p&gt;Ok so we have a basic HTML page with an &lt;code&gt;&amp;lt;input type="file"...&lt;/code&gt;, &lt;code&gt;&amp;lt;video...&lt;/code&gt;, and &lt;code&gt;&amp;lt;input type="button'...&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html data-ng-app="itcompiler"&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;meta charset="utf-8" /&amp;gt;
+    &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;      
+    &amp;lt;div&amp;gt;
+        &amp;lt;input type="file" id="video-input"&amp;gt;
+        &amp;lt;input type="button" value="Load Selected Video" id="load-video" /&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+    &amp;lt;div&amp;gt;
+        &amp;lt;video id="video-container" controls&amp;gt;&amp;lt;/video&amp;gt;
+    &amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So if we load up a file, our UI should look something like this:&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/image-video-part-1-01.png" alt="" /&gt;  &lt;/p&gt;
+
+&lt;p&gt;Now we need to add a click event to the button:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script&amp;gt;    
+    (function(){
+
+        var fileInput = document.getElementById('video-input');
+        var video = document.getElementById('video-container');
+
+        document.getElementById('load-video').addEventListener('click', function(){
+
+            // Hmmm what happens?!?
+
+        });
+
+    })();   
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is currently only 3 video types that most browsers can handle. &lt;em&gt;There are others but support is far and few, for now atleast&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;video/mp4&lt;/code&gt; &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;video/ogg&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;video/webm&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;video/mp4&lt;/code&gt; is supported on all browsers except Opera. (tho I haven't tested) so I'll only use a &lt;code&gt;.mp4&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;h2&gt;How to load the selected file into a &lt;video /&gt; element&lt;/h2&gt;
+
+&lt;p&gt;Ok so we have selected a file, but how do we load it? The W3 Spec has a section on Blob URL for &lt;a href="http://www.w3.org/TR/FileAPI/#creating-revoking"&gt;Creating/Revoking&lt;/a&gt;, all we need to do is creat a URL for the file blob, we can do this by calling:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var fileUrl = window.URL.createObjectURL(fileInput.files[0]);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we can assign this to the &lt;code&gt;&amp;lt;video...&lt;/code&gt; element:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;document.getElementById('load-video').addEventListener('click', function(){
+
+    var fileUrl = window.URL.createObjectURL(fileInput.files[0]);
+
+    video.src = fileUrl;
+
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we can select the file:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/image-video-part-1-02.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Can see the file selected next to the file input&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;And if we click on &lt;code&gt;Load Selected Video&lt;/code&gt; we get:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/image-video-part-1-03.png" alt="" /&gt;  &lt;/p&gt;
+
+&lt;h2&gt;What's it doing?!?&lt;/h2&gt;
+
+&lt;p&gt;What the browser does is creates a fake URL with the blob loaded into it to simulate a URL for the content, if we put a break point on the button click:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/image-video-part-1-04.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;We can see a URL prefixed with &lt;code&gt;blob&lt;/code&gt; and a url. So this allows the browser to simulate making a request for the content as if it was being served up normally...&lt;/p&gt;
+
+&lt;h2&gt;Images!&lt;/h2&gt;
+
+&lt;p&gt;So the great this about this is it works for images too!!! So if we change the HTML now to have an &lt;code&gt;&amp;lt;img...&lt;/code&gt; tag instead of &lt;code&gt;&amp;lt;video...&lt;/code&gt; tag:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div&amp;gt;
+    &amp;lt;input type="file" id="image-input"&amp;gt;
+    &amp;lt;input type="button" value="Load Selected Image" id="load-image" /&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;div&amp;gt;
+    &amp;lt;img id="image-container" /&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And we update the JavaScript (just the wording so its all &lt;code&gt;image&lt;/code&gt; instead of &lt;code&gt;video&lt;/code&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(function(){
+
+    var fileInput = document.getElementById('image-input');
+    var image = document.getElementById('image-container');
+
+    document.getElementById('load-image').addEventListener('click', function(){
+
+        var fileUrl = window.URL.createObjectURL(fileInput.files[0]);
+
+        image.src = fileUrl;
+
+    });
+
+})();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can achieve the same thing with images, selecting a file:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/image-video-part-1-05.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And we hit load:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/image-video-part-1-06.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And if we debug it, just like the video, it creates a URL we can use for the image:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/image-video-part-1-07.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;That's how easy it is :) Next we will look at a drop area for files.&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/04/leveling-up-your-logging/</guid><link>http://www.philliphaydon.com/2014/04/leveling-up-your-logging/</link><title>Levelling up your logging. (part 2)</title><description>&lt;h2&gt;Part 2: Levelling up your Logging.&lt;/h2&gt;
 
 &lt;p&gt;Make sure you've read Part 1: &lt;a href="http://www.philliphaydon.com/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/"&gt;If you're not logging, you're doing it all wrong&lt;/a&gt; before you continue.&lt;/p&gt;
 
@@ -1098,134 +1273,4 @@ published: draft
 &lt;p&gt;Then Snow will not render any analytically code for the Draft index or compiled Draft Posts. This means Google wont pick it up unless you link to it somewhere. &lt;em&gt;(considering adding a helper to set no-cache and such in the header)&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;Anyway that's it, the new Drafts feature in Snow. Thanks again to &lt;a href="https://twitter.com/johanilsson"&gt;@johanilsson&lt;/a&gt; for implementing this for us!&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/11/making-nancy-modules-easier-to-manage/</guid><link>http://www.philliphaydon.com/2013/11/making-nancy-modules-easier-to-manage/</link><title>Making Nancy Modules easier to manage</title><description>&lt;p&gt;One problem I think a lot of developers have, is creating Controllers and Modules that are small and maintainable. Sometimes when you add some querying, bit of validation, pass it off to a repository or service, etc. It begins to become a little bit too big. &lt;/p&gt;
-
-&lt;p&gt;Lets assume our we have an &lt;code&gt;AccountModule&lt;/code&gt; it Gets a Login route to load the UI, and Posts to a Login route to authenticate the user, and do something.&lt;/p&gt;
-
-&lt;p&gt;It also Gets a Register route to load the UI, and Posts to a Register route to register the new user. &lt;/p&gt;
-
-&lt;p&gt;Without an actual implementation, something like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public class AccountModule : NancyModule
-{
-    public AccountModule() : base("/account")
-    {
-        Get["/login"] = _ =&amp;gt; "login";
-        Post["/login"] = _ =&amp;gt; "login";
-
-        Get["/register"] = _ =&amp;gt; "register";
-        Post["/register"] = _ =&amp;gt; "register";
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;To begin with, we only have 4 things to implement, its rather small, somewhat easy to manage, but what happens when we want to update an account?&lt;/p&gt;
-
-</description><pubDate>Sat, 02 Nov 2013 16:00:00 Z</pubDate><a10:updated>2013-11-02T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;One problem I think a lot of developers have, is creating Controllers and Modules that are small and maintainable. Sometimes when you add some querying, bit of validation, pass it off to a repository or service, etc. It begins to become a little bit too big. &lt;/p&gt;
-
-&lt;p&gt;Lets assume our we have an &lt;code&gt;AccountModule&lt;/code&gt; it Gets a Login route to load the UI, and Posts to a Login route to authenticate the user, and do something.&lt;/p&gt;
-
-&lt;p&gt;It also Gets a Register route to load the UI, and Posts to a Register route to register the new user. &lt;/p&gt;
-
-&lt;p&gt;Without an actual implementation, something like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public class AccountModule : NancyModule
-{
-    public AccountModule() : base("/account")
-    {
-        Get["/login"] = _ =&amp;gt; "login";
-        Post["/login"] = _ =&amp;gt; "login";
-
-        Get["/register"] = _ =&amp;gt; "register";
-        Post["/register"] = _ =&amp;gt; "register";
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;To begin with, we only have 4 things to implement, its rather small, somewhat easy to manage, but what happens when we want to update an account?&lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;pre&gt;&lt;code&gt;Get["details"] = _ =&amp;gt; "details...";
-Post["details"] = _ =&amp;gt; "details...";
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then we want to have a profile...&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Get["profile"] = _ =&amp;gt; "profile...";
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;It just keeps adding up...&lt;/p&gt;
-
-&lt;p&gt;At this point it begins to get cluttered. Not only that, I believe this also breaks the Single Responsibility Principal.&lt;/p&gt;
-
-&lt;h2&gt;My solution!&lt;/h2&gt;
-
-&lt;p&gt;&lt;em&gt;This isn't anything new, I personally haven't seen anyone blog about this stuff but I have absolutely no doubt people most likely create controllers like this in MVC&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;So that's why I've decided Modules should be broken up into Functionality rather than Functional Areas.&lt;/p&gt;
-
-&lt;p&gt;All these things hang off &lt;code&gt;Account&lt;/code&gt;, so lets create an &lt;code&gt;Account&lt;/code&gt; folder in our &lt;code&gt;Modules&lt;/code&gt; folder. &lt;/p&gt;
-
-&lt;p&gt;Inside this folder we can create 4 new modules.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/small-nancy-module-01.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;So we have 4 modules rather than 1:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;code&gt;DetailsModule&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;LoginModule&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ProfileModule&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;RegisterModule&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;As you can expect, these are all really small now:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public class DetailsModule : NancyModule
-{
-    public DetailsModule()
-        : base("/account/details")
-    {
-        Get["/"] = _ =&amp;gt; "details";
-    }
-}
-
-public class LoginModule : NancyModule
-{
-    public LoginModule()
-        : base("/account/login")
-    {
-        Get["/"] = _ =&amp;gt; "login";
-        Post["/"] = _ =&amp;gt; "login";
-    }
-}
-
-public class ProfileModule : NancyModule
-{
-    public ProfileModule()
-        : base("/account/profile")
-    {
-        Get["/"] = _ =&amp;gt; "profile...";
-    }
-}
-
-public class RegisterModule : NancyModule
-{
-    public RegisterModule()
-        : base("/account/register")
-    {
-        Get["/"] = _ =&amp;gt; "register";
-        Post["/"] = _ =&amp;gt; "register";
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;From our folder perspective we can easily find all Modules under the &lt;code&gt;/account&lt;/code&gt; route, and easily find the one related to &lt;code&gt;Login&lt;/code&gt;, or &lt;code&gt;Register&lt;/code&gt;, etc.&lt;/p&gt;
-
-&lt;p&gt;This also makes unit testing easier since we only need to worry about dependencies related to a specific piece of functionality. &lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;Login&lt;/code&gt; might use a RavenDB session and Password Hashing Service, while &lt;code&gt;Profile&lt;/code&gt; may use RavenDB and a 3rd party Image hosting service for Profile pictures. &lt;/p&gt;
-
-&lt;p&gt;Disagree or have a better way? Would love to hear! Share in the comments :)&lt;/p&gt;
 </a10:content></item></channel></rss>

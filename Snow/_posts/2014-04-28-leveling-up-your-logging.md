@@ -1,5 +1,5 @@
 ---
-title: Leveling up your logging. (part 2)
+title: Levelling up your logging. (part 2)
 categories: Logging
 layout: post
 author: Pure Krome

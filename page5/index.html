@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-04-28T01:58:45.8441421+08:00" />
+    <meta http-equiv="last-modified" content="2014-04-28T21:38:25.0034727+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page5/" />
@@ -35,6 +35,37 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/01/introducing-raygun-and-nancy-raygun/">Introducing Raygun.io and Nancy.Raygun</a> 
+        <span>posted on 29 Jan 2013</span>
+      </h1> 
+      
+      <p>So not long ago I <a href="/2012/10/keep-an-eye-on-raygun-to-zap-all-your-errors-away/">posted</a> about an up and coming service from <a href="http://www.mindscapehq.com">http://www.mindscapehq.com</a> called <a href="http://www.raygun.io">Raygun</a>, well last week they went into beta, and I was invited, so since early last week I've been giving their system the run around and provided a little bit of feedback. </p>
+
+<p>I say a little bit, because besides being a super early beta tester, and a super early product that will grow over time, the beta is quite polished. There was only a few minor issues which they corrected within a day or less. </p>
+
+<p><img src="/images/raygun-beta-robby-1.png" alt="" /></p>
+
+<p>Raygun is super easy to setup and implement into your application, in-fact it's really nothing more than creating an app, install the nuget package, and set the key, and away you go. </p>
+
+<p>There's a simple guide over <a href="http://www.pieterg.com/2013/1/raygunio-has-launched">http://www.pieterg.com/2013/1/raygunio-has-launched</a>, so I won't bore you with the same content.</p>
+
+<h2>Nancy.Raygun</h2>
+
+<p>Currently the <a href="https://www.nuget.org/packages/Mindscape.Raygun4Net/">offical Nuget package</a> has a dependency on System.Web which isn't very nice for Nancy, so I've created <a href="https://www.nuget.org/packages/Nancy.Raygun/">Nancy.Raygun</a></p>
+
+<p>It has no dependency on <code>System.Web</code>, and uses the <code>NancyContext</code> rather than <code>HttpContext.Current</code>, it also implements <code>IApplicationStartup</code> so that it automatically wires itself up for handling errors for you.</p>
+
+<p>Nancy.Raygun is on <a href="https://github.com/phillip-haydon/Nancy.Raygun">Github</a>, installing the nuget package will add the web.config for you so all you need to do is add the key and away you go.</p>
+
+<h2>Why Raygun?</h2>
+
+<p>I've had a few people ask me why I would use Raygun over ELMAH, or AppFail. </p>
+
+
+      <p><a href="/2013/01/introducing-raygun-and-nancy-raygun/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/01/introducing-sandra-simplevalidator-validation-reinvented-again/">Introducing Sandra.SimpleValidation - Validation reinvented... again</a> 
@@ -257,29 +288,6 @@ namespace SampleProject.ViewModels
 
 
       <p><a href="/2012/12/forms-authentication-with-nancyfx/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2012/12/windows-store-app-and-remote-debugging-on-a-surface-rt/">Windows Store App and Remote Debugging on a Surface RT</a> 
-        <span>posted on 18 Dec 2012</span>
-      </h1> 
-      
-      <p>In order to run your app from Visual Studio on your remote device, in my case I want to run it on my Surface... but you can do this with any remote device such as another desktop, a laptop, a tablet running Windows Pro or RT etc, all you really need to do is install the Remote Debugging tools.</p>
-
-<p><a href="http://www.microsoft.com/visualstudio/eng/downloads#remote-tools">http://www.microsoft.com/visualstudio/eng/downloads#remote-tools</a></p>
-
-<p>For the Surface you just need to download and install:</p>
-
-<p><a href="http://www.microsoft.com/visualstudio/eng/downloads#remote-tools"><img src="/images/image17.png" /></a></p>
-
-<p>Once this is installed you will get a little icon on your Start Screen:</p>
-
-<p><a href="/images/image7.png"><img src="/images/image7.png" /></a></p>
-
-<p>You can see the Green Arrow:</p>
-
-
-      <p><a href="/2012/12/windows-store-app-and-remote-debugging-on-a-surface-rt/">Read more...</a></p>
     </li>
   </ul> 
 
