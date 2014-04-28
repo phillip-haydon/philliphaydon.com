@@ -71,7 +71,7 @@ There is currently only 3 video types that most browsers can handle. *There are 
 
 `video/mp4` is supported on all browsers except Opera. (tho I haven't tested) so I'll only use a `.mp4` file.
 
-## How to load the selected file into a <video /> element
+## How to load the selected file into a `<video />` element
 
 Ok so we have selected a file, but how do we load it? The W3 Spec has a section on Blob URL for [Creating/Revoking][2], all we need to do is creat a URL for the file blob, we can do this by calling:
 
