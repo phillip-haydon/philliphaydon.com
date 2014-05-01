@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-04-28T21:48:32.0596541+08:00" />
+    <meta http-equiv="last-modified" content="2014-05-01T21:43:17.0113526+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page3/" />
@@ -35,6 +35,23 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx/">Setting up new Website and Domain on nginx</a> 
+        <span>posted on 27 Jun 2013</span>
+      </h1> 
+      <ul class="snow-series"><li><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Part 1 - Setting up the Virtual Machine and nginx</a></li><li>Part 2 - Setting up new Website and Domain on nginx</li><li><a href="/2013/06/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li><li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li><li><a href="/2013/07/setting-up-a-servicestack-service/">Part 5 - Setting up a ServiceStack web service</a></li></ul>
+      <p>The purpose of series is to be able to create an end-to-end setup of a Linux Server on Azure and deploy a brand new production NancyFX website or ServiceStack service, and not get confused in-between. Like I was when I sussed all this out. :)</p>
+
+<h2>Prelude</h2>
+
+<p>When using IIS I think it's safe to say a large majority of us would use the GUI to configure or create new Web Sites. Even though it's actually possible to create a new website and configure it entirely through Powershell.</p>
+
+<p>But, as scary as it sounds it's not too hard to configure a new Website in nginx. I actually think its easier than doing it with Apache, despite the fact that they are relatively similar. </p>
+
+
+      <p><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Setting up Ubuntu and nginx on Azure</a> 
@@ -241,50 +258,6 @@ else if (...)
 
       <p><a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/04/nancyfx-implementing-your-own-routing/">NancyFX - Implementing your own routing!</a> 
-        <span>posted on 09 Apr 2013</span>
-      </h1> 
-      
-      <p>With the up and coming release of 0.17 of NancyFX, the routing has been completely rewritten, and now it's super easy to implement your own routing. So I'm going to show you how.</p>
-
-<h2>How it works</h2>
-
-<p>The routing works by defining a route:</p>
-
-<p><code>Get["/products/{id}"]</code></p>
-
-<p>The route is then broken up into segments:</p>
-
-<ol>
-<li><code>products</code></li>
-<li><code>{id}</code></li>
-</ol>
-
-<p>Each segment is checked against a Node Condition in the <code>TrieNodeFactory</code> like so</p>
-
-<pre><code>if (segment.StartsWith("(") &amp;&amp; segment.EndsWith(")"))
-{
-    return new RegExNode(parent, segment, this);
-}
-</code></pre>
-
-<p>When a request comes in, the segment is compared to the node for a match and returns true/false + the captured parameter. </p>
-
-<p>These are a bunch of conditions for checking different nodes, currently Nancy supports out of the box the following nodes.</p>
-
-<h2>Existing Nodes</h2>
-
-<p>This is brief description of the existing nodes that currently exist in 0.17. </p>
-
-<h3>CaptureNode</h3>
-
-<p>This node captures <code>{foo}</code>, or basically any value defined in the segment.</p>
-
-
-      <p><a href="/2013/04/nancyfx-implementing-your-own-routing/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -355,6 +328,7 @@ else if (...)
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20145">May, 2014</a></li>
                           <li><a href="/archive#20144">April, 2014</a></li>
                           <li><a href="/archive#20142">February, 2014</a></li>
                           <li><a href="/archive#20141">January, 2014</a></li>

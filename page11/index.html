@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-04-28T21:48:32.0596541+08:00" />
+    <meta http-equiv="last-modified" content="2014-05-01T21:43:17.0113526+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page11/" />
@@ -35,6 +35,52 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/04/jquery-templating-nested-arrays/">jQuery Templating - Nested Collections</a> 
+        <span>posted on 23 Apr 2011</span>
+      </h1> 
+      
+      <p>Was asked me a couple of weeks ago if it was possible to have nested collections in a jQuery template. Well you can! The sample code kind of buries the ability since it tries to demonstrate too many things at once. But it's rather simple.</p>
+
+<pre><code>{{"{{each *array*"}}}}
+    *stuff*
+{{"{{/each"}}}}
+</code></pre>
+
+<p>So assuming we have a simple json object like...</p>
+
+<pre><code>var people = [
+    {
+        firstName: "James",
+        favouriteColours: [ 
+            { colorName: "green" },
+            { colorName: "red" }
+        ]
+    },
+    {
+        firstName: "Jack",
+        favouriteColours: [
+            { colorName: "blue" },
+            { colorName: "red" }
+        ]
+    },
+    {
+        firstName: "Jim",
+        favouriteColours: [
+            { colorName: "blue" },
+            { colorName: "black" },
+            { colorName: "white" }
+        ]
+    }
+];
+</code></pre>
+
+<p>We can iterate over the people and then their favourite colours by using <code>each</code> in the template like so:</p>
+
+
+      <p><a href="/2011/04/jquery-templating-nested-arrays/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/04/nhibernate-querying-relationships-are-depth/">NHibernate - Querying relationships at depth!</a> 
@@ -253,31 +299,6 @@ WHERE [t1].[value] = 'Robert Williams'
 
       <p><a href="/2011/01/revisiting-exists-in-nhibernate-3-0-and-queryover/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/01/system-data-sqlite-isolationlevel-exception/">System.Data.SQLite isolationLevel Exception</a> 
-        <span>posted on 02 Jan 2011</span>
-      </h1> 
-      
-      <p>I introduced SQLite to our Unit Testing at work to aid with testing the stuff written with NHibernate, most of our repositories are rather simple but some of them require some specific criteria that it would be nice to test our queries work.</p>
-
-<p>The problem is some of the queries have a transaction with the <code>IsolationLevel</code> as <code>ReadUncommitted</code>.</p>
-
-<p>Everything works perfectly fine until it comes to testing, the problem is SQLite does not support anything other than <code>Serializable</code> and <code>ReadCommitted</code>.</p>
-
-<p>I spent a while trying to see if there was a way to have an interceptor for NHibernate to capture the <code>BeginRequest</code> and replace the isolation level with something that would work, when that failed I took a look at extending the SQLite dialect but that just became confusing.</p>
-
-<p>In the end I reflected the <code>System.Data.SQLite</code> assembly (before i downloaded the sourcecode) to see what was happening when <code>BeginTransaction</code> was being called.</p>
-
-<p>There's two places it checks, the first is in <code>SQLiteConnection</code> under <code>BeginTransaction</code>:</p>
-
-<pre><code>if (isolationLevel != IsolationLevel.Serializable &amp;&amp; isolationLevel != IsolationLevel.ReadCommitted)
-    throw new ArgumentException("isolationLevel");
-</code></pre>
-
-
-      <p><a href="/2011/01/system-data-sqlite-isolationlevel-exception/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -348,6 +369,7 @@ WHERE [t1].[value] = 'Robert Williams'
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20145">May, 2014</a></li>
                           <li><a href="/archive#20144">April, 2014</a></li>
                           <li><a href="/archive#20142">February, 2014</a></li>
                           <li><a href="/archive#20141">January, 2014</a></li>

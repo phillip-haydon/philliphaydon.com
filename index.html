@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-04-28T21:48:32.0596541+08:00" />
+    <meta http-equiv="last-modified" content="2014-05-01T21:43:17.0113526+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/" />
@@ -37,10 +37,39 @@
   <ul class="posts">
     <li class="fancy-container lightblue">
       <h1>
+        <a href="/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/">Creating a drop area to drop a file in HTML 5</a> 
+        <span>posted on 01 May 2014</span>
+      </h1> 
+      <ul class="snow-series"><li><a href="/2014/04/loading-an-image-or-video-from-a-file-input-control/">Part 1: Loading an Image or Video from a File Input control</a></li><li>Part 2: Creating a drop area to drop a file</li><li>Part 3: Taking snap shots of a Video & displaying it</li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
+      <p>In the first post we uploaded a file and viewed it in the browser without sending it to a server, now we are going to create a drop area so that you can drag a file from a folder, into the website.</p>
+
+<p>Using the same HTML as before, lets add a drop area:</p>
+
+<pre><code>&lt;div&gt;
+    &lt;input type="file" id="image-input"&gt;
+    &lt;input type="button" value="Load Selected Image" id="load-image" /&gt;
+&lt;/div&gt;
+
+&lt;div id="drop-area"&gt;
+    Drop File Here...
+&lt;/div&gt;
+
+&lt;div&gt;
+    &lt;img id="image-container" width="360" /&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>And add a bit of CSS to make it a little more visible:</p>
+
+
+      <p><a href="/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/">Read more...</a></p>
+    </li>
+    <li class="fancy-container lightblue">
+      <h1>
         <a href="/2014/04/loading-an-image-or-video-from-a-file-input-control/">Loading an Image or Video from a File Input control.</a> 
         <span>posted on 29 Apr 2014</span>
       </h1> 
-      <ul class="snow-series"><li>Part 1: Loading an Image or Video from a File Input control</li><li>Part 2: Creating a drop area and validating the file</li><li>Part 3: Taking snap shots of a Video & displaying it</li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
+      <ul class="snow-series"><li>Part 1: Loading an Image or Video from a File Input control</li><li><a href="/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/">Part 2: Creating a drop area to drop a file</a></li><li>Part 3: Taking snap shots of a Video & displaying it</li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
       <p>So you've got an input control, and you want to display the video/image before the user uploads, maybe so they can verify it first...</p>
 
 <p>The <a href="http://dev.w3.org/2006/webapi/FileAPI/">File API</a> allows you to get more information from a <code>&lt;input type="file"...</code> control than we could get before. </p>
@@ -256,33 +285,6 @@ Instead of sending all the logging information to your localhost Sentinal app we
 
       <p><a href="/2013/12/git-support-in-visual-studio-2013-is-actually-quite-cool/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/11/snow-gets-drafts/">Snow gets Drafts!</a> 
-        <span>posted on 07 Nov 2013</span>
-      </h1> 
-      
-      <p>A special thanks goes out to <a href="https://twitter.com/johanilsson">@johanilsson</a> for this new feature!</p>
-
-<p>Snow now ships with Drafts and Privates, this is a really cool feature since it allows you to create drafts, and a page to list all drafts (optional). </p>
-
-<h2>What are the options</h2>
-
-<p>There are three options for a <code>published</code> state:</p>
-
-<ul>
-<li>draft</li>
-<li>private</li>
-<li>true</li>
-</ul>
-
-<p>Draft is basically a finished or rough cut blog post that you will publish soon, it will be compiled to <code>/drafts</code> URL and be publicly accessible (either via a known page or the direct URL)</p>
-
-<p>Private is a post that will not be compiled at all, this will stay as markdown, good for when you want to begin writing something but not have it show up online yet.</p>
-
-
-      <p><a href="/2013/11/snow-gets-drafts/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -351,6 +353,7 @@ Instead of sending all the logging information to your localhost Sentinal app we
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20145">May, 2014</a></li>
                           <li><a href="/archive#20144">April, 2014</a></li>
                           <li><a href="/archive#20142">February, 2014</a></li>
                           <li><a href="/archive#20141">January, 2014</a></li>

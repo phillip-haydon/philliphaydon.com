@@ -1,4 +1,138 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/04/loading-an-image-or-video-from-a-file-input-control/</guid><link>http://www.philliphaydon.com/2014/04/loading-an-image-or-video-from-a-file-input-control/</link><title>Loading an Image or Video from a File Input control.</title><description>&lt;p&gt;So you've got an input control, and you want to display the video/image before the user uploads, maybe so they can verify it first...&lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/</guid><link>http://www.philliphaydon.com/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/</link><title>Creating a drop area to drop a file in HTML 5</title><description>&lt;p&gt;In the first post we uploaded a file and viewed it in the browser without sending it to a server, now we are going to create a drop area so that you can drag a file from a folder, into the website.&lt;/p&gt;
+
+&lt;p&gt;Using the same HTML as before, lets add a drop area:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div&amp;gt;
+    &amp;lt;input type="file" id="image-input"&amp;gt;
+    &amp;lt;input type="button" value="Load Selected Image" id="load-image" /&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;div id="drop-area"&amp;gt;
+    Drop File Here...
+&amp;lt;/div&amp;gt;
+
+&amp;lt;div&amp;gt;
+    &amp;lt;img id="image-container" width="360" /&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And add a bit of CSS to make it a little more visible:&lt;/p&gt;
+
+</description><pubDate>Wed, 30 Apr 2014 16:00:00 Z</pubDate><a10:updated>2014-04-30T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;In the first post we uploaded a file and viewed it in the browser without sending it to a server, now we are going to create a drop area so that you can drag a file from a folder, into the website.&lt;/p&gt;
+
+&lt;p&gt;Using the same HTML as before, lets add a drop area:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div&amp;gt;
+    &amp;lt;input type="file" id="image-input"&amp;gt;
+    &amp;lt;input type="button" value="Load Selected Image" id="load-image" /&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;div id="drop-area"&amp;gt;
+    Drop File Here...
+&amp;lt;/div&amp;gt;
+
+&amp;lt;div&amp;gt;
+    &amp;lt;img id="image-container" width="360" /&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And add a bit of CSS to make it a little more visible:&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;style type="text/css"&amp;gt;
+#drop-area{
+    border: 1px dotted #666;
+    background: #f2f2f2;
+    width: 360px;
+    height: 50px;
+    vertical-align: middle;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+&amp;lt;/style&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If we view it now it should look like:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/drag-drop-image-html5-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Drag Enter&lt;/h2&gt;
+
+&lt;p&gt;Now we have our UI set, we need to add an indication when the user drags a file...&lt;/p&gt;
+
+&lt;p&gt;If we don't, it would look like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/drag-drop-image-html5-02.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Which isn't very helpful, so first we need to attach some events for &lt;code&gt;dragenter&lt;/code&gt; and &lt;code&gt;dragleave&lt;/code&gt; so we can add/remove the class.&lt;/p&gt;
+
+&lt;p&gt;We use this instead of &lt;code&gt;:hover&lt;/code&gt; because we only want the visual effect when the user is dragging something into the droppable area.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var dropArea = document.getElementById('drop-area');
+
+dropArea.addEventListener('dragenter', function(e){
+    e.currentTarget.classList.add('drop');
+});
+
+dropArea.addEventListener('dragleave', function(e){
+    e.currentTarget.classList.remove('drop');
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now when we drag the a file over the drop area, we end with...&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/drag-drop-image-html5-03.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;h2&gt;The hidden 'Copy'...&lt;/h2&gt;
+
+&lt;p&gt;It took me a while to figure out why my code didn't work and it happens to be the bit people put in the sample code and never explain...&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;dropArea.addEventListener('dragover', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    e.dataTransfer.dropEffect = 'copy';
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In order for the drag to be captured, we need to set the &lt;code&gt;dropEffect&lt;/code&gt;, by setting it to &lt;code&gt;copy&lt;/code&gt;, apparently allows the source item (the item we're dragging) will be copied to the drop location.&lt;/p&gt;
+
+&lt;p&gt;The possible values on &lt;a href="https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer#dropEffect.28.29"&gt;W3&lt;/a&gt; and &lt;a href="http://www.w3.org/TR/2011/WD-html5-20110113/dnd.html#dom-datatransfer-dropeffect"&gt;MDN&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;copy:&lt;/strong&gt; A copy of the source item is made at the new location.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;move:&lt;/strong&gt; An item is moved to a new location.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;link:&lt;/strong&gt; A link is established to the source at the new location.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;none:&lt;/strong&gt; The item may not be dropped.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Setting this value on &lt;code&gt;dragenter&lt;/code&gt; doesn't seem to do anything, it only works when doing it on &lt;code&gt;dragover&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;Lets capture it and render it!!!&lt;/h2&gt;
+
+&lt;p&gt;All that's left now is to touch the &lt;code&gt;drop&lt;/code&gt; event...&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;dropArea.addEventListener('drop', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    var file = e.dataTransfer.files[0];
+    var fileUrl = window.URL.createObjectURL(file);
+
+    image.src = fileUrl;
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Like when we load the file from an &lt;code&gt;input&lt;/code&gt; control, we get a collection of files. Since we're only dragging 1 file for testing, we just grab the first file, create a URL, and load it...&lt;/p&gt;
+
+&lt;p&gt;Now when we drop out cat picture!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/drag-drop-image-html5-04.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;BAM Now we have Pizza Cat! :)&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/04/loading-an-image-or-video-from-a-file-input-control/</guid><link>http://www.philliphaydon.com/2014/04/loading-an-image-or-video-from-a-file-input-control/</link><title>Loading an Image or Video from a File Input control.</title><description>&lt;p&gt;So you've got an input control, and you want to display the video/image before the user uploads, maybe so they can verify it first...&lt;/p&gt;
 
 &lt;p&gt;The &lt;a href="http://dev.w3.org/2006/webapi/FileAPI/"&gt;File API&lt;/a&gt; allows you to get more information from a &lt;code&gt;&amp;lt;input type="file"...&lt;/code&gt; control than we could get before. &lt;/p&gt;
 
@@ -1130,147 +1264,4 @@ public void When_Resuming_A_Workflow_Should_Get_The_Return_Value_False()
 &lt;p&gt;It's also nice to be able to see changed files in Visual Studio!&lt;/p&gt;
 
 &lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-15.png" alt="" /&gt;&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/11/snow-gets-drafts/</guid><link>http://www.philliphaydon.com/2013/11/snow-gets-drafts/</link><title>Snow gets Drafts!</title><description>&lt;p&gt;A special thanks goes out to &lt;a href="https://twitter.com/johanilsson"&gt;@johanilsson&lt;/a&gt; for this new feature!&lt;/p&gt;
-
-&lt;p&gt;Snow now ships with Drafts and Privates, this is a really cool feature since it allows you to create drafts, and a page to list all drafts (optional). &lt;/p&gt;
-
-&lt;h2&gt;What are the options&lt;/h2&gt;
-
-&lt;p&gt;There are three options for a &lt;code&gt;published&lt;/code&gt; state:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;draft&lt;/li&gt;
-&lt;li&gt;private&lt;/li&gt;
-&lt;li&gt;true&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Draft is basically a finished or rough cut blog post that you will publish soon, it will be compiled to &lt;code&gt;/drafts&lt;/code&gt; URL and be publicly accessible (either via a known page or the direct URL)&lt;/p&gt;
-
-&lt;p&gt;Private is a post that will not be compiled at all, this will stay as markdown, good for when you want to begin writing something but not have it show up online yet.&lt;/p&gt;
-
-</description><pubDate>Wed, 06 Nov 2013 16:00:00 Z</pubDate><a10:updated>2013-11-06T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;A special thanks goes out to &lt;a href="https://twitter.com/johanilsson"&gt;@johanilsson&lt;/a&gt; for this new feature!&lt;/p&gt;
-
-&lt;p&gt;Snow now ships with Drafts and Privates, this is a really cool feature since it allows you to create drafts, and a page to list all drafts (optional). &lt;/p&gt;
-
-&lt;h2&gt;What are the options&lt;/h2&gt;
-
-&lt;p&gt;There are three options for a &lt;code&gt;published&lt;/code&gt; state:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;draft&lt;/li&gt;
-&lt;li&gt;private&lt;/li&gt;
-&lt;li&gt;true&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Draft is basically a finished or rough cut blog post that you will publish soon, it will be compiled to &lt;code&gt;/drafts&lt;/code&gt; URL and be publicly accessible (either via a known page or the direct URL)&lt;/p&gt;
-
-&lt;p&gt;Private is a post that will not be compiled at all, this will stay as markdown, good for when you want to begin writing something but not have it show up online yet.&lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;p&gt;True, this is optional, but its basically the same as not supplying the &lt;code&gt;published&lt;/code&gt; state at all. It will compile your post and make it publicly available. &lt;/p&gt;
-
-&lt;h2&gt;How do I do it?!?&lt;/h2&gt;
-
-&lt;p&gt;In the header of your markdown file, simply add a new property called &lt;code&gt;published&lt;/code&gt; and away you go!&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;---
-title: Snow gets Drafts! 
-layout: post
-categories: Snow 
-published: draft
----
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;Where does it go?&lt;/h2&gt;
-
-&lt;p&gt;Your file should be located where all your other posts go. Using this post as an example:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/snow-gets-drafts-01.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;As well as the same header as above, with &lt;code&gt;published&lt;/code&gt; set to draft, I can now compile the site. &lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/snow-gets-drafts-02.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;We get this new drafts folder. The folder structure is the same as a normal post, so the file name and chosen slug will dictate the URL.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/snow-gets-drafts-03.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Given this information, the URL would be:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;http://www.philliphaydon.com/drafts/2013/11/snow-gets-drafts/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Neat huh?&lt;/p&gt;
-
-&lt;h2&gt;What about that viewing page you told me about?!?&lt;/h2&gt;
-
-&lt;p&gt;To create a viewing page of all drafts, we can create a brand new template in the root of our Snow folder called &lt;code&gt;drafts.cshtml&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;The contents is super simple:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase&amp;lt;Snow.ViewModels.ContentViewModel&amp;gt;
-@using System.Collections.Generic
-@{
-  Layout = "default.cshtml";
-}
-
-&amp;lt;header&amp;gt;
-    &amp;lt;div class="head-inner"&amp;gt;
-        &amp;lt;h1&amp;gt;Drafts&amp;lt;/h1&amp;gt;
-    &amp;lt;/div&amp;gt;
-&amp;lt;/header&amp;gt;
-
-&amp;lt;ul class="category-list fancy-container darkishblue"&amp;gt;
-@foreach(var draft in Model.Drafts){
-  &amp;lt;li&amp;gt;&amp;lt;a href="@draft.Url" title="@draft.Title"&amp;gt;@draft.Title&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
-}
-&amp;lt;/ul&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is how I have mine marked up, similar to how my archive pages work. &lt;/p&gt;
-
-&lt;p&gt;Next, add it to the config file.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;This is a snippet of my config&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;},{
-    "file": "archive.cshtml"
-},{
-    "file": "drafts.cshtml",
-    "loop": "Drafts"
-},{
-    "file": "about.cshtml"
-},{
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And that's it, now we can compile our Snow site.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/snow-gets-drafts-04.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Bam we have a new index file, and it has listed out the current drafts.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;header&amp;gt;
-    &amp;lt;div class="head-inner"&amp;gt;
-        &amp;lt;h1&amp;gt;Drafts&amp;lt;/h1&amp;gt;
-    &amp;lt;/div&amp;gt;
-&amp;lt;/header&amp;gt;
-
-&amp;lt;ul class="category-list fancy-container darkishblue"&amp;gt;
-  &amp;lt;li&amp;gt;&amp;lt;a href="/drafts//2013/11/snow-gets-drafts/" title="Snow gets Drafts!"&amp;gt;Snow gets Drafts!&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
-&amp;lt;/ul&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;That's all there is to it.&lt;/p&gt;
-
-&lt;h2&gt;Things to note.&lt;/h2&gt;
-
-&lt;p&gt;Snow has some Razor helpers for things like Analytics. If you're using the helper:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;@Html.RenderGoogleAnalytics("UA-######-##")
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then Snow will not render any analytically code for the Draft index or compiled Draft Posts. This means Google wont pick it up unless you link to it somewhere. &lt;em&gt;(considering adding a helper to set no-cache and such in the header)&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Anyway that's it, the new Drafts feature in Snow. Thanks again to &lt;a href="https://twitter.com/johanilsson"&gt;@johanilsson&lt;/a&gt; for implementing this for us!&lt;/p&gt;
 </a10:content></item></channel></rss>
