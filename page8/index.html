@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-05-01T21:43:17.0113526+08:00" />
+    <meta http-equiv="last-modified" content="2014-05-03T02:24:02.6108233+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page8/" />
@@ -35,6 +35,27 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/03/ormlite-blobbing-done-with-nhibernate-and-serialized-json/">OrmLite Blobbing done with NHibernate and Serialized JSON...</a> 
+        <span>posted on 19 Mar 2012</span>
+      </h1> 
+      
+      <p>There seems to be a growing trend now with these Micro ORM's, at least that is what I see with <a href="https://github.com/ServiceStack/ServiceStack.OrmLite">ServiceStack.OrmLite</a>, which is the ability to persist properties of an object as a JSON, rather than in separate tables.</p>
+
+<p>Usually with a Relational approach you would create a <code>Customer</code> table, <code>Address</code> table, and most likely shove the Phone Numbers under separate columns of the customer for <code>HomePhone</code> and <code>Mobile</code>.</p>
+
+<p>This means we are limited to two types of phone numbers, and require joining or querying for the addresses.</p>
+
+<p>Do we really need separate columns for phone numbers? Do we really need to persist the addresses in another table?</p>
+
+<p>One problem I see with putting addresses into it's own table, is the temptation to relate them to an Order (assuming this is some sort of eCommerce system) when really there is no relationship between a customer's address, and the address on an order.</p>
+
+<p>Really, the order should have it's own address, otherwise you can never delete or update an address on a customer, and you can't delete the customer. However I digress and this is a topic for another day.</p>
+
+
+      <p><a href="/2012/03/ormlite-blobbing-done-with-nhibernate-and-serialized-json/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2012/03/service-stack-exceptions-and-errors/">Service Stack Exceptions and Errors</a> 
@@ -326,36 +347,6 @@ public class Cat : Animal { }
 
 
       <p><a href="/2011/12/post-a-collection-of-viewmodels-to-a-mvc-action-with-jquery/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/11/optional-parameters-with-attributerouting/">Optional Parameters with AttributeRouting</a> 
-        <span>posted on 27 Nov 2011</span>
-      </h1> 
-      
-      <p>I found a little trick with using Optional Parameters with <a href="https://github.com/mccalltd/AttributeRouting/wiki/2.-Usage">AttributeRouting</a>, by using standard optional parameters in the action.</p>
-
-<p>The documentation says you can add an attributes to specify the defaults, or add <code>=value</code> to the parameter name, and I guess that's a more correct way to generate routes, but you can achieve the same affect by making the parameter optional. Like so:</p>
-
-<pre><code>[GET("videos/{?page}")]
-public ActionResult Videos(int page = 1)
-{
-    return View("Result");
-}
-</code></pre>
-
-<p>If I browse to the URL:</p>
-
-<p><img src="/images/attribute-routing-1.png" alt="" /></p>
-
-<p>It uses the default value of 1.</p>
-
-<p><img src="/images/attribute-routing-2.png" alt="" /></p>
-
-<p>Now when appending a number to the end of the URL:</p>
-
-
-      <p><a href="/2011/11/optional-parameters-with-attributerouting/">Read more...</a></p>
     </li>
   </ul> 
 

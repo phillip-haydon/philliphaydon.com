@@ -45,6 +45,10 @@ And add a bit of CSS to make it a little more visible:
 		align-items: center;
 		justify-content: center;
     }
+
+    #drop-area.drop {
+    	background: red;
+    }
     </style>
 
 If we view it now it should look like:

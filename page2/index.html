@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-05-01T21:43:17.0113526+08:00" />
+    <meta http-equiv="last-modified" content="2014-05-03T02:24:02.6108233+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page2/" />
@@ -35,6 +35,33 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/12/git-support-in-visual-studio-2013-is-actually-quite-cool/">Git support in Visual Studio 2013... is actually quite cool!</a> 
+        <span>posted on 12 Dec 2013</span>
+      </h1> 
+      
+      <p>Lately I've found myself using the new Git support in Visual Studio 2013 more and more, it turns out once you get used to it, its quite handy! Initially my thoughts were its rubbish, mostly because I found it cumbersome, or maybe just that things weren't working the way I thought they were. I do fine some things strange, but it's still completely usable!</p>
+
+<p>How does it all work?</p>
+
+<p>Let's start by creating a new project:</p>
+
+<p><img src="/images/git-support-01.png" alt="" /></p>
+
+<p>I ticked the <code>Create new Git repository</code> option in the bottom right hand corner, this just initializes the folder for you. </p>
+
+<p>Now that the project is created, we can open the Team Explorer, it should look something like this:</p>
+
+<p><img src="/images/git-support-02.png" alt="" /></p>
+
+<p><em>I'm not entirely sure why it does this but when I create new projects, the solution file is never included by default?!?</em></p>
+
+<p>So the solution file is excluded, we can right click the file(s) and include them...</p>
+
+
+      <p><a href="/2013/12/git-support-in-visual-studio-2013-is-actually-quite-cool/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/11/snow-gets-drafts/">Snow gets Drafts!</a> 
@@ -274,42 +301,6 @@
 
 
       <p><a href="/2013/07/setting-up-a-nancyfx-website/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/06/setting-up-mono-on-nginx/">Setting up Mono on nginx</a> 
-        <span>posted on 28 Jun 2013</span>
-      </h1> 
-      <ul class="snow-series"><li><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Part 1 - Setting up the Virtual Machine and nginx</a></li><li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx/">Part 2 - Setting up new Website and Domain on nginx</a></li><li>Part 3 - Setting up Mono on nginx</li><li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li><li><a href="/2013/07/setting-up-a-servicestack-service/">Part 5 - Setting up a ServiceStack web service</a></li></ul>
-      <p>Now we get to the fun stuff, getting up Mono. I'll be demoing with Mono 2.10 but after this series I may include a 6th part on how build Mono 3.0 from source and run it. </p>
-
-<h2>Setting up our test page</h2>
-
-<p>I figured we should start with setting up our test page. Something super simple, we will create a new page that outputs a bit of server side text. </p>
-
-<p>We wont deploy a bin folder or anything like that, it will be almost like deploying Classic ASP. </p>
-
-<pre><code>&lt;%@ Page Language="C#" AutoEventWireup="true" %&gt;
-
-&lt;!DOCTYPE html&gt;
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head runat="server"&gt;
-    &lt;title&gt;&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div&gt;
-    &lt;% var test = "Hello World! Got an aspx page running on nginx!!!"; %&gt;
-
-    &lt;%= test %&gt;
-    &lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-
-<p>So we are just creating a variable named <code>test</code> with some test data, then outputting it to the page. </p>
-
-
-      <p><a href="/2013/06/setting-up-mono-on-nginx/">Read more...</a></p>
     </li>
   </ul> 
 

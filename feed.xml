@@ -1,4 +1,112 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/</guid><link>http://www.philliphaydon.com/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/</link><title>Creating a drop area to drop a file in HTML 5</title><description>&lt;p&gt;In the first post we uploaded a file and viewed it in the browser without sending it to a server, now we are going to create a drop area so that you can drag a file from a folder, into the website.&lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/05/managing-your-azure-storage-account-with-zudio/</guid><link>http://www.philliphaydon.com/2014/05/managing-your-azure-storage-account-with-zudio/</link><title>Managing your Azure Storage account with Zudio</title><description>&lt;p&gt;Messing around with Azure Queues, using the C# library to create a queue, add messages, read them, delete them... all is well and good...&lt;/p&gt;
+
+&lt;p&gt;But at some point I wanted to view what I was putting into the queue...&lt;/p&gt;
+
+&lt;p&gt;The Azure blog has a recent post listing a few &lt;a href="http://blogs.msdn.com/b/windowsazurestorage/archive/2014/03/11/windows-azure-storage-explorers-2014.aspx"&gt;Azure Storage explorers&lt;/a&gt;. I tried a couple of them, but they were so buggy!&lt;/p&gt;
+
+&lt;p&gt;Infact, I'm sorry to say... Azure Storage Explorer was the worst. When I attempted to refresh a queue, nothing happened. I had to add a second queue, then swap between each queue in order to review the list. Most of the buttons don't seem to do anything at all.&lt;/p&gt;
+
+&lt;p&gt;Then I remember &lt;a href="http://twitter.com/markrendle"&gt;Mark Rendle&lt;/a&gt; tweeted me about his &lt;a href="http://zud.io/"&gt;Zudio&lt;/a&gt; site. Funally enough he got a mention on the blog post. I decided to login and check it out again.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://zud.io/"&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-02.png" alt="" /&gt;&lt;/a&gt;&lt;/p&gt;
+
+</description><pubDate>Fri, 02 May 2014 16:00:00 Z</pubDate><a10:updated>2014-05-02T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;Messing around with Azure Queues, using the C# library to create a queue, add messages, read them, delete them... all is well and good...&lt;/p&gt;
+
+&lt;p&gt;But at some point I wanted to view what I was putting into the queue...&lt;/p&gt;
+
+&lt;p&gt;The Azure blog has a recent post listing a few &lt;a href="http://blogs.msdn.com/b/windowsazurestorage/archive/2014/03/11/windows-azure-storage-explorers-2014.aspx"&gt;Azure Storage explorers&lt;/a&gt;. I tried a couple of them, but they were so buggy!&lt;/p&gt;
+
+&lt;p&gt;Infact, I'm sorry to say... Azure Storage Explorer was the worst. When I attempted to refresh a queue, nothing happened. I had to add a second queue, then swap between each queue in order to review the list. Most of the buttons don't seem to do anything at all.&lt;/p&gt;
+
+&lt;p&gt;Then I remember &lt;a href="http://twitter.com/markrendle"&gt;Mark Rendle&lt;/a&gt; tweeted me about his &lt;a href="http://zud.io/"&gt;Zudio&lt;/a&gt; site. Funally enough he got a mention on the blog post. I decided to login and check it out again.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://zud.io/"&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-02.png" alt="" /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;h2&gt;Using zudio&lt;/h2&gt;
+
+&lt;p&gt;Assuming you've already setup a Storage Account on Azure, we can login to zudio, where you will be presented with the following:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Clicking on the Add a Storage Account button prompts us to add an account: &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-03.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;We can get the Account Name and Location looking at the Storage List in Azure&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-04.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then the Shared Key can be found by clicking the Manage Access Keys link in the same page as the Store Accounts list:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-05.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Selecting one of the Access Keys and pasting it into the Shared Key in Zudio.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-06.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once we have added the account we should have the account name appear in the list on Zudio&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-07.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Click the account name and we should get a list of options, we can choose what we want to manage, Blobs, Queues, or Tables. Lets pick Queues.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-08.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;We should get a list of queues, my list is empty since I haven't added any yet...&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-09.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;We could manage the queues from this screen using the available options:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-10.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;But lets add some code :)&lt;/p&gt;
+
+&lt;h2&gt;Codez - because we need some :)&lt;/h2&gt;
+
+&lt;p&gt;In a basic console app, I've added the &lt;a href="http://www.nuget.org/packages/WindowsAzure.Storage/"&gt;WindowsAzure.Storage&lt;/a&gt; nuget, and written some simple code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var storageConnection = @"DefaultEndpointsProtocol=https;AccountName=phzudio;AccountKey=*REMOVED*";
+var storageAccount = CloudStorageAccount.Parse(storageConnection);
+
+var queueClient = storageAccount.CreateCloudQueueClient();
+var queue = queueClient.GetQueueReference("my-first-queue");
+
+queue.CreateIfNotExists();
+
+queue.AddMessage(new CloudQueueMessage("Hello, World"));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That's it... simple simple code. The account key removed in the &lt;code&gt;storageConnection&lt;/code&gt; is the same key we used to connect to Zudio.&lt;/p&gt;
+
+&lt;p&gt;Now when we run the code, and jump back to Zudio, hit refresh...&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-11.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;We get our newly created queue from code.&lt;/p&gt;
+
+&lt;p&gt;Clicking on the queue shows us our message&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-12.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;From here we can manage messages &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-13.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Adding new messages, refreshing, dequeuing, etc.&lt;/p&gt;
+
+&lt;h2&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;Zudio is super simple to use and pretty damn powerful for managing Azure Storage, Mark has done an awesome job and I look forward to using Zudio in the future. &lt;/p&gt;
+
+&lt;p&gt;So far I'm only used it for queues, and clicked around on the tables/blobs, but its so easy to use and intuitive! &lt;/p&gt;
+
+&lt;p&gt;I would highly recommend checking out Zudio!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://zud.io"&gt;http://zud.io&lt;/a&gt;&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/</guid><link>http://www.philliphaydon.com/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/</link><title>Creating a drop area to drop a file in HTML 5</title><description>&lt;p&gt;In the first post we uploaded a file and viewed it in the browser without sending it to a server, now we are going to create a drop area so that you can drag a file from a folder, into the website.&lt;/p&gt;
 
 &lt;p&gt;Using the same HTML as before, lets add a drop area:&lt;/p&gt;
 
@@ -51,6 +159,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#drop-area.drop {
+    background: red;
 }
 &amp;lt;/style&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
@@ -1169,99 +1281,4 @@ public void When_Resuming_A_Workflow_Should_Get_The_Return_Value_False()
 &lt;p&gt;I've put this test into a github repository that can be found here:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href="https://github.com/phillip-haydon/WorkflowBookmarkUnitTest.git"&gt;https://github.com/phillip-haydon/WorkflowBookmarkUnitTest.git&lt;/a&gt;&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/12/git-support-in-visual-studio-2013-is-actually-quite-cool/</guid><link>http://www.philliphaydon.com/2013/12/git-support-in-visual-studio-2013-is-actually-quite-cool/</link><title>Git support in Visual Studio 2013... is actually quite cool!</title><description>&lt;p&gt;Lately I've found myself using the new Git support in Visual Studio 2013 more and more, it turns out once you get used to it, its quite handy! Initially my thoughts were its rubbish, mostly because I found it cumbersome, or maybe just that things weren't working the way I thought they were. I do fine some things strange, but it's still completely usable!&lt;/p&gt;
-
-&lt;p&gt;How does it all work?&lt;/p&gt;
-
-&lt;p&gt;Let's start by creating a new project:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-01.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;I ticked the &lt;code&gt;Create new Git repository&lt;/code&gt; option in the bottom right hand corner, this just initializes the folder for you. &lt;/p&gt;
-
-&lt;p&gt;Now that the project is created, we can open the Team Explorer, it should look something like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-02.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;I'm not entirely sure why it does this but when I create new projects, the solution file is never included by default?!?&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;So the solution file is excluded, we can right click the file(s) and include them...&lt;/p&gt;
-
-</description><pubDate>Wed, 11 Dec 2013 16:00:00 Z</pubDate><a10:updated>2013-12-11T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;Lately I've found myself using the new Git support in Visual Studio 2013 more and more, it turns out once you get used to it, its quite handy! Initially my thoughts were its rubbish, mostly because I found it cumbersome, or maybe just that things weren't working the way I thought they were. I do fine some things strange, but it's still completely usable!&lt;/p&gt;
-
-&lt;p&gt;How does it all work?&lt;/p&gt;
-
-&lt;p&gt;Let's start by creating a new project:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-01.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;I ticked the &lt;code&gt;Create new Git repository&lt;/code&gt; option in the bottom right hand corner, this just initializes the folder for you. &lt;/p&gt;
-
-&lt;p&gt;Now that the project is created, we can open the Team Explorer, it should look something like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-02.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;I'm not entirely sure why it does this but when I create new projects, the solution file is never included by default?!?&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;So the solution file is excluded, we can right click the file(s) and include them...&lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-03.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now this gets included with the pend... Included Changes. &lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-04.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;If we want to exclude stuff, we can right click in the Included Changes:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-05.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;This is very handy, I was working on a project earlier where I couldn't be bothered typing the login credentials in every time. So I hard coded them in the View and excluded the file so it wouldn't get picked up in the Included Changes. Was nice being able to quickly Right Click &gt; Exclude&lt;/p&gt;
-
-&lt;p&gt;Now we can add a comment and commit:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-06.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;The commit is created locally:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-07.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now we need to push it, if we click on &lt;code&gt;Unsynced Commits&lt;/code&gt; we currently get a screen asking us to push to a Remote Repository.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-08.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;If we enter a URL and try to push:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-11.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;My remote repository doesn't exist yet :( so creating it on GitHub:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-12.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now... where to push from?!? HAH, this is where I got confused. If you try to push before your repository exists, it sort of breaks the workflow. So to fix it, click on the Arrow next to &lt;code&gt;master&lt;/code&gt; branch. And select &lt;code&gt;Manage Branches&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-13.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;You can then see &lt;code&gt;Unpublished Branches&lt;/code&gt;, right click on your master branch and select &lt;code&gt;Publish&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Visiting GitHub we can see all our pushed changes!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-14.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Awesome! Back in Visual Studio, if we navigate back to our &lt;code&gt;Changes&lt;/code&gt;, we can click on the &lt;code&gt;Action&lt;/code&gt; button next to &lt;code&gt;Commit&lt;/code&gt; and select &lt;code&gt;View History&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-09.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;this feature seems to lag a little when loading up a large history&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;We can see all the history on our commits, for the current selected branch.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-10.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;I think this support for Git in Visual Studio is really awesome! I suggest you take a look, I still use console primarily, but this is really handy, and I find myself committing more often, which is always a good thing!&lt;/p&gt;
-
-&lt;p&gt;It's also nice to be able to see changed files in Visual Studio!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/git-support-15.png" alt="" /&gt;&lt;/p&gt;
 </a10:content></item></channel></rss>

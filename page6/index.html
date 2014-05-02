@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-05-01T21:43:17.0113526+08:00" />
+    <meta http-equiv="last-modified" content="2014-05-03T02:24:02.6108233+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page6/" />
@@ -35,6 +35,31 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/12/configuring-multiple-forms-authentication-sections-with-nancyfx/">Configuring multiple Forms Authentication sections with NancyFX</a> 
+        <span>posted on 20 Dec 2012</span>
+      </h1> 
+      
+      <p>So Phil Jones posted on twitter recently his desire to have multiple Forms Auth's for different area's in a website.</p>
+
+<p>The most common scenario is having an Administration and Member with completely separated logins.</p>
+
+<p><img src="/images/image35.png" /></p>
+
+<p>This is actually really easy in NancyFX. Expanding on my previous post:</p>
+
+<p><a href="/2012/12/forms-authentication-with-nancyfx/">http://www.philliphaydon.com/2012/12/forms-authentication-with-nancyfx/</a></p>
+
+<p>I'm going to include a new area and a couple of new modules:</p>
+
+<p><img src="/images/image36.png" /></p>
+
+<p>I've added a folder called 'Admin' this is to act as an Area as described in my post about Nancy &amp; Areas.</p>
+
+
+      <p><a href="/2012/12/configuring-multiple-forms-authentication-sections-with-nancyfx/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2012/12/forms-authentication-with-nancyfx/">Forms Authentication with NancyFX</a> 
@@ -252,27 +277,6 @@ var customer = Session.Load&lt;Customer&gt;(order.CustomerId);
 
 
       <p><a href="/2012/10/raven-dynamicsession-for-ravendb/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2012/09/nancy-and-areas/">NancyFX and Areas</a> 
-        <span>posted on 29 Sep 2012</span>
-      </h1> 
-      
-      <p>A while back <a href="https://twitter.com/ayende">@ayende</a> wrote a <a href="http://ayende.com/blog/156609/reviewing-dinner-party-ndash-nerd-dinner-ported-to-ravendb-on-ravenhq">blog post</a> about <a href="https://github.com/NancyFx/DinnerParty">DinnerParty</a> in which he mentioned <a href="http://nancyfx.org/">NancyFX</a>, a lightweight web framework. <a href="https://twitter.com/jchannon">@jchannon</a> recently wrote about a <a href="http://blog.jonathanchannon.com/2012/09/21/nancyfx-ravendb-nerddinner-and-me/">blog post about NancyFX RavenDB and himself</a>.</p>
-
-<p>So I've spent the better part of the last few months learning it, and needless to say, it's awesome. So I got asked a question, how would I handle 'Areas' with Nancy, like we would with ASP.NET MVC?</p>
-
-<p>Well it's pretty simple, all it really consists of is... a module containing a root path.</p>
-
-<p>Lets begin with the following folder structure defining a 'HomeModule' for both the Root Website, and the Admin section.</p>
-
-<p><img src="/images/nancy-areas-1.png" /></p>
-
-<p>Both these HomeModule classes are identical, with the small exception that the Admin one specifies a Root Path.</p>
-
-
-      <p><a href="/2012/09/nancy-and-areas/">Read more...</a></p>
     </li>
   </ul> 
 

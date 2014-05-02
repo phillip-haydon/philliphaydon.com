@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-05-01T21:43:17.0113526+08:00" />
+    <meta http-equiv="last-modified" content="2014-05-03T02:24:02.6108233+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page9/" />
@@ -35,6 +35,36 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/11/optional-parameters-with-attributerouting/">Optional Parameters with AttributeRouting</a> 
+        <span>posted on 27 Nov 2011</span>
+      </h1> 
+      
+      <p>I found a little trick with using Optional Parameters with <a href="https://github.com/mccalltd/AttributeRouting/wiki/2.-Usage">AttributeRouting</a>, by using standard optional parameters in the action.</p>
+
+<p>The documentation says you can add an attributes to specify the defaults, or add <code>=value</code> to the parameter name, and I guess that's a more correct way to generate routes, but you can achieve the same affect by making the parameter optional. Like so:</p>
+
+<pre><code>[GET("videos/{?page}")]
+public ActionResult Videos(int page = 1)
+{
+    return View("Result");
+}
+</code></pre>
+
+<p>If I browse to the URL:</p>
+
+<p><img src="/images/attribute-routing-1.png" alt="" /></p>
+
+<p>It uses the default value of 1.</p>
+
+<p><img src="/images/attribute-routing-2.png" alt="" /></p>
+
+<p>Now when appending a number to the end of the URL:</p>
+
+
+      <p><a href="/2011/11/optional-parameters-with-attributerouting/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/11/split-windows-web-workbench-win/">Split Windows + Web Workbench = Win</a> 
@@ -297,37 +327,6 @@ using (var session = factory.OpenSession())
 
 
       <p><a href="/2011/08/nhibernate-work-around-is-not-really-a-work-around/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/08/mvc-routing-with-attributes-makes-routing-awesome/">MVC Routing with Attributes makes routing awesome</a> 
-        <span>posted on 09 Aug 2011</span>
-      </h1> 
-      
-      <p>I evaluated HEAPS of code/libraries and threw in the towel and decided that getting lower-case routes, while still having Area's, was a complete and utter waste of time and effort because they were all crappy, and broke stuff, or didn't work.</p>
-
-<p>That was until my mate Brad grabbed <a href="https://github.com/mccalltd/AttributeRouting">AttributeRouting</a> from <a href="http://nuget.org/List/Packages/AttributeRouting">Nuget</a>. Oh well you know what, this is the best thing sliced bread.</p>
-
-<p>First and foremost, it solved the number 1 issue I had with routing, lowercase Urls. This is how simple is it to make Routes lowercase.</p>
-
-<pre><code>routes.MapAttributeRoutes(config =&gt;
-{
-    config.UseLowercaseRoutes = true;
-});
-</code></pre>
-
-<p>Wow... Yet you bing for lowercase routes, and you end up with strange solutions... Here's a couple.</p>
-
-<p><a href="http://stackoverflow.com/questions/878578/how-can-i-have-lowercase-routes-in-asp-net-mvc">http://stackoverflow.com/questions/878578/how-can-i-have-lowercase-routes-in-asp-net-mvc</a></p>
-
-<p>This question links to:</p>
-
-<p><a href="http://coderjournal.com/2008/03/force-mvc-route-url-lowercase/">http://coderjournal.com/2008/03/force-mvc-route-url-lowercase/</a></p>
-
-<p>This breaks Area's, why? Because to handle an Area it appends <code>?Area=areaname</code> to the Url. FAIL. Probably worked great for MVC 1,but considering I've seen it linked in MVC 3 questions,I consider it fail.</p>
-
-
-      <p><a href="/2011/08/mvc-routing-with-attributes-makes-routing-awesome/">Read more...</a></p>
     </li>
   </ul> 
 

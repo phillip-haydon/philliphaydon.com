@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-05-01T21:43:17.0113526+08:00" />
+    <meta http-equiv="last-modified" content="2014-05-03T02:24:02.6108233+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page3/" />
@@ -35,6 +35,42 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/06/setting-up-mono-on-nginx/">Setting up Mono on nginx</a> 
+        <span>posted on 28 Jun 2013</span>
+      </h1> 
+      <ul class="snow-series"><li><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Part 1 - Setting up the Virtual Machine and nginx</a></li><li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx/">Part 2 - Setting up new Website and Domain on nginx</a></li><li>Part 3 - Setting up Mono on nginx</li><li><a href="/2013/07/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li><li><a href="/2013/07/setting-up-a-servicestack-service/">Part 5 - Setting up a ServiceStack web service</a></li></ul>
+      <p>Now we get to the fun stuff, getting up Mono. I'll be demoing with Mono 2.10 but after this series I may include a 6th part on how build Mono 3.0 from source and run it. </p>
+
+<h2>Setting up our test page</h2>
+
+<p>I figured we should start with setting up our test page. Something super simple, we will create a new page that outputs a bit of server side text. </p>
+
+<p>We wont deploy a bin folder or anything like that, it will be almost like deploying Classic ASP. </p>
+
+<pre><code>&lt;%@ Page Language="C#" AutoEventWireup="true" %&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head runat="server"&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+    &lt;% var test = "Hello World! Got an aspx page running on nginx!!!"; %&gt;
+
+    &lt;%= test %&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>So we are just creating a variable named <code>test</code> with some test data, then outputting it to the page. </p>
+
+
+      <p><a href="/2013/06/setting-up-mono-on-nginx/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx/">Setting up new Website and Domain on nginx</a> 
@@ -229,34 +265,6 @@ else if (...)
 
 
       <p><a href="/2013/04/visual-studio-disable-namespacing-on-folders/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</a> 
-        <span>posted on 22 Apr 2013</span>
-      </h1> 
-      
-      <ul>
-<li>Original Post: <a href="/2012/11/nancy-and-content-negotiation">NancyFX and Content Negotiation</a></li>
-<li>NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</li>
-<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 2)</a></li>
-<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 3)</a></li>
-</ul>
-
-<p>I thought I would revisit this topic since I don't believe I did it enough justice last time around, and I believe it really is important when creating an API that is going to be consumed not only by the public or client, but <strong>by you also</strong>!</p>
-
-<p>When the browser asks for <code>text/html</code> its negotiating with the server. So really your website is an API, your <code>Views</code> are just an additional type of content that your API serves up when requested.</p>
-
-<h2>Example</h2>
-
-<p>Lets say you're building Twitter, the initial page shows a list of tweets, so the browser makes a call to <code>/tweets</code> and the server responds with a list of tweets rendered with using HTML.</p>
-
-<p>Once the page has loaded, the client uses JavaScript to load new tweets, so it calls <code>/tweets</code> again, this time it returns a <code>json</code> result, and the client-side templating engine then renders and appends those to the top of the existing list, keeping the client up to date with the latest tweets.</p>
-
-<p>What's nice is no new data needed to be written on the server! </p>
-
-
-      <p><a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">Read more...</a></p>
     </li>
   </ul> 
 
