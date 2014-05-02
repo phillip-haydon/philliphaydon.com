@@ -13,7 +13,7 @@ The Azure blog has a recent post listing a few [Azure Storage explorers][0]. I t
 
 Infact, I'm sorry to say... Azure Storage Explorer was the worst. When I attempted to refresh a queue, nothing happened. I had to add a second queue, then swap between each queue in order to review the list. Most of the buttons don't seem to do anything at all.
 
-Then I remember [Mark Rendle][2] tweeted me about his [Zudio][1] site. Funally enough he got a mention on the blog post. I decided to login and check it out again.
+Then I remember [Mark Rendle][2] tweeted me about his [Zudio][1] site. Funnily enough he got a mention on the blog post. I decided to login and check it out again.
 
 [![][4]][1]
 
