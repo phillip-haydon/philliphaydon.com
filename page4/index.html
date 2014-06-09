@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-05-10T00:20:02.6937601+08:00" />
+    <meta http-equiv="last-modified" content="2014-06-09T23:12:43.1908684+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page4/" />
@@ -35,6 +35,27 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/04/visual-studio-disable-namespacing-on-folders/">Disabling Namespaces on folders in Visual Studio</a> 
+        <span>posted on 26 Apr 2013</span>
+      </h1> 
+      
+      <p>I just discovered this little trick I found in Visual Studio to turn off namespacing on a folder. Not sure how after 8 years I only just found this.</p>
+
+<h2>The Problem</h2>
+
+<p>Lets assume we're working with Entity Framework... (shiver)... We create a Data Model, add all our Entities and away we go. </p>
+
+<p>Then we want to extend one of the Entities, maybe to add some methods and such, so we need to create some partial classes. So far we have:</p>
+
+<p><img src="/images/visual-studio-namespacing-1.png" alt="" /></p>
+
+<p>We create a new <code>Member.cs</code> class in the <code>Partials</code> folder;</p>
+
+
+      <p><a href="/2013/04/visual-studio-disable-namespacing-on-folders/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</a> 
@@ -273,49 +294,6 @@
 
       <p><a href="/2013/02/windows-store-app-adding-advertising/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/02/x-http-method-override-with-nancyfx/">X-Http-Method-Override with NancyFX</a> 
-        <span>posted on 11 Feb 2013</span>
-      </h1> 
-      
-      <p>Forms in HTML only allow you to use the method's POST and GET, I'm not sure if this would be classified as a limitation or not, but it does introduce a slight problem when you want to create a nice API taking advantage of verbs such as PUT and DELETE, when you can only POST and GET. </p>
-
-<p>This means if you want to delete something you have to use a different URL, like:</p>
-
-<p><code>/products/123/delete</code></p>
-
-<p>Then define a route like</p>
-
-<pre><code>Post["/products/{id}/delete"] = _ =&gt;
-{
-    ... Do Something...
-};
-</code></pre>
-
-<p>This isn't exactly ideal, what we would prefer to have is a more semantic route.</p>
-
-<ul>
-<li><code>GET</code> -> gets an object</li>
-<li><code>DELETE</code> -> deletes an object</li>
-<li><code>PUT</code> -> modifies an object</li>
-<li><code>PATCH</code> -> modifies part of an object</li>
-<li><code>POST</code> -> creates an object</li>
-</ul>
-
-<p><span class="note"><strong>Note:</strong> I'm no expert on this stuff so the VERBs above may not be correct wording.</span></p>
-
-<p>This would allow us to define the same route like so</p>
-
-<pre><code>Delete["/products/{id}"] = _ =&gt;
-{
-    ... Do Something...
-};
-</code></pre>
-
-
-      <p><a href="/2013/02/x-http-method-override-with-nancyfx/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -386,6 +364,7 @@
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20146">June, 2014</a></li>
                           <li><a href="/archive#20145">May, 2014</a></li>
                           <li><a href="/archive#20144">April, 2014</a></li>
                           <li><a href="/archive#20142">February, 2014</a></li>

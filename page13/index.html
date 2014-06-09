@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-05-10T00:20:02.6937601+08:00" />
+    <meta http-equiv="last-modified" content="2014-06-09T23:12:43.1908684+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page13/" />
@@ -35,6 +35,32 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2010/10/using-hilo-with-fluentnhibernate/">Using HiLo with FluentNHibernate</a> 
+        <span>posted on 24 Oct 2010</span>
+      </h1> 
+      
+      <p>I spend ages trying to find some documentation or tutorial on how to use HiLo with FluentNHibernate after reading:</p>
+
+<ul>
+<li><a href="http://ayende.com/Blog/archive/2009/03/20/nhibernate-avoid-identity-generator-when-possible.aspx">NHibernate: Avoid identity generator when possible</a></li>
+<li><a href="https://connect.microsoft.com/SQLServer/feedback/details/328811/scope-identity-sometimes-returns-incorrect-value">SCOPE_IDENTITY() sometimes returns incorrect value</a></li>
+<li><a href="http://nhforge.org/blogs/nhibernate/archive/2009/03/20/nhibernate-poid-generators-revealed.aspx">NHibernate POID Generators revealed</a></li>
+<li><a href="http://fabiomaulo.blogspot.com/2008/12/identity-never-ending-story.html">Identity: The never ending story</a> - BTW they are <a href="http://www.imdb.com/title/tt1386664/">remaking</a> <a href="http://www.imdb.com/title/tt0088323/">The NeverEnding Story</a>. Bastards!!!</li>
+</ul>
+
+<p>As it turns out, it's really easy to setup. I figured out two ways of doing it, the HiLo table having a single row, with each column for each table 'Hi'. Or a row for each table.</p>
+
+<p>I setup a really simple example with the following table.</p>
+
+<p><img src="/images/nhibernate-hilo-1.png" alt="" /></p>
+
+<p>'ProductId' is set to be int/primary key, but identity is false, since we don't want the database generating the id.</p>
+
+
+      <p><a href="/2010/10/using-hilo-with-fluentnhibernate/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2010/10/google-is-fail/">Google is fail</a> 
@@ -213,6 +239,7 @@ WHERE EXISTS (SELECT 1 FROM Product WHERE Active = 1 AND ProductTypeID = Product
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20146">June, 2014</a></li>
                           <li><a href="/archive#20145">May, 2014</a></li>
                           <li><a href="/archive#20144">April, 2014</a></li>
                           <li><a href="/archive#20142">February, 2014</a></li>

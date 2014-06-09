@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-05-10T00:20:02.6937601+08:00" />
+    <meta http-equiv="last-modified" content="2014-06-09T23:12:43.1908684+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page9/" />
@@ -35,6 +35,35 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/12/post-a-collection-of-viewmodels-to-a-mvc-action-with-jquery/">Post a collection of ViewModel's to a MVC Action with jQuery</a> 
+        <span>posted on 07 Dec 2011</span>
+      </h1> 
+      
+      <p>Maybe I searched for the wrong thing, but I couldn't find what I was looking for :( My Bing and Google fu failed me.</p>
+
+<p>Basically I wanted to post a collection of ViewModels to an MCV action. Turns out it's rather simple.</p>
+
+<p>Lets say I have a bunch of Products, and Products are managed in a WarehouseLocation. A product doesn't have a warehouse location, since it could exist in multiple locations.</p>
+
+<p>If I'm currently working in Location A, I want to post a collection of Products to an action, as well as the WarehouseLocationId.</p>
+
+<p>So given a simple ViewModel, and an Action:</p>
+
+<pre><code>public class ProductViewModel
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+}
+</code></pre>
+
+<p>and</p>
+
+
+      <p><a href="/2011/12/post-a-collection-of-viewmodels-to-a-mvc-action-with-jquery/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/11/optional-parameters-with-attributerouting/">Optional Parameters with AttributeRouting</a> 
@@ -297,37 +326,6 @@ root/images
 
       <p><a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators-part-2/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/08/nhibernate-work-around-is-not-really-a-work-around/">NHibernate Work-Around is not really a Work-Around...</a> 
-        <span>posted on 15 Aug 2011</span>
-      </h1> 
-      
-      <p>Over the weekend I came across a blog post about NHibernate, and an apparent work-around for a feature not supported by NHibernate.</p>
-
-<p>The original post can be found here: <a href="http://www.arrangeactassert.com/nhibernate-linq-workaround-for-system-notsupportedexception/">nHibernate LINQ workaround for System.NotSupportedException</a></p>
-
-<p>Basically the author wanted to write something along the lines of:</p>
-
-<pre><code>var fruitIds = new List&lt;int&gt; { 5, 8, 13 };
-
-using (var session = factory.OpenSession())
-{
-    var result = from f in session.Query&lt;NHFruit&gt;()
-                 join i in fruitIds
-                     on f.Id equals i
-                 select f;
-
-    foreach (var fruit in result)
-        Console.WriteLine(fruit.Name);
-}
-</code></pre>
-
-<p>Where the query joins to a list of Ids to filter the results out. This however, happens to throw an exception:</p>
-
-
-      <p><a href="/2011/08/nhibernate-work-around-is-not-really-a-work-around/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -398,6 +396,7 @@ using (var session = factory.OpenSession())
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20146">June, 2014</a></li>
                           <li><a href="/archive#20145">May, 2014</a></li>
                           <li><a href="/archive#20144">April, 2014</a></li>
                           <li><a href="/archive#20142">February, 2014</a></li>

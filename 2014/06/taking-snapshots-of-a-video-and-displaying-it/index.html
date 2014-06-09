@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-05-10T00:20:02.6937601+08:00" />
+    <meta http-equiv="last-modified" content="2014-06-09T23:12:43.1908684+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
-    <link rel="canonical" href="http://www.philliphaydon.com/drafts/2014/05/a-test-for-iris/" />
+    <link rel="canonical" href="http://www.philliphaydon.com/2014/06/taking-snapshots-of-a-video-and-displaying-it/" />
 </head>
 <body class="home blog">
     <div id="page" class="hfeed site">
@@ -35,11 +35,12 @@
                   
 
 <div id="post">
-    <h1>Test for Iris</h1>
+    <h1>Taking snap shots of a Video &amp; displaying it</h1>
 
     <div class="post-note">
-        posted on 10 May 2014
-            | <a href="/category/audiotest">AudioTest</a>
+        posted on 09 Jun 2014
+            | <a href="/category/javascript">JavaScript</a>
+            | <a href="/category/html5">HTML5</a>
 
         <div class="addthis_toolbox addthis_default_style" style="float:right;">
             <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -52,11 +53,203 @@
 
 
 
-    
+    <ul class="snow-series"><li><a href="/2014/04/loading-an-image-or-video-from-a-file-input-control/">Part 1: Loading an Image or Video from a File Input control</a></li><li><a href="/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/">Part 2: Creating a drop area to drop a file</a></li><li>Part 3: Taking snap shots of a Video & displaying it</li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
 
-    <p>This is a test :)</p>
+    <p>Now we've loaded an image/video, we've captured the drop event, we've displayed it...</p>
 
-<p><audio src="/stuffz/001-event_sourcing_iris_classon_eric_duncan.mp3" preload="auto" /></p>
+<p>But what about taking screen grabs of a video?</p>
+
+<p>To start with I'll go back to the code we used in Part 1, so we have an input, a load button, and a video control:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;      
+    &lt;div&gt;
+        &lt;input type="file" id="video-input"&gt;
+        &lt;input type="button" value="Load Selected Video" id="load-video" /&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;video id="video-container" controls&gt;&lt;/video&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Racing ahead we load that up:</p>
+
+<!--excerpt-->
+
+<pre><code>&lt;script&gt;    
+    (function(){
+
+        var fileInput = document.getElementById('video-input');
+        var video = document.getElementById('video-container');
+
+        document.getElementById('load-video').addEventListener('click', function(){
+            var fileUrl = window.URL.createObjectURL(fileInput.files[0]);
+
+            video.src = fileUrl;            
+        });
+
+    })();   
+&lt;/script&gt;
+</code></pre>
+
+<p>Now that we have loaded our video, how do we capture screen grabs?</p>
+
+<p><strong><em>Note:</strong> All sizes are halved becaused the test video is too large :)</em></p>
+
+<h2>The hidden canvas</h2>
+
+<p>The first thing we have to do is get the current data of the current frame being displayed. To do that we need to create a hidden canvas, and then draw onto it. </p>
+
+<p>So we're gonna add a canvas element to the UI:</p>
+
+<pre><code>&lt;canvas id="temp-canvas" style="display:none"&gt;&lt;/canvas&gt;
+</code></pre>
+
+<p>The canvas doesn't need to display, it's simply there to capture data. Now we need to put the video into it, so lets add a button, lets also add somewhere to display the image once we have it. :</p>
+
+<pre><code>&lt;input type="button" value="Copy current frame to image below" id="load-image" /&gt;
+
+&lt;br /&gt;Image......&lt;br /&gt;
+&lt;img id="image-container" /&gt;
+</code></pre>
+
+<h2>The fluff in between...</h2>
+
+<p>Now we need to add some fluff when the button to copy the current frame is clicked.</p>
+
+<p>Let's find the controls:</p>
+
+<pre><code>var image = document.getElementById('image-container');
+var canvas = document.getElementById('temp-canvas');
+</code></pre>
+
+<p>And add a click event to the new button:</p>
+
+<pre><code>document.getElementById('load-image').addEventListener('click', function(){
+
+});
+</code></pre>
+
+<h2>Load that image!</h2>
+
+<p>What we need to do now is take the dom video control, as is. <em>(this means if you're using jQuery to find the element, you need to get the real dom element, not the jQuery wrapped element)</em> </p>
+
+<p>This is currently our <code>video</code> variable. </p>
+
+<p>First up we will size our canvas:</p>
+
+<pre><code>canvas.height = video.videoHeight / 2;
+canvas.width = video.videoWidth / 2;
+</code></pre>
+
+<p>Then we need to create a context on our canvas. We will create a 2d context like do:</p>
+
+<pre><code>var context = canvas.getContext("2d");
+</code></pre>
+
+<p>This gives us a 2d rendering context whih we can use to draw on. We will draw the current video frame. Assuming we have pause the video in the middle somewhere, we can hit the button to capture the current frame by padding the video in like so:</p>
+
+<pre><code>context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, canvas.width, canvas.height);
+</code></pre>
+
+<p><strong>// NOTE</strong></p>
+
+<p>For this I used the 9 property <code>drawImage</code> function, this is:</p>
+
+<pre><code>drawImage(source, sourceStartX, sourceStartY, width, height, destinationStartX, destinationStartY, width, height) 
+</code></pre>
+
+<p>This means, the sourceStart is where you want the first pixel to be captured from, the width/height of the source from the start pixels. </p>
+
+<p>The destinationStart is where you want to place the image on the canvas and how you want it to stretch.</p>
+
+<p>My sample takes the actual height/width of the source and places it in the smaller canvas.</p>
+
+<p>You can also use</p>
+
+<pre><code>context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+</code></pre>
+
+<p>Which will assume the same height/width for source/canvas.</p>
+
+<p><strong>// END NOTE</strong></p>
+
+<p>Now all that's left is to display it, to do this we call the <code>toDataURL()</code> function defined on the canvas. This takes what's currently drawn and shows it in a image element.</p>
+
+<pre><code>image.src = canvas.toDataURL();     
+</code></pre>
+
+<p>Why do we do this rather than display the canvas itself? Well this allows you to right click the image and download it. :)</p>
+
+<p>Now we can load a video:</p>
+
+<p><img src="/images/screen-capture-video-html5-01.png" alt="" /></p>
+
+<p>And then press the button to capture it!!!!</p>
+
+<p><img src="/images/screen-capture-video-html5-02.png" alt="" /></p>
+
+<h2>The final codez</h2>
+
+<pre><code>&lt;div&gt;
+    &lt;input type="file" id="video-input"&gt;
+    &lt;input type="button" value="Load Selected Video" id="load-video" /&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+    &lt;br /&gt;Video...&lt;br /&gt;
+    &lt;video id="video-container" controls&gt;&lt;/video&gt;
+
+    &lt;br /&gt;
+    &lt;input type="button" value="Copy current frame to image below" id="load-image" /&gt;
+
+    &lt;br /&gt;Image......&lt;br /&gt;
+    &lt;img id="image-container" /&gt;
+&lt;/div&gt;
+
+&lt;canvas id="temp-canvas" style="display:none"&gt;&lt;/canvas&gt;
+
+&lt;script&gt;
+    (function(){
+
+        var fileInput = document.getElementById('video-input');
+        var video = document.getElementById('video-container');
+        var image = document.getElementById('image-container');
+        var canvas = document.getElementById('temp-canvas');
+
+        document.getElementById('load-video').addEventListener('click', function(){
+            var fileUrl = window.URL.createObjectURL(fileInput.files[0]);
+
+            video.src = fileUrl;            
+        });
+        document.getElementById('load-image').addEventListener('click', function(){
+
+            canvas.height = video.videoHeight;
+            canvas.width = video.videoWidth;
+
+            var context = canvas.getContext("2d");
+
+            drawImage(source, sourceStartX, sourceStartY, width, height, destinationStartX, destinationStartY, width, height) 
+
+            image.src = canvas.toDataURL();         
+        });
+
+    })();
+
+&lt;/script&gt;
+</code></pre>
+
+<h2>What do we have...</h2>
+
+<p>So we've got an file <code>input</code> control, it loads a video file into a <code>video</code> element, then we scrub the video &amp; hit that button, and bam, we capture what ever the current frame is.</p>
 
 
     <div id="disqus_thread"></div>
@@ -66,14 +259,14 @@
             reload: true,
             config: function () {
                 //this.page.identifier = '';
-                this.page.url = 'http://www.philliphaydon.com/drafts/2014/05/a-test-for-iris/';
+                this.page.url = 'http://www.philliphaydon.com/2014/06/taking-snapshots-of-a-video-and-displaying-it/';
                 //this.page.title = '';
             }
         });
     };
 
     var disqus_shortname = 'philliphaydon';
-    var disqus_url = 'http://www.philliphaydon.com/drafts/2014/05/a-test-for-iris/';
+    var disqus_url = 'http://www.philliphaydon.com/2014/06/taking-snapshots-of-a-video-and-displaying-it/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -141,6 +334,7 @@
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20146">June, 2014</a></li>
                           <li><a href="/archive#20145">May, 2014</a></li>
                           <li><a href="/archive#20144">April, 2014</a></li>
                           <li><a href="/archive#20142">February, 2014</a></li>
@@ -205,7 +399,21 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="/javascripts/prettify.js"></script>
     
-    
+    <script type="text/javascript">
+var _gaq = _gaq || [];
+
+_gaq.push(['_setAccount', 'UA-655975-13']);
+_gaq.push(['_trackPageview']);
+        
+(function () {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+})();
+</script>
     
     <script src="/javascripts/audio.min.js"></script>
     

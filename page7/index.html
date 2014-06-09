@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-05-10T00:20:02.6937601+08:00" />
+    <meta http-equiv="last-modified" content="2014-06-09T23:12:43.1908684+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page7/" />
@@ -35,6 +35,35 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/10/raven-dynamicsession-for-ravendb/">Raven.DynamicSession for RavenDB</a> 
+        <span>posted on 02 Oct 2012</span>
+      </h1> 
+      
+      <p><em>Just a word of warning before you read this. I currently don't recommend using this project. MAYBE in the future you could use it, but for now I think it's just a cool proof of concept or something handy for rapid prototyping.</em></p>
+
+<p>Last week I had a discussion with <a href="https://twitter.com/@PrabirShrestha">@PrabirShrestha</a> in <a href="https://jabbr.net/">JabbR</a> about APIs for MongoDB to achieve something along the lines of:</p>
+
+<pre><code>db.posts.insert({title: ''first''}, function(err, doc){})
+</code></pre>
+
+<p>Example from: <a href="http://alexeypetrushin.github.com/mongo-lite/docs/index.html">http://alexeypetrushin.github.com/mongo-lite/docs/index.html</a></p>
+
+<p>Or</p>
+
+<pre><code>_db.Users.Insert(Name: "Steve", Age: 50);
+</code></pre>
+
+<p>Example from: <a href="http://simplefx.org/simpledata/docs/pages/Modify/AddingData.html">http://simplefx.org/simpledata/docs/pages/Modify/AddingData.html</a></p>
+
+<p>Looking at the syntax and thinking about C#'s DynamicObject I decided to see what I could come up with. I spent the better part of the next 2-3 hours messing around in Visual Studio, chatting and coming back to it, and came up with this gist.</p>
+
+<p><a href="https://gist.github.com/3798206">https://gist.github.com/3798206</a></p>
+
+
+      <p><a href="/2012/10/raven-dynamicsession-for-ravendb/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2012/09/nancy-and-areas/">NancyFX and Areas</a> 
@@ -311,37 +340,6 @@ public class User
 
       <p><a href="/2012/04/codeschool-com-is-the-most-awesome-way-to-learn/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2012/03/my-must-have-short-list-programs-and-extensions-etc/">My must have (short) list programs/extensions etc</a> 
-        <span>posted on 24 Mar 2012</span>
-      </h1> 
-      
-      <p>We have all seen these lists before, but I've decided I'll make a list of all the software I use or think are a must have, blog it, then this time next year I can do the list again and see how much it's changed.</p>
-
-<h3>Visual Studio 2010</h3>
-
-<p>What can I say, I'm a .NET Developer :)</p>
-
-<h3>ReSharper</h3>
-
-<p><a href="http://www.jetbrains.com/resharper/">http://www.jetbrains.com/resharper/</a></p>
-
-<p>This should just ship with Visual Studio, without ReSharper I feel so unproductive in VS.</p>
-
-<h3>MindScape Web Workbench</h3>
-
-<p><a href="http://www.mindscapehq.com/products/web-workbench">http://www.mindscapehq.com/products/web-workbench</a></p>
-
-<p>This VS extension just gets better and better, I primarily got it to write LESS and CoffeeScript, but recently they added support for minifying and combining JavaScript and CSS files. Really cool stuff and I highly recommend it.</p>
-
-<h3>BugAid</h3>
-
-<p><a href="http://www.bugaidsoftware.com/">http://www.bugaidsoftware.com/</a></p>
-
-
-      <p><a href="/2012/03/my-must-have-short-list-programs-and-extensions-etc/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -412,6 +410,7 @@ public class User
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20146">June, 2014</a></li>
                           <li><a href="/archive#20145">May, 2014</a></li>
                           <li><a href="/archive#20144">April, 2014</a></li>
                           <li><a href="/archive#20142">February, 2014</a></li>

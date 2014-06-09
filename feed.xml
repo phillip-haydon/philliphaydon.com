@@ -1,4 +1,226 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/05/managing-your-azure-storage-account-with-zudio/</guid><link>http://www.philliphaydon.com/2014/05/managing-your-azure-storage-account-with-zudio/</link><title>Managing your Azure Storage account with Zudio</title><description>&lt;p&gt;Messing around with Azure Queues, using the C# library to create a queue, add messages, read them, delete them... all is well and good...&lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/06/taking-snapshots-of-a-video-and-displaying-it/</guid><link>http://www.philliphaydon.com/2014/06/taking-snapshots-of-a-video-and-displaying-it/</link><title>Taking snap shots of a Video &amp; displaying it</title><description>&lt;p&gt;Now we've loaded an image/video, we've captured the drop event, we've displayed it...&lt;/p&gt;
+
+&lt;p&gt;But what about taking screen grabs of a video?&lt;/p&gt;
+
+&lt;p&gt;To start with I'll go back to the code we used in Part 1, so we have an input, a load button, and a video control:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;meta charset="utf-8" /&amp;gt;
+    &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;      
+    &amp;lt;div&amp;gt;
+        &amp;lt;input type="file" id="video-input"&amp;gt;
+        &amp;lt;input type="button" value="Load Selected Video" id="load-video" /&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+    &amp;lt;div&amp;gt;
+        &amp;lt;video id="video-container" controls&amp;gt;&amp;lt;/video&amp;gt;
+    &amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Racing ahead we load that up:&lt;/p&gt;
+
+</description><pubDate>Sun, 08 Jun 2014 16:00:00 Z</pubDate><a10:updated>2014-06-08T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;Now we've loaded an image/video, we've captured the drop event, we've displayed it...&lt;/p&gt;
+
+&lt;p&gt;But what about taking screen grabs of a video?&lt;/p&gt;
+
+&lt;p&gt;To start with I'll go back to the code we used in Part 1, so we have an input, a load button, and a video control:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;meta charset="utf-8" /&amp;gt;
+    &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;      
+    &amp;lt;div&amp;gt;
+        &amp;lt;input type="file" id="video-input"&amp;gt;
+        &amp;lt;input type="button" value="Load Selected Video" id="load-video" /&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+    &amp;lt;div&amp;gt;
+        &amp;lt;video id="video-container" controls&amp;gt;&amp;lt;/video&amp;gt;
+    &amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Racing ahead we load that up:&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script&amp;gt;    
+    (function(){
+
+        var fileInput = document.getElementById('video-input');
+        var video = document.getElementById('video-container');
+
+        document.getElementById('load-video').addEventListener('click', function(){
+            var fileUrl = window.URL.createObjectURL(fileInput.files[0]);
+
+            video.src = fileUrl;            
+        });
+
+    })();   
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now that we have loaded our video, how do we capture screen grabs?&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Note:&lt;/strong&gt; All sizes are halved becaused the test video is too large :)&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2&gt;The hidden canvas&lt;/h2&gt;
+
+&lt;p&gt;The first thing we have to do is get the current data of the current frame being displayed. To do that we need to create a hidden canvas, and then draw onto it. &lt;/p&gt;
+
+&lt;p&gt;So we're gonna add a canvas element to the UI:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;canvas id="temp-canvas" style="display:none"&amp;gt;&amp;lt;/canvas&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The canvas doesn't need to display, it's simply there to capture data. Now we need to put the video into it, so lets add a button, lets also add somewhere to display the image once we have it. :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;input type="button" value="Copy current frame to image below" id="load-image" /&amp;gt;
+
+&amp;lt;br /&amp;gt;Image......&amp;lt;br /&amp;gt;
+&amp;lt;img id="image-container" /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;The fluff in between...&lt;/h2&gt;
+
+&lt;p&gt;Now we need to add some fluff when the button to copy the current frame is clicked.&lt;/p&gt;
+
+&lt;p&gt;Let's find the controls:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var image = document.getElementById('image-container');
+var canvas = document.getElementById('temp-canvas');
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And add a click event to the new button:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;document.getElementById('load-image').addEventListener('click', function(){
+
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Load that image!&lt;/h2&gt;
+
+&lt;p&gt;What we need to do now is take the dom video control, as is. &lt;em&gt;(this means if you're using jQuery to find the element, you need to get the real dom element, not the jQuery wrapped element)&lt;/em&gt; &lt;/p&gt;
+
+&lt;p&gt;This is currently our &lt;code&gt;video&lt;/code&gt; variable. &lt;/p&gt;
+
+&lt;p&gt;First up we will size our canvas:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;canvas.height = video.videoHeight / 2;
+canvas.width = video.videoWidth / 2;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then we need to create a context on our canvas. We will create a 2d context like do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var context = canvas.getContext("2d");
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This gives us a 2d rendering context whih we can use to draw on. We will draw the current video frame. Assuming we have pause the video in the middle somewhere, we can hit the button to capture the current frame by padding the video in like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, canvas.width, canvas.height);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;// NOTE&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For this I used the 9 property &lt;code&gt;drawImage&lt;/code&gt; function, this is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drawImage(source, sourceStartX, sourceStartY, width, height, destinationStartX, destinationStartY, width, height) 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This means, the sourceStart is where you want the first pixel to be captured from, the width/height of the source from the start pixels. &lt;/p&gt;
+
+&lt;p&gt;The destinationStart is where you want to place the image on the canvas and how you want it to stretch.&lt;/p&gt;
+
+&lt;p&gt;My sample takes the actual height/width of the source and places it in the smaller canvas.&lt;/p&gt;
+
+&lt;p&gt;You can also use&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Which will assume the same height/width for source/canvas.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;// END NOTE&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Now all that's left is to display it, to do this we call the &lt;code&gt;toDataURL()&lt;/code&gt; function defined on the canvas. This takes what's currently drawn and shows it in a image element.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;image.src = canvas.toDataURL();     
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Why do we do this rather than display the canvas itself? Well this allows you to right click the image and download it. :)&lt;/p&gt;
+
+&lt;p&gt;Now we can load a video:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/screen-capture-video-html5-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And then press the button to capture it!!!!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/screen-capture-video-html5-02.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;h2&gt;The final codez&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div&amp;gt;
+    &amp;lt;input type="file" id="video-input"&amp;gt;
+    &amp;lt;input type="button" value="Load Selected Video" id="load-video" /&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;div&amp;gt;
+    &amp;lt;br /&amp;gt;Video...&amp;lt;br /&amp;gt;
+    &amp;lt;video id="video-container" controls&amp;gt;&amp;lt;/video&amp;gt;
+
+    &amp;lt;br /&amp;gt;
+    &amp;lt;input type="button" value="Copy current frame to image below" id="load-image" /&amp;gt;
+
+    &amp;lt;br /&amp;gt;Image......&amp;lt;br /&amp;gt;
+    &amp;lt;img id="image-container" /&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;canvas id="temp-canvas" style="display:none"&amp;gt;&amp;lt;/canvas&amp;gt;
+
+&amp;lt;script&amp;gt;
+    (function(){
+
+        var fileInput = document.getElementById('video-input');
+        var video = document.getElementById('video-container');
+        var image = document.getElementById('image-container');
+        var canvas = document.getElementById('temp-canvas');
+
+        document.getElementById('load-video').addEventListener('click', function(){
+            var fileUrl = window.URL.createObjectURL(fileInput.files[0]);
+
+            video.src = fileUrl;            
+        });
+        document.getElementById('load-image').addEventListener('click', function(){
+
+            canvas.height = video.videoHeight;
+            canvas.width = video.videoWidth;
+
+            var context = canvas.getContext("2d");
+
+            drawImage(source, sourceStartX, sourceStartY, width, height, destinationStartX, destinationStartY, width, height) 
+
+            image.src = canvas.toDataURL();         
+        });
+
+    })();
+
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;What do we have...&lt;/h2&gt;
+
+&lt;p&gt;So we've got an file &lt;code&gt;input&lt;/code&gt; control, it loads a video file into a &lt;code&gt;video&lt;/code&gt; element, then we scrub the video &amp;amp; hit that button, and bam, we capture what ever the current frame is.&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/05/managing-your-azure-storage-account-with-zudio/</guid><link>http://www.philliphaydon.com/2014/05/managing-your-azure-storage-account-with-zudio/</link><title>Managing your Azure Storage account with Zudio</title><description>&lt;p&gt;Messing around with Azure Queues, using the C# library to create a queue, add messages, read them, delete them... all is well and good...&lt;/p&gt;
 
 &lt;p&gt;But at some point I wanted to view what I was putting into the queue...&lt;/p&gt;
 
@@ -255,7 +477,7 @@ dropArea.addEventListener('dragleave', function(e){
 &lt;p&gt;Ok so we have a basic HTML page with an &lt;code&gt;&amp;lt;input type="file"...&lt;/code&gt;, &lt;code&gt;&amp;lt;video...&lt;/code&gt;, and &lt;code&gt;&amp;lt;input type="button'...&lt;/code&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
-&amp;lt;html data-ng-app="itcompiler"&amp;gt;
+&amp;lt;html&amp;gt;
 &amp;lt;head&amp;gt;
     &amp;lt;meta charset="utf-8" /&amp;gt;
     &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
@@ -286,7 +508,7 @@ dropArea.addEventListener('dragleave', function(e){
 &lt;p&gt;Ok so we have a basic HTML page with an &lt;code&gt;&amp;lt;input type="file"...&lt;/code&gt;, &lt;code&gt;&amp;lt;video...&lt;/code&gt;, and &lt;code&gt;&amp;lt;input type="button'...&lt;/code&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
-&amp;lt;html data-ng-app="itcompiler"&amp;gt;
+&amp;lt;html&amp;gt;
 &amp;lt;head&amp;gt;
     &amp;lt;meta charset="utf-8" /&amp;gt;
     &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
@@ -1113,172 +1335,4 @@ using (WebApp.Start&amp;lt;Startup&amp;gt;(options))
 &lt;p&gt;Much cleaner than before :)&lt;/p&gt;
 
 &lt;p&gt;Snow repository and Snow.Template have been updated with the new awesomeness. &lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2013/12/unit-testing-workflow-foundation-bookmarks-easily/</guid><link>http://www.philliphaydon.com/2013/12/unit-testing-workflow-foundation-bookmarks-easily/</link><title>Unit testing Workflow Foundation Bookmarks... easily...</title><description>&lt;p&gt;I'm not a fan of Workflow Foundation, but you got to do what you got to do. Usually when using WF, unit testing an activity is rather easy. Invoke with some data, assert the out value, possibly watch some methods on some dependencies...&lt;/p&gt;
-
-&lt;p&gt;But when it comes to testing Bookmarks, if the bookmark is created, and resuming it, it's not easy...&lt;/p&gt;
-
-&lt;p&gt;Well that is unless you're using &lt;a href="http://wf.codeplex.com"&gt;Microsoft.Activities.UnitTesting&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;So creating some new projects, a workflow project and a class library for testing...&lt;/p&gt;
-
-</description><pubDate>Tue, 17 Dec 2013 16:00:00 Z</pubDate><a10:updated>2013-12-17T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;I'm not a fan of Workflow Foundation, but you got to do what you got to do. Usually when using WF, unit testing an activity is rather easy. Invoke with some data, assert the out value, possibly watch some methods on some dependencies...&lt;/p&gt;
-
-&lt;p&gt;But when it comes to testing Bookmarks, if the bookmark is created, and resuming it, it's not easy...&lt;/p&gt;
-
-&lt;p&gt;Well that is unless you're using &lt;a href="http://wf.codeplex.com"&gt;Microsoft.Activities.UnitTesting&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;So creating some new projects, a workflow project and a class library for testing...&lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/workflow-02.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Next we want to add the MS Libraries:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/workflow-01.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;This will add:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;Microsoft.Activities.UnitTesting&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;and&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;Microsoft.Activities.Extensions&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;I've also added &lt;code&gt;xUnit&lt;/code&gt; for testing :)&lt;/p&gt;
-
-&lt;p&gt;Now we can create a basic workflow activity:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;using System.Activities;
-
-public class SampleActivity : NativeActivity&amp;lt;bool&amp;gt;
-{
-    public InArgument&amp;lt;int&amp;gt; ValueOne { get; set; }
-    public InArgument&amp;lt;int&amp;gt; ValueTwo { get; set; }
-
-    protected override bool CanInduceIdle
-    {
-        get { return true; }
-    }
-
-    protected override void Execute(NativeActivityContext context)
-    {
-        var valueOne = context.GetValue(ValueOne);
-        var valueTwo = context.GetValue(ValueTwo);
-
-        if (valueTwo % 2 == 0)
-        {
-            //We do something and return true...
-            context.SetValue(Result, true);
-
-            return;
-        }
-
-        // Else condition was not met so we sleep and come back later
-        context.CreateBookmark("Bookmark_" + valueOne, ResumeBookmarkCallback);
-    }
-
-    private void ResumeBookmarkCallback(NativeActivityContext context, Bookmark bookmark, object value)
-    {
-        // When we wake up, return false and let it try again
-        context.SetValue(Result, false);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;Note: Post isn't about workflow, it's about unit testing. This is just a random example. :)&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;So completely random, given &lt;code&gt;valueTwo&lt;/code&gt; mod &lt;code&gt;2&lt;/code&gt; equals &lt;code&gt;0&lt;/code&gt; then we should set the return value as &lt;code&gt;true&lt;/code&gt;, else we create a bookmark... and when the bookmark is woken, it returns false.&lt;/p&gt;
-
-&lt;p&gt;The first thing we want to test is the super duper happy path, given &lt;code&gt;valueTwo&lt;/code&gt; is &lt;code&gt;10&lt;/code&gt; then we should get &lt;code&gt;0&lt;/code&gt; remaining and we can assert that the result is &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[Fact]
-public void Given_10_For_Value_Two_Should_Have_A_Return_Argument_Of_True()
-{
-    // Arrange
-    var wfTester = WorkflowApplicationTest.Create(new SampleActivity
-    {
-        ValueOne = 123,
-        ValueTwo = 10
-    });
-
-    // Act
-    wfTester.TestActivity();
-
-    // Assert
-    wfTester.AssertOutArgument.IsTrue("Result");
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Here we create an instance of the &lt;code&gt;WorkflowApplicationTest&lt;/code&gt; class, passing in an activity with data. &lt;/p&gt;
-
-&lt;p&gt;Next we call &lt;code&gt;TestActivity&lt;/code&gt; and then we &lt;code&gt;Assert&lt;/code&gt; the value. &lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/workflow-03.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Sure enough, it passes :)&lt;/p&gt;
-
-&lt;p&gt;Now, given the value 9, we should get a bookmark named &lt;code&gt;Bookmark_123&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[Fact]
-public void Given_9_For_Value_Two_Should_Have_Bookmark_Using_Value_One()
-{
-    // Arrange
-    var wfTester = WorkflowApplicationTest.Create(new SampleActivity
-    {
-        ValueOne = 123,
-        ValueTwo = 9
-    });
-
-    // Act
-    wfTester.TestActivity();
-    wfTester.TestWorkflowApplication.GetBookmarks();
-
-    // Assert
-    Assert.Equal("Bookmark_123", wfTester.Bookmarks.First());
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Like the first test, we start out the same, except after we call &lt;code&gt;TestActivity&lt;/code&gt; we actually call &lt;code&gt;GetBookmarks&lt;/code&gt; off the &lt;code&gt;TestWorkflowApplication&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;This is rather important, I couldn't find this in any of the documentation, but without this, the &lt;code&gt;Bookmarks&lt;/code&gt; property is always empty...&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/workflow-04.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;So by having the &lt;code&gt;GetBookmarks&lt;/code&gt; call, ensures the &lt;code&gt;Bookmarks&lt;/code&gt; property is populated.&lt;/p&gt;
-
-&lt;p&gt;Now, lastly we want to resume the bookmark and assert that the result is returned. We are expecting &lt;code&gt;false&lt;/code&gt; so we create a new test, similar to the last, but we resume...&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[Fact]
-public void When_Resuming_A_Workflow_Should_Get_The_Return_Value_False()
-{
-    // Arrange
-    var wfTester = WorkflowApplicationTest.Create(new SampleActivity
-    {
-        ValueOne = 123,
-        ValueTwo = 9
-    });
-
-    // Act
-    wfTester.TestActivity();
-    wfTester.TestWorkflowApplication.ResumeBookmark("Bookmark_123", 0);
-
-    // Assert
-    wfTester.AssertOutArgument.IsFalse("Result");
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So again, it's similar to the second test, except rather than call &lt;code&gt;GetBookmarks&lt;/code&gt; we called &lt;code&gt;ResumeBookmark&lt;/code&gt;, passing in the bookmark name, and a value. Although in our case we don't need it, so I passed in 0.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;null is not allowed :(&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Then we assert that the value is false!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/workflow-05.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;And that's it! A passing unit test! Easy peasy :)&lt;/p&gt;
-
-&lt;p&gt;I've put this test into a github repository that can be found here:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://github.com/phillip-haydon/WorkflowBookmarkUnitTest.git"&gt;https://github.com/phillip-haydon/WorkflowBookmarkUnitTest.git&lt;/a&gt;&lt;/p&gt;
 </a10:content></item></channel></rss>

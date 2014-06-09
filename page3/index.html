@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-05-10T00:20:02.6937601+08:00" />
+    <meta http-equiv="last-modified" content="2014-06-09T23:12:43.1908684+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com//page3/" />
@@ -35,6 +35,29 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/07/setting-up-a-nancyfx-website/">Setting up a NancyFX website</a> 
+        <span>posted on 04 Jul 2013</span>
+      </h1> 
+      <ul class="snow-series"><li><a href="/2013/06/setting-up-ubuntu-and-nginx-on-azure/">Part 1 - Setting up the Virtual Machine and nginx</a></li><li><a href="/2013/06/setting-up-a-new-website-and-domain-on-nginx/">Part 2 - Setting up new Website and Domain on nginx</a></li><li><a href="/2013/06/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li><li>Part 4 - Setting up a NancyFX website</li><li><a href="/2013/07/setting-up-a-servicestack-service/">Part 5 - Setting up a ServiceStack web service</a></li></ul>
+      <p>Time to setup NancyFX on Mono.</p>
+
+<h2>Prelude!</h2>
+
+<p>This series is done using Mono 2.10 and .NET 4.0. This wont work with a 4.5 project since we need Mono 3.0 for that, but I plan to do another series on building Mono from source since there's no package available yet.</p>
+
+<p>Also, this post assumes you've setup FTP to upload the files, I'm not going to go into detail, but you can install <code>vsftpd</code> and Google the setup. If you're new to Linux and followed Parts 1-3 so far, it should be easy enough to setup and install. All you need to do is authenticate using sshftp or sftp, rather than normal ftp. </p>
+
+<h2>Creating a Nancy test project</h2>
+
+<p>The easiest way to create a test project is to grab the <a href="http://visualstudiogallery.msdn.microsoft.com/f1e29f61-4dff-4b1e-a14b-6bd0d307611a">Nancy Templates</a> from the Visual Studio Gallery. </p>
+
+<p>Using this method, we can create a new project in Visual Studio and select Nancy Application.</p>
+
+
+      <p><a href="/2013/07/setting-up-a-nancyfx-website/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/06/setting-up-mono-on-nginx/">Setting up Mono on nginx</a> 
@@ -245,27 +268,6 @@ else if (...)
 
       <p><a href="/2013/05/rss-atom-feed-spam-sorry/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/04/visual-studio-disable-namespacing-on-folders/">Disabling Namespaces on folders in Visual Studio</a> 
-        <span>posted on 26 Apr 2013</span>
-      </h1> 
-      
-      <p>I just discovered this little trick I found in Visual Studio to turn off namespacing on a folder. Not sure how after 8 years I only just found this.</p>
-
-<h2>The Problem</h2>
-
-<p>Lets assume we're working with Entity Framework... (shiver)... We create a Data Model, add all our Entities and away we go. </p>
-
-<p>Then we want to extend one of the Entities, maybe to add some methods and such, so we need to create some partial classes. So far we have:</p>
-
-<p><img src="/images/visual-studio-namespacing-1.png" alt="" /></p>
-
-<p>We create a new <code>Member.cs</code> class in the <code>Partials</code> folder;</p>
-
-
-      <p><a href="/2013/04/visual-studio-disable-namespacing-on-folders/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -336,6 +338,7 @@ else if (...)
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20146">June, 2014</a></li>
                           <li><a href="/archive#20145">May, 2014</a></li>
                           <li><a href="/archive#20144">April, 2014</a></li>
                           <li><a href="/archive#20142">February, 2014</a></li>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-05-10T00:20:02.6937601+08:00" />
+    <meta http-equiv="last-modified" content="2014-06-09T23:12:43.1908684+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/" />
@@ -37,6 +37,42 @@
   <ul class="posts">
     <li class="fancy-container lightblue">
       <h1>
+        <a href="/2014/06/taking-snapshots-of-a-video-and-displaying-it/">Taking snap shots of a Video &amp; displaying it</a> 
+        <span>posted on 09 Jun 2014</span>
+      </h1> 
+      <ul class="snow-series"><li><a href="/2014/04/loading-an-image-or-video-from-a-file-input-control/">Part 1: Loading an Image or Video from a File Input control</a></li><li><a href="/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/">Part 2: Creating a drop area to drop a file</a></li><li>Part 3: Taking snap shots of a Video & displaying it</li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
+      <p>Now we've loaded an image/video, we've captured the drop event, we've displayed it...</p>
+
+<p>But what about taking screen grabs of a video?</p>
+
+<p>To start with I'll go back to the code we used in Part 1, so we have an input, a load button, and a video control:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;      
+    &lt;div&gt;
+        &lt;input type="file" id="video-input"&gt;
+        &lt;input type="button" value="Load Selected Video" id="load-video" /&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;video id="video-container" controls&gt;&lt;/video&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Racing ahead we load that up:</p>
+
+
+      <p><a href="/2014/06/taking-snapshots-of-a-video-and-displaying-it/">Read more...</a></p>
+    </li>
+    <li class="fancy-container lightblue">
+      <h1>
         <a href="/2014/05/managing-your-azure-storage-account-with-zudio/">Managing your Azure Storage account with Zudio</a> 
         <span>posted on 03 May 2014</span>
       </h1> 
@@ -61,7 +97,7 @@
         <a href="/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/">Creating a drop area to drop a file in HTML 5</a> 
         <span>posted on 01 May 2014</span>
       </h1> 
-      <ul class="snow-series"><li><a href="/2014/04/loading-an-image-or-video-from-a-file-input-control/">Part 1: Loading an Image or Video from a File Input control</a></li><li>Part 2: Creating a drop area to drop a file</li><li>Part 3: Taking snap shots of a Video & displaying it</li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
+      <ul class="snow-series"><li><a href="/2014/04/loading-an-image-or-video-from-a-file-input-control/">Part 1: Loading an Image or Video from a File Input control</a></li><li>Part 2: Creating a drop area to drop a file</li><li><a href="/2014/06/taking-snapshots-of-a-video-and-displaying-it/">Part 3: Taking snap shots of a Video & displaying it</a></li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
       <p>In the first post we uploaded a file and viewed it in the browser without sending it to a server, now we are going to create a drop area so that you can drag a file from a folder, into the website.</p>
 
 <p>Using the same HTML as before, lets add a drop area:</p>
@@ -90,7 +126,7 @@
         <a href="/2014/04/loading-an-image-or-video-from-a-file-input-control/">Loading an Image or Video from a File Input control.</a> 
         <span>posted on 29 Apr 2014</span>
       </h1> 
-      <ul class="snow-series"><li>Part 1: Loading an Image or Video from a File Input control</li><li><a href="/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/">Part 2: Creating a drop area to drop a file</a></li><li>Part 3: Taking snap shots of a Video & displaying it</li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
+      <ul class="snow-series"><li>Part 1: Loading an Image or Video from a File Input control</li><li><a href="/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/">Part 2: Creating a drop area to drop a file</a></li><li><a href="/2014/06/taking-snapshots-of-a-video-and-displaying-it/">Part 3: Taking snap shots of a Video & displaying it</a></li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
       <p>So you've got an input control, and you want to display the video/image before the user uploads, maybe so they can verify it first...</p>
 
 <p>The <a href="http://dev.w3.org/2006/webapi/FileAPI/">File API</a> allows you to get more information from a <code>&lt;input type="file"...</code> control than we could get before. </p>
@@ -102,7 +138,7 @@
 <p>Ok so we have a basic HTML page with an <code>&lt;input type="file"...</code>, <code>&lt;video...</code>, and <code>&lt;input type="button'...</code></p>
 
 <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html data-ng-app="itcompiler"&gt;
+&lt;html&gt;
 &lt;head&gt;
     &lt;meta charset="utf-8" /&gt;
     &lt;title&gt;&lt;/title&gt;
@@ -262,23 +298,6 @@ Instead of sending all the logging information to your localhost Sentinal app we
 
       <p><a href="/2013/12/snows-new-server-feature-running-up-a-test-website-for-you/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/12/unit-testing-workflow-foundation-bookmarks-easily/">Unit testing Workflow Foundation Bookmarks... easily...</a> 
-        <span>posted on 18 Dec 2013</span>
-      </h1> 
-      
-      <p>I'm not a fan of Workflow Foundation, but you got to do what you got to do. Usually when using WF, unit testing an activity is rather easy. Invoke with some data, assert the out value, possibly watch some methods on some dependencies...</p>
-
-<p>But when it comes to testing Bookmarks, if the bookmark is created, and resuming it, it's not easy...</p>
-
-<p>Well that is unless you're using <a href="http://wf.codeplex.com">Microsoft.Activities.UnitTesting</a></p>
-
-<p>So creating some new projects, a workflow project and a class library for testing...</p>
-
-
-      <p><a href="/2013/12/unit-testing-workflow-foundation-bookmarks-easily/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -347,6 +366,7 @@ Instead of sending all the logging information to your localhost Sentinal app we
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20146">June, 2014</a></li>
                           <li><a href="/archive#20145">May, 2014</a></li>
                           <li><a href="/archive#20144">April, 2014</a></li>
                           <li><a href="/archive#20142">February, 2014</a></li>

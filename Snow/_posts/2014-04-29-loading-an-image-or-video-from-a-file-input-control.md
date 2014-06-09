@@ -23,7 +23,7 @@ So lets start with Video:
 Ok so we have a basic HTML page with an `<input type="file"...`, `<video...`, and `<input type="button'...`
 
 	<!DOCTYPE html>
-	<html data-ng-app="itcompiler">
+	<html>
 	<head>
 	    <meta charset="utf-8" />
 	    <title></title>
