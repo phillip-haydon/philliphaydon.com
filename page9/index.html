@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-06-16T23:53:11.6619646+08:00" />
+    <meta http-equiv="last-modified" content="2014-08-16T20:52:05.7595427+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page9/" />
@@ -35,6 +35,46 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/12/ravendb-inheritance/">RavenDB Inheritance</a> 
+        <span>posted on 10 Dec 2011</span>
+      </h1> 
+      
+      <p><span class="note"><strong>Note:</strong> Updated solution: <a href="http://www.philliphaydon.com/2011/12/ravendb-inheritance-revisited/">http://www.philliphaydon.com/2011/12/ravendb-inheritance-revisited/</a></span></p>
+
+<p>Continuing my learning of RavenDB, I wanted to see how it handled Inheritance.</p>
+
+<p>I found: <a href="http://ravendb.net/faq/polymorphic-indexes">http://ravendb.net/faq/polymorphic-indexes</a></p>
+
+<p>Which showed what to do allow you to select over all types of <code>Animal</code> for the example shown. So I wanted to see what happens before and after using this method.</p>
+
+<p>So like the example shown I've created an <code>Animal</code>, with a <code>Dog</code> and <code>Cat</code>.</p>
+
+<pre><code>public abstract class Animal
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}
+
+public class Dog : Animal { }
+
+public class Cat : Animal { }
+</code></pre>
+
+<p>Now if I insert a Dog and Cat:</p>
+
+<pre><code>using (var session = documentStore.OpenSession())
+{
+    session.Store(new Dog() { Name = "Test Dog" });
+    session.Store(new Cat() { Name = "Test Cat" });
+    session.SaveChanges();
+}
+</code></pre>
+
+
+      <p><a href="/2011/12/ravendb-inheritance/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/12/post-a-collection-of-viewmodels-to-a-mvc-action-with-jquery/">Post a collection of ViewModel's to a MVC Action with jQuery</a> 
@@ -294,38 +334,6 @@ root/images
 
       <p><a href="/2011/09/the-benefits-of-letting-the-orm-generate-the-identity-part-1/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators-part-2/">Fluent NHibernate - Table Inheritance - Discriminators (Part 2)</a> 
-        <span>posted on 22 Aug 2011</span>
-      </h1> 
-      
-      <p>This is part two, to my post about <a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators/">Table Inheritance using Discriminators</a>, in this post I just want to demonstrate the outcome when the sub-classes have their own properties, or possibly a property that maps to the same column.</p>
-
-<p>First thing however is Mark Perry pointed out in the comments that specifying a value for the baseClassDiscriminator will force it to store the value in the database as an INT rather than a a VARCHAR.</p>
-
-<pre><code>DiscriminateSubClassesOnColumn("PostType", 0);
-</code></pre>
-
-<p>This will create the table with an INT like so:</p>
-
-<pre><code>create table WallPost (
-  Id         UNIQUEIDENTIFIER   not null,
-  PostType   INT   not null,
-  DatePosted DATETIME   null,
-  Title      NVARCHAR(255)   null,
-  Content    NVARCHAR(255)   null,
-    primary key ( Id ))
-</code></pre>
-
-<p>Maybe INT is too big however, maybe we only want a SMALLINT? That will give us 32k sub-classes...</p>
-
-<pre><code>DiscriminateSubClassesOnColumn("PostType", (short)0);
-</code></pre>
-
-
-      <p><a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators-part-2/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -396,6 +404,7 @@ root/images
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20148">August, 2014</a></li>
                           <li><a href="/archive#20146">June, 2014</a></li>
                           <li><a href="/archive#20145">May, 2014</a></li>
                           <li><a href="/archive#20144">April, 2014</a></li>
