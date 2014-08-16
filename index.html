@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-08-16T20:52:05.7595427+08:00" />
+    <meta http-equiv="last-modified" content="2014-08-16T20:54:13.6003458+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/" />
@@ -56,82 +56,6 @@
 
 <p>And this will push the site into <code>https</code>, but having to write this everywhere is rather annoying, and during development on your local machine this is a bit of a hassle. Despite Visual Studio supporting an HTTPS url...</p>
 
-<p><img src="/images/https-iis-vs-01.png" alt="" /></p>
-
-<p>If you didn't know this existed, you should. Basically in Visual Studio, select your Web Application project, then open up the properties window (don't right click and select properties, you need to open the window manually) in the window, set <code>SSL Enabled</code> to true, this will add a SSL URL, then you can run the site and use that url instead of the non-https url.</p>
-
-<hr />
-
-<p>So during development you may want to develop without a certificate, but want your production site to be always using a certificate, this makes the <code>RequiresHttps()</code> call a little annoying, we end up with conditional logic or something similar to figure out are we in development, or are we in production.</p>
-
-<h2>URL Rewite Extension for IIS</h2>
-
-<p>Download and install the <a href="http://www.iis.net/downloads/microsoft/url-rewrite">URL Rewrite extension</a> for IIS. Once installed we can do lots of fancy stuff for URL Rewriting, but we only want to handle the HTTPS redirect for this post.</p>
-
-<p>Now that it's installed, we can configure it one of two ways. If we use the GUI then we still need to copy the contents generated in the Web.config file and put that into a build script.</p>
-
-<p>Using the GUI, we can open up the URL Rewrite extension:</p>
-
-<p><img src="/images/https-iis-vs-02.png" alt="" /></p>
-
-<p>Using the GUI we can setup a new <code>Blank rule</code> in the <code>Inbound rules</code> section:</p>
-
-<p><img src="/images/https-iis-vs-03.png" alt="" /></p>
-
-<p>Next we want to fill in the rule. </p>
-
-<p>For the Match URL, we want to use a super duper simple regular expression.</p>
-
-<p><code>.*</code></p>
-
-<p>This basically says, match any character, as many times as you want.</p>
-
-<p><img src="/images/https-iis-vs-04.png" alt="" /></p>
-
-<p>For the Conditions, we want to check the Input <code>{HTTPS}</code> match is off, if we have it on then we will end up in an infinate loop. eek</p>
-
-<p><img src="/images/https-iis-vs-05.png" alt="" /></p>
-
-<p>We don't care about Server Variables so skip that.</p>
-
-<p>And lastly is the action we want to take when the rule matches (that it's not an HTTPS request)</p>
-
-<p>We want to Redirect to:</p>
-
-<p><code>https://{HTTP_HOST}/{R:0}</code></p>
-
-<p>Tick append query string, and for the redirect type, select Permanment. </p>
-
-<p><code>{HTTP_HOST}</code> is the host name, so if your domain is <code>bananasareyellow.com</code> then that's the value that will be put in the redirect url. You can hard code this value if you want, but if you want to support multiple host names then you will want to use the variable. </p>
-
-<p><img src="/images/https-iis-vs-06.png" alt="" /></p>
-
-<p>After applying this new rule, when you visit your website with an HTTP url, it will be pushed into HTTPS. </p>
-
-<h2>Ahhh I've lost it!</h2>
-
-<p>All this information gets stored in your web.config file, and it looks like this:</p>
-
-<pre><code>&lt;system.webServer&gt;
-    &lt;rewrite&gt;
-        &lt;rules&gt;
-            &lt;rule name="HTTP to HTTPS redirect" stopProcessing="true"&gt;
-                &lt;match url=".*" /&gt;
-                &lt;conditions&gt;
-                    &lt;add input="{HTTPS}" pattern="OFF" /&gt;
-                &lt;/conditions&gt;
-                &lt;action type="Redirect" url="https://{HTTP_HOST}/{R:0}" redirectType="Permanent" /&gt;
-            &lt;/rule&gt;
-        &lt;/rules&gt;
-    &lt;/rewrite&gt;
-&lt;/system.webServer&gt;
-</code></pre>
-
-<p>SO! </p>
-
-<p>Once you've written up your condition, you may want to roll this into your build script so that during development, that way when it's deployed it will always contain the rule and you wont lose it. </p>
-
-<p>You can also add a condition in here to say the rule does not apply when the site is a localhost or test domain, but in my opinion you shouldn't add test-checks in production code.</p>
 
       <p><a href="/2014/08/permament-redirect-to-https-with-iis/">Read more...</a></p>
     </li>

@@ -18,6 +18,8 @@ From within a module you can call:
 
 And this will push the site into `https`, but having to write this everywhere is rather annoying, and during development on your local machine this is a bit of a hassle. Despite Visual Studio supporting an HTTPS url...
 
+<!--excerpt-->
+
 ![][0]
 
 If you didn't know this existed, you should. Basically in Visual Studio, select your Web Application project, then open up the properties window (don't right click and select properties, you need to open the window manually) in the window, set `SSL Enabled` to true, this will add a SSL URL, then you can run the site and use that url instead of the non-https url.
