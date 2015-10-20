@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="last-modified" content="2015-10-21T01:44:21.2010422+08:00" />
+    <title>philliphaydon.com</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="canonical" href="http://www.philliphaydon.com/2013/04/09/nancyfx-implementing-your-own-routing/" />
+</head>
+<body class="home blog">
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header fancy-container lightgreen" role="banner">
+            <hgroup>
+                <h1 class="site-title"><a href="/" title="philliphaydon.com" rel="home">philliphaydon.com</a></h1>
+                <h2><small>Works on my PC...</small></h2>
+                <p class="site-description">Pleb from New Zealand who was banished overseas and currently resides in Singapore.</p>
+            </hgroup>
+            <nav role="navigation" class="site-navigation main-navigation">
+                <h1 class="assistive-text">Menu</h1>
+                <div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/category">Categories</a></li>
+                        <li><a href="/archive">Archive</a></li>
+                        <li><a href="/feed.xml">RSS / Feed</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="main">
+            <div id="primary" class="site-content">
+                <div id="content" role="main">
+                  
+
+<div id="post">
+    <h1>NancyFX - Implementing your own routing!</h1>
+
+    <div class="post-note">
+        posted on 09 Apr 2013
+            | <a href="/category/nancyfx">NancyFX</a>
+
+        <div class="addthis_toolbox addthis_default_style" style="float:right;">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+            <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+            <a class="addthis_button_linkedin_counter"></a>
+            <a class="addthis_counter addthis_pill_style"></a>
+        </div>
+    </div>
+
+
+
+    
+
+    <p>With the up and coming release of 0.17 of NancyFX, the routing has been completely rewritten, and now it's super easy to implement your own routing. So I'm going to show you how.</p>
+
+<h2>How it works</h2>
+
+<p>The routing works by defining a route:</p>
+
+<p><code>Get["/products/{id}"]</code></p>
+
+<p>The route is then broken up into segments:</p>
+
+<ol>
+<li><code>products</code></li>
+<li><code>{id}</code></li>
+</ol>
+
+<p>Each segment is checked against a Node Condition in the <code>TrieNodeFactory</code> like so</p>
+
+<pre><code>if (segment.StartsWith("(") &amp;&amp; segment.EndsWith(")"))
+{
+    return new RegExNode(parent, segment, this);
+}
+</code></pre>
+
+<p>When a request comes in, the segment is compared to the node for a match and returns true/false + the captured parameter. </p>
+
+<p>These are a bunch of conditions for checking different nodes, currently Nancy supports out of the box the following nodes.</p>
+
+<h2>Existing Nodes</h2>
+
+<p>This is brief description of the existing nodes that currently exist in 0.17. </p>
+
+<h3>CaptureNode</h3>
+
+<p>This node captures <code>{foo}</code>, or basically any value defined in the segment.</p>
+
+<!--excerpt-->
+
+<h3>CaptureNodeWithDefaultValue</h3>
+
+<p>Similar to <code>CaptureNode</code>, <code>{foo?defaultValue}</code>, allows you to capture any value, with a default value should the value not exist.</p>
+
+<h3>GreedyCaptureNode</h3>
+
+<p>This is like the be-all-end-all node <code>{greedy*}</code>. It will capture anything in the current segment and onward. Although other segments are still checked. I would think it's rare to ever need this node.</p>
+
+<h3>LiteralNode</h3>
+
+<p>If nothing else is captured in any other node, then likely hood it's a literal value, this will just capture the segment as is, non-capturing, its just a match or non-match. </p>
+
+<h3>OptionalCaptureNode</h3>
+
+<p>This is like the <code>CaptureNode</code> and <code>CaptureNodeWithDefaultValue</code>, but it just makes the segment as optional. It can or cannot exist, if it exists it's captured.</p>
+
+<h3>RegExNode</h3>
+
+<p>Wooo Regular Expression support! <code>(?&lt;foo&gt;\d{2,4})</code> is a named capture that will find an numeric value between 2-4 digits long, in the segment.</p>
+
+<h3>GreedyRegExCaptureNode</h3>
+
+<p>The <code>GreedyRegExCaptureNode</code> is a little more complicated, it's a mix between the <code>RegExNode</code> and <code>GreedyCaptureNode</code>, and supports any number of segments in a regular expression match. i.e <code>^(?:(?&lt;id&gt;videos/\d{1,10})(?:/{0,1}(?&lt;slug&gt;.*)))$</code> will match <code>videos/123</code> or <code>videos/123/some-slug-url</code>.</p>
+
+<h3>RootNode</h3>
+
+<p>This node simply dictates that this is the very start of the route segments, the very root. Effectively its <code>/</code></p>
+
+<h2>Implementing your own Node</h2>
+
+<p>So we're going to create a route constraint. Our node will look like <code>[foo:even]</code>, we're saying that the segment will be captured, only if the value is an even number, anything else and it wont match. </p>
+
+<p>So we create a class and inherit <code>TrieNode</code></p>
+
+<pre><code>public class CapturedOddEvenNode : TrieNode
+{
+    public CapturedOddEvenNode(TrieNode parent, string segment, ITrieNodeFactory nodeFactory) 
+        : base(parent, segment, nodeFactory)
+    {
+    }
+
+    public override SegmentMatch Match(string segment)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override int Score
+    {
+        get { throw new NotImplementedException(); }
+    }
+}
+</code></pre>
+
+<p>The first thing we want to do is prepare the segment, so in the ctor we are going to trim the <code>[]</code> values off the start/end of the segment and, then split the remaining value by <code>:</code> as the name on the left, and the condition on the right.</p>
+
+<pre><code>private string segmentName;
+private bool shouldBeEven;
+
+public CapturedOddEvenNode(TrieNode parent, string segment, ITrieNodeFactory nodeFactory)
+    : base(parent, segment, nodeFactory)
+{
+    this.ExtractParameterName();
+}
+
+private void ExtractParameterName()
+{
+    var innerSegment = this.RouteDefinitionSegment.Trim('[', ']');
+    var segmentSplit = innerSegment.Split(':');
+
+    this.segmentName = segmentSplit[0];
+    this.shouldBeEven = segmentSplit[1] == "even";
+}
+</code></pre>
+
+<p>Next we need to implement the match. Here we want to check the value and condition:</p>
+
+<ol>
+<li>The value is not a number = no match</li>
+<li>The value is an odd number and the condition is it should be odd = match</li>
+<li>The value is an even number and the condition is it should be even = match</li>
+<li>Else the condition is not met so its a no match</li>
+</ol>
+
+<!---->
+
+<pre><code>public override SegmentMatch Match(string segment)
+{
+    int numericValue;
+
+    if (!int.TryParse(segment, NumberStyles.Integer, CultureInfo.InvariantCulture, out numericValue))
+    {
+        return SegmentMatch.NoMatch;
+    }
+
+    if ((numericValue%2 == 0 &amp;&amp; shouldBeEven) ||
+        (numericValue%2 != 0 &amp;&amp; !shouldBeEven))
+    {
+        var match = new SegmentMatch(true);
+        match.CapturedParameters.Add(segmentName, numericValue);
+
+        return match;
+    }
+
+    return SegmentMatch.NoMatch;
+}
+</code></pre>
+
+<p>Lastly we need to implement the Score. The score is used in the scenario when two routes have two matches, the summed total of the score for all segments becomes the weight deciding which route wins. Highest score of the two or more matches wins. </p>
+
+<p>We will set it to 100.</p>
+
+<pre><code>public override int Score
+{
+    get { return 100; }
+}
+</code></pre>
+
+<p>Our final Node looks like so:</p>
+
+<pre><code>public class CapturedOddEvenNode : TrieNode
+{
+    private string segmentName;
+    private bool shouldBeEven;
+
+    public CapturedOddEvenNode(TrieNode parent, string segment, ITrieNodeFactory nodeFactory)
+        : base(parent, segment, nodeFactory)
+    {
+        this.ExtractParameterName();
+    }
+
+    private void ExtractParameterName()
+    {
+        var innerSegment = this.RouteDefinitionSegment.Trim('[', ']');
+        var segmentSplit = innerSegment.Split(':');
+
+        this.segmentName = segmentSplit[0];
+        this.shouldBeEven = segmentSplit[1] == "even";
+    }
+
+    public override SegmentMatch Match(string segment)
+    {
+        int numericValue;
+
+        if (!int.TryParse(segment, NumberStyles.Integer, CultureInfo.InvariantCulture, out numericValue))
+        {
+            return SegmentMatch.NoMatch;
+        }
+
+        if ((numericValue%2 == 0 &amp;&amp; shouldBeEven) ||
+            (numericValue%2 != 0 &amp;&amp; !shouldBeEven))
+        {
+            var match = new SegmentMatch(true);
+            match.CapturedParameters.Add(segmentName, numericValue);
+
+            return match;
+        }
+
+        return SegmentMatch.NoMatch;
+    }
+
+    public override int Score
+    {
+        get { return 100; }
+    }
+}
+</code></pre>
+
+<h2>Implementing your own factory</h2>
+
+<p>You're required to implement your own factory to call the new Node, this is super easy because we can just inherit the existing one.</p>
+
+<p>Create a new Factory called <code>CustomTrieNodeFactory</code> and implement <code>TrieNodeFactory</code></p>
+
+<pre><code>public class CustomTrieNodeFactory : TrieNodeFactory
+{
+    public override TrieNode GetNodeForSegment(TrieNode parent, string segment)
+    {
+        if (parent == null)
+        {
+            return new RootNode(this);
+        }
+
+        if (segment.StartsWith("[") &amp;&amp; segment.EndsWith("]") &amp;&amp; segment.Contains(":"))
+        {
+            return new CapturedOddEvenNode(parent, segment, this);
+        }
+
+        return base.GetNodeForSegment(parent, segment);
+    }
+}
+</code></pre>
+
+<p>You can see that the first condition is that I check that the parent is null, that's because the first segment is always the root node, all segments after that are out implementation. The condition is checked in the base call, but we want to check before we run out code.</p>
+
+<pre><code>if (parent == null)
+{
+   return new RootNode(this);
+}
+</code></pre>
+
+<p>So by checking its null, we return a RootNode, then the call comes in the second time, it will have a parent node, and then check to see if the segment starts/ends with our criteria.</p>
+
+<h2>Wiring up the new factory</h2>
+
+<p>Lastly we need to wire up the factory in the bootstrapper, we can do this by overriding the <code>NancyInternalConfiguration</code> property and overriding the <code>TrieNodeFactory</code> property with our custom type like so:</p>
+
+<pre><code>protected override NancyInternalConfiguration InternalConfiguration
+{
+    get
+    {
+        return NancyInternalConfiguration.WithOverrides(config =&gt; 
+        {
+            config.TrieNodeFactory = typeof (CustomTrieNodeFactory);
+        });
+    }
+}
+</code></pre>
+
+<p>Bam, that's it! </p>
+
+<h2>Does it work?</h2>
+
+<p>So if we create a new Module called <code>TestModule</code> and implement two routes:</p>
+
+<pre><code>Get["/test/[oddNumbersRawr:odd]"] = _ =&gt;
+{
+    return "I love odd numbers! Like: " + _.oddNumbersRawr;
+};
+</code></pre>
+
+<p>Running up the project and entering a with an odd number</p>
+
+<p><img src="/images/nancyfx-new-routing-1.png" alt="" /></p>
+
+<p>Pretty sweet!</p>
+
+<p>But if we enter the URL with an even number</p>
+
+<p><img src="/images/nancyfx-new-routing-2.png" alt="" /></p>
+
+<p>BAM page not found, because it didn't match the condition!</p>
+
+<p>That's really all there is to it. You can create any type of custom routing you like. </p>
+
+
+    <div id="disqus_thread"></div>
+<script>
+    var reset_disqus = function(){
+        DISQUS.reset({
+            reload: true,
+            config: function () {
+                //this.page.identifier = '';
+                this.page.url = 'http://www.philliphaydon.com/2013/04/09/nancyfx-implementing-your-own-routing/';
+                //this.page.title = '';
+            }
+        });
+    };
+
+    var disqus_shortname = 'philliphaydon';
+    var disqus_url = 'http://www.philliphaydon.com/2013/04/09/nancyfx-implementing-your-own-routing/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    window.addEventListener('orientationchange', reset_disqus);
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
+
+</div>
+                </div>
+                <!-- #content -->
+            </div>
+            <!-- #primary .site-content -->
+
+            <div id="secondary" class="widget-area fancy-container lightred" role="complementary">
+                <aside id="text-5" class="widget widget_text">
+                    <h1 class="widget-title">Follow</h1>
+                    <div class="textwidget logos">
+                        <a href="https://twitter.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"><img src="/stylesheets/images/twitter.png"></a>
+                        <a href="http://stackoverflow.com/users/456813/phill" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://stackoverflow.com']);"><img src="/stylesheets/images/stackoverflow.png"></a>
+                        <a href="http://www.linkedin.com/in/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://www.linkedin.com']);"><img src="/stylesheets/images/linkedin.png"></a>
+                        <a href="https://plus.google.com/u/0/111751877537461442095" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://plus.google.com']);"><img src="/stylesheets/images/googleplus.png"></a>
+                        <a href="https://coderbits.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','https://coderbits.com/philliphaydon']);"><img src="/stylesheets/images/codebits.png"></a>
+                        <a href="https://github.com/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://github.com']);"><img src="/stylesheets/images/github.png"></a>
+                        <a href="http://www.codeschool.com/users/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://codeschool.com']);"><img src="/stylesheets/images/codeschool.png"></a>
+                        <a href="http://www.kickstarter.com/profile/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://kickstarter.com']);"><img src="/stylesheets/images/kickstarter.png"></a>
+                    </div>
+                    <a href="http://stackoverflow.com/users/456813/phill">
+                      <img src="http://stackoverflow.com/users/flair/456813.png" width="208" height="58" alt="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+                    </a>
+                    
+                    <a href="http://nancyfx.org/mvm.html"><img src="/stylesheets/images/mvm.png"></a>
+                    
+                    <div id = "clustrback" style="width:162px; height:133px;  background:#f7f7f7 url(http://clustrmaps.com/admin/3d/images/st4_grey.png)  center no-repeat; text-align:center;">
+                      <a href="http://www2.clustrmaps.com/counter/maps.php?url=http://www.philliphaydon.com/" style="width:160px; display:block; margin:0 auto;" id="clustrMapsLink">
+                        <img src="http://www2.clustrmaps.com/counter/index2.php?url=http://www.philliphaydon.com/" style="border:0px; margin:15px auto;margin:15px auto;" alt="Locations of visitors to this page" title="Locations of visitors to this page" id="clustrMapsImg" />
+                      </a>
+                    </div>
+                </aside>
+                <!--aside id="text-8" class="widget widget_text">
+                    <h1 class="widget-title">Other sites</h1>
+                    <div class="textwidget">
+                        <a href="http://csharptube.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://csharptube.com']);">csharptube.com</a><br />
+                        <a href="http://thisisparrot.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://thisisparrot.com']);">Parrot</a><br />
+                        <a href="http://shitprogrammerswrite.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://shitprogrammerswrite.com']);">Shit programmers write</a><br />
+                    </div>
+                </aside-->
+                <aside id="linkcat-6" class="widget widget_links">
+                    <h1 class="widget-title">Other Blogs</h1>
+                    <ul class='xoxo blogroll'>
+                        <li><a href="http://www.nickharris.net/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://nickharris.net/']);">Nick Harris</a></li>
+                        <li><a href="http://www.mindscapehq.com/blog/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.mindscapehq.com/blog/']);">Mindscape</a></li>
+                        <li><a href="http://blog.orangelightning.co.uk/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://blog.orangelightning.co.uk/']);">Phil Jones</a></li>
+                        <li><a href="http://buildstarted.com/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://buildstarted.com']);">Ben Dornis</a></li>
+                        <li><a href="http://jflood.net/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://jflood.net/']);">Jospeh Flood</a></li>
+                    </ul>
+                    
+                </aside>
+                <aside id="archives-4" class="widget widget_archive">
+                    <h1 class="widget-title">Archive</h1>
+                    <ul class="posts">
+                          <li><a href="/archive#201510">October, 2015</a></li>
+                          <li><a href="/archive#20148">August, 2014</a></li>
+                          <li><a href="/archive#20146">June, 2014</a></li>
+                          <li><a href="/archive#20145">May, 2014</a></li>
+                          <li><a href="/archive#20144">April, 2014</a></li>
+                          <li><a href="/archive#20142">February, 2014</a></li>
+                          <li><a href="/archive#20141">January, 2014</a></li>
+                          <li><a href="/archive#201312">December, 2013</a></li>
+                          <li><a href="/archive#201311">November, 2013</a></li>
+                          <li><a href="/archive#201310">October, 2013</a></li>
+                          <li><a href="/archive#20139">September, 2013</a></li>
+                          <li><a href="/archive#20138">August, 2013</a></li>
+                          <li><a href="/archive#20137">July, 2013</a></li>
+                          <li><a href="/archive#20136">June, 2013</a></li>
+                          <li><a href="/archive#20135">May, 2013</a></li>
+                          <li><a href="/archive#20134">April, 2013</a></li>
+                          <li><a href="/archive#20133">March, 2013</a></li>
+                          <li><a href="/archive#20132">February, 2013</a></li>
+                          <li><a href="/archive#20131">January, 2013</a></li>
+                          <li><a href="/archive#201212">December, 2012</a></li>
+                          <li><a href="/archive#201211">November, 2012</a></li>
+                          <li><a href="/archive#201210">October, 2012</a></li>
+                          <li><a href="/archive#20129">September, 2012</a></li>
+                          <li><a href="/archive#20127">July, 2012</a></li>
+                          <li><a href="/archive#20126">June, 2012</a></li>
+                          <li><a href="/archive#20124">April, 2012</a></li>
+                          <li><a href="/archive#20123">March, 2012</a></li>
+                          <li><a href="/archive#20122">February, 2012</a></li>
+                          <li><a href="/archive#20121">January, 2012</a></li>
+                          <li><a href="/archive#201112">December, 2011</a></li>
+                          <li><a href="/archive#201111">November, 2011</a></li>
+                          <li><a href="/archive#201110">October, 2011</a></li>
+                          <li><a href="/archive#20119">September, 2011</a></li>
+                          <li><a href="/archive#20118">August, 2011</a></li>
+                          <li><a href="/archive#20117">July, 2011</a></li>
+                          <li><a href="/archive#20116">June, 2011</a></li>
+                          <li><a href="/archive#20115">May, 2011</a></li>
+                          <li><a href="/archive#20114">April, 2011</a></li>
+                          <li><a href="/archive#20113">March, 2011</a></li>
+                          <li><a href="/archive#20112">February, 2011</a></li>
+                          <li><a href="/archive#20111">January, 2011</a></li>
+                          <li><a href="/archive#201012">December, 2010</a></li>
+                          <li><a href="/archive#201011">November, 2010</a></li>
+                          <li><a href="/archive#201010">October, 2010</a></li>
+                          <li><a href="/archive#20109">September, 2010</a></li>
+                          <li><a href="/archive#20097">July, 2009</a></li>
+                    </ul>
+                </aside>
+            </div>
+            <!-- #secondary .widget-area -->
+
+
+        </div>
+        <!-- #main -->
+
+        <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="site-info">
+                Powered by <a href="https://github.com/Sandra/Sandra.Snow" rel="generator">Sandra.Snow v1.6.0</a>.	
+            </div>
+            <!-- .site-info -->
+        </footer>
+        <!-- #colophon .site-footer -->
+    </div>
+    <!-- #page .hfeed .site -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/javascripts/prettify.js"></script>
+    
+    <script type="text/javascript">
+var _gaq = _gaq || [];
+
+_gaq.push(['_setAccount', 'UA-655975-13']);
+_gaq.push(['_trackPageview']);
+        
+(function () {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+})();
+</script>
+    
+    <script src="/javascripts/audio.min.js"></script>
+    
+    <script>
+      $(function () {
+        $("pre code").parent().each(function () {
+          if (!$(this).hasClass("prettyprint")) {
+            $(this).addClass("prettyprint");
+            a = true
+          }
+        });
+
+        prettyPrint();
+      });
+      audiojs.events.ready(function() {
+        var as = audiojs.createAll();
+      });
+    </script>
+</body>
+</html>

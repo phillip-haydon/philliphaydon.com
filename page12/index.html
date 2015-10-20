@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-08-16T20:54:13.6003458+08:00" />
+    <meta http-equiv="last-modified" content="2015-10-21T01:44:21.2010422+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page12/" />
@@ -37,7 +37,61 @@
   <ul class="posts">
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2011/01/mindscape-nhibernate-designer-discount/">Mindscape NHibernate Designer Discount</a> 
+        <a href="/2011/01/30/not-lazyload-eager-loading-with-nhibernate-3-0/">Not.LazyLoad - Eager Loading with NHibernate 3.0</a> 
+        <span>posted on 30 Jan 2011</span>
+      </h1> 
+      
+      <p>A friend asked me about fetching relationships with NHibernate when something couldn't be lazy-loaded.</p>
+
+<p>The reason it couldn't be lazy-loaded was because he uses Session-Per-Call, my preference is Session-Per-Request. (this is web based, I've never actually used NHibernate in a non-web scenario, yet)</p>
+
+<p>The solution he's currently using is to turn off lazy-loading at the mapping. This is all kinds of bad.</p>
+
+<p>I think it's best to demonstrate why turning off lazy-loading at the mapping is bad. I've come up with a, well what I consider pretty standard Blog.</p>
+
+<p><img src="/images/nhibernate-lazy-load-1.png" alt="" /></p>
+
+<p>Nothing special but needed something that has a few relationship"s. (I think you can click that image to make it bigger)</p>
+
+
+      <p><a href="/2011/01/30/not-lazyload-eager-loading-with-nhibernate-3-0/">Read more...</a></p>
+    </li>
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/01/29/let-keyword-in-orms/">Let Keyword in ORMs</a> 
+        <span>posted on 29 Jan 2011</span>
+      </h1> 
+      
+      <p>A while ago <a href="http://www.mindscapehq.com/">MindScape</a> posted a new feature called <a href="http://www.mindscapehq.com/blog/index.php/2010/09/14/ninja-domain-properties-in-lightspeed/">Ninja Properties</a> for their ORM, LightSpeed. Their post happened to be a scenario I used to solve with LINQ 2 SQL using the 'let' keyword to create a composite type to query against.</p>
+
+<p>This would allow you to do something along the lines of:</p>
+
+<pre><code>var poo = from s in ctx.Members
+          let fullname = s.FirstName + " " + s.LastName
+          where fullname == "Robert Williams"
+          select s;
+</code></pre>
+
+<p>This nifty query would generate SQL like so:</p>
+
+<pre><code>SELECT [t1].[Id], [t1].[FirstName], [t1].[LastName]
+FROM (
+    SELECT [t0].[Id], [t0].[FirstName], 
+           [t0].[LastName], 
+           ([t0].[FirstName] + ' ') + [t0].[LastName] AS [value]
+    FROM [Member] AS [t0]
+    ) AS [t1]
+WHERE [t1].[value] = 'Robert Williams'
+</code></pre>
+
+<p>After commenting in their blog post about it they implemented it and put it into the nightly build. So after some months I finally got around to testing it, for a couple of reasons. Back when NHibernate 3.0 was in Alpha, this technique didn't work! So I thought I would test it out and see if it does, as well as checkout the SQL that's generated.</p>
+
+
+      <p><a href="/2011/01/29/let-keyword-in-orms/">Read more...</a></p>
+    </li>
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/01/21/mindscape-nhibernate-designer-discount/">Mindscape NHibernate Designer Discount</a> 
         <span>posted on 21 Jan 2011</span>
       </h1> 
       
@@ -54,11 +108,11 @@
 
 <p>Great tool for anyone who hates writing XML or loves GUI's.</p>
 
-      <p><a href="/2011/01/mindscape-nhibernate-designer-discount/">Read more...</a></p>
+      <p><a href="/2011/01/21/mindscape-nhibernate-designer-discount/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2011/01/lightspeed-and-eager-loaded-properties/">LightSpeed and Eager Loaded properties</a> 
+        <a href="/2011/01/20/lightspeed-and-eager-loaded-properties/">LightSpeed and Eager Loaded properties</a> 
         <span>posted on 20 Jan 2011</span>
       </h1> 
       
@@ -83,11 +137,11 @@
 <p>Great... But you currently cannot do:</p>
 
 
-      <p><a href="/2011/01/lightspeed-and-eager-loaded-properties/">Read more...</a></p>
+      <p><a href="/2011/01/20/lightspeed-and-eager-loaded-properties/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2011/01/revisiting-exists-in-nhibernate-3-0-and-queryover/">Revisiting 'Exists' in NHibernate 3.0 and QueryOver</a> 
+        <a href="/2011/01/19/revisiting-exists-in-nhibernate-3-0-and-queryover/">Revisiting 'Exists' in NHibernate 3.0 and QueryOver</a> 
         <span>posted on 19 Jan 2011</span>
       </h1> 
       
@@ -104,11 +158,11 @@
 <p>I cut a bunch of stuff out but you get the idea.</p>
 
 
-      <p><a href="/2011/01/revisiting-exists-in-nhibernate-3-0-and-queryover/">Read more...</a></p>
+      <p><a href="/2011/01/19/revisiting-exists-in-nhibernate-3-0-and-queryover/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2011/01/system-data-sqlite-isolationlevel-exception/">System.Data.SQLite isolationLevel Exception</a> 
+        <a href="/2011/01/02/system-data-sqlite-isolationlevel-exception/">System.Data.SQLite isolationLevel Exception</a> 
         <span>posted on 02 Jan 2011</span>
       </h1> 
       
@@ -129,11 +183,11 @@
 </code></pre>
 
 
-      <p><a href="/2011/01/system-data-sqlite-isolationlevel-exception/">Read more...</a></p>
+      <p><a href="/2011/01/02/system-data-sqlite-isolationlevel-exception/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2010/12/blog-update-to-wordpress-w-sqlsrv/">Blog Update to WordPress w/ SqlSrv</a> 
+        <a href="/2010/12/28/blog-update-to-wordpress-w-sqlsrv/">Blog Update to WordPress w/ SqlSrv</a> 
         <span>posted on 28 Dec 2010</span>
       </h1> 
       
@@ -149,11 +203,11 @@
 
 <p>Anyway so far I'm happy with the move. </p>
 
-      <p><a href="/2010/12/blog-update-to-wordpress-w-sqlsrv/">Read more...</a></p>
+      <p><a href="/2010/12/28/blog-update-to-wordpress-w-sqlsrv/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2010/12/i-love-clean-client-ids-especially-with-net-2-0/">I love clean client IDs - especially with .Net 2.0!</a> 
+        <a href="/2010/12/26/i-love-clean-client-ids-especially-with-net-2-0/">I love clean client IDs - especially with .Net 2.0!</a> 
         <span>posted on 26 Dec 2010</span>
       </h1> 
       
@@ -178,11 +232,11 @@
 <p>I absolutely detest seeing this sort of thing. It makes me sick, and worst of all you can't pull this sort of code back to an external js file. In Web Forms, spaghetti coding is NOT your presentation, your server control is your presentation, the spaghetti code is your binding, and this should be in the codebehind.</p>
 
 
-      <p><a href="/2010/12/i-love-clean-client-ids-especially-with-net-2-0/">Read more...</a></p>
+      <p><a href="/2010/12/26/i-love-clean-client-ids-especially-with-net-2-0/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2010/12/moq-using-params-in-the-returns/">Moq-Using Params in the Returns</a> 
+        <a href="/2010/12/06/moq-using-params-in-the-returns/">Moq-Using Params in the Returns</a> 
         <span>posted on 06 Dec 2010</span>
       </h1> 
       
@@ -217,11 +271,11 @@
 <p>So the same service is called twice, the issue is when iterating over the dateList, it needs to be filtered based on a DateRange during the day. So say, 8am till 10pm. Removing the stuff outside of that time period during that day.</p>
 
 
-      <p><a href="/2010/12/moq-using-params-in-the-returns/">Read more...</a></p>
+      <p><a href="/2010/12/06/moq-using-params-in-the-returns/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2010/12/yay-for-nhibernate-3-0/">Yay for NHibernate 3.0</a> 
+        <a href="/2010/12/05/yay-for-nhibernate-3-0/">Yay for NHibernate 3.0</a> 
         <span>posted on 05 Dec 2010</span>
       </h1> 
       
@@ -231,37 +285,7 @@
 
 <p>Now to wait for Fluent to be updated and a repository to be shoved on NuGet.</p>
 
-      <p><a href="/2010/12/yay-for-nhibernate-3-0/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2010/12/sydney-alt-net-with-udi-dahan-and-nservicebus-commercial-support/">Sydney Alt.Net with Udi Dahan and NServiceBus Commercial Support</a> 
-        <span>posted on 01 Dec 2010</span>
-      </h1> 
-      
-      <p><span class="note"><strong>Note:</strong> Update 31-12-2012 - This is a really old post and the licensing described in here no longer applies. Please visit <a href="http://nservicebus.com/">http://nservicebus.com/</a></span></p>
-
-<p>Last night I attended the <a href="http://sydney.ozalt.net/">Sydney Alt.Net</a> user group since <a href="http://www.udidahan.com/">Udi Dahan</a> was attending. There was no specific topic, it was an open questions/answers session with Udi. If you're interested you can watch it <a href="http://sydney.ozalt.net/2010/11/november-meeting-recorded-for-your.html">here</a>.</p>
-
-<p>The thing that interested me most was to do with <a href="http://www.nservicebus.com/">NServiceBus</a> commercial support (<em>1 hour 23 minutes in the video if you want to skip ahead</em>). Initially I thought that it was going from Open Source to requiring a license, a license I wouldn't be able to afford for my hobby projects, however someone asked about the licensing.</p>
-
-
-      <p><a href="/2010/12/sydney-alt-net-with-udi-dahan-and-nservicebus-commercial-support/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2010/11/mentally-drained-by-udi-dahan/">Mentally Drained by Udi Dahan.</a> 
-        <span>posted on 27 Nov 2010</span>
-      </h1> 
-      
-      <p>I'm on my first day of recovery after attending <a href="http://www.udidahan.com/">Udi Dahan's</a> <a href="http://www.udidahan.com/training/#Advanced_Distributed_System_Design">Advanced Distributed Systems Design using SOA &amp; DDD</a>. Needless to say I think I'm still in shock.</p>
-
-<p>Udi must be one of the best presenters I've come across, I always thought he talked a little slow when watching videos of him presenting, but it's an entirely different experience when you're sitting in a room listening to him.</p>
-
-<p>He really makes sure you follow and understand, at no point did I feel like I was left behind. Something that intrigued me however, was there was not one question he could not answer... He must have heard every possible question because people started trying to catch him out with some weird example or scenario, and he was able to answer it.</p>
-
-
-      <p><a href="/2010/11/mentally-drained-by-udi-dahan/">Read more...</a></p>
+      <p><a href="/2010/12/05/yay-for-nhibernate-3-0/">Read more...</a></p>
     </li>
   </ul> 
 
@@ -333,6 +357,7 @@
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#201510">October, 2015</a></li>
                           <li><a href="/archive#20148">August, 2014</a></li>
                           <li><a href="/archive#20146">June, 2014</a></li>
                           <li><a href="/archive#20145">May, 2014</a></li>

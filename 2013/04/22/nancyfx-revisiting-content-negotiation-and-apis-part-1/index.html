@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="last-modified" content="2015-10-21T01:44:21.2010422+08:00" />
+    <title>philliphaydon.com</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="canonical" href="http://www.philliphaydon.com/2013/04/22/nancyfx-revisiting-content-negotiation-and-apis-part-1/" />
+</head>
+<body class="home blog">
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header fancy-container lightgreen" role="banner">
+            <hgroup>
+                <h1 class="site-title"><a href="/" title="philliphaydon.com" rel="home">philliphaydon.com</a></h1>
+                <h2><small>Works on my PC...</small></h2>
+                <p class="site-description">Pleb from New Zealand who was banished overseas and currently resides in Singapore.</p>
+            </hgroup>
+            <nav role="navigation" class="site-navigation main-navigation">
+                <h1 class="assistive-text">Menu</h1>
+                <div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/category">Categories</a></li>
+                        <li><a href="/archive">Archive</a></li>
+                        <li><a href="/feed.xml">RSS / Feed</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="main">
+            <div id="primary" class="site-content">
+                <div id="content" role="main">
+                  
+
+<div id="post">
+    <h1>NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</h1>
+
+    <div class="post-note">
+        posted on 22 Apr 2013
+            | <a href="/category/nancyfx">NancyFX</a>
+
+        <div class="addthis_toolbox addthis_default_style" style="float:right;">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+            <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+            <a class="addthis_button_linkedin_counter"></a>
+            <a class="addthis_counter addthis_pill_style"></a>
+        </div>
+    </div>
+
+
+
+    
+
+    <ul>
+<li>Original Post: <a href="/2012/11/nancy-and-content-negotiation">NancyFX and Content Negotiation</a></li>
+<li>NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</li>
+<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-2/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 2)</a></li>
+<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 3)</a></li>
+</ul>
+
+<p>I thought I would revisit this topic since I don't believe I did it enough justice last time around, and I believe it really is important when creating an API that is going to be consumed not only by the public or client, but <strong>by you also</strong>!</p>
+
+<p>When the browser asks for <code>text/html</code> its negotiating with the server. So really your website is an API, your <code>Views</code> are just an additional type of content that your API serves up when requested.</p>
+
+<h2>Example</h2>
+
+<p>Lets say you're building Twitter, the initial page shows a list of tweets, so the browser makes a call to <code>/tweets</code> and the server responds with a list of tweets rendered with using HTML.</p>
+
+<p>Once the page has loaded, the client uses JavaScript to load new tweets, so it calls <code>/tweets</code> again, this time it returns a <code>json</code> result, and the client-side templating engine then renders and appends those to the top of the existing list, keeping the client up to date with the latest tweets.</p>
+
+<p>What's nice is no new data needed to be written on the server! </p>
+
+<!--excerpt-->
+
+<p><span class="note"><strong>Note:</strong> I'm not going to discuss RESTful API's, that would just create too many arguments.</span></p>
+
+<h2>Need code please</h2>
+
+<p>Right so lets see this in action for real. When I demonstrated this in my previous post, I showed a somewhat complicated Negotiate, this time I'm going to show a super simple scenario.</p>
+
+<p>We have a <code>ProductsModule</code>, it can <code>Get</code> a single product, or it can <code>Get</code> a list of products.</p>
+
+<pre><code>public class ProductsModule : NancyModule
+{
+    public ProductsModule(IProductRepository productRepository)
+        :base("products")
+    {
+        Get["/{id}"] = _ =&gt;
+        {
+            var product = productRepository.Get((int)_.id);
+
+            return product;
+        };
+
+        Get["/"] = _ =&gt;
+        {
+            var products = productRepository.List();
+
+            return products;
+        };
+    }
+}
+</code></pre>
+
+<p>Using a Chrome Plugin called Postman which can be found on the <a href="https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?utm_source=chrome-ntp-launcher">Chrome Web Store</a>. </p>
+
+<p><img src="/images/nancyfx-conneg-updated-1.png" alt="" /></p>
+
+<p>We can invoke some calls to get some data. We specify the <code>URL</code>, the <code>VERB</code>, and add some Headers. In this case we will add a single header. <code>Accept</code> where we specify that we want <code>application/xml</code>. </p>
+
+<p><img src="/images/nancyfx-conneg-updated-2.png" alt="" /></p>
+
+<p>When we invoke this, we get an XML result of our products:</p>
+
+<p><img src="/images/nancyfx-conneg-updated-3.png" alt="" /></p>
+
+<p>When we do the same call but we specify the <code>Accept</code> header with <code>application/json</code> we get a JSON result. </p>
+
+<p><img src="/images/nancyfx-conneg-updated-4.png" alt="" /></p>
+
+<p>Nice right? So far we haven't written any code other than returning some data to a endpoint we specified. Lets take a look at the first route, its a Get By Id route, and all we're returning is a single Product.</p>
+
+<p><img src="/images/nancyfx-conneg-updated-5.png" alt="" /></p>
+
+<p>Now if we specify the Accept as something the browser would ask for, <code>text/html</code> we would expect rendered HTML.</p>
+
+<p><img src="/images/nancyfx-conneg-updated-6.png" alt="" /></p>
+
+<p>Bam we get an error, but this is only because the view doesn't exist yet. By default NancyFX looks for a view of the same name of the type returned.</p>
+
+<p>Since we returned a 'product', the view name that Nancy will look for is <code>typeof(Product).Name</code> or <code>Product</code>. So if we create a new product view to display some data:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;div&gt;
+        Id: @Model.Id
+        &lt;br /&gt;
+        Name: @Model.Name
+        &lt;br /&gt;
+        Price: $@Model.Price
+    &lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Super super simple, now when we call the same route again we get:</p>
+
+<p><img src="/images/nancyfx-conneg-updated-7.png" alt="" /></p>
+
+<p>Now we have a Single API that returns JSON, XML, or HTML. </p>
+
+<h2>Fiddly Issues</h2>
+
+<p>Here's where things get fiddly, if we want to return the collection with a view, NancyFX will attempt to convert the <code>List&lt;Product&gt;</code> to it's name, and look for the view. This ends up looking for a view by the name of <code>List`1</code>, which you may think will fail, but funnily enough you can actually create a view with the backquote.</p>
+
+<p>So lets create a new file called <code>List`1.sshtml</code> and populate it with some basic HTML:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt; 
+&lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    @Each
+    &lt;div&gt;
+        Id: @Current.Id
+        &lt;br /&gt;
+        Name: @Current.Name
+        &lt;br /&gt;
+        Price: $@Current.Price
+    &lt;/div&gt;
+    &lt;hr&gt;
+    @EndEach
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><span class="note"><strong>Note:</strong> in case you're wondering, this isn't Razor, this is Nancy's Super Simple View Engine :)</span></p>
+
+<p>Now if we run up the site again and hit <code>/products</code> we get:</p>
+
+<p><img src="/images/nancyfx-conneg-updated-8.png" alt="" /></p>
+
+<h2>Recap</h2>
+
+<p>So far we have created a single endpoint with very little code that can respond with JSON/XML/HTML. Next I'm going to show how <code>Negotiate</code> gives you more flexibility.</p>
+
+
+    <div id="disqus_thread"></div>
+<script>
+    var reset_disqus = function(){
+        DISQUS.reset({
+            reload: true,
+            config: function () {
+                //this.page.identifier = '';
+                this.page.url = 'http://www.philliphaydon.com/2013/04/22/nancyfx-revisiting-content-negotiation-and-apis-part-1/';
+                //this.page.title = '';
+            }
+        });
+    };
+
+    var disqus_shortname = 'philliphaydon';
+    var disqus_url = 'http://www.philliphaydon.com/2013/04/22/nancyfx-revisiting-content-negotiation-and-apis-part-1/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    window.addEventListener('orientationchange', reset_disqus);
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
+
+</div>
+                </div>
+                <!-- #content -->
+            </div>
+            <!-- #primary .site-content -->
+
+            <div id="secondary" class="widget-area fancy-container lightred" role="complementary">
+                <aside id="text-5" class="widget widget_text">
+                    <h1 class="widget-title">Follow</h1>
+                    <div class="textwidget logos">
+                        <a href="https://twitter.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"><img src="/stylesheets/images/twitter.png"></a>
+                        <a href="http://stackoverflow.com/users/456813/phill" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://stackoverflow.com']);"><img src="/stylesheets/images/stackoverflow.png"></a>
+                        <a href="http://www.linkedin.com/in/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://www.linkedin.com']);"><img src="/stylesheets/images/linkedin.png"></a>
+                        <a href="https://plus.google.com/u/0/111751877537461442095" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://plus.google.com']);"><img src="/stylesheets/images/googleplus.png"></a>
+                        <a href="https://coderbits.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','https://coderbits.com/philliphaydon']);"><img src="/stylesheets/images/codebits.png"></a>
+                        <a href="https://github.com/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://github.com']);"><img src="/stylesheets/images/github.png"></a>
+                        <a href="http://www.codeschool.com/users/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://codeschool.com']);"><img src="/stylesheets/images/codeschool.png"></a>
+                        <a href="http://www.kickstarter.com/profile/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://kickstarter.com']);"><img src="/stylesheets/images/kickstarter.png"></a>
+                    </div>
+                    <a href="http://stackoverflow.com/users/456813/phill">
+                      <img src="http://stackoverflow.com/users/flair/456813.png" width="208" height="58" alt="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+                    </a>
+                    
+                    <a href="http://nancyfx.org/mvm.html"><img src="/stylesheets/images/mvm.png"></a>
+                    
+                    <div id = "clustrback" style="width:162px; height:133px;  background:#f7f7f7 url(http://clustrmaps.com/admin/3d/images/st4_grey.png)  center no-repeat; text-align:center;">
+                      <a href="http://www2.clustrmaps.com/counter/maps.php?url=http://www.philliphaydon.com/" style="width:160px; display:block; margin:0 auto;" id="clustrMapsLink">
+                        <img src="http://www2.clustrmaps.com/counter/index2.php?url=http://www.philliphaydon.com/" style="border:0px; margin:15px auto;margin:15px auto;" alt="Locations of visitors to this page" title="Locations of visitors to this page" id="clustrMapsImg" />
+                      </a>
+                    </div>
+                </aside>
+                <!--aside id="text-8" class="widget widget_text">
+                    <h1 class="widget-title">Other sites</h1>
+                    <div class="textwidget">
+                        <a href="http://csharptube.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://csharptube.com']);">csharptube.com</a><br />
+                        <a href="http://thisisparrot.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://thisisparrot.com']);">Parrot</a><br />
+                        <a href="http://shitprogrammerswrite.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://shitprogrammerswrite.com']);">Shit programmers write</a><br />
+                    </div>
+                </aside-->
+                <aside id="linkcat-6" class="widget widget_links">
+                    <h1 class="widget-title">Other Blogs</h1>
+                    <ul class='xoxo blogroll'>
+                        <li><a href="http://www.nickharris.net/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://nickharris.net/']);">Nick Harris</a></li>
+                        <li><a href="http://www.mindscapehq.com/blog/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.mindscapehq.com/blog/']);">Mindscape</a></li>
+                        <li><a href="http://blog.orangelightning.co.uk/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://blog.orangelightning.co.uk/']);">Phil Jones</a></li>
+                        <li><a href="http://buildstarted.com/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://buildstarted.com']);">Ben Dornis</a></li>
+                        <li><a href="http://jflood.net/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://jflood.net/']);">Jospeh Flood</a></li>
+                    </ul>
+                    
+                </aside>
+                <aside id="archives-4" class="widget widget_archive">
+                    <h1 class="widget-title">Archive</h1>
+                    <ul class="posts">
+                          <li><a href="/archive#201510">October, 2015</a></li>
+                          <li><a href="/archive#20148">August, 2014</a></li>
+                          <li><a href="/archive#20146">June, 2014</a></li>
+                          <li><a href="/archive#20145">May, 2014</a></li>
+                          <li><a href="/archive#20144">April, 2014</a></li>
+                          <li><a href="/archive#20142">February, 2014</a></li>
+                          <li><a href="/archive#20141">January, 2014</a></li>
+                          <li><a href="/archive#201312">December, 2013</a></li>
+                          <li><a href="/archive#201311">November, 2013</a></li>
+                          <li><a href="/archive#201310">October, 2013</a></li>
+                          <li><a href="/archive#20139">September, 2013</a></li>
+                          <li><a href="/archive#20138">August, 2013</a></li>
+                          <li><a href="/archive#20137">July, 2013</a></li>
+                          <li><a href="/archive#20136">June, 2013</a></li>
+                          <li><a href="/archive#20135">May, 2013</a></li>
+                          <li><a href="/archive#20134">April, 2013</a></li>
+                          <li><a href="/archive#20133">March, 2013</a></li>
+                          <li><a href="/archive#20132">February, 2013</a></li>
+                          <li><a href="/archive#20131">January, 2013</a></li>
+                          <li><a href="/archive#201212">December, 2012</a></li>
+                          <li><a href="/archive#201211">November, 2012</a></li>
+                          <li><a href="/archive#201210">October, 2012</a></li>
+                          <li><a href="/archive#20129">September, 2012</a></li>
+                          <li><a href="/archive#20127">July, 2012</a></li>
+                          <li><a href="/archive#20126">June, 2012</a></li>
+                          <li><a href="/archive#20124">April, 2012</a></li>
+                          <li><a href="/archive#20123">March, 2012</a></li>
+                          <li><a href="/archive#20122">February, 2012</a></li>
+                          <li><a href="/archive#20121">January, 2012</a></li>
+                          <li><a href="/archive#201112">December, 2011</a></li>
+                          <li><a href="/archive#201111">November, 2011</a></li>
+                          <li><a href="/archive#201110">October, 2011</a></li>
+                          <li><a href="/archive#20119">September, 2011</a></li>
+                          <li><a href="/archive#20118">August, 2011</a></li>
+                          <li><a href="/archive#20117">July, 2011</a></li>
+                          <li><a href="/archive#20116">June, 2011</a></li>
+                          <li><a href="/archive#20115">May, 2011</a></li>
+                          <li><a href="/archive#20114">April, 2011</a></li>
+                          <li><a href="/archive#20113">March, 2011</a></li>
+                          <li><a href="/archive#20112">February, 2011</a></li>
+                          <li><a href="/archive#20111">January, 2011</a></li>
+                          <li><a href="/archive#201012">December, 2010</a></li>
+                          <li><a href="/archive#201011">November, 2010</a></li>
+                          <li><a href="/archive#201010">October, 2010</a></li>
+                          <li><a href="/archive#20109">September, 2010</a></li>
+                          <li><a href="/archive#20097">July, 2009</a></li>
+                    </ul>
+                </aside>
+            </div>
+            <!-- #secondary .widget-area -->
+
+
+        </div>
+        <!-- #main -->
+
+        <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="site-info">
+                Powered by <a href="https://github.com/Sandra/Sandra.Snow" rel="generator">Sandra.Snow v1.6.0</a>.	
+            </div>
+            <!-- .site-info -->
+        </footer>
+        <!-- #colophon .site-footer -->
+    </div>
+    <!-- #page .hfeed .site -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/javascripts/prettify.js"></script>
+    
+    <script type="text/javascript">
+var _gaq = _gaq || [];
+
+_gaq.push(['_setAccount', 'UA-655975-13']);
+_gaq.push(['_trackPageview']);
+        
+(function () {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+})();
+</script>
+    
+    <script src="/javascripts/audio.min.js"></script>
+    
+    <script>
+      $(function () {
+        $("pre code").parent().each(function () {
+          if (!$(this).hasClass("prettyprint")) {
+            $(this).addClass("prettyprint");
+            a = true
+          }
+        });
+
+        prettyPrint();
+      });
+      audiojs.events.ready(function() {
+        var as = audiojs.createAll();
+      });
+    </script>
+</body>
+</html>

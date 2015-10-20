@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="last-modified" content="2015-10-21T01:44:21.2010422+08:00" />
+    <title>philliphaydon.com</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="canonical" href="http://www.philliphaydon.com/2011/08/22/fluent-nhibernate-table-inheritance-discriminators-part-2/" />
+</head>
+<body class="home blog">
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header fancy-container lightgreen" role="banner">
+            <hgroup>
+                <h1 class="site-title"><a href="/" title="philliphaydon.com" rel="home">philliphaydon.com</a></h1>
+                <h2><small>Works on my PC...</small></h2>
+                <p class="site-description">Pleb from New Zealand who was banished overseas and currently resides in Singapore.</p>
+            </hgroup>
+            <nav role="navigation" class="site-navigation main-navigation">
+                <h1 class="assistive-text">Menu</h1>
+                <div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/category">Categories</a></li>
+                        <li><a href="/archive">Archive</a></li>
+                        <li><a href="/feed.xml">RSS / Feed</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="main">
+            <div id="primary" class="site-content">
+                <div id="content" role="main">
+                  
+
+<div id="post">
+    <h1>Fluent NHibernate - Table Inheritance - Discriminators (Part 2)</h1>
+
+    <div class="post-note">
+        posted on 22 Aug 2011
+            | <a href="/category/nhibernate">NHibernate</a>
+
+        <div class="addthis_toolbox addthis_default_style" style="float:right;">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+            <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+            <a class="addthis_button_linkedin_counter"></a>
+            <a class="addthis_counter addthis_pill_style"></a>
+        </div>
+    </div>
+
+
+
+    
+
+    <p>This is part two, to my post about <a href="/2011/08/fluent-nhibernate-table-inheritance-discriminators/">Table Inheritance using Discriminators</a>, in this post I just want to demonstrate the outcome when the sub-classes have their own properties, or possibly a property that maps to the same column.</p>
+
+<p>First thing however is Mark Perry pointed out in the comments that specifying a value for the baseClassDiscriminator will force it to store the value in the database as an INT rather than a a VARCHAR.</p>
+
+<pre><code>DiscriminateSubClassesOnColumn("PostType", 0);
+</code></pre>
+
+<p>This will create the table with an INT like so:</p>
+
+<pre><code>create table WallPost (
+  Id         UNIQUEIDENTIFIER   not null,
+  PostType   INT   not null,
+  DatePosted DATETIME   null,
+  Title      NVARCHAR(255)   null,
+  Content    NVARCHAR(255)   null,
+    primary key ( Id ))
+</code></pre>
+
+<p>Maybe INT is too big however, maybe we only want a SMALLINT? That will give us 32k sub-classes...</p>
+
+<pre><code>DiscriminateSubClassesOnColumn("PostType", (short)0);
+</code></pre>
+
+<!--excerpt-->
+<!-- -->
+
+<pre><code>PostType   SMALLINT   not null,
+</code></pre>
+
+<p>But even that is too many, so maybe we need TINYINT, that gives us 0-255. I doubt you would ever have 255 sub-classes, so we can specify the discriminator as a byte.</p>
+
+<pre><code>DiscriminateSubClassesOnColumn("PostType", (byte)0);
+</code></pre>
+
+<p>And that gives us:</p>
+
+<pre><code>create table WallPost (
+  Id         UNIQUEIDENTIFIER   not null,
+  PostType   TINYINT   not null,
+  DatePosted DATETIME   null,
+  Title      NVARCHAR(255)   null,
+  Content    NVARCHAR(255)   null,
+    primary key ( Id ))
+</code></pre>
+
+<p>Nice, much better.</p>
+
+<p>Not to mention when querying now, it uses the INT value rather than the number being used as a string like before:</p>
+
+<pre><code>SELECT this_.Id         as Id0_0_,
+       this_.DatePosted as DatePosted0_0_,
+       this_.Title      as Title0_0_,
+       this_.Content    as Content0_0_
+FROM   WallPost this_
+WHERE  this_.PostType = 1
+</code></pre>
+
+<p>So the next thing I want to show is what happens when we add a property to 1 sub-class and not the other. (or properties than exist in 1, and properties that exist in the other)</p>
+
+<p>Give the same example as my previous post, I've added one property to the class, a 'Url' property.</p>
+
+<p><img src="/images/fnh-table-inheritance-1.png" alt="" /></p>
+
+<p>This will get created as a normal column in the database.</p>
+
+<pre><code>create table WallPost (
+  Id         UNIQUEIDENTIFIER   not null,
+  PostType   TINYINT   not null,
+  DatePosted DATETIME   null,
+  Title      NVARCHAR(255)   null,
+  Content    NVARCHAR(255)   null,
+  Url        NVARCHAR(255)   null,
+    primary key ( Id ))
+</code></pre>
+
+<p>When we insert now, a LinkShare and a Text wallpost:</p>
+
+<pre><code>var wallPost = new TextWallPost
+{
+    DatePosted = DateTime.Now,
+    Title = "My First Wall Post",
+    Content = "Is Awesome!"
+};
+
+var linkPost = new LinkShareWallPost()
+{
+    DatePosted = DateTime.Now,
+    Title = "My First Link Share",
+    Content = "Is Awesome!",
+    Url = "http://www.philliphaydon.com/"
+};
+
+session.Save(wallPost);
+session.Save(linkPost);
+</code></pre>
+
+<p>The link share one will include the Url.</p>
+
+<pre><code>- statement #1
+INSERT INTO WallPost
+           (DatePosted,
+            Title,
+            Content,
+            PostType,
+            Id)
+VALUES     ('2011-08-21T23:53:10.00' /* @p0 */,
+            'My First Wall Post' /* @p1 */,
+            'Is Awesome!' /* @p2 */,
+            1,
+            '2dc7981b-507b-4d36-8ecc-9f460189a27d' /* @p3 */)
+
+- statement #2
+INSERT INTO WallPost
+           (DatePosted,
+            Title,
+            Content,
+            Url,
+            PostType,
+            Id)
+VALUES     ('2011-08-21T23:53:10.00' /* @p0 */,
+            'My First Link Share' /* @p1 */,
+            'Is Awesome!' /* @p2 */,
+            'http://www.philliphaydon.com/' /* @p3 */,
+            2,
+            '5edfe0f2-e179-4615-88e4-9f460189a284' /* @p4 */)
+</code></pre>
+
+<p>The 'Url' column must be null, or have a default value assigned to it so that when inserting a Text wallpost, the column doesn't need to be specified.</p>
+
+<p>If we query for the base class:</p>
+
+<pre><code>var result = session.QueryOver&lt;WallPost&gt;().List();
+</code></pre>
+
+<p>This will query for all columns:</p>
+
+<pre><code>SELECT this_.Id         as Id0_0_,
+       this_.DatePosted as DatePosted0_0_,
+       this_.Title      as Title0_0_,
+       this_.Content    as Content0_0_,
+       this_.Url        as Url0_0_,
+       this_.PostType   as PostType0_0_
+FROM   WallPost this_
+</code></pre>
+
+<p>Just like it did before. No changes, likewise if we query for just the Text wallpost, it will not include the 'Url' column:</p>
+
+<pre><code>var result = session.QueryOver&lt;TextWallPost&gt;().List();
+</code></pre>
+
+<p>Results in:</p>
+
+<pre><code>SELECT this_.Id         as Id0_0_,
+       this_.DatePosted as DatePosted0_0_,
+       this_.Title      as Title0_0_,
+       this_.Content    as Content0_0_
+FROM   WallPost this_
+WHERE  this_.PostType = 1
+</code></pre>
+
+<p>If we query for the LinkShare wall post:</p>
+
+<pre><code>var result = session.QueryOver&lt;LinkShareWallPost&gt;().List();
+</code></pre>
+
+<p>This results in the 'Url' column being selected:</p>
+
+<pre><code>SELECT this_.Id         as Id0_0_,
+       this_.DatePosted as DatePosted0_0_,
+       this_.Title      as Title0_0_,
+       this_.Content    as Content0_0_,
+       this_.Url        as Url0_0_
+FROM   WallPost this_
+WHERE  this_.PostType = 2
+</code></pre>
+
+<p>So NHibernate is efficient in that it only queries for what it actually needs. If you extend your sub-classes out to have a couple of properties each then they will only query for the required fields for that sub-class.</p>
+
+<p>It is possible for sub-classes to share properties. For example if introduced a new sub-class, MovieShare, which has a VideoUrl, as well as a SiteUrl property:</p>
+
+<p><img src="/images/fnh-table-inheritance-2.png" alt="" /></p>
+
+<p>We can map the classes like so:</p>
+
+<pre><code>public class TextWallPostMap : SubclassMap&lt;TextWallPost&gt;
+{
+    public TextWallPostMap()
+    {
+        DiscriminatorValue(1);
+    }
+}
+
+public class LinkShareWallPostMap : SubclassMap&lt;LinkShareWallPost&gt;
+{
+    public LinkShareWallPostMap()
+    {
+        DiscriminatorValue(2);
+
+        Map(x =&gt; x.Url).Column("Url");
+    }
+}
+
+public class MovieShareWallPostMap : SubclassMap&lt;MovieShareWallPost&gt;
+{
+    public MovieShareWallPostMap()
+    {
+        DiscriminatorValue(3);
+
+        Map(x =&gt; x.SiteUrl).Column("Url");
+        Map(x =&gt; x.VideoUrl).Column("VideoUrl");
+    }
+}
+</code></pre>
+
+<p>When the table is created, 'Url' column is only created once:</p>
+
+<pre><code>create table WallPost (
+  Id         UNIQUEIDENTIFIER   not null,
+  PostType   TINYINT   not null,
+  DatePosted DATETIME   null,
+  Title      NVARCHAR(255)   null,
+  Content    NVARCHAR(255)   null,
+  Url        NVARCHAR(255)   null,
+  VideoUrl   NVARCHAR(255)   null,
+    primary key ( Id ))
+</code></pre>
+
+<p>Now when we insert:</p>
+
+<pre><code>var wallPost = new TextWallPost
+{
+    DatePosted = DateTime.Now,
+    Title = "My First Wall Post",
+    Content = "Is Awesome!"
+};
+
+var linkPost = new LinkShareWallPost()
+{
+    DatePosted = DateTime.Now,
+    Title = "My First Link Share",
+    Content = "Is Awesome!",
+    Url = "http://www.philliphaydon.com/"
+};
+
+var moviePost = new MovieShareWallPost()
+{
+    DatePosted = DateTime.Now,
+    Title = "My First Movie Share",
+    Content = "Is Awesome!",
+    SiteUrl = "http://www.philliphaydon.com/",
+    VideoUrl = "http://www.youtube.com/watch?v=GaoLU6zKaws"
+};
+
+session.Save(wallPost);
+session.Save(linkPost);
+session.Save(moviePost);
+</code></pre>
+
+<p>The insert will share the same 'Url' column for both the LinkShare, and the MovieShare:</p>
+
+<pre><code>- statement #1
+INSERT INTO WallPost
+           (DatePosted,
+            Title,
+            Content,
+            PostType,
+            Id)
+VALUES     ('2011-08-22T00:22:05.00' /* @p0 */,
+            'My First Wall Post' /* @p1 */,
+            'Is Awesome!' /* @p2 */,
+            1,
+            '0e9cef50-d609-4a62-8909-9f47000611cb' /* @p3 */)
+
+- statement #2
+INSERT INTO WallPost
+           (DatePosted,
+            Title,
+            Content,
+            Url,
+            PostType,
+            Id)
+VALUES     ('2011-08-22T00:22:05.00' /* @p0 */,
+            'My First Link Share' /* @p1 */,
+            'Is Awesome!' /* @p2 */,
+            'http://www.philliphaydon.com/' /* @p3 */,
+            2,
+            '8deb343e-941f-4ae1-aba7-9f47000611d0' /* @p4 */)
+
+- statement #3
+INSERT INTO WallPost
+           (DatePosted,
+            Title,
+            Content,
+            Url,
+            VideoUrl,
+            PostType,
+            Id)
+VALUES     ('2011-08-22T00:22:05.00' /* @p0 */,
+            'My First Movie Share' /* @p1 */,
+            'Is Awesome!' /* @p2 */,
+            'http://www.philliphaydon.com/' /* @p3 */,
+            'http://www.youtube.com/watch?v=GaoLU6zKaws' /* @p4 */,
+            3,
+            '6bc80750-3fb2-4830-bccf-9f47000611d0' /* @p5 */)
+</code></pre>
+
+<p>And querying is still as it was before. No changes.</p>
+
+<p>One really important thing to remember is. You cannot change a type from 1 type to another, meaning you cannot change a LinkShare to a MovieShare. Any sub-class you create should never have any reason to change, if for some reason it DOES change, you should delete it, and create a new one.</p>
+
+<p>By that I mean delete the object, and insert a new one of the specified sub-class. While it is possible to use native SQL to change the discriminator value, there's no way to do it in HQL, Criteria, LINQ, or QueryOver, because it's just wrong. If it needs to change, you probably need to re-think your domain and persistence.</p>
+
+<p>Next post will be about Table per Sub-Class mapping.</p>
+
+
+    <div id="disqus_thread"></div>
+<script>
+    var reset_disqus = function(){
+        DISQUS.reset({
+            reload: true,
+            config: function () {
+                //this.page.identifier = '';
+                this.page.url = 'http://www.philliphaydon.com/2011/08/22/fluent-nhibernate-table-inheritance-discriminators-part-2/';
+                //this.page.title = '';
+            }
+        });
+    };
+
+    var disqus_shortname = 'philliphaydon';
+    var disqus_url = 'http://www.philliphaydon.com/2011/08/22/fluent-nhibernate-table-inheritance-discriminators-part-2/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    window.addEventListener('orientationchange', reset_disqus);
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
+
+</div>
+                </div>
+                <!-- #content -->
+            </div>
+            <!-- #primary .site-content -->
+
+            <div id="secondary" class="widget-area fancy-container lightred" role="complementary">
+                <aside id="text-5" class="widget widget_text">
+                    <h1 class="widget-title">Follow</h1>
+                    <div class="textwidget logos">
+                        <a href="https://twitter.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"><img src="/stylesheets/images/twitter.png"></a>
+                        <a href="http://stackoverflow.com/users/456813/phill" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://stackoverflow.com']);"><img src="/stylesheets/images/stackoverflow.png"></a>
+                        <a href="http://www.linkedin.com/in/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://www.linkedin.com']);"><img src="/stylesheets/images/linkedin.png"></a>
+                        <a href="https://plus.google.com/u/0/111751877537461442095" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://plus.google.com']);"><img src="/stylesheets/images/googleplus.png"></a>
+                        <a href="https://coderbits.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','https://coderbits.com/philliphaydon']);"><img src="/stylesheets/images/codebits.png"></a>
+                        <a href="https://github.com/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://github.com']);"><img src="/stylesheets/images/github.png"></a>
+                        <a href="http://www.codeschool.com/users/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://codeschool.com']);"><img src="/stylesheets/images/codeschool.png"></a>
+                        <a href="http://www.kickstarter.com/profile/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://kickstarter.com']);"><img src="/stylesheets/images/kickstarter.png"></a>
+                    </div>
+                    <a href="http://stackoverflow.com/users/456813/phill">
+                      <img src="http://stackoverflow.com/users/flair/456813.png" width="208" height="58" alt="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+                    </a>
+                    
+                    <a href="http://nancyfx.org/mvm.html"><img src="/stylesheets/images/mvm.png"></a>
+                    
+                    <div id = "clustrback" style="width:162px; height:133px;  background:#f7f7f7 url(http://clustrmaps.com/admin/3d/images/st4_grey.png)  center no-repeat; text-align:center;">
+                      <a href="http://www2.clustrmaps.com/counter/maps.php?url=http://www.philliphaydon.com/" style="width:160px; display:block; margin:0 auto;" id="clustrMapsLink">
+                        <img src="http://www2.clustrmaps.com/counter/index2.php?url=http://www.philliphaydon.com/" style="border:0px; margin:15px auto;margin:15px auto;" alt="Locations of visitors to this page" title="Locations of visitors to this page" id="clustrMapsImg" />
+                      </a>
+                    </div>
+                </aside>
+                <!--aside id="text-8" class="widget widget_text">
+                    <h1 class="widget-title">Other sites</h1>
+                    <div class="textwidget">
+                        <a href="http://csharptube.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://csharptube.com']);">csharptube.com</a><br />
+                        <a href="http://thisisparrot.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://thisisparrot.com']);">Parrot</a><br />
+                        <a href="http://shitprogrammerswrite.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://shitprogrammerswrite.com']);">Shit programmers write</a><br />
+                    </div>
+                </aside-->
+                <aside id="linkcat-6" class="widget widget_links">
+                    <h1 class="widget-title">Other Blogs</h1>
+                    <ul class='xoxo blogroll'>
+                        <li><a href="http://www.nickharris.net/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://nickharris.net/']);">Nick Harris</a></li>
+                        <li><a href="http://www.mindscapehq.com/blog/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.mindscapehq.com/blog/']);">Mindscape</a></li>
+                        <li><a href="http://blog.orangelightning.co.uk/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://blog.orangelightning.co.uk/']);">Phil Jones</a></li>
+                        <li><a href="http://buildstarted.com/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://buildstarted.com']);">Ben Dornis</a></li>
+                        <li><a href="http://jflood.net/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://jflood.net/']);">Jospeh Flood</a></li>
+                    </ul>
+                    
+                </aside>
+                <aside id="archives-4" class="widget widget_archive">
+                    <h1 class="widget-title">Archive</h1>
+                    <ul class="posts">
+                          <li><a href="/archive#201510">October, 2015</a></li>
+                          <li><a href="/archive#20148">August, 2014</a></li>
+                          <li><a href="/archive#20146">June, 2014</a></li>
+                          <li><a href="/archive#20145">May, 2014</a></li>
+                          <li><a href="/archive#20144">April, 2014</a></li>
+                          <li><a href="/archive#20142">February, 2014</a></li>
+                          <li><a href="/archive#20141">January, 2014</a></li>
+                          <li><a href="/archive#201312">December, 2013</a></li>
+                          <li><a href="/archive#201311">November, 2013</a></li>
+                          <li><a href="/archive#201310">October, 2013</a></li>
+                          <li><a href="/archive#20139">September, 2013</a></li>
+                          <li><a href="/archive#20138">August, 2013</a></li>
+                          <li><a href="/archive#20137">July, 2013</a></li>
+                          <li><a href="/archive#20136">June, 2013</a></li>
+                          <li><a href="/archive#20135">May, 2013</a></li>
+                          <li><a href="/archive#20134">April, 2013</a></li>
+                          <li><a href="/archive#20133">March, 2013</a></li>
+                          <li><a href="/archive#20132">February, 2013</a></li>
+                          <li><a href="/archive#20131">January, 2013</a></li>
+                          <li><a href="/archive#201212">December, 2012</a></li>
+                          <li><a href="/archive#201211">November, 2012</a></li>
+                          <li><a href="/archive#201210">October, 2012</a></li>
+                          <li><a href="/archive#20129">September, 2012</a></li>
+                          <li><a href="/archive#20127">July, 2012</a></li>
+                          <li><a href="/archive#20126">June, 2012</a></li>
+                          <li><a href="/archive#20124">April, 2012</a></li>
+                          <li><a href="/archive#20123">March, 2012</a></li>
+                          <li><a href="/archive#20122">February, 2012</a></li>
+                          <li><a href="/archive#20121">January, 2012</a></li>
+                          <li><a href="/archive#201112">December, 2011</a></li>
+                          <li><a href="/archive#201111">November, 2011</a></li>
+                          <li><a href="/archive#201110">October, 2011</a></li>
+                          <li><a href="/archive#20119">September, 2011</a></li>
+                          <li><a href="/archive#20118">August, 2011</a></li>
+                          <li><a href="/archive#20117">July, 2011</a></li>
+                          <li><a href="/archive#20116">June, 2011</a></li>
+                          <li><a href="/archive#20115">May, 2011</a></li>
+                          <li><a href="/archive#20114">April, 2011</a></li>
+                          <li><a href="/archive#20113">March, 2011</a></li>
+                          <li><a href="/archive#20112">February, 2011</a></li>
+                          <li><a href="/archive#20111">January, 2011</a></li>
+                          <li><a href="/archive#201012">December, 2010</a></li>
+                          <li><a href="/archive#201011">November, 2010</a></li>
+                          <li><a href="/archive#201010">October, 2010</a></li>
+                          <li><a href="/archive#20109">September, 2010</a></li>
+                          <li><a href="/archive#20097">July, 2009</a></li>
+                    </ul>
+                </aside>
+            </div>
+            <!-- #secondary .widget-area -->
+
+
+        </div>
+        <!-- #main -->
+
+        <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="site-info">
+                Powered by <a href="https://github.com/Sandra/Sandra.Snow" rel="generator">Sandra.Snow v1.6.0</a>.	
+            </div>
+            <!-- .site-info -->
+        </footer>
+        <!-- #colophon .site-footer -->
+    </div>
+    <!-- #page .hfeed .site -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/javascripts/prettify.js"></script>
+    
+    <script type="text/javascript">
+var _gaq = _gaq || [];
+
+_gaq.push(['_setAccount', 'UA-655975-13']);
+_gaq.push(['_trackPageview']);
+        
+(function () {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+})();
+</script>
+    
+    <script src="/javascripts/audio.min.js"></script>
+    
+    <script>
+      $(function () {
+        $("pre code").parent().each(function () {
+          if (!$(this).hasClass("prettyprint")) {
+            $(this).addClass("prettyprint");
+            a = true
+          }
+        });
+
+        prettyPrint();
+      });
+      audiojs.events.ready(function() {
+        var as = audiojs.createAll();
+      });
+    </script>
+</body>
+</html>

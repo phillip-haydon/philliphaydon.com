@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="last-modified" content="2015-10-21T01:44:21.2010422+08:00" />
+    <title>philliphaydon.com</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="canonical" href="http://www.philliphaydon.com/2014/05/01/creating-a-drop-area-top-drop-a-file-in-html5/" />
+</head>
+<body class="home blog">
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header fancy-container lightgreen" role="banner">
+            <hgroup>
+                <h1 class="site-title"><a href="/" title="philliphaydon.com" rel="home">philliphaydon.com</a></h1>
+                <h2><small>Works on my PC...</small></h2>
+                <p class="site-description">Pleb from New Zealand who was banished overseas and currently resides in Singapore.</p>
+            </hgroup>
+            <nav role="navigation" class="site-navigation main-navigation">
+                <h1 class="assistive-text">Menu</h1>
+                <div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/category">Categories</a></li>
+                        <li><a href="/archive">Archive</a></li>
+                        <li><a href="/feed.xml">RSS / Feed</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="main">
+            <div id="primary" class="site-content">
+                <div id="content" role="main">
+                  
+
+<div id="post">
+    <h1>Creating a drop area to drop a file in HTML 5</h1>
+
+    <div class="post-note">
+        posted on 01 May 2014
+            | <a href="/category/html5">HTML5</a>
+            | <a href="/category/javascript">JavaScript</a>
+
+        <div class="addthis_toolbox addthis_default_style" style="float:right;">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+            <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+            <a class="addthis_button_linkedin_counter"></a>
+            <a class="addthis_counter addthis_pill_style"></a>
+        </div>
+    </div>
+
+
+
+    <ul class="snow-series"><li><a href="/2014/04/29/loading-an-image-or-video-from-a-file-input-control/">Part 1: Loading an Image or Video from a File Input control</a></li><li>Part 2: Creating a drop area to drop a file</li><li><a href="/2014/06/09/taking-snapshots-of-a-video-and-displaying-it/">Part 3: Taking snap shots of a Video & displaying it</a></li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
+
+    <p>In the first post we uploaded a file and viewed it in the browser without sending it to a server, now we are going to create a drop area so that you can drag a file from a folder, into the website.</p>
+
+<p>Using the same HTML as before, lets add a drop area:</p>
+
+<pre><code>&lt;div&gt;
+    &lt;input type="file" id="image-input"&gt;
+    &lt;input type="button" value="Load Selected Image" id="load-image" /&gt;
+&lt;/div&gt;
+
+&lt;div id="drop-area"&gt;
+    Drop File Here...
+&lt;/div&gt;
+
+&lt;div&gt;
+    &lt;img id="image-container" width="360" /&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>And add a bit of CSS to make it a little more visible:</p>
+
+<!--excerpt-->
+
+<pre><code>&lt;style type="text/css"&gt;
+#drop-area{
+    border: 1px dotted #666;
+    background: #f2f2f2;
+    width: 360px;
+    height: 50px;
+    vertical-align: middle;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#drop-area.drop {
+    background: red;
+}
+&lt;/style&gt;
+</code></pre>
+
+<p>If we view it now it should look like:</p>
+
+<p><img src="/images/drag-drop-image-html5-01.png" alt="" /></p>
+
+<h2>Drag Enter</h2>
+
+<p>Now we have our UI set, we need to add an indication when the user drags a file...</p>
+
+<p>If we don't, it would look like this:</p>
+
+<p><img src="/images/drag-drop-image-html5-02.png" alt="" /></p>
+
+<p>Which isn't very helpful, so first we need to attach some events for <code>dragenter</code> and <code>dragleave</code> so we can add/remove the class.</p>
+
+<p>We use this instead of <code>:hover</code> because we only want the visual effect when the user is dragging something into the droppable area.</p>
+
+<pre><code>var dropArea = document.getElementById('drop-area');
+
+dropArea.addEventListener('dragenter', function(e){
+    e.currentTarget.classList.add('drop');
+});
+
+dropArea.addEventListener('dragleave', function(e){
+    e.currentTarget.classList.remove('drop');
+});
+</code></pre>
+
+<p>Now when we drag the a file over the drop area, we end with...</p>
+
+<p><img src="/images/drag-drop-image-html5-03.png" alt="" /></p>
+
+<h2>The hidden 'Copy'...</h2>
+
+<p>It took me a while to figure out why my code didn't work and it happens to be the bit people put in the sample code and never explain...</p>
+
+<pre><code>dropArea.addEventListener('dragover', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    e.dataTransfer.dropEffect = 'copy';
+});
+</code></pre>
+
+<p>In order for the drag to be captured, we need to set the <code>dropEffect</code>, by setting it to <code>copy</code>, apparently allows the source item (the item we're dragging) will be copied to the drop location.</p>
+
+<p>The possible values on <a href="https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer#dropEffect.28.29">W3</a> and <a href="http://www.w3.org/TR/2011/WD-html5-20110113/dnd.html#dom-datatransfer-dropeffect">MDN</a></p>
+
+<ul>
+<li><strong>copy:</strong> A copy of the source item is made at the new location.</li>
+<li><strong>move:</strong> An item is moved to a new location.</li>
+<li><strong>link:</strong> A link is established to the source at the new location.</li>
+<li><strong>none:</strong> The item may not be dropped.</li>
+</ul>
+
+<p>Setting this value on <code>dragenter</code> doesn't seem to do anything, it only works when doing it on <code>dragover</code></p>
+
+<h2>Lets capture it and render it!!!</h2>
+
+<p>All that's left now is to touch the <code>drop</code> event...</p>
+
+<pre><code>dropArea.addEventListener('drop', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    var file = e.dataTransfer.files[0];
+    var fileUrl = window.URL.createObjectURL(file);
+
+    image.src = fileUrl;
+});
+</code></pre>
+
+<p>Like when we load the file from an <code>input</code> control, we get a collection of files. Since we're only dragging 1 file for testing, we just grab the first file, create a URL, and load it...</p>
+
+<p>Now when we drop out cat picture!</p>
+
+<p><img src="/images/drag-drop-image-html5-04.png" alt="" /></p>
+
+<p>BAM Now we have Pizza Cat! :)</p>
+
+
+    <div id="disqus_thread"></div>
+<script>
+    var reset_disqus = function(){
+        DISQUS.reset({
+            reload: true,
+            config: function () {
+                //this.page.identifier = '';
+                this.page.url = 'http://www.philliphaydon.com/2014/05/01/creating-a-drop-area-top-drop-a-file-in-html5/';
+                //this.page.title = '';
+            }
+        });
+    };
+
+    var disqus_shortname = 'philliphaydon';
+    var disqus_url = 'http://www.philliphaydon.com/2014/05/01/creating-a-drop-area-top-drop-a-file-in-html5/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    window.addEventListener('orientationchange', reset_disqus);
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
+
+</div>
+                </div>
+                <!-- #content -->
+            </div>
+            <!-- #primary .site-content -->
+
+            <div id="secondary" class="widget-area fancy-container lightred" role="complementary">
+                <aside id="text-5" class="widget widget_text">
+                    <h1 class="widget-title">Follow</h1>
+                    <div class="textwidget logos">
+                        <a href="https://twitter.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"><img src="/stylesheets/images/twitter.png"></a>
+                        <a href="http://stackoverflow.com/users/456813/phill" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://stackoverflow.com']);"><img src="/stylesheets/images/stackoverflow.png"></a>
+                        <a href="http://www.linkedin.com/in/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://www.linkedin.com']);"><img src="/stylesheets/images/linkedin.png"></a>
+                        <a href="https://plus.google.com/u/0/111751877537461442095" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://plus.google.com']);"><img src="/stylesheets/images/googleplus.png"></a>
+                        <a href="https://coderbits.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','https://coderbits.com/philliphaydon']);"><img src="/stylesheets/images/codebits.png"></a>
+                        <a href="https://github.com/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://github.com']);"><img src="/stylesheets/images/github.png"></a>
+                        <a href="http://www.codeschool.com/users/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://codeschool.com']);"><img src="/stylesheets/images/codeschool.png"></a>
+                        <a href="http://www.kickstarter.com/profile/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://kickstarter.com']);"><img src="/stylesheets/images/kickstarter.png"></a>
+                    </div>
+                    <a href="http://stackoverflow.com/users/456813/phill">
+                      <img src="http://stackoverflow.com/users/flair/456813.png" width="208" height="58" alt="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+                    </a>
+                    
+                    <a href="http://nancyfx.org/mvm.html"><img src="/stylesheets/images/mvm.png"></a>
+                    
+                    <div id = "clustrback" style="width:162px; height:133px;  background:#f7f7f7 url(http://clustrmaps.com/admin/3d/images/st4_grey.png)  center no-repeat; text-align:center;">
+                      <a href="http://www2.clustrmaps.com/counter/maps.php?url=http://www.philliphaydon.com/" style="width:160px; display:block; margin:0 auto;" id="clustrMapsLink">
+                        <img src="http://www2.clustrmaps.com/counter/index2.php?url=http://www.philliphaydon.com/" style="border:0px; margin:15px auto;margin:15px auto;" alt="Locations of visitors to this page" title="Locations of visitors to this page" id="clustrMapsImg" />
+                      </a>
+                    </div>
+                </aside>
+                <!--aside id="text-8" class="widget widget_text">
+                    <h1 class="widget-title">Other sites</h1>
+                    <div class="textwidget">
+                        <a href="http://csharptube.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://csharptube.com']);">csharptube.com</a><br />
+                        <a href="http://thisisparrot.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://thisisparrot.com']);">Parrot</a><br />
+                        <a href="http://shitprogrammerswrite.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://shitprogrammerswrite.com']);">Shit programmers write</a><br />
+                    </div>
+                </aside-->
+                <aside id="linkcat-6" class="widget widget_links">
+                    <h1 class="widget-title">Other Blogs</h1>
+                    <ul class='xoxo blogroll'>
+                        <li><a href="http://www.nickharris.net/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://nickharris.net/']);">Nick Harris</a></li>
+                        <li><a href="http://www.mindscapehq.com/blog/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.mindscapehq.com/blog/']);">Mindscape</a></li>
+                        <li><a href="http://blog.orangelightning.co.uk/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://blog.orangelightning.co.uk/']);">Phil Jones</a></li>
+                        <li><a href="http://buildstarted.com/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://buildstarted.com']);">Ben Dornis</a></li>
+                        <li><a href="http://jflood.net/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://jflood.net/']);">Jospeh Flood</a></li>
+                    </ul>
+                    
+                </aside>
+                <aside id="archives-4" class="widget widget_archive">
+                    <h1 class="widget-title">Archive</h1>
+                    <ul class="posts">
+                          <li><a href="/archive#201510">October, 2015</a></li>
+                          <li><a href="/archive#20148">August, 2014</a></li>
+                          <li><a href="/archive#20146">June, 2014</a></li>
+                          <li><a href="/archive#20145">May, 2014</a></li>
+                          <li><a href="/archive#20144">April, 2014</a></li>
+                          <li><a href="/archive#20142">February, 2014</a></li>
+                          <li><a href="/archive#20141">January, 2014</a></li>
+                          <li><a href="/archive#201312">December, 2013</a></li>
+                          <li><a href="/archive#201311">November, 2013</a></li>
+                          <li><a href="/archive#201310">October, 2013</a></li>
+                          <li><a href="/archive#20139">September, 2013</a></li>
+                          <li><a href="/archive#20138">August, 2013</a></li>
+                          <li><a href="/archive#20137">July, 2013</a></li>
+                          <li><a href="/archive#20136">June, 2013</a></li>
+                          <li><a href="/archive#20135">May, 2013</a></li>
+                          <li><a href="/archive#20134">April, 2013</a></li>
+                          <li><a href="/archive#20133">March, 2013</a></li>
+                          <li><a href="/archive#20132">February, 2013</a></li>
+                          <li><a href="/archive#20131">January, 2013</a></li>
+                          <li><a href="/archive#201212">December, 2012</a></li>
+                          <li><a href="/archive#201211">November, 2012</a></li>
+                          <li><a href="/archive#201210">October, 2012</a></li>
+                          <li><a href="/archive#20129">September, 2012</a></li>
+                          <li><a href="/archive#20127">July, 2012</a></li>
+                          <li><a href="/archive#20126">June, 2012</a></li>
+                          <li><a href="/archive#20124">April, 2012</a></li>
+                          <li><a href="/archive#20123">March, 2012</a></li>
+                          <li><a href="/archive#20122">February, 2012</a></li>
+                          <li><a href="/archive#20121">January, 2012</a></li>
+                          <li><a href="/archive#201112">December, 2011</a></li>
+                          <li><a href="/archive#201111">November, 2011</a></li>
+                          <li><a href="/archive#201110">October, 2011</a></li>
+                          <li><a href="/archive#20119">September, 2011</a></li>
+                          <li><a href="/archive#20118">August, 2011</a></li>
+                          <li><a href="/archive#20117">July, 2011</a></li>
+                          <li><a href="/archive#20116">June, 2011</a></li>
+                          <li><a href="/archive#20115">May, 2011</a></li>
+                          <li><a href="/archive#20114">April, 2011</a></li>
+                          <li><a href="/archive#20113">March, 2011</a></li>
+                          <li><a href="/archive#20112">February, 2011</a></li>
+                          <li><a href="/archive#20111">January, 2011</a></li>
+                          <li><a href="/archive#201012">December, 2010</a></li>
+                          <li><a href="/archive#201011">November, 2010</a></li>
+                          <li><a href="/archive#201010">October, 2010</a></li>
+                          <li><a href="/archive#20109">September, 2010</a></li>
+                          <li><a href="/archive#20097">July, 2009</a></li>
+                    </ul>
+                </aside>
+            </div>
+            <!-- #secondary .widget-area -->
+
+
+        </div>
+        <!-- #main -->
+
+        <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="site-info">
+                Powered by <a href="https://github.com/Sandra/Sandra.Snow" rel="generator">Sandra.Snow v1.6.0</a>.	
+            </div>
+            <!-- .site-info -->
+        </footer>
+        <!-- #colophon .site-footer -->
+    </div>
+    <!-- #page .hfeed .site -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/javascripts/prettify.js"></script>
+    
+    <script type="text/javascript">
+var _gaq = _gaq || [];
+
+_gaq.push(['_setAccount', 'UA-655975-13']);
+_gaq.push(['_trackPageview']);
+        
+(function () {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+})();
+</script>
+    
+    <script src="/javascripts/audio.min.js"></script>
+    
+    <script>
+      $(function () {
+        $("pre code").parent().each(function () {
+          if (!$(this).hasClass("prettyprint")) {
+            $(this).addClass("prettyprint");
+            a = true
+          }
+        });
+
+        prettyPrint();
+      });
+      audiojs.events.ready(function() {
+        var as = audiojs.createAll();
+      });
+    </script>
+</body>
+</html>

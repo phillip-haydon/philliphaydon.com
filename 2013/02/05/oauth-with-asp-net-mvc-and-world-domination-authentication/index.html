@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="last-modified" content="2015-10-21T01:44:21.2010422+08:00" />
+    <title>philliphaydon.com</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="canonical" href="http://www.philliphaydon.com/2013/02/05/oauth-with-asp-net-mvc-and-world-domination-authentication/" />
+</head>
+<body class="home blog">
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header fancy-container lightgreen" role="banner">
+            <hgroup>
+                <h1 class="site-title"><a href="/" title="philliphaydon.com" rel="home">philliphaydon.com</a></h1>
+                <h2><small>Works on my PC...</small></h2>
+                <p class="site-description">Pleb from New Zealand who was banished overseas and currently resides in Singapore.</p>
+            </hgroup>
+            <nav role="navigation" class="site-navigation main-navigation">
+                <h1 class="assistive-text">Menu</h1>
+                <div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/category">Categories</a></li>
+                        <li><a href="/archive">Archive</a></li>
+                        <li><a href="/feed.xml">RSS / Feed</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="main">
+            <div id="primary" class="site-content">
+                <div id="content" role="main">
+                  
+
+<div id="post">
+    <h1>OAuth with ASP.NET MVC and WorldDomination.Web.Authentication</h1>
+
+    <div class="post-note">
+        posted on 05 Feb 2013
+            | <a href="/category/asp.net-mvc">ASP.NET MVC</a>
+
+        <div class="addthis_toolbox addthis_default_style" style="float:right;">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+            <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+            <a class="addthis_button_linkedin_counter"></a>
+            <a class="addthis_counter addthis_pill_style"></a>
+        </div>
+    </div>
+
+
+
+    
+
+    <p>This post is a follow on from my previous post <a href="/2013/01/oauth-with-nancyfx-and-world-domination-authentication/">OAuth with NancyFX and WorldDomination.Web.Authentication</a> except this demonstrates how you can use WorldDomination.Web.Authentication with ASP.NET MVC, writing only minimal code in the process.</p>
+
+<p>To save you jumping to the other post, I'll quote myself:</p>
+
+<blockquote>
+  <p>One of the biggest pains of building websites, in my opinion, is implementing OAuth providers, it's often fiddly, doesn't work, and frameworks that are created to try make things easier, don't seem to make it easier. </p>
+  
+  <p>So <a href="https://github.com/PureKrome">PureKrome</a> and myself decided to create <a href="http://www.nuget.org/packages/WorldDomination.Web.Authentication/">WorldDomination: Web Authentication</a></p>
+  
+  <p>The idea behind this framework is to keep it super simple to implement OAuth into your website, without the bloat. The core framework ONLY deals with Google, Twitter, and Facebook authentication. It doesn't try to create a fancy UI for you, it doesn't require you to write lots and lots of code. You simply give it some info, it redirects, it comes back and gives you the authentication info.</p>
+</blockquote>
+
+<p>So without further adieu...</p>
+
+<h3>Installing</h3>
+
+<p>Installing the library for MVC requires installing the MVC specific library.</p>
+
+<blockquote>
+  <p>PM> Install-Package WorldDomination.Web.Authentication.Mvc</p>
+</blockquote>
+
+<p>This will install:</p>
+
+<ul>
+<li>WorldDomination.Web.Authentication.Mvc</li>
+<li>WorldDomination.Web.Authentication</li>
+<li>RestSharp</li>
+</ul>
+
+<!--excerpt-->
+
+<p>The first package is the ASP.NET MVC provider, this wires up all the routes and handles the redirect and callback.</p>
+
+<p>The second package is the actual implementation, this has no dependency on <code>NancyContext</code> or <code>System.Web</code></p>
+
+<p>The last package is required by <code>WorldDomination.Web.Authentication</code> to process the callback and deserialize the response.</p>
+
+<h3>Configuring</h3>
+
+<p>Now that it's installed, we need to configure it, this is done one of two ways, by adding the information to the <code>web.config</code>, or by registering the information in the <code>Global.asax</code></p>
+
+<p>I'm going to show the <code>web.config</code> way, but you can <a href="https://github.com/PureKrome/WorldDomination.Web.Authentication/wiki">visit the github wiki</a> for <code>WorldDomination.Web.Authentication</code> on information to configure via the Global.asax.</p>
+
+<p>In the <code>web.config</code> add a config section like so</p>
+
+<pre><code>&lt;section name="authenticationProviders"
+         type="WorldDomination.Web.Authentication.Config.ProviderConfiguration, WorldDomination.Web.Authentication" /&gt;
+</code></pre>
+
+<p>Now add the <code>authenticationProviders</code> element.</p>
+
+<pre><code>&lt;authenticationProviders&gt;
+  &lt;providers&gt;
+    &lt;add name="Facebook" key="470874...41" secret="02bb584...332fe2" /&gt;
+    &lt;add name="Google" key="58714009...ent.com" secret="npk...ooxCEY" /&gt;
+    &lt;add name="Twitter" key="Rb7qNNP...znFTbF6Q" secret="pP...7hu9c" /&gt;
+  &lt;/providers&gt;
+&lt;/authenticationProviders&gt;
+</code></pre>
+
+<p><span class="note"><strong>Note:</strong> These are the key/secret you get when you register your application with the providers.</span></p>
+
+<p>You can get the key/secret registering your apps:</p>
+
+<ul>
+<li>Facebook: http://developers.facebook.com/docs/howtos/login/server-side-login/</li>
+<li>Twitter: https://dev.twitter.com/</li>
+<li>Google: https://code.google.com/apis/console/?pli=1#access</li>
+</ul>
+
+<p><span class="note"<strong>Note:</strong> Please refer to the 'Adding some buttons' section on the URLs for use when registering.</span></p>
+
+<h3>Registering the routes</h3>
+
+<p>Unlike Nancy, we need to tell Mvc to register the routes, if you don't mind using the built in routes you can simply call the registration, passing in the route table, and you will get the default routes described in the rest of this blog post.</p>
+
+<pre><code>WorldDominationRouteConfig.RegisterRoutes(RouteTable.Routes);
+</code></pre>
+
+<p><span class="note"<strong>Note:</strong> This must be registered BEFORE your own routes, otherwise your default route will override the WorldDomination specific routes and then you will end up with issues such as the controller doesn't exist.</span></p>
+
+<p>The routes registered are two specific ones:</p>
+
+<pre><code>routes.MapRoute(
+    name: "WorldDominationAutomatedMvc-Redirect",
+    url: "authentication/redirect/{providerkey}/{additionaldata}",
+    defaults: new { controller = "WorldDominationAuthentication", action = "RedirectToProvider", additionaldata = UrlParameter.Optional }
+);
+routes.MapRoute(
+    name: "WorldDominationAutomatedMvc-AuthenticateCallback",
+    url: "authentication/authenticatecallback",
+    defaults: new { controller = "WorldDominationAuthentication", action = "AuthenticateCallback" }
+);
+</code></pre>
+
+<p>Alternatively if you want to specify your own routes, you can copy the route registration above and define your own paths.</p>
+
+<h3>Implementing your callback</h3>
+
+<p>Now you need to implement a callback, this callback is what YOU want to do with the result from a successful (or failed) authentication, you need to implement this because we don't know what you have planned, if you want to create a session, set a cookie, use form authentication, what ever, that's up to you.</p>
+
+<p>To do this you can create a new class and implement the interface <code>IAuthenticationCallbackProvider</code></p>
+
+<pre><code>public class SampleCallbackProvider : IAuthenticationCallbackProvider
+{
+    public ActionResult Process(HttpContextBase context, AuthenticateCallbackData model)
+    {
+        return new ViewResult
+        {
+            ViewName = "AuthenticateCallback",
+            ViewData = new ViewDataDictionary(model)
+        };
+    }
+}
+</code></pre>
+
+<p>This example will simply respond with the view <code>AuthenticateCallback</code> and pass it the model with the data returned from the provider. Ideally you would check to see if the user is new, or if you need to add him to your database, or authenticate him with your system. </p>
+
+<p>You can take a look at the implementation used by JabbR <a href="https://github.com/davidfowl/JabbR/blob/master/JabbR/Nancy/JabbRAuthenticationCallbackProvider.cs">here</a>, which I've mirrored as a <a href="https://gist.github.com/4674109">gist here</a> in-case it is changed or moved and the link becomes dead.</p>
+
+<p>Although the JabbR implementation is for NancyFX, it will give you an idea of what you can achieve. The main difference is the MVC version will pass you the HttpContext of the current controller, while the NancyFX one passes you the NancyModule. The implementation would be pretty much identical.</p>
+
+<h3>Adding some buttons</h3>
+
+<p>Last of all, you need to add some buttons to the screen. This is where you have to link to some specific URLs.</p>
+
+<p><span class="note"><strong>Note:</strong> These links will be configurable in the future, but for now they are hard-coded.</span></p>
+
+<p>The two URLs used by the system are:</p>
+
+<ul>
+<li>Redirect: /authentication/redirect/<em>provider key</em></li>
+<li>Callback: /authentication/authenticatecallback?providerkey=<em>provider key</em></li>
+</ul>
+
+<p>Examples: The links you would add to your page would be similar to:</p>
+
+<pre><code>&lt;a href="/authentication/redirect/Twitter"&gt;&lt;img src="/Content/twitter_32.png" /&gt;&lt;/a&gt;
+&lt;a href="/authentication/redirect/Facebook"&gt;&lt;img src="/Content/facebook_32.png" /&gt;&lt;/a&gt;
+&lt;a href="/authentication/redirect/Google"&gt;&lt;img src="/Content/google_32.png" /&gt;&lt;/a&gt;
+</code></pre>
+
+<p>These links are just normal hyperlinks, giving you absolute freedom and flexibility to style them any way you want. Because we have absolutely NO involvement in the generation of the links, we cannot get in the way.</p>
+
+<p>All you need to do is ensure that the links provided to us look like the above.</p>
+
+<p>Your callback urls would end up looking like:</p>
+
+<ul>
+<li>/authentication/authenticatecallback?providerkey=twitter</li>
+<li>/authentication/authenticatecallback?providerkey=facebook</li>
+<li>/authentication/authenticatecallback?providerkey=google</li>
+</ul>
+
+<p><span class="note"><strong>Note:</strong> The urls are forced to be lowercase because Google is case sensitive, so when registering your app with google please make sure the url is registered all lowercase.</span></p>
+
+<p>And you're done!</p>
+
+<p>Now you can run your app:</p>
+
+<p><img src="/images/jabbr-authentication-sample-1.png" alt="" /></p>
+
+<p>We click on Google:</p>
+
+<p><img src="/images/jabbr-authentication-sample-2.png" alt="" /></p>
+
+<p>And we get redirected back to the website after allowing the authentication with Google:</p>
+
+<p><img src="/images/jabbr-authentication-sample-3.png" alt="" /></p>
+
+<p>That's all there is to it.</p>
+
+<p>The sample can be found on github here:</p>
+
+<ul>
+<li><a href="https://github.com/PureKrome/WorldDomination.Web.Authentication/tree/master/Samples/MvcAutomatedSample">https://github.com/PureKrome/WorldDomination.Web.Authentication/tree/master/Samples/MvcAutomatedSample</a></li>
+</ul>
+
+<p>You can find the source code on github: </p>
+
+<ul>
+<li><a href="https://github.com/PureKrome/WorldDomination.Web.Authentication">https://github.com/PureKrome/WorldDomination.Web.Authentication</a></li>
+</ul>
+
+<p>And the Nuget packages</p>
+
+<ul>
+<li><a href="http://www.nuget.org/packages/WorldDomination.Web.Authentication/">http://www.nuget.org/packages/WorldDomination.Web.Authentication/</a></li>
+<li><a href="http://www.nuget.org/packages/WorldDomination.Web.Authentication.Mvc/">http://www.nuget.org/packages/WorldDomination.Web.Authentication.Mvc/</a></li>
+</ul>
+
+
+    <div id="disqus_thread"></div>
+<script>
+    var reset_disqus = function(){
+        DISQUS.reset({
+            reload: true,
+            config: function () {
+                //this.page.identifier = '';
+                this.page.url = 'http://www.philliphaydon.com/2013/02/05/oauth-with-asp-net-mvc-and-world-domination-authentication/';
+                //this.page.title = '';
+            }
+        });
+    };
+
+    var disqus_shortname = 'philliphaydon';
+    var disqus_url = 'http://www.philliphaydon.com/2013/02/05/oauth-with-asp-net-mvc-and-world-domination-authentication/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    window.addEventListener('orientationchange', reset_disqus);
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
+
+</div>
+                </div>
+                <!-- #content -->
+            </div>
+            <!-- #primary .site-content -->
+
+            <div id="secondary" class="widget-area fancy-container lightred" role="complementary">
+                <aside id="text-5" class="widget widget_text">
+                    <h1 class="widget-title">Follow</h1>
+                    <div class="textwidget logos">
+                        <a href="https://twitter.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"><img src="/stylesheets/images/twitter.png"></a>
+                        <a href="http://stackoverflow.com/users/456813/phill" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://stackoverflow.com']);"><img src="/stylesheets/images/stackoverflow.png"></a>
+                        <a href="http://www.linkedin.com/in/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://www.linkedin.com']);"><img src="/stylesheets/images/linkedin.png"></a>
+                        <a href="https://plus.google.com/u/0/111751877537461442095" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://plus.google.com']);"><img src="/stylesheets/images/googleplus.png"></a>
+                        <a href="https://coderbits.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','https://coderbits.com/philliphaydon']);"><img src="/stylesheets/images/codebits.png"></a>
+                        <a href="https://github.com/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://github.com']);"><img src="/stylesheets/images/github.png"></a>
+                        <a href="http://www.codeschool.com/users/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://codeschool.com']);"><img src="/stylesheets/images/codeschool.png"></a>
+                        <a href="http://www.kickstarter.com/profile/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://kickstarter.com']);"><img src="/stylesheets/images/kickstarter.png"></a>
+                    </div>
+                    <a href="http://stackoverflow.com/users/456813/phill">
+                      <img src="http://stackoverflow.com/users/flair/456813.png" width="208" height="58" alt="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+                    </a>
+                    
+                    <a href="http://nancyfx.org/mvm.html"><img src="/stylesheets/images/mvm.png"></a>
+                    
+                    <div id = "clustrback" style="width:162px; height:133px;  background:#f7f7f7 url(http://clustrmaps.com/admin/3d/images/st4_grey.png)  center no-repeat; text-align:center;">
+                      <a href="http://www2.clustrmaps.com/counter/maps.php?url=http://www.philliphaydon.com/" style="width:160px; display:block; margin:0 auto;" id="clustrMapsLink">
+                        <img src="http://www2.clustrmaps.com/counter/index2.php?url=http://www.philliphaydon.com/" style="border:0px; margin:15px auto;margin:15px auto;" alt="Locations of visitors to this page" title="Locations of visitors to this page" id="clustrMapsImg" />
+                      </a>
+                    </div>
+                </aside>
+                <!--aside id="text-8" class="widget widget_text">
+                    <h1 class="widget-title">Other sites</h1>
+                    <div class="textwidget">
+                        <a href="http://csharptube.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://csharptube.com']);">csharptube.com</a><br />
+                        <a href="http://thisisparrot.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://thisisparrot.com']);">Parrot</a><br />
+                        <a href="http://shitprogrammerswrite.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://shitprogrammerswrite.com']);">Shit programmers write</a><br />
+                    </div>
+                </aside-->
+                <aside id="linkcat-6" class="widget widget_links">
+                    <h1 class="widget-title">Other Blogs</h1>
+                    <ul class='xoxo blogroll'>
+                        <li><a href="http://www.nickharris.net/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://nickharris.net/']);">Nick Harris</a></li>
+                        <li><a href="http://www.mindscapehq.com/blog/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.mindscapehq.com/blog/']);">Mindscape</a></li>
+                        <li><a href="http://blog.orangelightning.co.uk/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://blog.orangelightning.co.uk/']);">Phil Jones</a></li>
+                        <li><a href="http://buildstarted.com/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://buildstarted.com']);">Ben Dornis</a></li>
+                        <li><a href="http://jflood.net/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://jflood.net/']);">Jospeh Flood</a></li>
+                    </ul>
+                    
+                </aside>
+                <aside id="archives-4" class="widget widget_archive">
+                    <h1 class="widget-title">Archive</h1>
+                    <ul class="posts">
+                          <li><a href="/archive#201510">October, 2015</a></li>
+                          <li><a href="/archive#20148">August, 2014</a></li>
+                          <li><a href="/archive#20146">June, 2014</a></li>
+                          <li><a href="/archive#20145">May, 2014</a></li>
+                          <li><a href="/archive#20144">April, 2014</a></li>
+                          <li><a href="/archive#20142">February, 2014</a></li>
+                          <li><a href="/archive#20141">January, 2014</a></li>
+                          <li><a href="/archive#201312">December, 2013</a></li>
+                          <li><a href="/archive#201311">November, 2013</a></li>
+                          <li><a href="/archive#201310">October, 2013</a></li>
+                          <li><a href="/archive#20139">September, 2013</a></li>
+                          <li><a href="/archive#20138">August, 2013</a></li>
+                          <li><a href="/archive#20137">July, 2013</a></li>
+                          <li><a href="/archive#20136">June, 2013</a></li>
+                          <li><a href="/archive#20135">May, 2013</a></li>
+                          <li><a href="/archive#20134">April, 2013</a></li>
+                          <li><a href="/archive#20133">March, 2013</a></li>
+                          <li><a href="/archive#20132">February, 2013</a></li>
+                          <li><a href="/archive#20131">January, 2013</a></li>
+                          <li><a href="/archive#201212">December, 2012</a></li>
+                          <li><a href="/archive#201211">November, 2012</a></li>
+                          <li><a href="/archive#201210">October, 2012</a></li>
+                          <li><a href="/archive#20129">September, 2012</a></li>
+                          <li><a href="/archive#20127">July, 2012</a></li>
+                          <li><a href="/archive#20126">June, 2012</a></li>
+                          <li><a href="/archive#20124">April, 2012</a></li>
+                          <li><a href="/archive#20123">March, 2012</a></li>
+                          <li><a href="/archive#20122">February, 2012</a></li>
+                          <li><a href="/archive#20121">January, 2012</a></li>
+                          <li><a href="/archive#201112">December, 2011</a></li>
+                          <li><a href="/archive#201111">November, 2011</a></li>
+                          <li><a href="/archive#201110">October, 2011</a></li>
+                          <li><a href="/archive#20119">September, 2011</a></li>
+                          <li><a href="/archive#20118">August, 2011</a></li>
+                          <li><a href="/archive#20117">July, 2011</a></li>
+                          <li><a href="/archive#20116">June, 2011</a></li>
+                          <li><a href="/archive#20115">May, 2011</a></li>
+                          <li><a href="/archive#20114">April, 2011</a></li>
+                          <li><a href="/archive#20113">March, 2011</a></li>
+                          <li><a href="/archive#20112">February, 2011</a></li>
+                          <li><a href="/archive#20111">January, 2011</a></li>
+                          <li><a href="/archive#201012">December, 2010</a></li>
+                          <li><a href="/archive#201011">November, 2010</a></li>
+                          <li><a href="/archive#201010">October, 2010</a></li>
+                          <li><a href="/archive#20109">September, 2010</a></li>
+                          <li><a href="/archive#20097">July, 2009</a></li>
+                    </ul>
+                </aside>
+            </div>
+            <!-- #secondary .widget-area -->
+
+
+        </div>
+        <!-- #main -->
+
+        <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="site-info">
+                Powered by <a href="https://github.com/Sandra/Sandra.Snow" rel="generator">Sandra.Snow v1.6.0</a>.	
+            </div>
+            <!-- .site-info -->
+        </footer>
+        <!-- #colophon .site-footer -->
+    </div>
+    <!-- #page .hfeed .site -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/javascripts/prettify.js"></script>
+    
+    <script type="text/javascript">
+var _gaq = _gaq || [];
+
+_gaq.push(['_setAccount', 'UA-655975-13']);
+_gaq.push(['_trackPageview']);
+        
+(function () {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+})();
+</script>
+    
+    <script src="/javascripts/audio.min.js"></script>
+    
+    <script>
+      $(function () {
+        $("pre code").parent().each(function () {
+          if (!$(this).hasClass("prettyprint")) {
+            $(this).addClass("prettyprint");
+            a = true
+          }
+        });
+
+        prettyPrint();
+      });
+      audiojs.events.ready(function() {
+        var as = audiojs.createAll();
+      });
+    </script>
+</body>
+</html>

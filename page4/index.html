@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-08-16T20:54:13.6003458+08:00" />
+    <meta http-equiv="last-modified" content="2015-10-21T01:44:21.2010422+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page4/" />
@@ -37,7 +37,35 @@
   <ul class="posts">
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2013/05/rss-atom-feed-spam-sorry/">RSS/Atom spam :( Sorry...</a> 
+        <a href="/2013/05/09/nancyfx-revisiting-content-negotiation-and-apis-part-2/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 2)</a> 
+        <span>posted on 09 May 2013</span>
+      </h1> 
+      
+      <ul>
+<li>Original Post: <a href="/2012/11/nancy-and-content-negotiation">NancyFX and Content Negotiation</a></li>
+<li><a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</a></li>
+<li>NancyFX - Revisiting Content Negotiation &amp; APIs (Part 2)</li>
+<li><a href="/2013/05/nancyfx-revisiting-content-negotiation-and-apis-part-3/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 3)</a></li>
+</ul>
+
+<p>In part 1 I went over a really basic scenario, and one of the fiddly things we had was the view name for returning a collection.</p>
+
+<p>Using <code>Negotiate</code> gives as more flexibility on what we can return, allowing us to customize the response to respond differently to different media types or returning partial content in some scenarios.</p>
+
+<p>Going back to my previous post I said we should be able to use the same API to build our website as we expose. But what about when we want to have additional information on the website that isn't pushed out to the client.</p>
+
+<p>Lets say you have a product catalog, and you can view a particular product on your website. You also allow people to pull the content from your site to display on their website as like an affiliate system of some sort. But when you render your product you may have a special, but when you send the product to the consuming client you don't want to include the special for them since it's something specific to your website.</p>
+
+<h2>Show me the codez!</h2>
+
+<p>So lets update the <code>Product</code> to include <code>SpecialPrice</code></p>
+
+
+      <p><a href="/2013/05/09/nancyfx-revisiting-content-negotiation-and-apis-part-2/">Read more...</a></p>
+    </li>
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/05/07/rss-atom-feed-spam-sorry/">RSS/Atom spam :( Sorry...</a> 
         <span>posted on 07 May 2013</span>
       </h1> 
       
@@ -45,11 +73,11 @@
 
 <p>Real sorry about that :(</p>
 
-      <p><a href="/2013/05/rss-atom-feed-spam-sorry/">Read more...</a></p>
+      <p><a href="/2013/05/07/rss-atom-feed-spam-sorry/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2013/04/visual-studio-disable-namespacing-on-folders/">Disabling Namespaces on folders in Visual Studio</a> 
+        <a href="/2013/04/26/visual-studio-disable-namespacing-on-folders/">Disabling Namespaces on folders in Visual Studio</a> 
         <span>posted on 26 Apr 2013</span>
       </h1> 
       
@@ -66,11 +94,11 @@
 <p>We create a new <code>Member.cs</code> class in the <code>Partials</code> folder;</p>
 
 
-      <p><a href="/2013/04/visual-studio-disable-namespacing-on-folders/">Read more...</a></p>
+      <p><a href="/2013/04/26/visual-studio-disable-namespacing-on-folders/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</a> 
+        <a href="/2013/04/22/nancyfx-revisiting-content-negotiation-and-apis-part-1/">NancyFX - Revisiting Content Negotiation &amp; APIs (Part 1)</a> 
         <span>posted on 22 Apr 2013</span>
       </h1> 
       
@@ -94,11 +122,11 @@
 <p>What's nice is no new data needed to be written on the server! </p>
 
 
-      <p><a href="/2013/04/nancyfx-revisiting-content-negotiation-and-apis-part-1/">Read more...</a></p>
+      <p><a href="/2013/04/22/nancyfx-revisiting-content-negotiation-and-apis-part-1/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2013/04/nancyfx-implementing-your-own-routing/">NancyFX - Implementing your own routing!</a> 
+        <a href="/2013/04/09/nancyfx-implementing-your-own-routing/">NancyFX - Implementing your own routing!</a> 
         <span>posted on 09 Apr 2013</span>
       </h1> 
       
@@ -138,11 +166,138 @@
 <p>This node captures <code>{foo}</code>, or basically any value defined in the segment.</p>
 
 
-      <p><a href="/2013/04/nancyfx-implementing-your-own-routing/">Read more...</a></p>
+      <p><a href="/2013/04/09/nancyfx-implementing-your-own-routing/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2013/04/raygun-io-a-few-features-that-i-love/">Raygun.io - a few features that I love</a> 
+        <a href="/2013/04/09/raygun-io-javascript-error-logging/">Raygun.io - JavaScript error logging!</a> 
+        <span>posted on 09 Apr 2013</span>
+      </h1> 
+      
+      <p>Often when building applications we worry about error handling on the server, we may not do anything with the logs after we log those errors :P but we care about them enough to attempt to make the code resilient enough to not fall over should an error occur. </p>
+
+<p>But often we overlook errors happening on the client, and if a user hits one of those errors we don't know about it, unless they are kind enough to tell us. Should they tell us, we can't reproduce it, don't know where it's happening, etc etc.</p>
+
+<p>Its really important that we give the end user a good user experience, and that means ensuring that the client code is functioning well! If an error occurs and prevents the code from being executed, we could lose a customer, and if this happens with one customer, it could be happening with many.</p>
+
+<p>Enter Raygun</p>
+
+<p><img src="/images/raygun-javascript-1.png" alt="" /></p>
+
+<p>Raygun offers a <a href="https://github.com/MindscapeHQ/raygun4js">JavaScript API</a> that's super easy to wire up to capture all errors by default, in-fact it's one line of code, not including the reference to the Raygun JS file.</p>
+
+<h3>Download and Install</h3>
+
+<p>Unfortunately there's no NuGet for this yet, hopefully they will add one in the future. </p>
+
+<p>Head on over to the MindscapeHQ <a href="https://github.com/MindscapeHQ/raygun4js/tree/master/dist">Github Repository</a> and download the file <code>raygun.min.js</code> (or grab the non-minified version if you wish), and reference in your app. </p>
+
+<pre><code>&lt;script src="/scripts/raygun.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<h3>Configuring Raygun</h3>
+
+<p>Usually when you want to wire up an event to capture all errors you would need to do something like:</p>
+
+<pre><code>window.onerror = function someError(errorMsg, url, lineNumber) {
+    //handle the error
+}
+</code></pre>
+
+<p>But there's a lot more to error handling on the client than just the <code>onerror</code> event. So rather than just giving you the ability to send the error, Raygun offers the ability to attach itself to the <code>onerror</code> event and capture as much necessary information as it can to give you the best possible information.</p>
+
+<p>So to setup Raygun all we need to do is:</p>
+
+<pre><code>&lt;script&gt;
+  Raygun.init('yourApiKey').attach();
+&lt;/script&gt;
+</code></pre>
+
+<p>You can share the same API key for Client/Server, so if you're already using Raygun for your Web Application, you can use the same API key for the Client. </p>
+
+<p>Should you want to stop capturing errors you can call:</p>
+
+<pre><code>Raygun.detach();
+</code></pre>
+
+<h3>Lets see it in action!</h3>
+
+<p>Lets start out by capturing unhandled exceptions/errors, in a new project we will create a new index.html file with the following:</p>
+
+<pre><code>&lt;script src="scripts/raygun.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+
+    (function() {
+      Raygun.init("* my key *").attach();
+
+      var test = function() {
+        throw "Something went wrong!";
+      };
+
+      test();
+
+    })();
+
+&lt;/script&gt;
+</code></pre>
+
+<p>Running up the page we should get an error in the chrome console:</p>
+
+<p><img src="/images/raygun-javascript-2.png" alt="" /></p>
+
+<p>Now if we head on over to the Raygun.io Dashboard</p>
+
+<p><img src="/images/raygun-javascript-3.png" alt="" /></p>
+
+<p>We can see our error was logged. Lets do something a little different next, lets add a 2nd JavaScript file, and call a function inside that file:</p>
+
+<p>In our <code>sample.js</code> file we have:</p>
+
+<pre><code>function DoSomething(value) {
+
+    return Math.power(value, value);
+
+}
+</code></pre>
+
+<p>The method <code>power</code> doesn't exist on <code>Math</code>, it should be <code>pow</code>, so we should get an error when calling it. </p>
+
+<p>Now in our page we can include the <code>sample.js</code> file, and call the method:</p>
+
+<pre><code>&lt;script src="scripts/raygun.min.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/sample.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+
+    (function() {
+        Raygun.init("* my key *").attach();
+
+        var total = DoSomething(100);
+
+        console.log(total);     
+    })();
+
+&lt;/script&gt;
+</code></pre>
+
+<p><img src="/images/raygun-javascript-4.png" alt="" /></p>
+
+<p>As you can see we captured the same error in Chrome as we did on the Raygun dashboard.</p>
+
+<p>Raygun also tries to capture as much information to help you sort out the issue as it can, such as the error, when it occurred, and where it occurred. </p>
+
+<p><img src="/images/raygun-javascript-6.png" alt="" /></p>
+
+<p>It tells you the URL and Browser it occurred on:</p>
+
+<p><img src="/images/raygun-javascript-5.png" alt="" /></p>
+
+<p>It even tells you </p>
+
+      <p><a href="/2013/04/09/raygun-io-javascript-error-logging/">Read more...</a></p>
+    </li>
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/04/08/raygun-io-a-few-features-that-i-love/">Raygun.io - a few features that I love</a> 
         <span>posted on 08 Apr 2013</span>
       </h1> 
       
@@ -165,11 +320,11 @@
 <p>So after fixing it, which took a little bit of effort to figure out, I commented on it!</p>
 
 
-      <p><a href="/2013/04/raygun-io-a-few-features-that-i-love/">Read more...</a></p>
+      <p><a href="/2013/04/08/raygun-io-a-few-features-that-i-love/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2013/04/my-must-have-short-list-programs-extensions-etc/">My must have (short) list of programs/extensions etc...</a> 
+        <a href="/2013/04/02/my-must-have-short-list-programs-extensions-etc/">My must have (short) list of programs/extensions etc...</a> 
         <span>posted on 02 Apr 2013</span>
       </h1> 
       
@@ -196,11 +351,11 @@
 <p>This Software as a Service for Error Handling has replaced my use of ELMAH. It's simply amazing. Been tracking errors in my applications more closely with this.</p>
 
 
-      <p><a href="/2013/04/my-must-have-short-list-programs-extensions-etc/">Read more...</a></p>
+      <p><a href="/2013/04/02/my-must-have-short-list-programs-extensions-etc/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2013/04/what-i-would-like-to-see-from-microsoft-regarding-oss/">What I would like to see from Microsoft regarding OSS</a> 
+        <a href="/2013/04/02/what-i-would-like-to-see-from-microsoft-regarding-oss/">What I would like to see from Microsoft regarding OSS</a> 
         <span>posted on 02 Apr 2013</span>
       </h1> 
       
@@ -215,11 +370,11 @@
 <p>I'm not suggesting that Microsoft actively promotes frameworks like FubuMVC, NancyFX, ServiceStack etc as their own, or in such a way that it overshadows their own stuff. What I would like to see is Microsoft promoting itself along side other frameworks. A lot of the guys who create these other frameworks are advisories for MVC/WebAPI, they help make Microsoft frameworks better, and there's all the people who contribute, and in my personal opinion Microsoft doesn't really give anything back to the community through its main channels.</p>
 
 
-      <p><a href="/2013/04/what-i-would-like-to-see-from-microsoft-regarding-oss/">Read more...</a></p>
+      <p><a href="/2013/04/02/what-i-would-like-to-see-from-microsoft-regarding-oss/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2013/03/everyone-should-get-the-opportunity-to-learn-to-program-but-school-is-a-waste-of-time/">Everyone should get the opportunity to learn to program, but school is a waste of time</a> 
+        <a href="/2013/03/04/everyone-should-get-the-opportunity-to-learn-to-program-but-school-is-a-waste-of-time/">Everyone should get the opportunity to learn to program, but school is a waste of time</a> 
         <span>posted on 04 Mar 2013</span>
       </h1> 
       
@@ -238,47 +393,7 @@
 <p><strong>It's worth watching, awesome talk and very funny</strong></p>
 
 
-      <p><a href="/2013/03/everyone-should-get-the-opportunity-to-learn-to-program-but-school-is-a-waste-of-time/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/02/windows-store-app-with-caliburn-micro-binding-converters/">Windows Store App with Caliburn.Micro - Binding Converters</a> 
-        <span>posted on 26 Feb 2013</span>
-      </h1> 
-      
-      <p>In my last post about <a href="http://www.philliphaydon.com/2013/01/windows-store-app-with-caliburn-micro-basic-binding">Basic Binding</a> we added the ability to Hide/Show a control using Viability property of the control to make it <code>Visible</code> or <code>Collapsed</code></p>
-
-<p>However the View Model shouldn't have any real knowledge of how the view works, meaning it shouldn't actually dictate the visibility using the controls properties.</p>
-
-<p><span class="note"><strong>Note:</strong> I left this out of the original post because I wanted to keep it 'Basic' without confusing binding with converters and such, making the topic more complicated</span></p>
-
-<p>If in the future you changed from say <code>TextBlock</code> to a 3rd party control called <code>BananaTextBlock</code> and that 3rd party decided that they were not going to use the built in Viability enum, and instead decided to create their own naming convention, and enum etc. You would be forced to change your ViewModel, which isn't good.</p>
-
-<p>That's where Value Converters come in handy. </p>
-
-
-      <p><a href="/2013/02/windows-store-app-with-caliburn-micro-binding-converters/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/02/windows-store-app-with-caliburn-micro-getting-started-updated/">Windows Store App with Caliburn.Micro - Getting Started (Updated)</a> 
-        <span>posted on 20 Feb 2013</span>
-      </h1> 
-      
-      <p><span class="note"><strong>Note:</strong> This is an update post for <a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">Windows Store App with Caliburn.Micro - Getting Started</a></span></p>
-
-<p>Back in December I blogged about <a href="/2012/12/windows-store-app-with-caliburn-micro-getting-started/">getting started</a> with Caliburn.Micro, not long after I created the post a <a href="http://devlicio.us/blogs/rob_eisenberg/archive/2013/01/20/caliburn-micro-v1-4-1-released.aspx">new version</a> (v1.4.1) was released.</p>
-
-<p>The changes in this release break my previous blog post so I'm updating here.</p>
-
-<p><span class="note"><strong>Note:</strong> The original post still applies, the change is only to the setup of the App</span></p>
-
-<h2>App Setup</h2>
-
-<p>In the previous post when we configured the container, all we needed to do was Register the WinRT Services.</p>
-
-
-      <p><a href="/2013/02/windows-store-app-with-caliburn-micro-getting-started-updated/">Read more...</a></p>
+      <p><a href="/2013/03/04/everyone-should-get-the-opportunity-to-learn-to-program-but-school-is-a-waste-of-time/">Read more...</a></p>
     </li>
   </ul> 
 
@@ -350,6 +465,7 @@
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#201510">October, 2015</a></li>
                           <li><a href="/archive#20148">August, 2014</a></li>
                           <li><a href="/archive#20146">June, 2014</a></li>
                           <li><a href="/archive#20145">May, 2014</a></li>

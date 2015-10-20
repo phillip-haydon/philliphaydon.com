@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-08-16T20:54:13.6003458+08:00" />
+    <meta http-equiv="last-modified" content="2015-10-21T01:44:21.2010422+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/" />
@@ -37,7 +37,31 @@
   <ul class="posts">
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2014/08/permament-redirect-to-https-with-iis/">Permament redirect to HTTPS with IIS</a> 
+        <a href="/2015/10/21/gzip-with-script-cs-in-octopus-deploy/">GZip with scriptcs in Octopus Deploy</a> 
+        <span>posted on 21 Oct 2015</span>
+      </h1> 
+      
+      <p>I had this crazy problem tonight. I wanted to upload all my assets for my website into AWS S3, but I needed to gzip them first before sending them.</p>
+
+<p>Usually I do this in Team City with Grunt, but all my variable replacement is done in Octopus Deploy depending on the environment. </p>
+
+<ul>
+<li>Staging = S3 URLs</li>
+<li>Production = CloudFront URLs</li>
+</ul>
+
+<p>If the compression is done in Team City, variable replacement cannot happen on the GZipped file. </p>
+
+<p>I decided to move it to Octopus Deploy, my first thought was, could I run a node.js task in Octopus Deploy, the more I thought about it tho, I realised I don't want to install a dependency on node.js on the server.</p>
+
+<p>Second thought was to use Powershell... but I'm a real powershell no0b. </p>
+
+
+      <p><a href="/2015/10/21/gzip-with-script-cs-in-octopus-deploy/">Read more...</a></p>
+    </li>
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2014/08/16/permament-redirect-to-https-with-iis/">Permament redirect to HTTPS with IIS</a> 
         <span>posted on 16 Aug 2014</span>
       </h1> 
       
@@ -57,14 +81,14 @@
 <p>And this will push the site into <code>https</code>, but having to write this everywhere is rather annoying, and during development on your local machine this is a bit of a hassle. Despite Visual Studio supporting an HTTPS url...</p>
 
 
-      <p><a href="/2014/08/permament-redirect-to-https-with-iis/">Read more...</a></p>
+      <p><a href="/2014/08/16/permament-redirect-to-https-with-iis/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2014/06/taking-snapshots-of-a-video-and-displaying-it/">Taking snap shots of a Video &amp; displaying it</a> 
+        <a href="/2014/06/09/taking-snapshots-of-a-video-and-displaying-it/">Taking snap shots of a Video &amp; displaying it</a> 
         <span>posted on 09 Jun 2014</span>
       </h1> 
-      <ul class="snow-series"><li><a href="/2014/04/loading-an-image-or-video-from-a-file-input-control/">Part 1: Loading an Image or Video from a File Input control</a></li><li><a href="/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/">Part 2: Creating a drop area to drop a file</a></li><li>Part 3: Taking snap shots of a Video & displaying it</li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
+      <ul class="snow-series"><li><a href="/2014/04/29/loading-an-image-or-video-from-a-file-input-control/">Part 1: Loading an Image or Video from a File Input control</a></li><li><a href="/2014/05/01/creating-a-drop-area-top-drop-a-file-in-html5/">Part 2: Creating a drop area to drop a file</a></li><li>Part 3: Taking snap shots of a Video & displaying it</li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
       <p>Now we've loaded an image/video, we've captured the drop event, we've displayed it...</p>
 
 <p>But what about taking screen grabs of a video?</p>
@@ -93,11 +117,11 @@
 <p>Racing ahead we load that up:</p>
 
 
-      <p><a href="/2014/06/taking-snapshots-of-a-video-and-displaying-it/">Read more...</a></p>
+      <p><a href="/2014/06/09/taking-snapshots-of-a-video-and-displaying-it/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2014/05/managing-your-azure-storage-account-with-zudio/">Managing your Azure Storage account with Zudio</a> 
+        <a href="/2014/05/03/managing-your-azure-storage-account-with-zudio/">Managing your Azure Storage account with Zudio</a> 
         <span>posted on 03 May 2014</span>
       </h1> 
       
@@ -114,14 +138,14 @@
 <p><a href="http://zud.io/"><img src="/images/zudio-post-02.png" alt="" /></a></p>
 
 
-      <p><a href="/2014/05/managing-your-azure-storage-account-with-zudio/">Read more...</a></p>
+      <p><a href="/2014/05/03/managing-your-azure-storage-account-with-zudio/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/">Creating a drop area to drop a file in HTML 5</a> 
+        <a href="/2014/05/01/creating-a-drop-area-top-drop-a-file-in-html5/">Creating a drop area to drop a file in HTML 5</a> 
         <span>posted on 01 May 2014</span>
       </h1> 
-      <ul class="snow-series"><li><a href="/2014/04/loading-an-image-or-video-from-a-file-input-control/">Part 1: Loading an Image or Video from a File Input control</a></li><li>Part 2: Creating a drop area to drop a file</li><li><a href="/2014/06/taking-snapshots-of-a-video-and-displaying-it/">Part 3: Taking snap shots of a Video & displaying it</a></li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
+      <ul class="snow-series"><li><a href="/2014/04/29/loading-an-image-or-video-from-a-file-input-control/">Part 1: Loading an Image or Video from a File Input control</a></li><li>Part 2: Creating a drop area to drop a file</li><li><a href="/2014/06/09/taking-snapshots-of-a-video-and-displaying-it/">Part 3: Taking snap shots of a Video & displaying it</a></li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
       <p>In the first post we uploaded a file and viewed it in the browser without sending it to a server, now we are going to create a drop area so that you can drag a file from a folder, into the website.</p>
 
 <p>Using the same HTML as before, lets add a drop area:</p>
@@ -143,14 +167,14 @@
 <p>And add a bit of CSS to make it a little more visible:</p>
 
 
-      <p><a href="/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/">Read more...</a></p>
+      <p><a href="/2014/05/01/creating-a-drop-area-top-drop-a-file-in-html5/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2014/04/loading-an-image-or-video-from-a-file-input-control/">Loading an Image or Video from a File Input control.</a> 
+        <a href="/2014/04/29/loading-an-image-or-video-from-a-file-input-control/">Loading an Image or Video from a File Input control.</a> 
         <span>posted on 29 Apr 2014</span>
       </h1> 
-      <ul class="snow-series"><li>Part 1: Loading an Image or Video from a File Input control</li><li><a href="/2014/05/creating-a-drop-area-top-drop-a-file-in-html5/">Part 2: Creating a drop area to drop a file</a></li><li><a href="/2014/06/taking-snapshots-of-a-video-and-displaying-it/">Part 3: Taking snap shots of a Video & displaying it</a></li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
+      <ul class="snow-series"><li>Part 1: Loading an Image or Video from a File Input control</li><li><a href="/2014/05/01/creating-a-drop-area-top-drop-a-file-in-html5/">Part 2: Creating a drop area to drop a file</a></li><li><a href="/2014/06/09/taking-snapshots-of-a-video-and-displaying-it/">Part 3: Taking snap shots of a Video & displaying it</a></li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
       <p>So you've got an input control, and you want to display the video/image before the user uploads, maybe so they can verify it first...</p>
 
 <p>The <a href="http://dev.w3.org/2006/webapi/FileAPI/">File API</a> allows you to get more information from a <code>&lt;input type="file"...</code> control than we could get before. </p>
@@ -183,14 +207,14 @@
 <p>So if we load up a file, our UI should look something like this:</p>
 
 
-      <p><a href="/2014/04/loading-an-image-or-video-from-a-file-input-control/">Read more...</a></p>
+      <p><a href="/2014/04/29/loading-an-image-or-video-from-a-file-input-control/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2014/04/leveling-up-your-logging/">Levelling up your logging. (part 2)</a> 
+        <a href="/2014/04/28/leveling-up-your-logging/">Levelling up your logging. (part 2)</a> 
         <span>posted on 28 Apr 2014</span>
       </h1> 
-      <ul class="snow-series"><li><a href="/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/">If you're not logging, you're doing it all wrong</a></li><li>Levelling up your Logging</li></ul>
+      <ul class="snow-series"><li><a href="/2014/04/23/if-youre-not-logging-youre-doing-it-all-wrong/">If you're not logging, you're doing it all wrong</a></li><li>Levelling up your Logging</li></ul>
       <h2>Part 2: Levelling up your Logging.</h2>
 
 <p>Make sure you've read Part 1: <a href="/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/">If you're not logging, you're doing it all wrong</a> before you continue.</p>
@@ -209,11 +233,11 @@ Instead of sending all the logging information to your localhost Sentinal app we
 </ol>
 
 
-      <p><a href="/2014/04/leveling-up-your-logging/">Read more...</a></p>
+      <p><a href="/2014/04/28/leveling-up-your-logging/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2014/04/fixing-osx-for-a-windows-user/">Fixing OSX as a Windows User...</a> 
+        <a href="/2014/04/26/fixing-osx-for-a-windows-user/">Fixing OSX as a Windows User...</a> 
         <span>posted on 26 Apr 2014</span>
       </h1> 
       
@@ -226,14 +250,14 @@ Instead of sending all the logging information to your localhost Sentinal app we
 <p>Ahhh I know you can use <kbd>cmd</kbd> + <kbd>&rarr;</kbd> and <kbd>cmd</kbd> + <kbd>&larr;</kbd>, but I just prefer the Windows key mapping. </p>
 
 
-      <p><a href="/2014/04/fixing-osx-for-a-windows-user/">Read more...</a></p>
+      <p><a href="/2014/04/26/fixing-osx-for-a-windows-user/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/">If you're not logging, you're doing it all wrong. (part 1)</a> 
+        <a href="/2014/04/23/if-youre-not-logging-youre-doing-it-all-wrong/">If you're not logging, you're doing it all wrong. (part 1)</a> 
         <span>posted on 23 Apr 2014</span>
       </h1> 
-      <ul class="snow-series"><li>If you're not logging, you're doing it all wrong</li><li><a href="/2014/04/leveling-up-your-logging/">Levelling up your Logging</a></li></ul>
+      <ul class="snow-series"><li>If you're not logging, you're doing it all wrong</li><li><a href="/2014/04/28/leveling-up-your-logging/">Levelling up your Logging</a></li></ul>
       <h2>Part 1: If you're not logging, you're doing it all wrong.</h2>
 
 <p><img src="/images/simple-logging-01.png" alt="Really? Seriously?" /></p>
@@ -245,11 +269,11 @@ Instead of sending all the logging information to your localhost Sentinal app we
 <p>Logging is one of these mechanisms and should be considered and planned before you even start any coding.</p>
 
 
-      <p><a href="/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/">Read more...</a></p>
+      <p><a href="/2014/04/23/if-youre-not-logging-youre-doing-it-all-wrong/">Read more...</a></p>
     </li>
     <li class="fancy-container lightblue">
       <h1>
-        <a href="/2014/02/fixing-github-with-chrome-plugin-github-expandinizr/">Fixing Github with Chrome Plugin - GitHub.Expandinizr</a> 
+        <a href="/2014/02/07/fixing-github-with-chrome-plugin-github-expandinizr/">Fixing Github with Chrome Plugin - GitHub.Expandinizr</a> 
         <span>posted on 07 Feb 2014</span>
       </h1> 
       
@@ -260,40 +284,7 @@ Instead of sending all the logging information to your localhost Sentinal app we
 <p>OH Joy, this is so readable... I honestly have no idea who at Github approved this...</p>
 
 
-      <p><a href="/2014/02/fixing-github-with-chrome-plugin-github-expandinizr/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2014/01/if-youre-going-to-use-repositories-dont-have-generic-or-base-repositories/">If you're going to use repositories, don't have generic or base repositories...</a> 
-        <span>posted on 31 Jan 2014</span>
-      </h1> 
-      
-      <p>Repositories are one of those patterns we hate to love or love to hate, but seems to be getting more hate lately than love. </p>
-
-<p>Personally I don't have any real problem with repositories themselves, I just have a problem with the way it is used. </p>
-
-<p>If you run the following search in Google:</p>
-
-<blockquote>
-  <p>BaseRepository OR GenericRepository OR IRepository site:stackoverflow.com</p>
-</blockquote>
-
-<p>You will get about 10k results on Stack Overflow for questions that contain something related to a generic repository or base repository. You end up with code snippets such as:</p>
-
-<pre><code>public interface IRepository&lt;TEntity&gt; : IDisposable where TEntity : class
-{
-    IUnitOfWork Session { get; }
-    IList&lt;TEntity&gt; GetAll();
-    IList&lt;TEntity&gt; GetAll(Expression&lt;Func&lt;TEntity, bool&gt;&gt; predicate);
-    bool Add(TEntity entity);
-    bool Delete(TEntity entity);
-    bool Update(TEntity entity);
-    bool IsValid(TEntity entity);
-}
-</code></pre>
-
-
-      <p><a href="/2014/01/if-youre-going-to-use-repositories-dont-have-generic-or-base-repositories/">Read more...</a></p>
+      <p><a href="/2014/02/07/fixing-github-with-chrome-plugin-github-expandinizr/">Read more...</a></p>
     </li>
   </ul> 
 
@@ -363,6 +354,7 @@ Instead of sending all the logging information to your localhost Sentinal app we
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#201510">October, 2015</a></li>
                           <li><a href="/archive#20148">August, 2014</a></li>
                           <li><a href="/archive#20146">June, 2014</a></li>
                           <li><a href="/archive#20145">May, 2014</a></li>
