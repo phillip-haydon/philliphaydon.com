@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="last-modified" content="2016-01-03T17:59:21.7765619+08:00" />
+    <title>philliphaydon.com</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="canonical" href="http://www.philliphaydon.com/2016/01/03/using-aws-api-gateway-and-sqs-to-recieve-sendgrid-event-hooks/" />
+</head>
+<body class="home blog">
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header fancy-container lightgreen" role="banner">
+            <hgroup>
+                <h1 class="site-title"><a href="/" title="philliphaydon.com" rel="home">philliphaydon.com</a></h1>
+                <h2><small>Works on my PC...</small></h2>
+                <p class="site-description">Pleb from New Zealand who was banished overseas and currently resides in Singapore.</p>
+            </hgroup>
+            <nav role="navigation" class="site-navigation main-navigation">
+                <h1 class="assistive-text">Menu</h1>
+                <div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/category">Categories</a></li>
+                        <li><a href="/archive">Archive</a></li>
+                        <li><a href="/feed.xml">RSS / Feed</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="main">
+            <div id="primary" class="site-content">
+                <div id="content" role="main">
+                  
+
+<div id="post">
+    <h1>Using AWS's API Gateway to recieve Sendgrid event hooks and shove them in SQS</h1>
+
+    <div class="post-note">
+        posted on 03 Jan 2016
+            | <a href="/category/api-gateway">API Gateway</a>
+            | <a href="/category/aws">AWS</a>
+            | <a href="/category/event-hooks">Event Hooks</a>
+            | <a href="/category/sendgrid">Sendgrid</a>
+            | <a href="/category/sqs">SQS</a>
+
+        <div class="addthis_toolbox addthis_default_style" style="float:right;">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+            <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+            <a class="addthis_button_linkedin_counter"></a>
+            <a class="addthis_counter addthis_pill_style"></a>
+        </div>
+    </div>
+
+
+
+    
+
+    <p>Sendgrid hooks allow you to recieve notifications of events that occur to the emails that you send, such as, was the email clicked, was it bounced, was it unsubscribed, etc.</p>
+
+<p>A list of events can be found <a href="0">here</a></p>
+
+<p>When sendgrid send the events, they send an array of events, so it may not be ideal to process those as they come in, and rather just accept them and process them when you can. To do that you can use AWS's API Gateway to accept the request and push the JSON body to SQS. </p>
+
+<p>Steps:</p>
+
+<ol>
+<li>Setting up the Queue</li>
+<li>Setting up the Policy</li>
+<li>Setting up the Role</li>
+<li>Creating the API Gateway</li>
+<li>Test with Console</li>
+<li>Test with Postman</li>
+</ol>
+
+<!--excerpt-->
+
+<h2>Setting up the Queue</h2>
+
+<p>First up we need to create a new Queue, so in the AWS Console navigate to the SQS Service, and click <code>Create New Queue</code>. I'm calling my queue <code>SendgridEvents</code>.</p>
+
+<p><img src="/images/sendgrid-api-01.png" alt="" /></p>
+
+<p>Once created, click on the queue and look at the details.</p>
+
+<p><img src="/images/sendgrid-api-02.png" alt="" /></p>
+
+<p>Make note of the ARN value, we need that in the policy.</p>
+
+<h2>Setting up a new Policy</h2>
+
+<p>Next head on over to the IAM Service and navigate to Policies. We want to create a new policy, select <code>Create Your Own Policy</code></p>
+
+<p>Name the policy and add the following to the Policy Document:</p>
+
+<pre><code>{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:sqs:us-west-2:1111222233334444:SendgridEvents"
+            ],
+            "Action": [
+                "sqs:SendMessage"
+            ]
+        }
+    ]
+}
+</code></pre>
+
+<p>This says we want to allow the <code>sqsSendMessage</code> only for the <code>SendgridEvents</code> queue we just created. This means that the Role we create will not allowed to be do anything else. </p>
+
+<p>Note: the <code>1111222233334444</code> value should be your account id that you will see in your own ARN, you don't need to change this value.</p>
+
+<p><img src="/images/sendgrid-api-03.png" alt="" /></p>
+
+<h2>Setting up a new Role</h2>
+
+<p>Staying in IAM, navigate to Roles and select <code>Create New Role</code>. </p>
+
+<p>Enter a Role Name</p>
+
+<p><img src="/images/sendgrid-api-04.png" alt="" /></p>
+
+<p>Select from the <code>AWS Service Roles</code> list, <code>Amazon EC2</code></p>
+
+<p><img src="/images/sendgrid-api-05.png" alt="" /></p>
+
+<p>This should skip over the <code>Establish Trust</code>, we can't navigate back to it, but we will fix that shortly.</p>
+
+<p>Attach your policy that you just created.</p>
+
+<p><img src="/images/sendgrid-api-06.png" alt="" /></p>
+
+<p>Your policy review should look something like this.</p>
+
+<p><img src="/images/sendgrid-api-07.png" alt="" /></p>
+
+<p>Make note of the Role ARN, we need this for the API Gateway. </p>
+
+<p>Hit Create Role, and we're done... almost... </p>
+
+<p>Find your newly created role.</p>
+
+<p><img src="/images/sendgrid-api-08.png" alt="" /></p>
+
+<p>Click on it to select it, and then click on <code>Trust Relationships</code>. </p>
+
+<p><img src="/images/sendgrid-api-09.png" alt="" /></p>
+
+<p>Change the <code>Service</code> to <code>apigateway.amazonaws.com</code></p>
+
+<p><img src="/images/sendgrid-api-10.png" alt="" /></p>
+
+<p>And then hit Update Trust Policy. </p>
+
+<p>Now we have setup a Queue, a SendMessage Policy, and a Role for use on the API Gateway service. </p>
+
+<h2>Creating the API Gateway</h2>
+
+<p>Navigate to the API Gateway Service and click <code>Create API</code></p>
+
+<p>Give it a name and description</p>
+
+<p><img src="/images/sendgrid-api-11.png" alt="" /></p>
+
+<p>Because this API's sole purpose is to only accept requests from Sendgrid, I wont create any resources. Just a method.</p>
+
+<p>Click <code>Create Method</code>, and select <code>POST</code></p>
+
+<p><img src="/images/sendgrid-api-12.png" alt="" /></p>
+
+<p>In the setup we want to click <code>Show advanced</code> in the Integration type list. This allows us to select <code>AWS Service Proxy</code></p>
+
+<p><img src="/images/sendgrid-api-14.png" alt="" /></p>
+
+<ul>
+<li>AWS Region: The region must match the region the queue was created in</li>
+<li>AWS Service: SQS</li>
+<li>HTTP method: Since we are accepting JSON we need a POST for large requests</li>
+<li>Action Type: Use path override
+<ul>
+<li>Path override: This is the last portion of the ARN we copied when creating the Queue. It should be your ID + Queue Name. i.e <code>1111222233334444:SendgridEvents</code></li>
+<li>Execution role: This it the Role ARN we just created</li>
+</ul></li>
+</ul>
+
+<p>Click Save. Next we want to go to Integration Request.</p>
+
+<p><img src="/images/sendgrid-api-15.png" alt="" /></p>
+
+<p>Under HTTP Headers, add a new header for <code>Content-Type</code> and set the value to <code>'application/x-www-form-urlencoded'</code> (including the single quotes)</p>
+
+<p><img src="/images/sendgrid-api-16.png" alt="" /></p>
+
+<p>SQS only accepts two types of requests:</p>
+
+<ol>
+<li>GET: Where the values are passed via Query String</li>
+<li>POST: Where the values are passed as URL Encoded FORM Payload</li>
+</ol>
+
+<p>But Sendgrid sends us JSON, so we need to parse the JSON into a URL Encoded FORM payload. </p>
+
+<p>If you don't change the Content-Type, then SQS will reject the request because the Content-Type is incorrect.</p>
+
+<p>Hit the little Circle Tick on the right hand side to save (bad UI)</p>
+
+<p>Next we want to add a Mapping Template.</p>
+
+<p><img src="/images/sendgrid-api-17.png" alt="" /></p>
+
+<p>Set the Content Type to <code>application/json</code> this is what we will map from. Since Sendgrid will send us a JSON request, we need to map from that to the url encoded payload.</p>
+
+<p>After adding it, click it to change the mapping from <code>Input Passthrough</code> to <code>Mapping template</code></p>
+
+<p>Set the template value to:</p>
+
+<pre><code>Action=SendMessage&amp;MessageBody=$util.urlEncode($util.escapeJavaScript($input.json('$')))
+</code></pre>
+
+<p><img src="/images/sendgrid-api-18.png" alt="" /></p>
+
+<p>Broken up this is 2 keys:</p>
+
+<ul>
+<li>Action: SendMessage, this matches the Policy we created, it's the action we want to take on the Queue.</li>
+<li>MessageBody: This it the JSON payload from Sendgrid that we escape so we can send it to SQS.</li>
+</ul>
+
+<p>Again we want to click that little Circle Tick icon to save.</p>
+
+<h2>Testing with the console</h2>
+
+<p>If you've followed along this far and understood everything, in theory it should all be configured correctly. So we will click <code>TEST</code></p>
+
+<p><img src="/images/sendgrid-api-19.png" alt="" /></p>
+
+<p>On this screen, click <code>Request Body</code> and enter in some valid JSON.</p>
+
+<p>Sendgrid actually give you a sample of what they will send so we can use that for testing:</p>
+
+<pre><code>[
+  {
+    "sg_message_id":"sendgrid_internal_message_id",
+    "email": "john.doe@sendgrid.com",
+    "timestamp": 1337966815,
+    "event": "click",
+    "url": "https://sendgrid.com",
+    "userid": "1123",
+    "template": "welcome"
+  }
+]
+</code></pre>
+
+<p><img src="/images/sendgrid-api-20.png" alt="" /></p>
+
+<p>Hit Test and it should send that JSON off to SQS and return a 200 status back:</p>
+
+<p><img src="/images/sendgrid-api-21.png" alt="" /></p>
+
+<p>BAM it's working :)</p>
+
+<h2>Testing with Postman</h2>
+
+<p>From the same screen you can click Deploy API</p>
+
+<p><img src="/images/sendgrid-api-22.png" alt="" /></p>
+
+<p>Select <code>New Stage</code> and set a stage name. You can have many different stages for testing different things. We can create a test one for now and a production one later.</p>
+
+<p>Once it's deployed it will take you to a Stage Editor with an Invoke URL like so:</p>
+
+<blockquote>
+  <p>Invoke URL: https://<em>snipped</em>.execute-api.us-west-2.amazonaws.com/testing</p>
+</blockquote>
+
+<p>Taking the URL, we can fire up Postman, and enter in the URL that Amazon gave us:</p>
+
+<p><img src="/images/sendgrid-api-23.png" alt="" /></p>
+
+<p>Set the <code>Content-Type</code> to <code>application/json</code></p>
+
+<p><img src="/images/sendgrid-api-24.png" alt="" /></p>
+
+<p>Enter in the same JSON we entered for the Console test, and click <code>Send</code></p>
+
+<p><img src="/images/sendgrid-api-25.png" alt="" /></p>
+
+<p>And like the console, we get a result :)</p>
+
+<p>That's it!</p>
+
+
+    <div id="disqus_thread"></div>
+<script>
+    var reset_disqus = function(){
+        DISQUS.reset({
+            reload: true,
+            config: function () {
+                //this.page.identifier = '';
+                this.page.url = 'http://www.philliphaydon.com/2016/01/03/using-aws-api-gateway-and-sqs-to-recieve-sendgrid-event-hooks/';
+                //this.page.title = '';
+            }
+        });
+    };
+
+    var disqus_shortname = 'philliphaydon';
+    var disqus_url = 'http://www.philliphaydon.com/2016/01/03/using-aws-api-gateway-and-sqs-to-recieve-sendgrid-event-hooks/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    window.addEventListener('orientationchange', reset_disqus);
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
+
+</div>
+                </div>
+                <!-- #content -->
+            </div>
+            <!-- #primary .site-content -->
+
+            <div id="secondary" class="widget-area fancy-container lightred" role="complementary">
+                <aside id="text-5" class="widget widget_text">
+                    <h1 class="widget-title">Follow</h1>
+                    <div class="textwidget logos">
+                        <a href="https://twitter.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"><img src="/stylesheets/images/twitter.png"></a>
+                        <a href="http://stackoverflow.com/users/456813/phill" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://stackoverflow.com']);"><img src="/stylesheets/images/stackoverflow.png"></a>
+                        <a href="http://www.linkedin.com/in/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://www.linkedin.com']);"><img src="/stylesheets/images/linkedin.png"></a>
+                        <a href="https://plus.google.com/u/0/111751877537461442095" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://plus.google.com']);"><img src="/stylesheets/images/googleplus.png"></a>
+                        <a href="https://coderbits.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','https://coderbits.com/philliphaydon']);"><img src="/stylesheets/images/codebits.png"></a>
+                        <a href="https://github.com/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://github.com']);"><img src="/stylesheets/images/github.png"></a>
+                        <a href="http://www.codeschool.com/users/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://codeschool.com']);"><img src="/stylesheets/images/codeschool.png"></a>
+                        <a href="http://www.kickstarter.com/profile/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://kickstarter.com']);"><img src="/stylesheets/images/kickstarter.png"></a>
+                    </div>
+                    <a href="http://stackoverflow.com/users/456813/phill">
+                      <img src="http://stackoverflow.com/users/flair/456813.png" width="208" height="58" alt="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+                    </a>
+                    
+                    <a href="http://nancyfx.org/mvm.html"><img src="/stylesheets/images/mvm.png"></a>
+                    
+                    <div id = "clustrback" style="width:162px; height:133px;  background:#f7f7f7 url(http://clustrmaps.com/admin/3d/images/st4_grey.png)  center no-repeat; text-align:center;">
+                      <a href="http://www2.clustrmaps.com/counter/maps.php?url=http://www.philliphaydon.com/" style="width:160px; display:block; margin:0 auto;" id="clustrMapsLink">
+                        <img src="http://www2.clustrmaps.com/counter/index2.php?url=http://www.philliphaydon.com/" style="border:0px; margin:15px auto;margin:15px auto;" alt="Locations of visitors to this page" title="Locations of visitors to this page" id="clustrMapsImg" />
+                      </a>
+                    </div>
+                </aside>
+                <!--aside id="text-8" class="widget widget_text">
+                    <h1 class="widget-title">Other sites</h1>
+                    <div class="textwidget">
+                        <a href="http://csharptube.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://csharptube.com']);">csharptube.com</a><br />
+                        <a href="http://thisisparrot.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://thisisparrot.com']);">Parrot</a><br />
+                        <a href="http://shitprogrammerswrite.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://shitprogrammerswrite.com']);">Shit programmers write</a><br />
+                    </div>
+                </aside-->
+                <aside id="linkcat-6" class="widget widget_links">
+                    <h1 class="widget-title">Other Blogs</h1>
+                    <ul class='xoxo blogroll'>
+                        <li><a href="http://www.nickharris.net/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://nickharris.net/']);">Nick Harris</a></li>
+                        <li><a href="http://www.mindscapehq.com/blog/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.mindscapehq.com/blog/']);">Mindscape</a></li>
+                        <li><a href="http://blog.orangelightning.co.uk/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://blog.orangelightning.co.uk/']);">Phil Jones</a></li>
+                        <li><a href="http://buildstarted.com/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://buildstarted.com']);">Ben Dornis</a></li>
+                        <li><a href="http://jflood.net/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://jflood.net/']);">Jospeh Flood</a></li>
+                    </ul>
+                    
+                </aside>
+                <aside id="archives-4" class="widget widget_archive">
+                    <h1 class="widget-title">Archive</h1>
+                    <ul class="posts">
+                          <li><a href="/archive#20161">January, 2016</a></li>
+                          <li><a href="/archive#201510">October, 2015</a></li>
+                          <li><a href="/archive#20148">August, 2014</a></li>
+                          <li><a href="/archive#20146">June, 2014</a></li>
+                          <li><a href="/archive#20145">May, 2014</a></li>
+                          <li><a href="/archive#20144">April, 2014</a></li>
+                          <li><a href="/archive#20142">February, 2014</a></li>
+                          <li><a href="/archive#20141">January, 2014</a></li>
+                          <li><a href="/archive#201312">December, 2013</a></li>
+                          <li><a href="/archive#201311">November, 2013</a></li>
+                          <li><a href="/archive#201310">October, 2013</a></li>
+                          <li><a href="/archive#20139">September, 2013</a></li>
+                          <li><a href="/archive#20138">August, 2013</a></li>
+                          <li><a href="/archive#20137">July, 2013</a></li>
+                          <li><a href="/archive#20136">June, 2013</a></li>
+                          <li><a href="/archive#20135">May, 2013</a></li>
+                          <li><a href="/archive#20134">April, 2013</a></li>
+                          <li><a href="/archive#20133">March, 2013</a></li>
+                          <li><a href="/archive#20132">February, 2013</a></li>
+                          <li><a href="/archive#20131">January, 2013</a></li>
+                          <li><a href="/archive#201212">December, 2012</a></li>
+                          <li><a href="/archive#201211">November, 2012</a></li>
+                          <li><a href="/archive#201210">October, 2012</a></li>
+                          <li><a href="/archive#20129">September, 2012</a></li>
+                          <li><a href="/archive#20127">July, 2012</a></li>
+                          <li><a href="/archive#20126">June, 2012</a></li>
+                          <li><a href="/archive#20124">April, 2012</a></li>
+                          <li><a href="/archive#20123">March, 2012</a></li>
+                          <li><a href="/archive#20122">February, 2012</a></li>
+                          <li><a href="/archive#20121">January, 2012</a></li>
+                          <li><a href="/archive#201112">December, 2011</a></li>
+                          <li><a href="/archive#201111">November, 2011</a></li>
+                          <li><a href="/archive#201110">October, 2011</a></li>
+                          <li><a href="/archive#20119">September, 2011</a></li>
+                          <li><a href="/archive#20118">August, 2011</a></li>
+                          <li><a href="/archive#20117">July, 2011</a></li>
+                          <li><a href="/archive#20116">June, 2011</a></li>
+                          <li><a href="/archive#20115">May, 2011</a></li>
+                          <li><a href="/archive#20114">April, 2011</a></li>
+                          <li><a href="/archive#20113">March, 2011</a></li>
+                          <li><a href="/archive#20112">February, 2011</a></li>
+                          <li><a href="/archive#20111">January, 2011</a></li>
+                          <li><a href="/archive#201012">December, 2010</a></li>
+                          <li><a href="/archive#201011">November, 2010</a></li>
+                          <li><a href="/archive#201010">October, 2010</a></li>
+                          <li><a href="/archive#20109">September, 2010</a></li>
+                          <li><a href="/archive#20097">July, 2009</a></li>
+                    </ul>
+                </aside>
+            </div>
+            <!-- #secondary .widget-area -->
+
+
+        </div>
+        <!-- #main -->
+
+        <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="site-info">
+                Powered by <a href="https://github.com/Sandra/Sandra.Snow" rel="generator">Sandra.Snow v1.6.0</a>.	
+            </div>
+            <!-- .site-info -->
+        </footer>
+        <!-- #colophon .site-footer -->
+    </div>
+    <!-- #page .hfeed .site -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/javascripts/prettify.js"></script>
+    
+    <script type="text/javascript">
+var _gaq = _gaq || [];
+
+_gaq.push(['_setAccount', 'UA-655975-13']);
+_gaq.push(['_trackPageview']);
+        
+(function () {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+})();
+</script>
+    
+    <script src="/javascripts/audio.min.js"></script>
+    
+    <script>
+      $(function () {
+        $("pre code").parent().each(function () {
+          if (!$(this).hasClass("prettyprint")) {
+            $(this).addClass("prettyprint");
+            a = true
+          }
+        });
+
+        prettyPrint();
+      });
+      audiojs.events.ready(function() {
+        var as = audiojs.createAll();
+      });
+    </script>
+</body>
+</html>

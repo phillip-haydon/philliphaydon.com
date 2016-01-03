@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2015-10-21T01:44:21.2010422+08:00" />
+    <meta http-equiv="last-modified" content="2016-01-03T17:59:21.7765619+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/" />
@@ -35,6 +35,32 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2016/01/03/using-aws-api-gateway-and-sqs-to-recieve-sendgrid-event-hooks/">Using AWS's API Gateway to recieve Sendgrid event hooks and shove them in SQS</a> 
+        <span>posted on 03 Jan 2016</span>
+      </h1> 
+      
+      <p>Sendgrid hooks allow you to recieve notifications of events that occur to the emails that you send, such as, was the email clicked, was it bounced, was it unsubscribed, etc.</p>
+
+<p>A list of events can be found <a href="0">here</a></p>
+
+<p>When sendgrid send the events, they send an array of events, so it may not be ideal to process those as they come in, and rather just accept them and process them when you can. To do that you can use AWS's API Gateway to accept the request and push the JSON body to SQS. </p>
+
+<p>Steps:</p>
+
+<ol>
+<li>Setting up the Queue</li>
+<li>Setting up the Policy</li>
+<li>Setting up the Role</li>
+<li>Creating the API Gateway</li>
+<li>Test with Console</li>
+<li>Test with Postman</li>
+</ol>
+
+
+      <p><a href="/2016/01/03/using-aws-api-gateway-and-sqs-to-recieve-sendgrid-event-hooks/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2015/10/21/gzip-with-script-cs-in-octopus-deploy/">GZip with scriptcs in Octopus Deploy</a> 
@@ -271,21 +297,6 @@ Instead of sending all the logging information to your localhost Sentinal app we
 
       <p><a href="/2014/04/23/if-youre-not-logging-youre-doing-it-all-wrong/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2014/02/07/fixing-github-with-chrome-plugin-github-expandinizr/">Fixing Github with Chrome Plugin - GitHub.Expandinizr</a> 
-        <span>posted on 07 Feb 2014</span>
-      </h1> 
-      
-      <p>So if you've ever visited Github, and thought <em>'Oh, I'll browser a repository and find a file'</em>, no doubt you've probably ended up in a suituation like so:</p>
-
-<p><img src="/images/fixing-github-01.png" alt="" /></p>
-
-<p>OH Joy, this is so readable... I honestly have no idea who at Github approved this...</p>
-
-
-      <p><a href="/2014/02/07/fixing-github-with-chrome-plugin-github-expandinizr/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -354,6 +365,7 @@ Instead of sending all the logging information to your localhost Sentinal app we
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20161">January, 2016</a></li>
                           <li><a href="/archive#201510">October, 2015</a></li>
                           <li><a href="/archive#20148">August, 2014</a></li>
                           <li><a href="/archive#20146">June, 2014</a></li>

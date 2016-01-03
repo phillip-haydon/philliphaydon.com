@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2015-10-21T01:44:21.2010422+08:00" />
+    <meta http-equiv="last-modified" content="2016-01-03T17:59:21.7765619+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page6/" />
@@ -35,6 +35,29 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/01/14/it-communities-like-hacker-news-are-full-of-assholes/">IT-Communities like Hacker News are full of assholes</a> 
+        <span>posted on 14 Jan 2013</span>
+      </h1> 
+      
+      <p>I only found out about hacker news maybe... 6 months ago? This place is like 4chan for the IT-Community, and it's not the only place. The entire internet is full of assholes.</p>
+
+<p>Filip Ekberg wrote an opinionated <a href="http://blog.filipekberg.se/2013/01/11/c-is-the-past-the-present-and-the-future/">blog post</a> a few days ago, about how he thinks C# is the past, present and future. After <a href="http://news.ycombinator.com/item?id=5042055">self promotion</a> on Hacker News, I'm sure a lot of people do, such as <a href="http://news.ycombinator.com/submitted?id=philliphaydon">myself</a>. He got an out pour of comments. </p>
+
+<blockquote>
+  <p>"I am a Software Engineer working with various techniques such as C#, WPF, WCF, ASP.NET MVC, ASP.NET and much more"<br>
+  "I spend most of my days working with the latest technologies from Microsoft."<br>
+  "In the darkest alley-ways we still have the people not wanting to touch C# with a pitch-fork because it's behind Microsoft"<br>
+  In my opinion he lacks enough neutrality to make that statements(how he know MS tech is so great if he is totally ignorant of other options?).<br>
+  Instead of telling people to learn only Microsoft tech he could take his own advise and learn non Microsoft tech too. The world is much bigger than a single company.<br>
+  In my work as a software engineer I had to use what was good for my company, not what was good for Microsoft, Apple, or any religion(GNU or whatever).<br>
+  I had to use Java, C#, objective C, python, (and lisp and c and c++). We will never be in the hands of a single company ever.</p>
+</blockquote>
+
+
+      <p><a href="/2013/01/14/it-communities-like-hacker-news-are-full-of-assholes/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/01/10/using-publish-to-deploy-azure-cloud-service/">Using publish to deploy Azure Cloud Service</a> 
@@ -251,38 +274,6 @@
 
       <p><a href="/2012/11/30/using-partial-renders-with-nancy-rather-than-render-actions-like-mvc/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2012/11/08/nancy-and-content-negotiation/">NancyFX and Content Negotiation</a> 
-        <span>posted on 08 Nov 2012</span>
-      </h1> 
-      
-      <p>This has to be one of the most awesome features of Nancy, Content Negotiation. Recently added in 0.12, it gives you the ability to implement a single route that responds with different versions of the same document, without having to mess up your code with duplicate methods or conditional statements.</p>
-
-<p>When doing this in ASP.NET MVC I would have to check the content type and decide how I want to respond to the request.</p>
-
-<p>This ended up making duplicate methods, one which would be used by a normal GET request, while the 2nd would be for an AJAX request. Or if it was similar, use conditional logic in the single method to decide how the action should respond...</p>
-
-<p>Nancy on the other hand supports Content Negotiation out of the box.</p>
-
-<pre><code>Get["/negotiated"] = parameters =&gt; {
-    return Negotiate
-        .WithModel(new RatPack {FirstName = "Nancy "})
-        .WithMediaRangeModel("text/html", new RatPack {FirstName = "Nancy fancy pants"})
-        .WithView("negotiatedview")
-        .WithHeader("X-Custom", "SomeValue");
-};
-</code></pre>
-
-<p><span class="note"><strong>Note:</strong> Sample taken from Nancy GitHub Repo</span></p>
-
-<h2>What is content negotiation?</h2>
-
-<p>In short, it's the ability to serve different versions of a document to the same URI.</p>
-
-
-      <p><a href="/2012/11/08/nancy-and-content-negotiation/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -353,6 +344,7 @@
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20161">January, 2016</a></li>
                           <li><a href="/archive#201510">October, 2015</a></li>
                           <li><a href="/archive#20148">August, 2014</a></li>
                           <li><a href="/archive#20146">June, 2014</a></li>

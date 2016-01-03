@@ -1,4 +1,256 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2015/10/21/gzip-with-script-cs-in-octopus-deploy/</guid><link>http://www.philliphaydon.com/2015/10/21/gzip-with-script-cs-in-octopus-deploy/</link><a10:author><a10:name /></a10:author><category>Octopus Deploy</category><category>scriptcs</category><title>GZip with scriptcs in Octopus Deploy</title><description>&lt;p&gt;I had this crazy problem tonight. I wanted to upload all my assets for my website into AWS S3, but I needed to gzip them first before sending them.&lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2016/01/03/using-aws-api-gateway-and-sqs-to-recieve-sendgrid-event-hooks/</guid><link>http://www.philliphaydon.com/2016/01/03/using-aws-api-gateway-and-sqs-to-recieve-sendgrid-event-hooks/</link><a10:author><a10:name /></a10:author><category>API Gateway</category><category>AWS</category><category>Event Hooks</category><category>Sendgrid</category><category>SQS</category><title>Using AWS's API Gateway to recieve Sendgrid event hooks and shove them in SQS</title><description>&lt;p&gt;Sendgrid hooks allow you to recieve notifications of events that occur to the emails that you send, such as, was the email clicked, was it bounced, was it unsubscribed, etc.&lt;/p&gt;
+
+&lt;p&gt;A list of events can be found &lt;a href="http://www.philliphaydon.com/0"&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;When sendgrid send the events, they send an array of events, so it may not be ideal to process those as they come in, and rather just accept them and process them when you can. To do that you can use AWS's API Gateway to accept the request and push the JSON body to SQS. &lt;/p&gt;
+
+&lt;p&gt;Steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Setting up the Queue&lt;/li&gt;
+&lt;li&gt;Setting up the Policy&lt;/li&gt;
+&lt;li&gt;Setting up the Role&lt;/li&gt;
+&lt;li&gt;Creating the API Gateway&lt;/li&gt;
+&lt;li&gt;Test with Console&lt;/li&gt;
+&lt;li&gt;Test with Postman&lt;/li&gt;
+&lt;/ol&gt;
+
+</description><pubDate>Sat, 02 Jan 2016 16:00:00 Z</pubDate><a10:updated>2016-01-02T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;Sendgrid hooks allow you to recieve notifications of events that occur to the emails that you send, such as, was the email clicked, was it bounced, was it unsubscribed, etc.&lt;/p&gt;
+
+&lt;p&gt;A list of events can be found &lt;a href="http://www.philliphaydon.com/0"&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;When sendgrid send the events, they send an array of events, so it may not be ideal to process those as they come in, and rather just accept them and process them when you can. To do that you can use AWS's API Gateway to accept the request and push the JSON body to SQS. &lt;/p&gt;
+
+&lt;p&gt;Steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Setting up the Queue&lt;/li&gt;
+&lt;li&gt;Setting up the Policy&lt;/li&gt;
+&lt;li&gt;Setting up the Role&lt;/li&gt;
+&lt;li&gt;Creating the API Gateway&lt;/li&gt;
+&lt;li&gt;Test with Console&lt;/li&gt;
+&lt;li&gt;Test with Postman&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;h2&gt;Setting up the Queue&lt;/h2&gt;
+
+&lt;p&gt;First up we need to create a new Queue, so in the AWS Console navigate to the SQS Service, and click &lt;code&gt;Create New Queue&lt;/code&gt;. I'm calling my queue &lt;code&gt;SendgridEvents&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once created, click on the queue and look at the details.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-02.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Make note of the ARN value, we need that in the policy.&lt;/p&gt;
+
+&lt;h2&gt;Setting up a new Policy&lt;/h2&gt;
+
+&lt;p&gt;Next head on over to the IAM Service and navigate to Policies. We want to create a new policy, select &lt;code&gt;Create Your Own Policy&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Name the policy and add the following to the Policy Document:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:sqs:us-west-2:1111222233334444:SendgridEvents"
+            ],
+            "Action": [
+                "sqs:SendMessage"
+            ]
+        }
+    ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This says we want to allow the &lt;code&gt;sqsSendMessage&lt;/code&gt; only for the &lt;code&gt;SendgridEvents&lt;/code&gt; queue we just created. This means that the Role we create will not allowed to be do anything else. &lt;/p&gt;
+
+&lt;p&gt;Note: the &lt;code&gt;1111222233334444&lt;/code&gt; value should be your account id that you will see in your own ARN, you don't need to change this value.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-03.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Setting up a new Role&lt;/h2&gt;
+
+&lt;p&gt;Staying in IAM, navigate to Roles and select &lt;code&gt;Create New Role&lt;/code&gt;. &lt;/p&gt;
+
+&lt;p&gt;Enter a Role Name&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-04.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Select from the &lt;code&gt;AWS Service Roles&lt;/code&gt; list, &lt;code&gt;Amazon EC2&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-05.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This should skip over the &lt;code&gt;Establish Trust&lt;/code&gt;, we can't navigate back to it, but we will fix that shortly.&lt;/p&gt;
+
+&lt;p&gt;Attach your policy that you just created.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-06.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Your policy review should look something like this.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-07.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Make note of the Role ARN, we need this for the API Gateway. &lt;/p&gt;
+
+&lt;p&gt;Hit Create Role, and we're done... almost... &lt;/p&gt;
+
+&lt;p&gt;Find your newly created role.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-08.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Click on it to select it, and then click on &lt;code&gt;Trust Relationships&lt;/code&gt;. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-09.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Change the &lt;code&gt;Service&lt;/code&gt; to &lt;code&gt;apigateway.amazonaws.com&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-10.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And then hit Update Trust Policy. &lt;/p&gt;
+
+&lt;p&gt;Now we have setup a Queue, a SendMessage Policy, and a Role for use on the API Gateway service. &lt;/p&gt;
+
+&lt;h2&gt;Creating the API Gateway&lt;/h2&gt;
+
+&lt;p&gt;Navigate to the API Gateway Service and click &lt;code&gt;Create API&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Give it a name and description&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-11.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Because this API's sole purpose is to only accept requests from Sendgrid, I wont create any resources. Just a method.&lt;/p&gt;
+
+&lt;p&gt;Click &lt;code&gt;Create Method&lt;/code&gt;, and select &lt;code&gt;POST&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-12.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the setup we want to click &lt;code&gt;Show advanced&lt;/code&gt; in the Integration type list. This allows us to select &lt;code&gt;AWS Service Proxy&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-14.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;AWS Region: The region must match the region the queue was created in&lt;/li&gt;
+&lt;li&gt;AWS Service: SQS&lt;/li&gt;
+&lt;li&gt;HTTP method: Since we are accepting JSON we need a POST for large requests&lt;/li&gt;
+&lt;li&gt;Action Type: Use path override
+&lt;ul&gt;
+&lt;li&gt;Path override: This is the last portion of the ARN we copied when creating the Queue. It should be your ID + Queue Name. i.e &lt;code&gt;1111222233334444:SendgridEvents&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Execution role: This it the Role ARN we just created&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Click Save. Next we want to go to Integration Request.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-15.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Under HTTP Headers, add a new header for &lt;code&gt;Content-Type&lt;/code&gt; and set the value to &lt;code&gt;'application/x-www-form-urlencoded'&lt;/code&gt; (including the single quotes)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-16.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;SQS only accepts two types of requests:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;GET: Where the values are passed via Query String&lt;/li&gt;
+&lt;li&gt;POST: Where the values are passed as URL Encoded FORM Payload&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;But Sendgrid sends us JSON, so we need to parse the JSON into a URL Encoded FORM payload. &lt;/p&gt;
+
+&lt;p&gt;If you don't change the Content-Type, then SQS will reject the request because the Content-Type is incorrect.&lt;/p&gt;
+
+&lt;p&gt;Hit the little Circle Tick on the right hand side to save (bad UI)&lt;/p&gt;
+
+&lt;p&gt;Next we want to add a Mapping Template.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-17.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Set the Content Type to &lt;code&gt;application/json&lt;/code&gt; this is what we will map from. Since Sendgrid will send us a JSON request, we need to map from that to the url encoded payload.&lt;/p&gt;
+
+&lt;p&gt;After adding it, click it to change the mapping from &lt;code&gt;Input Passthrough&lt;/code&gt; to &lt;code&gt;Mapping template&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Set the template value to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Action=SendMessage&amp;amp;MessageBody=$util.urlEncode($util.escapeJavaScript($input.json('$')))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-18.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Broken up this is 2 keys:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Action: SendMessage, this matches the Policy we created, it's the action we want to take on the Queue.&lt;/li&gt;
+&lt;li&gt;MessageBody: This it the JSON payload from Sendgrid that we escape so we can send it to SQS.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Again we want to click that little Circle Tick icon to save.&lt;/p&gt;
+
+&lt;h2&gt;Testing with the console&lt;/h2&gt;
+
+&lt;p&gt;If you've followed along this far and understood everything, in theory it should all be configured correctly. So we will click &lt;code&gt;TEST&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-19.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;On this screen, click &lt;code&gt;Request Body&lt;/code&gt; and enter in some valid JSON.&lt;/p&gt;
+
+&lt;p&gt;Sendgrid actually give you a sample of what they will send so we can use that for testing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[
+  {
+    "sg_message_id":"sendgrid_internal_message_id",
+    "email": "john.doe@sendgrid.com",
+    "timestamp": 1337966815,
+    "event": "click",
+    "url": "https://sendgrid.com",
+    "userid": "1123",
+    "template": "welcome"
+  }
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-20.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Hit Test and it should send that JSON off to SQS and return a 200 status back:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-21.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;BAM it's working :)&lt;/p&gt;
+
+&lt;h2&gt;Testing with Postman&lt;/h2&gt;
+
+&lt;p&gt;From the same screen you can click Deploy API&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-22.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Select &lt;code&gt;New Stage&lt;/code&gt; and set a stage name. You can have many different stages for testing different things. We can create a test one for now and a production one later.&lt;/p&gt;
+
+&lt;p&gt;Once it's deployed it will take you to a Stage Editor with an Invoke URL like so:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Invoke URL: https://&lt;em&gt;snipped&lt;/em&gt;.execute-api.us-west-2.amazonaws.com/testing&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Taking the URL, we can fire up Postman, and enter in the URL that Amazon gave us:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-23.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Set the &lt;code&gt;Content-Type&lt;/code&gt; to &lt;code&gt;application/json&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-24.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Enter in the same JSON we entered for the Console test, and click &lt;code&gt;Send&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/sendgrid-api-25.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And like the console, we get a result :)&lt;/p&gt;
+
+&lt;p&gt;That's it!&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2015/10/21/gzip-with-script-cs-in-octopus-deploy/</guid><link>http://www.philliphaydon.com/2015/10/21/gzip-with-script-cs-in-octopus-deploy/</link><a10:author><a10:name /></a10:author><category>Octopus Deploy</category><category>scriptcs</category><title>GZip with scriptcs in Octopus Deploy</title><description>&lt;p&gt;I had this crazy problem tonight. I wanted to upload all my assets for my website into AWS S3, but I needed to gzip them first before sending them.&lt;/p&gt;
 
 &lt;p&gt;Usually I do this in Team City with Grunt, but all my variable replacement is done in Octopus Deploy depending on the environment. &lt;/p&gt;
 
@@ -1286,43 +1538,4 @@ namespace SimpleLogging.Samples.MVC.Controllers
 &lt;h3&gt;NEXT: Part 2 - Levelling up your Logging&lt;/h3&gt;
 
 &lt;p&gt;In the next part, I take all this simple logging magic to the next level : doing this for your live / production website / application!&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/02/07/fixing-github-with-chrome-plugin-github-expandinizr/</guid><link>http://www.philliphaydon.com/2014/02/07/fixing-github-with-chrome-plugin-github-expandinizr/</link><a10:author><a10:name /></a10:author><category>github</category><title>Fixing Github with Chrome Plugin - GitHub.Expandinizr</title><description>&lt;p&gt;So if you've ever visited Github, and thought &lt;em&gt;'Oh, I'll browser a repository and find a file'&lt;/em&gt;, no doubt you've probably ended up in a suituation like so:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-github-01.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;OH Joy, this is so readable... I honestly have no idea who at Github approved this...&lt;/p&gt;
-
-</description><pubDate>Thu, 06 Feb 2014 16:00:00 Z</pubDate><a10:updated>2014-02-06T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;So if you've ever visited Github, and thought &lt;em&gt;'Oh, I'll browser a repository and find a file'&lt;/em&gt;, no doubt you've probably ended up in a suituation like so:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-github-01.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;OH Joy, this is so readable... I honestly have no idea who at Github approved this...&lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;p&gt;Luckily &lt;a href="https://twitter.com/thecodejunkie"&gt;@TheCodeJunkie&lt;/a&gt; had a brilliant idea... &lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-github-02.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;This awesome Chrome plugin, turns the above, into:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-github-03.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;And this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-github-04.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Into......&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-github-05.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;This more responsive design is so awesome! (Apparently thanks to some random guy named &lt;a href="https://twitter.com/khellang"&gt;Kristian Hellang&lt;/a&gt;...) &lt;small&gt;don't follow him, don't need his ego boosted anymore.&lt;/small&gt; ;)&lt;/p&gt;
-
-&lt;p&gt;Such a better use of space, and makes working with Github a billion times more pleasurable!&lt;/p&gt;
-
-&lt;p&gt;Download it now... NOW!&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;NOWWWW!!!!!!&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://chrome.google.com/webstore/detail/githubexpandinizr/cbehdjjcilgnejbpnjhobkiiggkedfib/"&gt;https://chrome.google.com/webstore/detail/githubexpandinizr/cbehdjjcilgnejbpnjhobkiiggkedfib/&lt;/a&gt;&lt;/p&gt;
 </a10:content></item></channel></rss>
