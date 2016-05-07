@@ -98,7 +98,7 @@ This would result in 1 row being returned.
 
 	-- does the column contain all of
 	select * from test_arrays where values @> array[6, 9];
-	select * from test_arrays where values @> '{5, 9}'::int[];
+	select * from test_arrays where values @> '{6, 9}'::int[];
 
 This uses the contains operator, so we're saying, given the (left) array of values, does it contain all of the values in the (right) array values.
 

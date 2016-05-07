@@ -120,7 +120,7 @@ select * from test_arrays where not values &amp;amp;&amp;amp; '{6, 9}'::int[];
 
 &lt;pre&gt;&lt;code&gt;-- does the column contain all of
 select * from test_arrays where values @&amp;gt; array[6, 9];
-select * from test_arrays where values @&amp;gt; '{5, 9}'::int[];
+select * from test_arrays where values @&amp;gt; '{6, 9}'::int[];
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This uses the contains operator, so we're saying, given the (left) array of values, does it contain all of the values in the (right) array values.&lt;/p&gt;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2016-05-07T18:51:13.3430135+08:00" />
+    <meta http-equiv="last-modified" content="2016-05-07T19:34:01.4736251+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/2016/05/07/postgresql-and-its-array-datatype/" />
@@ -156,7 +156,7 @@ select * from test_arrays where not values &amp;&amp; '{6, 9}'::int[];
 
 <pre><code>-- does the column contain all of
 select * from test_arrays where values @&gt; array[6, 9];
-select * from test_arrays where values @&gt; '{5, 9}'::int[];
+select * from test_arrays where values @&gt; '{6, 9}'::int[];
 </code></pre>
 
 <p>This uses the contains operator, so we're saying, given the (left) array of values, does it contain all of the values in the (right) array values.</p>
