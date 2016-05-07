@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2016-01-03T17:59:21.7765619+08:00" />
+    <meta http-equiv="last-modified" content="2016-05-07T18:51:13.3430135+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/" />
@@ -35,6 +35,35 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2016/05/07/postgresql-and-its-array-datatype/">PostgreSQL and it's Array data type</a> 
+        <span>posted on 07 May 2016</span>
+      </h1> 
+      
+      <p>Switching between PostgreSQL and SQL Server, I've only ever really used the features of SQL Server in PostgreSQL. </p>
+
+<p>Lately after discovering Marten, I've been exploring features of PostgreSQL.</p>
+
+<p>Array data types, are the new awesome (today as of writing this, for me)</p>
+
+<h2>Defining the table</h2>
+
+<p>Using a really boring example, of a table, with an id, and an array of values.</p>
+
+<pre><code>drop table if exists test_arrays;
+
+create table test_arrays (
+    id int,
+    values int[]
+);
+</code></pre>
+
+<p>Above you can see the values is declared as an array type by adding <code>[]</code> to the end of <code>int</code>, this declares it as an int array.</p>
+
+
+      <p><a href="/2016/05/07/postgresql-and-its-array-datatype/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2016/01/03/using-aws-api-gateway-and-sqs-to-recieve-sendgrid-event-hooks/">Using AWS's API Gateway to recieve Sendgrid event hooks and shove them in SQS</a> 
@@ -278,25 +307,6 @@ Instead of sending all the logging information to your localhost Sentinal app we
 
       <p><a href="/2014/04/26/fixing-osx-for-a-windows-user/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2014/04/23/if-youre-not-logging-youre-doing-it-all-wrong/">If you're not logging, you're doing it all wrong. (part 1)</a> 
-        <span>posted on 23 Apr 2014</span>
-      </h1> 
-      <ul class="snow-series"><li>If you're not logging, you're doing it all wrong</li><li><a href="/2014/04/28/leveling-up-your-logging/">Levelling up your Logging</a></li></ul>
-      <h2>Part 1: If you're not logging, you're doing it all wrong.</h2>
-
-<p><img src="/images/simple-logging-01.png" alt="Really? Seriously?" /></p>
-
-<h3>Synopsis: Simple way to start logging your .NET application.</h3>
-
-<p>Maintaining some production software is most overlooked until a problem arises ... which by then it could be more costly to support and fix if some simple, basic procedures were not considered from day zero. In my opionion, adding the ability to get acess to the internal runnings of your system is crutial to <em>seeing what is going on under the hood</em> and helping you get some facts to help problem solve a production issue.</p>
-
-<p>Logging is one of these mechanisms and should be considered and planned before you even start any coding.</p>
-
-
-      <p><a href="/2014/04/23/if-youre-not-logging-youre-doing-it-all-wrong/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -365,6 +375,7 @@ Instead of sending all the logging information to your localhost Sentinal app we
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20165">May, 2016</a></li>
                           <li><a href="/archive#20161">January, 2016</a></li>
                           <li><a href="/archive#201510">October, 2015</a></li>
                           <li><a href="/archive#20148">August, 2014</a></li>

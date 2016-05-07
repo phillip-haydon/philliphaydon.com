@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2016-01-03T17:59:21.7765619+08:00" />
+    <meta http-equiv="last-modified" content="2016-05-07T18:51:13.3430135+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page8/" />
@@ -35,6 +35,29 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/07/11/ravendb-what-am-i-persisting-what-am-i-querying/">RavenDB... What am I persisting, what am I querying? (part 1)</a> 
+        <span>posted on 11 Jul 2012</span>
+      </h1> 
+      
+      <p><a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/">Part 1</a><br />
+<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">Part 2</a><br />
+<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-3/">Part 3</a>  </p>
+
+<p>A couple of questions that pop's up a lot in the <a href="https://jabbr.net/#/rooms/RavenDB">#RavenDB</a> <a href="https://jabbr.net/">JabbR</a> chat room by people picking up RavenDB for the first time are; <em>what am I persisting?, and how do I query relationships?.</em></p>
+
+<p>When we use relational databases we often de-normalize our data into multiple tables, usually this is done to get rid of duplication of data. We do this by adding 100's of foreign keys to our tables relating things all over the place, we had a CountryId to our Address, a UserId to our Order, an OrderId to our OrderLine.</p>
+
+<p>There's many reasons why this was done, some of which Oren describes in his <a href="http://ayende.com/blog/153026/embracing-ravendb">Embracing RavenDB post.</a></p>
+
+<p>Then when we go to query those relationships we have to join data, when we have an entity with multiple relationships we end up getting into complex queries with cartesian joins, performance starts to degrade, and things just get messy.</p>
+
+<p>When working with Document Databases we throw all that out the window and we deal with Root Aggregates. These are objects that are responsible for their child objects, you don't load the child objects individually, they are loaded with the root or parent object.</p>
+
+
+      <p><a href="/2012/07/11/ravendb-what-am-i-persisting-what-am-i-querying/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2012/06/18/multiple-iisexpress-sites-profiled-with-dottrace/">Multiple IISExpress Sites profiled with DotTrace</a> 
@@ -263,51 +286,6 @@
 
       <p><a href="/2012/02/21/service-stack-i-heart-you-my-conversion-from-wcf-to-ss/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2012/02/19/mvc-4-project-templates-are-stupid/">MVC 4 Project Templates are stupid</a> 
-        <span>posted on 19 Feb 2012</span>
-      </h1> 
-      
-      <p><em>begin rant</em></p>
-
-<p>Thought I would jump on the MVC 4 Beta bandwagon today, installed, create new project... And this is what I'm greeted with:</p>
-
-<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;packages&gt;
-  &lt;package id="AspNetMvc" version="4.0.20126.16343" /&gt;
-  &lt;package id="AspNetRazor.Core" version="2.0.20126.16343" /&gt;
-  &lt;package id="AspNetWebApi" version="4.0.20126.16343" /&gt;
-  &lt;package id="AspNetWebApi.Core" version="4.0.20126.16343" /&gt;
-  &lt;package id="AspNetWebPages.Core" version="2.0.20126.16343" /&gt;
-  &lt;package id="EntityFramework" version="4.1.10331.0" /&gt;
-  &lt;package id="jQuery" version="1.6.2" /&gt;
-  &lt;package id="jQuery.Ajax.Unobtrusive" version="2.0.20126.16343" /&gt;
-  &lt;package id="jQuery.UI.Combined" version="1.8.11" /&gt;
-  &lt;package id="jQuery.Validation" version="1.8.1" /&gt;
-  &lt;package id="jQuery.Validation.Unobtrusive" version="2.0.20126.16343" /&gt;
-  &lt;package id="knockoutjs" version="2.0.0.0" /&gt;
-  &lt;package id="Microsoft.Web.Infrastructure" version="1.0.0.0" /&gt;
-  &lt;package id="Microsoft.Web.Optimization" version="1.0.0-beta" /&gt;
-  &lt;package id="Modernizr" version="2.0.6" /&gt;
-  &lt;package id="System.Json" version="4.0.20126.16343" /&gt;
-  &lt;package id="System.Net.Http" version="2.0.20126.16343" /&gt;
-  &lt;package id="System.Net.Http.Formatting" version="4.0.20126.16343" /&gt;
-  &lt;package id="System.Web.Http.Common" version="4.0.20126.16343" /&gt;
-  &lt;package id="System.Web.Providers" version="1.1" /&gt;
-  &lt;package id="System.Web.Providers.Core" version="1.0" /&gt;
-&lt;/packages&gt;
-</code></pre>
-
-<p>This is absolutely stupid...</p>
-
-<p>I select EMPTY project template.</p>
-
-<p>EMPTY</p>
-
-
-      <p><a href="/2012/02/19/mvc-4-project-templates-are-stupid/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -378,6 +356,7 @@
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20165">May, 2016</a></li>
                           <li><a href="/archive#20161">January, 2016</a></li>
                           <li><a href="/archive#201510">October, 2015</a></li>
                           <li><a href="/archive#20148">August, 2014</a></li>

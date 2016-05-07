@@ -1,4 +1,184 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2016/01/03/using-aws-api-gateway-and-sqs-to-recieve-sendgrid-event-hooks/</guid><link>http://www.philliphaydon.com/2016/01/03/using-aws-api-gateway-and-sqs-to-recieve-sendgrid-event-hooks/</link><a10:author><a10:name /></a10:author><category>API Gateway</category><category>AWS</category><category>Event Hooks</category><category>Sendgrid</category><category>SQS</category><title>Using AWS's API Gateway to recieve Sendgrid event hooks and shove them in SQS</title><description>&lt;p&gt;Sendgrid hooks allow you to recieve notifications of events that occur to the emails that you send, such as, was the email clicked, was it bounced, was it unsubscribed, etc.&lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2016/05/07/postgresql-and-its-array-datatype/</guid><link>http://www.philliphaydon.com/2016/05/07/postgresql-and-its-array-datatype/</link><a10:author><a10:name /></a10:author><category>PostgreSQL</category><title>PostgreSQL and it's Array data type</title><description>&lt;p&gt;Switching between PostgreSQL and SQL Server, I've only ever really used the features of SQL Server in PostgreSQL. &lt;/p&gt;
+
+&lt;p&gt;Lately after discovering Marten, I've been exploring features of PostgreSQL.&lt;/p&gt;
+
+&lt;p&gt;Array data types, are the new awesome (today as of writing this, for me)&lt;/p&gt;
+
+&lt;h2&gt;Defining the table&lt;/h2&gt;
+
+&lt;p&gt;Using a really boring example, of a table, with an id, and an array of values.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drop table if exists test_arrays;
+
+create table test_arrays (
+    id int,
+    values int[]
+);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Above you can see the values is declared as an array type by adding &lt;code&gt;[]&lt;/code&gt; to the end of &lt;code&gt;int&lt;/code&gt;, this declares it as an int array.&lt;/p&gt;
+
+</description><pubDate>Fri, 06 May 2016 16:00:00 Z</pubDate><a10:updated>2016-05-06T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;Switching between PostgreSQL and SQL Server, I've only ever really used the features of SQL Server in PostgreSQL. &lt;/p&gt;
+
+&lt;p&gt;Lately after discovering Marten, I've been exploring features of PostgreSQL.&lt;/p&gt;
+
+&lt;p&gt;Array data types, are the new awesome (today as of writing this, for me)&lt;/p&gt;
+
+&lt;h2&gt;Defining the table&lt;/h2&gt;
+
+&lt;p&gt;Using a really boring example, of a table, with an id, and an array of values.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drop table if exists test_arrays;
+
+create table test_arrays (
+    id int,
+    values int[]
+);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Above you can see the values is declared as an array type by adding &lt;code&gt;[]&lt;/code&gt; to the end of &lt;code&gt;int&lt;/code&gt;, this declares it as an int array.&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;PostgreSQL also supports multi-dimentional arrays by adding more square brackets to the end, for example we could define a multi dimentional array of &lt;code&gt;text&lt;/code&gt; values by declaring the column as &lt;code&gt;text[][]&lt;/code&gt; which would make it two dimentional.&lt;/p&gt;
+
+&lt;p&gt;It also supports fixed size arrays, by passing an integer to the like &lt;code&gt;text[5]&lt;/code&gt;, this would make the array length of 5. &lt;/p&gt;
+
+&lt;p&gt;I'm not going to discuss fixed length or multidimentional arrays in this post tho.&lt;/p&gt;
+
+&lt;h2&gt;Inserting Data&lt;/h2&gt;
+
+&lt;p&gt;Inserting data is a little strange...&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;insert into test_arrays (id, values) values (1, '{1, 5, 9}');
+insert into test_arrays (id, values) values (2, '{2, 5, 20}');
+insert into test_arrays (id, values) values (3, '{8, 6, 50}');
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here I'm inserting 3 rows, as you can see the arrays are inserted by passing a string value that contains an array, wrapped in curly brackets. &lt;/p&gt;
+
+&lt;p&gt;When inserting string values, they need to be wrapped in double quotes, for example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;'{"Banana", "Apple", "Watermelon"}'
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This would be a value array of strings for use in &lt;code&gt;text[]&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;An alternative approach is to use the &lt;code&gt;array&lt;/code&gt; type passing in the values to the constructor like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;insert into test_arrays (id, values) values (4, array[12, 7, 3]);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;insert into test_arrays (id, values) values (4, array["Banana", "Apple", "Watermelon"]);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I prefer the string approach.&lt;/p&gt;
+
+&lt;h2&gt;Filtering data&lt;/h2&gt;
+
+&lt;p&gt;So there's probably 3 main scenarios I can think of when filtering an array.&lt;/p&gt;
+
+&lt;p&gt;Given the data we inserted above&lt;/p&gt;
+
+&lt;h4&gt;Does the array contain the value 5?&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;-- does the column contain 5?
+select * from test_arrays where 5 = any(values);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This says, does the value of 5 equal any of the values in the array. It's a little strange when you write it the first time but it does make sense.&lt;/p&gt;
+
+&lt;p&gt;This would result in rows 1 and 2 being returned.&lt;/p&gt;
+
+&lt;h4&gt;Does the array contain atleast 1 of the values from another array?&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;-- does the column contain at-least one of
+select * from test_arrays where values &amp;amp;&amp;amp; array[6, 9];
+select * from test_arrays where values &amp;amp;&amp;amp; '{6, 9}'::int[];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This uses the &amp;amp;&amp;amp; operator which is 'overlap', in other words, does the (left) array contain any of the elements in the (right) array.&lt;/p&gt;
+
+&lt;p&gt;This would result in rows 1 and 3 being returned.&lt;/p&gt;
+
+&lt;p&gt;I wrote this using both ways of writing the array.&lt;/p&gt;
+
+&lt;h4&gt;Does the array NOT contain any of the values from another array?&lt;/h4&gt;
+
+&lt;p&gt;Very similar to the contains, only we specify it as &lt;code&gt;not&lt;/code&gt; before the condition.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-- does the column NOT contain at-least one of
+select * from test_arrays where not values &amp;amp;&amp;amp; array[6, 9];
+select * from test_arrays where not values &amp;amp;&amp;amp; '{6, 9}'::int[];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This would result in 1 row being returned.&lt;/p&gt;
+
+&lt;h4&gt;Does the array contain all of the values from another array?&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;-- does the column contain all of
+select * from test_arrays where values @&amp;gt; array[6, 9];
+select * from test_arrays where values @&amp;gt; '{5, 9}'::int[];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This uses the contains operator, so we're saying, given the (left) array of values, does it contain all of the values in the (right) array values.&lt;/p&gt;
+
+&lt;p&gt;This would result in row 1 being returned.&lt;/p&gt;
+
+&lt;h2&gt;Returning data&lt;/h2&gt;
+
+&lt;p&gt;If you're selecting out your array, it will be selected as the format that we inserted it as.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/postgresql-arrays-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This makes parsing it a little hard. In C# you would get a string back, and have to strip off the &lt;code&gt;{ }&lt;/code&gt; and then split on &lt;code&gt;,&lt;/code&gt;. The good news is there are options to help you return the data a little nicer.&lt;/p&gt;
+
+&lt;h4&gt;array_to_string to remove curly brackets&lt;/h4&gt;
+
+&lt;p&gt;Using &lt;code&gt;array_to_string(...)&lt;/code&gt; function, we can return the results as a string without the brackets.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-- selecting the array as a string
+select id, array_to_string(values, ',') from test_arrays;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will return the same result as above, without the &lt;code&gt;{ }&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/postgresql-arrays-02.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;There's also the opposite, &lt;code&gt;string_to_array&lt;/code&gt;, which will allow you to pass a string in and get an array back.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-- returning the array as a string
+select string_to_array('9, 8, 7, 6', ',');
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This would give you:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/postgresql-arrays-03.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;h4&gt;unnest to return an array as rows&lt;/h4&gt;
+
+&lt;p&gt;This is so awesome, trying to do this in SQL Server is SUCH a pain. PostgreSQL supports &lt;code&gt;unnest&lt;/code&gt; which will return each value of an array, as a row, it will also duplicate all data from other rows to each row returned for the array.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-- return array column as rows
+select id, unnest(values) from test_arrays
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This results in the following result:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/postgresql-arrays-04.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Indexes &amp;amp; Doco&lt;/h2&gt;
+
+&lt;p&gt;There's a lot of other stuff that I haven't included in this post. The type is Indexable, so you could apply a GIN index against the column for faster searching against &lt;code&gt;=&lt;/code&gt;, &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; and &lt;code&gt;&amp;lt;@&lt;/code&gt; / &lt;code&gt;&amp;gt;@&lt;/code&gt; operators.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.postgresql.org/docs/9.5/static/gin-builtin-opclasses.html" title="http://www.postgresql.org/docs/9.5/static/gin-builtin-opclasses.html"&gt;http://www.postgresql.org/docs/9.5/static/gin-builtin-opclasses.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The PostgreSQL documentation is awesome. Check it out.  &lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.postgresql.org/docs/9.5/static/functions-array.html" title="http://www.postgresql.org/docs/9.5/static/functions-array.html"&gt;http://www.postgresql.org/docs/9.5/static/functions-array.html&lt;/a&gt;&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2016/01/03/using-aws-api-gateway-and-sqs-to-recieve-sendgrid-event-hooks/</guid><link>http://www.philliphaydon.com/2016/01/03/using-aws-api-gateway-and-sqs-to-recieve-sendgrid-event-hooks/</link><a10:author><a10:name /></a10:author><category>API Gateway</category><category>AWS</category><category>Event Hooks</category><category>Sendgrid</category><category>SQS</category><title>Using AWS's API Gateway to recieve Sendgrid event hooks and shove them in SQS</title><description>&lt;p&gt;Sendgrid hooks allow you to recieve notifications of events that occur to the emails that you send, such as, was the email clicked, was it bounced, was it unsubscribed, etc.&lt;/p&gt;
 
 &lt;p&gt;A list of events can be found &lt;a href="http://www.philliphaydon.com/0"&gt;here&lt;/a&gt;&lt;/p&gt;
 
@@ -1302,240 +1482,4 @@ $ nano DefaultKeyBinding.dict
 &lt;li&gt;Right click context menu to add new file...&lt;/li&gt;
 &lt;li&gt;Cut/Paste folders easily (apparently there's some command but I never remember it)&lt;/li&gt;
 &lt;/ol&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/04/23/if-youre-not-logging-youre-doing-it-all-wrong/</guid><link>http://www.philliphaydon.com/2014/04/23/if-youre-not-logging-youre-doing-it-all-wrong/</link><a10:author><a10:name>Pure Krome</a10:name></a10:author><category>Logging</category><category>NancyFX</category><title>If you're not logging, you're doing it all wrong. (part 1)</title><description>&lt;h2&gt;Part 1: If you're not logging, you're doing it all wrong.&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/simple-logging-01.png" alt="Really? Seriously?" /&gt;&lt;/p&gt;
-
-&lt;h3&gt;Synopsis: Simple way to start logging your .NET application.&lt;/h3&gt;
-
-&lt;p&gt;Maintaining some production software is most overlooked until a problem arises ... which by then it could be more costly to support and fix if some simple, basic procedures were not considered from day zero. In my opionion, adding the ability to get acess to the internal runnings of your system is crutial to &lt;em&gt;seeing what is going on under the hood&lt;/em&gt; and helping you get some facts to help problem solve a production issue.&lt;/p&gt;
-
-&lt;p&gt;Logging is one of these mechanisms and should be considered and planned before you even start any coding.&lt;/p&gt;
-
-</description><pubDate>Tue, 22 Apr 2014 16:00:00 Z</pubDate><a10:updated>2014-04-22T16:00:00Z</a10:updated><a10:content type="html">&lt;h2&gt;Part 1: If you're not logging, you're doing it all wrong.&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/simple-logging-01.png" alt="Really? Seriously?" /&gt;&lt;/p&gt;
-
-&lt;h3&gt;Synopsis: Simple way to start logging your .NET application.&lt;/h3&gt;
-
-&lt;p&gt;Maintaining some production software is most overlooked until a problem arises ... which by then it could be more costly to support and fix if some simple, basic procedures were not considered from day zero. In my opionion, adding the ability to get acess to the internal runnings of your system is crutial to &lt;em&gt;seeing what is going on under the hood&lt;/em&gt; and helping you get some facts to help problem solve a production issue.&lt;/p&gt;
-
-&lt;p&gt;Logging is one of these mechanisms and should be considered and planned before you even start any coding.&lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;p&gt;What this is not about:    &lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Not an opinion piece about why you should be logging your code. Google for that, then come back when you're convinced that you need it. &lt;/li&gt;
-&lt;li&gt;This is not a lesson in Dependency Injection. Don't know that? Google it then come back.&lt;/li&gt;
-&lt;li&gt;Nor is this a lesson in &lt;a href="http://nlog-project.org/"&gt;NLog&lt;/a&gt;, &lt;a href="http://autofac.org/"&gt;AutoFac&lt;/a&gt; or &lt;a href="http://nancyfx.org/"&gt;NancyFX&lt;/a&gt; / &lt;a href="http://www.asp.net/mvc"&gt;ASP.NET MVC&lt;/a&gt; (sample tools we use in this example)&lt;/li&gt;
-&lt;li&gt;Nor will I explain how to setup an account and 'hosts' with LogEntries (what the hell is LogEntries? I'll explain that later).&lt;/li&gt;
-&lt;li&gt;Nor will I explain what/how are web.config transformations.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3&gt;If you're not logging, then you're doing it all wrong.&lt;/h3&gt;
-
-&lt;p&gt;You build websites or mobile/desktop applications. Awesome. Therefore, you need to know what is happening &lt;em&gt;during&lt;/em&gt; runtime of your live/production application, otherwise you're flying blind. &lt;/p&gt;
-
-&lt;p&gt;The trick to logging a .NET application is to make sure that you leverage a logging interface all over your code. Based upon your solution's configuration (ie. &lt;code&gt;DEBUG&lt;/code&gt; or &lt;code&gt;RELEASE&lt;/code&gt; or &lt;code&gt;ANY_OTHER_CUSTOM_CONFIG&lt;/code&gt;) we leverage &lt;code&gt;web.config&lt;/code&gt; &lt;em&gt;transformations&lt;/em&gt; to use the appropriate logging &lt;em&gt;targets&lt;/em&gt;, based on the configuration.&lt;/p&gt;
-
-&lt;p&gt;Note: &lt;code&gt;Target&lt;/code&gt; = a fancy word for where we dump our logging information to. This could be the console or a file or another gui-application (more on this, later) or some internet website (also more on this magic, later).&lt;/p&gt;
-
-&lt;h3&gt;Tools - we need tools!&lt;/h3&gt;
-
-&lt;p&gt;Then general idea is this&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Code your message(s): "Hi, I'm here."  or "OMG, BOOM" or "Just created a new user. UserId: '1'.".&lt;/li&gt;
-&lt;li&gt;NLog sends the message somewhere: your GUI app, or email, or a logging website.&lt;/li&gt;
-&lt;li&gt;View the messages: use Sentinal (localhost) or LogEntries (production).&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;And where do we visualize this data again?&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://sentinel.codeplex.com/"&gt;Sentinal&lt;/a&gt;: A free windows app that displays log information, as it streams in &lt;em&gt;live&lt;/em&gt;. (yes, ~~streams~~ in …)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://logentries.com/"&gt;LogEntires&lt;/a&gt;: A website that &lt;em&gt;stores&lt;/em&gt; your log entry information, which you can view it at any time. Also has a live stream.&lt;br /&gt;
-&lt;strong&gt;Free account limits data retention to a week .. which for most people (especially when you're testing/debuging) is &lt;em&gt;totally&lt;/em&gt; sufficient.&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Okay so when to use what?    &lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Sentinal: use this for localhost debugging.&lt;/li&gt;
-&lt;li&gt;LogEntires: use this for live/production system.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Pro Tip: Yes, you can use Sentinal for live/production if you really want to. But this involves setting up NAT rules in your firewall, opening ports on your local firewall, etc. Basically - a PITA vs using LogEntries which is for free.&lt;/p&gt;
-
-&lt;h3&gt;Show me some code, already! Sheesss…&lt;/h3&gt;
-
-&lt;p&gt;Fine. Let's do this: LEEEEROOYYYYY JENKINNNNNSSSSSSS……&lt;/p&gt;
-
-&lt;p&gt;Step 1. Download &amp;amp; install &lt;a href="http://sentinel.codeplex.com/"&gt;Sentinal&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Step 2. Create/Setup a new solution.&lt;br /&gt;
-    eg. &lt;code&gt;File -&amp;gt; New -&amp;gt; Web Application.&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Step 3. Lets add some logging information.&lt;/p&gt;
-
-&lt;p&gt;First, we need an existing logging interface package.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/simple-logging-02.png" alt="Nuget command line" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Next we'll use DI/IOC to inject the logging instance, so lets wire that up first.&lt;/p&gt;
-
-&lt;p&gt;NancyFX:&lt;br /&gt;
-(This is using TinyIOC for IoC (which is built into NancyFX))&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;protected override void ConfigureApplicationContainer(TinyIoCContainer container)
-{
-    base.ConfigureApplicationContainer(container);
-
-    // NOTE: Use a specific constructor, which is why we have to use the delayed registration.
-    var loggingService = new NLogLoggingService();
-    container.Register&amp;lt;ILoggingService&amp;gt;((c, p) =&amp;gt; loggingService);
-
-    // Register any other singleton services.
-    // …
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;ASP.Net MVC&lt;br /&gt;
-(This is using &lt;a href="http://autofac.org/"&gt;AutoFac&lt;/a&gt; for IoC)    &lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public static class DependencyResolutionConfig
-{
-    public static void RegisterContainers()
-    {
-        var builder = new ContainerBuilder();
-
-        // Register our services.
-        builder.Register(c =&amp;gt; new NLogLoggingService())
-            .As&amp;lt;ILoggingService&amp;gt;();
-
-        // Register our controllers (so they will use constructor injection)
-        builder.RegisterControllers(typeof(MvcApplication).Assembly);
-
-        var container = builder.Build();
-
-        DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we'll use constructor injection for our logging interface.&lt;br /&gt;
-&lt;strong&gt;Side Note&lt;/strong&gt;: I do not consider injecting an &lt;code&gt;ILoggingService&lt;/code&gt; into classes as an &lt;a href="http://jeffreypalermo.com/blog/constructor-over-injection-anti-pattern/"&gt;Anti-Pattern&lt;/a&gt; because IMO I usually log things in &lt;em&gt;all&lt;/em&gt; methods (I'll touch on this, below) so therefore, logging is a fundamental part of each class that contains business logic. As such, my class has a logging dependecy throughout. Not on 1 or some methods, only.&lt;/p&gt;
-
-&lt;p&gt;NancyFX&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;using System;
-using Nancy;
-using Shouldly;
-using SimpleLogging.Core;
-
-namespace SimpleLogging.Samples.NancyFX.Modules
-{
-    public class HomeModule : NancyModule
-    {
-        private readonly ILoggingService _loggingService;
-
-        public HomeModule(ILoggingService loggingService)
-        {
-            loggingService.ShouldNotBe(null);
-            _loggingService = loggingService;
-
-            Get["/"] = _ =&amp;gt; GetHome();
-        }
-
-        private dynamic GetHome()
-        {
-            _loggingService.Trace("GetHome");
-
-            _loggingService.Debug("Current DateTime: '{0}'", DateTime.UtcNow);
-
-            return View["home"];
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;ASP.NET MVC&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;using System;
-using System.Web.Mvc;
-using Shouldly;
-using SimpleLogging.Core;
-
-namespace SimpleLogging.Samples.MVC.Controllers
-{
-    public class HomeController : Controller
-    {
-        private readonly ILoggingService _loggingService;
-
-        public HomeController(ILoggingService loggingService)
-        {
-            loggingService.ShouldNotBe(null);
-            _loggingService = loggingService;
-        }
-
-        //
-        // GET: /Home/
-
-        public ActionResult Index()
-        {
-            _loggingService.Trace("Index");
-
-            _loggingService.Debug("Current DateTime: '{0}'", DateTime.UtcNow);
-
-            return View();
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Step 4. Add an NLog file.&lt;/p&gt;
-
-&lt;p&gt;Add this new file to the root website / application folder.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;nlog.config    
-
-&amp;lt;?xml version="1.0" encoding="utf-8" ?&amp;gt;
-&amp;lt;nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      autoReload="true"
-      throwExceptions="true"&amp;gt;
-
-    &amp;lt;!-- NLog example: https://github.com/nlog/nlog/wiki/Examples --&amp;gt;
-    &amp;lt;targets async="true"&amp;gt;
-        &amp;lt;target xsi:type="NLogViewer"
-                name="sentinal" 
-                address="udp://127.0.0.1:9999" /&amp;gt;
-    &amp;lt;/targets&amp;gt;
-
-    &amp;lt;rules&amp;gt;
-        &amp;lt;logger name="*" minlevel="Trace" writeTo="sentinal"/&amp;gt;
-    &amp;lt;/rules&amp;gt;
-
-&amp;lt;/nlog&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Step 5. Run Sentinal&lt;/p&gt;
-
-&lt;p&gt;Step 6. Run the website.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/simple-logging-03.png" alt="Zoh Mai Gawd" /&gt;&lt;/p&gt;
-
-&lt;h3&gt;Recap.&lt;/h3&gt;
-
-&lt;p&gt;So now we've started sprinkling logging messages throughout our code. This gives us some Serious.KickAss&amp;trade; insights into what is going on under the hood with our code. We view this logging data locally with our Sentinel app. &lt;/p&gt;
-
-&lt;p&gt;It's not hard to add logging to your website / application. &lt;/p&gt;
-
-&lt;p&gt;Please start to get into the habbit of &lt;code&gt;TRACE&lt;/code&gt;ing and &lt;code&gt;DEBUG&lt;/code&gt;ing your code so you can see what's going on under the hood - when you really need to.&lt;/p&gt;
-
-&lt;h3&gt;NEXT: Part 2 - Levelling up your Logging&lt;/h3&gt;
-
-&lt;p&gt;In the next part, I take all this simple logging magic to the next level : doing this for your live / production website / application!&lt;/p&gt;
 </a10:content></item></channel></rss>

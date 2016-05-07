@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="last-modified" content="2016-05-07T18:51:13.3430135+08:00" />
+    <title>philliphaydon.com</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="canonical" href="http://www.philliphaydon.com/2016/05/07/postgresql-and-its-array-datatype/" />
+</head>
+<body class="home blog">
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header fancy-container lightgreen" role="banner">
+            <hgroup>
+                <h1 class="site-title"><a href="/" title="philliphaydon.com" rel="home">philliphaydon.com</a></h1>
+                <h2><small>Works on my PC...</small></h2>
+                <p class="site-description">Pleb from New Zealand who was banished overseas and currently resides in Singapore.</p>
+            </hgroup>
+            <nav role="navigation" class="site-navigation main-navigation">
+                <h1 class="assistive-text">Menu</h1>
+                <div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/category">Categories</a></li>
+                        <li><a href="/archive">Archive</a></li>
+                        <li><a href="/feed.xml">RSS / Feed</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="main">
+            <div id="primary" class="site-content">
+                <div id="content" role="main">
+                  
+
+<div id="post">
+    <h1>PostgreSQL and it's Array data type</h1>
+
+    <div class="post-note">
+        posted on 07 May 2016
+            | <a href="/category/postgresql">PostgreSQL</a>
+
+        <div class="addthis_toolbox addthis_default_style" style="float:right;">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+            <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+            <a class="addthis_button_linkedin_counter"></a>
+            <a class="addthis_counter addthis_pill_style"></a>
+        </div>
+    </div>
+
+
+
+    
+
+    <p>Switching between PostgreSQL and SQL Server, I've only ever really used the features of SQL Server in PostgreSQL. </p>
+
+<p>Lately after discovering Marten, I've been exploring features of PostgreSQL.</p>
+
+<p>Array data types, are the new awesome (today as of writing this, for me)</p>
+
+<h2>Defining the table</h2>
+
+<p>Using a really boring example, of a table, with an id, and an array of values.</p>
+
+<pre><code>drop table if exists test_arrays;
+
+create table test_arrays (
+    id int,
+    values int[]
+);
+</code></pre>
+
+<p>Above you can see the values is declared as an array type by adding <code>[]</code> to the end of <code>int</code>, this declares it as an int array.</p>
+
+<!--excerpt-->
+
+<p>PostgreSQL also supports multi-dimentional arrays by adding more square brackets to the end, for example we could define a multi dimentional array of <code>text</code> values by declaring the column as <code>text[][]</code> which would make it two dimentional.</p>
+
+<p>It also supports fixed size arrays, by passing an integer to the like <code>text[5]</code>, this would make the array length of 5. </p>
+
+<p>I'm not going to discuss fixed length or multidimentional arrays in this post tho.</p>
+
+<h2>Inserting Data</h2>
+
+<p>Inserting data is a little strange...</p>
+
+<pre><code>insert into test_arrays (id, values) values (1, '{1, 5, 9}');
+insert into test_arrays (id, values) values (2, '{2, 5, 20}');
+insert into test_arrays (id, values) values (3, '{8, 6, 50}');
+</code></pre>
+
+<p>Here I'm inserting 3 rows, as you can see the arrays are inserted by passing a string value that contains an array, wrapped in curly brackets. </p>
+
+<p>When inserting string values, they need to be wrapped in double quotes, for example:</p>
+
+<pre><code>'{"Banana", "Apple", "Watermelon"}'
+</code></pre>
+
+<p>This would be a value array of strings for use in <code>text[]</code>.</p>
+
+<p>An alternative approach is to use the <code>array</code> type passing in the values to the constructor like so:</p>
+
+<pre><code>insert into test_arrays (id, values) values (4, array[12, 7, 3]);
+</code></pre>
+
+<p>or</p>
+
+<pre><code>insert into test_arrays (id, values) values (4, array["Banana", "Apple", "Watermelon"]);
+</code></pre>
+
+<p>I prefer the string approach.</p>
+
+<h2>Filtering data</h2>
+
+<p>So there's probably 3 main scenarios I can think of when filtering an array.</p>
+
+<p>Given the data we inserted above</p>
+
+<h4>Does the array contain the value 5?</h4>
+
+<pre><code>-- does the column contain 5?
+select * from test_arrays where 5 = any(values);
+</code></pre>
+
+<p>This says, does the value of 5 equal any of the values in the array. It's a little strange when you write it the first time but it does make sense.</p>
+
+<p>This would result in rows 1 and 2 being returned.</p>
+
+<h4>Does the array contain atleast 1 of the values from another array?</h4>
+
+<pre><code>-- does the column contain at-least one of
+select * from test_arrays where values &amp;&amp; array[6, 9];
+select * from test_arrays where values &amp;&amp; '{6, 9}'::int[];
+</code></pre>
+
+<p>This uses the &amp;&amp; operator which is 'overlap', in other words, does the (left) array contain any of the elements in the (right) array.</p>
+
+<p>This would result in rows 1 and 3 being returned.</p>
+
+<p>I wrote this using both ways of writing the array.</p>
+
+<h4>Does the array NOT contain any of the values from another array?</h4>
+
+<p>Very similar to the contains, only we specify it as <code>not</code> before the condition.</p>
+
+<pre><code>-- does the column NOT contain at-least one of
+select * from test_arrays where not values &amp;&amp; array[6, 9];
+select * from test_arrays where not values &amp;&amp; '{6, 9}'::int[];
+</code></pre>
+
+<p>This would result in 1 row being returned.</p>
+
+<h4>Does the array contain all of the values from another array?</h4>
+
+<pre><code>-- does the column contain all of
+select * from test_arrays where values @&gt; array[6, 9];
+select * from test_arrays where values @&gt; '{5, 9}'::int[];
+</code></pre>
+
+<p>This uses the contains operator, so we're saying, given the (left) array of values, does it contain all of the values in the (right) array values.</p>
+
+<p>This would result in row 1 being returned.</p>
+
+<h2>Returning data</h2>
+
+<p>If you're selecting out your array, it will be selected as the format that we inserted it as.</p>
+
+<p><img src="/images/postgresql-arrays-01.png" alt="" /></p>
+
+<p>This makes parsing it a little hard. In C# you would get a string back, and have to strip off the <code>{ }</code> and then split on <code>,</code>. The good news is there are options to help you return the data a little nicer.</p>
+
+<h4>array_to_string to remove curly brackets</h4>
+
+<p>Using <code>array_to_string(...)</code> function, we can return the results as a string without the brackets.</p>
+
+<pre><code>-- selecting the array as a string
+select id, array_to_string(values, ',') from test_arrays;
+</code></pre>
+
+<p>This will return the same result as above, without the <code>{ }</code></p>
+
+<p><img src="/images/postgresql-arrays-02.png" alt="" /></p>
+
+<p>There's also the opposite, <code>string_to_array</code>, which will allow you to pass a string in and get an array back.</p>
+
+<pre><code>-- returning the array as a string
+select string_to_array('9, 8, 7, 6', ',');
+</code></pre>
+
+<p>This would give you:</p>
+
+<p><img src="/images/postgresql-arrays-03.png" alt="" /></p>
+
+<h4>unnest to return an array as rows</h4>
+
+<p>This is so awesome, trying to do this in SQL Server is SUCH a pain. PostgreSQL supports <code>unnest</code> which will return each value of an array, as a row, it will also duplicate all data from other rows to each row returned for the array.</p>
+
+<pre><code>-- return array column as rows
+select id, unnest(values) from test_arrays
+</code></pre>
+
+<p>This results in the following result:</p>
+
+<p><img src="/images/postgresql-arrays-04.png" alt="" /></p>
+
+<h2>Indexes &amp; Doco</h2>
+
+<p>There's a lot of other stuff that I haven't included in this post. The type is Indexable, so you could apply a GIN index against the column for faster searching against <code>=</code>, <code>&amp;&amp;</code> and <code>&lt;@</code> / <code>&gt;@</code> operators.</p>
+
+<p><a href="http://www.postgresql.org/docs/9.5/static/gin-builtin-opclasses.html" title="http://www.postgresql.org/docs/9.5/static/gin-builtin-opclasses.html">http://www.postgresql.org/docs/9.5/static/gin-builtin-opclasses.html</a></p>
+
+<p>The PostgreSQL documentation is awesome. Check it out.  </p>
+
+<p><a href="http://www.postgresql.org/docs/9.5/static/functions-array.html" title="http://www.postgresql.org/docs/9.5/static/functions-array.html">http://www.postgresql.org/docs/9.5/static/functions-array.html</a></p>
+
+
+    <div id="disqus_thread"></div>
+<script>
+    var reset_disqus = function(){
+        DISQUS.reset({
+            reload: true,
+            config: function () {
+                //this.page.identifier = '';
+                this.page.url = 'http://www.philliphaydon.com/2016/05/07/postgresql-and-its-array-datatype/';
+                //this.page.title = '';
+            }
+        });
+    };
+
+    var disqus_shortname = 'philliphaydon';
+    var disqus_url = 'http://www.philliphaydon.com/2016/05/07/postgresql-and-its-array-datatype/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    window.addEventListener('orientationchange', reset_disqus);
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ca97356d8c1454"></script>
+
+</div>
+                </div>
+                <!-- #content -->
+            </div>
+            <!-- #primary .site-content -->
+
+            <div id="secondary" class="widget-area fancy-container lightred" role="complementary">
+                <aside id="text-5" class="widget widget_text">
+                    <h1 class="widget-title">Follow</h1>
+                    <div class="textwidget logos">
+                        <a href="https://twitter.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"><img src="/stylesheets/images/twitter.png"></a>
+                        <a href="http://stackoverflow.com/users/456813/phill" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://stackoverflow.com']);"><img src="/stylesheets/images/stackoverflow.png"></a>
+                        <a href="http://www.linkedin.com/in/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://www.linkedin.com']);"><img src="/stylesheets/images/linkedin.png"></a>
+                        <a href="https://plus.google.com/u/0/111751877537461442095" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://plus.google.com']);"><img src="/stylesheets/images/googleplus.png"></a>
+                        <a href="https://coderbits.com/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','https://coderbits.com/philliphaydon']);"><img src="/stylesheets/images/codebits.png"></a>
+                        <a href="https://github.com/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://github.com']);"><img src="/stylesheets/images/github.png"></a>
+                        <a href="http://www.codeschool.com/users/philliphaydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://codeschool.com']);"><img src="/stylesheets/images/codeschool.png"></a>
+                        <a href="http://www.kickstarter.com/profile/phillip-haydon" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://kickstarter.com']);"><img src="/stylesheets/images/kickstarter.png"></a>
+                    </div>
+                    <a href="http://stackoverflow.com/users/456813/phill">
+                      <img src="http://stackoverflow.com/users/flair/456813.png" width="208" height="58" alt="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Phill at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+                    </a>
+                    
+                    <a href="http://nancyfx.org/mvm.html"><img src="/stylesheets/images/mvm.png"></a>
+                    
+                    <div id = "clustrback" style="width:162px; height:133px;  background:#f7f7f7 url(http://clustrmaps.com/admin/3d/images/st4_grey.png)  center no-repeat; text-align:center;">
+                      <a href="http://www2.clustrmaps.com/counter/maps.php?url=http://www.philliphaydon.com/" style="width:160px; display:block; margin:0 auto;" id="clustrMapsLink">
+                        <img src="http://www2.clustrmaps.com/counter/index2.php?url=http://www.philliphaydon.com/" style="border:0px; margin:15px auto;margin:15px auto;" alt="Locations of visitors to this page" title="Locations of visitors to this page" id="clustrMapsImg" />
+                      </a>
+                    </div>
+                </aside>
+                <!--aside id="text-8" class="widget widget_text">
+                    <h1 class="widget-title">Other sites</h1>
+                    <div class="textwidget">
+                        <a href="http://csharptube.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://csharptube.com']);">csharptube.com</a><br />
+                        <a href="http://thisisparrot.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://thisisparrot.com']);">Parrot</a><br />
+                        <a href="http://shitprogrammerswrite.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://shitprogrammerswrite.com']);">Shit programmers write</a><br />
+                    </div>
+                </aside-->
+                <aside id="linkcat-6" class="widget widget_links">
+                    <h1 class="widget-title">Other Blogs</h1>
+                    <ul class='xoxo blogroll'>
+                        <li><a href="http://www.nickharris.net/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://nickharris.net/']);">Nick Harris</a></li>
+                        <li><a href="http://www.mindscapehq.com/blog/" target="_top" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.mindscapehq.com/blog/']);">Mindscape</a></li>
+                        <li><a href="http://blog.orangelightning.co.uk/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://blog.orangelightning.co.uk/']);">Phil Jones</a></li>
+                        <li><a href="http://buildstarted.com/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://buildstarted.com']);">Ben Dornis</a></li>
+                        <li><a href="http://jflood.net/" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://jflood.net/']);">Jospeh Flood</a></li>
+                    </ul>
+                    
+                </aside>
+                <aside id="archives-4" class="widget widget_archive">
+                    <h1 class="widget-title">Archive</h1>
+                    <ul class="posts">
+                          <li><a href="/archive#20165">May, 2016</a></li>
+                          <li><a href="/archive#20161">January, 2016</a></li>
+                          <li><a href="/archive#201510">October, 2015</a></li>
+                          <li><a href="/archive#20148">August, 2014</a></li>
+                          <li><a href="/archive#20146">June, 2014</a></li>
+                          <li><a href="/archive#20145">May, 2014</a></li>
+                          <li><a href="/archive#20144">April, 2014</a></li>
+                          <li><a href="/archive#20142">February, 2014</a></li>
+                          <li><a href="/archive#20141">January, 2014</a></li>
+                          <li><a href="/archive#201312">December, 2013</a></li>
+                          <li><a href="/archive#201311">November, 2013</a></li>
+                          <li><a href="/archive#201310">October, 2013</a></li>
+                          <li><a href="/archive#20139">September, 2013</a></li>
+                          <li><a href="/archive#20138">August, 2013</a></li>
+                          <li><a href="/archive#20137">July, 2013</a></li>
+                          <li><a href="/archive#20136">June, 2013</a></li>
+                          <li><a href="/archive#20135">May, 2013</a></li>
+                          <li><a href="/archive#20134">April, 2013</a></li>
+                          <li><a href="/archive#20133">March, 2013</a></li>
+                          <li><a href="/archive#20132">February, 2013</a></li>
+                          <li><a href="/archive#20131">January, 2013</a></li>
+                          <li><a href="/archive#201212">December, 2012</a></li>
+                          <li><a href="/archive#201211">November, 2012</a></li>
+                          <li><a href="/archive#201210">October, 2012</a></li>
+                          <li><a href="/archive#20129">September, 2012</a></li>
+                          <li><a href="/archive#20127">July, 2012</a></li>
+                          <li><a href="/archive#20126">June, 2012</a></li>
+                          <li><a href="/archive#20124">April, 2012</a></li>
+                          <li><a href="/archive#20123">March, 2012</a></li>
+                          <li><a href="/archive#20122">February, 2012</a></li>
+                          <li><a href="/archive#20121">January, 2012</a></li>
+                          <li><a href="/archive#201112">December, 2011</a></li>
+                          <li><a href="/archive#201111">November, 2011</a></li>
+                          <li><a href="/archive#201110">October, 2011</a></li>
+                          <li><a href="/archive#20119">September, 2011</a></li>
+                          <li><a href="/archive#20118">August, 2011</a></li>
+                          <li><a href="/archive#20117">July, 2011</a></li>
+                          <li><a href="/archive#20116">June, 2011</a></li>
+                          <li><a href="/archive#20115">May, 2011</a></li>
+                          <li><a href="/archive#20114">April, 2011</a></li>
+                          <li><a href="/archive#20113">March, 2011</a></li>
+                          <li><a href="/archive#20112">February, 2011</a></li>
+                          <li><a href="/archive#20111">January, 2011</a></li>
+                          <li><a href="/archive#201012">December, 2010</a></li>
+                          <li><a href="/archive#201011">November, 2010</a></li>
+                          <li><a href="/archive#201010">October, 2010</a></li>
+                          <li><a href="/archive#20109">September, 2010</a></li>
+                          <li><a href="/archive#20097">July, 2009</a></li>
+                    </ul>
+                </aside>
+            </div>
+            <!-- #secondary .widget-area -->
+
+
+        </div>
+        <!-- #main -->
+
+        <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="site-info">
+                Powered by <a href="https://github.com/Sandra/Sandra.Snow" rel="generator">Sandra.Snow v1.6.0</a>.	
+            </div>
+            <!-- .site-info -->
+        </footer>
+        <!-- #colophon .site-footer -->
+    </div>
+    <!-- #page .hfeed .site -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/javascripts/prettify.js"></script>
+    
+    <script type="text/javascript">
+var _gaq = _gaq || [];
+
+_gaq.push(['_setAccount', 'UA-655975-13']);
+_gaq.push(['_trackPageview']);
+        
+(function () {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+})();
+</script>
+    
+    <script src="/javascripts/audio.min.js"></script>
+    
+    <script>
+      $(function () {
+        $("pre code").parent().each(function () {
+          if (!$(this).hasClass("prettyprint")) {
+            $(this).addClass("prettyprint");
+            a = true
+          }
+        });
+
+        prettyPrint();
+      });
+      audiojs.events.ready(function() {
+        var as = audiojs.createAll();
+      });
+    </script>
+</body>
+</html>

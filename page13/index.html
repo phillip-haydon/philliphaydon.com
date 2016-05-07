@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2016-01-03T17:59:21.7765619+08:00" />
+    <meta http-equiv="last-modified" content="2016-05-07T18:51:13.3430135+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page13/" />
@@ -35,6 +35,45 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2010/12/06/moq-using-params-in-the-returns/">Moq-Using Params in the Returns</a> 
+        <span>posted on 06 Dec 2010</span>
+      </h1> 
+      
+      <p>Had an interesting scenario to solve today, while I was away a bunch of unit tests got turned off since they broke during some refactoring, I spent the day fixing theses unit tests.</p>
+
+<p>The method under test had a dependency on another class, it performed two actions on this class.</p>
+
+<ol>
+<li>to get a list of data</li>
+<li>to return a DateRange (this is done in a foreach loop)</li>
+</ol>
+
+<p>DateRange is just a class with a start/end property of DateTime. The method is sort of like this (obviously with proper names I just wrote some random code to illustrate the scenario)</p>
+
+<pre><code>public IEnumerable&lt;Stuff&gt; GetStuff(DateTime dateList)
+{
+    var result = new List&lt;Stuff&gt;();
+    var someService = IoC.Resolve&lt;ISomeService&gt;();
+    var data = someService.GetData();
+
+    foreach (var date in dateList)
+    {
+        var tempDate = date;
+        DateRange range = someService.GetDates(OpenRules, tempDate);
+        //do stuff...
+    }
+
+    return result;
+}
+</code></pre>
+
+<p>So the same service is called twice, the issue is when iterating over the dateList, it needs to be filtered based on a DateRange during the day. So say, 8am till 10pm. Removing the stuff outside of that time period during that day.</p>
+
+
+      <p><a href="/2010/12/06/moq-using-params-in-the-returns/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2010/12/05/yay-for-nhibernate-3-0/">Yay for NHibernate 3.0</a> 
@@ -302,6 +341,7 @@ WHERE EXISTS (SELECT 1 FROM Product WHERE Active = 1 AND ProductTypeID = Product
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20165">May, 2016</a></li>
                           <li><a href="/archive#20161">January, 2016</a></li>
                           <li><a href="/archive#201510">October, 2015</a></li>
                           <li><a href="/archive#20148">August, 2014</a></li>
