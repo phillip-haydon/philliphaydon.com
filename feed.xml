@@ -1,4 +1,212 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2016/05/07/postgresql-and-its-array-datatype/</guid><link>http://www.philliphaydon.com/2016/05/07/postgresql-and-its-array-datatype/</link><a10:author><a10:name /></a10:author><category>PostgreSQL</category><title>PostgreSQL and it's Array data type</title><description>&lt;p&gt;Switching between PostgreSQL and SQL Server, I've only ever really used the features of SQL Server in PostgreSQL. &lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/</guid><link>http://www.philliphaydon.com/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/</link><a10:author><a10:name /></a10:author><category>aws</category><category>dotnetcore</category><category>lambda</category><title>Creating a good old Hello World AWS C# Lambda</title><description>&lt;p&gt;So finally .NET Core Tools has reached 1.0 and after playing around... it's actually usable now. I can do all the things easily, that I once found difficult.&lt;/p&gt;
+
+&lt;p&gt;This blog series is about creating a basic sample handler for an AWS C# Lambda, and extending it to configure a VPC, and query PostgreSQL using Marten, all using VSCode.&lt;/p&gt;
+
+&lt;p&gt;To follow this series you need to install:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;.NET Core SDK from &lt;a href="https://www.microsoft.com/net/core#windowscmd"&gt;Microsoft&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://code.visualstudio.com/"&gt;VSCode&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp"&gt;C#&lt;/a&gt; for VSCode&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://marketplace.visualstudio.com/items?itemName=jchannon.csharpextensions"&gt;C# Extensions&lt;/a&gt;... Extension for VSCode&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Creating the class library&lt;/h2&gt;
+
+&lt;p&gt;Let's start by creating a class library, create a folder some where, and navigate to it in terminal or command line. Then run the command: &lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;dotnet new classlib -n HelloWorldLambda -f netcoreapp1.0&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;It's important you target netcoreapp1.0 as this is what's supported on AWS C# Lambda's right now.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phill@DESKTOP-599M841 D:\CSharpLambdaSample
+$ dotnet new classlib -n HelloWorldLambda -f netcoreapp1.0
+Content generation time: 22.1887 ms
+The template "Class library" created successfully.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now you can open up the folder in VSCode.&lt;/p&gt;
+
+</description><pubDate>Tue, 14 Mar 2017 16:00:00 Z</pubDate><a10:updated>2017-03-14T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;So finally .NET Core Tools has reached 1.0 and after playing around... it's actually usable now. I can do all the things easily, that I once found difficult.&lt;/p&gt;
+
+&lt;p&gt;This blog series is about creating a basic sample handler for an AWS C# Lambda, and extending it to configure a VPC, and query PostgreSQL using Marten, all using VSCode.&lt;/p&gt;
+
+&lt;p&gt;To follow this series you need to install:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;.NET Core SDK from &lt;a href="https://www.microsoft.com/net/core#windowscmd"&gt;Microsoft&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://code.visualstudio.com/"&gt;VSCode&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp"&gt;C#&lt;/a&gt; for VSCode&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://marketplace.visualstudio.com/items?itemName=jchannon.csharpextensions"&gt;C# Extensions&lt;/a&gt;... Extension for VSCode&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Creating the class library&lt;/h2&gt;
+
+&lt;p&gt;Let's start by creating a class library, create a folder some where, and navigate to it in terminal or command line. Then run the command: &lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;dotnet new classlib -n HelloWorldLambda -f netcoreapp1.0&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;It's important you target netcoreapp1.0 as this is what's supported on AWS C# Lambda's right now.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phill@DESKTOP-599M841 D:\CSharpLambdaSample
+$ dotnet new classlib -n HelloWorldLambda -f netcoreapp1.0
+Content generation time: 22.1887 ms
+The template "Class library" created successfully.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now you can open up the folder in VSCode.&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-1-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Let's rename the class to Handler, and add 2 new classes, Result and Request. You can use the C# Extensions to right click on the folder and add a new class.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-1-02.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;After adding the classes we can add a &lt;code&gt;Handle&lt;/code&gt; method to the Handler class that takes a Request and returns the Result.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Handler
+{
+    public Result Handle(Request request) {
+        return new Result {
+            HelloWorld = request.Name
+        };
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can now fill in the Request / Result classes with the 2 properties.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Request
+{
+    public string Name { get; set; }
+}
+
+public class Result
+{
+    public string HelloWorld { get; set; }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now if we build this, it should, just build.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PS D:\CSharpLambdaSample&amp;gt; cd .\HelloWorldLambda\
+PS D:\CSharpLambdaSample\HelloWorldLambda&amp;gt; dotnet restore
+  Restoring packages for D:\CSharpLambdaSample\HelloWorldLambda\HelloWorldLambda.cs proj...
+  Generating MSBuild file D:\CSharpLambdaSample\HelloWorldLambda\obj\HelloWorldLambda.csproj.nuget.g.props.
+  Writing lock file to disk. Path: D:\CSharpLambdaSample\HelloWorldLambda\obj\project.assets.json
+  Restore completed in 340.03 ms for D:\CSharpLambdaSample\HelloWorldLambda\HelloWorldLambda.csproj.
+
+  NuGet Config files used:
+      C:\Users\phill\AppData\Roaming\NuGet\NuGet.Config
+      C:\Program Files (x86)\NuGet\Config\Microsoft.VisualStudio.Offline.config
+
+  Feeds used:
+      https://www.nuget.org/api/v2/
+      C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\
+PS D:\CSharpLambdaSample\HelloWorldLambda&amp;gt; dotnet build
+Microsoft (R) Build Engine version 15.1.548.43366
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  HelloWorldLambda -&amp;gt; D:\CSharpLambdaSample\HelloWorldLambda\bin\Debug\netcoreapp1.0\HelloWorldLambda.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.86
+PS D:\CSharpLambdaSample\HelloWorldLambda&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The idea is that we will pass in a JSON Object to the AWS Lambda, it will take the &lt;code&gt;Name&lt;/code&gt; property and return a new object with a new property called &lt;code&gt;HelloWorld&lt;/code&gt; containing the value passed in.&lt;/p&gt;
+
+&lt;p&gt;Super easy scenario.&lt;/p&gt;
+
+&lt;h2&gt;Configuring the Lambda for serialization&lt;/h2&gt;
+
+&lt;p&gt;So when the lambda is called we need it to deserialize the request to a &lt;code&gt;Request&lt;/code&gt; object and then serialize the &lt;code&gt;Result&lt;/code&gt; object when it returns.&lt;/p&gt;
+
+&lt;p&gt;To do this we need to install the nuget package &lt;a href="https://www.nuget.org/packages/Amazon.Lambda.Serialization.Json/"&gt;Amazon.Lambda.Serialization.Json&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;From the terminal/command line, run:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;dotnet add .\HelloWorldLambda.csproj package Amazon.Lambda.Serialization.Json&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I like to specify the project that it's to be added to, it's handy if you're in the parent directory and want to add to 1 of many projects.&lt;/p&gt;
+
+&lt;p&gt;Running this should output something similar to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PS D:\CSharpLambdaSample\HelloWorldLambda&amp;gt; dotnet add .\HelloWorldLambda.csproj package Amazon.Lambda.Serialization.Json
+Microsoft (R) Build Engine version 15.1.548.43366
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Writing C:\Users\phill\AppData\Local\Temp\tmpFF0F.tmp
+info : Adding PackageReference for package 'Amazon.Lambda.Serialization.Json' into project '.\HelloWorldLambda.csproj'.
+log  : Restoring packages for D:\CSharpLambdaSample\HelloWorldLambda\HelloWorldLambda.csproj...
+info :   GET https://www.nuget.org/api/v2/FindPackagesById()?id='Amazon.Lambda.Serialization.Json'
+info :   OK https://www.nuget.org/api/v2/FindPackagesById()?id='Amazon.Lambda.Serialization.Json' 991ms
+info :   GET https://www.nuget.org/api/v2/package/Amazon.Lambda.Serialization.Json/1.0.1
+info :   OK https://www.nuget.org/api/v2/package/Amazon.Lambda.Serialization.Json/1.0.1 265ms
+info : Package 'Amazon.Lambda.Serialization.Json' is compatible with all the specified frameworks in project '.\HelloWorldLambda.csproj'.
+info : PackageReference for package 'Amazon.Lambda.Serialization.Json' version '1.0.1' added to file 'D:\CSharpLambdaSample\HelloWorldLambda\HelloWorldLambda.csproj'.PS D:\CSharpLambdaSample\HelloWorldLambda&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can run &lt;code&gt;dotnet restore&lt;/code&gt; after too.&lt;/p&gt;
+
+&lt;p&gt;If you look at the csproj file you should now have a package reference.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;Project Sdk="Microsoft.NET.Sdk"&amp;gt;
+  &amp;lt;PropertyGroup&amp;gt;
+    &amp;lt;TargetFramework&amp;gt;netcoreapp1.0&amp;lt;/TargetFramework&amp;gt;
+  &amp;lt;/PropertyGroup&amp;gt;
+  &amp;lt;ItemGroup&amp;gt;
+    &amp;lt;PackageReference Include="Amazon.Lambda.Serialization.Json" Version="1.0.1" /&amp;gt;
+  &amp;lt;/ItemGroup&amp;gt;
+&amp;lt;/Project&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next you can reference the following into the handler class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;using Amazon.Lambda.Core;
+using Amazon.Lambda.Serialization.Json;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now on the handler method we need to add the &lt;code&gt;LambdaSerializer&lt;/code&gt; attribute to the method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[LambdaSerializer(typeof(JsonSerializer))]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Your final file should look like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;using System;
+using Amazon.Lambda.Core;
+using Amazon.Lambda.Serialization.Json;
+
+namespace HelloWorldLambda
+{
+    public class Handler
+    {
+        [LambdaSerializer(typeof(JsonSerializer))]
+        public Result Handle(Request request) {
+            return new Result {
+                HelloWorld = request.Name
+            };
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Running &lt;code&gt;dotnet build&lt;/code&gt; should be successful.&lt;/p&gt;
+
+&lt;p&gt;In part 2 we will publish, deploy, and test the lambda.&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2016/05/07/postgresql-and-its-array-datatype/</guid><link>http://www.philliphaydon.com/2016/05/07/postgresql-and-its-array-datatype/</link><a10:author><a10:name /></a10:author><category>PostgreSQL</category><title>PostgreSQL and it's Array data type</title><description>&lt;p&gt;Switching between PostgreSQL and SQL Server, I've only ever really used the features of SQL Server in PostgreSQL. &lt;/p&gt;
 
 &lt;p&gt;Lately after discovering Marten, I've been exploring features of PostgreSQL.&lt;/p&gt;
 
@@ -1388,98 +1596,4 @@ Instead of sending all the logging information to your localhost Sentinal app we
 &lt;p&gt;There's still more we can do. If you don't want to install Sentinal (or you're in some super fail restrictive environment where you are not allowed to install anything) you can always send any localhost debugging messages to LogEntries. Just create a second LogEntires-host called Debug or whatever and use that host for localhost development.&lt;/p&gt;
 
 &lt;p&gt;Alternatively, you can also use Sentinal for production/live because you don't want to have any logging information stored on a 3rd party service. Just make sure you setup your Firewall to Port Forward any nLog data to the computer where Sentinal is running. This is what i &lt;em&gt;used&lt;/em&gt; to do until I found out about LogEntries.&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/04/26/fixing-osx-for-a-windows-user/</guid><link>http://www.philliphaydon.com/2014/04/26/fixing-osx-for-a-windows-user/</link><a10:author><a10:name /></a10:author><category>OSX</category><category>Windows</category><title>Fixing OSX as a Windows User...</title><description>&lt;p&gt;I'm slowly in the process of moving away from my huge desktop computer and moving to my good old 15" Mac Book Pro w/ Retina, as my main computer. Running windows in parallels. But moving to OSX is really hard, things that I take for granted in Windows are just hard in OSX, even after 2 years of having this laptop, and having used OSX for a few years when I lived in New Zealand....&lt;/p&gt;
-
-&lt;p&gt;Sooo I'm making this blog post, mostly as a reference for the future, on what I've done to make life a little easier. &lt;/p&gt;
-
-&lt;h3&gt;Fixing Home / End keys&lt;/h3&gt;
-
-&lt;p&gt;Ahhh I know you can use &lt;kbd&gt;cmd&lt;/kbd&gt; + &lt;kbd&gt;&amp;rarr;&lt;/kbd&gt; and &lt;kbd&gt;cmd&lt;/kbd&gt; + &lt;kbd&gt;&amp;larr;&lt;/kbd&gt;, but I just prefer the Windows key mapping. &lt;/p&gt;
-
-</description><pubDate>Fri, 25 Apr 2014 16:00:00 Z</pubDate><a10:updated>2014-04-25T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;I'm slowly in the process of moving away from my huge desktop computer and moving to my good old 15" Mac Book Pro w/ Retina, as my main computer. Running windows in parallels. But moving to OSX is really hard, things that I take for granted in Windows are just hard in OSX, even after 2 years of having this laptop, and having used OSX for a few years when I lived in New Zealand....&lt;/p&gt;
-
-&lt;p&gt;Sooo I'm making this blog post, mostly as a reference for the future, on what I've done to make life a little easier. &lt;/p&gt;
-
-&lt;h3&gt;Fixing Home / End keys&lt;/h3&gt;
-
-&lt;p&gt;Ahhh I know you can use &lt;kbd&gt;cmd&lt;/kbd&gt; + &lt;kbd&gt;&amp;rarr;&lt;/kbd&gt; and &lt;kbd&gt;cmd&lt;/kbd&gt; + &lt;kbd&gt;&amp;larr;&lt;/kbd&gt;, but I just prefer the Windows key mapping. &lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;p&gt;I found &lt;a href="http://mwholt.blogspot.sg/2012/09/fix-home-and-end-keys-on-mac-os-x.html"&gt;this blog post&lt;/a&gt; by &lt;a href="https://twitter.com/mholt6"&gt;Matthew Holt&lt;/a&gt; which fixes the problem for me! &lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;(Copying without permission from Matthew Holt's blog, just incase it dies one day...)&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Open the Terminal and do this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ cd ~/Library
-$ mkdir KeyBindings
-$ cd KeyBindings
-$ nano DefaultKeyBinding.dict
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Put these lines in that file, including the curly braces:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{
-/* Remap Home / End keys to be correct */
-"\UF729" = "moveToBeginningOfLine:"; /* Home */
-"\UF72B" = "moveToEndOfLine:"; /* End */
-"$\UF729" = "moveToBeginningOfLineAndModifySelection:"; /* Shift + Home */
-"$\UF72B" = "moveToEndOfLineAndModifySelection:"; /* Shift + End */
-"^\UF729" = "moveToBeginningOfDocument:"; /* Ctrl + Home */
-"^\UF72B" = "moveToEndOfDocument:"; /* Ctrl + End */
-"$^\UF729" = "moveToBeginningOfDocumentAndModifySelection:"; /* Shift + Ctrl + Home */
-"$^\UF72B" = "moveToEndOfDocumentAndModifySelection:"; /* Shift + Ctrl + End */
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Press Ctrl+O and then Enter to save the file, and Ctrl+X to exit. Restart your computer to have it take full effect.&lt;/p&gt;
-
-&lt;p&gt;Cited Sources:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;a href="http://evansweb.info/2005/03/24/mac-os-x-and-home-end-keys"&gt;http://evansweb.info/2005/03/24/mac-os-x-and-home-end-keys&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://soodev.wordpress.com/2011/07/04/mac-os-x-remapping-home-and-end-keys/"&gt;http://soodev.wordpress.com/2011/07/04/mac-os-x-remapping-home-and-end-keys/&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3&gt;Fixing Alt Tab...&lt;/h3&gt;
-
-&lt;p&gt;I have no idea what the person was thinking when they decided that this was a good idea. &lt;/p&gt;
-
-&lt;p&gt;So you can use &lt;kbd&gt;cmd&lt;/kbd&gt; + &lt;kbd&gt;tab&lt;/kbd&gt; to tab applications... but if you want to tab instances?!? You need to use &lt;kbd&gt;cmd&lt;/kbd&gt; + &lt;kbd&gt;`&lt;/kbd&gt;... So to fix that... Enter &lt;a href="http://manytricks.com/witch/"&gt;Witch&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-osx-03.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;This thing is great, back to the old &lt;kbd&gt;alt/opt&lt;/kbd&gt; + &lt;kbd&gt;tab&lt;/kbd&gt; &lt;/p&gt;
-
-&lt;h3&gt;Fixing Spotlight&lt;/h3&gt;
-
-&lt;p&gt;I don't know how anyone... This is my Spotlight:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-osx-01.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Besides pretty much always saying 'indexing' when it does actually 'index'... it's really slow, doesn't give me what I'm looking for, and doesn't seem very helpful.&lt;/p&gt;
-
-&lt;p&gt;Windows 8.1 Search is actually far superior to Spotlight. &lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/fixing-osx-02.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Enter &lt;a href="http://www.alfredapp.com"&gt;Alfred&lt;/a&gt;... This thing is awesome, from the moment you install it, open it with &lt;kbd&gt;alt/opt&lt;/kbd&gt; + &lt;kbd&gt;space&lt;/kbd&gt;, and run your first start, it gives you the results you want.&lt;/p&gt;
-
-&lt;h3&gt;Fixing maximize windows&lt;/h3&gt;
-
-&lt;p&gt;I like to use windows Maximized, but when you press the little green &lt;code&gt;+&lt;/code&gt; for some reason it only expands the window vertically... I have no idea why...&lt;/p&gt;
-
-&lt;p&gt;Spaces on OSX are pretty awesome, so if I want to have a couple of programs on 2 or 3 spaces I can easily flick between them with &lt;kbd&gt;ctrl&lt;/kbd&gt; + &lt;kbd&gt;&amp;larr;&lt;/kbd&gt; or view all with &lt;kbd&gt;ctrl&lt;/kbd&gt; + &lt;kbd&gt;&amp;uarr;&lt;/kbd&gt;, but when it comes to maximizing a window... while keeping the top tool bar, it seems you can't...&lt;/p&gt;
-
-&lt;p&gt;I always get the argument that I should full screen the app, but I don't want to... &lt;/p&gt;
-
-&lt;p&gt;Enter &lt;a href="http://www.blazingtools.com/right_zoom_mac.html"&gt;RightZoom&lt;/a&gt;, this thing is great, it makes a window take up all the space, both horizontally and vertically. &lt;/p&gt;
-
-&lt;h3&gt;Things I can't fix :(&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Right click context menu to add new file...&lt;/li&gt;
-&lt;li&gt;Cut/Paste folders easily (apparently there's some command but I never remember it)&lt;/li&gt;
-&lt;/ol&gt;
 </a10:content></item></channel></rss>

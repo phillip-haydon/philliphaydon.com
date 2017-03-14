@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2016-05-07T19:34:01.4736251+08:00" />
+    <meta http-equiv="last-modified" content="2017-03-15T02:03:09.7545625+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page9/" />
@@ -35,6 +35,35 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/02/21/service-stack-i-heart-you-my-conversion-from-wcf-to-ss/">Service Stack... I heart you. My conversion from WCF to SS</a> 
+        <span>posted on 21 Feb 2012</span>
+      </h1> 
+      
+      <p>I've just spent the weekend ripping out that dreaded WCF abomination and replacing it with Service Stack.</p>
+
+<p><a href="http://servicestack.net/">http://servicestack.net/</a></p>
+
+<blockquote>
+  <p>A modern fresh alternative to WCF. Code-first, convention-based, codegen-free. Encourages best-practices high-performance, scalable REST &amp; RPC web services.</p>
+</blockquote>
+
+<p>Over the past couple of months I've been fighting with WCF to the point I wanted to slit my wrists.</p>
+
+<p>So I asked <a href="http://jabbr.net/">JabbR</a> and Twitter if I should use Web API. Well -no- one recommended Web API and everyone recommended Service Stack.</p>
+
+<h2>It's a different way of thinking</h2>
+
+<p>The first noticeable difference between WCF and SS (Service Stack) is that I'm no longer writing a single service class with a butt load of methods. Which is most likely a good thing because after a while they just become hard to manage.</p>
+
+<p>So instead of a Contract, Service, Response DTO, and Request DTO, with 9234823 methods defined in the Contract/Service. It's now <strong>1 Request DTO per Service.</strong></p>
+
+<p>What does that mean?</p>
+
+
+      <p><a href="/2012/02/21/service-stack-i-heart-you-my-conversion-from-wcf-to-ss/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2012/02/19/mvc-4-project-templates-are-stupid/">MVC 4 Project Templates are stupid</a> 
@@ -337,25 +366,6 @@ public ActionResult Videos(int page = 1)
 
       <p><a href="/2011/11/06/unit-of-work-with-wcf-and-autofac/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/11/02/windows-phone-windows-live-and-msn/">Windows Phone, Windows Live and MSN</a> 
-        <span>posted on 02 Nov 2011</span>
-      </h1> 
-      
-      <p>Windows Phone 7.5 has been getting some awesome reviews, and rightly so. The thing is amazing. I really think Microsoft has begun leading the way for the mobile platform.</p>
-
-<p>But I'm highly pissed off with the Windows Phone team. Why? <strong>Because to use MSN, your msn contacts must be associated with the first live account you register to the phone.</strong></p>
-
-<p>I don't even know what to say about this, it's so silly. I understand that it might get confusing to allow multiple Facebook accounts, multiple Windows Live accounts, etc.</p>
-
-<p>But could they not allow you to choose which account MSN contacts are associated to?</p>
-
-<p>When I first setup my phone I didn't use the Windows Live account I use for MSN (my Hotmail) since it's existed since 1997, it's got 100's of contacts I don't want in my phone-book, a lot of MSN contacts exist from work, or playing online games, or from forums etc. So I used the Windows Live account that I use for MSDN. I added all my contacts and everything was great, (after I imported all my contacts from outlook into Windows Live Contacts)</p>
-
-
-      <p><a href="/2011/11/02/windows-phone-windows-live-and-msn/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -426,6 +436,7 @@ public ActionResult Videos(int page = 1)
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20173">March, 2017</a></li>
                           <li><a href="/archive#20165">May, 2016</a></li>
                           <li><a href="/archive#20161">January, 2016</a></li>
                           <li><a href="/archive#201510">October, 2015</a></li>

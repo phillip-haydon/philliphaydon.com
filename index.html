@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2016-05-07T19:34:01.4736251+08:00" />
+    <meta http-equiv="last-modified" content="2017-03-15T02:03:09.7545625+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/" />
@@ -35,6 +35,46 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Creating a good old Hello World AWS C# Lambda</a> 
+        <span>posted on 15 Mar 2017</span>
+      </h1> 
+      <ul class="snow-series"><li>Part 1: Creating a good old Hello World AWS C# Lambda</li><li>Part 2: Building / Configuring the Lambda</li><li>Part 3: Saving / Retrieving data using Marten</li><li>Part 4: Building / Configuring using AWS Tools</li><li>Part 5: Configuring the VPC to call the database</li></ul>
+      <p>So finally .NET Core Tools has reached 1.0 and after playing around... it's actually usable now. I can do all the things easily, that I once found difficult.</p>
+
+<p>This blog series is about creating a basic sample handler for an AWS C# Lambda, and extending it to configure a VPC, and query PostgreSQL using Marten, all using VSCode.</p>
+
+<p>To follow this series you need to install:</p>
+
+<ul>
+<li>.NET Core SDK from <a href="https://www.microsoft.com/net/core#windowscmd">Microsoft</a></li>
+<li><a href="https://code.visualstudio.com/">VSCode</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp">C#</a> for VSCode</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=jchannon.csharpextensions">C# Extensions</a>... Extension for VSCode</li>
+</ul>
+
+<h2>Creating the class library</h2>
+
+<p>Let's start by creating a class library, create a folder some where, and navigate to it in terminal or command line. Then run the command: </p>
+
+<blockquote>
+  <p>dotnet new classlib -n HelloWorldLambda -f netcoreapp1.0</p>
+</blockquote>
+
+<p>It's important you target netcoreapp1.0 as this is what's supported on AWS C# Lambda's right now.</p>
+
+<pre><code>phill@DESKTOP-599M841 D:\CSharpLambdaSample
+$ dotnet new classlib -n HelloWorldLambda -f netcoreapp1.0
+Content generation time: 22.1887 ms
+The template "Class library" created successfully.
+</code></pre>
+
+<p>Now you can open up the folder in VSCode.</p>
+
+
+      <p><a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2016/05/07/postgresql-and-its-array-datatype/">PostgreSQL and it's Array data type</a> 
@@ -290,23 +330,6 @@ Instead of sending all the logging information to your localhost Sentinal app we
 
       <p><a href="/2014/04/28/leveling-up-your-logging/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2014/04/26/fixing-osx-for-a-windows-user/">Fixing OSX as a Windows User...</a> 
-        <span>posted on 26 Apr 2014</span>
-      </h1> 
-      
-      <p>I'm slowly in the process of moving away from my huge desktop computer and moving to my good old 15" Mac Book Pro w/ Retina, as my main computer. Running windows in parallels. But moving to OSX is really hard, things that I take for granted in Windows are just hard in OSX, even after 2 years of having this laptop, and having used OSX for a few years when I lived in New Zealand....</p>
-
-<p>Sooo I'm making this blog post, mostly as a reference for the future, on what I've done to make life a little easier. </p>
-
-<h3>Fixing Home / End keys</h3>
-
-<p>Ahhh I know you can use <kbd>cmd</kbd> + <kbd>&rarr;</kbd> and <kbd>cmd</kbd> + <kbd>&larr;</kbd>, but I just prefer the Windows key mapping. </p>
-
-
-      <p><a href="/2014/04/26/fixing-osx-for-a-windows-user/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -375,6 +398,7 @@ Instead of sending all the logging information to your localhost Sentinal app we
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20173">March, 2017</a></li>
                           <li><a href="/archive#20165">May, 2016</a></li>
                           <li><a href="/archive#20161">January, 2016</a></li>
                           <li><a href="/archive#201510">October, 2015</a></li>
