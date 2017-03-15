@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2017-03-15T02:03:09.7545625+08:00" />
+    <meta http-equiv="last-modified" content="2017-03-16T02:53:57.9238803+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page9/" />
@@ -35,6 +35,35 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/03/04/ravendb-flattening-object-graphs-and-projections/">RavenDB - Flattening Object Graphs and Projections</a> 
+        <span>posted on 04 Mar 2012</span>
+      </h1> 
+      
+      <p>One of the guys in <a href="http://jabbr.net/#/rooms/RavenDB">JabbR RavenDB</a> chat room had a pretty interesting problem that took a while to solve. The problem was that he wasn't trying to return anything to do with the original document, but get a flattened view of some information inside the document.</p>
+
+<p>The scenario was a <strong>Game Server</strong> which a collection of <strong>Connected Users</strong>.</p>
+
+<pre><code>public class GameServer
+{
+    public string Id { get; set; }
+    public string ServerName { get; set; }
+    public IEnumerable&lt;User&gt; ConnectedUser { get; set; }
+    public class User
+    {
+        public string UserId { get; set; }
+        public string Name { get; set; }
+        public DateTimeOffset DateConnected { get; set; }
+    }
+}
+</code></pre>
+
+<p>Given say 3 servers with a bunch of users on each server, and searching for a user who's name begins with 'b' the expected result was along the lines of:</p>
+
+
+      <p><a href="/2012/03/04/ravendb-flattening-object-graphs-and-projections/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2012/02/21/service-stack-i-heart-you-my-conversion-from-wcf-to-ss/">Service Stack... I heart you. My conversion from WCF to SS</a> 
@@ -331,40 +360,6 @@ public ActionResult Videos(int page = 1)
 
 
       <p><a href="/2011/11/27/split-windows-web-workbench-win/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/11/06/unit-of-work-with-wcf-and-autofac/">Unit of Work with WCF and Autofac</a> 
-        <span>posted on 06 Nov 2011</span>
-      </h1> 
-      
-      <p>I've just spent the last few days trying to find a way to have a Unit of Work with WCF, but it seems no one has a nice clean easy solution.</p>
-
-<p>The first, and the only decent solution I found was here:</p>
-
-<p><a href="http://ianfnelson.com/archives/2010/04/09/wcf-nhibernate-unit-of-work-endpoint-behavior">http://ianfnelson.com/archives/2010/04/09/wcf-nhibernate-unit-of-work-endpoint-behavior</a></p>
-
-<p>The problem I found with this solution is that the ICallContextInitializer as well as the EndpointBehavior is only created once. So it would seem all calls to a service would share the same Unit of Work instance.</p>
-
-<p>Maybe Castle Windsor does something fancy and injects a brand new <code>EndpointBehavior</code> every request to a service, but for me, it seemed the <code>ServiceBehavior</code>, <code>EndpointBehavior</code>, and <code>ICallContextInitializer</code> were all created once.</p>
-
-<p>This caused my service to resolve a different instance of <code>IUnitOfWork</code> to what was in the <code>ICallContextInitializer</code>.</p>
-
-<h2>Interim Solution 1</h2>
-
-<p>The first solution I came up with was to use Autofac to call Commit on release:</p>
-
-<pre><code>builder.RegisterType(typeof (UnitOfWork))
-        .As(typeof (IUnitOfWork))
-        .InstancePerLifetimeScope()
-        .OnRelease(x =&gt;
-                        {
-                            ((IUnitOfWork) x).Commit();
-                        });
-</code></pre>
-
-
-      <p><a href="/2011/11/06/unit-of-work-with-wcf-and-autofac/">Read more...</a></p>
     </li>
   </ul> 
 

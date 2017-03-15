@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2017-03-15T02:03:09.7545625+08:00" />
+    <meta http-equiv="last-modified" content="2017-03-16T02:53:57.9238803+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/" />
@@ -37,10 +37,35 @@
   <ul class="posts">
     <li class="fancy-container lightblue">
       <h1>
+        <a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Building / Configuring the Lambda into AWS</a> 
+        <span>posted on 16 Mar 2017</span>
+      </h1> 
+      <ul class="snow-series"><li><a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Part 1: Creating a good old Hello World AWS C# Lambda</a></li><li>Part 2: Building / Configuring the Lambda into AWS</li><li>Part 3: Saving / Retrieving data using Marten</li><li>Part 4: Building / Configuring using AWS Tools</li><li>Part 5: Configuring the VPC to call the database</li></ul>
+      <p>Now after part 1, we should have a basic lambda ready to build and deploy. Because this is such a basic handler, this will be published using the dotnet sdk, but if you have dependencies it's best to use the AWS Tools which I will show in part 4. </p>
+
+<h1>Publishing the project</h1>
+
+<p>Publishing is easy! All we need to do is run <code>publish</code></p>
+
+<pre><code>phill@DESKTOP-599M841 D:\CSharpLambdaSample\HelloWorldLambda
+$ dotnet publish
+Microsoft (R) Build Engine version 15.1.548.43366
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  HelloWorldLambda -&gt; D:\CSharpLambdaSample\HelloWorldLambda\bin\Debug\netcoreapp1.0\HelloWorldLambda.dll
+</code></pre>
+
+<p>We can change the output directory by an <code>-o</code> argument, and change from debug to release passing in a <code>-c</code> argument.</p>
+
+
+      <p><a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Read more...</a></p>
+    </li>
+    <li class="fancy-container lightblue">
+      <h1>
         <a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Creating a good old Hello World AWS C# Lambda</a> 
         <span>posted on 15 Mar 2017</span>
       </h1> 
-      <ul class="snow-series"><li>Part 1: Creating a good old Hello World AWS C# Lambda</li><li>Part 2: Building / Configuring the Lambda</li><li>Part 3: Saving / Retrieving data using Marten</li><li>Part 4: Building / Configuring using AWS Tools</li><li>Part 5: Configuring the VPC to call the database</li></ul>
+      <ul class="snow-series"><li>Part 1: Creating a good old Hello World AWS C# Lambda</li><li><a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Part 2: Building / Configuring the Lambda into AWS</a></li><li>Part 3: Saving / Retrieving data using Marten</li><li>Part 4: Building / Configuring using AWS Tools</li><li>Part 5: Configuring the VPC to call the database</li></ul>
       <p>So finally .NET Core Tools has reached 1.0 and after playing around... it's actually usable now. I can do all the things easily, that I once found difficult.</p>
 
 <p>This blog series is about creating a basic sample handler for an AWS C# Lambda, and extending it to configure a VPC, and query PostgreSQL using Marten, all using VSCode.</p>
@@ -54,7 +79,7 @@
 <li><a href="https://marketplace.visualstudio.com/items?itemName=jchannon.csharpextensions">C# Extensions</a>... Extension for VSCode</li>
 </ul>
 
-<h2>Creating the class library</h2>
+<h1>Creating the class library</h1>
 
 <p>Let's start by creating a class library, create a folder some where, and navigate to it in terminal or command line. Then run the command: </p>
 
@@ -303,32 +328,6 @@ create table test_arrays (
 
 
       <p><a href="/2014/04/29/loading-an-image-or-video-from-a-file-input-control/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2014/04/28/leveling-up-your-logging/">Levelling up your logging. (part 2)</a> 
-        <span>posted on 28 Apr 2014</span>
-      </h1> 
-      <ul class="snow-series"><li><a href="/2014/04/23/if-youre-not-logging-youre-doing-it-all-wrong/">If you're not logging, you're doing it all wrong</a></li><li>Levelling up your Logging</li></ul>
-      <h2>Part 2: Levelling up your Logging.</h2>
-
-<p>Make sure you've read Part 1: <a href="/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/">If you're not logging, you're doing it all wrong</a> before you continue.</p>
-
-<h3>Production logging : This.Changes.Everything &trade;</h3>
-
-<p>Localhost development is easy. Live/production logging is where This.Changes.Everything. &trade;<br />
-Instead of sending all the logging information to your localhost Sentinal app we now send it to LogEntries.</p>
-
-<p>Why LogEntries (or any other Logging Service as a Service)?</p>
-
-<ol>
-<li>You can access this information any time.</li>
-<li>You local computer cannot be online 24/7</li>
-<li>When you need to triage a problem, the problem as already occured. Therefore, the problem is already <em>historical</em>. As such, you can't suddenly turn 'on' logging. You need to go back into time and look at what has already happened.</li>
-</ol>
-
-
-      <p><a href="/2014/04/28/leveling-up-your-logging/">Read more...</a></p>
     </li>
   </ul> 
 

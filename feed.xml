@@ -1,4 +1,139 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/</guid><link>http://www.philliphaydon.com/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/</link><a10:author><a10:name /></a10:author><category>aws</category><category>dotnetcore</category><category>lambda</category><title>Creating a good old Hello World AWS C# Lambda</title><description>&lt;p&gt;So finally .NET Core Tools has reached 1.0 and after playing around... it's actually usable now. I can do all the things easily, that I once found difficult.&lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/</guid><link>http://www.philliphaydon.com/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/</link><a10:author><a10:name /></a10:author><category>aws</category><category>dotnetcore</category><category>lambda</category><title>Building / Configuring the Lambda into AWS</title><description>&lt;p&gt;Now after part 1, we should have a basic lambda ready to build and deploy. Because this is such a basic handler, this will be published using the dotnet sdk, but if you have dependencies it's best to use the AWS Tools which I will show in part 4. &lt;/p&gt;
+
+&lt;h1&gt;Publishing the project&lt;/h1&gt;
+
+&lt;p&gt;Publishing is easy! All we need to do is run &lt;code&gt;publish&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phill@DESKTOP-599M841 D:\CSharpLambdaSample\HelloWorldLambda
+$ dotnet publish
+Microsoft (R) Build Engine version 15.1.548.43366
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  HelloWorldLambda -&amp;gt; D:\CSharpLambdaSample\HelloWorldLambda\bin\Debug\netcoreapp1.0\HelloWorldLambda.dll
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can change the output directory by an &lt;code&gt;-o&lt;/code&gt; argument, and change from debug to release passing in a &lt;code&gt;-c&lt;/code&gt; argument.&lt;/p&gt;
+
+</description><pubDate>Wed, 15 Mar 2017 16:00:00 Z</pubDate><a10:updated>2017-03-15T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;Now after part 1, we should have a basic lambda ready to build and deploy. Because this is such a basic handler, this will be published using the dotnet sdk, but if you have dependencies it's best to use the AWS Tools which I will show in part 4. &lt;/p&gt;
+
+&lt;h1&gt;Publishing the project&lt;/h1&gt;
+
+&lt;p&gt;Publishing is easy! All we need to do is run &lt;code&gt;publish&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phill@DESKTOP-599M841 D:\CSharpLambdaSample\HelloWorldLambda
+$ dotnet publish
+Microsoft (R) Build Engine version 15.1.548.43366
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  HelloWorldLambda -&amp;gt; D:\CSharpLambdaSample\HelloWorldLambda\bin\Debug\netcoreapp1.0\HelloWorldLambda.dll
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can change the output directory by an &lt;code&gt;-o&lt;/code&gt; argument, and change from debug to release passing in a &lt;code&gt;-c&lt;/code&gt; argument.&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;pre&gt;&lt;code&gt;phill@DESKTOP-599M841 D:\CSharpLambdaSample\HelloWorldLambda
+$ dotnet publish -o ./../published/ -c Release
+Microsoft (R) Build Engine version 15.1.548.43366
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  HelloWorldLambda -&amp;gt; D:\CSharpLambdaSample\HelloWorldLambda\bin\Release\netcoreapp1.0\HelloWorldLambda.dll
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Even tho the output is... in another folder, it does actually publish to the specified folder...&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-2-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we can zip the contents of the directory. Don't zip the directory itself! You only want to zip the contents of the directory so that the .dll is in the root of the zip file. &lt;/p&gt;
+
+&lt;p&gt;The name of the zip can be anything you want, you can version the zip during build process, or how ever you desire.&lt;/p&gt;
+
+&lt;h1&gt;Configuring the Lambda&lt;/h1&gt;
+
+&lt;p&gt;Next we can configure and upload the Lambda. You can do it via the AWS Tools, CLI, SDK's... However I'm only going to show how it's done using the AWS Console.&lt;/p&gt;
+
+&lt;p&gt;From the Lambda Dashboard, click &lt;code&gt;Create a Lambda Function&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-2-02.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next click on &lt;code&gt;Blank Function&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-2-03.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Click on &lt;code&gt;Next&lt;/code&gt; from the Configure Trigger. We don't need a trigger at this point, that's another topic. It allows you to create the Lambda as a cron job, or trigger from a notification, etc. We just want to test awesome C#iness.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-2-04.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we can configure the Lambda itself.&lt;/p&gt;
+
+&lt;p&gt;Give it a name, I called this &lt;code&gt;hello-world-csharp&lt;/code&gt;, set the runtime to &lt;code&gt;C#&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-2-05.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next you need to upload the package, so select the zip file we made earlier.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-2-06.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Lastly we need to configure the Handler and Role.&lt;/p&gt;
+
+&lt;p&gt;The handler is important, it has a defined structure to it.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Handler:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Handler is split into 3 parts, separated by ::&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ASSEMBLY :: NAMESPACE :: METHOD&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;So we have:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Assembly = &lt;code&gt;HelloWorldLambda&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Namespace = &lt;code&gt;HelloWorldLambda.Handler&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Method = &lt;code&gt;Handle&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So our Handler should be configured like:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;HelloWorldLambda::HelloWorldLambda.Handler::Handle&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Role:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;If you've never used an AWS Lambda's before, you need to give it permissions. So select &lt;code&gt;Create new role from templates(s)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Add a new name, like &lt;code&gt;basic-csharp-lambda-role&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;And for Policy templates, just select &lt;code&gt;Simple Microservice permissions&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-2-07.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally, hit &lt;code&gt;Next&lt;/code&gt; and verify the new function, and press &lt;code&gt;Create function&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1&gt;Testing the Lambda&lt;/h1&gt;
+
+&lt;p&gt;Now that we have created the lambda, it's ready to test!!!! The fun part, finally.&lt;/p&gt;
+
+&lt;p&gt;Click on &lt;code&gt;Actions&lt;/code&gt; and select &lt;code&gt;Configure test event&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-2-08.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;We don't need to use a template, so let's just modify the Hello World example. Change the default:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-2-09.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;To have some test data that matches our &lt;code&gt;Request&lt;/code&gt; model, so just add a single property called &lt;code&gt;name&lt;/code&gt; with a value.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-2-10.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now you can hit &lt;code&gt;Save and test&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You should get a loading screen with... &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-2-11.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;BOOM! We have created an AWS C# Lambda in VSCode, published it and deployed it to AWS Lambda, configured it, and tested it.&lt;/p&gt;
+
+&lt;p&gt;Next up we will do something a little more fancy and query the database!&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/</guid><link>http://www.philliphaydon.com/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/</link><a10:author><a10:name /></a10:author><category>aws</category><category>dotnetcore</category><category>lambda</category><title>Creating a good old Hello World AWS C# Lambda</title><description>&lt;p&gt;So finally .NET Core Tools has reached 1.0 and after playing around... it's actually usable now. I can do all the things easily, that I once found difficult.&lt;/p&gt;
 
 &lt;p&gt;This blog series is about creating a basic sample handler for an AWS C# Lambda, and extending it to configure a VPC, and query PostgreSQL using Marten, all using VSCode.&lt;/p&gt;
 
@@ -11,7 +146,7 @@
 &lt;li&gt;&lt;a href="https://marketplace.visualstudio.com/items?itemName=jchannon.csharpextensions"&gt;C# Extensions&lt;/a&gt;... Extension for VSCode&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;Creating the class library&lt;/h2&gt;
+&lt;h1&gt;Creating the class library&lt;/h1&gt;
 
 &lt;p&gt;Let's start by creating a class library, create a folder some where, and navigate to it in terminal or command line. Then run the command: &lt;/p&gt;
 
@@ -42,7 +177,7 @@ The template "Class library" created successfully.
 &lt;li&gt;&lt;a href="https://marketplace.visualstudio.com/items?itemName=jchannon.csharpextensions"&gt;C# Extensions&lt;/a&gt;... Extension for VSCode&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;Creating the class library&lt;/h2&gt;
+&lt;h1&gt;Creating the class library&lt;/h1&gt;
 
 &lt;p&gt;Let's start by creating a class library, create a folder some where, and navigate to it in terminal or command line. Then run the command: &lt;/p&gt;
 
@@ -127,7 +262,7 @@ PS D:\CSharpLambdaSample\HelloWorldLambda&amp;gt;
 
 &lt;p&gt;Super easy scenario.&lt;/p&gt;
 
-&lt;h2&gt;Configuring the Lambda for serialization&lt;/h2&gt;
+&lt;h1&gt;Configuring the Lambda for serialization&lt;/h1&gt;
 
 &lt;p&gt;So when the lambda is called we need it to deserialize the request to a &lt;code&gt;Request&lt;/code&gt; object and then serialize the &lt;code&gt;Result&lt;/code&gt; object when it returns.&lt;/p&gt;
 
@@ -1495,105 +1630,4 @@ dropArea.addEventListener('dragleave', function(e){
 &lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/image-video-part-1-07.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;That's how easy it is :) Next we will look at a drop area for files.&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/04/28/leveling-up-your-logging/</guid><link>http://www.philliphaydon.com/2014/04/28/leveling-up-your-logging/</link><a10:author><a10:name>Pure Krome</a10:name></a10:author><category>Logging</category><title>Levelling up your logging. (part 2)</title><description>&lt;h2&gt;Part 2: Levelling up your Logging.&lt;/h2&gt;
-
-&lt;p&gt;Make sure you've read Part 1: &lt;a href="http://www.philliphaydon.com/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/"&gt;If you're not logging, you're doing it all wrong&lt;/a&gt; before you continue.&lt;/p&gt;
-
-&lt;h3&gt;Production logging : This.Changes.Everything &amp;trade;&lt;/h3&gt;
-
-&lt;p&gt;Localhost development is easy. Live/production logging is where This.Changes.Everything. &amp;trade;&lt;br /&gt;
-Instead of sending all the logging information to your localhost Sentinal app we now send it to LogEntries.&lt;/p&gt;
-
-&lt;p&gt;Why LogEntries (or any other Logging Service as a Service)?&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;You can access this information any time.&lt;/li&gt;
-&lt;li&gt;You local computer cannot be online 24/7&lt;/li&gt;
-&lt;li&gt;When you need to triage a problem, the problem as already occured. Therefore, the problem is already &lt;em&gt;historical&lt;/em&gt;. As such, you can't suddenly turn 'on' logging. You need to go back into time and look at what has already happened.&lt;/li&gt;
-&lt;/ol&gt;
-
-</description><pubDate>Sun, 27 Apr 2014 16:00:00 Z</pubDate><a10:updated>2014-04-27T16:00:00Z</a10:updated><a10:content type="html">&lt;h2&gt;Part 2: Levelling up your Logging.&lt;/h2&gt;
-
-&lt;p&gt;Make sure you've read Part 1: &lt;a href="http://www.philliphaydon.com/2014/04/if-youre-not-logging-youre-doing-it-all-wrong/"&gt;If you're not logging, you're doing it all wrong&lt;/a&gt; before you continue.&lt;/p&gt;
-
-&lt;h3&gt;Production logging : This.Changes.Everything &amp;trade;&lt;/h3&gt;
-
-&lt;p&gt;Localhost development is easy. Live/production logging is where This.Changes.Everything. &amp;trade;&lt;br /&gt;
-Instead of sending all the logging information to your localhost Sentinal app we now send it to LogEntries.&lt;/p&gt;
-
-&lt;p&gt;Why LogEntries (or any other Logging Service as a Service)?&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;You can access this information any time.&lt;/li&gt;
-&lt;li&gt;You local computer cannot be online 24/7&lt;/li&gt;
-&lt;li&gt;When you need to triage a problem, the problem as already occured. Therefore, the problem is already &lt;em&gt;historical&lt;/em&gt;. As such, you can't suddenly turn 'on' logging. You need to go back into time and look at what has already happened.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;p&gt;These Logging SAAS products are perfect for this situation. They just keep storing logging data as it streams in. You can just ignore all the data ... until it's time to check on things :)&lt;/p&gt;
-
-&lt;p&gt;The general idea is this&lt;/p&gt;
-
-&lt;p&gt;Step 1. Create an account with &lt;a href="https://logentries.com/"&gt;LogEntries&lt;/a&gt;. Create a new &lt;em&gt;host&lt;/em&gt;. Get the 'token' text key. (It's a guid).&lt;/p&gt;
-
-&lt;p&gt;Step 2. Install the log entries nuget package: &lt;code&gt;install-package SimpleLogging.LogEntries.&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/leveling-up-logging-01.png" alt="weeeeee" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Step 3. &lt;code&gt;Add-&amp;gt;new-&amp;gt;nlog.release.config&lt;/code&gt;&lt;br /&gt;
-&lt;em&gt;Note 1:&lt;/em&gt; Notice how we now have a new &lt;code&gt;extensions&lt;/code&gt; element? Need-dat.&lt;br /&gt;
-&lt;em&gt;Note 2:&lt;/em&gt; Notice how we are now using a &lt;code&gt;logentries&lt;/code&gt; target type? Also need-dat.    &lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version="1.0" encoding="utf-8" ?&amp;gt;
-&amp;lt;nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      autoReload="true"
-      throwExceptions="true"&amp;gt;
-
-    &amp;lt;extensions&amp;gt;
-        &amp;lt;add assembly="LogentriesNLog"/&amp;gt;
-    &amp;lt;/extensions&amp;gt;
-
-    &amp;lt;!-- NLog example: https://github.com/nlog/nlog/wiki/Examples --&amp;gt;
-    &amp;lt;targets&amp;gt;
-        &amp;lt;target name="logentries" type="Logentries"
-                debug="false"
-                httpPut="false"
-                ssl="false"
-                layout="${date:format=ddd MMM dd} ${time:format=HH:mm:ss} ${date:format=zzz yyyy} ${logger} : ${LEVEL}, ${message}" /&amp;gt;
-    &amp;lt;/targets&amp;gt;
-
-    &amp;lt;rules&amp;gt;
-        &amp;lt;logger name="*" minlevel="Trace" appendTo="logentries"/&amp;gt;
-    &amp;lt;/rules&amp;gt;
-
-&amp;lt;/nlog&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Step 4. Modify &lt;code&gt;web.release.config&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Change this...&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;&amp;lt;nlog configSource="NLog.config" /&amp;gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;to this...&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;&amp;lt;nlog configSource="NLog.release.config" /&amp;gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Step 5. Run the website.&lt;/p&gt;
-
-&lt;p&gt;Step 6. Now jump over to LogEntries and start a LIVE TAIL of the host... and viola... data should be streaming in.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/leveling-up-logging-02.png" alt="OMG IT WORKS!!!!111!!111" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Recap.&lt;/p&gt;
-
-&lt;p&gt;We've got logging messages sprinkled through our code already. When we're happy, we push our latest code up to our website (ie. &lt;code&gt;RELEASE&lt;/code&gt; build so the web config transformations do their magic) and now the logging messages are logged to LogEntries instead. So at any time, we can log into LogEntries and see what's happening to our site.&lt;/p&gt;
-
-&lt;h2&gt;Bonus Level&lt;/h2&gt;
-
-&lt;p&gt;There's still more we can do. If you don't want to install Sentinal (or you're in some super fail restrictive environment where you are not allowed to install anything) you can always send any localhost debugging messages to LogEntries. Just create a second LogEntires-host called Debug or whatever and use that host for localhost development.&lt;/p&gt;
-
-&lt;p&gt;Alternatively, you can also use Sentinal for production/live because you don't want to have any logging information stored on a 3rd party service. Just make sure you setup your Firewall to Port Forward any nLog data to the computer where Sentinal is running. This is what i &lt;em&gt;used&lt;/em&gt; to do until I found out about LogEntries.&lt;/p&gt;
 </a10:content></item></channel></rss>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2017-03-15T02:03:09.7545625+08:00" />
+    <meta http-equiv="last-modified" content="2017-03-16T02:53:57.9238803+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page5/" />
@@ -35,6 +35,33 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/04/08/raygun-io-a-few-features-that-i-love/">Raygun.io - a few features that I love</a> 
+        <span>posted on 08 Apr 2013</span>
+      </h1> 
+      
+      <p>I've been using Raygun.io for a couple of months now and seen a whole heap of new features added.</p>
+
+<h3>Email Spam</h3>
+
+<p>If you had multiple apps you would get spammed with 1 summary email each day for each app, now you get an aggregation of all apps which is much nicer. </p>
+
+<p>If you receive an email for an exception, and that exception keeps occurring, it will email you a little while later saying that you're still receiving the exception, the rate at which its occurring, and if it's happening more or less.</p>
+
+<p>These changes are great! Still the same valuable information, but more smartly distributed to the user.</p>
+
+<h3>Commenting</h3>
+
+<p>I had an error, that occurred a lot... </p>
+
+<p><img src="/images/raygun-features-javascript-1.png" alt="" /></p>
+
+<p>So after fixing it, which took a little bit of effort to figure out, I commented on it!</p>
+
+
+      <p><a href="/2013/04/08/raygun-io-a-few-features-that-i-love/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/04/02/my-must-have-short-list-programs-extensions-etc/">My must have (short) list of programs/extensions etc...</a> 
@@ -288,37 +315,6 @@
 
 
       <p><a href="/2013/01/31/oauth-with-nancyfx-and-world-domination-authentication/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/01/29/introducing-raygun-and-nancy-raygun/">Introducing Raygun.io and Nancy.Raygun</a> 
-        <span>posted on 29 Jan 2013</span>
-      </h1> 
-      
-      <p>So not long ago I <a href="/2012/10/keep-an-eye-on-raygun-to-zap-all-your-errors-away/">posted</a> about an up and coming service from <a href="http://www.mindscapehq.com">http://www.mindscapehq.com</a> called <a href="http://www.raygun.io">Raygun</a>, well last week they went into beta, and I was invited, so since early last week I've been giving their system the run around and provided a little bit of feedback. </p>
-
-<p>I say a little bit, because besides being a super early beta tester, and a super early product that will grow over time, the beta is quite polished. There was only a few minor issues which they corrected within a day or less. </p>
-
-<p><img src="/images/raygun-beta-robby-1.png" alt="" /></p>
-
-<p>Raygun is super easy to setup and implement into your application, in-fact it's really nothing more than creating an app, install the nuget package, and set the key, and away you go. </p>
-
-<p>There's a simple guide over <a href="http://www.pieterg.com/2013/1/raygunio-has-launched">http://www.pieterg.com/2013/1/raygunio-has-launched</a>, so I won't bore you with the same content.</p>
-
-<h2>Nancy.Raygun</h2>
-
-<p>Currently the <a href="https://www.nuget.org/packages/Mindscape.Raygun4Net/">offical Nuget package</a> has a dependency on System.Web which isn't very nice for Nancy, so I've created <a href="https://www.nuget.org/packages/Nancy.Raygun/">Nancy.Raygun</a></p>
-
-<p>It has no dependency on <code>System.Web</code>, and uses the <code>NancyContext</code> rather than <code>HttpContext.Current</code>, it also implements <code>IApplicationStartup</code> so that it automatically wires itself up for handling errors for you.</p>
-
-<p>Nancy.Raygun is on <a href="https://github.com/phillip-haydon/Nancy.Raygun">Github</a>, installing the nuget package will add the web.config for you so all you need to do is add the key and away you go.</p>
-
-<h2>Why Raygun?</h2>
-
-<p>I've had a few people ask me why I would use Raygun over ELMAH, or AppFail. </p>
-
-
-      <p><a href="/2013/01/29/introducing-raygun-and-nancy-raygun/">Read more...</a></p>
     </li>
   </ul> 
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2017-03-15T02:03:09.7545625+08:00" />
+    <meta http-equiv="last-modified" content="2017-03-16T02:53:57.9238803+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/" />
@@ -54,7 +54,7 @@
 
 
 
-    <ul class="snow-series"><li>Part 1: Creating a good old Hello World AWS C# Lambda</li><li>Part 2: Building / Configuring the Lambda</li><li>Part 3: Saving / Retrieving data using Marten</li><li>Part 4: Building / Configuring using AWS Tools</li><li>Part 5: Configuring the VPC to call the database</li></ul>
+    <ul class="snow-series"><li>Part 1: Creating a good old Hello World AWS C# Lambda</li><li><a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Part 2: Building / Configuring the Lambda into AWS</a></li><li>Part 3: Saving / Retrieving data using Marten</li><li>Part 4: Building / Configuring using AWS Tools</li><li>Part 5: Configuring the VPC to call the database</li></ul>
 
     <p>So finally .NET Core Tools has reached 1.0 and after playing around... it's actually usable now. I can do all the things easily, that I once found difficult.</p>
 
@@ -69,7 +69,7 @@
 <li><a href="https://marketplace.visualstudio.com/items?itemName=jchannon.csharpextensions">C# Extensions</a>... Extension for VSCode</li>
 </ul>
 
-<h2>Creating the class library</h2>
+<h1>Creating the class library</h1>
 
 <p>Let's start by creating a class library, create a folder some where, and navigate to it in terminal or command line. Then run the command: </p>
 
@@ -154,7 +154,7 @@ PS D:\CSharpLambdaSample\HelloWorldLambda&gt;
 
 <p>Super easy scenario.</p>
 
-<h2>Configuring the Lambda for serialization</h2>
+<h1>Configuring the Lambda for serialization</h1>
 
 <p>So when the lambda is called we need it to deserialize the request to a <code>Request</code> object and then serialize the <code>Result</code> object when it returns.</p>
 

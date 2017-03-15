@@ -6,7 +6,7 @@ series:
 	name: aws-dotnet-core-lambda
 	current: 1
 	part: Part 1: Creating a good old Hello World AWS C# Lambda
-	part: Part 2: Building / Configuring the Lambda
+	part: Part 2: Building / Configuring the Lambda into AWS
 	part: Part 3: Saving / Retrieving data using Marten
 	part: Part 4: Building / Configuring using AWS Tools
 	part: Part 5: Configuring the VPC to call the database
@@ -23,7 +23,7 @@ To follow this series you need to install:
 * [C#](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) for VSCode
 * [C# Extensions](https://marketplace.visualstudio.com/items?itemName=jchannon.csharpextensions)... Extension for VSCode
 
-## Creating the class library 
+# Creating the class library 
 
 Let's start by creating a class library, create a folder some where, and navigate to it in terminal or command line. Then run the command: 
 
@@ -102,7 +102,7 @@ The idea is that we will pass in a JSON Object to the AWS Lambda, it will take t
 
 Super easy scenario.
 
-## Configuring the Lambda for serialization
+# Configuring the Lambda for serialization
 
 So when the lambda is called we need it to deserialize the request to a `Request` object and then serialize the `Result` object when it returns.
 

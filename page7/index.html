@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2017-03-15T02:03:09.7545625+08:00" />
+    <meta http-equiv="last-modified" content="2017-03-16T02:53:57.9238803+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page7/" />
@@ -35,6 +35,29 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/12/18/windows-store-app-and-remote-debugging-on-a-surface-rt/">Windows Store App and Remote Debugging on a Surface RT</a> 
+        <span>posted on 18 Dec 2012</span>
+      </h1> 
+      
+      <p>In order to run your app from Visual Studio on your remote device, in my case I want to run it on my Surface... but you can do this with any remote device such as another desktop, a laptop, a tablet running Windows Pro or RT etc, all you really need to do is install the Remote Debugging tools.</p>
+
+<p><a href="http://www.microsoft.com/visualstudio/eng/downloads#remote-tools">http://www.microsoft.com/visualstudio/eng/downloads#remote-tools</a></p>
+
+<p>For the Surface you just need to download and install:</p>
+
+<p><a href="http://www.microsoft.com/visualstudio/eng/downloads#remote-tools"><img src="/images/image17.png" /></a></p>
+
+<p>Once this is installed you will get a little icon on your Start Screen:</p>
+
+<p><a href="/images/image7.png"><img src="/images/image7.png" /></a></p>
+
+<p>You can see the Green Arrow:</p>
+
+
+      <p><a href="/2012/12/18/windows-store-app-and-remote-debugging-on-a-surface-rt/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2012/12/14/windows-store-app-with-caliburn-micro-getting-started/">Windows Store App with Caliburn.Micro - Getting Started</a> 
@@ -254,70 +277,6 @@ var customer = Session.Load&lt;Customer&gt;(order.CustomerId);
 
 
       <p><a href="/2012/09/25/my-volume-gets-lowered-reduced-when-swapping-applications-solution/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2012/07/19/ravendb-what-am-i-persisting-what-am-i-querying-part-3/">RavenDB... What am I persisting, what am I querying? (part 3)</a> 
-        <span>posted on 19 Jul 2012</span>
-      </h1> 
-      
-      <p><a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying/">Part 1</a><br />
-<a href="/2012/07/ravendb-what-am-i-persisting-what-am-i-querying-part-2/">Part 2</a>    </p>
-
-<p>In part 3 I want to show you how to query References.</p>
-
-<p>In the previous post I showed you three basic classes that demonstrate a Relationship between Order and OrderLine, and a Reference to User from Order using the UserId.</p>
-
-<p>I've setup some really basic test data:</p>
-
-<pre><code>using (var session = store.OpenSession())
-{
-    session.Store(new User
-    {
-        FirstName = "Phillip",
-        Surname = "Haydon",
-        Username = "phillip.haydon",
-        Password = "somepassword"
-    });
-    session.Store(new User
-    {
-        FirstName = "Edward",
-        Surname = "Norton",
-        Username = "edward.norton",
-        Password = "somepassword"
-    });
-    session.Store(new Order
-    {
-        UserId = "users/1",
-        DateOrdered = DateTime.Now,
-        DateUpdated = DateTime.Now,
-        Status = "Ordered",
-        Lines = new List&lt;OrderLine&gt;
-        {
-            new OrderLine
-            {
-                Discount = 0m,
-                PricePerUnit = 13.95m,
-                Quantity = 5,
-                SkuCode = "SN78"
-            },
-            new OrderLine
-            {
-                Discount = 0m,
-                PricePerUnit = 13.95m,
-                Quantity = 5,
-                SkuCode = "SN78"
-            }
-        }
-    });
-    session.SaveChanges();
-}
-</code></pre>
-
-<p>This creates two collections:</p>
-
-
-      <p><a href="/2012/07/19/ravendb-what-am-i-persisting-what-am-i-querying-part-3/">Read more...</a></p>
     </li>
   </ul> 
 

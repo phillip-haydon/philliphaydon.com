@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2017-03-15T02:03:09.7545625+08:00" />
+    <meta http-equiv="last-modified" content="2017-03-16T02:53:57.9238803+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page10/" />
@@ -35,6 +35,40 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2011/11/06/unit-of-work-with-wcf-and-autofac/">Unit of Work with WCF and Autofac</a> 
+        <span>posted on 06 Nov 2011</span>
+      </h1> 
+      
+      <p>I've just spent the last few days trying to find a way to have a Unit of Work with WCF, but it seems no one has a nice clean easy solution.</p>
+
+<p>The first, and the only decent solution I found was here:</p>
+
+<p><a href="http://ianfnelson.com/archives/2010/04/09/wcf-nhibernate-unit-of-work-endpoint-behavior">http://ianfnelson.com/archives/2010/04/09/wcf-nhibernate-unit-of-work-endpoint-behavior</a></p>
+
+<p>The problem I found with this solution is that the ICallContextInitializer as well as the EndpointBehavior is only created once. So it would seem all calls to a service would share the same Unit of Work instance.</p>
+
+<p>Maybe Castle Windsor does something fancy and injects a brand new <code>EndpointBehavior</code> every request to a service, but for me, it seemed the <code>ServiceBehavior</code>, <code>EndpointBehavior</code>, and <code>ICallContextInitializer</code> were all created once.</p>
+
+<p>This caused my service to resolve a different instance of <code>IUnitOfWork</code> to what was in the <code>ICallContextInitializer</code>.</p>
+
+<h2>Interim Solution 1</h2>
+
+<p>The first solution I came up with was to use Autofac to call Commit on release:</p>
+
+<pre><code>builder.RegisterType(typeof (UnitOfWork))
+        .As(typeof (IUnitOfWork))
+        .InstancePerLifetimeScope()
+        .OnRelease(x =&gt;
+                        {
+                            ((IUnitOfWork) x).Commit();
+                        });
+</code></pre>
+
+
+      <p><a href="/2011/11/06/unit-of-work-with-wcf-and-autofac/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2011/11/02/windows-phone-windows-live-and-msn/">Windows Phone, Windows Live and MSN</a> 
@@ -305,37 +339,6 @@ public class LinkShareWallPost : WallPost
 
 
       <p><a href="/2011/08/08/fluent-nhibernate-table-inheritance-discriminators/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2011/07/27/mvc-areas-routes-order-of-routes-matter/">MVC +Areas + Routes... Order of Routes Matter!</a> 
-        <span>posted on 27 Jul 2011</span>
-      </h1> 
-      
-      <p>The order in which routes are registered, really is pretty damn important, otherwise it can have really strange side-effects.</p>
-
-<p>I have a site, which has 3 areas, and no default... 'non-area'.</p>
-
-<ul>
-<li>Admin</li>
-<li>Members</li>
-<li>Site</li>
-</ul>
-
-<p>So rather than having the structure:</p>
-
-<p><img src="/images/mvc-routes-1.png" alt="" /></p>
-
-<p>Where the root/default site is in the main directory, with two areas. I wanted this structure:</p>
-
-<p><img src="/images/mvc-routes-2.png" alt="" /></p>
-
-<p>So no root/default, and just a 'Site' area which would be the default.</p>
-
-<p><span class="note"><strong>Note:</strong>The default route is removed from Global.asax... for now</span></p>
-
-
-      <p><a href="/2011/07/27/mvc-areas-routes-order-of-routes-matter/">Read more...</a></p>
     </li>
   </ul> 
 
