@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2017-03-16T02:53:57.9238803+08:00" />
+    <meta http-equiv="last-modified" content="2017-03-18T02:18:44.9711191+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page4/" />
@@ -35,6 +35,29 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/06/26/setting-up-ubuntu-and-nginx-on-azure/">Setting up Ubuntu and nginx on Azure</a> 
+        <span>posted on 26 Jun 2013</span>
+      </h1> 
+      <ul class="snow-series"><li>Part 1 - Setting up the Virtual Machine and nginx</li><li><a href="/2013/06/27/setting-up-a-new-website-and-domain-on-nginx/">Part 2 - Setting up new Website and Domain on nginx</a></li><li><a href="/2013/06/28/setting-up-mono-on-nginx/">Part 3 - Setting up Mono on nginx</a></li><li><a href="/2013/07/04/setting-up-a-nancyfx-website/">Part 4 - Setting up a NancyFX website</a></li><li><a href="/2013/07/15/setting-up-a-servicestack-service/">Part 5 - Setting up a ServiceStack web service</a></li></ul>
+      <p><span class="note"><strong>Note:</strong> I'm breaking this up into 5 parts because otherwise it gets far too long :(</span></p>
+
+<p>So after spending a week with OSX, I thought I would see how well I go with setting up Mono on Ubuntu... on Azure. </p>
+
+<p>Turns out it's actually rather simple!</p>
+
+<h2>Setting up the Virtual Machine</h2>
+
+<p>Setting up the virtual machine is pretty straight forward. From the Azure Portal, click the Virtual Machines tab, and select New. </p>
+
+<p>I create mine from the gallery rather than the quick option.</p>
+
+<p>Select <code>Ubuntu Server 13.04</code> from the options, give your new server a name. For Authentication I recommend making a password rather than uploading an SSH key. Only because if you're new or trying this out just to play around, that stuff is probably too difficult for now :)</p>
+
+
+      <p><a href="/2013/06/26/setting-up-ubuntu-and-nginx-on-azure/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/06/21/making-nuget-a-little-easier-to-use-with-an-alias-on-mono-and-osx/">Making NuGet a little easier to use with an Alias</a> 
@@ -261,133 +284,6 @@ else if (...)
 
 
       <p><a href="/2013/04/09/nancyfx-implementing-your-own-routing/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/04/09/raygun-io-javascript-error-logging/">Raygun.io - JavaScript error logging!</a> 
-        <span>posted on 09 Apr 2013</span>
-      </h1> 
-      
-      <p>Often when building applications we worry about error handling on the server, we may not do anything with the logs after we log those errors :P but we care about them enough to attempt to make the code resilient enough to not fall over should an error occur. </p>
-
-<p>But often we overlook errors happening on the client, and if a user hits one of those errors we don't know about it, unless they are kind enough to tell us. Should they tell us, we can't reproduce it, don't know where it's happening, etc etc.</p>
-
-<p>Its really important that we give the end user a good user experience, and that means ensuring that the client code is functioning well! If an error occurs and prevents the code from being executed, we could lose a customer, and if this happens with one customer, it could be happening with many.</p>
-
-<p>Enter Raygun</p>
-
-<p><img src="/images/raygun-javascript-1.png" alt="" /></p>
-
-<p>Raygun offers a <a href="https://github.com/MindscapeHQ/raygun4js">JavaScript API</a> that's super easy to wire up to capture all errors by default, in-fact it's one line of code, not including the reference to the Raygun JS file.</p>
-
-<h3>Download and Install</h3>
-
-<p>Unfortunately there's no NuGet for this yet, hopefully they will add one in the future. </p>
-
-<p>Head on over to the MindscapeHQ <a href="https://github.com/MindscapeHQ/raygun4js/tree/master/dist">Github Repository</a> and download the file <code>raygun.min.js</code> (or grab the non-minified version if you wish), and reference in your app. </p>
-
-<pre><code>&lt;script src="/scripts/raygun.min.js"&gt;&lt;/script&gt;
-</code></pre>
-
-<h3>Configuring Raygun</h3>
-
-<p>Usually when you want to wire up an event to capture all errors you would need to do something like:</p>
-
-<pre><code>window.onerror = function someError(errorMsg, url, lineNumber) {
-    //handle the error
-}
-</code></pre>
-
-<p>But there's a lot more to error handling on the client than just the <code>onerror</code> event. So rather than just giving you the ability to send the error, Raygun offers the ability to attach itself to the <code>onerror</code> event and capture as much necessary information as it can to give you the best possible information.</p>
-
-<p>So to setup Raygun all we need to do is:</p>
-
-<pre><code>&lt;script&gt;
-  Raygun.init('yourApiKey').attach();
-&lt;/script&gt;
-</code></pre>
-
-<p>You can share the same API key for Client/Server, so if you're already using Raygun for your Web Application, you can use the same API key for the Client. </p>
-
-<p>Should you want to stop capturing errors you can call:</p>
-
-<pre><code>Raygun.detach();
-</code></pre>
-
-<h3>Lets see it in action!</h3>
-
-<p>Lets start out by capturing unhandled exceptions/errors, in a new project we will create a new index.html file with the following:</p>
-
-<pre><code>&lt;script src="scripts/raygun.min.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-
-    (function() {
-      Raygun.init("* my key *").attach();
-
-      var test = function() {
-        throw "Something went wrong!";
-      };
-
-      test();
-
-    })();
-
-&lt;/script&gt;
-</code></pre>
-
-<p>Running up the page we should get an error in the chrome console:</p>
-
-<p><img src="/images/raygun-javascript-2.png" alt="" /></p>
-
-<p>Now if we head on over to the Raygun.io Dashboard</p>
-
-<p><img src="/images/raygun-javascript-3.png" alt="" /></p>
-
-<p>We can see our error was logged. Lets do something a little different next, lets add a 2nd JavaScript file, and call a function inside that file:</p>
-
-<p>In our <code>sample.js</code> file we have:</p>
-
-<pre><code>function DoSomething(value) {
-
-    return Math.power(value, value);
-
-}
-</code></pre>
-
-<p>The method <code>power</code> doesn't exist on <code>Math</code>, it should be <code>pow</code>, so we should get an error when calling it. </p>
-
-<p>Now in our page we can include the <code>sample.js</code> file, and call the method:</p>
-
-<pre><code>&lt;script src="scripts/raygun.min.js"&gt;&lt;/script&gt;
-&lt;script src="scripts/sample.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-
-    (function() {
-        Raygun.init("* my key *").attach();
-
-        var total = DoSomething(100);
-
-        console.log(total);     
-    })();
-
-&lt;/script&gt;
-</code></pre>
-
-<p><img src="/images/raygun-javascript-4.png" alt="" /></p>
-
-<p>As you can see we captured the same error in Chrome as we did on the Raygun dashboard.</p>
-
-<p>Raygun also tries to capture as much information to help you sort out the issue as it can, such as the error, when it occurred, and where it occurred. </p>
-
-<p><img src="/images/raygun-javascript-6.png" alt="" /></p>
-
-<p>It tells you the URL and Browser it occurred on:</p>
-
-<p><img src="/images/raygun-javascript-5.png" alt="" /></p>
-
-<p>It even tells you </p>
-
-      <p><a href="/2013/04/09/raygun-io-javascript-error-logging/">Read more...</a></p>
     </li>
   </ul> 
 

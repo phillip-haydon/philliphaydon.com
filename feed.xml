@@ -1,4 +1,121 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/</guid><link>http://www.philliphaydon.com/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/</link><a10:author><a10:name /></a10:author><category>aws</category><category>dotnetcore</category><category>lambda</category><title>Building / Configuring the Lambda into AWS</title><description>&lt;p&gt;Now after part 1, we should have a basic lambda ready to build and deploy. Because this is such a basic handler, this will be published using the dotnet sdk, but if you have dependencies it's best to use the AWS Tools which I will show in part 4. &lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2017/03/18/part3-saving-retrieving-data-using-marten/</guid><link>http://www.philliphaydon.com/2017/03/18/part3-saving-retrieving-data-using-marten/</link><a10:author><a10:name /></a10:author><category>aws</category><category>dotnetcore</category><category>lambda</category><category>marten</category><category>postgresql</category><title>Saving / Retrieving data using Marten</title><description>&lt;p&gt;So far we have created a basic lambda, deployed it into AWS, and executed it. However, it doesn't do anything useful. While there are many things you can do, one of the things you're most likely going to want to do is touch a database. But let's get a little bit fancy and do it with Marten.&lt;/p&gt;
+
+&lt;p&gt;If you don't know Marten, you're missing out. It's a LOT of fun. There's two parts to Marten, an event store, and the super awesome fun bit that I love. The Document Database. &lt;/p&gt;
+
+&lt;p&gt;Marten uses PostgreSQL's fancy JSONB data type to store documents in the database, with an API built on top to make working with your domain easier without having to worry about your schema. Check it out.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://jasperfx.github.io/marten/"&gt;http://jasperfx.github.io/marten/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Let's get started. &lt;/p&gt;
+
+</description><pubDate>Fri, 17 Mar 2017 16:00:00 Z</pubDate><a10:updated>2017-03-17T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;So far we have created a basic lambda, deployed it into AWS, and executed it. However, it doesn't do anything useful. While there are many things you can do, one of the things you're most likely going to want to do is touch a database. But let's get a little bit fancy and do it with Marten.&lt;/p&gt;
+
+&lt;p&gt;If you don't know Marten, you're missing out. It's a LOT of fun. There's two parts to Marten, an event store, and the super awesome fun bit that I love. The Document Database. &lt;/p&gt;
+
+&lt;p&gt;Marten uses PostgreSQL's fancy JSONB data type to store documents in the database, with an API built on top to make working with your domain easier without having to worry about your schema. Check it out.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://jasperfx.github.io/marten/"&gt;http://jasperfx.github.io/marten/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Let's get started. &lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;h1&gt;Installing / Configuring Marten&lt;/h1&gt;
+
+&lt;p&gt;Marten only works with PostgreSQL, so I let's assume you've got that installed. Let's start by installing Marten into the hello world app. We run the dotnet command from the command line / terminal to install the package into the HelloWorldLambda project.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt; dotnet add .\HelloWorldLambda\ package Marten
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we can add the Marten reference&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;using Marten;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next let's create a constructor and create a document store inside the constructor.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private readonly IDocumentStore store;
+public Handler()
+{
+    store =DocumentStore.For(_ =&amp;gt;
+    {
+        _.Connection("Host=...;Username=...;Password=...;Database=...");
+        _.AutoCreateSchemaObjects = AutoCreate.CreateOrUpdate;
+    });
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Too easy! Now we are ready to use Marten. &lt;/p&gt;
+
+&lt;h1&gt;Implementing Save&lt;/h1&gt;
+
+&lt;p&gt;In our handler, let's add 2 new methods. &lt;code&gt;Get&lt;/code&gt; and &lt;code&gt;Save&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[LambdaSerializer(typeof(JsonSerializer))]
+public Product Save(Product product){
+    return null;
+}
+
+[LambdaSerializer(typeof(JsonSerializer))]
+public Product Get(GetProductRequest request) {
+    return null;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Create the two new classes. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; }      
+    public string Description { get; set; }
+}
+
+public class GetProductRequest
+{
+    public int Id { get; set; }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let's start with the save. Using the Marten Store we created in the constructor, let's create a session. The session is effectively a Unit of Work. No you don't need to wrap this up in your own glorified unit of work like everyone attempts to do with Entity Framework or NHibernate. Just leave it alone.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[LambdaSerializer(typeof(JsonSerializer))]
+public Product Save(Product product) {
+    using (var session = store.LightweightSession()) {
+        session.Store(product);
+        session.SaveChanges();
+
+        return product;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So we open a session. I'm using a Lightweight session, this is a session that does not contain any change tracking at all. Refer to the documentation for more information. &lt;/p&gt;
+
+&lt;p&gt;We add the product that is passed in to the session, call Save Changes, then return the product back out. This will populate the Id field and we will know the Id of the newly inserted product.&lt;/p&gt;
+
+&lt;p&gt;Next let's work with the Get request.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[LambdaSerializer(typeof(JsonSerializer))]
+public Product Get(GetProductRequest request) {
+    using (var session = store.QuerySession()) {
+        return session.Load&amp;lt;Product&amp;gt;(request.Id);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this scenario we open only a Query session, this is a session which only allows you to query and does not provide change tracking or any ability to store an object. &lt;/p&gt;
+
+&lt;p&gt;We load based on the Id and return the product back out.&lt;/p&gt;
+
+&lt;p&gt;BAM! And we are done! That's Marten configured, and saving/retrieving data. Too easy!&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;It's worth noting that this is purely an example and obviously you would want to do more validation around the requests. &lt;/p&gt;
+
+&lt;p&gt;Next up is building / configuring the new Lambda handler implementations.&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/</guid><link>http://www.philliphaydon.com/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/</link><a10:author><a10:name /></a10:author><category>aws</category><category>dotnetcore</category><category>lambda</category><title>Building / Configuring the Lambda into AWS</title><description>&lt;p&gt;Now after part 1, we should have a basic lambda ready to build and deploy. Because this is such a basic handler, this will be published using the dotnet sdk, but if you have dependencies it's best to use the AWS Tools which I will show in part 4. &lt;/p&gt;
 
 &lt;h1&gt;Publishing the project&lt;/h1&gt;
 
@@ -1455,179 +1572,4 @@ dropArea.addEventListener('dragleave', function(e){
 &lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/drag-drop-image-html5-04.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;BAM Now we have Pizza Cat! :)&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/04/29/loading-an-image-or-video-from-a-file-input-control/</guid><link>http://www.philliphaydon.com/2014/04/29/loading-an-image-or-video-from-a-file-input-control/</link><a10:author><a10:name /></a10:author><category>HTML5</category><category>JavaScript</category><title>Loading an Image or Video from a File Input control.</title><description>&lt;p&gt;So you've got an input control, and you want to display the video/image before the user uploads, maybe so they can verify it first...&lt;/p&gt;
-
-&lt;p&gt;The &lt;a href="http://dev.w3.org/2006/webapi/FileAPI/"&gt;File API&lt;/a&gt; allows you to get more information from a &lt;code&gt;&amp;lt;input type="file"...&lt;/code&gt; control than we could get before. &lt;/p&gt;
-
-&lt;p&gt;So lets start with Video:&lt;/p&gt;
-
-&lt;h2&gt;Video&lt;/h2&gt;
-
-&lt;p&gt;Ok so we have a basic HTML page with an &lt;code&gt;&amp;lt;input type="file"...&lt;/code&gt;, &lt;code&gt;&amp;lt;video...&lt;/code&gt;, and &lt;code&gt;&amp;lt;input type="button'...&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
-&amp;lt;html&amp;gt;
-&amp;lt;head&amp;gt;
-    &amp;lt;meta charset="utf-8" /&amp;gt;
-    &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
-&amp;lt;/head&amp;gt;
-&amp;lt;body&amp;gt;      
-    &amp;lt;div&amp;gt;
-        &amp;lt;input type="file" id="video-input"&amp;gt;
-        &amp;lt;input type="button" value="Load Selected Video" id="load-video" /&amp;gt;
-    &amp;lt;/div&amp;gt;
-
-    &amp;lt;div&amp;gt;
-        &amp;lt;video id="video-container" controls&amp;gt;&amp;lt;/video&amp;gt;
-    &amp;lt;/div&amp;gt;
-&amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So if we load up a file, our UI should look something like this:&lt;/p&gt;
-
-</description><pubDate>Mon, 28 Apr 2014 16:00:00 Z</pubDate><a10:updated>2014-04-28T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;So you've got an input control, and you want to display the video/image before the user uploads, maybe so they can verify it first...&lt;/p&gt;
-
-&lt;p&gt;The &lt;a href="http://dev.w3.org/2006/webapi/FileAPI/"&gt;File API&lt;/a&gt; allows you to get more information from a &lt;code&gt;&amp;lt;input type="file"...&lt;/code&gt; control than we could get before. &lt;/p&gt;
-
-&lt;p&gt;So lets start with Video:&lt;/p&gt;
-
-&lt;h2&gt;Video&lt;/h2&gt;
-
-&lt;p&gt;Ok so we have a basic HTML page with an &lt;code&gt;&amp;lt;input type="file"...&lt;/code&gt;, &lt;code&gt;&amp;lt;video...&lt;/code&gt;, and &lt;code&gt;&amp;lt;input type="button'...&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
-&amp;lt;html&amp;gt;
-&amp;lt;head&amp;gt;
-    &amp;lt;meta charset="utf-8" /&amp;gt;
-    &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt;
-&amp;lt;/head&amp;gt;
-&amp;lt;body&amp;gt;      
-    &amp;lt;div&amp;gt;
-        &amp;lt;input type="file" id="video-input"&amp;gt;
-        &amp;lt;input type="button" value="Load Selected Video" id="load-video" /&amp;gt;
-    &amp;lt;/div&amp;gt;
-
-    &amp;lt;div&amp;gt;
-        &amp;lt;video id="video-container" controls&amp;gt;&amp;lt;/video&amp;gt;
-    &amp;lt;/div&amp;gt;
-&amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So if we load up a file, our UI should look something like this:&lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/image-video-part-1-01.png" alt="" /&gt;  &lt;/p&gt;
-
-&lt;p&gt;Now we need to add a click event to the button:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;script&amp;gt;    
-    (function(){
-
-        var fileInput = document.getElementById('video-input');
-        var video = document.getElementById('video-container');
-
-        document.getElementById('load-video').addEventListener('click', function(){
-
-            // Hmmm what happens?!?
-
-        });
-
-    })();   
-&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;There is currently only 3 video types that most browsers can handle. &lt;em&gt;There are others but support is far and few, for now atleast&lt;/em&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;video/mp4&lt;/code&gt; &lt;/li&gt;
-&lt;li&gt;&lt;code&gt;video/ogg&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;video/webm&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code&gt;video/mp4&lt;/code&gt; is supported on all browsers except Opera. (tho I haven't tested) so I'll only use a &lt;code&gt;.mp4&lt;/code&gt; file.&lt;/p&gt;
-
-&lt;h2&gt;How to load the selected file into a &lt;code&gt;&amp;lt;video /&amp;gt;&lt;/code&gt; element&lt;/h2&gt;
-
-&lt;p&gt;Ok so we have selected a file, but how do we load it? The W3 Spec has a section on Blob URL for &lt;a href="http://www.w3.org/TR/FileAPI/#creating-revoking"&gt;Creating/Revoking&lt;/a&gt;, all we need to do is creat a URL for the file blob, we can do this by calling:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var fileUrl = window.URL.createObjectURL(fileInput.files[0]);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we can assign this to the &lt;code&gt;&amp;lt;video...&lt;/code&gt; element:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;document.getElementById('load-video').addEventListener('click', function(){
-
-    var fileUrl = window.URL.createObjectURL(fileInput.files[0]);
-
-    video.src = fileUrl;
-
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we can select the file:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/image-video-part-1-02.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Can see the file selected next to the file input&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;And if we click on &lt;code&gt;Load Selected Video&lt;/code&gt; we get:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/image-video-part-1-03.png" alt="" /&gt;  &lt;/p&gt;
-
-&lt;h2&gt;What's it doing?!?&lt;/h2&gt;
-
-&lt;p&gt;What the browser does is creates a fake URL with the blob loaded into it to simulate a URL for the content, if we put a break point on the button click:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/image-video-part-1-04.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;We can see a URL prefixed with &lt;code&gt;blob&lt;/code&gt; and a url. So this allows the browser to simulate making a request for the content as if it was being served up normally...&lt;/p&gt;
-
-&lt;h2&gt;Images!&lt;/h2&gt;
-
-&lt;p&gt;So the great thing about this is it works for images too!!! So if we change the HTML now to have an &lt;code&gt;&amp;lt;img...&lt;/code&gt; tag instead of &lt;code&gt;&amp;lt;video...&lt;/code&gt; tag:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;div&amp;gt;
-    &amp;lt;input type="file" id="image-input"&amp;gt;
-    &amp;lt;input type="button" value="Load Selected Image" id="load-image" /&amp;gt;
-&amp;lt;/div&amp;gt;
-
-&amp;lt;div&amp;gt;
-    &amp;lt;img id="image-container" /&amp;gt;
-&amp;lt;/div&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And we update the JavaScript (just the wording so its all &lt;code&gt;image&lt;/code&gt; instead of &lt;code&gt;video&lt;/code&gt;)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;(function(){
-
-    var fileInput = document.getElementById('image-input');
-    var image = document.getElementById('image-container');
-
-    document.getElementById('load-image').addEventListener('click', function(){
-
-        var fileUrl = window.URL.createObjectURL(fileInput.files[0]);
-
-        image.src = fileUrl;
-
-    });
-
-})();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We can achieve the same thing with images, selecting a file:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/image-video-part-1-05.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;And we hit load:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/image-video-part-1-06.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;And if we debug it, just like the video, it creates a URL we can use for the image:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/image-video-part-1-07.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;That's how easy it is :) Next we will look at a drop area for files.&lt;/p&gt;
 </a10:content></item></channel></rss>

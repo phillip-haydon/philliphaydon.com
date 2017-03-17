@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2017-03-16T02:53:57.9238803+08:00" />
+    <meta http-equiv="last-modified" content="2017-03-18T02:18:44.9711191+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page2/" />
@@ -35,6 +35,46 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2014/04/29/loading-an-image-or-video-from-a-file-input-control/">Loading an Image or Video from a File Input control.</a> 
+        <span>posted on 29 Apr 2014</span>
+      </h1> 
+      <ul class="snow-series"><li>Part 1: Loading an Image or Video from a File Input control</li><li><a href="/2014/05/01/creating-a-drop-area-top-drop-a-file-in-html5/">Part 2: Creating a drop area to drop a file</a></li><li><a href="/2014/06/09/taking-snapshots-of-a-video-and-displaying-it/">Part 3: Taking snap shots of a Video & displaying it</a></li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
+      <p>So you've got an input control, and you want to display the video/image before the user uploads, maybe so they can verify it first...</p>
+
+<p>The <a href="http://dev.w3.org/2006/webapi/FileAPI/">File API</a> allows you to get more information from a <code>&lt;input type="file"...</code> control than we could get before. </p>
+
+<p>So lets start with Video:</p>
+
+<h2>Video</h2>
+
+<p>Ok so we have a basic HTML page with an <code>&lt;input type="file"...</code>, <code>&lt;video...</code>, and <code>&lt;input type="button'...</code></p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;      
+    &lt;div&gt;
+        &lt;input type="file" id="video-input"&gt;
+        &lt;input type="button" value="Load Selected Video" id="load-video" /&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;video id="video-container" controls&gt;&lt;/video&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>So if we load up a file, our UI should look something like this:</p>
+
+
+      <p><a href="/2014/04/29/loading-an-image-or-video-from-a-file-input-control/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2014/04/28/leveling-up-your-logging/">Levelling up your logging. (part 2)</a> 
@@ -242,38 +282,6 @@ Instead of sending all the logging information to your localhost Sentinal app we
 
 
       <p><a href="/2013/11/07/snow-gets-drafts/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/11/03/making-nancy-modules-easier-to-manage/">Making Nancy Modules easier to manage</a> 
-        <span>posted on 03 Nov 2013</span>
-      </h1> 
-      
-      <p>One problem I think a lot of developers have, is creating Controllers and Modules that are small and maintainable. Sometimes when you add some querying, bit of validation, pass it off to a repository or service, etc. It begins to become a little bit too big. </p>
-
-<p>Lets assume our we have an <code>AccountModule</code> it Gets a Login route to load the UI, and Posts to a Login route to authenticate the user, and do something.</p>
-
-<p>It also Gets a Register route to load the UI, and Posts to a Register route to register the new user. </p>
-
-<p>Without an actual implementation, something like this:</p>
-
-<pre><code>public class AccountModule : NancyModule
-{
-    public AccountModule() : base("/account")
-    {
-        Get["/login"] = _ =&gt; "login";
-        Post["/login"] = _ =&gt; "login";
-
-        Get["/register"] = _ =&gt; "register";
-        Post["/register"] = _ =&gt; "register";
-    }
-}
-</code></pre>
-
-<p>To begin with, we only have 4 things to implement, its rather small, somewhat easy to manage, but what happens when we want to update an account?</p>
-
-
-      <p><a href="/2013/11/03/making-nancy-modules-easier-to-manage/">Read more...</a></p>
     </li>
   </ul> 
 

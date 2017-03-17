@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2017-03-16T02:53:57.9238803+08:00" />
+    <meta http-equiv="last-modified" content="2017-03-18T02:18:44.9711191+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/" />
@@ -37,10 +37,29 @@
   <ul class="posts">
     <li class="fancy-container lightblue">
       <h1>
+        <a href="/2017/03/18/part3-saving-retrieving-data-using-marten/">Saving / Retrieving data using Marten</a> 
+        <span>posted on 18 Mar 2017</span>
+      </h1> 
+      <ul class="snow-series"><li><a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Part 1: Creating a good old Hello World AWS C# Lambda</a></li><li><a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Part 2: Building / Configuring the Lambda into AWS</a></li><li>Part 3: Saving / Retrieving data using Marten</li><li>Part 4: Building / Configuring using AWS Tools</li><li>Part 5: Configuring the VPC to call the database</li></ul>
+      <p>So far we have created a basic lambda, deployed it into AWS, and executed it. However, it doesn't do anything useful. While there are many things you can do, one of the things you're most likely going to want to do is touch a database. But let's get a little bit fancy and do it with Marten.</p>
+
+<p>If you don't know Marten, you're missing out. It's a LOT of fun. There's two parts to Marten, an event store, and the super awesome fun bit that I love. The Document Database. </p>
+
+<p>Marten uses PostgreSQL's fancy JSONB data type to store documents in the database, with an API built on top to make working with your domain easier without having to worry about your schema. Check it out.</p>
+
+<p><a href="http://jasperfx.github.io/marten/">http://jasperfx.github.io/marten/</a></p>
+
+<p>Let's get started. </p>
+
+
+      <p><a href="/2017/03/18/part3-saving-retrieving-data-using-marten/">Read more...</a></p>
+    </li>
+    <li class="fancy-container lightblue">
+      <h1>
         <a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Building / Configuring the Lambda into AWS</a> 
         <span>posted on 16 Mar 2017</span>
       </h1> 
-      <ul class="snow-series"><li><a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Part 1: Creating a good old Hello World AWS C# Lambda</a></li><li>Part 2: Building / Configuring the Lambda into AWS</li><li>Part 3: Saving / Retrieving data using Marten</li><li>Part 4: Building / Configuring using AWS Tools</li><li>Part 5: Configuring the VPC to call the database</li></ul>
+      <ul class="snow-series"><li><a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Part 1: Creating a good old Hello World AWS C# Lambda</a></li><li>Part 2: Building / Configuring the Lambda into AWS</li><li><a href="/2017/03/18/part3-saving-retrieving-data-using-marten/">Part 3: Saving / Retrieving data using Marten</a></li><li>Part 4: Building / Configuring using AWS Tools</li><li>Part 5: Configuring the VPC to call the database</li></ul>
       <p>Now after part 1, we should have a basic lambda ready to build and deploy. Because this is such a basic handler, this will be published using the dotnet sdk, but if you have dependencies it's best to use the AWS Tools which I will show in part 4. </p>
 
 <h1>Publishing the project</h1>
@@ -65,7 +84,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
         <a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Creating a good old Hello World AWS C# Lambda</a> 
         <span>posted on 15 Mar 2017</span>
       </h1> 
-      <ul class="snow-series"><li>Part 1: Creating a good old Hello World AWS C# Lambda</li><li><a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Part 2: Building / Configuring the Lambda into AWS</a></li><li>Part 3: Saving / Retrieving data using Marten</li><li>Part 4: Building / Configuring using AWS Tools</li><li>Part 5: Configuring the VPC to call the database</li></ul>
+      <ul class="snow-series"><li>Part 1: Creating a good old Hello World AWS C# Lambda</li><li><a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Part 2: Building / Configuring the Lambda into AWS</a></li><li><a href="/2017/03/18/part3-saving-retrieving-data-using-marten/">Part 3: Saving / Retrieving data using Marten</a></li><li>Part 4: Building / Configuring using AWS Tools</li><li>Part 5: Configuring the VPC to call the database</li></ul>
       <p>So finally .NET Core Tools has reached 1.0 and after playing around... it's actually usable now. I can do all the things easily, that I once found difficult.</p>
 
 <p>This blog series is about creating a basic sample handler for an AWS C# Lambda, and extending it to configure a VPC, and query PostgreSQL using Marten, all using VSCode.</p>
@@ -288,46 +307,6 @@ create table test_arrays (
 
 
       <p><a href="/2014/05/01/creating-a-drop-area-top-drop-a-file-in-html5/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2014/04/29/loading-an-image-or-video-from-a-file-input-control/">Loading an Image or Video from a File Input control.</a> 
-        <span>posted on 29 Apr 2014</span>
-      </h1> 
-      <ul class="snow-series"><li>Part 1: Loading an Image or Video from a File Input control</li><li><a href="/2014/05/01/creating-a-drop-area-top-drop-a-file-in-html5/">Part 2: Creating a drop area to drop a file</a></li><li><a href="/2014/06/09/taking-snapshots-of-a-video-and-displaying-it/">Part 3: Taking snap shots of a Video & displaying it</a></li><li>Part 4: Uploading snap shots to Nancy (Or Web API)</li><li>Part 5: Converting video in the browser using videoconverter.js (ffmpeg)</li></ul>
-      <p>So you've got an input control, and you want to display the video/image before the user uploads, maybe so they can verify it first...</p>
-
-<p>The <a href="http://dev.w3.org/2006/webapi/FileAPI/">File API</a> allows you to get more information from a <code>&lt;input type="file"...</code> control than we could get before. </p>
-
-<p>So lets start with Video:</p>
-
-<h2>Video</h2>
-
-<p>Ok so we have a basic HTML page with an <code>&lt;input type="file"...</code>, <code>&lt;video...</code>, and <code>&lt;input type="button'...</code></p>
-
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;meta charset="utf-8" /&gt;
-    &lt;title&gt;&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;      
-    &lt;div&gt;
-        &lt;input type="file" id="video-input"&gt;
-        &lt;input type="button" value="Load Selected Video" id="load-video" /&gt;
-    &lt;/div&gt;
-
-    &lt;div&gt;
-        &lt;video id="video-container" controls&gt;&lt;/video&gt;
-    &lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-
-<p>So if we load up a file, our UI should look something like this:</p>
-
-
-      <p><a href="/2014/04/29/loading-an-image-or-video-from-a-file-input-control/">Read more...</a></p>
     </li>
   </ul> 
 
