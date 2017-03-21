@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2017-03-18T02:18:44.9711191+08:00" />
+    <meta http-equiv="last-modified" content="2017-03-22T01:00:21.9997619+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page5/" />
@@ -35,6 +35,50 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/04/09/nancyfx-implementing-your-own-routing/">NancyFX - Implementing your own routing!</a> 
+        <span>posted on 09 Apr 2013</span>
+      </h1> 
+      
+      <p>With the up and coming release of 0.17 of NancyFX, the routing has been completely rewritten, and now it's super easy to implement your own routing. So I'm going to show you how.</p>
+
+<h2>How it works</h2>
+
+<p>The routing works by defining a route:</p>
+
+<p><code>Get["/products/{id}"]</code></p>
+
+<p>The route is then broken up into segments:</p>
+
+<ol>
+<li><code>products</code></li>
+<li><code>{id}</code></li>
+</ol>
+
+<p>Each segment is checked against a Node Condition in the <code>TrieNodeFactory</code> like so</p>
+
+<pre><code>if (segment.StartsWith("(") &amp;&amp; segment.EndsWith(")"))
+{
+    return new RegExNode(parent, segment, this);
+}
+</code></pre>
+
+<p>When a request comes in, the segment is compared to the node for a match and returns true/false + the captured parameter. </p>
+
+<p>These are a bunch of conditions for checking different nodes, currently Nancy supports out of the box the following nodes.</p>
+
+<h2>Existing Nodes</h2>
+
+<p>This is brief description of the existing nodes that currently exist in 0.17. </p>
+
+<h3>CaptureNode</h3>
+
+<p>This node captures <code>{foo}</code>, or basically any value defined in the segment.</p>
+
+
+      <p><a href="/2013/04/09/nancyfx-implementing-your-own-routing/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/04/09/raygun-io-javascript-error-logging/">Raygun.io - JavaScript error logging!</a> 
@@ -370,45 +414,6 @@
 
 
       <p><a href="/2013/02/11/x-http-method-override-with-nancyfx/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/02/05/oauth-with-asp-net-mvc-and-world-domination-authentication/">OAuth with ASP.NET MVC and WorldDomination.Web.Authentication</a> 
-        <span>posted on 05 Feb 2013</span>
-      </h1> 
-      
-      <p>This post is a follow on from my previous post <a href="/2013/01/oauth-with-nancyfx-and-world-domination-authentication/">OAuth with NancyFX and WorldDomination.Web.Authentication</a> except this demonstrates how you can use WorldDomination.Web.Authentication with ASP.NET MVC, writing only minimal code in the process.</p>
-
-<p>To save you jumping to the other post, I'll quote myself:</p>
-
-<blockquote>
-  <p>One of the biggest pains of building websites, in my opinion, is implementing OAuth providers, it's often fiddly, doesn't work, and frameworks that are created to try make things easier, don't seem to make it easier. </p>
-  
-  <p>So <a href="https://github.com/PureKrome">PureKrome</a> and myself decided to create <a href="http://www.nuget.org/packages/WorldDomination.Web.Authentication/">WorldDomination: Web Authentication</a></p>
-  
-  <p>The idea behind this framework is to keep it super simple to implement OAuth into your website, without the bloat. The core framework ONLY deals with Google, Twitter, and Facebook authentication. It doesn't try to create a fancy UI for you, it doesn't require you to write lots and lots of code. You simply give it some info, it redirects, it comes back and gives you the authentication info.</p>
-</blockquote>
-
-<p>So without further adieu...</p>
-
-<h3>Installing</h3>
-
-<p>Installing the library for MVC requires installing the MVC specific library.</p>
-
-<blockquote>
-  <p>PM> Install-Package WorldDomination.Web.Authentication.Mvc</p>
-</blockquote>
-
-<p>This will install:</p>
-
-<ul>
-<li>WorldDomination.Web.Authentication.Mvc</li>
-<li>WorldDomination.Web.Authentication</li>
-<li>RestSharp</li>
-</ul>
-
-
-      <p><a href="/2013/02/05/oauth-with-asp-net-mvc-and-world-domination-authentication/">Read more...</a></p>
     </li>
   </ul> 
 

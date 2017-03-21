@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2017-03-18T02:18:44.9711191+08:00" />
+    <meta http-equiv="last-modified" content="2017-03-22T01:00:21.9997619+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page8/" />
@@ -35,6 +35,27 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2012/09/29/nancy-and-areas/">NancyFX and Areas</a> 
+        <span>posted on 29 Sep 2012</span>
+      </h1> 
+      
+      <p>A while back <a href="https://twitter.com/ayende">@ayende</a> wrote a <a href="http://ayende.com/blog/156609/reviewing-dinner-party-ndash-nerd-dinner-ported-to-ravendb-on-ravenhq">blog post</a> about <a href="https://github.com/NancyFx/DinnerParty">DinnerParty</a> in which he mentioned <a href="http://nancyfx.org/">NancyFX</a>, a lightweight web framework. <a href="https://twitter.com/jchannon">@jchannon</a> recently wrote about a <a href="http://blog.jonathanchannon.com/2012/09/21/nancyfx-ravendb-nerddinner-and-me/">blog post about NancyFX RavenDB and himself</a>.</p>
+
+<p>So I've spent the better part of the last few months learning it, and needless to say, it's awesome. So I got asked a question, how would I handle 'Areas' with Nancy, like we would with ASP.NET MVC?</p>
+
+<p>Well it's pretty simple, all it really consists of is... a module containing a root path.</p>
+
+<p>Lets begin with the following folder structure defining a 'HomeModule' for both the Root Website, and the Admin section.</p>
+
+<p><img src="/images/nancy-areas-1.png" /></p>
+
+<p>Both these HomeModule classes are identical, with the small exception that the Admin one specifies a Root Path.</p>
+
+
+      <p><a href="/2012/09/29/nancy-and-areas/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2012/09/25/my-volume-gets-lowered-reduced-when-swapping-applications-solution/">My volume gets lowered/reduced when swapping applications (solution)</a> 
@@ -320,27 +341,6 @@ public class User
 
 
       <p><a href="/2012/03/24/my-must-have-short-list-programs-and-extensions-etc/">Read more...</a></p>
-    </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2012/03/19/ormlite-blobbing-done-with-nhibernate-and-serialized-json/">OrmLite Blobbing done with NHibernate and Serialized JSON...</a> 
-        <span>posted on 19 Mar 2012</span>
-      </h1> 
-      
-      <p>There seems to be a growing trend now with these Micro ORM's, at least that is what I see with <a href="https://github.com/ServiceStack/ServiceStack.OrmLite">ServiceStack.OrmLite</a>, which is the ability to persist properties of an object as a JSON, rather than in separate tables.</p>
-
-<p>Usually with a Relational approach you would create a <code>Customer</code> table, <code>Address</code> table, and most likely shove the Phone Numbers under separate columns of the customer for <code>HomePhone</code> and <code>Mobile</code>.</p>
-
-<p>This means we are limited to two types of phone numbers, and require joining or querying for the addresses.</p>
-
-<p>Do we really need separate columns for phone numbers? Do we really need to persist the addresses in another table?</p>
-
-<p>One problem I see with putting addresses into it's own table, is the temptation to relate them to an Order (assuming this is some sort of eCommerce system) when really there is no relationship between a customer's address, and the address on an order.</p>
-
-<p>Really, the order should have it's own address, otherwise you can never delete or update an address on a customer, and you can't delete the customer. However I digress and this is a topic for another day.</p>
-
-
-      <p><a href="/2012/03/19/ormlite-blobbing-done-with-nhibernate-and-serialized-json/">Read more...</a></p>
     </li>
   </ul> 
 

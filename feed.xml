@@ -1,4 +1,84 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2017/03/18/part3-saving-retrieving-data-using-marten/</guid><link>http://www.philliphaydon.com/2017/03/18/part3-saving-retrieving-data-using-marten/</link><a10:author><a10:name /></a10:author><category>aws</category><category>dotnetcore</category><category>lambda</category><category>marten</category><category>postgresql</category><title>Saving / Retrieving data using Marten</title><description>&lt;p&gt;So far we have created a basic lambda, deployed it into AWS, and executed it. However, it doesn't do anything useful. While there are many things you can do, one of the things you're most likely going to want to do is touch a database. But let's get a little bit fancy and do it with Marten.&lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2017/03/21/part4-building-and-publishing-a-dotnet-core-app-using-aws-tools/</guid><link>http://www.philliphaydon.com/2017/03/21/part4-building-and-publishing-a-dotnet-core-app-using-aws-tools/</link><a10:author><a10:name /></a10:author><category>aws</category><category>dotnetcore</category><category>lambda</category><category>marten</category><category>postgresql</category><title>Building / Publishing a .NET Core app using AWS Tools</title><description>&lt;p&gt;Now that we've got everything, we need to deploy it, however if we build it using dotnet clr it will fail. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"cause": {
+  "errorType": "TypeInitializationException",
+  "errorMessage": "The type initializer for 'Npgsql.TypeHandlerRegistry' threw an exception.",
+  "stackTrace": [
+    "at Npgsql.TypeHandlerRegistry.Setup(NpgsqlConnector connector, NpgsqlTimeout timeout, Boolean async)",
+    "at Npgsql.NpgsqlConnector.&amp;lt;Open&amp;gt;d__137.MoveNext()",
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That's because Npgsql need's to load some dependencies but the Lambda's don't understand that. No matter how I publish, restore for a target runtime and publish agains that, it doesn't seem to work. However, AWS have their own toolkit for publishing lambda's. &lt;/p&gt;
+
+</description><pubDate>Mon, 20 Mar 2017 16:00:00 Z</pubDate><a10:updated>2017-03-20T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;Now that we've got everything, we need to deploy it, however if we build it using dotnet clr it will fail. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"cause": {
+  "errorType": "TypeInitializationException",
+  "errorMessage": "The type initializer for 'Npgsql.TypeHandlerRegistry' threw an exception.",
+  "stackTrace": [
+    "at Npgsql.TypeHandlerRegistry.Setup(NpgsqlConnector connector, NpgsqlTimeout timeout, Boolean async)",
+    "at Npgsql.NpgsqlConnector.&amp;lt;Open&amp;gt;d__137.MoveNext()",
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That's because Npgsql need's to load some dependencies but the Lambda's don't understand that. No matter how I publish, restore for a target runtime and publish agains that, it doesn't seem to work. However, AWS have their own toolkit for publishing lambda's. &lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;h1&gt;Installing the toolkit so we can publish&lt;/h1&gt;
+
+&lt;p&gt;Instead of using the dotnet clr to publish we can install the &lt;a href="https://www.nuget.org/packages/Amazon.Lambda.Tools"&gt;AWS Lambda Toolkit&lt;/a&gt;. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;dotnet add .\HelloWorldLambda\ package Amazon.Lambda.Tools
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Once this is installed we need to modify our &lt;code&gt;.csproj&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-4-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you can see the toolkit installs as a Reference. If we try to run the toolkit command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;dotnet lambda -help
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-4-02.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;We don't get any help :( what we need to do is modify our &lt;code&gt;.csproj&lt;/code&gt; file to change the &lt;code&gt;PackageReference&lt;/code&gt; to &lt;code&gt;DotNetCliToolReference&lt;/code&gt;. &lt;/p&gt;
+
+&lt;p&gt;Now the &lt;code&gt;.csproj&lt;/code&gt; file should look like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;Project Sdk="Microsoft.NET.Sdk"&amp;gt;
+  &amp;lt;PropertyGroup&amp;gt;
+    &amp;lt;TargetFramework&amp;gt;netcoreapp1.0&amp;lt;/TargetFramework&amp;gt;
+  &amp;lt;/PropertyGroup&amp;gt;
+  &amp;lt;ItemGroup&amp;gt;
+    &amp;lt;PackageReference Include="Amazon.Lambda.Serialization.Json" Version="1.0.1" /&amp;gt;
+    &amp;lt;DotNetCliToolReference Include="Amazon.Lambda.Tools" Version="1.4.0" /&amp;gt;
+    &amp;lt;PackageReference Include="Marten" Version="1.4.1" /&amp;gt;
+  &amp;lt;/ItemGroup&amp;gt;
+&amp;lt;/Project&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now when we save and run the command again:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-4-03.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;h1&gt;Publishing&lt;/h1&gt;
+
+&lt;p&gt;Publishing is very similar to pushing using dotnet clr, except we need to run the command from the project folder we need to publish so that we can have access to the tools. &lt;/p&gt;
+
+&lt;p&gt;Note: this may be different using s solution, but I haven't tested it.&lt;/p&gt;
+
+&lt;p&gt;Let's run:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;dotnet lambda package -c Release -o ../HelloWorldLambda.zip -f netcoreapp1.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This should create a zip file in the root directory where we published the first sample.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-4-03.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we can go back into AWS and upload and configure the Lambda. In part 5 we will configure the VPC so we can connect to RDS and test our queries.&lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2017/03/18/part3-saving-retrieving-data-using-marten/</guid><link>http://www.philliphaydon.com/2017/03/18/part3-saving-retrieving-data-using-marten/</link><a10:author><a10:name /></a10:author><category>aws</category><category>dotnetcore</category><category>lambda</category><category>marten</category><category>postgresql</category><title>Saving / Retrieving data using Marten</title><description>&lt;p&gt;So far we have created a basic lambda, deployed it into AWS, and executed it. However, it doesn't do anything useful. While there are many things you can do, one of the things you're most likely going to want to do is touch a database. But let's get a little bit fancy and do it with Marten.&lt;/p&gt;
 
 &lt;p&gt;If you don't know Marten, you're missing out. It's a LOT of fun. There's two parts to Marten, an event store, and the super awesome fun bit that I love. The Document Database. &lt;/p&gt;
 
@@ -1434,142 +1514,4 @@ queue.AddMessage(new CloudQueueMessage("Hello, World"));
 &lt;p&gt;I would highly recommend checking out Zudio!&lt;/p&gt;
 
 &lt;p&gt;&lt;a href="http://zud.io"&gt;http://zud.io&lt;/a&gt;&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/05/01/creating-a-drop-area-top-drop-a-file-in-html5/</guid><link>http://www.philliphaydon.com/2014/05/01/creating-a-drop-area-top-drop-a-file-in-html5/</link><a10:author><a10:name /></a10:author><category>HTML5</category><category>JavaScript</category><title>Creating a drop area to drop a file in HTML 5</title><description>&lt;p&gt;In the first post we uploaded a file and viewed it in the browser without sending it to a server, now we are going to create a drop area so that you can drag a file from a folder, into the website.&lt;/p&gt;
-
-&lt;p&gt;Using the same HTML as before, lets add a drop area:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;div&amp;gt;
-    &amp;lt;input type="file" id="image-input"&amp;gt;
-    &amp;lt;input type="button" value="Load Selected Image" id="load-image" /&amp;gt;
-&amp;lt;/div&amp;gt;
-
-&amp;lt;div id="drop-area"&amp;gt;
-    Drop File Here...
-&amp;lt;/div&amp;gt;
-
-&amp;lt;div&amp;gt;
-    &amp;lt;img id="image-container" width="360" /&amp;gt;
-&amp;lt;/div&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And add a bit of CSS to make it a little more visible:&lt;/p&gt;
-
-</description><pubDate>Wed, 30 Apr 2014 16:00:00 Z</pubDate><a10:updated>2014-04-30T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;In the first post we uploaded a file and viewed it in the browser without sending it to a server, now we are going to create a drop area so that you can drag a file from a folder, into the website.&lt;/p&gt;
-
-&lt;p&gt;Using the same HTML as before, lets add a drop area:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;div&amp;gt;
-    &amp;lt;input type="file" id="image-input"&amp;gt;
-    &amp;lt;input type="button" value="Load Selected Image" id="load-image" /&amp;gt;
-&amp;lt;/div&amp;gt;
-
-&amp;lt;div id="drop-area"&amp;gt;
-    Drop File Here...
-&amp;lt;/div&amp;gt;
-
-&amp;lt;div&amp;gt;
-    &amp;lt;img id="image-container" width="360" /&amp;gt;
-&amp;lt;/div&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And add a bit of CSS to make it a little more visible:&lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;style type="text/css"&amp;gt;
-#drop-area{
-    border: 1px dotted #666;
-    background: #f2f2f2;
-    width: 360px;
-    height: 50px;
-    vertical-align: middle;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#drop-area.drop {
-    background: red;
-}
-&amp;lt;/style&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If we view it now it should look like:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/drag-drop-image-html5-01.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;h2&gt;Drag Enter&lt;/h2&gt;
-
-&lt;p&gt;Now we have our UI set, we need to add an indication when the user drags a file...&lt;/p&gt;
-
-&lt;p&gt;If we don't, it would look like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/drag-drop-image-html5-02.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Which isn't very helpful, so first we need to attach some events for &lt;code&gt;dragenter&lt;/code&gt; and &lt;code&gt;dragleave&lt;/code&gt; so we can add/remove the class.&lt;/p&gt;
-
-&lt;p&gt;We use this instead of &lt;code&gt;:hover&lt;/code&gt; because we only want the visual effect when the user is dragging something into the droppable area.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var dropArea = document.getElementById('drop-area');
-
-dropArea.addEventListener('dragenter', function(e){
-    e.currentTarget.classList.add('drop');
-});
-
-dropArea.addEventListener('dragleave', function(e){
-    e.currentTarget.classList.remove('drop');
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now when we drag the a file over the drop area, we end with...&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/drag-drop-image-html5-03.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;h2&gt;The hidden 'Copy'...&lt;/h2&gt;
-
-&lt;p&gt;It took me a while to figure out why my code didn't work and it happens to be the bit people put in the sample code and never explain...&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;dropArea.addEventListener('dragover', function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    e.dataTransfer.dropEffect = 'copy';
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In order for the drag to be captured, we need to set the &lt;code&gt;dropEffect&lt;/code&gt;, by setting it to &lt;code&gt;copy&lt;/code&gt;, apparently allows the source item (the item we're dragging) will be copied to the drop location.&lt;/p&gt;
-
-&lt;p&gt;The possible values on &lt;a href="https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer#dropEffect.28.29"&gt;W3&lt;/a&gt; and &lt;a href="http://www.w3.org/TR/2011/WD-html5-20110113/dnd.html#dom-datatransfer-dropeffect"&gt;MDN&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;copy:&lt;/strong&gt; A copy of the source item is made at the new location.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;move:&lt;/strong&gt; An item is moved to a new location.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;link:&lt;/strong&gt; A link is established to the source at the new location.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;none:&lt;/strong&gt; The item may not be dropped.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Setting this value on &lt;code&gt;dragenter&lt;/code&gt; doesn't seem to do anything, it only works when doing it on &lt;code&gt;dragover&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2&gt;Lets capture it and render it!!!&lt;/h2&gt;
-
-&lt;p&gt;All that's left now is to touch the &lt;code&gt;drop&lt;/code&gt; event...&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;dropArea.addEventListener('drop', function(e){
-    e.preventDefault();
-    e.stopPropagation();
-
-    var file = e.dataTransfer.files[0];
-    var fileUrl = window.URL.createObjectURL(file);
-
-    image.src = fileUrl;
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Like when we load the file from an &lt;code&gt;input&lt;/code&gt; control, we get a collection of files. Since we're only dragging 1 file for testing, we just grab the first file, create a URL, and load it...&lt;/p&gt;
-
-&lt;p&gt;Now when we drop out cat picture!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/drag-drop-image-html5-04.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;BAM Now we have Pizza Cat! :)&lt;/p&gt;
 </a10:content></item></channel></rss>
