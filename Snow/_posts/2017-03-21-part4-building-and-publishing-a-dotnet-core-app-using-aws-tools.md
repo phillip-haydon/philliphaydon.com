@@ -71,6 +71,6 @@ Let's run:
 	
 This should create a zip file in the root directory where we published the first sample.
 
-![](/images/part-4-03.png)
+![](/images/part-4-04.png)
 
 Now we can go back into AWS and upload and configure the Lambda. In part 5 we will configure the VPC so we can connect to RDS and test our queries.
