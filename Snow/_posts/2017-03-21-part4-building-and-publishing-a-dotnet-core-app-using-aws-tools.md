@@ -74,3 +74,7 @@ This should create a zip file in the root directory where we published the first
 ![](/images/part-4-04.png)
 
 Now we can go back into AWS and upload and configure the Lambda. In part 5 we will configure the VPC so we can connect to RDS and test our queries.
+
+
+-----
+Note: Part 5 will be published on the 4th of April as I am on holiday, and not taking my laptop, because I need a break :)
