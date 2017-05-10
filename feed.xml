@@ -189,10 +189,6 @@
 &lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-4-04.png" alt="" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now we can go back into AWS and upload and configure the Lambda. In part 5 we will configure the VPC so we can connect to RDS and test our queries.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Note: Part 5 will be published on the 4th of April as I am on holiday, and not taking my laptop, because I need a break :)&lt;/p&gt;
 </a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2017/03/18/part3-saving-retrieving-data-using-marten/</guid><link>http://www.philliphaydon.com/2017/03/18/part3-saving-retrieving-data-using-marten/</link><a10:author><a10:name /></a10:author><category>aws</category><category>dotnetcore</category><category>lambda</category><category>marten</category><category>postgresql</category><title>Saving / Retrieving data using Marten</title><description>&lt;p&gt;So far we have created a basic lambda, deployed it into AWS, and executed it. However, it doesn't do anything useful. While there are many things you can do, one of the things you're most likely going to want to do is touch a database. But let's get a little bit fancy and do it with Marten.&lt;/p&gt;
 
 &lt;p&gt;If you don't know Marten, you're missing out. It's a LOT of fun. There's two parts to Marten, an event store, and the super awesome fun bit that I love. The Document Database. &lt;/p&gt;
