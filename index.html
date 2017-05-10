@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2017-03-24T20:37:07.5729863+08:00" />
+    <meta http-equiv="last-modified" content="2017-05-11T01:47:51.6102864+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/" />
@@ -37,10 +37,32 @@
   <ul class="posts">
     <li class="fancy-container lightblue">
       <h1>
+        <a href="/2017/05/10/part5-configuring-the-vpc-so-we-can-call-the-database/">Configuring the VPC so we can call the database</a> 
+        <span>posted on 10 May 2017</span>
+      </h1> 
+      <ul class="snow-series"><li><a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Part 1: Creating a good old Hello World AWS C# Lambda</a></li><li><a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Part 2: Building / Configuring the Lambda into AWS</a></li><li><a href="/2017/03/18/part3-saving-retrieving-data-using-marten/">Part 3: Saving / Retrieving data using Marten</a></li><li><a href="/2017/03/21/part4-building-and-publishing-a-dotnet-core-app-using-aws-tools/">Part 4: Building / Configuring using AWS Tools</a></li><li>Part 5: Configuring the VPC so we can call the database</li></ul>
+      <p>Ahh the final part.</p>
+
+<p>So if you're using AWS you're most likely using RDS. If you're using RDS then you've got a database, and if it's in production then hopefully you've disabled public access and haven't configured it to allow a connection from any IP address.</p>
+
+<p>If this is the case then the moment we test our Lambda, it's going to fail with a timeout. </p>
+
+<pre><code>{
+  "errorMessage": "2017-03-23T17:12:36.269Z e0474e8b-0feb-11e7-a0fe-276de97e95bf Task timed out after 15.00 seconds"
+}
+</code></pre>
+
+<p>This happens because it cannot connect to the database, if the lambda execution time is less than your database timeout then this happens. Otherwise if the inverse is true you would get the database timeout exception rather than the lambda timeout exception.</p>
+
+
+      <p><a href="/2017/05/10/part5-configuring-the-vpc-so-we-can-call-the-database/">Read more...</a></p>
+    </li>
+    <li class="fancy-container lightblue">
+      <h1>
         <a href="/2017/03/21/part4-building-and-publishing-a-dotnet-core-app-using-aws-tools/">Building / Publishing a .NET Core app using AWS Tools</a> 
         <span>posted on 21 Mar 2017</span>
       </h1> 
-      <ul class="snow-series"><li><a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Part 1: Creating a good old Hello World AWS C# Lambda</a></li><li><a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Part 2: Building / Configuring the Lambda into AWS</a></li><li><a href="/2017/03/18/part3-saving-retrieving-data-using-marten/">Part 3: Saving / Retrieving data using Marten</a></li><li>Part 4: Building / Publishing a .NET Core app using AWS Tools</li><li>Part 5: Configuring the VPC to call the database</li></ul>
+      <ul class="snow-series"><li><a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Part 1: Creating a good old Hello World AWS C# Lambda</a></li><li><a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Part 2: Building / Configuring the Lambda into AWS</a></li><li><a href="/2017/03/18/part3-saving-retrieving-data-using-marten/">Part 3: Saving / Retrieving data using Marten</a></li><li>Part 4: Building / Configuring using AWS Tools</li><li><a href="/2017/05/10/part5-configuring-the-vpc-so-we-can-call-the-database/">Part 5: Configuring the VPC so we can call the database</a></li></ul>
       <p>Now that we've got everything, we need to deploy it, however if we build it using dotnet clr it will fail. </p>
 
 <pre><code>"cause": {
@@ -61,7 +83,7 @@
         <a href="/2017/03/18/part3-saving-retrieving-data-using-marten/">Saving / Retrieving data using Marten</a> 
         <span>posted on 18 Mar 2017</span>
       </h1> 
-      <ul class="snow-series"><li><a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Part 1: Creating a good old Hello World AWS C# Lambda</a></li><li><a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Part 2: Building / Configuring the Lambda into AWS</a></li><li>Part 3: Saving / Retrieving data using Marten</li><li><a href="/2017/03/21/part4-building-and-publishing-a-dotnet-core-app-using-aws-tools/">Part 4: Building / Publishing a .NET Core app using AWS Tools</a></li><li>Part 5: Configuring the VPC to call the database</li></ul>
+      <ul class="snow-series"><li><a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Part 1: Creating a good old Hello World AWS C# Lambda</a></li><li><a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Part 2: Building / Configuring the Lambda into AWS</a></li><li>Part 3: Saving / Retrieving data using Marten</li><li><a href="/2017/03/21/part4-building-and-publishing-a-dotnet-core-app-using-aws-tools/">Part 4: Building / Configuring using AWS Tools</a></li><li><a href="/2017/05/10/part5-configuring-the-vpc-so-we-can-call-the-database/">Part 5: Configuring the VPC so we can call the database</a></li></ul>
       <p>So far we have created a basic lambda, deployed it into AWS, and executed it. However, it doesn't do anything useful. While there are many things you can do, one of the things you're most likely going to want to do is touch a database. But let's get a little bit fancy and do it with Marten.</p>
 
 <p>If you don't know Marten, you're missing out. It's a LOT of fun. There's two parts to Marten, an event store, and the super awesome fun bit that I love. The Document Database. </p>
@@ -80,7 +102,7 @@
         <a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Building / Configuring the Lambda into AWS</a> 
         <span>posted on 16 Mar 2017</span>
       </h1> 
-      <ul class="snow-series"><li><a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Part 1: Creating a good old Hello World AWS C# Lambda</a></li><li>Part 2: Building / Configuring the Lambda into AWS</li><li><a href="/2017/03/18/part3-saving-retrieving-data-using-marten/">Part 3: Saving / Retrieving data using Marten</a></li><li><a href="/2017/03/21/part4-building-and-publishing-a-dotnet-core-app-using-aws-tools/">Part 4: Building / Publishing a .NET Core app using AWS Tools</a></li><li>Part 5: Configuring the VPC to call the database</li></ul>
+      <ul class="snow-series"><li><a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Part 1: Creating a good old Hello World AWS C# Lambda</a></li><li>Part 2: Building / Configuring the Lambda into AWS</li><li><a href="/2017/03/18/part3-saving-retrieving-data-using-marten/">Part 3: Saving / Retrieving data using Marten</a></li><li><a href="/2017/03/21/part4-building-and-publishing-a-dotnet-core-app-using-aws-tools/">Part 4: Building / Configuring using AWS Tools</a></li><li><a href="/2017/05/10/part5-configuring-the-vpc-so-we-can-call-the-database/">Part 5: Configuring the VPC so we can call the database</a></li></ul>
       <p>Now after part 1, we should have a basic lambda ready to build and deploy. Because this is such a basic handler, this will be published using the dotnet sdk, but if you have dependencies it's best to use the AWS Tools which I will show in part 4. </p>
 
 <h1>Publishing the project</h1>
@@ -105,7 +127,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
         <a href="/2017/03/15/part1-creating-a-good-old-hello-world-aws-csharp-lambda/">Creating a good old Hello World AWS C# Lambda</a> 
         <span>posted on 15 Mar 2017</span>
       </h1> 
-      <ul class="snow-series"><li>Part 1: Creating a good old Hello World AWS C# Lambda</li><li><a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Part 2: Building / Configuring the Lambda into AWS</a></li><li><a href="/2017/03/18/part3-saving-retrieving-data-using-marten/">Part 3: Saving / Retrieving data using Marten</a></li><li><a href="/2017/03/21/part4-building-and-publishing-a-dotnet-core-app-using-aws-tools/">Part 4: Building / Publishing a .NET Core app using AWS Tools</a></li><li>Part 5: Configuring the VPC to call the database</li></ul>
+      <ul class="snow-series"><li>Part 1: Creating a good old Hello World AWS C# Lambda</li><li><a href="/2017/03/16/part2-building-and-configuring-the-lambda-in-aws/">Part 2: Building / Configuring the Lambda into AWS</a></li><li><a href="/2017/03/18/part3-saving-retrieving-data-using-marten/">Part 3: Saving / Retrieving data using Marten</a></li><li><a href="/2017/03/21/part4-building-and-publishing-a-dotnet-core-app-using-aws-tools/">Part 4: Building / Configuring using AWS Tools</a></li><li><a href="/2017/05/10/part5-configuring-the-vpc-so-we-can-call-the-database/">Part 5: Configuring the VPC so we can call the database</a></li></ul>
       <p>So finally .NET Core Tools has reached 1.0 and after playing around... it's actually usable now. I can do all the things easily, that I once found difficult.</p>
 
 <p>This blog series is about creating a basic sample handler for an AWS C# Lambda, and extending it to configure a VPC, and query PostgreSQL using Marten, all using VSCode.</p>
@@ -279,27 +301,6 @@ create table test_arrays (
 
       <p><a href="/2014/06/09/taking-snapshots-of-a-video-and-displaying-it/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2014/05/03/managing-your-azure-storage-account-with-zudio/">Managing your Azure Storage account with Zudio</a> 
-        <span>posted on 03 May 2014</span>
-      </h1> 
-      
-      <p>Messing around with Azure Queues, using the C# library to create a queue, add messages, read them, delete them... all is well and good...</p>
-
-<p>But at some point I wanted to view what I was putting into the queue...</p>
-
-<p>The Azure blog has a recent post listing a few <a href="http://blogs.msdn.com/b/windowsazurestorage/archive/2014/03/11/windows-azure-storage-explorers-2014.aspx">Azure Storage explorers</a>. I tried a couple of them, but they were so buggy!</p>
-
-<p>Infact, I'm sorry to say... Azure Storage Explorer was the worst. When I attempted to refresh a queue, nothing happened. I had to add a second queue, then swap between each queue in order to review the list. Most of the buttons don't seem to do anything at all.</p>
-
-<p>Then I remember <a href="http://twitter.com/markrendle">Mark Rendle</a> tweeted me about his <a href="http://zud.io/">Zudio</a> site. Funnily enough he got a mention on the blog post. I decided to login and check it out again.</p>
-
-<p><a href="http://zud.io/"><img src="/images/zudio-post-02.png" alt="" /></a></p>
-
-
-      <p><a href="/2014/05/03/managing-your-azure-storage-account-with-zudio/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -367,6 +368,7 @@ create table test_arrays (
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20175">May, 2017</a></li>
                           <li><a href="/archive#20173">March, 2017</a></li>
                           <li><a href="/archive#20165">May, 2016</a></li>
                           <li><a href="/archive#20161">January, 2016</a></li>

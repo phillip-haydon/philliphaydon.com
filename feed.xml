@@ -1,4 +1,115 @@
-<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2017/03/21/part4-building-and-publishing-a-dotnet-core-app-using-aws-tools/</guid><link>http://www.philliphaydon.com/2017/03/21/part4-building-and-publishing-a-dotnet-core-app-using-aws-tools/</link><a10:author><a10:name /></a10:author><category>aws</category><category>dotnetcore</category><category>lambda</category><category>marten</category><category>postgresql</category><title>Building / Publishing a .NET Core app using AWS Tools</title><description>&lt;p&gt;Now that we've got everything, we need to deploy it, however if we build it using dotnet clr it will fail. &lt;/p&gt;
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0"><channel><title /><link>http://www.philliphaydon.com/feed.xml</link><description /><item><guid isPermaLink="true">http://www.philliphaydon.com/2017/05/10/part5-configuring-the-vpc-so-we-can-call-the-database/</guid><link>http://www.philliphaydon.com/2017/05/10/part5-configuring-the-vpc-so-we-can-call-the-database/</link><a10:author><a10:name /></a10:author><category>aws</category><category>dotnetcore</category><category>lambda</category><category>marten</category><category>postgresql</category><category>vpc</category><title>Configuring the VPC so we can call the database</title><description>&lt;p&gt;Ahh the final part.&lt;/p&gt;
+
+&lt;p&gt;So if you're using AWS you're most likely using RDS. If you're using RDS then you've got a database, and if it's in production then hopefully you've disabled public access and haven't configured it to allow a connection from any IP address.&lt;/p&gt;
+
+&lt;p&gt;If this is the case then the moment we test our Lambda, it's going to fail with a timeout. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  "errorMessage": "2017-03-23T17:12:36.269Z e0474e8b-0feb-11e7-a0fe-276de97e95bf Task timed out after 15.00 seconds"
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This happens because it cannot connect to the database, if the lambda execution time is less than your database timeout then this happens. Otherwise if the inverse is true you would get the database timeout exception rather than the lambda timeout exception.&lt;/p&gt;
+
+</description><pubDate>Tue, 09 May 2017 16:00:00 Z</pubDate><a10:updated>2017-05-09T16:00:00Z</a10:updated><a10:content type="html">&lt;p&gt;Ahh the final part.&lt;/p&gt;
+
+&lt;p&gt;So if you're using AWS you're most likely using RDS. If you're using RDS then you've got a database, and if it's in production then hopefully you've disabled public access and haven't configured it to allow a connection from any IP address.&lt;/p&gt;
+
+&lt;p&gt;If this is the case then the moment we test our Lambda, it's going to fail with a timeout. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  "errorMessage": "2017-03-23T17:12:36.269Z e0474e8b-0feb-11e7-a0fe-276de97e95bf Task timed out after 15.00 seconds"
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This happens because it cannot connect to the database, if the lambda execution time is less than your database timeout then this happens. Otherwise if the inverse is true you would get the database timeout exception rather than the lambda timeout exception.&lt;/p&gt;
+
+&lt;!--excerpt--&gt;
+
+&lt;p&gt;So RDS instances are created with a VPC by default, assuming that everything is created with default settings and the vpc is named rds-launch-wizard, we can begin configuring the Lambda to have permission to connect to RDS.&lt;/p&gt;
+
+&lt;h1&gt;Create a role with VPC support&lt;/h1&gt;
+
+&lt;p&gt;Let's start by opening up IAM and creating a new role. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-5-01.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Select AWS Lambda from the Role Types.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-5-02.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;The trust step is skipped and it will go directly to Attach Policy.&lt;/p&gt;
+
+&lt;p&gt;Under attach policy you want to add:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;AWS Lambda Basic Execution Role&lt;/li&gt;
+&lt;li&gt;2 AWS Lambda VPC Access Execution Role&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-5-03.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;On the final step we can name our role, such as &lt;code&gt;lambda-with-vpc-access&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-5-04.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Hit create and now we should have a new role ready for use in our Lambda.&lt;/p&gt;
+
+&lt;h1&gt;Upload / Configure&lt;/h1&gt;
+
+&lt;p&gt;Let's start by uploading the lambda and configuring it. Let's create a new blank function like we did in part 2.&lt;/p&gt;
+
+&lt;p&gt;Give it a name like 'CreateProduct', and select the package we created in part 4.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-5-05.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Set the Handler to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;HelloWorldLambda::HelloWorldLambda.Handler::Save
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Remember, this correlates to the dll::namespace.class::function&lt;/p&gt;
+
+&lt;p&gt;Under the Role, pick 'Choose an existing role', the role we created above should show:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-5-06.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now, expand out the Advanced settings section.&lt;/p&gt;
+
+&lt;p&gt;You can modify the Memory / Timeout now or change it later. To test with I set mine to 512mb and 15 second timeout. Once it's all working I adjust it down.&lt;/p&gt;
+
+&lt;p&gt;Under the VPC, select the VPC that your RDS instance uses, and add the subnet's its in, as well as the security group. &lt;/p&gt;
+
+&lt;p&gt;For example, this is my RDS Configuration:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-5-07.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Vs the VPC Configuration of the Lambda:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-5-08.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Note: Yes I blanked things out because things and stuff don't want people figuring out my account info.&lt;/p&gt;
+
+&lt;p&gt;Everything else you can leave default.&lt;/p&gt;
+
+&lt;p&gt;Now review, and create that Lambda!&lt;/p&gt;
+
+&lt;h1&gt;Testing&lt;/h1&gt;
+
+&lt;p&gt;Now that it's saved, we can test our lambda, so let's click on Actions and pick 'Configure test event'&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-5-09.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now click Save and test, and unlike the start of this post, we should get successful execution result.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-5-10.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;When testing with Lambda targeting RDS, it usually has a startup time of 2-3 seconds, but every execution after that seems super fast. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/part-5-11.png" alt="" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Enjoy. &lt;/p&gt;
+</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2017/03/21/part4-building-and-publishing-a-dotnet-core-app-using-aws-tools/</guid><link>http://www.philliphaydon.com/2017/03/21/part4-building-and-publishing-a-dotnet-core-app-using-aws-tools/</link><a10:author><a10:name /></a10:author><category>aws</category><category>dotnetcore</category><category>lambda</category><category>marten</category><category>postgresql</category><title>Building / Publishing a .NET Core app using AWS Tools</title><description>&lt;p&gt;Now that we've got everything, we need to deploy it, however if we build it using dotnet clr it will fail. &lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"cause": {
   "errorType": "TypeInitializationException",
@@ -1410,112 +1521,4 @@ canvas.width = video.videoWidth / 2;
 &lt;h2&gt;What do we have...&lt;/h2&gt;
 
 &lt;p&gt;So we've got an file &lt;code&gt;input&lt;/code&gt; control, it loads a video file into a &lt;code&gt;video&lt;/code&gt; element, then we scrub the video &amp;amp; hit that button, and bam, we capture what ever the current frame is.&lt;/p&gt;
-</a10:content></item><item><guid isPermaLink="true">http://www.philliphaydon.com/2014/05/03/managing-your-azure-storage-account-with-zudio/</guid><link>http://www.philliphaydon.com/2014/05/03/managing-your-azure-storage-account-with-zudio/</link><a10:author><a10:name /></a10:author><category>Azure</category><title>Managing your Azure Storage account with Zudio</title><description>&lt;p&gt;Messing around with Azure Queues, using the C# library to create a queue, add messages, read them, delete them... all is well and good...&lt;/p&gt;
-
-&lt;p&gt;But at some point I wanted to view what I was putting into the queue...&lt;/p&gt;
-
-&lt;p&gt;The Azure blog has a recent post listing a few &lt;a href="http://blogs.msdn.com/b/windowsazurestorage/archive/2014/03/11/windows-azure-storage-explorers-2014.aspx"&gt;Azure Storage explorers&lt;/a&gt;. I tried a couple of them, but they were so buggy!&lt;/p&gt;
-
-&lt;p&gt;Infact, I'm sorry to say... Azure Storage Explorer was the worst. When I attempted to refresh a queue, nothing happened. I had to add a second queue, then swap between each queue in order to review the list. Most of the buttons don't seem to do anything at all.&lt;/p&gt;
-
-&lt;p&gt;Then I remember &lt;a href="http://twitter.com/markrendle"&gt;Mark Rendle&lt;/a&gt; tweeted me about his &lt;a href="http://zud.io/"&gt;Zudio&lt;/a&gt; site. Funnily enough he got a mention on the blog post. I decided to login and check it out again.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="http://zud.io/"&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-02.png" alt="" /&gt;&lt;/a&gt;&lt;/p&gt;
-
-</description><pubDate>Fri, 02 May 2014 18:21:42 Z</pubDate><a10:updated>2014-05-02T18:21:42Z</a10:updated><a10:content type="html">&lt;p&gt;Messing around with Azure Queues, using the C# library to create a queue, add messages, read them, delete them... all is well and good...&lt;/p&gt;
-
-&lt;p&gt;But at some point I wanted to view what I was putting into the queue...&lt;/p&gt;
-
-&lt;p&gt;The Azure blog has a recent post listing a few &lt;a href="http://blogs.msdn.com/b/windowsazurestorage/archive/2014/03/11/windows-azure-storage-explorers-2014.aspx"&gt;Azure Storage explorers&lt;/a&gt;. I tried a couple of them, but they were so buggy!&lt;/p&gt;
-
-&lt;p&gt;Infact, I'm sorry to say... Azure Storage Explorer was the worst. When I attempted to refresh a queue, nothing happened. I had to add a second queue, then swap between each queue in order to review the list. Most of the buttons don't seem to do anything at all.&lt;/p&gt;
-
-&lt;p&gt;Then I remember &lt;a href="http://twitter.com/markrendle"&gt;Mark Rendle&lt;/a&gt; tweeted me about his &lt;a href="http://zud.io/"&gt;Zudio&lt;/a&gt; site. Funnily enough he got a mention on the blog post. I decided to login and check it out again.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="http://zud.io/"&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-02.png" alt="" /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;!--excerpt--&gt;
-
-&lt;h2&gt;Using zudio&lt;/h2&gt;
-
-&lt;p&gt;Assuming you've already setup a Storage Account on Azure, we can login to zudio, where you will be presented with the following:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-01.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Clicking on the Add a Storage Account button prompts us to add an account: &lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-03.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;We can get the Account Name and Location looking at the Storage List in Azure&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-04.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Then the Shared Key can be found by clicking the Manage Access Keys link in the same page as the Store Accounts list:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-05.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Selecting one of the Access Keys and pasting it into the Shared Key in Zudio.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-06.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Once we have added the account we should have the account name appear in the list on Zudio&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-07.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Click the account name and we should get a list of options, we can choose what we want to manage, Blobs, Queues, or Tables. Lets pick Queues.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-08.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;We should get a list of queues, my list is empty since I haven't added any yet...&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-09.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;We could manage the queues from this screen using the available options:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-10.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;But lets add some code :)&lt;/p&gt;
-
-&lt;h2&gt;Codez - because we need some :)&lt;/h2&gt;
-
-&lt;p&gt;In a basic console app, I've added the &lt;a href="http://www.nuget.org/packages/WindowsAzure.Storage/"&gt;WindowsAzure.Storage&lt;/a&gt; nuget, and written some simple code:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var storageConnection = @"DefaultEndpointsProtocol=https;AccountName=phzudio;AccountKey=*REMOVED*";
-var storageAccount = CloudStorageAccount.Parse(storageConnection);
-
-var queueClient = storageAccount.CreateCloudQueueClient();
-var queue = queueClient.GetQueueReference("my-first-queue");
-
-queue.CreateIfNotExists();
-
-queue.AddMessage(new CloudQueueMessage("Hello, World"));
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;That's it... simple simple code. The account key removed in the &lt;code&gt;storageConnection&lt;/code&gt; is the same key we used to connect to Zudio.&lt;/p&gt;
-
-&lt;p&gt;Now when we run the code, and jump back to Zudio, hit refresh...&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-11.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;We get our newly created queue from code.&lt;/p&gt;
-
-&lt;p&gt;Clicking on the queue shows us our message&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-12.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;From here we can manage messages &lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://www.philliphaydon.com/images/zudio-post-13.png" alt="" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Adding new messages, refreshing, dequeuing, etc.&lt;/p&gt;
-
-&lt;h2&gt;Summary&lt;/h2&gt;
-
-&lt;p&gt;Zudio is super simple to use and pretty damn powerful for managing Azure Storage, Mark has done an awesome job and I look forward to using Zudio in the future. &lt;/p&gt;
-
-&lt;p&gt;So far I'm only used it for queues, and clicked around on the tables/blobs, but its so easy to use and intuitive! &lt;/p&gt;
-
-&lt;p&gt;I would highly recommend checking out Zudio!&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="http://zud.io"&gt;http://zud.io&lt;/a&gt;&lt;/p&gt;
 </a10:content></item></channel></rss>

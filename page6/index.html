@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2017-03-24T20:37:07.5729863+08:00" />
+    <meta http-equiv="last-modified" content="2017-05-11T01:47:51.6102864+08:00" />
     <title>philliphaydon.com</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="canonical" href="http://www.philliphaydon.com/page6/" />
@@ -35,6 +35,49 @@
                   
 
   <ul class="posts">
+    <li class="fancy-container lightblue">
+      <h1>
+        <a href="/2013/02/11/x-http-method-override-with-nancyfx/">X-Http-Method-Override with NancyFX</a> 
+        <span>posted on 11 Feb 2013</span>
+      </h1> 
+      
+      <p>Forms in HTML only allow you to use the method's POST and GET, I'm not sure if this would be classified as a limitation or not, but it does introduce a slight problem when you want to create a nice API taking advantage of verbs such as PUT and DELETE, when you can only POST and GET. </p>
+
+<p>This means if you want to delete something you have to use a different URL, like:</p>
+
+<p><code>/products/123/delete</code></p>
+
+<p>Then define a route like</p>
+
+<pre><code>Post["/products/{id}/delete"] = _ =&gt;
+{
+    ... Do Something...
+};
+</code></pre>
+
+<p>This isn't exactly ideal, what we would prefer to have is a more semantic route.</p>
+
+<ul>
+<li><code>GET</code> -> gets an object</li>
+<li><code>DELETE</code> -> deletes an object</li>
+<li><code>PUT</code> -> modifies an object</li>
+<li><code>PATCH</code> -> modifies part of an object</li>
+<li><code>POST</code> -> creates an object</li>
+</ul>
+
+<p><span class="note"><strong>Note:</strong> I'm no expert on this stuff so the VERBs above may not be correct wording.</span></p>
+
+<p>This would allow us to define the same route like so</p>
+
+<pre><code>Delete["/products/{id}"] = _ =&gt;
+{
+    ... Do Something...
+};
+</code></pre>
+
+
+      <p><a href="/2013/02/11/x-http-method-override-with-nancyfx/">Read more...</a></p>
+    </li>
     <li class="fancy-container lightblue">
       <h1>
         <a href="/2013/02/05/oauth-with-asp-net-mvc-and-world-domination-authentication/">OAuth with ASP.NET MVC and WorldDomination.Web.Authentication</a> 
@@ -290,31 +333,6 @@ namespace SampleProject.ViewModels
 
       <p><a href="/2013/01/03/windows-store-app-tiled-background/">Read more...</a></p>
     </li>
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2013/01/02/microsoft-surface-so-awesome-with-issues/">Microsoft Surface... So awesome, with issues...</a> 
-        <span>posted on 02 Jan 2013</span>
-      </h1> 
-      
-      <p>Shortly after the Microsoft Surface was released I got my hands on one, which wasn't exactly easy since they aren't available in Singapore yet. I had to pay $240 extra to get mine shipped from Hong Kong via <a href="http://www.expansys.com.sg">http://www.expansys.com.sg</a> and then an extra $70 for import tax... </p>
-
-<p>But it was 110% worth it. I use the thing ALL the damn time, and dispite it being limited in functionality due to Windows RT, I don't regret the purchase at all. </p>
-
-<p>There's HEAPS of good reviews on the internet about it so I'm not going to bore you with how amazingly awesome the thing is. </p>
-
-<p>What I want to discuss is 3 issues I have.</p>
-
-<h2>Surface Charger</h2>
-
-<p><img src="/images/surface-issues-1.png" alt="" /></p>
-
-<p>The Surface Charger has a Magnetic Power Plug, similar to the old L-shaped MagSafe </p>
-
-<p><img src="/images/surface-issues-2.png" alt="" /></p>
-
-
-      <p><a href="/2013/01/02/microsoft-surface-so-awesome-with-issues/">Read more...</a></p>
-    </li>
   </ul> 
 
   <!-- Pagination links -->
@@ -384,6 +402,7 @@ namespace SampleProject.ViewModels
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
+                          <li><a href="/archive#20175">May, 2017</a></li>
                           <li><a href="/archive#20173">March, 2017</a></li>
                           <li><a href="/archive#20165">May, 2016</a></li>
                           <li><a href="/archive#20161">January, 2016</a></li>
