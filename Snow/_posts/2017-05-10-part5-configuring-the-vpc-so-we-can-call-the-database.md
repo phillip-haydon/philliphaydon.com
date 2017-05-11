@@ -43,7 +43,7 @@ The trust step is skipped and it will go directly to Attach Policy.
 Under attach policy you want to add:
 
 1. AWS Lambda Basic Execution Role
-2. 2 AWS Lambda VPC Access Execution Role
+2. AWS Lambda VPC Access Execution Role
 
 ![](/images/part-5-03.png)
 
